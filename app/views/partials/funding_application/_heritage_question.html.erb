@@ -1,0 +1,55 @@
+<div class="govuk-character-count" data-module="govuk-character-count"
+  data-maxwords="500">
+
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
+    model_object.errors[:heritage_description].any? %>">
+
+    <h1 class="govuk-label-wrapper">
+
+      <span class="govuk-caption-xl">
+        <%= t('views.funding_application.common.about_your_project') %>
+      </span>
+
+      <%=
+        form_object.label :heritage_description,
+        t('application.heritage.page_heading'),
+        class: 'govuk-label govuk-label--xl'
+      %>
+
+    </h1>
+
+    <span id="project_heritage_description-hint" class="govuk-hint">
+      <%= t('application.heritage.text.1') %>
+    </span>
+
+    <span id="project_heritage_description-hint" class="govuk-hint">
+      <%= t('application.heritage.text.2') %>
+    </span>
+
+    <%=
+      render(
+        partial: 'partials/form_input_errors',
+        locals: {
+          form_object: model_object,
+          input_field_id: :heritage_description
+        }
+      ) if model_object.errors[:heritage_description].any?
+    %>
+
+    <%=
+      form_object.text_area :heritage_description,
+      rows: 10,
+      class: 'govuk-textarea govuk-js-character-count ' \
+        "#{'govuk-input--error' if model_object.errors[:heritage_description].any?}",
+        'aria-describedby' => 'project_heritage_description-info ' \
+        'project_heritage_description-hint'
+    %>
+
+    <span id="project_heritage_description-info" class="govuk-hint govuk-character-count__message"
+      aria-live="polite">
+      <%= t('generic.word_count', max_words: 500) %>
+    </span>
+
+  </div>
+
+</div>
