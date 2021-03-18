@@ -35,9 +35,13 @@
         %>
       </h1>
 
-      <span id="project_description-hint" class="govuk-hint">
-        <%= t('application.matter.text.1') %>
-      </span>
+      <p id="project_description-hint" class="govuk-hint">
+        <%= t('application.matter.text.explain_community_interest') %>
+      </p>
+
+      <p id="project_description-hint2" class="govuk-hint">
+        <%= t('application.matter.text.is_heritage_in_a_formal_document') %>
+      </p>
 
       <%=
         render partial: "partials/form_input_errors",

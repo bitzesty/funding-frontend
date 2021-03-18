@@ -4,4 +4,5 @@ en-GB:
       page_title: "Why is your project important to your community?"
       page_heading: "Why is your project important to your community?"
       text:
-        1: "This helps us understand how engaged your community is with your project and why it is important to them."
+        explain_community_interest: "Explain why your community is interested in the project and why they care about it."
+        is_heritage_in_a_formal_document: "Tell us if the heritage of the project is included in a formal document, for example, in a local development plan."
