@@ -1,0 +1,228 @@
+<div class="govuk-form-group <%= "govuk-form-group--error" if 
+  model_object.errors.any? %>">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+
+      <h1 class="govuk-fieldset__heading">
+
+        <span class="govuk-caption-xl">
+          <%= t('views.funding_application.common.about_your_project') %>
+        </span>
+
+        <%= t('capital_works.page_heading') %>
+
+      </h1>
+
+    </legend>
+
+    <div id="form-group-errors"></div>
+
+    <%=
+      render(
+        partial: "partials/form_group_errors",
+        locals: {
+          form_object: model_object
+        }
+      ) if model_object.errors.any?
+    %>
+
+    <span id="capital-work-conditional-hint"
+      class="govuk-hint govuk-!-margin-bottom-6">
+      <%= t('capital_works.page_hint') %>
+    </span>
+
+    <div class="govuk-form-group">
+
+      <details class="govuk-details" data-module="govuk-details">
+
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            <%= t('capital_works.examples_of_capital_work') %>
+          </span>
+        </summary>
+
+        <div class="govuk-details__text">
+
+          <ul class="govuk-list govuk-list--bullet">
+
+            <li>
+              <%= t('capital_works.examples_item_1') %>
+            </li>
+
+            <li>
+              <%= t('capital_works.examples_item_2') %>
+            </li>
+
+            <li>
+              <%= t('capital_works.examples_item_3') %>
+            </li>
+
+          </ul>
+
+          <p class="govuk-body">
+            <%= 
+              t(
+                'capital_works.examples_physical_work_html',
+                examples_gp_os_guidance: link_to(
+                  t('capital_works.examples_gp_os_guidance'),
+                  'http://www.heritagefund.org.uk/publications/receiving-grant-guidance-ps3000-ps10000#heading-8',
+                  {
+                    class: 'govuk-link',
+                    target: '_blank'
+                  }
+                ),
+                examples_receiving_a_grant_guidance: link_to(
+                  t('capital_works.examples_receiving_a_grant_guidance'),
+                  'https://www.heritagefund.org.uk/publications/receiving-grant-guidance-ps3000-ps10000',
+                  {
+                    class: 'govuk-link',
+                    target: '_blank'
+                  }
+                )
+              )
+            %>
+          </p>
+
+        </div>
+
+      </details>
+
+    </div>
+
+    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :capital_work,
+          "false",
+          class: "govuk-radios__input"
+        %>
+
+        <%=
+          form_object.label :capital_work_false,
+          t('capital_works.no_text'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :capital_work,
+          "true",
+          class: "govuk-radios__input",
+          "data-aria-controls" => "conditional-project_capital_work_true"
+        %>
+
+        <%=
+          form_object.label :capital_work_true,
+          t('capital_works.yes_text'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="<%= "conditional-#{:project_capital_work_true}" %>">
+
+        <span id="project_capital_work_file-hint" class="govuk-hint">
+          <%= t('capital_works.condition_survey_hint_html') %>
+        </span>
+
+        <div class="govuk-form-group" id="capital-works-form-group-main"
+          data-form-group="file">
+
+          <%=
+            form_object.label :capital_work_file,
+            t('generic.upload_a_file'),
+            class: "govuk-label"
+          %>
+
+          <%=
+            form_object.file_field :capital_work_file,
+            multiple: false,
+            direct_upload: true,
+            class: "govuk-file-upload",
+            'data-input-identifier': 'file',
+            'data-attribute': :capital_work_file,
+            'data-model': :project,
+            'autocomplete' => 'off'
+          %>
+
+          <%=
+            render(
+              ButtonComponent.new(
+                type: "button",
+                text: t('capital_works.buttons.add_condition_survey'),
+                classes: "govuk-button--secondary"
+              )
+            )
+          %>
+
+        </div>
+
+        <% unless model_object.capital_work_file.present? == true %>
+
+          <p class="govuk-body">
+            <%= t('capital_works.no_condition_survey') %>
+          </p>
+
+        <% else %>
+
+          <table class="govuk-table">
+
+            <thead class="govuk-table__head">
+
+              <tr class="govuk-table__row">
+
+                <th scope="col" class="govuk-table__header">
+                  <%= t('capital_works.condition_survey_file') %>
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody class="govuk-table__body">
+
+              <tr>
+
+                <td>
+
+                  <%=
+                    link_to(
+                      model_object.capital_work_file.blob.filename,
+                      rails_blob_path(
+                        model_object.capital_work_file,
+                        disposition: "attachment"
+                      )
+                    )
+                  %>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        <% end %>
+
+      </div>
+
+      <%#
+        See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+        for the reasoning behind this workaround
+      %>
+      <input type="hidden" name="ieworkaround">
+
+    </div>
+
+  </fieldset>
+
+</div>
