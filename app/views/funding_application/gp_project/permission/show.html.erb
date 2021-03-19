@@ -1,17 +1,21 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: t('permission.page_title')
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('permission.page_title')
+    }
+  )
 %>
 
 <%=
-  render partial: "partials/summary_errors",
-         locals: {
-             form_object: @funding_application.project,
-             first_form_element: :project_permission_type_no
-         } if @funding_application.project.errors.any?
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.project,
+      first_form_element: :project_permission_type_no
+    }
+  ) if @funding_application.project.errors.any?
 %>
 
 <%=
@@ -20,190 +24,15 @@
            method: :put do |f|
 %>
 
-  <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                       @funding_application.project.errors.any? %>">
-
-    <fieldset class="govuk-fieldset">
-
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-
-        <h1 class="govuk-fieldset__heading">
-
-          <span class="govuk-caption-xl">
-            <%= t('views.funding_application.common.about_your_project') %>
-          </span>
-
-          <%= t('permission.page_heading') %>
-
-        </h1>
-      </legend>
-
-      <%=
-        render partial: "partials/form_group_errors",
-               locals: {
-                   form_object: @funding_application.project
-               } if @funding_application.project.errors.any?
-      %>      
-
-      <div id="permission-required-conditional-hint" class="govuk-hint">
-        <%= t('generic.select_one_option') %>
-      </div>
-
-      <details class="govuk-details" data-module="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            <%= t('permission.examples') %>
-          </span>
-        </summary>
-        <div class="govuk-details__text">
-          <ul class="govuk-list govuk-list--bullet">
-            <li>
-              <%= t('permission.examples_list.item_1') %>
-            </li>
-            <li>
-              <%= t('permission.examples_list.item_2') %>
-            </li>
-            <li>
-              <%= t('permission.examples_list.item_3') %>
-            </li>
-            <li>
-              <%= t('permission.examples_list.item_4') %>
-            </li>
-          </ul>
-          <p class="govuk-body">
-            <%= t('permission.dont_know_helper') %>
-          </p>
-        </div>
-      </details>
-
-      <div class="govuk-radios govuk-radios--conditional"
-           data-module="govuk-radios">
-
-        <div class="govuk-radios__item">
-
-          <%=
-            f.radio_button :permission_type,
-                           "no",
-                           class: "govuk-radios__input"
-          %>
-
-          <%= f.label :permission_type_no,
-                      t('permission.no_permission'),
-                      class: "govuk-label govuk-radios__label"
-          %>
-
-        </div>
-
-        <div class="govuk-radios__item">
-
-          <%=
-            f.radio_button :permission_type,
-                           "yes",
-                           class: "govuk-radios__input",
-                           "data-aria-controls" => "conditional-project_permission_type_yes"
-          %>
-
-          <%=
-            f.label :permission_type_yes,
-                    t('permission.yes_permission'),
-                    class: "govuk-label govuk-radios__label"
-          %>
-
-        </div>
-
-        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-             id="<%= "conditional-#{:project_permission_type_yes}" %>">
-
-          <div class="govuk-character-count" data-module="govuk-character-count"
-               data-maxwords="300">
-
-            <div class="govuk-form-group">
-
-              <%=
-                f.label :permission_description_yes,
-                        t('permission.yes_permission_expanded_label'),
-                        class: "govuk-label"
-              %>
-
-              <%=
-                f.text_area :permission_description_yes,
-                            rows: 5,
-                            class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
-                                @funding_application.project.errors[:permission_description_yes].any?}",
-                            "aria-describedby" => "project_permission_description_yes-info",
-                            value: "#{@funding_application.project.permission_description if
-                                @funding_application.project.permission_type == "yes"}"
-              %>
-
-              <span id="project_permission_description_yes-info"
-                    class="govuk-hint govuk-character-count__message"
-                    aria-live="polite">
-                <%= t('generic.word_count', max_words: 300) %>
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="govuk-radios__item">
-
-          <%=
-            f.radio_button :permission_type,
-                           "x_not_sure",
-                           class: "govuk-radios__input",
-                           "data-aria-controls" => "conditional-project_permission_type_x_not_sure"
-          %>
-
-          <%=
-            f.label :permission_type_x_not_sure,
-                    t('permission.not_sure_permission'),
-                    class: "govuk-label govuk-radios__label"
-          %>
-
-        </div>
-
-        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-             id="<%= "conditional-#{:project_permission_type_x_not_sure}" %>">
-
-          <div class="govuk-character-count" data-module="govuk-character-count"
-               data-maxwords="300">
-
-            <div class="govuk-form-group">
-
-              <%=
-                f.label :permission_description_x_not_sure,
-                        t('permission.not_sure_permission_expanded_label'),
-                        class: "govuk-label"
-              %>
-
-              <%=
-                f.text_area :permission_description_x_not_sure,
-                            rows: 5,
-                            class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if @funding_application.project.errors[:permission_description_x_not_sure].any?}",
-                            "aria-describedby" => "project_permission_description_x_not_sure-info",
-                            value: "#{@funding_application.project.permission_description if
-                                @funding_application.project.permission_type == "x_not_sure"}"
-              %>
-
-              <span id="project_permission_description_x_not_sure-info"
-                    class="govuk-hint govuk-character-count__message"
-                    aria-live="polite">
-                <%= t('generic.word_count', max_words: 300) %>
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </fieldset>
-
-  </div>
+  <%=
+    render(
+      partial: 'partials/funding_application/permission_question',
+      locals: {
+        model_object: @funding_application.project,
+        form_object: f
+      }
+    )
+  %>
 
   <%= render(ButtonComponent.new(element: "input")) %>
 
