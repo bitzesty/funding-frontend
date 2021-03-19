@@ -1,0 +1,268 @@
+<div class="govuk-form-group <%= "govuk-form-group--error" if
+  model_object.errors.any? %>">
+
+  <h1 class="govuk-heading-xl">
+
+    <span class="govuk-caption-xl">
+      <%= t('views.funding_application.common.about_your_project') %>
+    </span>
+
+    <%= t('dates.page_heading') %>
+
+  </h1>
+
+  <% if flash[:date_warning] %>
+
+    <div class="govuk-warning-text">
+
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">
+          <%= t('generic.warning') %>
+        </span>
+        <%= flash[:date_warning] %>
+      </strong>
+    </div>
+
+  <% end %>
+
+  <div class="govuk-form-group">
+
+    <fieldset class="govuk-fieldset" role="group"
+      aria-describedby="project-start-hint">
+
+      <legend id="project_start_date"
+        class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        <%= t('dates.start_date.label') %>
+      </legend>
+
+      <div id="project-start-hint" class="govuk-hint">
+        <%= t('dates.start_date.hint') %>
+      </div>
+
+      <% model_object.errors.each do |error| %>
+
+        <% if error.attribute.to_s.include? 'start' %>
+
+          <span id="project[<%= error.attribute %>]-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">
+              <%= t('generic.error') %>:
+            </span> <%= error.message %>
+          </span>
+
+        <% end %>
+
+      <% end %>
+
+      <div class="govuk-date-input" id="start-date">
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              form_object.label :start_date_day,
+              t('dates.day'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              render(
+                partial: 'partials/date_input',
+                locals: {
+                  form_object: model_object,
+                  form_for_object: form_object,
+                  model_attribute: :start_date,
+                  input_name: :start_date_day,
+                  input_width: 2,
+                  date_type: 'day'
+                }
+              )
+            %>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              form_object.label :start_date_month,
+              t('dates.month'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              render(
+                partial: 'partials/date_input',
+                locals: {
+                  form_object: model_object,
+                  form_for_object: form_object,
+                  model_attribute: :start_date,
+                  input_name: :start_date_month,
+                  input_width: 2,
+                  date_type: 'month'
+                }
+              )
+            %>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              form_object.label :start_date_year,
+              t('dates.year'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              render(
+                partial: 'partials/date_input',
+                locals: {
+                  form_object: model_object,
+                  form_for_object: form_object,
+                  model_attribute: :start_date,
+                  input_name: :start_date_year,
+                  input_width: 4,
+                  date_type: 'year'
+                }
+              )
+            %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+  </div>
+
+  <div class="govuk-form-group">
+
+    <fieldset class="govuk-fieldset" role="group"
+      aria-describedby="project-end-hint">
+
+      <legend id="project_end_date"
+        class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        <%= t('dates.end_date.label') %>
+      </legend>
+
+      <div id="project-end-hint" class="govuk-hint">
+        <%= t('dates.end_date.hint') %>
+      </div>
+
+      <% model_object.errors.each do |error| %>
+
+        <% if error.attribute.to_s.include? 'end' %>
+
+          <span id="project[<%= error.attribute %>]-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">
+              <%= t('generic.error') %>:
+            </span> <%= error.message %>
+          </span>
+
+        <% end %>
+
+      <% end %>
+
+      <div class="govuk-date-input" id="end-date">
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              form_object.label :end_date_day,
+              t('dates.day'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              render(
+                partial: 'partials/date_input',
+                locals: {
+                  form_object: model_object,
+                  form_for_object: form_object,
+                  model_attribute: :end_date,
+                  input_name: :end_date_day, input_width: 2,
+                  date_type: 'day'
+                }
+              )
+            %>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              form_object.label :end_date_month,
+              t('dates.month'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              render(
+                partial: 'partials/date_input',
+                locals: {
+                  form_object: model_object,
+                  form_for_object: form_object,
+                  model_attribute: :end_date,
+                  input_name: :end_date_month,
+                  input_width: 2,
+                  date_type: 'month'
+                }
+              )
+            %>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              form_object.label :end_date_year,
+              t('dates.year'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              render(
+                partial: 'partials/date_input',
+                locals: {
+                  form_object: model_object,
+                  form_for_object: form_object,
+                  model_attribute: :end_date,
+                  input_name: :end_date_year,
+                  input_width: 4,
+                  date_type: 'year'
+                }
+              )
+            %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </fieldset>
+
+  </div>
+
+</div>
