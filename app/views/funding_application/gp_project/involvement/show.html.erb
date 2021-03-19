@@ -1,92 +1,39 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: t('application.involvement.page_title')
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('application.involvement.page_title')
+    }
+  )
 %>
 
 <%=
-  render partial: "partials/summary_errors",
-         locals: {
-             form_object: @funding_application.project,
-             first_form_element: :project_involvement_description
-         } if @funding_application.project.errors.any?
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.project,
+      first_form_element: :project_involvement_description
+    }
+  ) if @funding_application.project.errors.any?
 %>
 
 <%=
   form_for @funding_application.project,
-           url: :funding_application_gp_project_how_will_your_project_involve_people,
-           method: :put do |f|
+  url: :funding_application_gp_project_how_will_your_project_involve_people,
+  method: :put do |f|
 %>
 
-  <div class="govuk-character-count" data-module="govuk-character-count"
-       data-maxwords="300">
+  <%=
+    render(
+      partial: 'partials/funding_application/involvement_question',
+      locals: {
+        model_object: @funding_application.project,
+        form_object: f
+      }
+    )
+  %>
 
-    <div class="govuk-form-group <%= "govuk-form-group--error" if
-                             @funding_application.project.errors[:involvement_description].any? %>">
-
-      <h1 class="govuk-label-wrapper">
-        <span class="govuk-caption-xl"><%= t('views.funding_application.common.about_your_project') %></span>
-        <%=
-          f.label :involvement_description,
-                  t('application.involvement.page_heading'),
-                  class: "govuk-label govuk-label--xl"
-        %>
-      </h1>
-
-      <div class="govuk-inset-text">
-        <%= t('application.involvement.text.1') %>
-      </div>
-
-      <details class="govuk-details" data-module="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            <%= t('application.involvement.text.3') %>
-          </span>
-        </summary>
-        <div class="govuk-details__text">
-          <p class="govuk-body">
-            <%= t('application.involvement.text.4') %>
-          <p>
-          <p class="govuk-body">
-            <%= t('application.involvement.text.5') %>
-          </p>
-        </div>
-      </details>
-
-      <span id="project_involvement_description-hint" class="govuk-hint">
-        <%= t('application.involvement.text.2') %>
-      </span>
-
-      <%=
-        render partial: "partials/form_input_errors",
-               locals: {
-                   form_object: @funding_application.project,
-                   input_field_id: :involvement_description} if
-            @funding_application.project.errors[:involvement_description].any?
-      %>
-
-      <%=
-        f.text_area :involvement_description,
-                    rows: 10,
-                    class: "govuk-textarea govuk-js-character-count " \
-                      "#{'govuk-input--error' if
-                        @funding_application.project.errors[:involvement_description].any?}",
-                      "aria-describedby" => "project_involvement_description-" \
-                        "info project_involvement_description-hint"
-      %>
-
-      <span id="project_involvement_description-info"
-            class="govuk-hint govuk-character-count__message"
-            aria-live="polite">
-        <%= t('generic.word_count', max_words: 300) %>
-      </span>
-
-    </div>
-
-  </div>
-
-  <%= render(ButtonComponent.new(element: "input")) %>
+  <%= render(ButtonComponent.new(element:'input')) %>
 
 <% end %>
