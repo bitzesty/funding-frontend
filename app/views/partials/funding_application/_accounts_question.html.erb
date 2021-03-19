@@ -1,0 +1,149 @@
+<div class="govuk-form-group">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+      <h1 class="govuk-fieldset__heading">
+          <%= t('accounts.page_heading') %>
+      </h1>
+    </legend>
+
+    <p class="govuk-body">
+      <%= t('accounts.before_we_assess') %>
+    </p>
+
+    <p class="govuk-body">
+      <%= t('accounts.we_do_not_need') %>
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>
+        <%= t('accounts.do_not_need.public_org') %>
+      </li>
+    </ul>
+
+    <p class="govuk-body">
+      <%= t('accounts.if_new_org') %>
+    </p>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive"><%= t('generic.important') %> </span>
+        <%= t('accounts.make_sure_verified') %>
+      </strong>
+    </div>
+
+    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+
+      <div class="govuk-form-group" id="accounts-form-group-main"
+        data-form-group="file">
+
+        <%=
+          render(
+            partial: 'partials/form_group_errors',
+            locals: {
+              form_object: model_object
+            }
+          ) if model_object.errors.any?
+        %>
+
+        <div class="govuk-form-group">
+
+          <%=
+            form_object.label :accounts_files,
+            t('accounts.labels.add_your_accounts'),
+            class: 'govuk-heading-m nlhf-content-highlight__title'
+          %>
+
+          <div id="form-group-errors"></div>
+
+          <%=
+            form_object.file_field :accounts_files,
+            multiple: true,
+            direct_upload: true,
+            class: "govuk-file-upload #{"govuk-file-upload--error" if
+              model_object.errors.any?}",
+            'data-input-identifier': 'file',
+            'data-attribute': :accounts_files,
+            'data-model': :project,
+            'autocomplete' => 'off'
+          %>
+
+          <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+          for the reasoning behind this workaround %>
+          <input type="hidden" name="ieworkaround">
+
+        </div>
+    
+    </div>
+
+    <div class="govuk-form-group">
+
+      <%=
+        render(
+          ButtonComponent.new(
+            text: t('accounts.buttons.add_accounts'),
+            classes: 'govuk-button--secondary',
+          )
+        )
+      %>
+
+    </div>
+
+
+    <% unless model_object.accounts_files.attached? %>
+
+      <p class="govuk-body">
+        <%= t('accounts.no_accounts_file') %>
+      </p>
+
+    <% else %>
+
+      <table class="govuk-table">
+
+        <thead class="govuk-table__head">
+
+          <tr class="govuk-table__row">
+
+            <th scope="col" class="govuk-table__header">
+              <%= t("accounts.accounts_file") %>
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+        <% model_object.accounts_files.each do |af| %>
+
+          <tr>
+
+            <td>
+
+              <%=
+                link_to(
+                  af.blob.filename,
+                  rails_blob_path(
+                    af,
+                    disposition: 'attachment'
+                  )
+                )
+              %>
+
+            </td>
+
+          </tr>
+
+        <% end %>
+
+        </tbody>
+
+      </table>
+
+    <% end %>
+
+  </fieldset>
+
+</div>

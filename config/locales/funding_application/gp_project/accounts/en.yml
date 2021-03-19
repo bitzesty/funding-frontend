@@ -1,7 +1,7 @@
 en-GB:
   accounts:
-    title: "Upload your organisation's accounts"
-    heading: "Upload your organisation's accounts"
+    page_title: "Upload your organisation's accounts"
+    page_heading: "Upload your organisation's accounts"
     before_we_assess: "Before we assess your application, we need to see your organisation's most recently audited or verified accounts."
     we_do_not_need: "You do not need upload your accounts if you are:"
     do_not_need:
@@ -10,3 +10,7 @@ en-GB:
     make_sure_verified: "Make sure your accounts are recently audited or verified by an accountant."
     no_accounts_file: "You have not added accounts"
     accounts_file: "Accounts Files"
+    labels:
+      add_your_accounts: "Add your accounts"
+    buttons:
+      add_accounts: "Add accounts"

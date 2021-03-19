@@ -1,9 +1,11 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: I18n.t("accounts.title")
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: I18n.t('accounts.page_title')
+    }
+  )
 %>
 
 <noscript><% no_js = true %></noscript>
@@ -11,154 +13,39 @@
 <div id="summary-errors"></div>
 
 <%=
-  render partial: "partials/summary_errors",
-         locals: {
-             form_object: @funding_application.project,
-             first_form_element: :project_accounts_files
-         } if @funding_application.project.errors.any?
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.project,
+      first_form_element: :project_accounts_files
+    }
+  ) if @funding_application.project.errors.any?
 %>
 
 <%=
   form_with model: @funding_application.project,
-            url: :funding_application_gp_project_accounts,
-            method: :put,
-            remote: no_js ? false : true do |f|
+  url: :funding_application_gp_project_accounts,
+  method: :put,
+  remote: no_js ? false : true do |f|
 %>
-
-<div class="govuk-form-group">
-
-    <fieldset class="govuk-fieldset">
-
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-            <h1 class="govuk-fieldset__heading">
-                <%= I18n.t("accounts.heading") %>
-            </h1>
-        </legend>
-
-        <p class="govuk-body">
-            <%= I18n.t("accounts.before_we_assess") %>
-        </p>
-
-        <p class="govuk-body">
-            <%= I18n.t("accounts.we_do_not_need") %>
-        </p>
-
-        <ul class="govuk-list govuk-list--bullet">
-            <li><%= I18n.t("accounts.do_not_need.public_org") %></li>
-        </ul>
-
-        <p class="govuk-body">
-            <%= I18n.t("accounts.if_new_org") %>
-        </p>
-
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">Important </span>
-            <%= I18n.t("accounts.make_sure_verified") %>
-          </strong>
-        </div>
-
-      <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
-
-        <div class="govuk-form-group" id="accounts-form-group-main" data-form-group="file">
-
-          <%=
-            render partial: "partials/form_group_errors",
-                   locals: {
-                       form_object: @funding_application.project
-                   } if @funding_application.project.errors.any?
-          %>
-
-          <div class="govuk-form-group">
-            <%=
-              f.label :accounts_files,
-                      "Add your accounts",
-                      class: "govuk-heading-m nlhf-content-highlight__title"
-            %>
-
-            <div id="form-group-errors"></div>
-
-            <%=
-              f.file_field :accounts_files,
-                           multiple: true,
-                           direct_upload: true,
-                           class: "govuk-file-upload #{"govuk-file-upload--error" if @funding_application.project.errors.any?}",
-                           'data-input-identifier': 'file',
-                           'data-attribute': :accounts_files,
-                           'data-model': :project,
-                           'autocomplete' => 'off'
-            %>
-
-            <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
-            for the reasoning behind this workaround %>
-            <input type="hidden" name="ieworkaround">
-
-          </div>
-        </div>
-        <div class="govuk-form-group">
-          <%=
-            render(ButtonComponent.new(
-                text: 'Add accounts',
-                classes: "govuk-button--secondary",
-                ))
-          %>
-        </div>
-
-
-        <% unless @funding_application.project.accounts_files.attached? %>
-
-          <p class="govuk-body">
-            <%= I18n.t("accounts.no_accounts_file") %>
-          </p>
-
-        <% else %>
-
-          <table class="govuk-table">
-
-            <thead class="govuk-table__head">
-
-            <tr class="govuk-table__row">
-
-              <th scope="col" class="govuk-table__header">
-                <%= I18n.t("accounts.accounts_file") %>
-              </th>
-
-            </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-
-            <% @funding_application.project.accounts_files.each do |af| %>
-
-              <tr>
-                <td>
-                  <%= link_to(af.blob.filename,
-                              rails_blob_path(af, disposition: "attachment"))
-                  %>
-                </td>
-              </tr>
-
-            <% end %>
-
-            </tbody>
-          </table>
-
-        <% end %>
-
-      </div>
-
-    </fieldset>
-
-<% end %>
 
   <%=
     render(
-        ButtonComponent.new(
-            element: "a",
-            href: funding_application_gp_project_confirm_declaration_url
-        )
+      partial: 'partials/funding_application/accounts_question',
+      locals: {
+        model_object: @funding_application.project,
+        form_object: f
+      }
     )
   %>
 
-</div>
-<!-- /# accounts-form-group-main -->
+<% end %>
+
+<%=
+  render(
+    ButtonComponent.new(
+      element: 'a',
+      href: funding_application_gp_project_confirm_declaration_url
+    )
+  )
+%>
