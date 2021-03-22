@@ -225,7 +225,7 @@ window.addFormGroupError = function(formGroupElementId, formGroupErrorsElementId
 
 window.removeFormGroupErrors = function(model, attributeNames, errors) {
 
-    for(var i = 0; i < attributeNames.length; i++) {
+    for (var i = 0; i < attributeNames.length; i++) {
         if (errors.includes(model + "." + attributeNames[i]) === false) {
             var formGroupElement = document.getElementById(model + "." + attributeNames[i] + "-form-group");
             var formGroupErrorsElement = document.getElementById(model + "." + attributeNames[i] + "-errors");
@@ -233,5 +233,14 @@ window.removeFormGroupErrors = function(model, attributeNames, errors) {
             formGroupErrorsElement.innerHTML = "";
         }
     }
+
+};
+
+window.removeAllFormGroupErrors = function(formGroupId, formGroupErrorsId) {
+
+    var formGroupElement = document.getElementById(formGroupId);
+    var formGroupErrorsElement = document.getElementById(formGroupErrorsId);
+    formGroupElement.classList.remove("govuk-form-group--error");
+    formGroupErrorsElement.innerHTML = "";
 
 };

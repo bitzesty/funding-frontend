@@ -1,34 +1,35 @@
 <% if @funding_application.project.errors.any? %>
 
-document.title = "Error: <%== I18n.t('accounts.page_title') %>";
+    document.title = "Error: <%== I18n.t('accounts.page_title') %>";
 
-createSummaryErrorsSkeleton();
+    removeAllFormGroupErrors(
+        "accounts_files-form-group",
+        "accounts_files-errors"
+    );
 
-var errorKeys = [];
+    createSummaryErrorsSkeleton();
 
-<% @funding_application.project.errors.each do |attr, msg| %>
+    var errorKeys = [];
 
-addSummaryError(
-    false,
-    "<%= attr %>",
-    "<%= msg %>",
-    "project"
-);
+    <% @funding_application.project.errors.each do |attr, msg| %>
 
-addFormGroupError(
-    "accounts-form-group-main",
-    "form-group-errors",
-    "<%= attr %>",
-    "<%= msg %>",
-    "project"
-);
+        errorKeys.push("<%= attr.to_s %>");
 
-<% end %>
+        addSummaryError(
+            false,
+            "<%= attr %>",
+            "<%= msg %>",
+            "project"
+        );
 
-removeFormGroupErrors(
-    "project",
-    ["accounts_files"],
-    errorKeys
-);
+        addFormGroupError(
+            "<%= attr %>-form-group",
+            "<%= attr %>-errors",
+            "<%= attr %>",
+            "<%= msg %>",
+            "project"
+        );
+
+    <% end %>
 
 <% end %>
