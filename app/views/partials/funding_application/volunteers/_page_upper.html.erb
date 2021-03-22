@@ -1,0 +1,118 @@
+<span class="govuk-caption-xl">
+  <%= t('volunteers.page_hint')%>
+</span>
+
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+  <%= t('volunteers.page_heading')%>
+</h1>
+
+<p class="govuk-body-l govuk-!-margin-bottom-9">
+  <%= t('volunteers.tell_us')%>
+</p>
+
+<section class="nlhf-summary govuk-!-margin-bottom-9">
+
+  <header class="nlhf-summary__header">
+    <h2 class="govuk-heading-m">
+      <%= t('volunteers.your_project_volunteers') %>
+    </h2>
+  </header>
+
+  <div class="nlhf-summary__body">
+
+    <% unless model_object.volunteers.first&.id.present? %>
+
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+        <%= t('volunteers.not_added_volunteers')%>
+      </h3>
+
+    <% else %>
+
+      <table class="govuk-table">
+
+        <thead class="govuk-table__head">
+
+          <tr class="govuk-table__row">
+
+            <th scope="col" class="govuk-table__header">
+              <%= t('volunteers.description_heading')%>
+            </th>
+
+            <th scope="col"
+                class="govuk-table__header govuk-table__header--numeric">
+              <%= t('volunteers.hours_column_heading')%>
+            </th>
+
+            <th scope="col" class="govuk-table__header"></th>
+
+          </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          <% model_object.volunteers.where.not(id: nil).each do |v| %>
+
+            <tr class="govuk-table__row">
+
+              <td class="govuk-table__cell">
+                <%= v.description %>
+              </td>
+
+              <td class="govuk-table__cell govuk-table__cell--numeric">
+                <%= v.hours %>
+              </td>
+
+              <td class="govuk-table__cell">
+
+                <%=
+
+                  form_with model: model_object,
+                            url: send(delete_path, volunteer_id: v.id),
+                            method: :delete,
+                            local: true do |f|
+                %>
+
+                  <%=
+                    render(
+                      ButtonComponent.new(
+                        element: 'input',
+                        classes: 'govuk-button--warning',
+                        text: t('generic.delete')
+                      )
+                    )
+                  %>
+
+                <% end %>
+
+              </td>
+
+            </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+      <div class="nlhf-summary__total">
+
+        <h3 class="nlhf-summary__total__title">
+
+          <span class="nlhf-summary__total__title-text">
+            <%= t('volunteers.total_hours_title')%>
+          </span>
+
+          <span class="nlhf-summary__total__title-val">
+            <%= calculate_volunteer_total(model_object.volunteers) %>
+          </span>
+
+        </h3>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</section>

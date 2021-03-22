@@ -1,0 +1,106 @@
+<div class="nlhf-add-item govuk-!-margin-bottom-9">
+
+  <header class="nlhf-add-item__header">
+    <h2 class="govuk-heading-l">
+      <%= t('volunteers.add_volunteer_heading') %>
+    </h2>
+  </header>
+
+  <div class="nlhf-add-item__body">
+
+    <p class="govuk-body govuk-!-margin-bottom-6">
+      <%=t('volunteers.add_volunteer_hint')%>
+    </p>
+
+    <div class="nlhf-add-item__row">
+
+      <div class="govuk-character-count" data-module="govuk-character-count"
+        data-maxwords="50">
+
+        <div class="govuk-form-group <%= "govuk-form-group--error" if
+          model_object.errors['volunteers.description'].any? %>">
+
+          <%=
+            render(
+              partial: "partials/form_input_errors",
+              locals: {
+                form_object: model_object,
+                input_field_id: :'volunteers.description'
+              }
+            ) if model_object.errors['volunteers.description'].any?
+          %>
+
+          <%=
+            form_object.label :description,
+            t('volunteers.labels.description'),
+            class: 'govuk-label'
+          %>
+
+          <%=
+            form_object.text_area :description,
+            class: "govuk-textarea #{'govuk-textarea--error' if
+              model_object.errors['volunteers.description'].any?} govuk-js-character-count",
+              rows: 5,
+              value: "#{flash[:description] if flash[:description].present?}"
+          %>
+
+          <span id="<%= form_object.object_name.gsub(/[\[\]]+/, '_').chop + '_description-info' %>"
+            class="govuk-hint govuk-character-count__message" aria-live="polite">
+            <%= t('volunteers.words_remaining') %>
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="nlhf-add-item__row">
+
+      <div class="govuk-form-group <%= "govuk-form-group--error" if
+        model_object.errors['volunteers.hours'].any? %>">
+
+        <%=
+          render(
+            partial: 'partials/form_input_errors',
+            locals: {
+              form_object: model_object,
+              input_field_id: :'volunteers.hours'
+            }
+          ) if model_object.errors['volunteers.hours'].any?
+        %>
+
+        <%=
+          form_object.label :hours,
+          class: 'govuk-label'
+        %>
+
+        <%=
+          form_object.text_field :hours,
+          'autocomplete' => 'off',
+          class: "govuk-input govuk-input govuk-input--width-10 #{'govuk-input--error' if
+            model_object.errors['volunteers.hours'].any?}",
+          value: "#{flash[:hours] if flash[:hours].present?}"
+        %>
+
+      </div>
+
+    </div>
+
+    <div class="nlhf-add-item__row">
+
+      <%=
+        render(
+          ButtonComponent.new(
+            element: 'input',
+            text: t('volunteers.btn_add_volunteer'),
+            classes: 'govuk-button--secondary'
+          )
+        )
+      %>
+
+    </div>
+
+  </div>
+
+</div>

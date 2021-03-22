@@ -1,12 +1,15 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: t('volunteers.page_title')
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('volunteers.page_title')
+    }
+  )
 %>
 
 <% if @funding_application.project.errors.any? %>
+
   <div class="govuk-error-summary" aria-labelledby="error-summary-title"
        role="alert" tabindex="-1" data-module="govuk-error-summary">
 
@@ -19,7 +22,7 @@
       <ul class="govuk-list govuk-error-summary__list">
 
         <% @funding_application.project.errors.each do |attr, msg| %>
-          <% unless attr.to_s == "volunteers" %>
+          <% unless attr.to_s == 'volunteers' %>
             <li>
               <a href='#project_volunteers_attributes_0_<%= "#{attr.to_s.split('.')[1]}" %>'>
                 <%= msg %>
@@ -33,238 +36,49 @@
     </div>
 
   </div>
+
 <% end %>
 
-<span class="govuk-caption-xl">
-  <%= t('volunteers.page_hint')%>
-</span>
-
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
-  <%= t('volunteers.page_heading')%>
-</h1>
-
-<p class="govuk-body-l govuk-!-margin-bottom-9">
-  <%= t('volunteers.tell_us')%>
-</p>
-
-<section class="nlhf-summary govuk-!-margin-bottom-9">
-
-  <header class="nlhf-summary__header">
-    <h2 class="govuk-heading-m">
-      <%= t('volunteers.your_project_volunteers') %>
-    </h2>
-  </header>
-
-  <div class="nlhf-summary__body">
-
-    <% unless @funding_application.project.volunteers.first&.id.present? %>
-
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        <%= t('volunteers.not_added_volunteers')%>
-      </h3>
-
-    <% else %>
-
-      <table class="govuk-table">
-
-        <thead class="govuk-table__head">
-
-          <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header">
-              <%= t('volunteers.description_heading')%>
-            </th>
-            <th scope="col"
-                class="govuk-table__header govuk-table__header--numeric">
-              <%= t('volunteers.hours_column_heading')%>
-            </th>
-            <th scope="col" class="govuk-table__header"></th>
-          </tr>
-
-        </thead>
-
-        <tbody class="govuk-table__body">
-
-          <% @funding_application.project.volunteers.where.not(id: nil).each do |v| %>
-
-            <tr class="govuk-table__row">
-
-              <td class="govuk-table__cell">
-                <%= v.description %>
-              </td>
-
-              <td class="govuk-table__cell govuk-table__cell--numeric">
-                <%= v.hours %>
-              </td>
-
-              <td class="govuk-table__cell">
-
-                <%=
-                  form_with model: @funding_application.project,
-                            url: funding_application_gp_project_volunteer_delete_path(volunteer_id: v.id),
-                            method: :delete,
-                            local: true do |f|
-                %>
-
-                  <%=
-                    render(
-                        ButtonComponent.new(
-                            element: "input",
-                            classes: "govuk-button--warning",
-                            text: t('generic.delete')
-                        )
-                    )
-                  %>
-
-                <% end %>
-
-              </td>
-
-            </tr>
-
-          <% end %>
-
-        </tbody>
-
-      </table>
-
-      <div class="nlhf-summary__total">
-
-        <h3 class="nlhf-summary__total__title">
-
-          <span class="nlhf-summary__total__title-text">
-            <%= t('volunteers.total_hours_title')%>
-          </span>
-
-          <span class="nlhf-summary__total__title-val">
-            <%= calculate_volunteer_total(@funding_application.project.volunteers) %>
-          </span>
-
-        </h3>
-
-      </div>
-
-    <% end %>
-
-  </div>
-  <!-- /.nlhf-summary__body -->
-
-</section>
+<%=
+  render(
+    partial: 'partials/funding_application/volunteers/page_upper',
+    locals: {
+      model_object: @funding_application.project,
+      delete_path: 'funding_application_gp_project_volunteer_delete_url'
+    }
+  )
+%>
 
 <%=
   form_with model: @funding_application.project,
-            url: :funding_application_gp_project_volunteers,
-            method: :put,
-            local: true do |f|
+  url: :funding_application_gp_project_volunteers,
+  method: :put,
+  local: true do |f|
 %>
 
-  <% f.fields_for :volunteers, @funding_application.project.volunteers.build do |v| %>
+  <%=
+    f.fields_for :volunteers,
+    @funding_application.project.volunteers.build do |v|
+  %>
 
-    <div class="nlhf-add-item govuk-!-margin-bottom-9">
-
-      <header class="nlhf-add-item__header">
-        <h2 class="govuk-heading-l">
-          <%= t('volunteers.add_volunteer_heading')%>
-        </h2>
-      </header>
-
-      <div class="nlhf-add-item__body">
-
-        <p class="govuk-body govuk-!-margin-bottom-6">
-          <%=t('volunteers.add_volunteer_hint')%>
-        </p>
-
-        <div class="nlhf-add-item__row">
-
-          <div class="govuk-character-count"
-               data-module="govuk-character-count" data-maxwords="50">
-
-            <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.project.errors['volunteers.description'].any? %>">
-
-              <%=
-                render partial: "partials/form_input_errors",
-                       locals: {
-                           form_object: @funding_application.project,
-                           input_field_id: :'volunteers.description'} if
-                    @funding_application.project.errors['volunteers.description'].any?
-              %>
-
-              <%=
-                v.label :description,
-                        t('volunteers.labels.description'),
-                        class: 'govuk-label'
-              %>
-
-              <%=
-                v.text_area :description,
-                            class: "govuk-textarea #{'govuk-textarea--error' if
-                                @funding_application.project.errors['volunteers.description'].any?} govuk-js-character-count",
-                            rows: 5,
-                            value: "#{flash[:description] if
-                                flash[:description].present?}"
-              %>
-              <span
-                id="<%= v.object_name.gsub(/[\[\]]+/, '_').chop + '_description-info' %>"
-                class="govuk-hint govuk-character-count__message"
-                aria-live="polite">
-                <%= t('volunteers.words_remaining') %>
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="nlhf-add-item__row">
-
-          <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.project.errors['volunteers.hours'].any? %>">
-
-            <%=
-              render partial: "partials/form_input_errors",
-                     locals: {
-                         form_object: @funding_application.project,
-                         input_field_id: :'volunteers.hours'} if
-                  @funding_application.project.errors['volunteers.hours'].any?
-            %>
-
-            <%=
-              v.label :hours,
-                      class: 'govuk-label'
-            %>
-
-            <%=
-              v.text_field :hours,
-                           "autocomplete" => "off",
-                           class: "govuk-input govuk-input govuk-input--width-10 #{'govuk-input--error' if @funding_application.project.errors['volunteers.hours'].any?}",
-                           value: "#{flash[:hours] if flash[:hours].present?}"
-            %>
-
-          </div>
-
-        </div>
-
-        <div class="nlhf-add-item__row">
-          <%=
-            render(
-                ButtonComponent.new(
-                    element: "input",
-                    text: t('volunteers.btn_add_volunteer'),
-                    classes: "govuk-button--secondary"
-                )
-            )
-          %>
-        </div>
-
-      </div>
-      <!-- / nlhf-add-item__body -->
-    </div>
-    <!-- / nlhf-add-item -->
+    <%=
+      render(
+        partial: 'partials/funding_application/volunteers/question',
+        locals: {
+          model_object: @funding_application.project,
+          form_object: v
+        }
+      )
+    %>
 
   <% end %>
+
 <% end %>
 
 <form action="<%= funding_application_gp_project_evidence_of_support_path %>"
-      method="get">
-  <p class="govuk-body"> <%= t('volunteers.input_btn_hint') %> </p>
-  <%= render(ButtonComponent.new(element: "input")) %>
+  method="get">
+  <p class="govuk-body">
+    <%= t('volunteers.input_btn_hint') %>
+  </p>
+  <%= render(ButtonComponent.new(element: 'input')) %>
 </form>
