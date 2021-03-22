@@ -14,6 +14,8 @@ cy:
         4: "Er enghraifft:"
         5: "Os ydych wedi gorffen ychwanegu eich holl dystiolaeth"
         6: "Cymorth gyda thystiolaeth o gefnogaeth"
+        skip_to_add: "Skip to add your evidence of support"
+        skip_to_form: "Skip to the evidence of support form"
       li:
         1: "Llythyr cefnogol gan eich AS lleol"
         2: "E-bost gan bobl sy'n ymwneud â'ch prosiect"

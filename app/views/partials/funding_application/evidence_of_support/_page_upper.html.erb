@@ -1,0 +1,116 @@
+<span class="govuk-caption-xl">
+  <%= t('views.funding_application.common.support_for_your_project') %>
+</span>
+
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+  <%= t('application.evidence_of_support.page_heading') %>
+</h1>
+
+<p class="govuk-body-l govuk-!-margin-bottom-9">
+  <%= t('application.evidence_of_support.text.1') %>
+</p>
+
+<a href="#add-evidence-section" class="govuk-skip-link">
+  <%= t('application.evidence_of_support.text.skip_to_add') %>
+</a>
+
+<section class="nlhf-summary nlhf-summary--evidence govuk-!-margin-bottom-9">
+
+  <header class="nlhf-summary__header">
+
+    <h2 class="govuk-heading-m">
+      <%= t('application.evidence_of_support.headings.1') %>
+    </h2>
+
+  </header>
+
+  <div class="nlhf-summary__body">
+
+    <% unless model_object.evidence_of_support.first&.id.present? %>
+
+        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          <%= t('application.evidence_of_support.text.2') %>
+        </h3>
+
+    <% else %>
+
+      <table class="govuk-table govuk-!-margin-bottom-0">
+
+        <thead class="govuk-table__head">
+
+          <tr class="govuk-table__row">
+
+            <th scope="col" class="govuk-table__header">
+              <%= t('application.evidence_of_support.th.1') %>
+            </th>
+
+            <th scope="col" class="govuk-table__header">
+              <%= t('application.evidence_of_support.th.2') %>
+            </th>
+
+            <th scope="col" class="govuk-table__header"></th>
+
+          </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          <% model_object.evidence_of_support.filter { |eos| eos.id.present? }.each do |eos| %>
+
+            <tr class="govuk-table__row">
+
+              <td class="govuk-table__cell">
+                <%= eos.description %>
+              </td>
+
+              <td class="govuk-table__cell">
+
+                <%=
+                  link_to(
+                    eos.evidence_of_support_files.blob.filename,
+                    rails_blob_path(
+                      eos.evidence_of_support_files.blob,
+                      disposition: 'attachment'
+                    )
+                  )
+                %>
+
+            </td>
+
+            <td class="govuk-table__cell">
+
+              <%=
+                form_with model: model_object,
+                url: send(delete_path, supporting_evidence_id: eos.id),
+                method: :delete,
+                local: true do |f|
+              %>
+
+                <%=
+                  render(
+                    ButtonComponent.new(
+                      text: t('generic.delete'),
+                      element: 'button',
+                      classes: "govuk-button--warning"
+                    )
+                  )
+                %>
+
+              <% end %>
+
+            </td>
+
+          </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+    <% end %>
+
+  </div>
+
+</section>

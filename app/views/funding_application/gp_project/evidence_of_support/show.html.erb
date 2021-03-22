@@ -1,9 +1,11 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: t('application.evidence_of_support.page_title')
-         }
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('application.evidence_of_support.page_title')
+    }
+  )
 %>
 
 <noscript><% no_js = true %></noscript>
@@ -39,266 +41,40 @@
 
 <div id="summary-errors"></div>
 
-<span class="govuk-caption-xl">
-  <%= t('views.funding_application.common.support_for_your_project') %>
-</span>
-
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
-  <%= t('application.evidence_of_support.page_heading') %>
-</h1>
-
-<p class="govuk-body-l govuk-!-margin-bottom-9">
-  <%= t('application.evidence_of_support.text.1') %>
-</p>
-
-<a href="#add-evidence-section" class="govuk-skip-link">Skip to add your evidence of support</a>
-
-<section class="nlhf-summary nlhf-summary--evidence govuk-!-margin-bottom-9">
-
-  <header class="nlhf-summary__header">
-    <h2 class="govuk-heading-m">
-      <%= t('application.evidence_of_support.headings.1') %>
-    </h2>
-  </header>
-
-  <div class="nlhf-summary__body">
-
-    <% unless @funding_application.project.evidence_of_support.first&.id.present? %>
-
-        <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-          <%= t('application.evidence_of_support.text.2') %>
-        </h3>
-
-    <% else %>
-
-      <table class="govuk-table govuk-!-margin-bottom-0">
-
-        <thead class="govuk-table__head">
-
-          <tr class="govuk-table__row">
-
-            <th scope="col" class="govuk-table__header">
-              <%= t('application.evidence_of_support.th.1') %>
-            </th>
-            <th scope="col" class="govuk-table__header">
-              <%= t('application.evidence_of_support.th.2') %>
-            </th>
-            <th scope="col" class="govuk-table__header"></th>
-
-          </tr>
-
-        </thead>
-
-        <tbody class="govuk-table__body">
-
-          <% @funding_application.project.evidence_of_support.filter { |eos| eos.id.present? }.each do |eos|  %>
-
-            <tr class="govuk-table__row">
-
-              <td class="govuk-table__cell">
-                <%= eos.description %>
-              </td>
-
-              <td class="govuk-table__cell">
-                <%=
-                  link_to(eos.evidence_of_support_files.blob.filename,
-                          rails_blob_path(
-                              eos.evidence_of_support_files.blob,
-                              disposition: "attachment"
-                          )
-                  )
-                %>
-            </td>
-
-            <td class="govuk-table__cell">
-              <%=
-                form_with model: @funding_application.project,
-                          url: funding_application_gp_project_evidence_of_support_delete_path(supporting_evidence_id: eos.id),
-                          method: :delete,
-                          local: true do |f|
-              %>
-
-                <%= f.submit t('generic.delete'),
-                             class: "govuk-button govuk-button--warning",
-                             "data-module" => "govuk-button"
-                %>
-
-              <% end %>
-
-            </td>
-
-          </tr>
-
-          <% end %>
-
-        </tbody>
-
-      </table>
-
-    <% end %>
-
-  </div>
-
-</section>
+<%=
+  render(
+    partial: 'partials/funding_application/evidence_of_support/page_upper',
+    locals: {
+      model_object: @funding_application.project,
+      delete_path: 'funding_application_gp_project_evidence_of_support_delete_path'
+    }
+  )
+%>
 
 <%=
   form_with model: @funding_application.project,
-            url: :funding_application_gp_project_evidence_of_support,
-            method: :put,
-            remote: no_js ? false : true do |f|
+  url: :funding_application_gp_project_evidence_of_support,
+  method: :put,
+  remote: no_js ? false : true do |f|
 %>
 
-  <%
+  <%=
     f.fields_for :evidence_of_support,
-                 @funding_application.project.evidence_of_support.build do |e|
+    @funding_application.project.evidence_of_support.build do |e|
   %>
 
-  <div class="nlhf-add-item govuk-!-margin-bottom-9">
-    
-    <header class="nlhf-add-item__header">
-      <h2 class="govuk-heading-l">
-        <%= t('application.evidence_of_support.headings.2') %>
-      </h2>
-    </header>
+    <%=
+      render(
+        partial: 'partials/funding_application/evidence_of_support/question',
+        locals: {
+          model_object: @funding_application.project,
+          form_object: e
+        }
+      )
+    %>
 
-    <div class="nlhf-add-item__body">
+  <% end %>
 
-      <div class="govuk-inset-text">
-        <div class="nlhf-add-item__row" id="add-evidence-section">
-
-            <a href="#add-evidence-form" class="govuk-skip-link">Skip to the evidence of support form</a>
-        
-            <h4 class="govuk-heading-m"><%= t('application.evidence_of_support.headings.3') %></h4>
-
-            <p class="govuk-body">
-              <%= t('application.evidence_of_support.text.3') %>
-            </p> 
-
-            <p class="govuk-body">
-              <%= t('generic.for_example') %>
-            </p>
-
-            <ul class="govuk-list govuk-list--bullet">
-              <li>
-                <%= t('application.evidence_of_support.li.1') %>
-              </li>
-              <li>
-                <%= t('application.evidence_of_support.li.2') %>
-              </li>
-              <li>
-                <%= t('application.evidence_of_support.li.3') %>
-              </li>
-            </ul>
-        
-        </div>
-      </div>
-
-
-      <div class="nlhf-add-item__row" id="add-evidence-form">
-
-        <div class="govuk-character-count" data-module="govuk-character-count"
-             data-maxwords="50">
-
-          <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                               @funding_application.project.errors['evidence_of_support.description'].any? %>"
-               id="evidence_of_support.description-form-group">
-
-            <%=
-              render partial: "partials/form_input_errors",
-                     locals: {
-                         form_object: @funding_application.project,
-                         input_field_id: :'evidence_of_support.description'} if
-                  @funding_application.project.errors['evidence_of_support.description'].any?
-            %>
-
-            <div id="evidence_of_support.description-errors"></div>
-
-            <%=
-              f.label :evidence_of_support_attributes_0_description,
-              t('application.evidence_of_support.labels.1'),
-              class: "govuk-label govuk-!-font-weight-bold"
-            %>
-
-            <%=
-              e.text_area :description,
-                          value: "",
-                          class: "govuk-textarea govuk-js-character-count #{'govuk-textarea--error' if
-                              @funding_application.project.errors['evidence_of_support.description'].any?}",
-                          rows: 5
-            %>
-
-            <span id="project_evidence_of_support_attributes_0_description-info"
-                  class="govuk-hint govuk-character-count__message"
-                  aria-live="polite">
-                  <%= t('generic.word_count', max_words:50) %>
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-      <!-- / nlhf-add-item__row -->
-
-      <div class="nlhf-add-item__row">
-        <div id="file-upload-form-group">
-          <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.project.errors['evidence_of_support.evidence_of_support_files'].any? %>"
-               id="evidence_of_support.evidence_of_support_files-form-group" data-form-group="file">
-
-            <%=
-              render partial: "partials/form_input_errors",
-                     locals: {
-                         form_object: @funding_application.project,
-                         input_field_id: :'evidence_of_support.evidence_of_support_files'} if
-                  @funding_application.project.errors['evidence_of_support.evidence_of_support_files'].any?
-            %>
-
-            <div id="evidence_of_support.evidence_of_support_files-errors"></div>
-
-            <div id="form-group-errors"></div>
-
-            <%=
-              e.label :evidence_of_support_files,
-                      t('generic.upload_a_file'),
-                      class: "govuk-label"
-            %>
-
-            <%=
-              e.file_field :evidence_of_support_files,
-                           multiple: false,
-                           direct_upload: true,
-                           class: "govuk-file-upload #{'govuk-file-upload--error' if
-                               @funding_application.project.errors['evidence_of_support.evidence_of_support_files'].any?}",
-                           'data-input-identifier': 'file',
-                           'data-attribute': :evidence_of_support_files,
-                           'data-model': :evidence_of_support,
-                           'data-parent-model': :project,
-                           'autocomplete' => 'off'
-            %>
-
-          </div>
-        </div>
-      </div>
-      <!-- / nlhf-add-item__row -->
-
-      <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
-            for the reasoning behind this workaround %>
-      <input type="hidden" name="ieworkaround">
-
-      <div class="nlhf-add-item__row">
-
-        <button class="govuk-button govuk-button--secondary"
-                data-module="govuk-button">
-          <%= t('application.evidence_of_support.buttons.1') %>
-        </button>
-
-      </div>
-      <!-- / nlhf-add-item__row -->
-
-    </div>
-
-  </div>
-    <% end %>
 <% end %>
 
 <hr class="govuk-section-break--l govuk-section-break--visible">
@@ -309,9 +85,9 @@
 
 <%=
   render(
-      ButtonComponent.new(
-          element: "a",
-          href: funding_application_gp_project_check_your_answers_url
-      )
+    ButtonComponent.new(
+      element: 'a',
+      href: funding_application_gp_project_check_your_answers_url
+    )
   )
 %>

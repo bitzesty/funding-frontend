@@ -14,6 +14,8 @@ en-GB:
         4: "For example:"
         5: "If you have finished adding all your evidence"
         6: "Help with evidence of support"
+        skip_to_add: "Skip to add your evidence of support"
+        skip_to_form: "Skip to the evidence of support form"
       li:
         1: "A supportive letter from your local MP"
         2: "An email from people involved in your project"
