@@ -1,9 +1,11 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: I18n.t("governing_document.title")
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('governing_document.page_title')
+    }
+  )
 %>
 
 <noscript><% no_js = true %></noscript>
@@ -11,206 +13,39 @@
 <div id="summary-errors"></div>
 
 <%=
-  render partial: "partials/summary_errors",
-         locals: {
-             form_object: @funding_application.project,
-             first_form_element: :project_governing_document_file
-         } if @funding_application.project.errors.any?
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.project,
+      first_form_element: :project_governing_document_file
+    }
+  ) if @funding_application.project.errors.any?
 %>
 
 <%=
   form_with model: @funding_application.project,
-            url: :funding_application_gp_project_governing_documents,
-            method: :put,
-            remote: no_js ? false : true do |f|
+  url: :funding_application_gp_project_governing_documents,
+  method: :put,
+  remote: no_js ? false : true do |f|
 %>
-
-<div class="govuk-form-group">
-
-    <fieldset class="govuk-fieldset">
-
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-            <h1 class="govuk-fieldset__heading">
-                <%= I18n.t("governing_document.heading") %>
-            </h1>
-        </legend>
-
-        <p class="govuk-body">
-          <%= I18n.t("governing_document.before_we_assess") %>
-        </p>
-
-          <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                <%= I18n.t("governing_document.what_is_a_governing_document") %>
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-
-                <p class="govuk-body">
-                  <%= I18n.t("governing_document.what_is_para_1") %>
-                </p>
-
-                <p class="govuk-body">
-                  <%= I18n.t("governing_document.what_is_para_2") %>
-                </p>
-
-                <p class="govuk-body">
-                  <%= I18n.t("governing_document.what_is_para_3") %>
-                </p>
-
-                <p class="govuk-body">
-                  <%= I18n.t("governing_document.what_is_para_4") %>
-                </p>
-
-                <p class="govuk-body">
-                  <%= I18n.t("governing_document.the_charity_commission") %> <%= link_to(t("governing_document.guidance_href_text"), "https://www.gov.uk/guidance/how-to-write-your-charitys-governing-document", target: "_blank") %>.
-                </p>
-
-            </div>
-        </details>        
-
-        <p class="govuk-heading-s">
-          <%= I18n.t("governing_document.we_do_not_need") %>
-        </p>
-
-        <ul class="govuk-list govuk-list--bullet">
-            <li>
-              <%= I18n.t("governing_document.a_public_org") %>
-            </li>
-            <li>
-              <%= I18n.t("governing_document.a_charity") %>
-            </li>
-
-          <%
-            if
-             current_user.organisations.first.org_type == "faith_based_organisation" ||
-                 current_user.organisations.first.org_type == "church_organisation"
-          %>
-            <li>
-              <%= I18n.t("governing_document.one_of_the_following") %>
-              <ul class="govuk-list govuk-list--bullet nlhf-list--dash">
-                <li><%= I18n.t("governing_document.church_types.baptist_church") %></li>
-                <li><%= I18n.t("governing_document.church_types.church_in_wales") %></li>
-                <li><%= I18n.t("governing_document.church_types.church_of_england") %></li>
-                <li><%= I18n.t("governing_document.church_types.church_of_scotland") %></li>
-                <li><%= I18n.t("governing_document.church_types.methodist_church") %></li>
-                <li><%= I18n.t("governing_document.church_types.roman_catholic_church") %></li>
-                <li><%= I18n.t("governing_document.church_types.scottish_episcopal_church") %></li>
-                <li><%= I18n.t("governing_document.church_types.united_reformed_church") %></li>
-              </ul>
-            </li>
-          <% end %>
-
-        </ul>
-
-        <p class="govuk-body">
-          <%= I18n.t("governing_document.no_signed_copy") %>
-        </p>
-
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive"><%= I18n.t("governing_document.warning") %></span>
-            <%= I18n.t("governing_document.warning_text") %>
-          </strong>
-        </div>
-
-        <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
-
-            <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.project.errors.any? %>" id="governing-documents-form-group-main" data-form-group="file">
-
-              <%=
-                render partial: "partials/form_group_errors",
-                       locals: {
-                           form_object: @funding_application.project
-                       } if @funding_application.project.errors.any?
-              %>
-
-              <div class="govuk-form-group">
-                <%=
-                  f.label :governing_document_file,
-                          "Add your governing document",
-                          class: "govuk-heading-m nlhf-content-hightlight__title"
-                %>
-
-                <div id="form-group-errors"></div>
-
-                <%=
-                  f.file_field :governing_document_file,
-                              multiple: false,
-                              direct_upload: true,
-                              class: "govuk-file-upload #{"govuk-file-upload--error" if @funding_application.project.errors.any?}",
-                              'data-input-identifier': 'file',
-                              'data-attribute': :governing_document_file,
-                              'data-model': :project,
-                              'autocomplete' => 'off'
-                %>
-
-              </div>
-              <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
-            for the reasoning behind this workaround %>
-              <input type="hidden" name="ieworkaround">
-
-              <div class="govuk-form-group">
-              <%=
-                render(ButtonComponent.new(
-                    text: 'Add governing document',
-                    classes: "govuk-button--secondary",
-                    ))
-              %>
-              </div>
-
-            </div>
-
-            <% unless @funding_application.project.governing_document_file.attached? %>
-
-              <p class="govuk-body">
-                <%= I18n.t("governing_document.no_governing_document") %>
-              </p>
-
-            <% else %>
-
-            <table class="govuk-table">
-
-              <thead class="govuk-table__head">
-
-              <tr class="govuk-table__row">
-
-                <th scope="col" class="govuk-table__header">
-                  <%= I18n.t("governing_document.governing_document_file") %>
-                </th>
-
-              </tr>
-              </thead>
-              <tbody class="govuk-table__body">
-                <tr class="govuk-table__row">
-                  <td class="govuk-table__cell">
-                    <%= link_to(@funding_application.project.governing_document_file.blob.filename,
-                                rails_blob_path(@funding_application.project.governing_document_file,
-                                                disposition: "attachment"))
-                    %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            <% end %>
-
-        </div>
-
-    </fieldset>
 
   <%=
     render(
-        ButtonComponent.new(
-            element: "a",
-            href: funding_application_gp_project_accounts_url
-        )
+      partial: 'partials/funding_application/governing_documents_question',
+      locals: {
+        model_object: @funding_application.project,
+        form_object: f
+      }
     )
   %>
 
-  <% end %>
+<% end %>
 
-</div>
-<!-- /# governing-documents-form-group-main -->
+<%=
+  render(
+    ButtonComponent.new(
+      element: 'a',
+      href: funding_application_gp_project_accounts_url
+    )
+  )
+%>

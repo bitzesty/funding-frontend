@@ -1,7 +1,7 @@
 en-GB:
   governing_document:
-    title: "Upload your organisation's governing document"
-    heading: "Upload your organisation's governing document"
+    page_title: "Upload your organisation's governing document"
+    page_heading: "Upload your organisation's governing document"
     before_we_assess: "Before we assess your application, we need to see a copy of your organisation's governing document."
     we_do_not_need: "You do not need to upload your governing document if you are:"
     a_public_org: "a public organisation, for example, a local authority,"
@@ -28,3 +28,7 @@ en-GB:
     what_is_para_4: "For example: rules of association of an unincorporated local community group or club, articles of association of a company limited by guarantee, a trust deed setting up a charity."
     the_charity_commission: "The Charity Commission"
     guidance_href_text: "provides guidance on creating a governing document"
+    labels:
+      add_your_governing_doc: "Add your governing document"
+    buttons:
+      add_governing_doc: "Add governing document"
