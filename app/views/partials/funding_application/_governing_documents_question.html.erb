@@ -112,7 +112,7 @@
     <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
 
       <div class="govuk-form-group <%= "govuk-form-group--error" if
-        model_object.errors.any? %>" id="governing-documents-form-group-main" data-form-group="file">
+        model_object.errors.any? %>" id="governing_document_file-form-group" data-form-group="file">
 
         <%=
           render(
@@ -131,7 +131,7 @@
             class: "govuk-heading-m nlhf-content-hightlight__title"
           %>
 
-          <div id="form-group-errors"></div>
+          <div id="governing_document_file-errors"></div>
 
           <%=
             form_object.file_field :governing_document_file,
