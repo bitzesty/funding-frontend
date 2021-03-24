@@ -1,10 +1,13 @@
 en-GB:
   covid_banner:
     heading: "Important announcement"
-    p:
-      1: "Use this form to create an account with the National Lottery Heritage Fund if you are applying for between £3,000 to £10,000 and the project is based in:"
-      2: "If you are applying for any other grant amount, the project is based in Wales or England, or you have an existing application %{href}."
+    use_this_form_to: "Use this form to create an account with the National Lottery Heritage Fund to:"
+    use_old_portal: "If you are applying for any other grant amount, the project is based in Wales or England, or you have an existing application %{href}."
+    
+    list_items:
+      small_grant: "apply for between £3,000 to £10,000 for a project based in Scotland or Northern Ireland" 
+      eoi: "submit an Expression of Interest for applications over £250,000 across the UK"
+
     links:
-      1:
-        text: "sign in to the application portal"
-        url: "https://forms.hlf.org.uk/officeforms/HLF_Projects.ofml"
+      old_portal_text: "sign in to the application portal"
+      old_portal_url: "https://forms.hlf.org.uk/officeforms/HLF_Projects.ofml"

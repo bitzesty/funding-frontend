@@ -11,22 +11,22 @@
     </h2>
 
     <p class="govuk-body">
-      <%= t('covid_banner.p.1') %>
+      <%= t('covid_banner.use_this_form_to') %>
     </p>
 
     <ul class="govuk-list govuk-list--bullet">
-      <li><%= t('generic.countries.scotland') %></li>
-      <li><%= t('generic.countries.ni') %></li>
+      <li><%= t('covid_banner.list_items.small_grant') %></li>
+      <li><%= t('covid_banner.list_items.eoi') %></li>
     </ul>
 
     <p class="govuk-body govuk-!-margin-bottom-3">
       <%= 
         t(
-          'covid_banner.p.2',
+          'covid_banner.use_old_portal',
           href:
             link_to(
-              t('covid_banner.links.1.text'),
-              t('covid_banner.links.1.url')
+              t('covid_banner.links.old_portal_text'),
+              t('covid_banner.links.old_portal_url')
             )
         ).html_safe
       %>
