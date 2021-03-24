@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_083810) do
+ActiveRecord::Schema.define(version: 2021_03_24_091348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -223,6 +223,13 @@ ActiveRecord::Schema.define(version: 2021_03_08_083810) do
     t.string "mission", default: [], array: true
     t.string "salesforce_account_id"
     t.string "custom_org_type"
+    t.text "main_purpose_and_activities"
+    t.decimal "spend_in_last_financial_year"
+    t.decimal "unrestricted_funds"
+    t.integer "board_members_or_trustees"
+    t.boolean "vat_registered"
+    t.string "vat_number"
+    t.text "social_media_info"
   end
 
   create_table "organisations_org_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
