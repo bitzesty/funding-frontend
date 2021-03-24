@@ -1,0 +1,122 @@
+<span class="govuk-caption-xl">
+  <%= t('views.funding_application.common.support_for_your_project') %>
+</span>
+<h1 class="govuk-heading-xl">
+  <%= t('application.non_cash_contributions.page_heading') %>
+</h1>
+
+<a href="#add-non-cash" class="govuk-skip-link">
+  <%= t('application.non_cash_contributions.text.skip_to_form') %>
+</a>
+
+<section class="nlhf-summary nlhf-summary--non-cash govuk-!-margin-bottom-9">
+
+  <header class="nlhf-summary__header">
+
+    <h2 class="govuk-heading-m">
+      <%= t('application.non_cash_contributions.headings.1') %>
+    </h2>
+
+  </header>
+
+  <div class="nlhf-summary__body">
+
+    <% if model_object.non_cash_contributions.first.try(:id).nil? %>
+
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+        <%= t('application.non_cash_contributions.headings.2') %>
+      </h3>
+
+    <% else %>
+
+      <table class="govuk-table nlhf-table">
+
+        <thead class="govuk-table__head">
+
+        <tr class="govuk-table__row">
+
+          <th scope="col" class="govuk-table__header">
+            <%= t('application.non_cash_contributions.th.1') %>
+          </th>
+
+          <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+            <%= t('application.non_cash_contributions.th.2') %>
+          </th>
+
+          <th scope="col" class="govuk-table__header"></th>
+
+        </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          <% model_object.non_cash_contributions.filter { |ncc| ncc.id.present? }.each do |ncc| %>
+
+            <tr class="govuk-table__row">
+
+              <td class="govuk-table__cell nlhf-table__cell nlhf-table__cell--text">
+                <%= ncc.description %>
+              </td>
+
+              <td class="govuk-table__cell govuk-table__cell--numeric">
+                <%= "#{number_to_currency(ncc.amount, strip_insignificant_zeros: true)}" if ncc.amount.present? %>
+              </td>
+
+              <td class="govuk-table__cell">
+
+                <%=
+                  form_with model: model_object,
+                  url: send(delete_path, non_cash_contribution_id: ncc.id),
+                  method: :delete,
+                  local: true do |f|
+                %>
+
+                  <%=
+                    render(
+                      ButtonComponent.new(
+                        element: 'input',
+                        classes: 'govuk-button--warning',
+                        text: t('generic.delete')
+                      )
+                    )
+                  %>
+
+                <% end %>
+
+              </td>
+
+            </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+      <div class="nlhf-summary__total">
+
+        <h3 class="nlhf-summary__total__title">
+
+          <span class="nlhf-summary__total__title-text">
+            <%= t('application.non_cash_contributions.text.4') %>
+          </span>
+
+          <span class="nlhf-summary__total__title-val">
+            <%=
+              number_to_currency(
+                calculate_total(model_object.non_cash_contributions),
+                strip_insignificant_zeros: true
+              )
+            %>
+          </span>
+
+        </h3>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</section>

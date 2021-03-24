@@ -15,10 +15,18 @@ cy:
         4: "Cyfanswm gwerth amcangyfrifedig"
         5: "Amcangyfrif o faint y byddai hyn wedi'i gostio pe bai'n rhaid i'ch prosiect dalu amdano"
         6: "Cymorth gyda chyfraniadau nad ydynt yn arian parod"
+        skip_to_form: "Skip to add a non-cash contribution form"
       buttons:
         1: "Ychwanegu cyfraniad nad yw'n arian parod"
       th:
         1: "Disgrifiad"
         2: "Gwerth"
       labels:
-        1: "Disgrifiad"
+        description: "Disgrifiad"
+        estimated_value: "Estimated value"
+      generic_question_page:
+        page_title: "Are you getting any non-cash contributions to your project?"
+        page_heading: "Are you getting any non-cash contributions to your project?"
+        labels:
+          x_yes: "Yes, I am getting non-cash contributions"
+          x_no: "No, I am not getting non-cash contributions"

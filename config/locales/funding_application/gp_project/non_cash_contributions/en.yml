@@ -14,10 +14,18 @@ en-GB:
         3: "If you have finished adding all your non-cash contributions"
         4: "Total estimated value"
         5: "An estimate of how much this would have cost if your project had to pay for it"
+        skip_to_form: "Skip to add a non-cash contribution form"
       buttons:
         1: "Add non-cash contribution"
       th:
         1: "Description"
         2: "Value"
       labels:
-        1: "Description of non-cash contribution"
+        description: "Description of non-cash contribution"
+        estimated_value: "Estimated value"
+      generic_question_page:
+        page_title: "Are you getting any non-cash contributions to your project?"
+        page_heading: "Are you getting any non-cash contributions to your project?"
+        labels:
+          x_yes: "Yes, I am getting non-cash contributions"
+          x_no: "No, I am not getting non-cash contributions"
