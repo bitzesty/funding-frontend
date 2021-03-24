@@ -1,0 +1,161 @@
+<div id="summary-errors"></div>
+
+<span class="govuk-caption-xl">
+  <%= t('views.funding_application.common.support_for_your_project') %>
+</span>
+
+<h1 class="govuk-heading-xl">
+  <%= t('application.cash_contributions.page_heading') %>
+</h1>
+
+<section class="nlhf-summary nlhf-summary--cash govuk-!-margin-bottom-9">
+
+  <header class="nlhf-summary__header">
+
+    <h2 class="govuk-heading-m">
+      <%= t('application.cash_contributions.headings.1') %>
+    </h2>
+
+  </header>
+
+  <div class="nlhf-summary__body">
+
+    <% if model_object.cash_contributions.empty? %>
+
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+        <%= t('application.cash_contributions.headings.3') %>
+      </h3>
+
+    <% else %>
+
+      <table class="govuk-table nlhf-table">
+
+        <thead class="govuk-table__head">
+
+          <tr class="govuk-table__row">
+
+            <th scope="col" class="govuk-table__header govuk-!-width-one-half">
+              <%= t('application.cash_contributions.th.1') %>
+            </th>
+
+            <th scope="col" class="govuk-table__header">
+              <%= t('application.cash_contributions.th.2') %>
+            </th>
+
+            <th scope="col" class="govuk-table__header govuk-table__header--numeric">
+              <%= t('application.cash_contributions.th.3') %>
+            </th>
+
+            <th scope="col" class="govuk-table__header"></th>
+
+          </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          <% model_object.cash_contributions.filter { |cc| cc.id.present? }.each do |cc| %>
+
+            <tr class="govuk-table__row">
+
+              <td class="govuk-table__cell nlhf-table__cell govuk-!-width-one-half nlhf-table__cell--text">
+                <%= cc.description %>
+              </td>
+
+              <td class="govuk-table__cell">
+
+                <%= cc.secured&.gsub('x_', '')&.humanize&.gsub('Yes ', 'Yes, ') %>
+
+                <% if cc.cash_contribution_evidence_files.present? %>
+
+                  <div class="nlhf-!-break-word govuk-!-font-size-16">
+
+                    <%=
+                      link_to(
+                        t('generic.evidence_attached'),
+                        rails_blob_path(
+                          cc.cash_contribution_evidence_files,
+                          disposition: 'attachment'
+                        ),
+                        title: "#{t('generic.click_to_view_file')}: #{cc.cash_contribution_evidence_files.filename}"
+                      )
+                    %>
+
+                  </div>
+
+                <% end %>
+
+              </td>
+
+              <td class="govuk-table__cell govuk-table__cell--numeric">
+
+                <%=
+                  number_to_currency(
+                    cc.amount,
+                    strip_insignificant_zeros: true
+                  ) if cc.amount.present?
+                %>
+
+              </td>
+
+              <td class="govuk-table__cell">
+
+                <%=
+                  form_with model: model_object,
+                  url: send(delete_path, cash_contribution_id: cc.id),
+                  method: :delete,
+                  local: true do |f| 
+                %>
+
+                  <%=
+                    render(
+                      ButtonComponent.new(
+                        element: 'input',
+                        classes: 'govuk-button--warning',
+                        text: t('generic.delete')
+                      )
+                    )
+                  %>
+
+                <% end %>
+
+              </td>
+
+            </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+      <div class="nlhf-summary__total">
+
+        <h3 class="nlhf-summary__total__title">
+
+          <span class="nlhf-summary__total__title-text">
+            <%= t('generic.total') %>
+          </span>
+
+          <span class="nlhf-summary__total__title-val">
+
+            <%=
+              number_to_currency(
+                calculate_total(
+                  model_object.cash_contributions
+                ),
+                strip_insignificant_zeros: true
+              )
+            %>
+
+          </span>
+
+        </h3>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</section>

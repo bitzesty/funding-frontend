@@ -1,16 +1,19 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: t('application.cash_contributions.page_title')
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('application.cash_contributions.page_title')
+    }
+  )
 %>
 
 <noscript><% no_js = true %></noscript>
 
 <% if @funding_application.project.errors.any? %>
+
   <div class="govuk-error-summary" aria-labelledby="error-summary-title"
-       role="alert" tabindex="-1" data-module="govuk-error-summary">
+    role="alert" tabindex="-1" data-module="govuk-error-summary">
 
     <h2 class="govuk-error-summary__title" id="error-summary-title">
       <%= t('generic.there_is_a_problem') %>
@@ -35,497 +38,53 @@
     </div>
 
   </div>
+
 <% end %>
 
-<div id="summary-errors"></div>
-
-<span class="govuk-caption-xl">
-  <%= t('views.funding_application.common.support_for_your_project') %>
-</span>
-<h1 class="govuk-heading-xl">
-  <%= t('application.cash_contributions.page_heading') %>
-</h1>
-
-<section class="nlhf-summary nlhf-summary--cash govuk-!-margin-bottom-9">
-
-  <header class="nlhf-summary__header">
-    <h2 class="govuk-heading-m">
-      <%= t('application.cash_contributions.headings.1') %>
-    </h2>
-  </header>
-
-  <div class="nlhf-summary__body">
-
-    <% if @funding_application.project.cash_contributions.empty? %>
-
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-      <%= t('application.cash_contributions.headings.3') %>
-      </h3>
-
-    <% else %>
-
-      <table class="govuk-table nlhf-table">
-
-        <thead class="govuk-table__head">
-
-          <tr class="govuk-table__row">
-
-            <th scope="col" class="govuk-table__header govuk-!-width-one-half">
-              <%= t('application.cash_contributions.th.1') %>
-            </th>
-
-            <th scope="col" class="govuk-table__header">
-              <%= t('application.cash_contributions.th.2') %>
-            </th>
-
-            <th scope="col" class="govuk-table__header govuk-table__header--numeric">
-              <%= t('application.cash_contributions.th.3') %>
-            </th>
-
-            <th scope="col" class="govuk-table__header"></th>
-
-          </tr>
-
-        </thead>
-
-        <tbody class="govuk-table__body">
-
-          <% @funding_application.project.cash_contributions.filter { |cc| cc.id.present? }.each do |cc| %>
-
-            <tr class="govuk-table__row">
-
-              <td class="govuk-table__cell nlhf-table__cell govuk-!-width-one-half nlhf-table__cell--text">
-                <%= cc.description %>
-              </td>
-
-              <td class="govuk-table__cell">
-
-                <%= cc.secured&.gsub('x_', '')&.humanize&.gsub('Yes ', 'Yes, ') %>
-
-                <% if cc.cash_contribution_evidence_files.present? %>
-
-                  <div class="nlhf-!-break-word govuk-!-font-size-16">
-                    <%=
-                      link_to(
-                          t("generic.evidence_attached"),
-                          rails_blob_path(
-                              cc.cash_contribution_evidence_files,
-                              disposition: "attachment"
-                          ),
-                          title: t('generic.click_to_view_file') + ": #{cc.cash_contribution_evidence_files.filename}"
-                      )
-                    %>
-                  </div>
-
-                <% end %>
-
-            </td>
-
-            <td class="govuk-table__cell govuk-table__cell--numeric">
-
-              <%= number_to_currency(
-                      cc.amount,
-                      strip_insignificant_zeros: true
-                  ) if cc.amount.present?
-              %>
-
-            </td>
-
-            <td class="govuk-table__cell">
-
-              <%= form_with model: @funding_application.project,
-                            url: funding_application_gp_project_cash_contribution_delete_path(cash_contribution_id: cc.id),
-                            method: :delete,
-                            local: true do |f| %>
-
-                <%=
-                  render(
-                      ButtonComponent.new(
-                          element: "input",
-                          classes: "govuk-button--warning",
-                          text: t('generic.delete')
-                      )
-                  )
-                %>
-
-              <% end %>
-
-            </td>
-
-          </tr>
-
-        <% end %>
-
-        </tbody>
-
-      </table>
-
-      <div class="nlhf-summary__total">
-
-        <h3 class="nlhf-summary__total__title">
-
-          <span class="nlhf-summary__total__title-text">
-            <%= t('generic.total') %>
-          </span>
-
-          <span class="nlhf-summary__total__title-val">
-
-            <%=
-              number_to_currency(
-                  calculate_total(
-                      @funding_application.project.cash_contributions
-                  ),
-                  strip_insignificant_zeros: true
-              )
-            %>
-
-          </span>
-
-        </h3>
-
-      </div>
-
-    <% end %>
-
-  </div>
-  <!-- /.nlhf-summary__body -->
-</section>
-<!-- /.nlhf-summary-container -->
+  <%=
+    render(
+      partial: 'partials/funding_application/cash_contributions/page_upper',
+      locals: {
+        model_object: @funding_application.project,
+        delete_path: 'funding_application_gp_project_cash_contribution_delete_path'
+      }
+    )
+  %>
 
 <%=
   form_with model: @funding_application.project,
-            url: :funding_application_gp_project_cash_contributions,
-            method: :put,
-            remote: no_js ? false : true do |f|
+  url: :funding_application_gp_project_cash_contributions,
+  method: :put,
+  remote: no_js ? false : true do |f|
 %>
 
-  <%
+  <%=
     f.fields_for :cash_contributions, @funding_application.project.cash_contributions.build do |cc|
   %>
 
-    <div class="nlhf-add-item govuk-!-margin-bottom-6">
+    <%=
+      render(
+        partial: 'partials/funding_application/cash_contributions/add_question',
+        locals: {
+          model_object: @funding_application.project,
+          form_object: cc
+        }
+      )
+    %>
 
-      <header class="nlhf-add-item__header">
-        <h2 class="govuk-heading-l">
-          <%= t('application.cash_contributions.headings.2') %>
-        </h2>
-      </header>
-
-      <div class="nlhf-add-item__body">
-
-        <div class="nlhf-add-item__row">
-
-          <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">
-                <%= t('application.cash_contributions.text.2') %>
-              </span>
-            </summary>
-            <div class="govuk-details__text">
-              <h3 class="govuk-heading-m govuk-!-margin-bottom-3">
-                <%= t('application.cash_contributions.headings.5') %>
-              </h3>
-              <p class="govuk-body">
-                <%= t('application.cash_contributions.text.3') %>
-              </p>
-              <h3 class="govuk-heading-m govuk-!-margin-bottom-3">
-                <%= t('application.cash_contributions.headings.6') %>
-              </h3>
-              <p class="govuk-body govuk-!-margin-bottom-3">
-                <%= t('application.cash_contributions.text.4') %>
-              </p>
-              <div class="govuk-warning-text govuk-!-margin-bottom-4">
-                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                <strong class="govuk-warning-text__text">
-                  <span class="govuk-warning-text__assistive"><%= t('generic.warning') %></span>
-                  <%= t('application.cash_contributions.text.5') %>
-                </strong>
-              </div>
-              <h3 class="govuk-heading-m govuk-!-margin-bottom-3">
-                <%= t('application.cash_contributions.headings.7') %>
-              </h3>
-              <p class="govuk-body">
-                  <%= t('application.cash_contributions.text.6') %>
-              </p>
-            </div>
-          </details>        
-          
-        </div>
-
-        <div class="nlhf-add-item__row">
-
-          <div class="govuk-character-count" data-module="govuk-character-count"
-               data-maxwords="50">
-
-            <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                                 @funding_application.project.errors['cash_contributions.description'].any? %>"
-                 id="cash_contributions.description-form-group">
-
-              <%=
-                render partial: "partials/form_input_errors",
-                       locals: {
-                           form_object: @funding_application.project,
-                           input_field_id: :'cash_contributions.description'} if
-                    @funding_application.project.errors['cash_contributions.description'].any?
-              %>
-
-              <div id="cash_contributions.description-errors"></div>
-
-              <%=
-                cc.label :description,
-                        t('application.cash_contributions.labels.1'),
-                         class: 'govuk-label'
-              %>
-
-              <%=
-                cc.text_area :description,
-                             class: "govuk-textarea govuk-js-character-count #{'govuk-textarea--error' if
-                                 @funding_application.project.errors['cash_contributions.description'].any?}",
-                             rows: 5
-              %>
-
-              <span class="govuk-hint govuk-character-count__message"
-                    id="project_cash_contributions_attributes_0_description-info"></span>
-
-            </div>
-
-          </div>
-
-        </div>
-        <!-- / nlhf-add-item__row -->
-
-        <div class="nlhf-add-item__row">
-
-          <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                               @funding_application.project.errors['cash_contributions.secured'].any? %>"
-               id="cash_contributions.secured-form-group">
-
-            <fieldset class="govuk-fieldset">
-
-              <%=
-                render partial: "partials/form_input_errors",
-                       locals: {
-                           form_object: @funding_application.project,
-                           input_field_id: :'cash_contributions.secured'} if
-                      @funding_application.project.errors['cash_contributions.secured'].any?
-              %>
-
-              <div id="cash_contributions.secured-errors"></div>
-
-              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                <h3 class="govuk-fieldset__heading">
-                  <%= t('application.cash_contributions.headings.4') %>
-                </h3>
-              </legend>
-
-              <span id="cash-contribution-conditional-hint" class="govuk-hint">
-                <%= t('generic.select_one_option') %>
-              </span>
-
-              <div class="govuk-radios govuk-radios--conditional govuk-radios--small"
-                   data-module="govuk-radios">
-
-                <div class="govuk-radios__item">
-
-                  <%=
-                    cc.radio_button :secured,
-                                    "yes_with_evidence",
-                                    class: "govuk-radios__input",
-                                    'data-aria-controls': "conditional-cash-contribution-conditional"
-                  %>
-
-                  <%=
-                    cc.label :secured_yes_with_evidence,
-                             t('application.cash_contributions.labels.2').html_safe,
-                             class: "govuk-label govuk-radios__label"
-                  %>
-
-                </div>
-
-                <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-                     id="conditional-cash-contribution-conditional">
-
-                  <div id="file-upload-form-group">
-                    <div class="govuk-form-group <%= 'govuk-form-group--error' if
-                                                         @funding_application.project.errors['cash_contributions.cash_contribution_evidence_files'].any? %>"
-                         id="cash_contributions.cash_contribution_evidence_files-form-group" data-form-group="file">
-
-                      <%=
-                        render partial: "partials/form_input_errors",
-                               locals: {
-                                   form_object: @funding_application.project,
-                                   input_field_id: :'cash_contributions.cash_contribution_evidence_files'} if
-                              @funding_application.project.errors['cash_contributions.cash_contribution_evidence_files'].any?
-                      %>
-
-                      <div id="cash_contributions.cash_contribution_evidence_files-errors"></div>
-
-                      <div id="form-group-errors"></div>
-
-                      <%=
-                        cc.label :cash_contribution_evidence_files,
-                                  t('application.cash_contributions.text.1'),
-                                 class: 'govuk-caption-m govuk-!-margin-bottom-3'
-                      %>
-
-                      <%=
-                        cc.file_field :cash_contribution_evidence_files,
-                                      class: "govuk-file-upload #{'govuk-file-upload--error' if
-                                          @funding_application.project.errors['cash_contributions.cash_contribution_evidence_files'].any?}",
-                                      multiple: false,
-                                      direct_upload: true,
-                                      'data-input-identifier': 'file',
-                                      'data-attribute': :cash_contribution_evidence_files,
-                                      'data-model': 'cash_contributions',
-                                      'data-parent-model': :project,
-                                      'autocomplete' => 'off'
-                      %>
-
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="govuk-radios__item">
-
-                  <%=
-                    cc.radio_button :secured,
-                                    "yes_no_evidence_yet",
-                                    class: "govuk-radios__input"
-                  %>
-
-                  <%=
-                    cc.label :secured_yes_no_evidence_yet,
-                             t('application.cash_contributions.labels.3').html_safe,
-                             class: "govuk-label govuk-radios__label"
-                  %>
-
-                </div>
-
-                <div class="govuk-radios__item">
-
-                  <%=
-                    cc.radio_button :secured,
-                                    "no",
-                                    class: "govuk-radios__input"
-                  %>
-
-                  <%=
-                    cc.label :secured_no,
-                             t('generic.x_no'),
-                             class: "govuk-label govuk-radios__label"
-                  %>
-
-                </div>
-
-                <div class="govuk-radios__item">
-
-                  <%=
-                    cc.radio_button :secured,
-                                    "x_not_sure",
-                                    class: "govuk-radios__input"
-                  %>
-
-                  <%=
-                    cc.label :secured_x_not_sure,
-                             t('generic.x_not_sure'),
-                             class: "govuk-label govuk-radios__label"
-                  %>
-
-                </div>
-
-              </div>
-
-            </fieldset>
-
-          </div>
-
-        </div>
-        <!-- / nlhf-add-item__row -->
-
-        <div class="nlhf-add-item__row">
-
-          <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                               @funding_application.project.errors['cash_contributions.amount'].any? %>"
-               id="cash_contributions.amount-form-group">
-
-            <%=
-              render partial: "partials/form_input_errors",
-                     locals: {
-                         form_object: @funding_application.project,
-                         input_field_id: :'cash_contributions.amount'} if
-                  @funding_application.project.errors['cash_contributions.amount'].any?
-            %>
-
-            <div id="cash_contributions.amount-errors"></div>
-
-            <%=
-              cc.label :amount,
-                      t('generic.amount'),
-                       class: 'govuk-label'
-            %>
-
-            <div class="nlhf-currency-denote">
-
-              <div class="nlhf-currency-denote__symbol">
-                &pound;
-              </div>
-
-              <div class="nlhf-currency-denote__capture">
-
-                <%=
-                  cc.text_field :amount,
-                                "autocomplete" => "off",
-                                  class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
-                                      @funding_application.project.errors['cash_contributions.amount'].any?}"
-                %>
-
-              </div>
-
-            </div>
-
-            <!-- /.nlhf-currency-denote -->
-          </div>
-
-        </div>
-        <!-- / nlhf-add-item__row -->
-
-        <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
-            for the reasoning behind this workaround %>
-        <input type="hidden" name="ieworkaround">
-
-        <div class="nlhf-add-item__row">
-
-          <%=
-            render(
-                ButtonComponent.new(
-                    element: "input",
-                    text: t('application.cash_contributions.buttons.1'),
-                    classes: "govuk-button--secondary"
-                )
-            )
-          %>
-
-        </div>
-        <!-- / nlhf-add-item__row -->
-
-      </div>
-      <!-- / nlhf-add-item__body -->
-    </div>
-    <!-- /.nlhf-add-item -->
   <% end %>
+
 <% end %>
-<!-- /add-cost form -->
 
 <hr class="govuk-section-break--l govuk-section-break--visible">
 
 <form action="<%= funding_application_gp_project_your_grant_request_url %>"
-      method="get">
+  method="get">
 
   <p class="govuk-body">
-        <%= t('application.cash_contributions.text.7') %>
+    <%= t('application.cash_contributions.text.7') %>
   </p>
 
-  <%= render(ButtonComponent.new(element: "input")) %>
+  <%= render(ButtonComponent.new(element: 'input')) %>
 
 </form>

@@ -1,90 +1,39 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: t('application.cash_contributions_question.page_title')
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('application.cash_contributions_question.page_title')
+    }
+  )
 %>
 
 <%=
-  render partial: "partials/summary_errors",
-         locals: {
-             form_object: @funding_application.project,
-             first_form_element: :project_cash_contributions_question_true
-         } if @funding_application.project.errors.any?
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.project,
+      first_form_element: :project_cash_contributions_question_true
+    }
+  ) if @funding_application.project.errors.any?
 %>
 
 <%=
   form_for @funding_application.project,
-           url: :funding_application_gp_project_are_you_getting_cash_contributions,
-           method: :put do |f|
+  url: :funding_application_gp_project_are_you_getting_cash_contributions,
+  method: :put do |f|
 %>
 
-  <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                       @funding_application.project.errors.any? %>">
+  <%=
+    render(
+      partial: 'partials/funding_application/cash_contributions/generic_question',
+      locals: {
+        model_object: @funding_application.project,
+        form_object: f
+      }
+    )
+  %>
 
-    <fieldset class="govuk-fieldset">
-
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-        <h1 class="govuk-fieldset__heading">
-          <span class="govuk-caption-xl">
-            <%= t('views.funding_application.common.about_your_project') %>
-          </span>
-          <%= t('application.cash_contributions_question.page_heading') %>
-        </h1>
-      </legend>
-
-      <%=
-        render partial: "partials/form_group_errors",
-               locals: {
-                   form_object: @funding_application.project
-               } if @funding_application.project.errors.any?
-      %>
-
-      <span id="project[cash_contributions_question]-hint" class="govuk-hint">
-        <%= t('generic.select_one_option') %>
-      </span>
-
-      <div class="govuk-radios" data-module="govuk-radios">
-
-        <div class="govuk-radios__item">
-
-          <%=
-            f.radio_button :cash_contributions_question,
-                           true,
-                           class: "govuk-radios__input"
-          %>
-
-          <%=
-            f.label :cash_contributions_question_true,
-                    t('application.cash_contributions_question.labels.1'),
-                    class: "govuk-label govuk-radios__label"
-          %>
-
-        </div>
-
-        <div class="govuk-radios__item">
-
-          <%=
-            f.radio_button :cash_contributions_question,
-                           false,
-                           class: "govuk-radios__input"
-          %>
-
-          <%=
-            f.label :cash_contributions_question_false,
-                    t('application.cash_contributions_question.labels.2'),
-                    class: "govuk-label govuk-radios__label"
-          %>
-
-        </div>
-
-      </div>
-
-    </fieldset>
-
-  </div>
-
-  <%= render(ButtonComponent.new(element: "input")) %>
+  <%= render(ButtonComponent.new(element: 'input')) %>
 
 <% end %>

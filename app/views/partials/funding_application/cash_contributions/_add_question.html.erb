@@ -1,0 +1,336 @@
+<div class="nlhf-add-item govuk-!-margin-bottom-6">
+
+  <header class="nlhf-add-item__header">
+
+    <h2 class="govuk-heading-l">
+      <%= t('application.cash_contributions.headings.2') %>
+    </h2>
+
+  </header>
+
+  <div class="nlhf-add-item__body">
+
+    <div class="nlhf-add-item__row">
+
+      <details class="govuk-details" data-module="govuk-details">
+
+        <summary class="govuk-details__summary">
+
+          <span class="govuk-details__summary-text">
+            <%= t('application.cash_contributions.text.2') %>
+          </span>
+
+        </summary>
+
+        <div class="govuk-details__text">
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-3">
+            <%= t('application.cash_contributions.headings.5') %>
+          </h3>
+
+          <p class="govuk-body">
+            <%= t('application.cash_contributions.text.3') %>
+          </p>
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-3">
+            <%= t('application.cash_contributions.headings.6') %>
+          </h3>
+
+          <p class="govuk-body govuk-!-margin-bottom-3">
+            <%= t('application.cash_contributions.text.4') %>
+          </p>
+
+          <div class="govuk-warning-text govuk-!-margin-bottom-4">
+
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-warning-text__assistive"><%= t('generic.warning') %></span>
+              <%= t('application.cash_contributions.text.5') %>
+            </strong>
+
+          </div>
+
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-3">
+            <%= t('application.cash_contributions.headings.7') %>
+          </h3>
+
+          <p class="govuk-body">
+              <%= t('application.cash_contributions.text.6') %>
+          </p>
+
+        </div>
+
+      </details>        
+      
+    </div>
+
+    <div class="nlhf-add-item__row">
+
+      <div class="govuk-character-count" data-module="govuk-character-count"
+        data-maxwords="50">
+
+        <div class="govuk-form-group <%= "govuk-form-group--error" if
+          model_object.errors['cash_contributions.description'].any? %>"
+          id="cash_contributions.description-form-group">
+
+          <%=
+            render(
+              partial: 'partials/form_input_errors',
+              locals: {
+                form_object: model_object,
+                input_field_id: :'cash_contributions.description'
+              }
+            ) if model_object.errors['cash_contributions.description'].any?
+          %>
+
+          <div id="cash_contributions.description-errors"></div>
+
+          <%=
+            form_object.label :description,
+            t('application.cash_contributions.labels.1'),
+            class: 'govuk-label'
+          %>
+
+          <%=
+            form_object.text_area :description,
+            class: "govuk-textarea govuk-js-character-count #{'govuk-textarea--error' if
+              model_object.errors['cash_contributions.description'].any?}",
+            rows: 5
+          %>
+
+          <span class="govuk-hint govuk-character-count__message"
+            id="project_cash_contributions_attributes_0_description-info"></span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="nlhf-add-item__row">
+
+      <div class="govuk-form-group <%= "govuk-form-group--error" if
+        model_object.errors['cash_contributions.secured'].any? %>"
+        id="cash_contributions.secured-form-group">
+
+        <fieldset class="govuk-fieldset">
+
+          <%=
+            render(
+              partial: 'partials/form_input_errors',
+              locals: {
+                form_object: model_object,
+                input_field_id: :'cash_contributions.secured'
+              }
+            ) if model_object.errors['cash_contributions.secured'].any?
+          %>
+
+          <div id="cash_contributions.secured-errors"></div>
+
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+
+            <h3 class="govuk-fieldset__heading">
+              <%= t('application.cash_contributions.headings.4') %>
+            </h3>
+
+          </legend>
+
+          <span id="cash-contribution-conditional-hint" class="govuk-hint">
+            <%= t('generic.select_one_option') %>
+          </span>
+
+          <div class="govuk-radios govuk-radios--conditional govuk-radios--small"
+            data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+
+              <%=
+                form_object.radio_button :secured,
+                'yes_with_evidence',
+                class: 'govuk-radios__input',
+                'data-aria-controls': 'conditional-cash-contribution-conditional'
+              %>
+
+              <%=
+                form_object.label :secured_yes_with_evidence,
+                t('application.cash_contributions.labels.2').html_safe,
+                class: 'govuk-label govuk-radios__label'
+              %>
+
+            </div>
+
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+              id="conditional-cash-contribution-conditional">
+
+              <div id="file-upload-form-group">
+
+                <div class="govuk-form-group <%= 'govuk-form-group--error' if
+                  model_object.errors['cash_contributions.cash_contribution_evidence_files'].any? %>"
+                  id="cash_contributions.cash_contribution_evidence_files-form-group" data-form-group="file">
+
+                  <%=
+                    render(
+                      partial: 'partials/form_input_errors',
+                      locals: {
+                        form_object: model_object,
+                        input_field_id: :'cash_contributions.cash_contribution_evidence_files'
+                      }
+                    ) if model_object.errors['cash_contributions.cash_contribution_evidence_files'].any?
+                  %>
+
+                  <div id="cash_contributions.cash_contribution_evidence_files-errors"></div>
+
+                  <div id="form-group-errors"></div>
+
+                  <%=
+                    form_object.label :cash_contribution_evidence_files,
+                    t('application.cash_contributions.text.1'),
+                    class: 'govuk-caption-m govuk-!-margin-bottom-3'
+                  %>
+
+                  <%=
+                    form_object.file_field :cash_contribution_evidence_files,
+                    class: "govuk-file-upload #{'govuk-file-upload--error' if
+                      model_object.errors['cash_contributions.cash_contribution_evidence_files'].any?}",
+                    multiple: false,
+                    direct_upload: true,
+                    'data-input-identifier': 'file',
+                    'data-attribute': :cash_contribution_evidence_files,
+                    'data-model': 'cash_contributions',
+                    'data-parent-model': :project,
+                    'autocomplete' => 'off'
+                  %>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="govuk-radios__item">
+
+              <%=
+                form_object.radio_button :secured,
+                'yes_no_evidence_yet',
+                class: 'govuk-radios__input'
+              %>
+
+              <%=
+                form_object.label :secured_yes_no_evidence_yet,
+                t('application.cash_contributions.labels.3').html_safe,
+                class: 'govuk-label govuk-radios__label'
+              %>
+
+            </div>
+
+            <div class="govuk-radios__item">
+
+              <%=
+                form_object.radio_button :secured,
+                'no',
+                class: 'govuk-radios__input'
+              %>
+
+              <%=
+                form_object.label :secured_no,
+                t('generic.x_no'),
+                class: 'govuk-label govuk-radios__label'
+              %>
+
+            </div>
+
+            <div class="govuk-radios__item">
+
+              <%=
+                form_object.radio_button :secured,
+                'x_not_sure',
+                class: 'govuk-radios__input'
+              %>
+
+              <%=
+                form_object.label :secured_x_not_sure,
+                t('generic.x_not_sure'),
+                class: 'govuk-label govuk-radios__label'
+              %>
+
+            </div>
+
+          </div>
+
+        </fieldset>
+
+      </div>
+
+    </div>
+
+    <div class="nlhf-add-item__row">
+
+      <div class="govuk-form-group <%= "govuk-form-group--error" if
+        model_object.errors['cash_contributions.amount'].any? %>"
+        id="cash_contributions.amount-form-group">
+
+        <%=
+          render(
+            partial: 'partials/form_input_errors',
+            locals: {
+              form_object: model_object,
+              input_field_id: :'cash_contributions.amount'
+            }
+          ) if model_object.errors['cash_contributions.amount'].any?
+        %>
+
+        <div id="cash_contributions.amount-errors"></div>
+
+        <%=
+          form_object.label :amount,
+          t('generic.amount'),
+          class: 'govuk-label'
+        %>
+
+        <div class="nlhf-currency-denote">
+
+          <div class="nlhf-currency-denote__symbol">
+            &pound;
+          </div>
+
+          <div class="nlhf-currency-denote__capture">
+
+            <%=
+              form_object.text_field :amount,
+              'autocomplete' => 'off',
+              class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
+                model_object.errors['cash_contributions.amount'].any?}"
+            %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <%#
+      See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+      for the reasoning behind this workaround
+    %>
+    <input type="hidden" name="ieworkaround">
+
+    <div class="nlhf-add-item__row">
+
+      <%=
+        render(
+            ButtonComponent.new(
+                element: 'input',
+                text: t('application.cash_contributions.buttons.1'),
+                classes: 'govuk-button--secondary'
+            )
+        )
+      %>
+
+    </div>
+
+  </div>
+
+</div>
