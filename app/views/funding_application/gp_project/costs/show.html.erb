@@ -1,9 +1,11 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: t("application.costs.page_title")
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('application.costs.page_title')
+    }
+  )
 %>
 
 <% if @funding_application.project.errors.any? %>
@@ -32,7 +34,7 @@
 
         <% @funding_application.project.errors.each do |attr, msg| %>
 
-          <% unless attr.to_s == "project_costs" %>
+          <% unless attr.to_s == 'project_costs' %>
             <li>
               <a href='#project_project_costs_attributes_0_<%= "#{attr.to_s.split('.')[1]}" %>'>
                 <%= msg %>
@@ -49,427 +51,36 @@
   </div>
 <% end %>
 
-<div class="nlhf-page-header govuk-!-margin-bottom-9">
-
-  <div class="govuk-caption-xl">
-    <%= t('views.funding_application.common.about_your_project') %>
-  </div>
-
-  <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
-    <%= t('application.costs.headings.1') %>
-  </h1>
-
-  <p class="govuk-body-l">
-    <%= t('application.costs.text.1') %>
-  </p>
-
-</div>
-
-<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
-
-  <header class="nlhf-summary__header">
-    <h2 class="govuk-heading-m">
-      <%= t('application.costs.headings.2') %>
-    </h2>
-  </header>
-
-  <div class="nlhf-summary__body">
-
-    <% unless @funding_application.project.project_costs.first&.id.present? %>
-
-      <h3 class="govuk-heading-m">
-        <%= t('application.costs.headings.3') %>
-      </h3>
-
-      <p class="govuk-body">
-        <%= t('application.costs.text.2') %>
-      </p>
-
-    <% else %>
-
-      <table class="govuk-table">
-
-        <thead class="govuk-table__head">
-
-        <tr class="govuk-table__row">
-
-          <th scope="col" class="govuk-table__header">
-            <%= t('application.costs.th.1') %>
-          </th>
-          <th scope="col" class="govuk-table__header">
-            <%= t('application.costs.th.2') %>
-          </th>
-          <th scope="col" class="govuk-table__header">
-            <%= t('application.costs.th.3') %>
-          </th>
-          <th scope="col" class="govuk-table__header"></th>
-
-        </tr>
-
-        </thead>
-
-        <tbody class="govuk-table__body">
-
-        <% @funding_application.project.project_costs.select{|pc| pc.id.present?}.each do |pc| %>
-
-          <tr class="govuk-table__row">
-
-            <td scope="govuk-table__cell" class="govuk-table__cell">
-              <%= pc.cost_type&.humanize&.capitalize %>
-            </td>
-
-            <td class="govuk-table__cell">
-              <%= pc.description %>
-            </td>
-
-            <td class="govuk-table__cell govuk-table__cell--numeric">
-              <%= number_to_currency(pc.amount, strip_insignificant_zeros: true) %>
-            </td>
-
-            <td scope="govuk-table__cell" class="govuk-table__cell">
-
-              <%=
-                form_with model: @funding_application.project,
-                          url: funding_application_gp_project_cost_delete_path(project_cost_id: pc.id),
-                          method: :delete,
-                          local: true do |f|
-              %>
-
-                <%=
-                  render(
-                      ButtonComponent.new(
-                          element: "input",
-                          classes: "govuk-button--warning",
-                          text: t('generic.delete')
-                      )
-                  )
-                %>
-
-              <% end %>
-
-            </td>
-
-          </tr>
-
-        <% end %>
-
-        </tbody>
-
-      </table>
-
-      <div class="nlhf-summary__total">
-
-        <h3 class="nlhf-summary__total__title">
-
-          <span class="nlhf-summary__total__title-text"><%= t('application.costs.text.3') %> </span>
-
-          <span class="nlhf-summary__total__title-val">
-
-              <%=
-                number_to_currency(
-                    calculate_total(
-                        @funding_application.project.project_costs
-                    ),
-                    strip_insignificant_zeros: true
-                )
-              %>
-
-            </span>
-
-        </h3>
-
-      </div>
-
-    <% end %>
-
-  </div>
-
-</section>
-
-<h2 class="govuk-heading-l govuk-!-margin-bottom-6">
-  <%= t('application.costs.headings.4') %>
-</h2>
-
-<p class="govuk-heading-s">
-  <%= t('application.costs.text.4') %>
-</p>
-
-<p class="govuk-body">
-  <%= t('application.costs.text.5') %>
-</p>
-
-<details class="govuk-details  govuk-!-margin-bottom-6"
-         data-module="govuk-details">
-
-  <summary class="govuk-details__summary">
-
-        <span class="govuk-details__summary-text">
-          <%= t('application.costs.text.7') %>
-        </span>
-
-  </summary>
-
-  <div class="govuk-details__text">
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.1.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.1.text.1') %>
-    </p>
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.1.text.2') %>
-    </p>
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.1.text.3') %>
-    </p>
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.1.text.4') %>
-    </p>
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.1.text.5') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.2.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.2.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.3.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.3.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.15.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.15.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.4.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.4.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.5.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.5.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.6.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.6.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.7.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.7.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.8.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.8.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.9.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.9.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.10.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.10.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.11.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.11.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.12.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.12.text.1') %>
-    </p>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.12.text.2') %>
-    </p>
-
-     <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.13.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.13.text.1') %>
-    </p>
-
-    <h3 class="govuk-heading-s">
-      <%= t('application.costs.cost_types.14.heading') %>
-    </h3>
-
-    <p class="govuk-body">
-      <%= t('application.costs.cost_types.14.text.1') %>
-    </p>
-
-  </div>
-</details>
+<%=
+  render(
+    partial: 'partials/funding_application/costs/page_upper',
+    locals: {
+      model_object: @funding_application.project,
+      delete_path: 'funding_application_gp_project_cost_delete_path'
+    }
+  )
+%>
 
 <%=
   form_with model: @funding_application.project,
-            url: :funding_application_gp_project_costs,
-            class: "govuk-!-margin-bottom-3",
-            method: :put, local: true do |f|
+  url: :funding_application_gp_project_costs,
+  class: 'govuk-!-margin-bottom-3',
+  method: :put,
+  local: true do |f|
 %>
 
-  <%= f.fields_for :project_costs, @funding_application.project.project_costs.build do |pc| %>
-
-    <div class="govuk-form-group govuk-!-margin-top-3 <%= "govuk-form-group--error" if @funding_application.project.errors['project_costs.cost_type'].any? %>">
-
-      <%=
-        render partial: "partials/form_input_errors",
-               locals: {
-                   form_object: @funding_application.project,
-                   input_field_id: :'project_costs.cost_type'} if
-            @funding_application.project.errors['project_costs.cost_type'].any?
-      %>
-
-      <%=
-        pc.label :cost_type,
-                 t('application.costs.labels.cost_type'),
-                 class: 'govuk-label'
-      %>
-
-      <%= pc.select :cost_type,
-                    options_for_select(ProjectCost.cost_types.map { |k, _v| [I18n.t("application.costs.cost_types_select.#{k}"), k] },
-                                       flash['cost_type']),
-                    {},
-                    { class: 'govuk-select' }
-      %>
-
-    </div>
-
-    <div class="govuk-character-count" data-module="govuk-character-count"
-         data-maxwords="50">
-
-      <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                           @funding_application.project.errors['project_costs.description'].any? %>">
-
-        <%=
-          render partial: "partials/form_input_errors",
-                 locals: {
-                     form_object: @funding_application.project,
-                     input_field_id: :'project_costs.description'} if
-              @funding_application.project.errors['project_costs.description'].any?
-        %>
-
-        <%=
-          pc.label :description,
-                   t('application.costs.labels.description'),
-                   class: 'govuk-label'
-        %>
-
-        <%=
-          pc.text_area :description,
-                       class: "govuk-textarea govuk-js-character-count #{'govuk-textarea--error' if @funding_application.project.errors['project_costs.description'].any?}",
-                       rows: 5,
-                       value: "#{flash[:description] if
-                           flash[:description].present?}"
-        %>
-
-        <span id="project_project_costs_attributes_0_description-info"
-              class="govuk-hint govuk-character-count__message"
-              aria-live="polite">
-            <%= t('generic.word_count', max_words: 500) %>
-        </span>
-
-      </div>
-
-    </div>
-
-    <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                         @funding_application.project.errors['project_costs.amount'].any? %>">
-
-      <%=
-        render partial: "partials/form_input_errors",
-               locals: {
-                   form_object: @funding_application.project,
-                   input_field_id: :'project_costs.amount'} if
-            @funding_application.project.errors['project_costs.amount'].any? %>
-
-      <%=
-        pc.label :amount,
-                 t('application.costs.labels.amount'),
-                 class: 'govuk-label'
-      %>
-
-      <span id="cost-amount-hint" class="govuk-hint">
-        <%= t('application.costs.text.6') %>
-      </span>
-
-      <div class="nlhf-currency-denote">
-
-        <div class="nlhf-currency-denote__symbol">
-          &pound;
-        </div>
-
-        <div class="nlhf-currency-denote__capture">
-
-          <%=
-            pc.text_field :amount,
-                          "autocomplete" => "off",
-                          class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if @funding_application.project.errors['project_costs.amount'].any?}",
-                          value: "#{flash[:amount] if flash[:amount].present?}"
-          %>
-
-        </div>
-
-      </div>
-
-    </div>
+  <%=
+    f.fields_for :project_costs,
+    @funding_application.project.project_costs.build do |pc|
+  %>
 
     <%=
       render(
-          ButtonComponent.new(
-              element: "input",
-              text: t('application.costs.buttons.1'),
-              classes: "govuk-button--secondary"
-          )
+        partial: 'partials/funding_application/costs/question',
+        locals: {
+          model_object: @funding_application.project,
+          form_object: pc
+        }
       )
     %>
 
@@ -485,9 +96,10 @@
 
 <%=
   form_with url: :funding_application_gp_project_confirm_costs,
-            method: :put, local: true do
+  method: :put,
+  local: true do
 %>
 
-  <%= render(ButtonComponent.new(element: "input")) %>
+  <%= render(ButtonComponent.new(element: 'input')) %>
 
 <% end %>
