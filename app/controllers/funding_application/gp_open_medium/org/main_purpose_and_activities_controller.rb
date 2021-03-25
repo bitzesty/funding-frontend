@@ -8,8 +8,9 @@ class FundingApplication::GpOpenMedium::Org::MainPurposeAndActivitiesController 
   end
 
   # This method updates the main_purpose_and_activities attribute of an
-  # organisation, redirecting to :TODO if successful
-  # and re-rendering :show method if unsuccessful
+  # organisation, redirecting to
+  # :funding_application_gp_open_medium_board_members_or_trustees if
+  # successful and re-rendering :show method if unsuccessful
   def update
 
     @organisation = current_user.organisations.first
@@ -30,9 +31,7 @@ class FundingApplication::GpOpenMedium::Org::MainPurposeAndActivitiesController 
         "for organisation ID: #{@organisation.id}"
       )
 
-      render :show
-
-      # redirect_to :pre_application_project_enquiry_previous_contact if @pre_application.pa_project_enquiry.present?
+      redirect_to :funding_application_gp_open_medium_board_members_or_trustees
 
     else
 

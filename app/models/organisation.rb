@@ -25,6 +25,7 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_mission
   attr_accessor :validate_legal_signatories
   attr_accessor :validate_main_purpose_and_activities
+  attr_accessor :validate_board_members_or_trustees
 
   validates_associated :legal_signatories,
                        if: :validate_legal_signatories?
@@ -39,6 +40,11 @@ class Organisation < ApplicationRecord
   validates :county, presence: true, if: :validate_address?
   validates :postcode, presence: true, if: :validate_address?
   validates :main_purpose_and_activities, presence: true, if: :validate_main_purpose_and_activities?
+  validates :board_members_or_trustees, numericality: {
+    greater_than: 0,
+    less_than: 2147483648,
+    allow_nil: true
+  }, if: :validate_board_members_or_trustees?
 
   validate do
 
@@ -76,6 +82,10 @@ class Organisation < ApplicationRecord
 
   def validate_main_purpose_and_activities?
     validate_main_purpose_and_activities == true
+  end
+
+  def validate_board_members_or_trustees?
+    validate_board_members_or_trustees == true
   end
 
   # Custom validator to determine whether any of the items in the incoming mission array

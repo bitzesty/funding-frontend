@@ -1,0 +1,35 @@
+<div  class="govuk-form-group <%= "govuk-form-group--error" if
+  model_object.errors[:board_members_or_trustees].any? %>">
+
+  <h1 class="govuk-label-wrapper">
+
+    <span class="govuk-caption-xl">
+      <%= t('views.organisation.common.about_your_organisation') %>
+    </span>
+
+    <%=
+      form_object.label :board_members_or_trustees,
+      t('board_members_or_trustees.page_heading'),
+      class: 'govuk-label govuk-label--xl'
+    %>
+
+  </h1>
+
+  <%=
+    render(
+      partial: "partials/form_input_errors",
+      locals: {
+        form_object: model_object,
+        input_field_id: :board_members_or_trustees
+        }
+    ) if model_object.errors[:board_members_or_trustees].any?
+  %>
+
+  <%=
+    form_object.text_field :board_members_or_trustees,
+    rows: 10,
+    class: "govuk-input govuk-input--width-4 #{'govuk-input--error' if
+      model_object.errors[:board_members_or_trustees].any?}"
+  %>
+
+</div>

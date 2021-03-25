@@ -266,6 +266,8 @@ Rails.application.routes.draw do
 
           get 'main-purpose-of-organisation', to: 'main_purpose_and_activities#show'
           put 'main-purpose-of-organisation', to: 'main_purpose_and_activities#update'
+          get 'board-members-or-trustees', to: 'board_members_or_trustees#show'
+          put 'board-members-or-trustees', to: 'board_members_or_trustees#update'
 
         end
 

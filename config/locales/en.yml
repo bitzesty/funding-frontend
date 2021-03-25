@@ -174,6 +174,10 @@ en-GB:
             main_purpose_and_activities:
               blank: "Enter your organisation's main purpose or activities"
               too_long: "Description of your organisation's main purpose or activities must be %{word_count} words or fewer"
+            board_members_or_trustees:
+              not_a_number: "Number of board members or trustees must be a number"
+              greater_than: "Enter an amount greater than 0"
+              less_than: "Enter an amount less than 2147483648"
         legal_signatory:
           attributes:
             name:
