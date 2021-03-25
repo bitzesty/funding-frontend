@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :organisations, through: :users_organisations
 
   has_many :projects
+  has_many :open_medium
 
   belongs_to :person, optional: true
 

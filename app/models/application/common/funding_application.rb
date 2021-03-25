@@ -3,6 +3,7 @@ class FundingApplication < ApplicationRecord
   has_many :addresses, through: :funding_application_addresses
 
   has_one :project
+  has_one :open_medium
   has_one :payment_details
   belongs_to :organisation, optional: true
 

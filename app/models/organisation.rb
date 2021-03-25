@@ -1,4 +1,6 @@
 class Organisation < ApplicationRecord
+  include ActiveModel::Validations, GenericValidator
+
   self.implicit_order_column = "created_at"
 
   has_many :legal_signatories
@@ -22,6 +24,7 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_address
   attr_accessor :validate_mission
   attr_accessor :validate_legal_signatories
+  attr_accessor :validate_main_purpose_and_activities
 
   validates_associated :legal_signatories,
                        if: :validate_legal_signatories?
@@ -35,6 +38,17 @@ class Organisation < ApplicationRecord
   validates :townCity, presence: true, if: :validate_address?
   validates :county, presence: true, if: :validate_address?
   validates :postcode, presence: true, if: :validate_address?
+  validates :main_purpose_and_activities, presence: true, if: :validate_main_purpose_and_activities?
+
+  validate do
+
+    validate_length(
+      :main_purpose_and_activities,
+      500,
+      I18n.t('activerecord.errors.models.organisation.attributes.main_purpose_and_activities.too_long', word_count: 500)
+    ) if validate_main_purpose_and_activities?
+
+  end
 
   def validate_name?
     validate_name == true
@@ -58,6 +72,10 @@ class Organisation < ApplicationRecord
 
   def validate_legal_signatories?
     validate_legal_signatories == true
+  end
+
+  def validate_main_purpose_and_activities?
+    validate_main_purpose_and_activities == true
   end
 
   # Custom validator to determine whether any of the items in the incoming mission array

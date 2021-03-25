@@ -15,6 +15,23 @@ class DashboardController < ApplicationController
 
         @funding_applications = current_user.organisations.first.funding_applications
 
+        if @funding_applications.present?
+
+          @gp_open_smalls = []
+          @gp_open_mediums = []
+
+          @funding_applications.each do |funding_application|
+
+            @gp_open_smalls.push(funding_application) if
+              funding_application.project.present?
+
+            @gp_open_mediums.push(funding_application) if
+              funding_application.open_medium.present?
+
+          end
+
+        end
+
         @pre_applications = current_user.organisations.first.pre_applications
 
         @pa_project_enquiry_presence = get_pa_project_enquiry_presence(@pre_applications)

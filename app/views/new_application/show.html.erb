@@ -92,6 +92,56 @@
 
       <% end %>
 
+      <% if Flipper[:grant_programme_sff_medium].enabled? %>
+
+        <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+          <div class="govuk-radios__item">
+
+            <%=
+              f.radio_button :application_type,
+              "sff_medium",
+              class: "govuk-radios__input",
+              "data-aria-controls" => "conditional-application_type_sff_medium"
+            %>
+
+            <%= 
+              f.label :sff_medium, 
+              t('new_application.types.gp_oss_medium.name'),
+              class: "govuk-label govuk-radios__label govuk-label--s" 
+            %>
+
+          <span id="application_type_sff_medium-hint" class="govuk-hint govuk-radios__hint">
+            <%= t('new_application.types.gp_oss_medium.info') %>
+          </span>
+
+          </div>
+
+          <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+              id="conditional-application_type_sff_medium">
+
+            <p class="govuk-body">
+              <%= t('new_application.types.gp_oss_medium.info_conditional') %>
+            </p>
+
+            <ul class="govuk-list govuk-list--bullet">
+
+              <li>
+                <%= t('new_application.types.gp_oss_medium.info_conditional_li_1') %>
+              </li>
+
+              <li>
+                <%= t('new_application.types.gp_oss_medium.info_conditional_li_2') %>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
     </fieldset>
 
   </div>

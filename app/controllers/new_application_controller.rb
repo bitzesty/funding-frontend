@@ -83,6 +83,12 @@ class NewApplicationController < ApplicationController
 
       redirect_to :funding_application_gp_project_start
 
+    when 'sff_medium'
+
+      logger.info "Redirecting to SFF Medium form for user ID: #{current_user.id}"
+
+      redirect_to :funding_application_gp_open_medium_start
+
     else
       logger.info 'Method redirect_to_application_start_page called with ' \
                   'an application object containing an ' \

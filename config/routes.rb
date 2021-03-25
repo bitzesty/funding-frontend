@@ -254,6 +254,24 @@ Rails.application.routes.draw do
       end
 
     end
+
+    scope 'gp-open-medium', module: 'gp_open_medium', as: :gp_open_medium do
+
+      get 'start', to: 'start#show'
+      post 'start', to: 'start#update'
+
+      scope '/:application_id' do
+
+        scope 'org', module: 'org' do
+
+          get 'main-purpose-of-organisation', to: 'main_purpose_and_activities#show'
+          put 'main-purpose-of-organisation', to: 'main_purpose_and_activities#update'
+
+        end
+
+      end
+    
+    end
  
     scope 'gp-project', module: 'gp_project', as: :gp_project do
 

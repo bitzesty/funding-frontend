@@ -14,6 +14,8 @@ en-GB:
         sub_content: "This account currently has no active funding applications with The National Lottery Heritage Fund"
       existing:
         sub_content: "The following applications are in your account:"
+      no_3k_to_10k_applications: "No £3,000 - £10,000 applications found."
+      no_10k_to_250k_applications: "No £10,000 - £250,000 applications found."
       buttons:
         start: "Start a new application"
     pa_project_enquiries:

@@ -2,6 +2,7 @@
 en-GB:
   funding_programmes:
     open_small_three_to_ten_k: "£3,000 &ndash; £10,0000"
+    open_small_ten_to_two_hundred_and_fifty_k: "£10,000 &ndash; £250,000"
   account_created_continue_link: "/organisation/type"
   application_guidance_link: "#"
   fair_processing_email: fair.processing@heritagefund.org.uk
@@ -170,6 +171,9 @@ en-GB:
               blank: "Enter the county where your organisation is located"
             postcode:
               blank: "Enter the postcode where your organisation is located"
+            main_purpose_and_activities:
+              blank: "Enter your organisation's main purpose or activities"
+              too_long: "Description of your organisation's main purpose or activities must be %{word_count} words or fewer"
         legal_signatory:
           attributes:
             name:

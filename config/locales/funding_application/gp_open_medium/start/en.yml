@@ -1,0 +1,24 @@
+en-GB:
+  gp_open_medium:
+    start:
+      page_title: "Apply for £10,000 to £250,000"
+      page_heading_html: "Apply for a grant of <br /> £10,000 to £250,000"
+      use_this_service: "Use this service to:"
+      use_this_service_desc: "Apply for funding from the National Lottery Heritage Fund for your heritage project."
+      page_sub_heading_1: "We will ask"
+      page_sub_heading_2: "You will need"
+      page_sub_heading_3: "Before you start"
+      we_will_ask_list:
+        item_1: "Questions to find out if your project fits our funding criteria"
+        item_2: "What your project will do"
+        item_3: "Which of our outcomes your project will achieve"
+        item_4: "How much your project will cost"
+      you_will_need_list:
+        item_1: "A bank account for your organisation"
+        item_2: "A constitution, or governing document, for your organisation"
+      read_about_what_we_fund_html: "Read about %{href} in more detail"
+      read_about_what_we_fund_text: "what we fund"
+      project_outcomes_html: "Learn what we mean by %{href}. Outcomes are what we will assess your application against when making a funding decision"
+      project_outcomes_text: "project outcomes"
+      application_guidance_html: "You might find it helpful to refer to our %{href} when answering the questions in this form"
+      application_guidance_text: "Application Guidance"
