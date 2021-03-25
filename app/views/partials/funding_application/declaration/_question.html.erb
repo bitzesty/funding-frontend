@@ -1,0 +1,219 @@
+<h1 class="govuk-heading-xl">
+  <%= t('declaration.page_heading') %>
+</h1>
+
+<h2 class="govuk-heading-m">
+  <%= t('declaration.sub_headings.terms_of_grant') %>
+</h2>
+
+<p class="govuk-body">
+  <%=
+    t(
+      'declaration.text.standard_terms_of_grant_html',
+      href: link_to(
+        t('declaration.text.standard_terms_of_grant_href'),
+        'https://www.heritagefund.org.uk/publications/standard-terms-grants-3k-10k',
+        class: 'govuk-link'
+      )
+    )
+  %>
+</p>
+
+<p class="govuk-body">
+  <%= t('declaration.text.confirming_organisation_accepts_terms') %>
+</p>
+
+<h2 class="govuk-heading-m">
+  <%= t('declaration.sub_headings.foi_and_data_protection') %>
+</h2>
+
+<p class="govuk-body">
+  <%= t('declaration.text.committed_to_being_open') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('declaration.text.collect_name_and_position') %>
+</p>
+
+<%=
+  form_object.label :declaration_reasons_description,
+  t('declaration.labels.declaration_reasons_description'),
+  class: 'govuk-body govuk-!-margin-bottom-3 nlhf-!-display-block'
+%>
+
+  <%=
+    form_object.text_area :declaration_reasons_description,
+    rows: 10,
+    class: "govuk-textarea #{'govuk-input--error' if
+      model_object.errors[:declaration_reasons_description].any?}"
+  %>
+
+  <p class="govuk-body">
+    <%= t('declaration.text.declaration_reasons_context') %>
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet">
+
+    <li>
+      <%= t('declaration.text.declaration_reasons_context_list.whether_to_give_grant') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.declaration_reasons_context_list.provide_copies') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.declaration_reasons_context_list.share_information') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.declaration_reasons_context_list.hold_in_database') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.declaration_reasons_context_list.publish_information') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.declaration_reasons_context_list.support_our_work') %>
+    </li>
+
+  </ul>
+
+  <div class="govuk-form-group">
+
+    <p class="govuk-body">
+      <%= t('declaration.text.we_may_contact_you') %>
+    </p>
+
+    <div class="govuk-checkboxes govuk-checkboxes--small">
+
+      <div class="govuk-checkboxes__item">
+
+        <%=
+          form_object.check_box :keep_informed_declaration,
+          {
+            id: :project_keep_informed_declaration,
+            class: 'govuk-checkboxes__input'
+          },
+          'true',
+          'false'
+        %>
+
+        <%=
+          form_object.label :keep_informed_declaration,
+          t('declaration.labels.keep_informed_declaration'),
+          class: 'govuk-label govuk-checkboxes__label'
+        %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <ul class="govuk-list govuk-list--bullet">
+
+    <li>
+      <%= t('declaration.text.confirmations_list.organisation_has_given_authority') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.confirmations_list.within_purposes') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.confirmations_list.power_to_accept') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.confirmations_list.keep_to_standard_terms') %>
+    </li>
+
+    <li>
+      <%= t('declaration.text.confirmations_list.information_true_and_correct') %>
+    </li>
+
+  </ul>
+
+<div class="govuk-form-group <%= "govuk-form-group--error" if
+  model_object.errors.any? %>">
+
+  <%=
+    render(
+      partial: 'partials/form_group_errors',
+      locals: {
+        form_object: model_object
+      }
+    ) if model_object.errors.any?
+  %>
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+      <%= t('declaration.sub_headings.appying_on_behalf_of_partnership') %>
+    </legend>
+
+    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :is_partnership,
+          'true',
+          class: 'govuk-radios__input',
+          required: true,
+          'data-aria-controls' => 'conditional-is_partnership_true'
+        %>
+
+        <%=
+          form_object.label :is_partnership_true,
+          t('generic.x_yes'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="conditional-is_partnership_true">
+
+        <div class="govuk-form-group">
+
+          <%=
+            form_object.label :partnership_details,
+            t('declaration.labels.partnership_details'),
+            class: 'govuk-label'
+          %>
+
+          <%=
+            form_object.text_area :partnership_details,
+            class: "govuk-textarea #{'govuk-textarea--error' if
+              model_object.errors[:partnership_details].any?}",
+            rows: 5
+          %>
+
+        </div>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :is_partnership,
+          'false',
+          class: 'govuk-radios__input'
+        %>
+
+        <%=
+          form_object.label :is_partnership_false,
+          t('generic.x_no'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+    </div>
+
+  </fieldset>
+
+</div>

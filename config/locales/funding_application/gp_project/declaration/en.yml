@@ -1,0 +1,33 @@
+en-GB:
+  declaration:
+    page_title: "Declaration"
+    page_heading: "Declaration"
+    sub_headings:
+      terms_of_grant: "a) Terms of Grant"
+      foi_and_data_protection: "b) Freedom of Information and Data Protection"
+      appying_on_behalf_of_partnership: "Are you applying on behalf of a partnership?"
+    labels:
+      declaration_reasons_description: "When you complete the Declaration at the end of the application form, you are confirming that you understand our legal responsibilities under data protection legislation and the Freedom of Information Act 2000 and have no objection to us releasing the About your project and Support for your project sections of the application form to anyone who asks to see them once your application has completed the assessment process. If there is any information in these sections of the form that you don't want made publicly available, please explain your reasons below:"
+      keep_informed_declaration: "Tick this box if you wish to be kept informed of our work."
+      partnership_details: "Please tell us the organisation(s) you will be delivering your project in partnership with and provide a contact for each partner organisation (name and position)."
+    text:
+      standard_terms_of_grant_html: "Your must read the %{href} for this programme on our website."
+      standard_terms_of_grant_href: "standard terms of grant"
+      confirming_organisation_accepts_terms: "By completing this Declaration, you are confirming that your organisation accepts these terms. For partnership projects, all partners must confirm that they accept the standard terms of grant by adding a contact at the end of the declaration."
+      committed_to_being_open: "We are committed to being as open as possible. This includes being clear about how we assess and make decisions on our grants and how we will use your application form and other documents you give us. As a public organisation we have to follow all data protection laws and regulations, to include European Parliament directives and regulations that are applicable and in force from time to time (the 'Data Protection legislation'). As defined by the Data Protection legislation the Trustees of the National Heritage Memorial Fund (who administer The National Lottery Heritage Fund) is a data controller."
+      collect_name_and_position: "As part of the application process we will collect your name and position at the organisation you represent. We may share this information with one of the consultants on our Register of Support Services if they are appointed to help support you on your project. We do not transfer your data to any third parties based outside of the EU. Our Privacy Policy contains additional information including contact information for our Data Protection Officer. It can be found on the National Lottery Heritage Fund website."
+      declaration_reasons_context: "We will take these into account when we respond to any request for access to those sections. We may also be asked to release other information that you provide to us. We will respond to these requests after taking account of your rights and expectations under Data Protection legislation. In those cases, we will always consult you first. We will not be responsible for any loss or damage you suffer as a result of our meeting these responsibilities."
+      declaration_reasons_context_list:
+        whether_to_give_grant: "To decide whether to give you a grant."
+        provide_copies: "To provide copies to other individuals or organisations who are helping us to assess, monitor and evaluate grants."
+        share_information: "To share information with organisations and individuals working with us with a legitimate interest in Lottery applications and grants or specific funding programmes."
+        hold_in_database: "To hold in a database and use for statistical purposes."
+        publish_information: "If we offer you a grant, we will publish information about you relating to the activity we have funded, including the amount of the grant and the activity it was for. This information may appear in our press releases, in our print and online publications, and in the publications or websites of relevant Government departments and any partner organisations who have funded the activity with us."
+        support_our_work: "If we offer you a grant, you will support our work to demonstrate the value of heritage by contributing (when asked) to publicity activities during the period we provide funding for and participating in activities to share learning, for which we may put other grantees in contact with you."
+      we_may_contact_you: "We may contact you from time to time to keep you informed about the work of The National Lottery Heritage Fund."
+      confirmations_list:
+        organisation_has_given_authority: "I confirm that the organisation named on this application has given me the authority to complete this application on its behalf."
+        within_purposes: "I confirm that the activity in the application falls within the purposes and legal powers of the organisation."
+        power_to_accept: "I confirm that the organisation has the power to accept and pay back the grant."
+        keep_to_standard_terms: "I confirm that if the organisation receives a grant, we will keep to the standard terms of grant, and any further terms or conditions as set out in the grant notification letter, or in any contract prepared specifically for the project."
+        information_true_and_correct: "I confirm that, as far as I know, the information in this application is true and correct."
