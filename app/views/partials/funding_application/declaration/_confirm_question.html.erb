@@ -1,0 +1,81 @@
+<div class="govuk-form-group <%= "govuk-form-group--error" if
+  model_object.errors.any? %>">
+
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
+
+    <span class="govuk-caption-xl">
+      <%= t('views.funding_application.common.about_your_project') %>
+    </span>
+
+    <%= t('confirm_declaration.page_heading') %>
+
+  </h1>
+
+  <%=
+    render(
+      partial: 'partials/form_group_errors',
+      locals: {
+        form_object: model_object
+      }
+    ) if model_object.errors.any?
+  %>
+
+  <p class="govuk-body-l">
+    <%= t('confirm_declaration.text.ready_to_apply') %>
+  </p>
+
+  <div class="govuk-checkboxes">
+
+    <p class="govuk-body">
+      <%= t('confirm_declaration.text.user_research') %>
+    </p>
+
+    <div class="govuk-checkboxes__item">
+
+      <%=
+        form_object.check_box :user_research_declaration,
+        {
+          id: :project_user_research_declaration,
+          class: 'govuk-checkboxes__input'
+        },
+        'true',
+        'false'
+      %>
+
+      <%=
+        form_object.label :user_research_declaration,
+        t('confirm_declaration.labels.user_research_declaration'),
+        class: 'govuk-label govuk-checkboxes__label'
+      %>
+
+    </div>
+
+    <div class="govuk-checkboxes__item">
+
+      <%=
+        form_object.check_box :confirm_declaration,
+        {
+          id: :project_confirm_declaration,
+          class: 'govuk-checkboxes__input'
+        },
+        'true',
+        nil
+      %>
+
+      <%=
+        form_object.label :confirm_declaration,
+        t(
+          'confirm_declaration.labels.confirm_declaration_html',
+          href: link_to(
+            t('confirm_declaration.labels.confirm_declaration_href'),
+            :funding_application_gp_project_declaration
+          )
+        ),
+        class: 'govuk-label govuk-checkboxes__label'
+      %>
+
+    </div>
+
+  </div>
+
+</div>

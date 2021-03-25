@@ -1,108 +1,51 @@
 <%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @funding_application.project,
-             page_title: "Confirm declaration"
-         }
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.project,
+      page_title: t('confirm_declaration.page_title')
+    }
+  )
 %>
 
 <%=
-  render partial: "partials/summary_errors",
-         locals: {
-             form_object: @funding_application.project,
-             first_form_element: :project_confirm_declaration
-         } if @funding_application.project.errors.any?
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.project,
+      first_form_element: :project_confirm_declaration
+    }
+  ) if @funding_application.project.errors.any?
 %>
 
 <%=
   form_for @funding_application.project,
-           url: :funding_application_gp_project_confirm_declaration,
-           method: :put do |f|
+  url: :funding_application_gp_project_confirm_declaration,
+  method: :put do |f|
 %>
-
-  <div class="govuk-form-group <%= "govuk-form-group--error" if
-                                       @funding_application.project.errors.any? %>">
-
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
-      <span class="govuk-caption-xl">About your project</span>
-      Confirm declaration
-    </h1>
-
-    <%=
-      render partial: "partials/form_group_errors",
-             locals: {
-                 form_object: @funding_application.project
-             } if @funding_application.project.errors.any?
-    %>
-
-    <p class="govuk-body-l">
-      Now that you're happy with your application, you are ready to apply
-      for funding.
-    </p>
-
-    <div class="govuk-checkboxes">
-
-      <p class="govuk-body">
-        We run qualitative user research to help us to develop our products and
-        services. This could be from a 20 minute survey to a 2 hour interview.
-      </p>
-
-      <div class="govuk-checkboxes__item">
-
-        <%=
-          f.check_box :user_research_declaration,
-                      {
-                          id: :project_user_research_declaration,
-                          class: "govuk-checkboxes__input"
-                      },
-                      'true', 'false'
-        %>
-
-        <%=
-          f.label :user_research_declaration,
-                  "Tick this box if you would like to be involved in our " \
-                  "research, or find out more.",
-                  class: "govuk-label govuk-checkboxes__label"
-        %>
-
-      </div>
-
-      <div class="govuk-checkboxes__item">
-
-        <%=
-          f.check_box :confirm_declaration,
-                      {
-                          id: :project_confirm_declaration,
-                          class: "govuk-checkboxes__input"
-                      },
-                      "true",
-                      nil
-        %>
-
-        <%=
-          f.label :confirm_declaration,
-                    "I have read and agreed with the #{link_to 'declaration', :funding_application_gp_project_declaration}".html_safe,
-                    class: "govuk-label govuk-checkboxes__label"
-        %>
-
-      </div>
-
-    </div>
-
-  </div>
 
   <%=
     render(
-        ButtonComponent.new(
-            element: "input",
-            text: "Submit application",
-            attributes: [
-                {
-                    attribute: ("disabled" unless Flipper.enabled?(:grant_programme_sff_small)),
-                    value: ("disabled" unless Flipper.enabled?(:grant_programme_sff_small))
-                }
-            ]
-        )
+      partial: 'partials/funding_application/declaration/confirm_question',
+      locals: {
+        model_object: @funding_application.project,
+        form_object: f
+      }
+    )
+  %>
+
+  <%=
+    render(
+      ButtonComponent.new(
+        element: 'input',
+        text: 'Submit application',
+        attributes: [
+          {
+              attribute: ('disabled' unless Flipper.enabled?(:grant_programme_sff_small)),
+              value: ('disabled' unless Flipper.enabled?(:grant_programme_sff_small))
+          }
+        ]
+      )
     )
   %>
 
