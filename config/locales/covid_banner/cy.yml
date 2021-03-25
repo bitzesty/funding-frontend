@@ -1,10 +1,14 @@
 cy:
   covid_banner:
     heading: "Cyhoeddiad pwysig"
-    p:
-      1: "Defnyddiwch y ffurflen yma i greu cyfrif gyda Chronfa Dreftadaeth y Loteri Genedlaethol os ydych yn gwneud cais am rhwng £3,000 a £10,000 ac mae'r prosiect wedi'i leoli yn:"
-      2: "Os ydych yn gwneud cais am unrhyw swm grant arall, neu fod y prosiect wedi'i leoli yng Nghymru neu Loegr, neu mae gennych gais sy'n bodoli eisoes %{href}."
+    use_this_form_to: "Defnyddiwch y ffurflen hon i greu cyfrif gyda Chronfa Dreftadaeth y Loteri Genedlaethol i:"
+    use_old_portal: "Os ydych yn gwneud cais am unrhyw swm grant arall, neu fod eich prosiect wedi'i leoli yng Nghymru neu Loegr, neu mae gennych gais presennol %{href}."
+
+    list_items:
+      small_grant: "gwneud cais am rhwng £3,000 a £10,000 ar gyfer prosiect sydd wedi'i leoli yn yr Alban neu Ogledd Iwerddon" 
+      eoi: "cyflwyno Datganiad o Ddiddordeb ar gyfer ceisiadau dros £250,000 ledled y DU"
+
     links:
-      1:
-        text: "mewngofnodwch i'r porth ymgeisio"
-        url: "https://forms.hlf.org.uk/officeforms/HLF_Projects.ofml"
+      old_portal_text: "mewngofnodwch i'r porth ymgeisio"
+      old_portal_url: "https://forms.hlf.org.uk/officeforms/HLF_Projects.ofml"
+
