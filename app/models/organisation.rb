@@ -26,6 +26,9 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_legal_signatories
   attr_accessor :validate_main_purpose_and_activities
   attr_accessor :validate_board_members_or_trustees
+  attr_accessor :validate_vat_registered
+  attr_accessor :validate_vat_number
+
 
   validates_associated :legal_signatories,
                        if: :validate_legal_signatories?
@@ -45,6 +48,8 @@ class Organisation < ApplicationRecord
     less_than: 2147483648,
     allow_nil: true
   }, if: :validate_board_members_or_trustees?
+  validates_inclusion_of :vat_registered, in: [true, false], if: :validate_vat_registered?
+  validates :vat_number, length: { minimum: 9, maximum: 12 }, if: :validate_vat_number?
 
   validate do
 
@@ -86,6 +91,14 @@ class Organisation < ApplicationRecord
 
   def validate_board_members_or_trustees?
     validate_board_members_or_trustees == true
+  end
+  
+  def validate_vat_number?
+    validate_vat_number == true
+  end
+
+  def validate_vat_registered?
+    validate_vat_registered == true
   end
 
   # Custom validator to determine whether any of the items in the incoming mission array

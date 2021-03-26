@@ -268,7 +268,8 @@ Rails.application.routes.draw do
           put 'main-purpose-of-organisation', to: 'main_purpose_and_activities#update'
           get 'board-members-or-trustees', to: 'board_members_or_trustees#show'
           put 'board-members-or-trustees', to: 'board_members_or_trustees#update'
-
+          get 'vat-registered', to: 'vat_registered#show'
+          put 'vat-registered', to: 'vat_registered#update'
         end
 
       end

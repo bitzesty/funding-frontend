@@ -31,9 +31,7 @@ class FundingApplication::GpOpenMedium::Org::BoardMembersOrTrusteesController < 
         "for organisation ID: #{@organisation.id}"
       )
 
-      render :show
-
-      # redirect_to :pre_application_project_enquiry_previous_contact if @pre_application.pa_project_enquiry.present?
+      redirect_to :funding_application_gp_open_medium_vat_registered
 
     else
 

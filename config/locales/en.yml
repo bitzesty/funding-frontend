@@ -178,6 +178,11 @@ en-GB:
               not_a_number: "Number of board members or trustees must be a number"
               greater_than: "Enter an amount greater than 0"
               less_than: "Enter an amount less than 2147483648"
+            vat_registered:
+              inclusion: "Select an option to tell us whether your organisation is VAT registered"
+            vat_number:
+              too_short: "Enter the VAT number of your organisation in the correct format"
+              too_long: "Enter the VAT number of your organisation in the correct format"
         legal_signatory:
           attributes:
             name:
