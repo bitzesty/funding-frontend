@@ -274,10 +274,13 @@ en-GB:
               inclusion: "Add accounts"
             outcome_description:
               too_long: "Description of how you will meet this outcome must be 300 words or fewer"
-        gp_open_medium:
+        open_medium:
           attributes:
             received_advice_description:
               too_long: "Description of advice you have received in planning and who from must be %{word_count} words or fewer"
+            project_title:
+              blank: "Enter the title of your project"
+              too_long: "Project title must be 255 characters or fewer"
         cash_contribution:
           attributes:
             description:
