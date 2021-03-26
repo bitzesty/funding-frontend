@@ -272,6 +272,8 @@ Rails.application.routes.draw do
           put 'vat-registered', to: 'vat_registered#update'
           get 'social-media', to: 'social_media#show'
           put 'social-media', to: 'social_media#update'
+          get 'spend-last-year', to: 'spend_last_year#show'
+          put 'spend-last-year', to: 'spend_last_year#update'
 
         end
 

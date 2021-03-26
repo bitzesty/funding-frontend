@@ -9,7 +9,7 @@ class FundingApplication::GpOpenMedium::Org::SocialMediaController < Application
 
   # This method updates the social_media_info attribute of an
   # organisation, redirecting to
-  # :funding_application_gp_open_medium_board_members_or_trustees if
+  # :funding_application_gp_open_medium_spend_last_year if
   # successful and re-rendering :show method if unsuccessful
   def update
 
@@ -31,8 +31,7 @@ class FundingApplication::GpOpenMedium::Org::SocialMediaController < Application
         "for organisation ID: #{@organisation.id}"
       )
 
-      # redirect_to :funding_application_gp_open_medium_board_members_or_trustees
-      render :show
+      redirect_to :funding_application_gp_open_medium_spend_last_year
 
     else
 
