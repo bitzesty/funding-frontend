@@ -270,6 +270,9 @@ Rails.application.routes.draw do
           put 'board-members-or-trustees', to: 'board_members_or_trustees#update'
           get 'vat-registered', to: 'vat_registered#show'
           put 'vat-registered', to: 'vat_registered#update'
+          get 'social-media', to: 'social_media#show'
+          put 'social-media', to: 'social_media#update'
+
         end
 
       end

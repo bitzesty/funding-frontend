@@ -183,6 +183,8 @@ en-GB:
             vat_number:
               too_short: "Enter the VAT number of your organisation in the correct format"
               too_long: "Enter the VAT number of your organisation in the correct format"
+            social_media_info:
+              too_long: "Description of your organisation's social media must be %{word_count} words or fewer"
         legal_signatory:
           attributes:
             name:

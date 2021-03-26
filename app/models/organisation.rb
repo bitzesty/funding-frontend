@@ -28,7 +28,7 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_board_members_or_trustees
   attr_accessor :validate_vat_registered
   attr_accessor :validate_vat_number
-
+  attr_accessor :validate_social_media_info
 
   validates_associated :legal_signatories,
                        if: :validate_legal_signatories?
@@ -58,6 +58,12 @@ class Organisation < ApplicationRecord
       500,
       I18n.t('activerecord.errors.models.organisation.attributes.main_purpose_and_activities.too_long', word_count: 500)
     ) if validate_main_purpose_and_activities?
+
+    validate_length(
+      :social_media_info,
+      500,
+      I18n.t('activerecord.errors.models.organisation.attributes.social_media_info.too_long', word_count: 500)
+    ) if validate_social_media_info?
 
   end
 
@@ -99,6 +105,10 @@ class Organisation < ApplicationRecord
 
   def validate_vat_registered?
     validate_vat_registered == true
+  end
+
+  def validate_social_media_info?
+    validate_social_media_info == true
   end
 
   # Custom validator to determine whether any of the items in the incoming mission array
