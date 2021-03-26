@@ -279,6 +279,9 @@ Rails.application.routes.draw do
 
         end
 
+        get 'advice', to: 'received_advice#show'
+        put 'advice', to: 'received_advice#update'
+
       end
     
     end
