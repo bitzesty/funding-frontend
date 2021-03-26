@@ -274,6 +274,8 @@ Rails.application.routes.draw do
           put 'social-media', to: 'social_media#update'
           get 'spend-last-year', to: 'spend_last_year#show'
           put 'spend-last-year', to: 'spend_last_year#update'
+          get 'unrestricted-funds', to: 'unrestricted_funds#show'
+          put 'unrestricted-funds', to: 'unrestricted_funds#update'
 
         end
 

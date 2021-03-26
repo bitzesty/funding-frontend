@@ -30,6 +30,7 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_vat_number
   attr_accessor :validate_social_media_info
   attr_accessor :validate_spend_in_last_financial_year
+  attr_accessor :validate_unrestricted_funds
 
   validates_associated :legal_signatories,
                        if: :validate_legal_signatories?
@@ -52,6 +53,7 @@ class Organisation < ApplicationRecord
   validates_inclusion_of :vat_registered, in: [true, false], if: :validate_vat_registered?
   validates :vat_number, length: { minimum: 9, maximum: 12 }, if: :validate_vat_number?
   validates :spend_in_last_financial_year, numericality: { greater_than: 0, allow_nil: true }, if: :validate_spend_in_last_financial_year?
+  validates :unrestricted_funds, numericality: { greater_than: 0, allow_nil: true }, if: :validate_unrestricted_funds?
 
   validate do
 
@@ -115,6 +117,10 @@ class Organisation < ApplicationRecord
 
   def validate_spend_in_last_financial_year?
     validate_spend_in_last_financial_year == true
+  end
+  
+  def validate_unrestricted_funds?
+    validate_unrestricted_funds == true
   end
 
   # Custom validator to determine whether any of the items in the incoming mission array

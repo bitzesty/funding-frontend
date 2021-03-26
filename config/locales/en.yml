@@ -185,6 +185,9 @@ en-GB:
               too_long: "Enter the VAT number of your organisation in the correct format"
             social_media_info:
               too_long: "Description of your organisation's social media must be %{word_count} words or fewer"
+            unrestricted_funds:
+              not_a_number: "Level of unrestricted funds must be a number"
+              greater_than: "Enter an amount greater than 0"
             spend_in_last_financial_year:
               not_a_number: "Must be a number, like 500"
               greater_than: "Enter an amount greater than 0"
