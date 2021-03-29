@@ -12,6 +12,8 @@
 
 <% if @type == "organisation" || @type == "project" %>
   <div class="govuk-caption-xl">About your <%= @type %></div>
+<% elsif @type == 'gp-open-medium' %>
+  <div class="govuk-caption-xl">About your project</div>
 <% else %>
   <h1 class="govuk-heading-xl">
     <span class="govuk-caption-xl">Add your details</span>
@@ -19,7 +21,7 @@
   </h1>
 <% end %>
 
-<% if @type == "organisation" || @type == "project" %>
+<% if @type == "organisation" || @type == "project" || @type == 'gp-open-medium' %>
   <h2 class="govuk-heading-xl">Find your address</h2>
 <% end %>
 

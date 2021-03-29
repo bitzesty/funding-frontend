@@ -10,6 +10,8 @@
 
 <% if @type == "organisation" || @type == "project" %>
   <div class="govuk-caption-xl">About your <%= @type %></div>
+<% elsif @type == 'gp-open-medium' %>
+  <div class="govuk-caption-xl">About your project</div>
 <% else %>
 
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -23,7 +25,7 @@
 
 <% end %>
 
-<% if @type == "organisation" || @type == "project" %>
+<% if @type == "organisation" || @type == "project" || @type == 'gp-open-medium' %>
   <h1 class="govuk-label-wrapper">
     <label class="govuk-label govuk-label--l" for="address">
       Select an address

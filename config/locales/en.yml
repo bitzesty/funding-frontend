@@ -309,6 +309,16 @@ en-GB:
             why_now_description:
               blank: "Enter a description of why your project needs to happen now"
               too_long: "Description of why your project needs to happen now must be %{word_count} words or fewer"
+            same_location:
+              blank: "Select whether or not your project will take place at the same location as your organisation"
+            line1:
+              blank: "Enter the first line of your project's address"
+            townCity:
+              blank: "Enter the town or city where your project is located"
+            county:
+              blank: "Enter the county where your project is located"
+            postcode:
+              blank: "Enter the postcode where your project is located"
         cash_contribution:
           attributes:
             description:

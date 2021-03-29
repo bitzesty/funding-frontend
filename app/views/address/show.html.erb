@@ -8,7 +8,7 @@
 
 <%= render partial: "partials/summary_errors", locals: {
     form_object: @model_object,
-    first_form_element: @type == "organisation" || @type == 'preapplication' ? :organisation_name : :"#{@type}_line1"
+    first_form_element: @type == "organisation" || @type == 'preapplication' ? :organisation_name : :"#{@type == 'gp-open-medium' ? 'open_medium' : @type}_line1"
 } if @model_object.errors.any? %>
 
 <% if @type == "organisation" || @type == "project" %>
@@ -17,6 +17,8 @@
   </div>
 <% elsif @type == 'preapplication' %>
   <div class="govuk-caption-xl">About your organisation</div>
+<% elsif @type == 'gp-open-medium' %>
+  <div class="govuk-caption-xl">About your project</div>
 <% else %>
   <h1 class="govuk-heading-xl">
     <span class="govuk-caption-xl">Add your details</span>
@@ -27,6 +29,10 @@
 <% if @type == "organisation" || @type == "project" %>
   <h1 class="govuk-heading-xl">
     Enter your <%= "#{@type}" %> address details
+  </h1>
+<% elsif @type == 'gp-open-medium' %>
+  <h1 class="govuk-heading-xl">
+    Enter your project address details
   </h1>
 <% elsif @type == 'preapplication' %>
   <h1 class="govuk-heading-xl">

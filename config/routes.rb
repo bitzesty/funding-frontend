@@ -289,6 +289,9 @@ Rails.application.routes.draw do
         put 'dates', to: 'dates#update'
         get 'why-now', to: 'why_now#show'
         put 'why-now', to: 'why_now#update'
+        get 'location', to: 'location#show'
+        put 'location', to: 'location#update'
+
       end
     
     end

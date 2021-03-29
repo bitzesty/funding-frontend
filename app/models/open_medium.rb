@@ -20,6 +20,8 @@ class OpenMedium < ApplicationRecord
   attr_accessor :end_date_month
   attr_accessor :end_date_year
 
+  attr_accessor :same_location
+
   attr_accessor :validate_received_advice_description
   attr_accessor :validate_first_fund_application
   attr_accessor :validate_recent_project_reference
@@ -27,19 +29,25 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_title
   attr_accessor :validate_start_and_end_dates
   attr_accessor :validate_why_now_description
+  attr_accessor :validate_same_location
+  attr_accessor :validate_address
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
   validates :recent_project_title, presence: true, length: { maximum: 255 }, if: :validate_recent_project_reference?
   validates :project_title, presence: true, length: { maximum: 255 }, if: :validate_title?
-  validates :why_now_description, presence: true, if: :validate_why_now_description?
-
   validates :start_date_day, presence: true, if: :validate_start_and_end_dates?
   validates :start_date_month, presence: true, if: :validate_start_and_end_dates?
   validates :start_date_year, presence: true, if: :validate_start_and_end_dates?
   validates :end_date_day, presence: true, if: :validate_start_and_end_dates?
   validates :end_date_month, presence: true, if: :validate_start_and_end_dates?
   validates :end_date_year, presence: true, if: :validate_start_and_end_dates?
+  validates :why_now_description, presence: true, if: :validate_why_now_description?
+  validates :same_location, presence: true, if: :validate_same_location?
+  validates :line1, presence: true, if: :validate_address?
+  validates :townCity, presence: true, if: :validate_address?
+  validates :county, presence: true, if: :validate_address?
+  validates :postcode, presence: true, if: :validate_address?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
@@ -80,12 +88,20 @@ class OpenMedium < ApplicationRecord
     validate_title == true
   end
 
+  def validate_address?
+    validate_address == true
+  end
+
   def validate_start_and_end_dates?
     validate_start_and_end_dates == true  
   end
 
   def validate_why_now_description?
     validate_why_now_description == true
+  end
+
+  def validate_same_location?
+    validate_same_location == true
   end
 
 end

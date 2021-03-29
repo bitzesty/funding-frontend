@@ -48,6 +48,10 @@ class AddressController < ApplicationController
 
         redirect_to funding_application_gp_project_description_path(@model_object.funding_application.id)
 
+      elsif @type == 'gp-open-medium'
+
+        redirect_to funding_application_gp_open_medium_description_path(@model_object.funding_application.id)
+
       elsif @type == 'user'
 
         # Caters to a situation where original applicants have no person assigned to the user.
@@ -75,13 +79,15 @@ class AddressController < ApplicationController
   # Checks for a known type of model in the params.
   # If correct, then assign the model type to a @type instance variable.
   def check_and_set_model_type
-    if %w[user organisation project preapplication].include? params[:type]
+    if %w[user organisation project gp-open-medium preapplication].include? params[:type]
       @type = params[:type]
       case @type
       when 'organisation'
         @model_object = Organisation.find(params[:id])
       when 'project'
         @model_object = Project.find(params[:id])
+      when 'gp-open-medium'
+        @model_object = OpenMedium.find(params[:id])
       when 'user'
         users_organisation = UsersOrganisation.find_by(organisation_id: params[:id])
         @model_object = current_user
@@ -170,7 +176,14 @@ class AddressController < ApplicationController
     # this to ensure that during a pre-application journey, we don't
     # require a param of 'preapplication', when we are actually dealing
     # with an organisation object
-    model_type = @type == 'preapplication' ? 'organisation' : @type
+    if @type == 'preapplication'
+      model_type = 'organisation'
+    elsif @type == 'gp-open-medium'
+      model_type = 'open_medium'
+    else
+      model_type = @type
+    end
+    # model_type = @type == 'preapplication' ? 'organisation' : @type
 
     params.require(model_type)
           .permit(:name, :line1, :line2, :line3,
