@@ -36,7 +36,7 @@ class FundingApplication::GpOpenMedium::DatesController < ApplicationController
       logger.info "Successfully update start_date and end_date for open medium " \
                   "ID: #{@funding_application.open_medium.id}"
 
-      redirect_to :funding_application_gp_project_location
+      redirect_to :funding_application_gp_open_medium_why_now
 
     else
 

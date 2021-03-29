@@ -26,11 +26,13 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_recent_project_title
   attr_accessor :validate_title
   attr_accessor :validate_start_and_end_dates
+  attr_accessor :validate_why_now_description
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
   validates :recent_project_title, presence: true, length: { maximum: 255 }, if: :validate_recent_project_reference?
   validates :project_title, presence: true, length: { maximum: 255 }, if: :validate_title?
+  validates :why_now_description, presence: true, if: :validate_why_now_description?
 
   validates :start_date_day, presence: true, if: :validate_start_and_end_dates?
   validates :start_date_month, presence: true, if: :validate_start_and_end_dates?
@@ -49,6 +51,12 @@ class OpenMedium < ApplicationRecord
       500,
       I18n.t('activerecord.errors.models.open_medium.attributes.received_advice_description.too_long', word_count: 500)
     ) if validate_received_advice_description?
+
+    validate_length(
+      :why_now_description,
+      500,
+      I18n.t('activerecord.errors.models.open_medium.attributes.why_now_description.too_long', word_count: 500)
+    ) if validate_why_now_description?
 
   end
 
@@ -74,6 +82,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_start_and_end_dates?
     validate_start_and_end_dates == true  
+  end
+
+  def validate_why_now_description?
+    validate_why_now_description == true
   end
 
 end

@@ -306,6 +306,9 @@ en-GB:
               invalid: "Enter a valid project end date"
               before_start_date: "End date cannot be before start date"
               in_past: "End date cannot be in past"
+            why_now_description:
+              blank: "Enter a description of why your project needs to happen now"
+              too_long: "Description of why your project needs to happen now must be %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:
