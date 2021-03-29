@@ -281,6 +281,8 @@ Rails.application.routes.draw do
 
         get 'advice', to: 'received_advice#show'
         put 'advice', to: 'received_advice#update'
+        get 'first-fund-application', to: 'first_fund_application#show'
+        put 'first-fund-application', to: 'first_fund_application#update'
         get 'title', to: 'title#show'
         put 'title', to: 'title#update'
 

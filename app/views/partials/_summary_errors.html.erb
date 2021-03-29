@@ -17,7 +17,10 @@
             <a href='#spend_cost_type_id' %>
           <% else %>
           <a href='#<%= form_object.errors.size == 1 ? first_form_element :
-                            "#{defined?(form_object_name) && form_object_name.size ? form_object_name : form_object.class.name.downcase}_#{error.attribute.to_s}" %>'>
+            "#{defined?(form_object_name) && form_object_name.size ?
+              form_object_name :
+              (form_object.class.name.downcase == 'openmedium' ? 'open_medium' : form_object.class.name.downcase)
+             }_#{error.attribute.to_s}" %>'>
           <% end %>
             <%= error.message %>
           </a>

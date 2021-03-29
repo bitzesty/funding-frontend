@@ -35,7 +35,7 @@ class FundingApplication::GpOpenMedium::Org::UnrestrictedFundsController < Appli
         "for organisation ID: #{@organisation.id}"
       )
 
-      redirect_to :funding_application_gp_open_medium_unrestricted_funds
+      redirect_to :funding_application_gp_open_medium_advice
 
     else
 

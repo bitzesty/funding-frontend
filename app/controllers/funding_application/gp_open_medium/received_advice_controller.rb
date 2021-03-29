@@ -5,7 +5,7 @@ class FundingApplication::GpOpenMedium::ReceivedAdviceController < ApplicationCo
   include ObjectErrorsLogger
 
   # This method updates the received_advice_description attribute of an
-  # organisation, redirecting to
+  # medium application, redirecting to
   # :funding_application_gp_open_medium_board_members_or_trustees if
   # successful and re-rendering :show method if unsuccessful
   def update
@@ -26,8 +26,7 @@ class FundingApplication::GpOpenMedium::ReceivedAdviceController < ApplicationCo
         "for gp_open_medium ID: #{@funding_application.open_medium.id}"
       )
 
-      # redirect_to :funding_application_gp_open_medium_board_members_or_trustees
-      render :show
+      redirect_to :funding_application_gp_open_medium_first_fund_application
 
     else
 

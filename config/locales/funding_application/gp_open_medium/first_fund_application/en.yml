@@ -1,0 +1,11 @@
+en-GB:
+  first_fund_application:
+    page_title: "Is this your organisation’s first application to us?"
+    page_heading: "Is this your organisation’s first application to us?"
+    labels:
+      x_yes: "Yes, this is my organisation's first application"
+      x_no: "No, this is not my organisation's first application"
+      project_title: "Most recent project title"
+      project_reference: "Most recent project reference number"
+    hints:
+      project_reference: "Your most recent project reference number should be in the format HG-12-12345"

@@ -278,6 +278,11 @@ en-GB:
           attributes:
             received_advice_description:
               too_long: "Description of advice you have received in planning and who from must be %{word_count} words or fewer"
+            recent_project_title:
+              blank: "Enter your most recent project title"
+            recent_project_reference:
+              blank: "Enter your most recent project reference number"
+              invalid: "Your most recent project reference number should be in the format HG-12-12345"
             project_title:
               blank: "Enter the title of your project"
               too_long: "Project title must be 255 characters or fewer"
