@@ -285,7 +285,8 @@ Rails.application.routes.draw do
         put 'first-fund-application', to: 'first_fund_application#update'
         get 'title', to: 'title#show'
         put 'title', to: 'title#update'
-
+        get 'dates', to: 'dates#show'
+        put 'dates', to: 'dates#update'
       end
     
     end

@@ -29,14 +29,14 @@
   <div class="govuk-form-group">
 
     <fieldset class="govuk-fieldset" role="group"
-      aria-describedby="project-start-hint">
+      aria-describedby="<%= model_object_name %>-start-hint">
 
-      <legend id="project_start_date"
+      <legend id="<%= model_object_name %>_start_date"
         class="govuk-fieldset__legend govuk-fieldset__legend--m">
         <%= t('dates.start_date.label') %>
       </legend>
 
-      <div id="project-start-hint" class="govuk-hint">
+      <div id="<%= model_object_name %>-start-hint" class="govuk-hint">
         <%= t('dates.start_date.hint') %>
       </div>
 
@@ -44,7 +44,7 @@
 
         <% if error.attribute.to_s.include? 'start' %>
 
-          <span id="project[<%= error.attribute %>]-error" class="govuk-error-message">
+          <span id="<%= model_object_name %>[<%= error.attribute %>]-error" class="govuk-error-message">
             <span class="govuk-visually-hidden">
               <%= t('generic.error') %>:
             </span> <%= error.message %>
@@ -149,14 +149,14 @@
   <div class="govuk-form-group">
 
     <fieldset class="govuk-fieldset" role="group"
-      aria-describedby="project-end-hint">
+      aria-describedby="<%= model_object_name %>-end-hint">
 
-      <legend id="project_end_date"
+      <legend id="<%= model_object_name %>_end_date"
         class="govuk-fieldset__legend govuk-fieldset__legend--m">
         <%= t('dates.end_date.label') %>
       </legend>
 
-      <div id="project-end-hint" class="govuk-hint">
+      <div id="<%= model_object_name %>-end-hint" class="govuk-hint">
         <%= t('dates.end_date.hint') %>
       </div>
 
@@ -164,7 +164,7 @@
 
         <% if error.attribute.to_s.include? 'end' %>
 
-          <span id="project[<%= error.attribute %>]-error" class="govuk-error-message">
+          <span id="<%= model_object_name %>[<%= error.attribute %>]-error" class="govuk-error-message">
             <span class="govuk-visually-hidden">
               <%= t('generic.error') %>:
             </span> <%= error.message %>

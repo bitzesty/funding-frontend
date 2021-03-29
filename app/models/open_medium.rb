@@ -11,16 +11,36 @@ class OpenMedium < ApplicationRecord
 
   has_one :organisation, through: :user
 
+  # These attributes are used to set individual error messages
+  # for each of the project date input fields
+  attr_accessor :start_date_day
+  attr_accessor :start_date_month
+  attr_accessor :start_date_year
+  attr_accessor :end_date_day
+  attr_accessor :end_date_month
+  attr_accessor :end_date_year
+
   attr_accessor :validate_received_advice_description
   attr_accessor :validate_first_fund_application
   attr_accessor :validate_recent_project_reference
   attr_accessor :validate_recent_project_title
   attr_accessor :validate_title
+  attr_accessor :validate_start_and_end_dates
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
   validates :recent_project_title, presence: true, length: { maximum: 255 }, if: :validate_recent_project_reference?
   validates :project_title, presence: true, length: { maximum: 255 }, if: :validate_title?
+
+  validates :start_date_day, presence: true, if: :validate_start_and_end_dates?
+  validates :start_date_month, presence: true, if: :validate_start_and_end_dates?
+  validates :start_date_year, presence: true, if: :validate_start_and_end_dates?
+  validates :end_date_day, presence: true, if: :validate_start_and_end_dates?
+  validates :end_date_month, presence: true, if: :validate_start_and_end_dates?
+  validates :end_date_year, presence: true, if: :validate_start_and_end_dates?
+
+  validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
+
 
   validate do
 
@@ -50,6 +70,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_title?
     validate_title == true
+  end
+
+  def validate_start_and_end_dates?
+    validate_start_and_end_dates == true  
   end
 
 end
