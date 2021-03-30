@@ -43,6 +43,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_heritage_attracts_visitors
   attr_accessor :validate_visitors_in_last_financial_year
   attr_accessor :validate_visitors_expected_per_year
+  attr_accessor :validate_matter
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -137,6 +138,15 @@ class OpenMedium < ApplicationRecord
       )
     ) if validate_heritage_at_risk_description?
 
+    validate_length(
+      :matter,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.matter.too_long',
+        word_count: 500
+      )
+    ) if validate_matter?
+
   end
 
   def validate_received_advice_description?
@@ -213,6 +223,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_visitors_expected_per_year?
     validate_visitors_expected_per_year == true
+  end
+
+  def validate_matter?
+    validate_matter == true
   end
 
   enum permission_type: {

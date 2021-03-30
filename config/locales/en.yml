@@ -347,6 +347,8 @@ en-GB:
               not_a_number: "Number of visitors expected per year on completion of project must be a number"
               greater_than: "Enter an amount greater than 0"
               less_than: "Enter an amount less than 2147483648"
+            matter:
+              too_long: "Description of why your project matters to you and your community must be %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:

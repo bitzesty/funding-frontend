@@ -41,11 +41,12 @@
       rows: 10,
       class: 'govuk-textarea govuk-js-character-count ' \
         "#{'govuk-input--error' if model_object.errors[:matter].any?}",
-      'aria-describedby' => 'project_matter-info project_matter-hint'
+      'aria-describedby' => "#{ model_object_name }_matter-info " \
+        "#{ model_object_name }_matter-hint"
     %>
 
-    <span id="project_matter-info" class="govuk-hint govuk-character-count__message"
-      aria-live="polite">
+    <span id="<%= model_object_name %>_matter-info"
+      class="govuk-hint govuk-character-count__message" aria-live="polite">
       <%= t('generic.word_count', max_words: 500) %>
     </span>
 

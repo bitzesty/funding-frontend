@@ -301,6 +301,8 @@ Rails.application.routes.draw do
         put 'at-risk', to: 'at_risk#update'
         get 'visitors', to: 'visitors#show'
         put 'visitors', to: 'visitors#update'
+        get 'how-does-your-project-matter', to: 'matter#show'
+        put 'how-does-your-project-matter', to: 'matter#update'
 
       end
     
