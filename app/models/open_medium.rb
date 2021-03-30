@@ -44,6 +44,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_visitors_in_last_financial_year
   attr_accessor :validate_visitors_expected_per_year
   attr_accessor :validate_matter
+  attr_accessor :validate_environmental_impacts_description
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -76,6 +77,7 @@ class OpenMedium < ApplicationRecord
     greater_than: 0,
     less_than: 2147483648
   }, if: :validate_visitors_expected_per_year?
+  validates :environmental_impacts_description, presence: true, if: :validate_environmental_impacts_description?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
@@ -146,6 +148,15 @@ class OpenMedium < ApplicationRecord
         word_count: 500
       )
     ) if validate_matter?
+
+    validate_length(
+      :environmental_impacts_description,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.environmental_impacts_description.too_long',
+        word_count: 500
+      )
+    ) if validate_environmental_impacts_description?
 
   end
 
@@ -227,6 +238,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_matter?
     validate_matter == true
+  end
+
+  def validate_environmental_impacts_description?
+    validate_environmental_impacts_description == true
   end
 
   enum permission_type: {

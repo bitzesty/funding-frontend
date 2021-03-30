@@ -349,6 +349,9 @@ en-GB:
               less_than: "Enter an amount less than 2147483648"
             matter:
               too_long: "Description of why your project matters to you and your community must be %{word_count} words or fewer"
+            environmental_impacts_description:
+              blank: "Enter a description of the environmental impact measures of your project"
+              too_long: "Description of environmental impact measures must be %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:

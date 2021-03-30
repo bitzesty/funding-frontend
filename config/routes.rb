@@ -303,6 +303,8 @@ Rails.application.routes.draw do
         put 'visitors', to: 'visitors#update'
         get 'how-does-your-project-matter', to: 'matter#show'
         put 'how-does-your-project-matter', to: 'matter#update'
+        get 'environmental-impacts', to: 'environmental_impacts#show'
+        put 'environmental-impacts', to: 'environmental_impacts#update'
 
       end
     

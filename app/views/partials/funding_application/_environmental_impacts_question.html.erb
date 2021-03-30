@@ -1,0 +1,47 @@
+<div class="govuk-character-count" data-module="govuk-character-count"
+  data-maxwords="500">
+
+  <div  class="govuk-form-group <%= "govuk-form-group--error" if
+    model_object.errors[:environmental_impacts_description].any? %>">
+
+    <h1 class="govuk-label-wrapper">
+
+      <span class="govuk-caption-xl">
+        <%= t('views.funding_application.common.about_your_project') %>
+      </span>
+
+      <%=
+        form_object.label :environmental_impacts_description,
+        t('environmental_impacts.page_heading'),
+        class: 'govuk-label govuk-label--xl'
+      %>
+
+    </h1>
+
+    <%=
+      render(
+        partial: "partials/form_input_errors",
+        locals: {
+          form_object: model_object,
+          input_field_id: :environmental_impacts_description
+          }
+      ) if model_object.errors[:environmental_impacts_description].any?
+    %>
+
+    <%=
+      form_object.text_area :environmental_impacts_description,
+      rows: 10,
+      class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+        model_object.errors[:environmental_impacts_description].any?}",
+      'aria-describedby' => "#{ model_object_name }_environmental_impacts_" \
+        'description-info'
+    %>
+
+    <span id="<%= model_object_name%>_environmental_impacts_description-info"
+      class="govuk-hint govuk-character-count__message" aria-live="polite">
+      <%= t('generic.word_count', max_words: 500) %>
+    </span>
+
+  </div>
+
+</div>
