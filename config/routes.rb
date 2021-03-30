@@ -299,6 +299,8 @@ Rails.application.routes.draw do
         put 'project-difference', to: 'difference#update'
         get 'at-risk', to: 'at_risk#show'
         put 'at-risk', to: 'at_risk#update'
+        get 'visitors', to: 'visitors#show'
+        put 'visitors', to: 'visitors#update'
 
       end
     

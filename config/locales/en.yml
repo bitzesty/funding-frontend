@@ -337,6 +337,16 @@ en-GB:
             heritage_at_risk_description:
               blank: "Enter a description of how your heritage is at risk"
               too_long: "Description of how your heritage is at risk must be %{word_count} words or fewer"
+            heritage_attracts_visitors:
+              inclusion: "Select an option to tell us whether your project involves heritage that attracts visitors"
+            visitors_in_last_financial_year:
+              not_a_number: "Number of visitors in last financial year must be a number"
+              greater_than: "Enter an amount greater than 0"
+              less_than: "Enter an amount less than 2147483648"
+            visitors_expected_per_year:
+              not_a_number: "Number of visitors expected per year on completion of project must be a number"
+              greater_than: "Enter an amount greater than 0"
+              less_than: "Enter an amount less than 2147483648"
         cash_contribution:
           attributes:
             description:

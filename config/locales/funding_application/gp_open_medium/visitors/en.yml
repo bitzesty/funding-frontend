@@ -1,0 +1,9 @@
+en-GB:
+  visitors:
+    page_title: "Does your project involve heritage that attracts visitors?"
+    page_heading: "Does your project involve heritage that attracts visitors?"
+    labels:
+      heritage_attracts_visitors_no: "No, my project does not involve heritage that attracts visitors"
+      heritage_attracts_visitors_yes: "Yes, my project involves heritage that attracts visitors"
+      visitors_in_last_financial_year: "How many visitors did you receive in the last financial year?"
+      visitors_expected_per_year: "How many visitors a year do you expect on completion of your project?"

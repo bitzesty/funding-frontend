@@ -40,6 +40,9 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_difference
   attr_accessor :validate_heritage_at_risk
   attr_accessor :validate_heritage_at_risk_description
+  attr_accessor :validate_heritage_attracts_visitors
+  attr_accessor :validate_visitors_in_last_financial_year
+  attr_accessor :validate_visitors_expected_per_year
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -61,8 +64,17 @@ class OpenMedium < ApplicationRecord
   validates :permission_type, presence: true, if: :validate_permission_type?
   validates :permission_description_yes, presence: true, if: :validate_permission_description_yes?
   validates :permission_description_x_not_sure, presence: true, if: :validate_permission_description_x_not_sure?
+  validates_inclusion_of :heritage_attracts_visitors, in: [true, false], if: :validate_heritage_attracts_visitors?
   validates_inclusion_of :heritage_at_risk, in: [true, false], if: :validate_heritage_at_risk?
   validates :heritage_at_risk_description, presence: true, if: :validate_heritage_at_risk_description?
+  validates :visitors_in_last_financial_year, numericality: {
+    greater_than: 0,
+    less_than: 2147483648
+  }, if: :validate_visitors_in_last_financial_year?
+  validates :visitors_expected_per_year, numericality: {
+    greater_than: 0,
+    less_than: 2147483648
+  }, if: :validate_visitors_expected_per_year?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
@@ -189,6 +201,18 @@ class OpenMedium < ApplicationRecord
 
   def validate_heritage_at_risk_description?
     validate_heritage_at_risk_description == true
+  end
+
+  def validate_heritage_attracts_visitors?
+    validate_heritage_attracts_visitors == true
+  end
+
+  def validate_visitors_in_last_financial_year?
+    validate_visitors_in_last_financial_year == true
+  end
+
+  def validate_visitors_expected_per_year?
+    validate_visitors_expected_per_year == true
   end
 
   enum permission_type: {
