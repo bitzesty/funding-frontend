@@ -295,6 +295,8 @@ Rails.application.routes.draw do
         put 'description', to: 'description#update'
         get 'do-you-need-permission', to: 'permission#show'
         put 'do-you-need-permission', to: 'permission#update'
+        get 'project-difference', to: 'difference#show'
+        put 'project-difference', to: 'difference#update'
 
       end
     

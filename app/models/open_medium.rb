@@ -37,6 +37,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_why_now_description
   attr_accessor :validate_same_location
   attr_accessor :validate_address
+  attr_accessor :validate_difference
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -101,6 +102,15 @@ class OpenMedium < ApplicationRecord
         word_count: 300
       )
     ) if validate_permission_description_yes?
+    
+    validate_length(
+      :difference,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.difference.too_long',
+        word_count: 500
+      )
+    ) if validate_difference?
 
   end
 
@@ -155,11 +165,14 @@ class OpenMedium < ApplicationRecord
   def validate_permission_description_x_not_sure?
     validate_permission_description_x_not_sure == true
   end
+  
+  def validate_difference?
+    validate_difference == true
+  end
 
   enum permission_type: {
     yes: 0,
     no: 1,
     x_not_sure: 2
   }
-
 end

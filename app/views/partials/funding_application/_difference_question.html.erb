@@ -18,7 +18,7 @@
 
     </h1>
 
-    <span id="project_difference-hint" class="govuk-hint">
+    <span id="<%= model_object_name %>_difference-hint" class="govuk-hint">
       <%= t('difference.page_hint') %>
     </span>
 
@@ -38,11 +38,12 @@
       class: "govuk-textarea govuk-js-character-count " \
         "#{'govuk-input--error' if 
           model_object.errors[:difference].any?}",
-      "aria-describedby" => "project_difference-info project_difference-hint"
+      "aria-describedby" => "#{model_object_name}_difference-info " \
+        "#{model_object_name}_difference-hint"
     %>
 
-    <span id="project_difference-info" class="govuk-hint govuk-character-count__message"
-      aria-live="polite">
+    <span id="<%= model_object_name%>_difference-info"
+      class="govuk-hint govuk-character-count__message" aria-live="polite">
       <%= t('generic.word_count', max_words: 500) %>
     </span>
 

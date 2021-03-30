@@ -330,6 +330,8 @@ en-GB:
             permission_description_x_not_sure:
               blank: "Enter a description of who you need permission from to do your project"
               too_long: "Description of who you need permission from must be %{word_count} words or fewer"
+            difference:
+              too_long: "Description of the difference your project will make must be %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:
