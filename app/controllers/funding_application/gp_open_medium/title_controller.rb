@@ -24,8 +24,7 @@ class FundingApplication::GpOpenMedium::TitleController < ApplicationController
         "#{@funding_application.open_medium.id}"
       )
 
-      # redirect_to :funding_application_gp_open_medium_key_dates
-      render :show
+      redirect_to :funding_application_gp_open_medium_dates
 
     else
 

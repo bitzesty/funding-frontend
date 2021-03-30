@@ -286,6 +286,9 @@ en-GB:
             project_title:
               blank: "Enter the title of your project"
               too_long: "Project title must be 255 characters or fewer"
+            description:
+              blank: "Enter a description of your project"
+              too_long: "Project description must be %{word_count} words or fewer"
             start_date_day:
               blank: "Enter the day your project will start on"
             start_date_month:

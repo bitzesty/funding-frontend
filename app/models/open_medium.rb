@@ -27,6 +27,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_recent_project_reference
   attr_accessor :validate_recent_project_title
   attr_accessor :validate_title
+  attr_accessor :validate_description
   attr_accessor :validate_start_and_end_dates
   attr_accessor :validate_why_now_description
   attr_accessor :validate_same_location
@@ -36,6 +37,7 @@ class OpenMedium < ApplicationRecord
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
   validates :recent_project_title, presence: true, length: { maximum: 255 }, if: :validate_recent_project_reference?
   validates :project_title, presence: true, length: { maximum: 255 }, if: :validate_title?
+  validates :description, presence: true, if: :validate_description?
   validates :start_date_day, presence: true, if: :validate_start_and_end_dates?
   validates :start_date_month, presence: true, if: :validate_start_and_end_dates?
   validates :start_date_year, presence: true, if: :validate_start_and_end_dates?
@@ -51,7 +53,6 @@ class OpenMedium < ApplicationRecord
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
-
   validate do
 
     validate_length(
@@ -59,6 +60,12 @@ class OpenMedium < ApplicationRecord
       500,
       I18n.t('activerecord.errors.models.open_medium.attributes.received_advice_description.too_long', word_count: 500)
     ) if validate_received_advice_description?
+
+    validate_length(
+      :description,
+      500,
+      I18n.t('activerecord.errors.models.open_medium.attributes.description.too_long', word_count: 500)
+    ) if validate_description?
 
     validate_length(
       :why_now_description,
@@ -86,6 +93,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_title?
     validate_title == true
+  end
+
+  def validate_description?
+    validate_description == true
   end
 
   def validate_address?
