@@ -1,0 +1,44 @@
+<%=
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.open_medium,
+      page_title: t('at_risk.page_title')
+    }
+  )
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.open_medium,
+      first_form_element: (
+        @funding_application.open_medium.errors[:heritage_at_risk_description].any? ?
+          :open_medium_heritage_at_risk_description : :open_medium_heritage_at_risk_false
+      )
+    }
+  ) if @funding_application.open_medium.errors.any?
+%>
+
+<%=
+  form_with model: @funding_application.open_medium,
+  url: :funding_application_gp_open_medium_at_risk,
+  method: :put,
+  local: true do |f|
+%>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/at_risk_question',
+      locals: {
+        model_object: @funding_application.open_medium,
+        model_object_name: 'open_medium',
+        form_object: f
+      }
+    )
+  %>
+
+  <%= render(ButtonComponent.new(element: 'input')) %>
+
+<% end %>

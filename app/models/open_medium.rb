@@ -38,6 +38,8 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_same_location
   attr_accessor :validate_address
   attr_accessor :validate_difference
+  attr_accessor :validate_heritage_at_risk
+  attr_accessor :validate_heritage_at_risk_description
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -59,6 +61,8 @@ class OpenMedium < ApplicationRecord
   validates :permission_type, presence: true, if: :validate_permission_type?
   validates :permission_description_yes, presence: true, if: :validate_permission_description_yes?
   validates :permission_description_x_not_sure, presence: true, if: :validate_permission_description_x_not_sure?
+  validates_inclusion_of :heritage_at_risk, in: [true, false], if: :validate_heritage_at_risk?
+  validates :heritage_at_risk_description, presence: true, if: :validate_heritage_at_risk_description?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
@@ -111,6 +115,15 @@ class OpenMedium < ApplicationRecord
         word_count: 500
       )
     ) if validate_difference?
+
+    validate_length(
+      :heritage_at_risk_description,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.heritage_at_risk_description.too_long',
+        word_count: 500
+      )
+    ) if validate_heritage_at_risk_description?
 
   end
 
@@ -170,9 +183,18 @@ class OpenMedium < ApplicationRecord
     validate_difference == true
   end
 
+  def validate_heritage_at_risk?
+    validate_heritage_at_risk == true
+  end
+
+  def validate_heritage_at_risk_description?
+    validate_heritage_at_risk_description == true
+  end
+
   enum permission_type: {
     yes: 0,
     no: 1,
     x_not_sure: 2
   }
+
 end

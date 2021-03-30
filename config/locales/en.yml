@@ -332,6 +332,11 @@ en-GB:
               too_long: "Description of who you need permission from must be %{word_count} words or fewer"
             difference:
               too_long: "Description of the difference your project will make must be %{word_count} words or fewer"
+            heritage_at_risk:
+              inclusion: "Select an option to tell us whether your heritage is at risk"
+            heritage_at_risk_description:
+              blank: "Enter a description of how your heritage is at risk"
+              too_long: "Description of how your heritage is at risk must be %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:

@@ -297,6 +297,8 @@ Rails.application.routes.draw do
         put 'do-you-need-permission', to: 'permission#update'
         get 'project-difference', to: 'difference#show'
         put 'project-difference', to: 'difference#update'
+        get 'at-risk', to: 'at_risk#show'
+        put 'at-risk', to: 'at_risk#update'
 
       end
     

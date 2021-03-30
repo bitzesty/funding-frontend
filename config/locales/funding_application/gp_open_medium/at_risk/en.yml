@@ -1,0 +1,8 @@
+en-GB:
+  at_risk:
+    page_title: "Is the heritage considered to be at risk?"
+    page_heading: "Is the heritage considered to be at risk?"
+    labels:
+      heritage_at_risk_no: "No, the heritage is not considered to be at risk"
+      heritage_at_risk_yes: "Yes, the heritage is considered to be at risk"
+      heritage_at_risk_description: "Explain why you consider the heritage to be at risk and how"
