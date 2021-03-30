@@ -47,6 +47,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_environmental_impacts_description
   attr_accessor :validate_heritage_description
   attr_accessor :validate_best_placed_description
+  attr_accessor :validate_involvement_description
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -80,6 +81,7 @@ class OpenMedium < ApplicationRecord
     less_than: 2147483648
   }, if: :validate_visitors_expected_per_year?
   validates :environmental_impacts_description, presence: true, if: :validate_environmental_impacts_description?
+  validates :involvement_description, presence: true, if: :validate_involvement_description?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
@@ -178,6 +180,15 @@ class OpenMedium < ApplicationRecord
       )
     ) if validate_best_placed_description?
 
+    validate_length(
+      :involvement_description,
+      300,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.involvement_description.too_long',
+        word_count: 300
+      )
+    ) if validate_involvement_description?
+
   end
 
   def validate_received_advice_description?
@@ -270,6 +281,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_best_placed_description?
     validate_best_placed_description == true
+  end
+
+  def validate_involvement_description?
+    validate_involvement_description == true
   end
 
   enum permission_type: {

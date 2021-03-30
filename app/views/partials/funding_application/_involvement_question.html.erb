@@ -46,7 +46,7 @@
 
     </details>
 
-    <span id="project_involvement_description-hint" class="govuk-hint">
+    <span id="<%= model_object_name %>_involvement_description-hint" class="govuk-hint">
       <%= t('application.involvement.text.2') %>
     </span>
 
@@ -65,11 +65,11 @@
       rows: 10,
       class: 'govuk-textarea govuk-js-character-count ' \
         "#{'govuk-input--error' if model_object.errors[:involvement_description].any?}",
-        'aria-describedby' => 'project_involvement_description-' \
-          'info project_involvement_description-hint'
+        'aria-describedby' => "#{ model_object_name }_involvement_description-" \
+          "info #{ model_object_name }_involvement_description-hint"
     %>
 
-    <span id="project_involvement_description-info"
+    <span id="<%= model_object_name %>_involvement_description-info"
       class="govuk-hint govuk-character-count__message" aria-live="polite">
       <%= t('generic.word_count', max_words: 300) %>
     </span>
