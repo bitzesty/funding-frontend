@@ -354,6 +354,8 @@ en-GB:
               too_long: "Description of environmental impact measures must be %{word_count} words or fewer"
             best_placed_description:
               too_long: "Description of why your organisation is best placed to deliver your project must be %{word_count} words or fewer"
+            heritage_description:
+              too_long: "Description of your project heritage must be %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:

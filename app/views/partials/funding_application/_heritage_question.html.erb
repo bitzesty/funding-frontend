@@ -18,11 +18,11 @@
 
     </h1>
 
-    <span id="project_heritage_description-hint" class="govuk-hint">
+    <span id="<%= model_object_name %>_heritage_description-hint" class="govuk-hint">
       <%= t('application.heritage.text.1') %>
     </span>
 
-    <span id="project_heritage_description-hint" class="govuk-hint">
+    <span id="<%= model_object_name %>_heritage_description-hint" class="govuk-hint">
       <%= t('application.heritage.text.2') %>
     </span>
 
@@ -41,11 +41,11 @@
       rows: 10,
       class: 'govuk-textarea govuk-js-character-count ' \
         "#{'govuk-input--error' if model_object.errors[:heritage_description].any?}",
-        'aria-describedby' => 'project_heritage_description-info ' \
-        'project_heritage_description-hint'
+        'aria-describedby' => "#{ model_object_name }_heritage_description-info " \
+        "#{ model_object_name }_heritage_description-hint"
     %>
 
-    <span id="project_heritage_description-info" class="govuk-hint govuk-character-count__message"
+    <span id="<%= model_object_name %>_heritage_description-info" class="govuk-hint govuk-character-count__message"
       aria-live="polite">
       <%= t('generic.word_count', max_words: 500) %>
     </span>
