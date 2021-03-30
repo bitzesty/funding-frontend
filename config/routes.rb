@@ -293,6 +293,8 @@ Rails.application.routes.draw do
         put 'location', to: 'location#update'
         get 'description', to: 'description#show'
         put 'description', to: 'description#update'
+        get 'do-you-need-permission', to: 'permission#show'
+        put 'do-you-need-permission', to: 'permission#update'
 
       end
     

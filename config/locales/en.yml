@@ -322,6 +322,14 @@ en-GB:
               blank: "Enter the county where your project is located"
             postcode:
               blank: "Enter the postcode where your project is located"
+            permission_type:
+              blank: "Select an option to tell us whether you need permission from others to do your project"
+            permission_description_yes:
+              blank: "Enter a description of who you need permission from to do your project"
+              too_long: "Description of who you need permission from must be %{word_count} words or fewer"
+            permission_description_x_not_sure:
+              blank: "Enter a description of who you need permission from to do your project"
+              too_long: "Description of who you need permission from must be %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:

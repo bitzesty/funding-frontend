@@ -21,12 +21,17 @@ class OpenMedium < ApplicationRecord
   attr_accessor :end_date_year
 
   attr_accessor :same_location
+  attr_accessor :permission_description_yes
+  attr_accessor :permission_description_x_not_sure
 
   attr_accessor :validate_received_advice_description
   attr_accessor :validate_first_fund_application
   attr_accessor :validate_recent_project_reference
   attr_accessor :validate_recent_project_title
   attr_accessor :validate_title
+  attr_accessor :validate_permission_type
+  attr_accessor :validate_permission_description_yes
+  attr_accessor :validate_permission_description_x_not_sure
   attr_accessor :validate_description
   attr_accessor :validate_start_and_end_dates
   attr_accessor :validate_why_now_description
@@ -50,6 +55,9 @@ class OpenMedium < ApplicationRecord
   validates :townCity, presence: true, if: :validate_address?
   validates :county, presence: true, if: :validate_address?
   validates :postcode, presence: true, if: :validate_address?
+  validates :permission_type, presence: true, if: :validate_permission_type?
+  validates :permission_description_yes, presence: true, if: :validate_permission_description_yes?
+  validates :permission_description_x_not_sure, presence: true, if: :validate_permission_description_x_not_sure?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
@@ -58,7 +66,10 @@ class OpenMedium < ApplicationRecord
     validate_length(
       :received_advice_description,
       500,
-      I18n.t('activerecord.errors.models.open_medium.attributes.received_advice_description.too_long', word_count: 500)
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.received_advice_description.too_long',
+        word_count: 500
+      )
     ) if validate_received_advice_description?
 
     validate_length(
@@ -72,6 +83,24 @@ class OpenMedium < ApplicationRecord
       500,
       I18n.t('activerecord.errors.models.open_medium.attributes.why_now_description.too_long', word_count: 500)
     ) if validate_why_now_description?
+
+    validate_length(
+      :permission_description_x_not_sure,
+      300,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.permission_description_x_not_sure.too_long',
+        word_count: 300
+      )
+    ) if validate_permission_description_x_not_sure?
+
+    validate_length(
+      :permission_description_yes,
+      300,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.permission_description_yes.too_long',
+        word_count: 300
+      )
+    ) if validate_permission_description_yes?
 
   end
 
@@ -114,5 +143,23 @@ class OpenMedium < ApplicationRecord
   def validate_same_location?
     validate_same_location == true
   end
+
+  def validate_permission_type?
+    validate_permission_type == true
+  end
+
+  def validate_permission_description_yes?
+    validate_permission_description_yes == true
+  end
+
+  def validate_permission_description_x_not_sure?
+    validate_permission_description_x_not_sure == true
+  end
+
+  enum permission_type: {
+    yes: 0,
+    no: 1,
+    x_not_sure: 2
+  }
 
 end

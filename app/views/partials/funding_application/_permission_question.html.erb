@@ -94,7 +94,7 @@
           form_object.radio_button :permission_type,
           'yes',
           class: 'govuk-radios__input',
-          'data-aria-controls' => 'conditional-project_permission_type_yes'
+          'data-aria-controls' => "conditional-#{model_object_name}_permission_type_yes"
         %>
 
         <%=
@@ -106,7 +106,7 @@
       </div>
 
       <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-        id="<%= "conditional-#{:project_permission_type_yes}" %>">
+        id="<%= "conditional-#{model_object_name}_permission_type_yes" %>">
 
         <div class="govuk-character-count" data-module="govuk-character-count"
           data-maxwords="300">
@@ -124,12 +124,12 @@
               rows: 5,
               class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
                 model_object.errors[:permission_description_yes].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{model_object_name}_permission_description_yes-info",
               value: "#{model_object.permission_description if
                 model_object.permission_type == 'yes'}"
             %>
 
-            <span id="project_permission_description_yes-info"
+            <span id="<%= model_object_name %>_permission_description_yes-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words: 300) %>
             </span>
@@ -146,7 +146,7 @@
           form_object.radio_button :permission_type,
           'x_not_sure',
           class: 'govuk-radios__input',
-          'data-aria-controls' => 'conditional-project_permission_type_x_not_sure'
+          'data-aria-controls' => "conditional-#{model_object_name}_permission_type_x_not_sure"
         %>
 
         <%=
@@ -158,7 +158,7 @@
       </div>
 
       <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-        id="<%= "conditional-#{:project_permission_type_x_not_sure}" %>">
+        id="<%= "conditional-#{model_object_name}_permission_type_x_not_sure" %>">
 
         <div class="govuk-character-count" data-module="govuk-character-count"
           data-maxwords="300">
@@ -176,12 +176,12 @@
               rows: 5,
               class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
                 model_object.errors[:permission_description_x_not_sure].any?}",
-              'aria-describedby' => 'project_permission_description_x_not_sure-info',
+              'aria-describedby' => "#{model_object_name}_permission_description_x_not_sure-info",
               value: "#{model_object.permission_description if
                 model_object.permission_type == 'x_not_sure'}"
             %>
 
-            <span id="project_permission_description_x_not_sure-info"
+            <span id="<%= model_object_name %>_permission_description_x_not_sure-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words: 300) %>
             </span>
