@@ -17,7 +17,7 @@
       %>
     </h1>
 
-    <span id="project_best_placed_description-hint" class="govuk-hint">
+    <span id="<%= model_object_name %>_best_placed_description-hint" class="govuk-hint">
       <%= t('best_placed.page_hint') %>
     </span>
 
@@ -36,11 +36,11 @@
       rows: 10,
       class: 'govuk-textarea govuk-js-character-count ' \
         "#{'govuk-input--error' if model_object.errors[:best_placed_description].any?}",
-      'aria-describedby' => 'project_best_placed_description-' \
-        'info project_best_placed_description-hint'
+      'aria-describedby' => "#{ model_object_name }_best_placed_description-" \
+        "info #{ model_object_name}_best_placed_description-hint"
     %>
 
-    <span id="project_best_placed_description-info"
+    <span id="<%= model_object_name %>_best_placed_description-info"
       class="govuk-hint govuk-character-count__message" aria-live="polite">
           <%= t('generic.word_count', max_words: 500) %>
     </span>

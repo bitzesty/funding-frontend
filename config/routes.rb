@@ -305,6 +305,8 @@ Rails.application.routes.draw do
         put 'how-does-your-project-matter', to: 'matter#update'
         get 'environmental-impacts', to: 'environmental_impacts#show'
         put 'environmental-impacts', to: 'environmental_impacts#update'
+        get 'why-is-your-organisation-best-placed', to: 'best_placed#show'
+        put 'why-is-your-organisation-best-placed', to: 'best_placed#update'
 
       end
     
