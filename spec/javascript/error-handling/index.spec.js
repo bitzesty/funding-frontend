@@ -220,7 +220,7 @@ describe('error-handling test suite', () => {
   test('createAndAppendListItem - test governing_document_file href added', () => {
 
     var linkElement = createAndAppendListItemCommonAssertions('governing_document_file')    
-    expect(linkElement.getAttribute('href')).toEqual('#project_governing_document_file');
+    expect(linkElement.getAttribute('href')).toEqual('#modelName string_governing_document_file');
 
   });
 

@@ -125,7 +125,7 @@ export function createAndAppendListItem(message, attribute, modelName) {
 
         switch (attribute) {
             case "governing_document_file":
-                linkElement.setAttribute("href", "#project_governing_document_file");
+                linkElement.setAttribute("href", "#" + modelName + "_governing_document_file");
                 break;
             case "accounts_files":
                 linkElement.setAttribute("href", "#project_accounts_files");

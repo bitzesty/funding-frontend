@@ -2,7 +2,7 @@
   render(
     partial: 'partials/page_title',
     locals: {
-      model_object: @funding_application.project,
+      model_object: @funding_application.open_medium,
       page_title: t('governing_document.page_title')
     }
   )
@@ -16,15 +16,15 @@
   render(
     partial: 'partials/summary_errors',
     locals: {
-      form_object: @funding_application.project,
-      first_form_element: :project_governing_document_file
+      form_object: @funding_application.open_medium,
+      first_form_element: :open_medium_governing_document_file
     }
-  ) if @funding_application.project.errors.any?
+  ) if @funding_application.open_medium.errors.any?
 %>
 
 <%=
-  form_with model: @funding_application.project,
-  url: :funding_application_gp_project_governing_documents,
+  form_with model: @funding_application.open_medium,
+  url: :funding_application_gp_open_medium_governing_documents,
   method: :put,
   remote: no_js ? false : true do |f|
 %>
@@ -33,8 +33,8 @@
     render(
       partial: 'partials/funding_application/governing_documents_question',
       locals: {
-        model_object: @funding_application.project,
-        model_object_name: 'project',
+        model_object: @funding_application.open_medium,
+        model_object_name: 'open_medium',
         form_object: f
       }
     )

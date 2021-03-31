@@ -372,6 +372,8 @@ en-GB:
             acknowledgement_description:
               blank: "Enter a description of how you plan to acknowledge your project"
               too_long: "Answer how you you plan to acknowledge your grant in %{word_count} words or fewer"
+            governing_document_file:
+              inclusion: "Add a governing document"
         cash_contribution:
           attributes:
             description:
