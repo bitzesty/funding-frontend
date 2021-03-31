@@ -313,6 +313,8 @@ Rails.application.routes.draw do
         put 'how-will-your-project-involve-people', to: 'involvement#update'
         get 'our-other-outcomes', to: 'outcomes#show'
         put 'our-other-outcomes', to: 'outcomes#update'
+        get 'how-will-your-project-be-managed', to: 'managed#show'
+        put 'how-will-your-project-be-managed', to: 'managed#update'
         get 'how-will-you-evaluate-your-project', to: 'evaluation_description#show'
         put 'how-will-you-evaluate-your-project', to: 'evaluation_description#update'
 

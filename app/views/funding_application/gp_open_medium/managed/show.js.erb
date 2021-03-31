@@ -1,0 +1,40 @@
+<% if @funding_application.open_medium.errors.any? %>
+
+  document.title = "Error: <%== I18n.t('managed.page_title') %>";
+
+  removeAllFormGroupErrors(
+    "management_description-form-group",
+    "management_description-errors"
+  );
+
+  removeAllFormGroupErrors(
+    "risk_register_file-form-group",
+    "risk_register_file-errors"
+  );
+
+  createSummaryErrorsSkeleton();
+
+  var errorKeys = [];
+
+  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+
+    errorKeys.push("<%= attr.to_s %>");
+
+    addSummaryError(
+      false,
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium"
+    );
+
+    addFormGroupError(
+      "<%= attr %>-form-group",
+      "<%= attr %>-errors",
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium"
+    );
+
+  <% end %>
+
+<% end %>

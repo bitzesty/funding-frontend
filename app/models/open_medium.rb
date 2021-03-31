@@ -11,6 +11,8 @@ class OpenMedium < ApplicationRecord
 
   has_one :organisation, through: :user
 
+  has_one_attached :risk_register_file
+
   # These attributes are used to set individual error messages
   # for each of the project date input fields
   attr_accessor :start_date_day
@@ -49,6 +51,9 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_best_placed_description
   attr_accessor :validate_involvement_description
   attr_accessor :validate_other_outcomes
+  attr_accessor :validate_management_description_length
+  attr_accessor :validate_management_description_presence
+  attr_accessor :validate_risk_register_file
   attr_accessor :validate_evaluation_description
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
@@ -84,6 +89,7 @@ class OpenMedium < ApplicationRecord
   }, if: :validate_visitors_expected_per_year?
   validates :environmental_impacts_description, presence: true, if: :validate_environmental_impacts_description?
   validates :involvement_description, presence: true, if: :validate_involvement_description?
+  validates :management_description, presence: true, if: :validate_management_description_presence?
   validates :evaluation_description, presence: true, if: :validate_evaluation_description?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
@@ -204,6 +210,15 @@ class OpenMedium < ApplicationRecord
     end
 
     validate_length(
+      :management_description,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.management_description.too_long',
+        word_count: 500
+      )
+    ) if validate_management_description_length?
+
+    validate_length(
       :evaluation_description,
       500,
       I18n.t(
@@ -312,6 +327,18 @@ class OpenMedium < ApplicationRecord
 
   def validate_other_outcomes?
     validate_other_outcomes == true
+  end
+
+  def validate_management_description_presence?
+    validate_management_description_presence == true
+  end
+
+  def validate_management_description_length?
+    validate_management_description_length == true
+  end
+
+  def validate_risk_register_file?
+    validate_risk_register_file == true
   end
 
   def validate_evaluation_description?

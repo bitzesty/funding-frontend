@@ -1,0 +1,175 @@
+<div class="govuk-character-count" data-module="govuk-character-count"
+  data-maxwords="500">
+
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
+    model_object.errors[:management_description].any? %>"
+    id="management_description-form-group">
+
+    <h1 class="govuk-label-wrapper">
+
+      <span class="govuk-caption-xl">
+        <%= t('views.funding_application.common.about_your_project') %>
+      </span>
+
+      <%=
+        form_object.label :management_description,
+        t('managed.page_heading'),
+        class: 'govuk-label govuk-label--xl'
+      %>
+
+    </h1>
+
+    <%=
+      render(
+        partial: "partials/form_input_errors",
+        locals: {
+          form_object: model_object,
+          input_field_id: :management_description
+          }
+      ) if model_object.errors[:management_description].any?
+    %>
+
+    <div id="management_description-errors"></div>
+
+    <%=
+      form_object.text_area :management_description,
+      rows: 10,
+      class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+        model_object.errors[:management_description].any?}",
+      'aria-describedby' => "#{ model_object_name }_management_" \
+        'description-info'
+    %>
+
+    <span id="<%= model_object_name%>_management_description-info"
+      class="govuk-hint govuk-character-count__message" aria-live="polite">
+      <%= t('generic.word_count', max_words: 500) %>
+    </span>
+
+  </div>
+
+</div>
+
+<hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+<div class="govuk-form-group">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-margin-bottom-6">
+      <h2 class="govuk-fieldset__heading">
+          <%= t('managed.page_sub_heading') %>
+      </h2>
+    </legend>
+
+    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+
+      <div class="govuk-form-group <%= "govuk-form-group--error" if
+        model_object.errors[:risk_register_file].any? %>" id="risk_register_file-form-group"
+        data-form-group="file">
+
+        <%=
+          render(
+            partial: 'partials/form_group_errors',
+            locals: {
+              form_object: model_object
+            }
+          ) if model_object.errors[:risk_register_file].any?
+        %>
+
+        <div class="govuk-form-group">
+
+          <%=
+            form_object.label :risk_register_file,
+            t('managed.labels.add_your_risk_register'),
+            class: 'govuk-heading-m nlhf-content-highlight__title'
+          %>
+
+          <div id="risk_register_file-errors"></div>
+
+          <%=
+            form_object.file_field :risk_register_file,
+            multiple: false,
+            direct_upload: true,
+            class: "govuk-file-upload #{"govuk-file-upload--error" if
+              model_object.errors.any?}",
+            'data-input-identifier': 'file',
+            'data-attribute': :risk_register_file,
+            'data-model': :open_medium,
+            'autocomplete' => 'off'
+          %>
+
+          <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+          for the reasoning behind this workaround %>
+          <input type="hidden" name="ieworkaround">
+
+        </div>
+    
+    </div>
+
+    <div class="govuk-form-group">
+
+      <%=
+        render(
+          ButtonComponent.new(
+            element: 'button',
+            text: t('managed.buttons.add_risk_register'),
+            classes: 'govuk-button--secondary',
+          )
+        )
+      %>
+
+    </div>
+
+
+    <% unless model_object.risk_register_file.attached? %>
+
+      <p class="govuk-body">
+        <%= t('managed.no_risk_register_file') %>
+      </p>
+
+    <% else %>
+
+      <table class="govuk-table">
+
+        <thead class="govuk-table__head">
+
+          <tr class="govuk-table__row">
+
+            <th scope="col" class="govuk-table__header">
+              <%= t("managed.risk_register_file") %>
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          <tr>
+
+            <td>
+
+              <%=
+                link_to(
+                  model_object.risk_register_file.blob.filename,
+                  rails_blob_path(
+                    model_object.risk_register_file,
+                    disposition: 'attachment'
+                  )
+                )
+              %>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    <% end %>
+
+  </fieldset>
+
+</div>
+
