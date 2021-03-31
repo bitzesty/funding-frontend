@@ -25,8 +25,7 @@ class FundingApplication::GpOpenMedium::EvaluationDescriptionController < Applic
         "#{@funding_application.open_medium.id}"
       )
 
-      # redirect_to(:todo)
-      render :show
+    redirect_to :funding_application_gp_open_medium_plans_to_acknowledge_grant
 
     else
 

@@ -369,6 +369,9 @@ en-GB:
               too_long: "How you will evaluate your project must be %{word_count} words or fewer"
             job_description_files:
               inclusion: "Add a job description file"
+            acknowledgement_description:
+              blank: "Enter a description of how you plan to acknowledge your project"
+              too_long: "Answer how you you plan to acknowledge your grant in %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:

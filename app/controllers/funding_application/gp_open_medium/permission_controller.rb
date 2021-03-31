@@ -52,7 +52,7 @@ class FundingApplication::GpOpenMedium::PermissionController < ApplicationContro
         "open_medium ID: #{@funding_application.open_medium.id}"
       )
 
-      redirect_to :funding_application_open_medium_difference
+      redirect_to :funding_application_gp_open_medium_project_difference
 
     else
 

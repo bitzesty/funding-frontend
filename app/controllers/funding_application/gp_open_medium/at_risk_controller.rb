@@ -30,8 +30,7 @@ class FundingApplication::GpOpenMedium::AtRiskController < ApplicationController
           "ID: #{@funding_application.open_medium.id}"
         )
   
-        # redirect_to :funding_application_gp_open_medium_social_media
-        render :show
+        redirect_to :funding_application_gp_open_medium_any_formal_designation
   
       else
   

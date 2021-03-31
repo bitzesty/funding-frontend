@@ -1,0 +1,12 @@
+Non cash contributions stub page
+
+<%=
+  form_for @funding_application.open_medium,
+  url: :funding_application_gp_open_medium_are_you_getting_non_cash_contributions,
+  method: :put do |f|
+%>
+
+<%= render(ButtonComponent.new(element: 'input')) %>
+
+
+<% end %>

@@ -20,8 +20,7 @@ class FundingApplication::GpOpenMedium::OutcomesController < ApplicationControll
         "ID: #{@funding_application.open_medium.id}"
       )
 
-      # redirect_to :funding_application_gp_open_medium_project_managed
-      render :show
+      redirect_to :funding_application_gp_open_medium_how_will_your_project_be_managed
 
     else
 

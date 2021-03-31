@@ -57,6 +57,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_risk_register_file
   attr_accessor :validate_evaluation_description
   attr_accessor :validate_job_description_files
+  attr_accessor :validate_acknowledgement_description
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -93,6 +94,7 @@ class OpenMedium < ApplicationRecord
   validates :involvement_description, presence: true, if: :validate_involvement_description?
   validates :management_description, presence: true, if: :validate_management_description_presence?
   validates :evaluation_description, presence: true, if: :validate_evaluation_description?
+  validates :acknowledgement_description, presence: true, if: :validate_acknowledgement_description?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
@@ -234,6 +236,15 @@ class OpenMedium < ApplicationRecord
       I18n.t('activerecord.errors.models.open_medium.attributes.job_description_files.inclusion')
     ) if validate_job_description_files?
 
+    validate_length(
+      :acknowledgement_description,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.acknowledgement_description.too_long',
+        word_count: 500
+      )
+    ) if validate_acknowledgement_description?
+
   end
 
   def validate_received_advice_description?
@@ -354,6 +365,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_job_description_files?
     validate_job_description_files == true
+  end
+
+  def validate_acknowledgement_description?
+    validate_acknowledgement_description == true
   end
 
   enum permission_type: {

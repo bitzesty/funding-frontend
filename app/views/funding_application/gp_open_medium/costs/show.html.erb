@@ -1,0 +1,12 @@
+Costs stub page
+
+<%=
+  form_for @funding_application.open_medium,
+  url: :funding_application_gp_open_medium_costs,
+  method: :put do |f|
+%>
+
+<%= render(ButtonComponent.new(element: 'input')) %>
+
+
+<% end %>

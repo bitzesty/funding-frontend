@@ -25,8 +25,7 @@ class FundingApplication::GpOpenMedium::DifferenceController < ApplicationContro
         "#{@funding_application.open_medium.id}"
       )
 
-      # redirect_to(:funding_application_open_medium_at_risk)
-      render :show
+      redirect_to :funding_application_gp_open_medium_at_risk
 
     else
 
