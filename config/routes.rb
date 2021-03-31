@@ -317,6 +317,8 @@ Rails.application.routes.draw do
         put 'how-will-your-project-be-managed', to: 'managed#update'
         get 'how-will-you-evaluate-your-project', to: 'evaluation_description#show'
         put 'how-will-you-evaluate-your-project', to: 'evaluation_description#update'
+        get 'jobs-or-apprenticeships', to: 'jobs#show'
+        put 'jobs-or-apprenticeships', to: 'jobs#update'
 
       end
     

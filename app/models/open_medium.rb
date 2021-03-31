@@ -12,6 +12,7 @@ class OpenMedium < ApplicationRecord
   has_one :organisation, through: :user
 
   has_one_attached :risk_register_file
+  has_many_attached :job_description_files
 
   # These attributes are used to set individual error messages
   # for each of the project date input fields
@@ -55,6 +56,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_management_description_presence
   attr_accessor :validate_risk_register_file
   attr_accessor :validate_evaluation_description
+  attr_accessor :validate_job_description_files
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -227,6 +229,11 @@ class OpenMedium < ApplicationRecord
       )
     ) if validate_evaluation_description?
 
+    validate_file_attached(
+      :job_description_files,
+      I18n.t('activerecord.errors.models.open_medium.attributes.job_description_files.inclusion')
+    ) if validate_job_description_files?
+
   end
 
   def validate_received_advice_description?
@@ -343,6 +350,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_evaluation_description?
     validate_evaluation_description == true
+  end
+
+  def validate_job_description_files?
+    validate_job_description_files == true
   end
 
   enum permission_type: {

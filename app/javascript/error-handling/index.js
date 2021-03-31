@@ -145,6 +145,9 @@ export function createAndAppendListItem(message, attribute, modelName) {
             case "risk_register_file":
                 linkElement.setAttribute("href", "#open_medium_risk_register_file");
                 break;
+            case "job_description_files":
+                linkElement.setAttribute("href", "#open_medium_job_description_files");
+                break;
             default:
                 linkElement.setAttribute("href", attribute === "capital_work" ?
                     "#project_capital_work_false" : "#project_capital_work_true");

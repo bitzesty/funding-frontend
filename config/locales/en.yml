@@ -367,6 +367,8 @@ en-GB:
             evaluation_description:
               blank: "Enter a description of how you will evaluate your project"
               too_long: "How you will evaluate your project must be %{word_count} words or fewer"
+            job_description_files:
+              inclusion: "Add a job description file"
         cash_contribution:
           attributes:
             description:

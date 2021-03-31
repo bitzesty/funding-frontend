@@ -1,0 +1,127 @@
+<div class="govuk-form-group">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+      <h1 class="govuk-fieldset__heading">
+          <%= t('jobs.page_heading') %>
+      </h1>
+    </legend>
+
+    <div class="govuk-hint">
+      <%= t('jobs.page_hint') %>
+    </div>
+
+    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+
+      <div class="govuk-form-group" id="job_description_files-form-group"
+        data-form-group="file">
+
+        <%=
+          render(
+            partial: 'partials/form_group_errors',
+            locals: {
+              form_object: model_object
+            }
+          ) if model_object.errors.any?
+        %>
+
+        <div class="govuk-form-group">
+
+          <%=
+            form_object.label :job_description_files,
+            t('jobs.labels.add_your_job_descriptions'),
+            class: 'govuk-heading-m nlhf-content-highlight__title'
+          %>
+
+          <div id="job_description_files-errors"></div>
+
+          <%=
+            form_object.file_field :job_description_files,
+            multiple: true,
+            direct_upload: true,
+            class: "govuk-file-upload #{"govuk-file-upload--error" if
+              model_object.errors.any?}",
+            'data-input-identifier': 'file',
+            'data-attribute': :job_description_files,
+            'data-model': :open_medium,
+            'autocomplete' => 'off'
+          %>
+
+          <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+          for the reasoning behind this workaround %>
+          <input type="hidden" name="ieworkaround">
+
+        </div>
+    
+    </div>
+
+    <div class="govuk-form-group">
+
+      <%=
+        render(
+          ButtonComponent.new(
+            text: t('jobs.buttons.add_job_descriptions'),
+            classes: 'govuk-button--secondary',
+          )
+        )
+      %>
+
+    </div>
+
+
+    <% unless model_object.job_description_files.attached? %>
+
+      <p class="govuk-body">
+        <%= t('jobs.no_job_description_files') %>
+      </p>
+
+    <% else %>
+
+      <table class="govuk-table">
+
+        <thead class="govuk-table__head">
+
+          <tr class="govuk-table__row">
+
+            <th scope="col" class="govuk-table__header">
+              <%= t("jobs.job_description_files") %>
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+        <% model_object.job_description_files.each do |jdf| %>
+
+          <tr>
+
+            <td>
+
+              <%=
+                link_to(
+                  jdf.blob.filename,
+                  rails_blob_path(
+                    jdf,
+                    disposition: 'attachment'
+                  )
+                )
+              %>
+
+            </td>
+
+          </tr>
+
+        <% end %>
+
+        </tbody>
+
+      </table>
+
+    <% end %>
+
+  </fieldset>
+
+</div>

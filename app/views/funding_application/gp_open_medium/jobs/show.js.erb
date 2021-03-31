@@ -1,0 +1,35 @@
+<% if @funding_application.open_medium.errors.any? %>
+
+  document.title = "Error: <%== I18n.t('jobs.page_title') %>";
+
+  removeAllFormGroupErrors(
+    "job_description_files-form-group",
+    "job_description_files-errors"
+  );
+
+  createSummaryErrorsSkeleton();
+
+  var errorKeys = [];
+
+  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+
+    errorKeys.push("<%= attr.to_s %>");
+
+    addSummaryError(
+      false,
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium"
+    );
+
+    addFormGroupError(
+      "<%= attr %>-form-group",
+      "<%= attr %>-errors",
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium"
+    );
+
+  <% end %>
+
+<% end %>

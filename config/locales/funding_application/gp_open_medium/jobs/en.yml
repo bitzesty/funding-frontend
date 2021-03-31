@@ -1,0 +1,11 @@
+en-GB:
+  jobs:
+    page_title: "Tell us about any jobs or apprenticeships that you will create to deliver your project"
+    page_heading: "Tell us about any jobs or apprenticeships that you will create to deliver your project"
+    page_hint: "If you plan to recruit a new member of staff to help deliver your project, including an apprentice, please submit a job description for that post. Please note: You must openly advertise all new staff posts, unless you are extending the hours of an existing member of staff or are moving an existing member of staff into the project post."
+    no_job_description_files: "You have not added job descriptions"
+    job_description_files: "Job description files"
+    labels:
+      add_your_job_descriptions: "Add your job descriptions"
+    buttons:
+      add_job_descriptions: "Add job descriptions"
