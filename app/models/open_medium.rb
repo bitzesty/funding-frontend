@@ -48,6 +48,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_heritage_description
   attr_accessor :validate_best_placed_description
   attr_accessor :validate_involvement_description
+  attr_accessor :validate_other_outcomes
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -189,6 +190,17 @@ class OpenMedium < ApplicationRecord
       )
     ) if validate_involvement_description?
 
+    for i in 2..9 do
+      validate_length(
+        "outcome_#{i}_description",
+        300,
+        I18n.t(
+          'activerecord.errors.models.project.attributes.outcome_description.too_long',
+          word_count: 300
+        )
+      ) if validate_other_outcomes?
+    end
+
   end
 
   def validate_received_advice_description?
@@ -285,6 +297,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_involvement_description?
     validate_involvement_description == true
+  end
+
+  def validate_other_outcomes?
+    validate_other_outcomes == true
   end
 
   enum permission_type: {

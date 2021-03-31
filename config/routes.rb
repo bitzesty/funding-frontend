@@ -311,6 +311,8 @@ Rails.application.routes.draw do
         put 'why-is-your-organisation-best-placed', to: 'best_placed#update'
         get 'how-will-your-project-involve-people', to: 'involvement#show'
         put 'how-will-your-project-involve-people', to: 'involvement#update'
+        get 'our-other-outcomes', to: 'outcomes#show'
+        put 'our-other-outcomes', to: 'outcomes#update'
 
       end
     

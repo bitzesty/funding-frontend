@@ -26,7 +26,6 @@
         <%=
           form_object.check_box :outcome_2,
           {
-            id: :project_project_outcome_2,
             class: 'govuk-checkboxes__input',
             'data-aria-controls' => 'conditional-outcome-2-conditional'
           },
@@ -35,7 +34,7 @@
         %>
 
         <%=
-          form_object.label :project_outcome_2, 
+          form_object.label :outcome_2,
           t('outcomes.checkboxes.heritage_will_be_in_better_condition'), 
           class: 'govuk-label govuk-checkboxes__label' 
         %>
@@ -61,11 +60,11 @@
               rows: 5,
               class: 'govuk-textarea govuk-js-character-count ' \
                 "#{'govuk-input--error' if model_object.errors[:outcome_2_description].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{ model_object_name }_outcome_2_description-info",
               value: "#{model_object.outcome_2_description if model_object.outcome_2 == true}"
             %>
 
-            <span id="project_outcome_2_description-info"
+            <span id="<%= model_object_name %>_outcome_2_description-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words:300) %>
             </span>
@@ -81,7 +80,6 @@
         <%=
           form_object.check_box :outcome_3,
           {
-            id: :project_project_outcome_3,
             class: 'govuk-checkboxes__input',
             'data-aria-controls' => 'conditional-outcome-3-conditional'
           },
@@ -90,7 +88,7 @@
         %>
 
         <%=
-          form_object.label :project_outcome_3,
+          form_object.label :outcome_3,
           t("outcomes.checkboxes.heritage_will_be_better_defined_and_explained"),
           class: 'govuk-label govuk-checkboxes__label'
         %>
@@ -116,11 +114,11 @@
               rows: 5,
               class: 'govuk-textarea govuk-js-character-count ' \
                 "#{'govuk-input--error' if model_object.errors[:outcome_3_description].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{ model_object_name }_outcome_3_description-info",
               value: "#{model_object.outcome_3_description if model_object.outcome_3 == true}"
             %>
 
-            <span id="project_outcome_3_description-info"
+            <span id="<%= model_object_name %>_outcome_3_description-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words:300) %>
             </span>
@@ -136,7 +134,6 @@
         <%=
           form_object.check_box :outcome_4,
           {
-            id: :project_project_outcome_4,
             class: 'govuk-checkboxes__input',
             'data-aria-controls' => 'conditional-outcome-4-conditional'
           },
@@ -145,7 +142,7 @@
         %>
 
         <%=
-          form_object.label :project_outcome_4,
+          form_object.label :outcome_4,
           t('outcomes.checkboxes.people_will_have_developed_skills'),
           class: 'govuk-label govuk-checkboxes__label'
         %>
@@ -171,11 +168,11 @@
               rows: 5,
               class: 'govuk-textarea govuk-js-character-count ' \
                 "#{'govuk-input--error' if model_object.errors[:outcome_4_description].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{ model_object_name }_outcome_4_description-info",
               value: "#{model_object.outcome_4_description if model_object.outcome_4 == true}"
             %>
 
-            <span id="project_outcome_4_description-info"
+            <span id="<%= model_object_name %>_outcome_4_description-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words:300) %>
             </span>
@@ -191,7 +188,6 @@
         <%= 
           form_object.check_box :outcome_5,
           {
-            id: :project_project_outcome_5,
             class: 'govuk-checkboxes__input',
             'data-aria-controls' => 'conditional-outcome-5-conditional'
           },
@@ -200,7 +196,7 @@
         %>
 
         <%=
-          form_object.label :project_outcome_5, 
+          form_object.label :outcome_5,
           t('outcomes.checkboxes.people_will_have_learned_about_heritage'), 
           class: 'govuk-label govuk-checkboxes__label'
         %>
@@ -226,11 +222,11 @@
               rows: 5,
               class: 'govuk-textarea govuk-js-character-count ' \
                 "#{'govuk-input--error' if model_object.errors[:outcome_5_description].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{ model_object_name }_outcome_5_description-info",
               value: "#{model_object.outcome_5_description if model_object.outcome_5 == true}"
             %>
 
-            <span id="project_outcome_5_description-info"
+            <span id="<%= model_object_name %>_outcome_5_description-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words:300) %>
             </span>
@@ -246,7 +242,6 @@
         <%=
           form_object.check_box :outcome_6,
           {
-            id: :project_project_outcome_6,
             class: 'govuk-checkboxes__input',
             'data-aria-controls' => 'conditional-outcome-6-conditional'
           },
@@ -255,7 +250,7 @@
         %>
 
         <%=
-          form_object.label :project_outcome_6,
+          form_object.label :outcome_6,
           t('outcomes.checkboxes.people_will_have_greater_wellbeing'),
           class: 'govuk-label govuk-checkboxes__label'
         %>
@@ -281,11 +276,11 @@
               rows: 5,
               class: 'govuk-textarea govuk-js-character-count ' \
                 "#{'govuk-input--error' if model_object.errors[:outcome_6_description].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{ model_object_name }_outcome_6_description-info",
               value: "#{model_object.outcome_6_description if model_object.outcome_6 == true}"
             %>
 
-            <span id="project_outcome_6_description-info"
+            <span id="<%= model_object_name %>_outcome_6_description-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words:300) %>
             </span>
@@ -301,7 +296,6 @@
         <%=
           form_object.check_box :outcome_7,
           {
-            id: :project_project_outcome_7,
             class: 'govuk-checkboxes__input',
             'data-aria-controls' => 'conditional-outcome-7-conditional'
           },
@@ -310,7 +304,7 @@
         %>
 
         <%=
-          form_object.label :project_outcome_7,
+          form_object.label :outcome_7,
           t('outcomes.checkboxes.funded_organisation_will_be_more_resilient'),
           class: 'govuk-label govuk-checkboxes__label'
         %>
@@ -336,11 +330,11 @@
               rows: 5,
               class: 'govuk-textarea govuk-js-character-count ' \
                 "#{'govuk-input--error' if model_object.errors[:outcome_7_description].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{ model_object_name }_outcome_7_description-info",
               value: "#{model_object.outcome_7_description if model_object.outcome_7 == true}"
             %>
 
-            <span id="project_outcome_7_description-info"
+            <span id="<%= model_object_name %>_outcome_7_description-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words:300) %>
             </span>
@@ -356,7 +350,6 @@
         <%=
           form_object.check_box :outcome_8,
           {
-            id: :project_project_outcome_8,
             class: 'govuk-checkboxes__input',
             'data-aria-controls' => 'conditional-outcome-8-conditional'
           },
@@ -365,7 +358,7 @@
         %>
 
         <%=
-          form_object.label :project_outcome_8,
+          form_object.label :outcome_8,
           t('outcomes.checkboxes.local_area_better_place'),
           class: 'govuk-label govuk-checkboxes__label'
         %>
@@ -391,11 +384,11 @@
               rows: 5,
               class: 'govuk-textarea govuk-js-character-count ' \
                 "#{'govuk-input--error' if model_object.errors[:outcome_8_description].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{ model_object_name }_outcome_8_description-info",
               value: "#{model_object.outcome_8_description if model_object.outcome_8 == true}"
             %>
 
-            <span id="project_outcome_8_description-info"
+            <span id="<%= model_object_name %>_outcome_8_description-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words:300) %>
             </span>
@@ -411,7 +404,6 @@
         <%=
           form_object.check_box :outcome_9,
           {
-            id: :project_project_outcome_9,
             class: 'govuk-checkboxes__input',
             'data-aria-controls' => 'conditional-outcome-9-conditional'
           },
@@ -420,7 +412,7 @@
         %>
 
         <%=
-          form_object.label :project_outcome_9,
+          form_object.label :outcome_9,
           t('outcomes.checkboxes.the_local_economy_will_be_boosted'),
           class: 'govuk-label govuk-checkboxes__label'
         %>
@@ -446,11 +438,11 @@
               rows: 5,
               class: 'govuk-textarea govuk-js-character-count ' \
                 "#{'govuk-input--error' if model_object.errors[:outcome_9_description].any?}",
-              'aria-describedby' => 'project_permission_description_yes-info',
+              'aria-describedby' => "#{ model_object_name }_outcome_9_description-info",
               value: "#{model_object.outcome_9_description if model_object.outcome_9 == true}"
             %>
 
-            <span id="project_outcome_9_description-info"
+            <span id="<%= model_object_name %>_outcome_9_description-info"
               class="govuk-hint govuk-character-count__message" aria-live="polite">
               <%= t('generic.word_count', max_words:300) %>
             </span>

@@ -359,6 +359,8 @@ en-GB:
             involvement_description:
               blank: "Enter a description of how your project will involve a wider range of people"
               too_long: "Description of how your project will involve a wider range of people must be %{word_count} words or fewer"
+            outcome_description:
+              too_long: "Description of how you will meet this outcome must be %{word_count} words or fewer"
         cash_contribution:
           attributes:
             description:
