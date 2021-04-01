@@ -228,7 +228,7 @@ describe('error-handling test suite', () => {
   test('createAndAppendListItem - test project_accounts_files href added', () => {
 
     var linkElement = createAndAppendListItemCommonAssertions('accounts_files')    
-    expect(linkElement.getAttribute('href')).toEqual('#project_accounts_files');
+    expect(linkElement.getAttribute('href')).toEqual('#modelName string_accounts_files');
     
   });
 

@@ -128,7 +128,7 @@ export function createAndAppendListItem(message, attribute, modelName) {
                 linkElement.setAttribute("href", "#" + modelName + "_governing_document_file");
                 break;
             case "accounts_files":
-                linkElement.setAttribute("href", "#project_accounts_files");
+                linkElement.setAttribute("href", "#" + modelName + "_accounts_files");
                 break;
             case "cash_contribution_evidence_files":
                 linkElement.setAttribute("href", "#project_cash_contributions_attributes_0_cash_contribution_evidence_files");

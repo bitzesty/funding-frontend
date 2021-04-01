@@ -1,0 +1,35 @@
+<% if @funding_application.open_medium.errors.any? %>
+
+  document.title = "Error: <%== I18n.t('accounts.page_title') %>";
+
+  removeAllFormGroupErrors(
+      "accounts_files-form-group",
+      "accounts_files-errors"
+  );
+
+  createSummaryErrorsSkeleton();
+
+  var errorKeys = [];
+
+  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+
+      errorKeys.push("<%= attr.to_s %>");
+
+      addSummaryError(
+          false,
+          "<%= attr %>",
+          "<%= msg %>",
+          "open_medium"
+      );
+
+      addFormGroupError(
+          "<%= attr %>-form-group",
+          "<%= attr %>-errors",
+          "<%= attr %>",
+          "<%= msg %>",
+          "open_medium"
+      );
+
+  <% end %>
+
+<% end %>

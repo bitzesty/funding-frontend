@@ -374,6 +374,8 @@ en-GB:
               too_long: "Answer how you you plan to acknowledge your grant in %{word_count} words or fewer"
             governing_document_file:
               inclusion: "Add a governing document"
+            accounts_files:
+              inclusion: "Add accounts"
         cash_contribution:
           attributes:
             description:

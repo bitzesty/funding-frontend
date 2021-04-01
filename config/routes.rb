@@ -339,6 +339,8 @@ Rails.application.routes.draw do
         put 'evidence-of-support', to: 'evidence_of_support#update'
         get 'governing-documents', to: 'governing_documents#show'
         put 'governing-documents', to: 'governing_documents#update'
+        get 'accounts', to: 'accounts#show'
+        put 'accounts', to: 'accounts#update'
 
       end
     
