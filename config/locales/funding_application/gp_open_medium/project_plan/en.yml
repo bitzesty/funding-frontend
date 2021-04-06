@@ -1,0 +1,11 @@
+en-GB:
+  project_plan:
+    page_title: "Upload your project plan"
+    page_heading: "Upload your project plan"
+    page_hint: "All projects must submit a project plan. We recommend you use the template provided on our website."
+    no_project_plan: "You have not added a project plan"
+    project_plan_file: "Project plan file"
+    labels:
+      add_your_project_plan: "Add your project plan"
+    buttons:
+      add_project_plan: "Add project plan"

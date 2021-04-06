@@ -341,6 +341,14 @@ Rails.application.routes.draw do
         put 'governing-documents', to: 'governing_documents#update'
         get 'accounts', to: 'accounts#show'
         put 'accounts', to: 'accounts#update'
+        get 'project-plan', to: 'project_plan#show'
+        put 'project-plan', to: 'project_plan#update'
+        get 'work-briefs', to: 'work_briefs#show'
+        put 'work-briefs', to: 'work_briefs#update'
+        get 'project-images', to: 'project_images#show'
+        put 'project-images', to: 'project_images#update'
+        get 'full-cost-recovery', to: 'cost_recovery#show'
+        put 'full-cost-recovery', to: 'cost_recovery#update'
 
       end
     

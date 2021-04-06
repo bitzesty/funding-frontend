@@ -376,6 +376,14 @@ en-GB:
               inclusion: "Add a governing document"
             accounts_files:
               inclusion: "Add accounts"
+            project_plan_file:
+              inclusion: "Add a project plan file"
+            work_brief_files:
+              inclusion: "Add work briefs"
+            project_image_files:
+              inclusion: "Add project images"
+            full_cost_recovery_file:
+              inclusion: "Add calculations for Full Cost Recovery"
         cash_contribution:
           attributes:
             description:

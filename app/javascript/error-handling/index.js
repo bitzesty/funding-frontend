@@ -148,6 +148,18 @@ export function createAndAppendListItem(message, attribute, modelName) {
             case "job_description_files":
                 linkElement.setAttribute("href", "#open_medium_job_description_files");
                 break;
+            case "project_plan_file":
+                linkElement.setAttribute("href", "#" + modelName + "_project_plan_file");
+                break;
+            case "work_brief_files":
+                linkElement.setAttribute("href", "#" + modelName + "_work_brief_files");
+                break;
+            case "project_image_files":
+                linkElement.setAttribute("href", "#" + modelName + "_project_image_files");
+                break;
+            case "full_cost_recovery_file":
+                linkElement.setAttribute("href", "#" + modelName + "_full_cost_recovery_file");
+                break;
             default:
                 linkElement.setAttribute("href", attribute === "capital_work" ?
                     "#project_capital_work_false" : "#project_capital_work_true");

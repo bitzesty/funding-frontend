@@ -1,0 +1,125 @@
+<div class="govuk-form-group">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+      <h1 class="govuk-fieldset__heading">
+        <%= t('cost_recovery.page_heading') %>
+      </h1>
+    </legend>
+
+    <div class="govuk-hint"
+      id="<%= model_object_name %>_full_cost_recovery_file-hint">
+      <%= t('cost_recovery.page_hint') %>
+    </div>
+
+    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+
+      <div class="govuk-form-group <%= "govuk-form-group--error" if
+        model_object.errors.any? %>" id="full_cost_recovery_file-form-group" data-form-group="file">
+
+        <%=
+          render(
+            partial: 'partials/form_group_errors',
+            locals: {
+              form_object: model_object
+            }
+          ) if model_object.errors.any?
+        %>
+
+        <div class="govuk-form-group">
+
+          <%=
+            form_object.label :full_cost_recovery_file,
+            t('cost_recovery.labels.add_your_cost_recovery'),
+            class: "govuk-heading-m nlhf-content-hightlight__title"
+          %>
+
+          <div id="full_cost_recovery_file-errors"></div>
+
+          <%=
+            form_object.file_field :full_cost_recovery_file,
+            multiple: false,
+            direct_upload: true,
+            class: "govuk-file-upload #{"govuk-file-upload--error" if
+              model_object.errors.any?}",
+            'data-input-identifier': 'file',
+            'data-attribute': :full_cost_recovery_file,
+            'data-model': 'open_medium',
+            'autocomplete' => 'off'
+          %>
+
+        </div>
+
+        <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+        for the reasoning behind this workaround %>
+        <input type="hidden" name="ieworkaround">
+
+        <div class="govuk-form-group">
+
+          <%=
+            render(
+              ButtonComponent.new(
+                text: t('cost_recovery.buttons.add_cost_recovery'),
+                classes: 'govuk-button--secondary',
+              )
+            )
+          %>
+
+        </div>
+
+      </div>
+
+      <% unless model_object.full_cost_recovery_file.attached? %>
+
+        <p class="govuk-body">
+          <%= t('cost_recovery.no_cost_recovery_file') %>
+        </p>
+
+      <% else %>
+
+        <table class="govuk-table">
+
+          <thead class="govuk-table__head">
+
+            <tr class="govuk-table__row">
+
+              <th scope="col" class="govuk-table__header">
+                <%= t('cost_recovery.full_cost_recovery_file') %>
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody class="govuk-table__body">
+
+            <tr class="govuk-table__row">
+
+              <td class="govuk-table__cell">
+
+                <%=
+                  link_to(
+                    model_object.full_cost_recovery_file.blob.filename,
+                    rails_blob_path(
+                      model_object.full_cost_recovery_file,
+                      disposition: 'attachment'
+                    )
+                  )
+                %>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      <% end %>
+
+    </div>
+
+  </fieldset>
+
+</div>

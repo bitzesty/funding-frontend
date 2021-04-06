@@ -3,7 +3,7 @@
     partial: 'partials/page_title',
     locals: {
       model_object: @funding_application.open_medium,
-      page_title: I18n.t('accounts.page_title')
+      page_title: I18n.t('work_briefs.page_title')
     }
   )
 %>
@@ -17,24 +17,23 @@
     partial: 'partials/summary_errors',
     locals: {
       form_object: @funding_application.open_medium,
-      first_form_element: :open_medium_accounts_files
+      first_form_element: :open_medium_work_brief_files
     }
   ) if @funding_application.open_medium.errors.any?
 %>
 
 <%=
   form_with model: @funding_application.open_medium,
-  url: :funding_application_gp_open_medium_accounts,
+  url: :funding_application_gp_open_medium_work_briefs,
   method: :put,
-  remote: no_js ? false : true do |f|
+  remote: no_js ? true : false do |f|
 %>
 
   <%=
     render(
-      partial: 'partials/funding_application/accounts_question',
+      partial: 'partials/funding_application/work_briefs_question',
       locals: {
         model_object: @funding_application.open_medium,
-        model_object_name: 'open_medium',
         form_object: f
       }
     )
@@ -46,7 +45,7 @@
   render(
     ButtonComponent.new(
       element: 'a',
-      href: funding_application_gp_open_medium_project_plan_url
+      href: funding_application_gp_open_medium_project_images_url
     )
   )
 %>

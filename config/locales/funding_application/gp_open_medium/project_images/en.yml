@@ -1,0 +1,11 @@
+en-GB:
+  project_images:
+    page_title: "Upload project images"
+    page_heading: "Upload project images"
+    page_hint: "If relevant, please provide images that help illustrate your project. For example, if your project focus is a local photography archive, you may wish to provide a few images of the collection. Or, if your project involves a community garden, you may wish to provide a map. If you are seeking to improve a landscape or conservation area you should include a map of the area that shows the location of all the projects you will deliver."
+    no_project_image_files: "You have not added project images"
+    project_image_files: "project image files"
+    labels:
+      add_your_project_images: "Add your project images"
+    buttons:
+      add_project_images: "Add project images"

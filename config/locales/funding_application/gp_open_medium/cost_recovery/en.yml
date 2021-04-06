@@ -1,0 +1,11 @@
+en-GB:
+  cost_recovery:
+    page_title: "Upload calculations for full cost recovery"
+    page_heading: "Upload calculations for full cost recovery"
+    page_hint: "If you are an organisation in the voluntary sector, we can cover a proportion of your organisation's overheads commensurate with the time or resources used for your project. We can also cover a proportion of the cost of an existing member of staff, as long as they are not working exclusively on the project. We expect this contribution to be calculated using Full Cost Recovery. If you are including Full Cost Recovery in your project budget, you must include a document that outlines your calculation. You can find a spreadsheet to help you calculate this figure on our website."
+    no_cost_recovery_file: "You have not added calculations for a full cost recovery"
+    cost_recovery_file: "full cost recovery file"
+    labels:
+      add_your_cost_recovery: "Add your full cost recovery"
+    buttons:
+      add_cost_recovery: "Add full cost recovery"

@@ -13,8 +13,12 @@ class OpenMedium < ApplicationRecord
 
   has_one_attached :risk_register_file
   has_one_attached :governing_document_file
+  has_one_attached :project_plan_file
+  has_one_attached :full_cost_recovery_file
   has_many_attached :job_description_files
   has_many_attached :accounts_files
+  has_many_attached :work_brief_files
+  has_many_attached :project_image_files
 
   # These attributes are used to set individual error messages
   # for each of the project date input fields
@@ -62,6 +66,10 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_acknowledgement_description
   attr_accessor :validate_governing_document_file
   attr_accessor :validate_accounts_files
+  attr_accessor :validate_project_plan_file
+  attr_accessor :validate_work_brief_files
+  attr_accessor :validate_project_image_files
+  attr_accessor :validate_full_cost_recovery_file
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -259,6 +267,26 @@ class OpenMedium < ApplicationRecord
       I18n.t('activerecord.errors.models.open_medium.attributes.accounts_files.inclusion')
     ) if validate_accounts_files?
 
+    validate_file_attached(
+      :project_plan_file,
+      I18n.t('activerecord.errors.models.open_medium.attributes.project_plan_file.inclusion')
+    ) if validate_project_plan_file?
+
+    validate_file_attached(
+      :work_brief_files,
+      I18n.t('activerecord.errors.models.open_medium.attributes.work_brief_files.inclusion')
+    ) if validate_work_brief_files?
+
+    validate_file_attached(
+      :project_image_files,
+      I18n.t('activerecord.errors.models.open_medium.attributes.project_image_files.inclusion')
+    ) if validate_project_image_files?
+
+    validate_file_attached(
+      :full_cost_recovery_file,
+      I18n.t('activerecord.errors.models.open_medium.attributes.full_cost_recovery_file.inclusion')
+    ) if validate_full_cost_recovery_file?
+
   end
 
   def validate_received_advice_description?
@@ -391,6 +419,22 @@ class OpenMedium < ApplicationRecord
 
   def validate_accounts_files?
     validate_accounts_files == true
+  end
+
+  def validate_project_plan_file?
+    validate_project_plan_file == true
+  end
+
+  def validate_work_brief_files?
+    validate_work_brief_files == true
+  end
+
+  def validate_project_image_files?
+    validate_project_image_files == true
+  end
+
+  def validate_full_cost_recovery_file?
+    validate_full_cost_recovery_file == true
   end
 
   enum permission_type: {

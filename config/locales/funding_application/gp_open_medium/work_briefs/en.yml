@@ -1,0 +1,11 @@
+en-GB:
+  work_briefs:
+    page_title: "Upload briefs for any internally or externally commissioned work"
+    page_heading: "Upload briefs for any internally or externally commissioned work"
+    page_hint: "Briefs describe any work you plan to commission during your project. If you are commissioning work (e.g. from an artist or architect) then you should submit a brief. The brief should describe the works, how long they will take, and how much they will cost. You can find a template brief on our website. For fees over £10,000 you should obtain 3 competitive tenders or quotes, for fees over £50,000 we will expect you to provide proof of the competitive tendering process."
+    no_work_brief_files: "You have not added work briefs"
+    work_brief_files: "work brief files"
+    labels:
+      add_your_work_briefs: "Add your work briefs"
+    buttons:
+      add_work_briefs: "Add work briefs"
