@@ -1,0 +1,33 @@
+<% if @funding_application.open_medium.errors.any? %>
+
+  document.title = "<%= t('generic.error') %>: <%= t('capital_works.page_title') %>";
+
+  removeAllFormGroupErrors(
+    "capital-works-form-group-main",
+    "form-group-errors"
+  );
+
+  createSummaryErrorsSkeleton();
+
+  var errorKeys = [];
+
+  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+
+    addSummaryError(
+      false,
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium",
+      "capital_work_files"
+    );
+
+    addFormGroupError(
+        "capital-works-form-group-main",
+        "form-group-errors",
+        "<%= attr %>",
+        "<%= msg %>"
+    );
+
+  <% end %>
+
+<% end %>

@@ -66,8 +66,8 @@
               t(
                 'capital_works.examples_physical_work_html',
                 examples_gp_os_guidance: link_to(
-                  t('capital_works.examples_gp_os_guidance'),
-                  'http://www.heritagefund.org.uk/publications/receiving-grant-guidance-ps3000-ps10000#heading-8',
+                  t("capital_works.examples_gp_#{ model_object_name }_guidance"),
+                  grant_programme_guidance_link,
                   {
                     class: 'govuk-link',
                     target: '_blank'
@@ -75,7 +75,7 @@
                 ),
                 examples_receiving_a_grant_guidance: link_to(
                   t('capital_works.examples_receiving_a_grant_guidance'),
-                  'https://www.heritagefund.org.uk/publications/receiving-grant-guidance-ps3000-ps10000',
+                  receiving_grant_guidance_link,
                   {
                     class: 'govuk-link',
                     target: '_blank'
@@ -115,7 +115,7 @@
           form_object.radio_button :capital_work,
           "true",
           class: "govuk-radios__input",
-          "data-aria-controls" => "conditional-project_capital_work_true"
+          "data-aria-controls" => "conditional-#{ model_object_name }_capital_work_true"
         %>
 
         <%=
@@ -127,9 +127,10 @@
       </div>
 
       <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-        id="<%= "conditional-#{:project_capital_work_true}" %>">
+        id="conditional-<%= "#{ model_object_name }" %>_capital_work_true">
 
-        <span id="project_capital_work_file-hint" class="govuk-hint">
+        <span id="<%= model_object_name %>_capital_work_file-hint"
+          class="govuk-hint">
           <%= t('capital_works.condition_survey_hint_html') %>
         </span>
 
@@ -149,7 +150,7 @@
             class: "govuk-file-upload",
             'data-input-identifier': 'file',
             'data-attribute': :capital_work_file,
-            'data-model': :project,
+            'data-model': model_object_name,
             'autocomplete' => 'off'
           %>
 

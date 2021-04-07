@@ -11,6 +11,7 @@ class OpenMedium < ApplicationRecord
 
   has_one :organisation, through: :user
 
+  has_one_attached :capital_work_file
   has_one_attached :risk_register_file
   has_one_attached :governing_document_file
   has_one_attached :project_plan_file
@@ -40,6 +41,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_recent_project_title
   attr_accessor :validate_title
   attr_accessor :validate_acquisition
+  attr_accessor :validate_capital_work
   attr_accessor :validate_permission_type
   attr_accessor :validate_permission_description_yes
   attr_accessor :validate_permission_description_x_not_sure
@@ -93,6 +95,7 @@ class OpenMedium < ApplicationRecord
   validates :townCity, presence: true, if: :validate_address?
   validates :county, presence: true, if: :validate_address?
   validates :postcode, presence: true, if: :validate_address?
+  validates_inclusion_of :capital_work, in: [true, false], if: :validate_capital_work?
   validates_inclusion_of :acquisition, in: [true, false], if: :validate_acquisition?
   validates :permission_type, presence: true, if: :validate_permission_type?
   validates :permission_description_yes, presence: true, if: :validate_permission_description_yes?
@@ -338,6 +341,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_same_location?
     validate_same_location == true
+  end
+
+  def validate_capital_work?
+    validate_capital_work == true
   end
 
   def validate_acquisition?

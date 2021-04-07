@@ -148,6 +148,9 @@ export function createAndAppendListItem(message, attribute, modelName) {
             case "job_description_files":
                 linkElement.setAttribute("href", "#open_medium_job_description_files");
                 break;
+            case "capital_work":
+                linkElement.setAttribute("href", "#" + modelName + "_capital_work_false");
+                break;
             case "project_plan_file":
                 linkElement.setAttribute("href", "#" + modelName + "_project_plan_file");
                 break;

@@ -241,10 +241,10 @@ describe('error-handling test suite', () => {
   });
 
 
-  test('createAndAppendListItem - test project_capital_work_false href added', () => {
+  test('createAndAppendListItem - test modelName string_capital_work_false href added', () => {
 
     var linkElement = createAndAppendListItemCommonAssertions('capital_work')
-    expect(linkElement.getAttribute('href')).toEqual('#project_capital_work_false');
+    expect(linkElement.getAttribute('href')).toEqual('#modelName string_capital_work_false');
   
   });
 

@@ -1,12 +1,49 @@
-Capital Works stub page
-
 <%=
-  form_for @funding_application.open_medium,
-  url: :funding_application_gp_open_medium_capital_works,
-  method: :put do |f|
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application.open_medium,
+      page_title: t('capital_works.page_title')
+    }
+  )
 %>
 
-<%= render(ButtonComponent.new(element: 'input')) %>
+<noscript><% no_js = true %></noscript>
 
+<div id="summary-errors"></div>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.open_medium,
+      first_form_element: :open_medium_capital_work_false
+    }
+  ) if @funding_application.open_medium.errors.any?
+%>
+
+<%=
+  form_with model: @funding_application.open_medium,
+  url: :funding_application_gp_open_medium_capital_works,
+  method: :put,
+  remote: no_js ? false : true do |f|
+%>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/capital_works_question',
+      locals: {
+        model_object: @funding_application.open_medium,
+        model_object_name: 'open_medium',
+        grant_programme_guidance_link: 'https://www.heritagefund.org.uk' \
+          '/funding/receiving-grant-guidance-ps10000-ps100000#heading-10',
+        receiving_grant_guidance_link: 'https://www.heritagefund.org.uk' \
+          '/funding/receiving-grant-guidance-ps10000-ps100000',
+        form_object: f
+      }
+    )
+  %>
+
+  <%= render(ButtonComponent.new(element: 'input')) %>
 
 <% end %>
