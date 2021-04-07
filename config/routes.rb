@@ -354,6 +354,7 @@ Rails.application.routes.draw do
         get 'declaration', to: 'declaration#show_declaration'
         put 'declaration', to: 'declaration#update_declaration', constraints: lambda { Flipper.enabled?(:new_applications_enabled) }
         put 'declaration', to: redirect('/', status: 302), constraints: lambda { !Flipper.enabled?(:new_applications_enabled) }
+        get 'application-submitted', to: 'application_submitted#show'
 
       end
     

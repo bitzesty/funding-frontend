@@ -1,0 +1,65 @@
+<%=
+  render partial: 'partials/page_title',
+         locals: {
+             model_object: @funding_application.open_medium,
+             page_title: t('application_submitted.title')
+         }
+%>
+
+<div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
+  <h1 class="govuk-panel__title">
+    <%= t('application_submitted.heading') %>
+  </h1>
+</div>
+
+<h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+  <%= t('application_submitted.sub_heading_1') %>
+</h2>
+
+<ul class="govuk-list govuk-list--number">
+
+  <li>
+    <%= t('application_submitted.list_1_item_1') %>
+  </li>
+
+  <li>
+    <%= t('application_submitted.list_1_item_2') %>
+  </li>
+
+  <li>
+    <%= t('application_submitted.list_1_item_3') %>
+  </li>
+
+</ul>
+
+<h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+  <%= t('application_submitted.sub_heading_2') %>
+</h2>
+
+<p class="govuk-body">
+  <%= t('application_submitted.priority_body_1') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('application_submitted.priority_body_2') %>
+</p>
+
+<div class="govuk-inset-text">
+
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2">
+    <%= t('application_submitted.to_receive_funding') %>
+  </h2>
+
+  <ul class="govuk-list govuk-list--bullet">
+
+    <li>
+      <%= t('application_submitted.list_2_item_1') %>
+    </li>
+
+    <li>
+      <%= t('application_submitted.list_2_item_2') %>
+    </li>
+
+  </ul>
+
+</div>
