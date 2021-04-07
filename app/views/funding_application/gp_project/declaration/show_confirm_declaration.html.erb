@@ -29,6 +29,7 @@
       partial: 'partials/funding_application/declaration/confirm_question',
       locals: {
         model_object: @funding_application.project,
+        model_object_name: 'project',
         form_object: f
       }
     )
@@ -41,8 +42,8 @@
         text: 'Submit application',
         attributes: [
           {
-              attribute: ('disabled' unless Flipper.enabled?(:grant_programme_sff_small)),
-              value: ('disabled' unless Flipper.enabled?(:grant_programme_sff_small))
+            attribute: ('disabled' unless Flipper.enabled?(:grant_programme_sff_small)),
+            value: ('disabled' unless Flipper.enabled?(:grant_programme_sff_small))
           }
         ]
       )

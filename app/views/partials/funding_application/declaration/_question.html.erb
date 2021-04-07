@@ -12,7 +12,7 @@
       'declaration.text.standard_terms_of_grant_html',
       href: link_to(
         t('declaration.text.standard_terms_of_grant_href'),
-        'https://www.heritagefund.org.uk/publications/standard-terms-grants-3k-10k',
+        standard_terms_link,
         class: 'govuk-link'
       )
     )
@@ -93,7 +93,6 @@
         <%=
           form_object.check_box :keep_informed_declaration,
           {
-            id: :project_keep_informed_declaration,
             class: 'govuk-checkboxes__input'
           },
           'true',

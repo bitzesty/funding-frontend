@@ -384,6 +384,12 @@ en-GB:
               inclusion: "Add project images"
             full_cost_recovery_file:
               inclusion: "Add calculations for Full Cost Recovery"
+            is_partnership:
+              inclusion: "Select whether or not you are applying on behalf of a partnership"
+            partnership_details:
+              blank: "Enter details about the organisation(s) you will be delivering your project in partnership with"
+            confirm_declaration:
+              inclusion: "Confirm that you have read and agreed with the declaration"
         cash_contribution:
           attributes:
             description:

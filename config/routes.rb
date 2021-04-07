@@ -349,6 +349,11 @@ Rails.application.routes.draw do
         put 'project-images', to: 'project_images#update'
         get 'full-cost-recovery', to: 'cost_recovery#show'
         put 'full-cost-recovery', to: 'cost_recovery#update'
+        get 'confirm-declaration', to: 'declaration#show_confirm_declaration'
+        put 'confirm-declaration', to: 'declaration#update_confirm_declaration'
+        get 'declaration', to: 'declaration#show_declaration'
+        put 'declaration', to: 'declaration#update_declaration', constraints: lambda { Flipper.enabled?(:new_applications_enabled) }
+        put 'declaration', to: redirect('/', status: 302), constraints: lambda { !Flipper.enabled?(:new_applications_enabled) }
 
       end
     

@@ -1,5 +1,15 @@
 class FundingApplication::GpProject::DeclarationController < ApplicationController
-  include FundingApplicationContext, ObjectErrorsLogger
+  include FundingApplicationContext
+  include ObjectErrorsLogger
+
+  # This method is used to set the @standard_terms_link instance variable,
+  # which is then used on the declaration partial
+  def show_declaration
+
+    @standard_terms_link = 'https://www.heritagefund.org.uk/publications/' \
+      'standard-terms-grants-3k-10k'
+
+  end
 
   # This method updates the confirm_declaration attribute of a gp_project,
   # triggering the ApplicationToSalesforceJob and redirecting to

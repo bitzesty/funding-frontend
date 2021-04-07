@@ -32,6 +32,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :same_location
   attr_accessor :permission_description_yes
   attr_accessor :permission_description_x_not_sure
+  attr_accessor :confirm_declaration
 
   attr_accessor :validate_received_advice_description
   attr_accessor :validate_first_fund_application
@@ -70,6 +71,9 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_work_brief_files
   attr_accessor :validate_project_image_files
   attr_accessor :validate_full_cost_recovery_file
+  attr_accessor :validate_is_partnership
+  attr_accessor :validate_partnership_details
+  attr_accessor :validate_confirm_declaration
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
   validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
@@ -107,6 +111,11 @@ class OpenMedium < ApplicationRecord
   validates :management_description, presence: true, if: :validate_management_description_presence?
   validates :evaluation_description, presence: true, if: :validate_evaluation_description?
   validates :acknowledgement_description, presence: true, if: :validate_acknowledgement_description?
+  validates_inclusion_of :is_partnership, in: [true, false], if: :validate_is_partnership?
+  validates :partnership_details, presence: true, if: :validate_partnership_details?
+  validates_inclusion_of :confirm_declaration,
+                          in: ["true"],
+                          if: :validate_confirm_declaration?
 
   validates_with ProjectValidator, if: :validate_no_errors && :validate_start_and_end_dates?
 
@@ -435,6 +444,18 @@ class OpenMedium < ApplicationRecord
 
   def validate_full_cost_recovery_file?
     validate_full_cost_recovery_file == true
+  end
+
+  def validate_is_partnership?
+    validate_is_partnership == true
+  end
+
+  def validate_partnership_details?
+    validate_partnership_details == true
+  end
+
+  def validate_confirm_declaration?
+    validate_confirm_declaration == true
   end
 
   enum permission_type: {
