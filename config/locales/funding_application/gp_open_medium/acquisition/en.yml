@@ -1,0 +1,7 @@
+en-GB:
+  acquisition:
+    page_title: "Does your project involve the acquisition of a building, land, or heritage items?"
+    page_heading: "Does your project involve the acquisition of a building, land, or heritage items?"
+    labels:
+      x_yes: "Yes, my project involves the acquisition of a building, land, or heritage items"
+      x_no: "No, my project does not involve the acquisition of a building, land, or heritage items"

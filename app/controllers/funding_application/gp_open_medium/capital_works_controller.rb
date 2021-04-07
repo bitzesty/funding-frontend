@@ -4,7 +4,7 @@ class FundingApplication::GpOpenMedium::CapitalWorksController < ApplicationCont
   include ObjectErrorsLogger
 
   def update
-    redirect_to :funding_application_gp_open_medium_do_you_need_permission
+    redirect_to :funding_application_gp_open_medium_acquisition
   end
 
 end

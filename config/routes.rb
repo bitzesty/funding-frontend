@@ -295,6 +295,8 @@ Rails.application.routes.draw do
         put 'description', to: 'description#update'
         get 'capital-works', to: 'capital_works#show'
         put 'capital-works', to: 'capital_works#update'
+        get 'acquisition', to: 'acquisition#show'
+        put 'acquisition', to: 'acquisition#update'
         get 'do-you-need-permission', to: 'permission#show'
         put 'do-you-need-permission', to: 'permission#update'
         get 'project-difference', to: 'difference#show'

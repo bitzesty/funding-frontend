@@ -1,0 +1,72 @@
+<div class="govuk-form-group <%= 'govuk-form-group--error' if
+  model_object.errors[:acquisition].any? %>">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend-xl">
+
+      <span class="govuk-caption-xl">
+        <%= t('views.funding_application.common.about_your_project') %>
+      </span>
+
+      <h1 class="govuk-fieldset__heading">
+
+        <%=
+          form_object.label :acquisition,
+          t('acquisition.page_heading'),
+          class: 'govuk-label govuk-label--xl'
+        %>
+
+      </h1>
+
+    </legend>
+
+    <div class="govuk-radios">
+
+      <%=
+        render(
+          partial: 'partials/form_input_errors',
+          locals: {
+            form_object: model_object,
+            input_field_id: :acquisition
+            }
+        ) if model_object.errors[:acquisition].any?
+      %>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :acquisition,
+          'false',
+          class: 'govuk-radios__input'
+        %>
+
+        <%=
+          form_object.label :acquisition_false,
+          t('acquisition.labels.x_no'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :acquisition,
+          'true',
+          class: 'govuk-radios__input'
+        %>
+
+        <%=
+          form_object.label :acquisition_true,
+          t('acquisition.labels.x_yes'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+    </div>
+
+  </fieldset>
+
+</div>

@@ -322,6 +322,8 @@ en-GB:
               blank: "Enter the county where your project is located"
             postcode:
               blank: "Enter the postcode where your project is located"
+            acquisition:
+              inclusion: "Select an option to tell us whether your project involves the acquisition of a building, land, or heritage items"
             permission_type:
               blank: "Select an option to tell us whether you need permission from others to do your project"
             permission_description_yes:
