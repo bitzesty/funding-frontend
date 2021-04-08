@@ -6,6 +6,9 @@ class OpenMedium < ApplicationRecord
   # This overrides Rails attempting to pluralise the model name
   self.table_name = 'gp_open_medium'
 
+  has_many :open_medium_heritage_designations, inverse_of: :open_medium, foreign_key: 'gp_open_medium_id'
+  has_many :heritage_designations, through: :open_medium_heritage_designations
+
   belongs_to :user
   belongs_to :funding_application, optional: true
 
@@ -53,6 +56,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_difference
   attr_accessor :validate_heritage_at_risk
   attr_accessor :validate_heritage_at_risk_description
+  attr_accessor :validate_heritage_designations
   attr_accessor :validate_heritage_attracts_visitors
   attr_accessor :validate_visitors_in_last_financial_year
   attr_accessor :validate_visitors_expected_per_year
@@ -182,6 +186,100 @@ class OpenMedium < ApplicationRecord
         word_count: 500
       )
     ) if validate_heritage_at_risk_description?
+
+    if validate_heritage_designations?
+
+      validate_length(
+        :hd_grade_1_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_grade_1_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_grade_2_b_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_grade_2_b_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_grade_2_c_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_grade_2_c_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_local_list_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_local_list_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_monument_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_monument_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_historic_ship_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_historic_ship_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_grade_1_park_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_grade_1_park_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_grade_2_park_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_grade_2_park_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_grade_2_star_park_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_grade_2_star_park_description.too_long',
+          word_count: 300
+        )
+      )
+
+      validate_length(
+        :hd_other_description,
+        300,
+        I18n.t(
+          'activerecord.errors.models.open_medium.attributes.hd_other_description.too_long',
+          word_count: 300
+        )
+      )
+
+    end
 
     validate_length(
       :matter,
@@ -373,6 +471,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_heritage_at_risk_description?
     validate_heritage_at_risk_description == true
+  end
+
+  def validate_heritage_designations?
+    validate_heritage_designations == true
   end
 
   def validate_heritage_attracts_visitors?

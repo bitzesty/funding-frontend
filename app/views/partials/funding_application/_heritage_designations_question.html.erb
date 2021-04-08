@@ -1,0 +1,175 @@
+<div class="govuk-form-group <%= "govuk-form-group--error" if model_object.errors.any? %>">
+
+  <fieldset class="govuk-fieldset" aria-describedby="heritage_designations-hint">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+      <h1 class="govuk-fieldset__heading">
+        <%= t('heritage_designations.page_heading') %>
+      </h1>
+    </legend>
+
+    <div id="heritage_designations-hint" class="govuk-hint">
+      <%= t('generic.select_all_that_apply') %>
+    </div>
+
+    <%=
+      render(
+        partial: "partials/form_group_errors",
+        locals: {
+          form_object: model_object
+        }
+      ) if model_object.errors.any?
+    %>
+
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+      <% HeritageDesignation.all.each do |hd| %>
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :heritage_designation_ids,
+            {
+              multiple: true,
+              class: "govuk-checkboxes__input",
+              "data-aria-controls" => "conditional-#{ model_object_name }_#{ hd.designation }"
+            },
+            hd.id,
+            nil
+          %>
+
+          <%=
+            form_object.label "#{ hd.designation }",
+            t("heritage_designations.designations.#{ hd.designation }"),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/grade_1_or_a_listed_building',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'grade_1_or_a_listed_building'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/grade_2_or_b_listed_building',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'grade_2_star_or_b_listed_building'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/grade_2_or_c_listed_building',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'grade_2_c_or_cs_listed_building'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/local_list',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'local_list'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/scheduled_ancient_monument',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'scheduled_ancient_monument'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/registered_historic_ship',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'registered_historic_ship'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/grade_1_park_or_garden',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'grade_1_listed_park_or_garden'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/grade_2_park_or_garden',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'grade_2_listed_park_or_garden'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/grade_2_star_park_or_garden',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'grade_2_star_listed_park_or_garden'
+        %>
+
+        <%=
+          render(
+            partial: 'partials/funding_application/heritage_designations/other',
+            locals: {
+              form_object: form_object,
+              model_object: model_object,
+              model_object_name: model_object_name,
+              designation: hd.designation
+            }
+          ) if hd.designation == 'other'
+        %>
+
+      <% end %>
+
+    </div>
+
+  </fieldset>
+
+</div>

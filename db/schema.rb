@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_074311) do
+ActiveRecord::Schema.define(version: 2021_04_06_074315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -175,6 +175,15 @@ ActiveRecord::Schema.define(version: 2021_04_06_074311) do
     t.index ["person_id"], name: "index_funding_applications_people_on_person_id"
   end
 
+  create_table "gp_o_m_heritage_dsgntns", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "gp_open_medium_id", null: false
+    t.uuid "heritage_designation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gp_open_medium_id"], name: "index_gp_o_m_heritage_dsgntns_on_gp_open_medium_id"
+    t.index ["heritage_designation_id"], name: "index_gp_o_m_heritage_dsgntns_on_heritage_designation_id"
+  end
+
   create_table "gp_open_medium", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "project_title"
     t.date "start_date"
@@ -238,8 +247,28 @@ ActiveRecord::Schema.define(version: 2021_04_06_074311) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "acquisition"
+    t.string "ownership_type"
+    t.text "ownership_type_org_description"
+    t.text "ownership_type_pp_description"
+    t.text "ownership_type_neither_description"
+    t.text "hd_grade_1_description"
+    t.text "hd_grade_2_b_description"
+    t.text "hd_grade_2_c_description"
+    t.text "hd_local_list_description"
+    t.text "hd_monument_description"
+    t.text "hd_historic_ship_description"
+    t.text "hd_grade_1_park_description"
+    t.text "hd_grade_2_park_description"
+    t.text "hd_grade_2_star_park_description"
+    t.text "hd_other_description"
     t.index ["funding_application_id"], name: "index_gp_open_medium_on_funding_application_id"
     t.index ["user_id"], name: "index_gp_open_medium_on_user_id"
+  end
+
+  create_table "heritage_designations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "designation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "legal_signatories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -550,6 +579,8 @@ ActiveRecord::Schema.define(version: 2021_04_06_074311) do
   add_foreign_key "funding_applications_pay_reqs", "payment_requests"
   add_foreign_key "funding_applications_people", "funding_applications"
   add_foreign_key "funding_applications_people", "people"
+  add_foreign_key "gp_o_m_heritage_dsgntns", "gp_open_medium"
+  add_foreign_key "gp_o_m_heritage_dsgntns", "heritage_designations"
   add_foreign_key "gp_open_medium", "funding_applications"
   add_foreign_key "gp_open_medium", "users"
   add_foreign_key "non_cash_contributions", "projects"

@@ -1,0 +1,32 @@
+<div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+  id="conditional-<%= model_object_name %>_<%= designation %>">
+
+  <div class="govuk-character-count" data-module="govuk-character-count"
+    data-maxwords="300">
+
+    <div class="govuk-form-group">
+
+      <%=
+        form_object.label :hd_local_list_description,
+        t('heritage_designations.labels.hd_local_list_description'),
+        class: 'govuk-label'
+      %>
+
+      <%=
+        form_object.text_area :hd_local_list_description,
+        rows: 5,
+        class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+          model_object.errors[:hd_local_list_description].any?}",
+        'aria-describedby' => "#{model_object_name}_hd_local_list_description-info"
+      %>
+
+      <span id="<%= model_object_name %>_hd_local_list_description-info"
+        class="govuk-hint govuk-character-count__message" aria-live="polite">
+        <%= t('generic.word_count', max_words: 300) %>
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
