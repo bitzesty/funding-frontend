@@ -1,0 +1,30 @@
+en-GB:
+  ownership:
+    page_title: "Tell us who owns any land, buildings, or heritage items"
+    page_heading: "If you are undertaking any capital work (including repair, refurbishment, etc.) to land, buildings or heritage items, tell us who owns it."
+    labels:
+      radio_buttons:
+        organisation: "Your organisation"
+        project_partner: "Project Partner"
+        x_neither: "Neither"
+        x_na: "N/A"
+      tell_us: "Tell us:"
+      ownership_document: "If you have one, upload an ownership document."
+      x_neither: "If you do not currently meet our ownership requirements, tell us the date when you expect to do so."
+      add_your_ownership_file: "If you have one, upload an ownership document"
+    hints:
+      organisation:
+        list_item_1: "If your organisation has the freehold of the building or land, or own outright the heritage items;"
+        list_item_2: "If your organisation has the lease of the building or land and how many years are left to run on the lease;"
+        list_item_3: "If your organisation has, or are you planning to take out, a mortgage or other loans secured on the building or land, or heritage item;"
+        list_item_4: "If so, give us details of the lender and the amount of the mortgage or loan."
+      project_partner:
+        list_item_1: "The name of the partner organisation;"
+        list_item_2: "If the project partner has the freehold of the building or land, or own outright the heritage items;"
+        list_item_3: "If the project partner has the lease of the building or land and how many years are left to run on the lease;"
+        list_item_4: "If the project partner has, or are you planning to take out, a mortgage or other loans secured on the building or land, or heritage item;"
+        list_item_5: "If so, give us details of the lender and the amount of the mortgage or loan."
+    no_ownership_file: "You have not added an ownership document"
+    ownership_file: "Ownership document"
+    buttons:
+      add_ownership_file: "Add ownership document"

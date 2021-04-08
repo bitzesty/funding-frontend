@@ -139,6 +139,18 @@ export function createAndAppendListItem(message, attribute, modelName) {
             case "evidence_file":
                 linkElement.setAttribute("href", "#payment_details_evidence_file");
                 break;
+            case "ownership_type":
+                linkElement.setAttribute("href", "#" + modelName + "_ownership_type_organisation");
+                break;
+            case "ownership_type_org_description":
+                linkElement.setAttribute("href", "#" + modelName + "_ownership_type_org_description");
+                break;
+            case "ownership_type_pp_description":
+                linkElement.setAttribute("href", "#" + modelName + "_ownership_type_pp_description");
+                break;
+            case "ownership_type_neither_description":
+                linkElement.setAttribute("href", "#" + modelName + "_ownership_type_neither_description");
+                break;
             case "management_description":
                 linkElement.setAttribute("href", "#open_medium_management_description");
                 break;
@@ -208,8 +220,12 @@ window.addFormGroupError = function(formGroupElementId, formGroupErrorsElementId
 
     if (attribute != modelName) {
 
-        var mainFormGroupElement = document.getElementById(formGroupElementId);
-        mainFormGroupElement.classList.add("govuk-form-group--error");
+        // Unless we're operating on the capital works ownership types page, append
+        // the govuk-form-group--error class to the mainFormGroupElement
+        if (["ownership_type_org_description", "ownership_type_pp_description", "ownership_type_neither_description"].indexOf(attribute) <= -1) {
+            var mainFormGroupElement = document.getElementById(formGroupElementId);
+            mainFormGroupElement.classList.add("govuk-form-group--error");
+        }
 
         if (attribute.includes("file")) {
 

@@ -1,0 +1,405 @@
+<div class="govuk-form-group <%= 'govuk-form-group--error' if
+  model_object.errors[:ownership_type].any? ||
+  model_object.errors[:ownership_type_org_description].any? ||
+  model_object.errors[:ownership_type_pp_description].any? ||
+  model_object.errors[:ownership_type_neither_description].any? %>"
+  id="ownership_type-form-group">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend-xl">
+
+      <span class="govuk-caption-xl">
+        <%= t('views.funding_application.common.about_your_project') %>
+      </span>
+
+      <h1 class="govuk-fieldset__heading">
+
+        <%=
+          form_object.label :ownership_type,
+          t('ownership.page_heading'),
+          class: 'govuk-label govuk-label--xl'
+        %>
+
+      </h1>
+
+    </legend>
+
+    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+      <%=
+        render(
+          partial: 'partials/form_input_errors',
+          locals: {
+            form_object: model_object,
+            input_field_id: :ownership_type
+            }
+        ) if model_object.errors[:ownership_type].any?
+      %>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :ownership_type,
+          'organisation',
+          class: 'govuk-radios__input',
+          'data-aria-controls' => "conditional-#{ model_object_name }_ownership_type_organisation"
+        %>
+
+        <%=
+          form_object.label :ownership_type_organisation,
+          t('ownership.labels.radio_buttons.organisation'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="<%= "conditional-#{:open_medium_ownership_type_organisation}" %>">
+
+        <div class="govuk-character-count" data-module="govuk-character-count"
+          data-maxwords="500">
+
+          <div id="ownership_type_org_description-form-group">
+
+            <%=
+              form_object.label :ownership_type_org_description,
+              t('ownership.labels.tell_us'),
+              class: 'govuk-label govuk-label--s'
+            %>
+
+            <div id="ownership_type_org_description-errors"></div>
+
+            <%=
+              render(
+                partial: 'partials/form_input_errors',
+                locals: {
+                  form_object: model_object,
+                  input_field_id: :ownership_type_org_description
+                }
+              ) if model_object.errors[:ownership_type_org_description].any?
+            %>
+
+            <div class="govuk-hint">
+
+              <ul class="govuk-ul govuk-list--bullet govuk-list--spaced">
+
+                <li>
+                  <%= t('ownership.hints.organisation.list_item_1') %>
+                </li>
+
+                <li>
+                  <%= t('ownership.hints.organisation.list_item_2') %>
+                </li>
+
+                <li>
+                  <%= t('ownership.hints.organisation.list_item_3') %>
+                </li>
+
+                <li>
+                  <%= t('ownership.hints.organisation.list_item_4') %>
+                </li>
+
+              </ul>
+
+            </div>
+
+            <%=
+              form_object.text_area :ownership_type_org_description,
+              rows: 10,
+              class: 'govuk-textarea govuk-js-character-count ' \
+                "#{'govuk-input--error' if model_object.errors[:ownership_type_org_description].any?}",
+              'aria-describedby' => "#{ model_object_name }_ownership_type_org_description-info"
+            %>
+
+            <span id="<%= model_object_name %>_ownership_type_org_description-info"
+              class="govuk-hint govuk-character-count__message" aria-live="polite">
+              <%= t('generic.word_count', max_words: 500) %>
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+
+          <div class="govuk-form-group <%= "govuk-form-group--error" if
+            model_object.errors.any? %>" id="ownership_file-form-group" data-form-group="file">
+
+            <%=
+              render(
+                partial: 'partials/form_group_errors',
+                locals: {
+                  form_object: model_object
+                }
+              ) if model_object.errors.any?
+            %>
+
+            <div class="govuk-form-group">
+
+              <%=
+                form_object.label :ownership_file,
+                t('ownership.labels.add_your_ownership_file'),
+                class: "govuk-heading-m nlhf-content-hightlight__title"
+              %>
+
+              <div id="ownership_file-errors"></div>
+
+              <%=
+                form_object.file_field :ownership_file,
+                multiple: false,
+                direct_upload: true,
+                class: "govuk-file-upload #{"govuk-file-upload--error" if
+                  model_object.errors.any?}",
+                'data-input-identifier': 'file',
+                'data-attribute': :ownership_file,
+                'data-model': model_object_name,
+                'autocomplete' => 'off'
+              %>
+
+            </div>
+
+            <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+            for the reasoning behind this workaround %>
+            <input type="hidden" name="ieworkaround">
+
+            <div class="govuk-form-group">
+
+              <%=
+                render(
+                  ButtonComponent.new(
+                    text: t('ownership.buttons.add_ownership_file'),
+                    classes: 'govuk-button--secondary',
+                  )
+                )
+              %>
+
+            </div>
+
+          </div>
+
+          <% unless model_object.ownership_file.attached? %>
+
+            <p class="govuk-body">
+              <%= t('ownership.no_ownership_file') %>
+            </p>
+
+          <% else %>
+
+            <table class="govuk-table">
+
+              <thead class="govuk-table__head">
+
+                <tr class="govuk-table__row">
+
+                  <th scope="col" class="govuk-table__header">
+                    <%= t('ownership.ownership_file') %>
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody class="govuk-table__body">
+
+                <tr class="govuk-table__row">
+
+                  <td class="govuk-table__cell">
+
+                    <%=
+                      link_to(
+                        model_object.ownership_file.blob.filename,
+                        rails_blob_path(
+                          model_object.ownership_file,
+                          disposition: 'attachment'
+                        )
+                      )
+                    %>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          <% end %>
+
+        </div>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :ownership_type,
+          'project_partner',
+          class: 'govuk-radios__input',
+          'data-aria-controls' => "conditional-#{ model_object_name }_ownership_type_project_partner"
+        %>
+
+        <%=
+          form_object.label :ownership_type_project_partner,
+          t('ownership.labels.radio_buttons.project_partner'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="<%= "conditional-#{:open_medium_ownership_type_project_partner}" %>">
+
+        <div class="govuk-character-count" data-module="govuk-character-count"
+          data-maxwords="500">
+
+          <div id="ownership_type_pp_description-form-group">
+
+            <%=
+              form_object.label :ownership_type_pp_description,
+              t('ownership.labels.tell_us'),
+              class: 'govuk-label govuk-label--s'
+            %>
+
+            <div id="ownership_type_pp_description-errors"></div>
+
+            <%=
+              render(
+                partial: 'partials/form_input_errors',
+                locals: {
+                  form_object: model_object,
+                  input_field_id: :ownership_type_pp_description
+                }
+              ) if model_object.errors[:ownership_type_pp_description].any?
+            %>
+
+            <div class="govuk-hint">
+
+              <ul class="govuk-ul govuk-list--bullet govuk-list--spaced">
+
+                <li>
+                  <%= t('ownership.hints.project_partner.list_item_1') %>
+                </li>
+
+                <li>
+                  <%= t('ownership.hints.project_partner.list_item_2') %>
+                </li>
+
+                <li>
+                  <%= t('ownership.hints.project_partner.list_item_3') %>
+                </li>
+
+                <li>
+                  <%= t('ownership.hints.project_partner.list_item_4') %>
+                </li>
+
+                <li>
+                  <%= t('ownership.hints.project_partner.list_item_5') %>
+                </li>
+
+              </ul>
+
+            </div>
+
+            <%=
+              form_object.text_area :ownership_type_pp_description,
+              rows: 10,
+              class: 'govuk-textarea govuk-js-character-count ' \
+                "#{'govuk-input--error' if model_object.errors[:ownership_type_pp_description].any?}",
+              'aria-describedby' => "#{ model_object_name }_ownership_type_pp_description-info"
+            %>
+
+            <span id="<%= model_object_name %>_ownership_type_pp_description-info"
+              class="govuk-hint govuk-character-count__message" aria-live="polite">
+              <%= t('generic.word_count', max_words: 500) %>
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :ownership_type,
+          'neither',
+          class: 'govuk-radios__input',
+          'data-aria-controls' => "conditional-#{ model_object_name }_ownership_type_neither"
+        %>
+
+        <%=
+          form_object.label :ownership_type_neither,
+          t('ownership.labels.radio_buttons.x_neither'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="<%= "conditional-#{:open_medium_ownership_type_neither}" %>">
+
+        <div class="govuk-character-count" data-module="govuk-character-count"
+          data-maxwords="500">
+
+          <div id="ownership_type_neither_description-form-group">
+
+            <%=
+              form_object.label :ownership_type_neither_description,
+              t('ownership.labels.x_neither'),
+              class: 'govuk-label govuk-label--s'
+            %>
+
+            <div id="ownership_type_neither_description-errors"></div>
+
+            <%=
+              render(
+                partial: 'partials/form_input_errors',
+                locals: {
+                  form_object: model_object,
+                  input_field_id: :ownership_type_neither_description
+                }
+              ) if model_object.errors[:ownership_type_neither_description].any?
+            %>
+
+            <%=
+              form_object.text_area :ownership_type_neither_description,
+              rows: 10,
+              class: 'govuk-textarea govuk-js-character-count ' \
+                "#{'govuk-input--error' if model_object.errors[:ownership_type_neither_description].any?}",
+              'aria-describedby' => "#{ model_object_name }_ownership_type_neither_description-info"
+            %>
+
+          </div>
+
+          <span id="<%= model_object_name %>_ownership_type_neither_description-info"
+            class="govuk-hint govuk-character-count__message" aria-live="polite">
+            <%= t('generic.word_count', max_words: 500) %>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :ownership_type,
+          'na',
+          class: 'govuk-radios__input'
+        %>
+
+        <%=
+          form_object.label :ownership_type_na,
+          t('ownership.labels.radio_buttons.x_na'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+    </div>
+
+  </fieldset>
+
+</div>

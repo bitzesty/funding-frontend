@@ -14,6 +14,7 @@ class OpenMedium < ApplicationRecord
 
   has_one :organisation, through: :user
 
+  has_one_attached :ownership_file
   has_one_attached :capital_work_file
   has_one_attached :risk_register_file
   has_one_attached :governing_document_file
@@ -54,6 +55,10 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_same_location
   attr_accessor :validate_address
   attr_accessor :validate_difference
+  attr_accessor :validate_ownership_type
+  attr_accessor :validate_ownership_type_org_description
+  attr_accessor :validate_ownership_type_pp_description
+  attr_accessor :validate_ownership_type_neither_description
   attr_accessor :validate_heritage_at_risk
   attr_accessor :validate_heritage_at_risk_description
   attr_accessor :validate_heritage_designations
@@ -104,6 +109,11 @@ class OpenMedium < ApplicationRecord
   validates :permission_type, presence: true, if: :validate_permission_type?
   validates :permission_description_yes, presence: true, if: :validate_permission_description_yes?
   validates :permission_description_x_not_sure, presence: true, if: :validate_permission_description_x_not_sure?
+  # validates :ownership_type, presence: true, if: :validate_ownership_type?
+  validates_inclusion_of :ownership_type, in: ['organisation', 'project_partner', 'neither', 'na'], if: :validate_ownership_type?
+  validates :ownership_type_org_description, presence: true, if: :validate_ownership_type_org_description?
+  validates :ownership_type_pp_description, presence: true, if: :validate_ownership_type_pp_description?
+  validates :ownership_type_neither_description, presence: true, if: :validate_ownership_type_neither_description?
   validates_inclusion_of :heritage_attracts_visitors, in: [true, false], if: :validate_heritage_attracts_visitors?
   validates_inclusion_of :heritage_at_risk, in: [true, false], if: :validate_heritage_at_risk?
   validates :heritage_at_risk_description, presence: true, if: :validate_heritage_at_risk_description?
@@ -150,6 +160,33 @@ class OpenMedium < ApplicationRecord
       500,
       I18n.t('activerecord.errors.models.open_medium.attributes.why_now_description.too_long', word_count: 500)
     ) if validate_why_now_description?
+
+    validate_length(
+      :ownership_type_org_description,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.ownership_type_org_description.too_long',
+        word_count: 500
+      )
+    ) if validate_ownership_type_org_description?
+
+    validate_length(
+      :ownership_type_pp_description,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.ownership_type_pp_description.too_long',
+        word_count: 500
+      )
+    ) if validate_ownership_type_pp_description?
+
+    validate_length(
+      :ownership_type_neither_description,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.ownership_type_neither_description.too_long',
+        word_count: 500
+      )
+    ) if validate_ownership_type_neither_description?
 
     validate_length(
       :permission_description_x_not_sure,
@@ -459,6 +496,22 @@ class OpenMedium < ApplicationRecord
 
   def validate_permission_description_x_not_sure?
     validate_permission_description_x_not_sure == true
+  end
+
+  def validate_ownership_type?
+    validate_ownership_type == true
+  end
+
+  def validate_ownership_type_org_description?
+    validate_ownership_type_org_description == true
+  end
+
+  def validate_ownership_type_pp_description?
+    validate_ownership_type_pp_description == true
+  end
+
+  def validate_ownership_type_neither_description?
+    validate_ownership_type_neither_description == true
   end
   
   def validate_difference?

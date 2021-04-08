@@ -1,0 +1,41 @@
+<% if @funding_application.open_medium.errors.any? %>
+
+  document.title = "Error: <%== I18n.t('ownership.page_title') %>";
+
+  removeAllFormGroupErrors(
+    "ownership_file-form-group",
+    "ownership_file-errors"
+  );
+
+  createSummaryErrorsSkeleton();
+
+  var errorKeys = [];
+
+  mainFormElement = document.getElementById("ownership_type-form-group");
+  mainFormElement.classList.add("govuk-form-group--error");
+
+  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+
+    errorKeys.push("<%= attr.to_s %>");
+
+    addSummaryError(
+      false,
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium"
+    );
+
+    addFormGroupError(
+      "<%= attr %>-form-group",
+      "<%= attr %>-errors",
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium"
+    );
+
+    inputElement = document.getElementById("open_medium_<%= attr %>");
+    inputElement.classList.add("govuk-textarea--error");
+
+  <% end %>
+
+<% end %>

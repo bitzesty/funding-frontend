@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_074315) do
+ActiveRecord::Schema.define(version: 2021_04_06_094942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -247,10 +247,6 @@ ActiveRecord::Schema.define(version: 2021_04_06_074315) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "acquisition"
-    t.string "ownership_type"
-    t.text "ownership_type_org_description"
-    t.text "ownership_type_pp_description"
-    t.text "ownership_type_neither_description"
     t.text "hd_grade_1_description"
     t.text "hd_grade_2_b_description"
     t.text "hd_grade_2_c_description"
@@ -261,6 +257,10 @@ ActiveRecord::Schema.define(version: 2021_04_06_074315) do
     t.text "hd_grade_2_park_description"
     t.text "hd_grade_2_star_park_description"
     t.text "hd_other_description"
+    t.string "ownership_type"
+    t.text "ownership_type_org_description"
+    t.text "ownership_type_pp_description"
+    t.text "ownership_type_neither_description"
     t.index ["funding_application_id"], name: "index_gp_open_medium_on_funding_application_id"
     t.index ["user_id"], name: "index_gp_open_medium_on_user_id"
   end

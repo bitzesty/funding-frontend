@@ -336,6 +336,17 @@ en-GB:
               too_long: "Description of who you need permission from must be %{word_count} words or fewer"
             difference:
               too_long: "Description of the difference your project will make must be %{word_count} words or fewer"
+            ownership_type:
+              inclusion: "Select an option to tell us who owns the land, buildings or heritage items"
+            ownership_type_org_description:
+              blank: "Tell us about the capital work to land, buildings or heritage items that your organisation owns"
+              too_long: "Description of the capital work to land, buildings or heritage items that your organisation owns must be %{word_count} words or fewer"
+            ownership_type_pp_description:
+              blank: "Tell us about the capital work to land, buildings or heritage items that your Project Partner owns"
+              too_long: "Description of the capital work to land, buildings or heritage items that your Project Partner owns must be %{word_count} words or fewer"
+            ownership_type_neither_description:
+              blank: "Tell us the date when you expect to meet our ownership requirements"
+              too_long: "Description of the date when you expect to meet our ownership requirements must be %{word_count} words or fewer"
             heritage_at_risk:
               inclusion: "Select an option to tell us whether your heritage is at risk"
             heritage_at_risk_description:
