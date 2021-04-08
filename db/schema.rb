@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_094942) do
+ActiveRecord::Schema.define(version: 2021_04_06_132841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -173,6 +173,15 @@ ActiveRecord::Schema.define(version: 2021_04_06_094942) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["funding_application_id"], name: "index_funding_applications_people_on_funding_application_id"
     t.index ["person_id"], name: "index_funding_applications_people_on_person_id"
+  end
+
+  create_table "funding_applications_vlntrs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.uuid "volunteer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["funding_application_id"], name: "index_funding_applications_vlntrs_on_funding_application_id"
+    t.index ["volunteer_id"], name: "index_funding_applications_vlntrs_on_volunteer_id"
   end
 
   create_table "gp_o_m_heritage_dsgntns", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -562,7 +571,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_094942) do
     t.integer "hours"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "project_id", null: false
+    t.uuid "project_id"
     t.index ["project_id"], name: "index_volunteers_on_project_id"
   end
 
@@ -579,6 +588,8 @@ ActiveRecord::Schema.define(version: 2021_04_06_094942) do
   add_foreign_key "funding_applications_pay_reqs", "payment_requests"
   add_foreign_key "funding_applications_people", "funding_applications"
   add_foreign_key "funding_applications_people", "people"
+  add_foreign_key "funding_applications_vlntrs", "funding_applications"
+  add_foreign_key "funding_applications_vlntrs", "volunteers"
   add_foreign_key "gp_o_m_heritage_dsgntns", "gp_open_medium"
   add_foreign_key "gp_o_m_heritage_dsgntns", "heritage_designations"
   add_foreign_key "gp_open_medium", "funding_applications"

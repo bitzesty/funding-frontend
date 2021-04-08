@@ -339,6 +339,7 @@ Rails.application.routes.draw do
         put 'are-you-getting-non-cash-contributions', to: 'non_cash_contributions#update'
         get 'volunteers', to: 'volunteers#show'
         put 'volunteers', to: 'volunteers#update'
+        delete 'volunteers/:volunteer_id', to: 'volunteers#delete', as: :volunteer_delete
         get 'evidence-of-support', to: 'evidence_of_support#show'
         put 'evidence-of-support', to: 'evidence_of_support#update'
         get 'governing-documents', to: 'governing_documents#show'

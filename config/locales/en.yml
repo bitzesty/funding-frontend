@@ -458,6 +458,7 @@ en-GB:
           attributes:
             description:
               blank: "Enter a description of your project volunteer"
+              too_long: "Description of your project volunteer(s) must be %{word_count} words or fewer"
             hours:
               not_a_number: "Hours must be a number, like 5"
               greater_than: "Hours must be greater than 0"
