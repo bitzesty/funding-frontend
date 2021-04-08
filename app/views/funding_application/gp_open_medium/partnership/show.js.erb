@@ -1,0 +1,53 @@
+<% if @funding_application.open_medium.errors.any? %>
+
+  document.title = "Error: <%== I18n.t('partnership.page_title') %>";
+
+  removeAllFormGroupErrors(
+    "partnership_agreement_file-form-group",
+    "partnership_agreement_file-errors"
+  );
+
+  removeAllFormGroupErrors(
+    "is_partnership-form-group",
+    "is_partnership-errors"
+  );
+
+  removeAllFormGroupErrors(
+    "partnership_details-form-group",
+    "partnership_details-errors"
+  );
+
+  createSummaryErrorsSkeleton();
+
+  var errorKeys = [];
+
+  mainFormElement = document.getElementById("is_partnership-form-group");
+  mainFormElement.classList.add("govuk-form-group--error");
+
+  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+
+    errorKeys.push("<%= attr.to_s %>");
+
+    addSummaryError(
+      false,
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium"
+    );
+
+    addFormGroupError(
+      "<%= attr %>-form-group",
+      "<%= attr %>-errors",
+      "<%= attr %>",
+      "<%= msg %>",
+      "open_medium"
+    );
+
+    if ("<%= attr %>" === "partnership_details") {
+      inputElement = document.getElementById("open_medium_<%= attr %>");
+      inputElement.classList.add("govuk-textarea--error");
+    }
+
+  <% end %>
+
+<% end %>

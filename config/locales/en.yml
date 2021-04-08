@@ -423,6 +423,7 @@ en-GB:
               inclusion: "Select whether or not you are applying on behalf of a partnership"
             partnership_details:
               blank: "Enter details about the organisation(s) you will be delivering your project in partnership with"
+              too_long: "Description of your partnership details must be %{word_count} words or fewer"
             confirm_declaration:
               inclusion: "Confirm that you have read and agreed with the declaration"
         cash_contribution:

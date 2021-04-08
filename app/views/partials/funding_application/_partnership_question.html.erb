@@ -1,0 +1,232 @@
+<div class="govuk-form-group <%= 'govuk-form-group--error' if
+  model_object.errors[:is_partnership].any? ||
+  model_object.errors[:partnership_details].any? %>"
+  id="is_partnership-form-group">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend-xl">
+
+      <span class="govuk-caption-xl">
+        <%= t('views.funding_application.common.about_your_project') %>
+      </span>
+
+      <h1 class="govuk-fieldset__heading">
+
+        <%=
+          form_object.label :is_partnership,
+          t('partnership.page_heading'),
+          class: 'govuk-label govuk-label--xl'
+        %>
+
+      </h1>
+
+    </legend>
+
+    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+      <%=
+        render(
+          partial: 'partials/form_input_errors',
+          locals: {
+            form_object: model_object,
+            input_field_id: :is_partnership
+            }
+        ) if model_object.errors[:is_partnership].any?
+      %>
+
+      <div id="is_partnership-errors"></div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :is_partnership,
+          'false',
+          class: 'govuk-radios__input'
+        %>
+
+        <%=
+          form_object.label :is_partnership_false,
+          t('partnership.labels.is_partnership_no'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :is_partnership,
+          'true',
+          class: 'govuk-radios__input',
+          'data-aria-controls' => "conditional-#{ model_object_name }_is_partnership_true"
+        %>
+
+        <%=
+          form_object.label :is_partnership_true,
+          t('partnership.labels.is_partnership_yes'),
+          class: 'govuk-label govuk-radios__label'
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="<%= "conditional-#{:open_medium_is_partnership_true}" %>">
+
+        <div class="govuk-character-count" data-module="govuk-character-count"
+          data-maxwords="500" id="partnership_details-form-group">
+
+          <%=
+            form_object.label :partnership_details,
+            t('partnership.labels.partnership_details'),
+            class: 'govuk-label govuk-label--s'
+          %>
+
+          <div id="partnership_details-errors"></div>
+
+          <%=
+            render(
+              partial: 'partials/form_input_errors',
+              locals: {
+                form_object: model_object,
+                input_field_id: :partnership_details
+              }
+            ) if model_object.errors[:partnership_details].any?
+          %>
+
+          <div class="govuk-hint" id="<%= model_object_name %>_partnership_details-hint">
+            <%= t('partnership.hints.partnership_details').html_safe %>
+          </div>
+
+          <%=
+            form_object.text_area :partnership_details,
+            rows: 10,
+            class: 'govuk-textarea govuk-js-character-count ' \
+              "#{'govuk-input--error' if model_object.errors[:partnership_details].any?}",
+            'aria-describedby' => "#{ model_object_name }_partnership_details-info" \
+              " #{ model_object_name }_partnership_details-hint"
+          %>
+
+          <span id="<%= model_object_name %>_partnership_details-info"
+            class="govuk-hint govuk-character-count__message" aria-live="polite">
+            <%= t('generic.word_count', max_words: 500) %>
+          </span>
+
+        </div>
+
+        <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+
+          <div class="govuk-form-group <%= "govuk-form-group--error" if
+            model_object.errors[:partnership_agreement_file].any? %>"
+            id="partnership_agreement_file-form-group"
+            data-form-group="file">
+
+            <%=
+              render(
+                partial: 'partials/form_group_errors',
+                locals: {
+                  form_object: model_object
+                }
+              ) if model_object.errors[:partnership_agreement_file].any?
+            %>
+
+            <div class="govuk-form-group">
+
+              <%=
+                form_object.label :partnership_agreement_file,
+                t('partnership.labels.add_your_partnership_agreement_file'),
+                class: "govuk-heading-m nlhf-content-highlight__title"
+              %>
+
+              <div id="partnership_agreement_file-errors"></div>
+
+              <%=
+                form_object.file_field :partnership_agreement_file,
+                multiple: false,
+                direct_upload: true,
+                class: "govuk-file-upload #{"govuk-file-upload--error" if
+                  model_object.errors.any?}",
+                'data-input-identifier': 'file',
+                'data-attribute': :partnership_agreement_file,
+                'data-model': model_object_name,
+                'autocomplete' => 'off'
+              %>
+
+            </div>
+
+            <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+            for the reasoning behind this workaround %>
+            <input type="hidden" name="ieworkaround">
+
+            <div class="govuk-form-group">
+
+              <%=
+                render(
+                  ButtonComponent.new(
+                    text: t('partnership.buttons.add_partnership_agreement_file'),
+                    classes: 'govuk-button--secondary',
+                  )
+                )
+              %>
+
+            </div>
+
+          </div>
+
+          <% unless model_object.partnership_agreement_file.attached? %>
+
+            <p class="govuk-body">
+              <%= t('partnership.no_partnership_agreement_file') %>
+            </p>
+
+          <% else %>
+
+            <table class="govuk-table">
+
+              <thead class="govuk-table__head">
+
+                <tr class="govuk-table__row">
+
+                  <th scope="col" class="govuk-table__header">
+                    <%= t('partnership.partnership_agreement_file') %>
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody class="govuk-table__body">
+
+                <tr class="govuk-table__row">
+
+                  <td class="govuk-table__cell">
+
+                    <%=
+                      link_to(
+                        model_object.partnership_agreement_file.blob.filename,
+                        rails_blob_path(
+                          model_object.partnership_agreement_file,
+                          disposition: 'attachment'
+                        )
+                      )
+                    %>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          <% end %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </fieldset>
+
+</div>

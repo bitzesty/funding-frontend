@@ -14,6 +14,7 @@ class OpenMedium < ApplicationRecord
 
   has_one :organisation, through: :user
 
+  has_one_attached :partnership_agreement_file
   has_one_attached :ownership_file
   has_one_attached :capital_work_file
   has_one_attached :risk_register_file
@@ -353,6 +354,15 @@ class OpenMedium < ApplicationRecord
         word_count: 500
       )
     ) if validate_best_placed_description?
+
+    validate_length(
+      :partnership_details,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.partnership_details.too_long',
+        word_count: 500
+      )
+    ) if validate_partnership_details?
 
     validate_length(
       :involvement_description,

@@ -154,11 +154,20 @@ export function createAndAppendListItem(message, attribute, modelName) {
             case "management_description":
                 linkElement.setAttribute("href", "#open_medium_management_description");
                 break;
+            case "is_partnership":
+                linkElement.setAttribute("href", "#" + modelName + "_is_partnership_false");
+                break;
+            case "partnership_details":
+                linkElement.setAttribute("href", "#" + modelName + "_partnership_details");
+                break;
             case "risk_register_file":
                 linkElement.setAttribute("href", "#open_medium_risk_register_file");
                 break;
             case "job_description_files":
                 linkElement.setAttribute("href", "#open_medium_job_description_files");
+                break;
+            case "partnership_agreement_file":
+                linkElement.setAttribute("href", "#" + modelName + "_partnership_agreement_file");
                 break;
             case "capital_work":
                 linkElement.setAttribute("href", "#" + modelName + "_capital_work_false");
@@ -220,9 +229,17 @@ window.addFormGroupError = function(formGroupElementId, formGroupErrorsElementId
 
     if (attribute != modelName) {
 
-        // Unless we're operating on the capital works ownership types page, append
-        // the govuk-form-group--error class to the mainFormGroupElement
-        if (["ownership_type_org_description", "ownership_type_pp_description", "ownership_type_neither_description"].indexOf(attribute) <= -1) {
+        // Unless we're operating on the partnerships page, or append
+        // the capital works ownership types page, append the
+        // govuk-form-group--error class to the mainFormGroupElement
+        if ([
+            "ownership_type_org_description",
+            "ownership_type_pp_description",
+            "ownership_type_neither_description",
+            "is_partnership",
+            "partnership_details",
+            "partnership_agreement_file"
+            ].indexOf(attribute) <= -1) {
             var mainFormGroupElement = document.getElementById(formGroupElementId);
             mainFormGroupElement.classList.add("govuk-form-group--error");
         }
