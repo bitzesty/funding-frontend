@@ -335,8 +335,15 @@ Rails.application.routes.draw do
         put 'costs', to: 'costs#update'
         get 'are-you-getting-cash-contributions', to: 'cash_contributions#show'
         put 'are-you-getting-cash-contributions', to: 'cash_contributions#update'
-        get 'are-you-getting-non-cash-contributions', to: 'non_cash_contributions#show'
-        put 'are-you-getting-non-cash-contributions', to: 'non_cash_contributions#update'
+        get 'are-you-getting-non-cash-contributions',
+          to: 'non_cash_contributions#question'
+        put 'are-you-getting-non-cash-contributions',
+          to: 'non_cash_contributions#question_update'
+        get 'non-cash-contributions', to: 'non_cash_contributions#show'
+        put 'non-cash-contributions', to: 'non_cash_contributions#update'
+        delete 'non-cash-contributions/:non_cash_contribution_id',
+          to: 'non_cash_contributions#delete',
+          as: :non_cash_contribution_delete
         get 'volunteers', to: 'volunteers#show'
         put 'volunteers', to: 'volunteers#update'
         delete 'volunteers/:volunteer_id', to: 'volunteers#delete', as: :volunteer_delete

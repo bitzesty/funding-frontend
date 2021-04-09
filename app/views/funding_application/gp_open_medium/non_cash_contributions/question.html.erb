@@ -1,0 +1,41 @@
+<%=
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application,
+      page_title: t(
+        'application.non_cash_contributions.generic_question_page.page_title'
+      )
+    }
+  )
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application,
+      first_form_element: :funding_application_non_cash_contributions_question_true
+    }
+  ) if @funding_application.errors.any?
+%>
+
+<%=
+  form_for @funding_application,
+  url: :funding_application_gp_open_medium_are_you_getting_non_cash_contributions,
+  method: :put do |f|
+%>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/non_cash_contributions/generic_question',
+      locals: {
+        model_object: @funding_application,
+        form_object: f
+      }
+    )
+  %>
+
+  <%= render(ButtonComponent.new(element: 'input')) %>
+
+<% end %>

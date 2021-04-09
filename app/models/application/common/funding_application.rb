@@ -13,29 +13,54 @@ class FundingApplication < ApplicationRecord
   has_many :funding_applications_dclrtns, inverse_of: :funding_application
   has_many :declarations, through: :funding_applications_dclrtns
 
+  has_many :funding_applications_nccs, inverse_of: :funding_application
+  has_many :non_cash_contributions, through: :funding_applications_nccs
+
   has_many :funding_applications_vlntrs, inverse_of: :funding_application
   has_many :volunteers, through: :funding_applications_vlntrs
 
   has_many :funding_applications_pay_reqs, inverse_of: :funding_application
   has_many :payment_requests, through: :funding_applications_pay_reqs
 
-  accepts_nested_attributes_for :organisation, :people, :declarations, :volunteers
+  accepts_nested_attributes_for(
+    :organisation,
+    :people,
+    :declarations,
+    :volunteers,
+    :non_cash_contributions
+  )
 
   attr_accessor :validate_people
   attr_accessor :validate_declarations
+  attr_accessor :validate_non_cash_contributions
+  attr_accessor :validate_non_cash_contributions_question
 
+  attr_accessor :non_cash_contributions_question
   attr_accessor :payment_still_details_question
 
   validates_associated :organisation
   validates_associated :people if :validate_people
   validates_associated :declarations, if: :validate_declarations?
+  validates_associated :non_cash_contributions, if: :validate_non_cash_contributions?
+
+  validates_inclusion_of :non_cash_contributions_question,
+    in: ["true", "false"],
+    if: :validate_non_cash_contributions_question?
 
   def validate_people?
-      validate_people == true
+    validate_people == true
   end
 
   def validate_declarations?
-      validate_declarations == true
+    validate_declarations == true
+  end
+
+  def validate_non_cash_contributions_question?
+    validate_non_cash_contributions_question == true
+  end
+
+  def validate_non_cash_contributions?
+    validate_non_cash_contributions == true
   end
 
   private

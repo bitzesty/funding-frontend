@@ -199,6 +199,10 @@ en-GB:
               invalid: "Enter a valid email address"
             phone_number:
               blank: "Enter the phone number of a legal signatory"
+        funding_application:
+          attributes:
+            non_cash_contributions_question:
+                inclusion: "Select whether or not your project is getting any non-cash contributions"
         project:
           attributes:
             project_costs:
@@ -442,6 +446,7 @@ en-GB:
           attributes:
             description:
               blank: "Enter a description of your non-cash contribution"
+              too_long: "Description of your non-cash contribution must be %{word_count} words or fewer"
             amount:
               not_a_number: "Amount must be a number, like 500"
               greater_than: "Enter an amount greater than 0"

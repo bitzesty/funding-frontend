@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_132841) do
+ActiveRecord::Schema.define(version: 2021_04_08_101538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -157,6 +157,15 @@ ActiveRecord::Schema.define(version: 2021_04_06_132841) do
     t.index ["funding_application_id"], name: "index_funding_applications_dclrtns_on_funding_application_id"
   end
 
+  create_table "funding_applications_nccs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.uuid "non_cash_contribution_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["funding_application_id"], name: "index_funding_applications_nccs_on_funding_application_id"
+    t.index ["non_cash_contribution_id"], name: "index_funding_applications_nccs_on_non_cash_contribution_id"
+  end
+
   create_table "funding_applications_pay_reqs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "funding_application_id", null: false
     t.uuid "payment_request_id", null: false
@@ -295,7 +304,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_132841) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "project_id", null: false
+    t.uuid "project_id"
     t.index ["project_id"], name: "index_non_cash_contributions_on_project_id"
   end
 
@@ -584,6 +593,8 @@ ActiveRecord::Schema.define(version: 2021_04_06_132841) do
   add_foreign_key "funding_applications", "organisations"
   add_foreign_key "funding_applications_dclrtns", "declarations"
   add_foreign_key "funding_applications_dclrtns", "funding_applications"
+  add_foreign_key "funding_applications_nccs", "funding_applications"
+  add_foreign_key "funding_applications_nccs", "non_cash_contributions"
   add_foreign_key "funding_applications_pay_reqs", "funding_applications"
   add_foreign_key "funding_applications_pay_reqs", "payment_requests"
   add_foreign_key "funding_applications_people", "funding_applications"

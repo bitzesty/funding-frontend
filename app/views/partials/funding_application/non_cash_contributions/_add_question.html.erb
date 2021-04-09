@@ -59,14 +59,16 @@
             rows: 5,
             class: "govuk-textarea #{'govuk-textarea--error' if
               model_object.errors['non_cash_contributions.description'].any?} govuk-js-character-count",
-            'aria-describedby' => 'project_non_cash_contributions_attributes_0_description-info',
+            'aria-describedby' => "#{ model_object_name }_non_cash_contributions_attributes_0_description-info",
             value: "#{flash[:description] if flash[:description].present?}"
           %>
 
         </div>
 
-        <span class="govuk-hint govuk-character-count__message"
-          id="project_non_cash_contributions_attributes_0_description-info"></span>
+        <span id="<%= model_object_name %>_non_cash_contributions_attributes_0_description-info"
+          class="govuk-hint govuk-character-count__message" aria-live="polite">
+          <%= t('generic.word_count', max_words: 50) %>
+        </span>
 
       </div>
 
@@ -93,7 +95,7 @@
           class: 'govuk-label'
         %>
 
-        <span id="project_non_cash_contributions_attributes_0_amount-hint"
+        <span id="<%= model_object_name %>_non_cash_contributions_attributes_0_amount-hint"
           class="govuk-hint govuk-!-font-size-17">
           <%= t('application.non_cash_contributions.text.5') %>
         </span>
