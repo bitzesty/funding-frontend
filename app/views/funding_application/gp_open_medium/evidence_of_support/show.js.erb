@@ -1,0 +1,42 @@
+<% if @funding_application.errors.any? %>
+
+  removeAllFormGroupErrors(
+    "evidence_of_support.description-form-group",
+    "evidence_of_support.description-errors"
+  );
+
+  removeAllFormGroupErrors(
+    "evidence_of_support.evidence_of_support_files-form-group",
+    "evidence_of_support.evidence_of_support_files-errors"
+  );
+
+  document.title = "Error: Evidence of support";
+
+  createSummaryErrorsSkeleton();
+
+  var errorKeys = [];
+
+  <% @funding_application.errors.each do |attr, msg| %>
+
+    errorKeys.push("<%= attr.to_s %>");
+
+    addSummaryError(
+      false,
+      "<%= attr %>",
+      "<%= msg %>",
+      "funding_application",
+      "evidence_of_support"
+    );
+
+    addFormGroupError(
+      "<%= attr %>-form-group",
+      "<%= attr %>-errors",
+      "<%= attr %>",
+      "<%= msg %>",
+      "evidence_of_support",
+      "funding_application"
+    );
+
+  <% end %>
+
+<% end %>

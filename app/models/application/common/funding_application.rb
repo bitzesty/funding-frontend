@@ -19,6 +19,9 @@ class FundingApplication < ApplicationRecord
   has_many :funding_applications_vlntrs, inverse_of: :funding_application
   has_many :volunteers, through: :funding_applications_vlntrs
 
+  has_many :funding_applications_evidences, inverse_of: :funding_application
+  has_many :evidence_of_support, through: :funding_applications_evidences, foreign_key: 'evidence_of_support'
+
   has_many :funding_applications_pay_reqs, inverse_of: :funding_application
   has_many :payment_requests, through: :funding_applications_pay_reqs
 
@@ -27,11 +30,13 @@ class FundingApplication < ApplicationRecord
     :people,
     :declarations,
     :volunteers,
+    :evidence_of_support,
     :non_cash_contributions
   )
 
   attr_accessor :validate_people
   attr_accessor :validate_declarations
+  attr_accessor :validate_evidence_of_support
   attr_accessor :validate_non_cash_contributions
   attr_accessor :validate_non_cash_contributions_question
 
@@ -41,6 +46,7 @@ class FundingApplication < ApplicationRecord
   validates_associated :organisation
   validates_associated :people if :validate_people
   validates_associated :declarations, if: :validate_declarations?
+  validates_associated :evidence_of_support, if: :validate_evidence_of_support?
   validates_associated :non_cash_contributions, if: :validate_non_cash_contributions?
 
   validates_inclusion_of :non_cash_contributions_question,
@@ -53,6 +59,10 @@ class FundingApplication < ApplicationRecord
 
   def validate_declarations?
     validate_declarations == true
+  end
+
+  def validate_evidence_of_support?
+    validate_evidence_of_support == true
   end
 
   def validate_non_cash_contributions_question?

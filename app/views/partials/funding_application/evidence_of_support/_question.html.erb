@@ -80,13 +80,13 @@
 
           <%=
             form_object.text_area :description,
-            value: '',
+            value: "#{flash[:description] if flash[:description].present?}",
             class: "govuk-textarea govuk-js-character-count #{'govuk-textarea--error' if
               model_object.errors['evidence_of_support.description'].any?}",
             rows: 5
           %>
 
-          <span id="project_evidence_of_support_attributes_0_description-info"
+          <span id="<%= model_object_name %>_evidence_of_support_attributes_0_description-info"
             class="govuk-hint govuk-character-count__message" aria-live="polite">
             <%= t('generic.word_count', max_words:50) %>
           </span>
@@ -134,7 +134,7 @@
             'data-input-identifier': 'file',
             'data-attribute': :evidence_of_support_files,
             'data-model': :evidence_of_support,
-            'data-parent-model': :project,
+            'data-parent-model': model_object_name,
             'autocomplete' => 'off'
           %>
 

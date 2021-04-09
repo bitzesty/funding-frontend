@@ -349,6 +349,9 @@ Rails.application.routes.draw do
         delete 'volunteers/:volunteer_id', to: 'volunteers#delete', as: :volunteer_delete
         get 'evidence-of-support', to: 'evidence_of_support#show'
         put 'evidence-of-support', to: 'evidence_of_support#update'
+        delete 'evidence-of-support/:supporting_evidence_id',
+          to: 'evidence_of_support#delete',
+          as: :evidence_of_support_delete
         get 'governing-documents', to: 'governing_documents#show'
         put 'governing-documents', to: 'governing_documents#update'
         get 'accounts', to: 'accounts#show'

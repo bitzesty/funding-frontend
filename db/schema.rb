@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_101538) do
+ActiveRecord::Schema.define(version: 2021_04_08_122219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_101538) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "project_id", null: false
+    t.uuid "project_id"
     t.index ["project_id"], name: "index_evidence_of_support_on_project_id"
   end
 
@@ -155,6 +155,15 @@ ActiveRecord::Schema.define(version: 2021_04_08_101538) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["declaration_id"], name: "index_funding_applications_dclrtns_on_declaration_id"
     t.index ["funding_application_id"], name: "index_funding_applications_dclrtns_on_funding_application_id"
+  end
+
+  create_table "funding_applications_eos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.uuid "evidence_of_support_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["evidence_of_support_id"], name: "index_funding_applications_eos_on_evidence_of_support_id"
+    t.index ["funding_application_id"], name: "index_funding_applications_eos_on_funding_application_id"
   end
 
   create_table "funding_applications_nccs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -593,6 +602,8 @@ ActiveRecord::Schema.define(version: 2021_04_08_101538) do
   add_foreign_key "funding_applications", "organisations"
   add_foreign_key "funding_applications_dclrtns", "declarations"
   add_foreign_key "funding_applications_dclrtns", "funding_applications"
+  add_foreign_key "funding_applications_eos", "evidence_of_support"
+  add_foreign_key "funding_applications_eos", "funding_applications"
   add_foreign_key "funding_applications_nccs", "funding_applications"
   add_foreign_key "funding_applications_nccs", "non_cash_contributions"
   add_foreign_key "funding_applications_pay_reqs", "funding_applications"

@@ -250,8 +250,15 @@ window.addFormGroupError = function(formGroupElementId, formGroupErrorsElementId
             // govuk-file-upload--error class accordingly.
                 
             if (parentModel) {
-                if (parentModel === "funding_application")
-                    var fileElement = document.getElementById(parentModel + "_" + modelName + "_attributes_supporting_documents_files");
+                if (parentModel === "funding_application") {
+
+                    if (modelName === "evidence_of_support") {
+                        var fileElement = document.getElementById(parentModel + "_" + modelName + "_attributes_0_" + attribute.replace(modelName + ".", ""));
+                    } else {
+                        var fileElement = document.getElementById(parentModel + "_" + modelName + "_attributes_supporting_documents_files");
+                    }
+
+                }
                 else
                     var fileElement = document.getElementById(parentModel + "_" + modelName + "_attributes_0_" + attribute.replace(modelName + ".", ""));
             } else {
