@@ -17,7 +17,28 @@
     class: 'govuk-label'
   %>
 
-  <%= form_object.select :cost_type,
+  <% if model_object_name == 'project' %>
+
+    <%=
+      form_object.select :cost_type,
+      options_for_select(
+        ProjectCost.cost_types.except(
+          :new_build_work, :community_grants, :full_cost_recovery, :inflation
+        ).map {
+          |k, _v| [I18n.t("application.costs.cost_types_select.#{k}"), k]
+        },
+        flash['cost_type']
+      ),
+      {},
+      { class: 'govuk-select' }
+    %>
+
+  <% end %>
+
+  <% if model_object_name == 'funding_application' %>
+
+    <%=
+      form_object.select :cost_type,
       options_for_select(
         ProjectCost.cost_types.map {
           |k, _v| [I18n.t("application.costs.cost_types_select.#{k}"), k]
@@ -26,7 +47,9 @@
       ),
       {},
       { class: 'govuk-select' }
-  %>
+    %>
+
+  <% end %>
 
 </div>
 
@@ -56,11 +79,12 @@
       form_object.text_area :description,
       class: "govuk-textarea govuk-js-character-count #{'govuk-textarea--error' if
         model_object.errors['project_costs.description'].any?}",
-        rows: 5,
-        value: "#{flash[:description] if flash[:description].present?}"
+      rows: 5,
+      value: "#{flash[:description] if flash[:description].present?}",
+      'aria-describedby' => "#{ model_object_name }_project_costs_attributes_0_description-info"
     %>
 
-    <span id="project_project_costs_attributes_0_description-info"
+    <span id="<%= model_object_name %>_project_costs_attributes_0_description-info"
       class="govuk-hint govuk-character-count__message" aria-live="polite">
       <%= t('generic.word_count', max_words: 500) %>
     </span>
@@ -113,6 +137,55 @@
   </div>
 
 </div>
+
+<% if model_object_name == 'funding_application' %>
+
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
+    model_object.errors['project_costs.vat_amount'].any? %>">
+
+    <%=
+      render(
+        partial: 'partials/form_input_errors',
+        locals: {
+          form_object: model_object,
+          input_field_id: :'project_costs.vat_amount'
+        }
+      ) if model_object.errors['project_costs.vat_amount'].any?
+    %>
+
+    <%=
+      form_object.label :vat_amount,
+      t('application.costs.labels.vat_amount'),
+      class: 'govuk-label'
+    %>
+
+    <span id="cost-vat_amount-hint" class="govuk-hint">
+      <%= t('application.costs.text.6') %>
+    </span>
+
+    <div class="nlhf-currency-denote">
+
+      <div class="nlhf-currency-denote__symbol">
+        &pound;
+      </div>
+
+      <div class="nlhf-currency-denote__capture">
+
+        <%=
+          form_object.text_field :vat_amount,
+          'autocomplete' => 'off',
+          class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
+            model_object.errors['project_costs.vat_amount'].any?}",
+          value: "#{flash[:vat_amount] if flash[:vat_amount].present?}"
+        %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<% end %>
 
 <%=
   render(

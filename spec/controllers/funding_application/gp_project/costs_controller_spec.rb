@@ -146,7 +146,7 @@ RSpec.describe FundingApplication::GpProject::CostsController do
       expect(assigns(:funding_application).project.project_costs.first.errors.empty?)
           .to eq(false)
       expect(assigns(:funding_application).project.project_costs.first.errors.messages[:description][0])
-          .to eq(I18n.t("activerecord.errors.models.project_cost.attributes.description.too_long"))
+          .to eq(I18n.t("activerecord.errors.models.project_cost.attributes.description.too_long", word_count: 50))
 
     end
 

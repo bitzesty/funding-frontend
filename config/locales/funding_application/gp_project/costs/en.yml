@@ -12,6 +12,7 @@ en-GB:
         cost_type: "Cost type"
         description: "Description of cost"
         amount: "Amount"
+        vat_amount: "VAT Amount"
       text:
         1: "Project costs help us understand how you plan to put your project into action."
         2: "Each cost will be shown here with a running total"
@@ -25,6 +26,7 @@ en-GB:
         1: "Cost type"
         2: "Description"
         3: "Amount"
+        vat_amount: "VAT Amount"
       buttons:
         1: "Add this cost"
       cost_types_select:
@@ -46,6 +48,10 @@ en-GB:
         publicity_and_promotion: "Publicity and promotion"
         evaluation: "Evaluation"
         contingency: "Contingency"
+        new_build_work: "New build work"
+        community_grants: "Community grants"
+        full_cost_recovery: "Full Cost Recovery"
+        inflation: "Inflation"
       cost_types:
         1:
           heading: "New staff costs"

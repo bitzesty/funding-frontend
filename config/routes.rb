@@ -333,6 +333,8 @@ Rails.application.routes.draw do
         put 'jobs-or-apprenticeships', to: 'jobs#update'
         get 'costs', to: 'costs#show'
         put 'costs', to: 'costs#update'
+        delete 'costs/:project_cost_id', to: 'costs#delete', as: :cost_delete
+        put 'confirm-costs', to: 'costs#validate_and_redirect'
         get 'are-you-getting-cash-contributions',
           to: 'cash_contributions#question'
         put 'are-you-getting-cash-contributions',

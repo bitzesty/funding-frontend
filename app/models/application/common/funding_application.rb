@@ -13,6 +13,9 @@ class FundingApplication < ApplicationRecord
   has_many :funding_applications_dclrtns, inverse_of: :funding_application
   has_many :declarations, through: :funding_applications_dclrtns
 
+  has_many :funding_applications_costs, inverse_of: :funding_application
+  has_many :project_costs, through: :funding_applications_costs
+
   has_many :funding_applications_nccs, inverse_of: :funding_application
   has_many :non_cash_contributions, through: :funding_applications_nccs
 
@@ -33,6 +36,7 @@ class FundingApplication < ApplicationRecord
     :people,
     :declarations,
     :volunteers,
+    :project_costs,
     :cash_contributions,
     :evidence_of_support,
     :non_cash_contributions
@@ -40,6 +44,8 @@ class FundingApplication < ApplicationRecord
 
   attr_accessor :validate_people
   attr_accessor :validate_declarations
+  attr_accessor :validate_project_costs
+  attr_accessor :validate_has_associated_project_costs
   attr_accessor :validate_cash_contributions_question
   attr_accessor :validate_cash_contributions
   attr_accessor :validate_evidence_of_support
@@ -53,13 +59,15 @@ class FundingApplication < ApplicationRecord
   validates_associated :organisation
   validates_associated :people if :validate_people
   validates_associated :declarations, if: :validate_declarations?
+  validates_associated :project_costs, if: :validate_project_costs?
   validates_associated :cash_contributions, if: :validate_cash_contributions?
+  validates_associated :evidence_of_support, if: :validate_evidence_of_support?
+  validates_associated :non_cash_contributions, if: :validate_non_cash_contributions?
 
+  validates :project_costs, presence: true, if: :validate_has_associated_project_costs?
   validates_inclusion_of :cash_contributions_question,
     in: ["true", "false"],
     if: :validate_cash_contributions_question?
-  validates_associated :evidence_of_support, if: :validate_evidence_of_support?
-  validates_associated :non_cash_contributions, if: :validate_non_cash_contributions?
   validates_inclusion_of :non_cash_contributions_question,
     in: ["true", "false"],
     if: :validate_non_cash_contributions_question?
@@ -90,6 +98,14 @@ class FundingApplication < ApplicationRecord
 
   def validate_cash_contributions?
     validate_cash_contributions == true
+  end
+
+  def validate_project_costs?
+    validate_project_costs == true
+  end
+
+  def validate_has_associated_project_costs?
+    validate_has_associated_project_costs == true
   end
 
   private

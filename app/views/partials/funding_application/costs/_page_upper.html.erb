@@ -56,6 +56,12 @@
             <%= t('application.costs.th.3') %>
           </th>
 
+          <% if model_object_name == 'funding_application' %>
+            <th scope="col" class="govuk-table__header">
+              <%= t('application.costs.th.vat_amount') %>
+            </th>
+          <% end %>
+
           <th scope="col" class="govuk-table__header"></th>
 
         </tr>
@@ -79,6 +85,12 @@
             <td class="govuk-table__cell govuk-table__cell--numeric">
               <%= number_to_currency(pc.amount, strip_insignificant_zeros: true) %>
             </td>
+
+            <% if model_object_name == 'funding_application' %>
+              <td class="govuk-table__cell govuk-table__cell--numeric">
+                <%= number_to_currency(pc.vat_amount, strip_insignificant_zeros: false) %>
+              </td>
+            <% end %>
 
             <td scope="govuk-table__cell" class="govuk-table__cell">
 

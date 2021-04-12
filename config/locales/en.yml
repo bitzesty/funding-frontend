@@ -201,6 +201,8 @@ en-GB:
               blank: "Enter the phone number of a legal signatory"
         funding_application:
           attributes:
+            project_costs:
+              blank: "Enter at least one project cost"
             cash_contributions_question:
               inclusion: "Select whether or not your project is getting any cash contributions"
             non_cash_contributions_question:
@@ -456,10 +458,13 @@ en-GB:
           attributes:
             description:
               blank: "Enter a description of the project cost you are adding"
-              too_long: "Description of your cost must be 50 words or fewer"
+              too_long: "Description of your cost must be %{word_count} words or fewer"
             amount:
               not_a_number: "Amount must be a number, like 500"
               greater_than: "Enter an amount greater than 0"
+            vat_amount:
+              not_a_number: "VAT Amount must be a number, like 500"
+              greater_than: "Enter a VAT amount greater than 0"
             cost_type:
               blank: "Select the cost type for the project cost you are adding"
         volunteer:

@@ -56,6 +56,7 @@
     partial: 'partials/funding_application/costs/page_upper',
     locals: {
       model_object: @funding_application.project,
+      model_object_name: 'project',
       delete_path: 'funding_application_gp_project_cost_delete_path'
     }
   )
@@ -79,6 +80,7 @@
         partial: 'partials/funding_application/costs/question',
         locals: {
           model_object: @funding_application.project,
+          model_object_name: 'project',
           form_object: pc
         }
       )
