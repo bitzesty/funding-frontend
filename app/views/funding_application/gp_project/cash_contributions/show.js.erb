@@ -1,6 +1,6 @@
 <% if @funding_application.project.errors.any? %>
 
-  document.title = "Error: Cash contributions";
+  document.title = "Error: <%= t('application.cash_contributions.page_title') %>";
 
   createSummaryErrorsSkeleton();
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_08_122219) do
+ActiveRecord::Schema.define(version: 2021_04_08_135544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 2021_04_08_122219) do
     t.integer "secured"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.uuid "project_id", null: false
+    t.uuid "project_id"
     t.index ["project_id"], name: "index_cash_contributions_on_project_id"
   end
 
@@ -146,6 +146,15 @@ ActiveRecord::Schema.define(version: 2021_04_08_122219) do
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "submitted_payload"
     t.index ["organisation_id"], name: "index_funding_applications_on_organisation_id"
+  end
+
+  create_table "funding_applications_ccs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.uuid "cash_contribution_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cash_contribution_id"], name: "index_funding_applications_ccs_on_cash_contribution_id"
+    t.index ["funding_application_id"], name: "index_funding_applications_ccs_on_funding_application_id"
   end
 
   create_table "funding_applications_dclrtns", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -600,6 +609,8 @@ ActiveRecord::Schema.define(version: 2021_04_08_122219) do
   add_foreign_key "funding_application_addresses", "addresses"
   add_foreign_key "funding_application_addresses", "funding_applications"
   add_foreign_key "funding_applications", "organisations"
+  add_foreign_key "funding_applications_ccs", "cash_contributions"
+  add_foreign_key "funding_applications_ccs", "funding_applications"
   add_foreign_key "funding_applications_dclrtns", "declarations"
   add_foreign_key "funding_applications_dclrtns", "funding_applications"
   add_foreign_key "funding_applications_eos", "evidence_of_support"

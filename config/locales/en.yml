@@ -201,6 +201,8 @@ en-GB:
               blank: "Enter the phone number of a legal signatory"
         funding_application:
           attributes:
+            cash_contributions_question:
+              inclusion: "Select whether or not your project is getting any cash contributions"
             non_cash_contributions_question:
                 inclusion: "Select whether or not your project is getting any non-cash contributions"
         project:

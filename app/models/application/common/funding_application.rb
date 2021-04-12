@@ -19,6 +19,9 @@ class FundingApplication < ApplicationRecord
   has_many :funding_applications_vlntrs, inverse_of: :funding_application
   has_many :volunteers, through: :funding_applications_vlntrs
 
+  has_many :funding_applications_ccs, inverse_of: :funding_application
+  has_many :cash_contributions, through: :funding_applications_ccs
+
   has_many :funding_applications_evidences, inverse_of: :funding_application
   has_many :evidence_of_support, through: :funding_applications_evidences, foreign_key: 'evidence_of_support'
 
@@ -30,25 +33,33 @@ class FundingApplication < ApplicationRecord
     :people,
     :declarations,
     :volunteers,
+    :cash_contributions,
     :evidence_of_support,
     :non_cash_contributions
   )
 
   attr_accessor :validate_people
   attr_accessor :validate_declarations
+  attr_accessor :validate_cash_contributions_question
+  attr_accessor :validate_cash_contributions
   attr_accessor :validate_evidence_of_support
   attr_accessor :validate_non_cash_contributions
   attr_accessor :validate_non_cash_contributions_question
 
+  attr_accessor :cash_contributions_question
   attr_accessor :non_cash_contributions_question
   attr_accessor :payment_still_details_question
 
   validates_associated :organisation
   validates_associated :people if :validate_people
   validates_associated :declarations, if: :validate_declarations?
+  validates_associated :cash_contributions, if: :validate_cash_contributions?
+
+  validates_inclusion_of :cash_contributions_question,
+    in: ["true", "false"],
+    if: :validate_cash_contributions_question?
   validates_associated :evidence_of_support, if: :validate_evidence_of_support?
   validates_associated :non_cash_contributions, if: :validate_non_cash_contributions?
-
   validates_inclusion_of :non_cash_contributions_question,
     in: ["true", "false"],
     if: :validate_non_cash_contributions_question?
@@ -71,6 +82,14 @@ class FundingApplication < ApplicationRecord
 
   def validate_non_cash_contributions?
     validate_non_cash_contributions == true
+  end
+
+  def validate_cash_contributions_question?
+    validate_cash_contributions_question == true
+  end
+
+  def validate_cash_contributions?
+    validate_cash_contributions == true
   end
 
   private

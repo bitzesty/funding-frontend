@@ -96,11 +96,12 @@
             form_object.text_area :description,
             class: "govuk-textarea govuk-js-character-count #{'govuk-textarea--error' if
               model_object.errors['cash_contributions.description'].any?}",
-            rows: 5
+            rows: 5,
+            value: "#{flash[:description] if flash[:description].present?}"
           %>
 
           <span class="govuk-hint govuk-character-count__message"
-            id="project_cash_contributions_attributes_0_description-info"></span>
+            id="<%= model_object_name %>_cash_contributions_attributes_0_description-info"></span>
 
         </div>
 
@@ -149,6 +150,7 @@
                 form_object.radio_button :secured,
                 'yes_with_evidence',
                 class: 'govuk-radios__input',
+                'checked': "#{ 'checked' if flash[:secured] == 'yes_with_evidence' }",
                 'data-aria-controls': 'conditional-cash-contribution-conditional'
               %>
 
@@ -198,7 +200,7 @@
                     'data-input-identifier': 'file',
                     'data-attribute': :cash_contribution_evidence_files,
                     'data-model': 'cash_contributions',
-                    'data-parent-model': :project,
+                    'data-parent-model': model_object_name,
                     'autocomplete' => 'off'
                   %>
 
@@ -213,7 +215,8 @@
               <%=
                 form_object.radio_button :secured,
                 'yes_no_evidence_yet',
-                class: 'govuk-radios__input'
+                class: 'govuk-radios__input',
+                'checked': "#{ 'checked' if flash[:secured] == 'yes_no_evidence_yet' }"
               %>
 
               <%=
@@ -229,6 +232,7 @@
               <%=
                 form_object.radio_button :secured,
                 'no',
+                'checked': "#{ 'checked' if flash[:secured] == 'no' }",
                 class: 'govuk-radios__input'
               %>
 
@@ -245,6 +249,7 @@
               <%=
                 form_object.radio_button :secured,
                 'x_not_sure',
+                'checked': "#{ 'checked' if flash[:secured] == 'x_not_sure' }",
                 class: 'govuk-radios__input'
               %>
 
@@ -300,7 +305,8 @@
               form_object.text_field :amount,
               'autocomplete' => 'off',
               class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
-                model_object.errors['cash_contributions.amount'].any?}"
+                model_object.errors['cash_contributions.amount'].any?}",
+              value: "#{flash[:amount] if flash[:amount].present?}"
             %>
 
           </div>
@@ -321,11 +327,11 @@
 
       <%=
         render(
-            ButtonComponent.new(
-                element: 'input',
-                text: t('application.cash_contributions.buttons.1'),
-                classes: 'govuk-button--secondary'
-            )
+          ButtonComponent.new(
+            element: 'input',
+            text: t('application.cash_contributions.buttons.1'),
+            classes: 'govuk-button--secondary'
+          )
         )
       %>
 

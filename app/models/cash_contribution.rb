@@ -1,8 +1,13 @@
 class CashContribution < ApplicationRecord
   include GenericValidator
 
-  self.implicit_order_column = "created_at"
-  belongs_to :project
+  self.implicit_order_column = 'created_at'
+
+  belongs_to :project, optional: true
+
+  has_many :funding_applications_ccs, inverse_of: :cash_contributions
+  has_many :funding_applications, through: :funding_applications_ccs
+
   has_one_attached :cash_contribution_evidence_files
 
   validates :description, presence: true
@@ -28,10 +33,11 @@ class CashContribution < ApplicationRecord
   end
 
   enum secured: {
-      yes_with_evidence: 0,
-      no: 1,
-      # added x_ prefix to avoid conflict with auto generated negative scopes.
-      x_not_sure: 2,
-      yes_no_evidence_yet: 3
+    yes_with_evidence: 0,
+    no: 1,
+    # added x_ prefix to avoid conflict with auto generated negative scopes.
+    x_not_sure: 2,
+    yes_no_evidence_yet: 3
   }
+
 end
