@@ -1,7 +1,7 @@
 <%=
   render partial: "partials/page_title",
          locals: {
-             model_object: @funding_application.project,
+             model_object: @funding_application,
              page_title: t('application.grant_request.page_title')
          }
 %>
@@ -31,13 +31,13 @@
         <%# show this message if grant request is a negative number (not greater than the amount being received in contributions)  %>
         <% unless @costs_greater_than_contributions %>
           <%= t('application.grant_request.text.6') %>
-          <%= "#{number_to_currency(@final_grant_amount.abs, strip_insignificant_zeros: true)}"  %>
+          <%= "#{number_to_currency(@final_grant_amount.abs, strip_insignificant_zeros: true)}" %>
           <%= t('application.grant_request.text.7') %>
         <% end %>
 
         <%# show this message if grant request is higher than the maximum value for this funding level  %>
         <% unless @grant_request_less_than_funding_band %>
-          <%= t('application.grant_request.text.8', total: '£10,000') %>
+          <%= t('application.grant_request.text.8', total: '£250,000') %>
         <% end %>
       <% end %>
 
@@ -77,7 +77,7 @@
           <%=
             link_to(
               t('application.grant_request.links.1'),
-              :funding_application_gp_project_costs
+              :funding_application_gp_open_medium_costs
             )
           %>
         </p>
@@ -104,7 +104,7 @@
           <%=
             link_to(
               t('application.grant_request.links.2'),
-              :funding_application_gp_project_cash_contributions
+              :funding_application_gp_open_medium_cash_contributions
             )
           %>
         </p>
@@ -177,7 +177,7 @@
     render(
         ButtonComponent.new(
             element: "a",
-            href: funding_application_gp_project_non_cash_contributions_path
+            href: funding_application_gp_open_medium_non_cash_contributions_path
         )
     )
   %>

@@ -348,6 +348,7 @@ Rails.application.routes.draw do
           to: 'non_cash_contributions#question'
         put 'are-you-getting-non-cash-contributions',
           to: 'non_cash_contributions#question_update'
+        get 'your-grant-request', to: 'grant_request#show'
         get 'non-cash-contributions', to: 'non_cash_contributions#show'
         put 'non-cash-contributions', to: 'non_cash_contributions#update'
         delete 'non-cash-contributions/:non_cash_contribution_id',
