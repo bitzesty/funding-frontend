@@ -1,0 +1,14 @@
+<h1 class="govuk-heading-xl">
+  Check your answers
+</h1>
+
+<%=
+  form_for @funding_application.open_medium,
+  url: :funding_application_gp_open_medium_check_your_answers,
+  method: :put do |f|
+%>
+
+ <%= render(ButtonComponent.new(element: 'input')) %>
+
+
+ <% end %>

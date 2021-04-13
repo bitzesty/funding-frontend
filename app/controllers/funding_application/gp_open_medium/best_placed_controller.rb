@@ -22,7 +22,7 @@ class FundingApplication::GpOpenMedium::BestPlacedController < ApplicationContro
         "ID: #{@funding_application.open_medium.id}"
       )
 
-      redirect_to :funding_application_gp_open_medium_delivered_by_a_partnership
+      redirect_to :funding_application_gp_open_medium_partnership
 
     else
 

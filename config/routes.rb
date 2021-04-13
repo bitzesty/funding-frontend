@@ -373,6 +373,8 @@ Rails.application.routes.draw do
         put 'project-images', to: 'project_images#update'
         get 'full-cost-recovery', to: 'cost_recovery#show'
         put 'full-cost-recovery', to: 'cost_recovery#update'
+        get 'check-your-answers', to: 'check_answers#show'
+        put 'check-your-answers', to: 'check_answers#update'
         get 'confirm-declaration', to: 'declaration#show_confirm_declaration'
         put 'confirm-declaration', to: 'declaration#update_confirm_declaration'
         get 'declaration', to: 'declaration#show_declaration'
