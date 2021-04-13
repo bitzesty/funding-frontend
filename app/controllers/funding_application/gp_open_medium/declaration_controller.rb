@@ -7,8 +7,8 @@ class FundingApplication::GpOpenMedium::DeclarationController < ApplicationContr
   def show_declaration
 
     set_standard_terms_link(
-      @funding_application.open_medium.project_costs,
-      @funding_application.open_medium.cash_contributions
+      @funding_application.project_costs,
+      @funding_application.cash_contributions
     )
 
   end
