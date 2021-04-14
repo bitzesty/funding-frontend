@@ -28,6 +28,8 @@ en-GB:
     warning: "Warning"
     important: "Important"
     error: "Error"
+    character_count: "You can enter up to %{max_characters} characters"
+    characters_remaining: "You have %{remaining_characters} characters remaining"
     word_count: "You can enter up to %{max_words} words"
     words_remaining: "You have %{remaining_words} words remaining"
     upload_a_file: "Upload a file"
@@ -363,25 +365,35 @@ en-GB:
             jobs_or_apprenticeships_description:
               too_long: "Description of any jobs or apprentcieships that you will create must be %{word_count} words or fewer"
             hd_grade_1_description:
-              too_long: "Description of how many Grade I or Grade A listed buildings included in your project must be %{word_count} words or fewer"
+              not_a_number: "Amount of Grade I or Grade A listed buildings must be a number, like 10"
+              greater_than: "Amount of Grade I or Grade A listed buildings must be greater than 0"
+              less_than: "Amount of Grade I or Grade A listed buildings must be less than 99999"
             hd_grade_2_b_description:
-              too_long: "Description of how many Grade II* or Grade B listed buildings included in your project must be %{word_count} words or fewer"
+              not_a_number: "Amount of Grade II* or Grade B listed buildings must be a number, like 10"
+              greater_than: "Amount of Grade II* or Grade B listed buildings must be greater than 0"
+              less_than: "Amount of Grade II* or Grade B listed buildings must be less than 99999"
             hd_grade_2_c_description:
-              too_long: "Description of how many Grade II, Grade C or Grade C(S) listed buildings included in your project must be %{word_count} words or fewer"
+              not_a_number: "Amount of Grade II, Grade C or Grade C(S) listed buildings must be a number, like 10"
+              greater_than: "Amount of Grade II, Grade C or Grade C(S) listed buildings must be greater than 0"
+              less_than: "Amount of Grade II, Grade C or Grade C(S) listed buildings must be less than 99999"
             hd_local_list_description:
-              too_long: "Description of how many local list buildings included in your project must be %{word_count} words or fewer"
+              not_a_number: "Amount of local list buildings must be a number, like 10"
+              greater_than: "Amount of local list buildings must be greater than 0"
+              less_than: "Amount of local list buildings must be less than 99999"
             hd_monument_description:
-              too_long: "Description of how many monuments included in your project must be %{word_count} words or fewer"
+              not_a_number: "Amount of monuments must be a number, like 10"
+              greater_than: "Amount of monuments must be greater than 0"
+              less_than: "Amount of monuments must be less than 99999"
             hd_historic_ship_description:
-              too_long: "Registered historic ship certificate number(s) must be %{word_count} words or fewer"
+              too_long: "Registered historic ship certificate number(s) must be %{count} characters or fewer"
             hd_grade_1_park_description:
-              too_long: "Registration or inventory number(s) for Grade I listed Park or Gardens included in your project must be %{word_count} words or fewer"
+              too_long: "Registration or inventory number(s) for Grade I listed Park or Gardens included in your project must be %{count} characters or fewer"
             hd_grade_2_park_description:
-              too_long: "Registration or inventory number(s) for Grade II listed Park or Gardens included in your project must be %{word_count} words or fewer"
+              too_long: "Registration or inventory number(s) for Grade II listed Park or Gardens included in your project must be %{count} characters or fewer"
             hd_grade_2_star_park_description:
-              too_long: "Registration or inventory number(s) for Grade II* listed Park or Gardens included in your project must be %{word_count} words or fewer"
+              too_long: "Registration or inventory number(s) for Grade II* listed Park or Gardens included in your project must be %{count} characters or fewer"
             hd_other_description:
-              too_long: "Description of any other formal heritage designations must be %{word_count} words or fewer"
+              too_long: "Description of any other formal heritage designations must be %{count} words or fewer"
             heritage_attracts_visitors:
               inclusion: "Select an option to tell us whether your project involves heritage that attracts visitors"
             visitors_in_last_financial_year:

@@ -2,7 +2,7 @@
   id="conditional-<%= model_object_name %>_<%= designation %>">
 
   <div class="govuk-character-count" data-module="govuk-character-count"
-    data-maxwords="300">
+    data-maxlength="255">
 
     <div class="govuk-form-group">
 
@@ -13,16 +13,15 @@
       %>
 
       <%=
-        form_object.text_area :hd_grade_2_park_description,
-        rows: 5,
-        class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+        form_object.text_field :hd_grade_2_park_description,
+        class: "govuk-input govuk-js-character-count #{'govuk-input--error' if
           model_object.errors[:hd_grade_2_park_description].any?}",
         'aria-describedby' => "#{model_object_name}_hd_grade_2_park_description-info"
       %>
 
       <span id="<%= model_object_name %>_hd_grade_2_park_description-info"
         class="govuk-hint govuk-character-count__message" aria-live="polite">
-        <%= t('generic.word_count', max_words: 300) %>
+        <%= t('generic.character_count', max_characters: 255) %>
       </span>
 
     </div>

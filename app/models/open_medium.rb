@@ -127,6 +127,36 @@ class OpenMedium < ApplicationRecord
     greater_than: 0,
     less_than: 2147483648
   }, if: :validate_visitors_expected_per_year?
+  validates :hd_grade_1_description, numericality: {
+    greater_than: 0,
+    less_than: 99999,
+    allow_nil: true
+  }, if: :validate_heritage_designations?
+  validates :hd_grade_2_b_description, numericality: {
+    greater_than: 0,
+    less_than: 99999,
+    allow_nil: true
+  }, if: :validate_heritage_designations?
+  validates :hd_grade_2_c_description, numericality: {
+    greater_than: 0,
+    less_than: 99999,
+    allow_nil: true
+  }, if: :validate_heritage_designations?
+  validates :hd_local_list_description, numericality: {
+    greater_than: 0,
+    less_than: 99999,
+    allow_nil: true
+  }, if: :validate_heritage_designations?
+  validates :hd_monument_description, numericality: {
+    greater_than: 0,
+    less_than: 99999,
+    allow_nil: true
+  }, if: :validate_heritage_designations?
+  validates :hd_historic_ship_description, length: { maximum: 255 }, if: :validate_heritage_designations?
+  validates :hd_grade_1_park_description, length: { maximum: 255 }, if: :validate_heritage_designations?
+  validates :hd_grade_2_park_description, length: { maximum: 255 }, if: :validate_heritage_designations?
+  validates :hd_grade_2_star_park_description, length: { maximum: 255 }, if: :validate_heritage_designations?
+  validates :hd_other_description, length: { maximum: 255 }, if: :validate_heritage_designations?
   validates :environmental_impacts_description, presence: true, if: :validate_environmental_impacts_description?
   validates :involvement_description, presence: true, if: :validate_involvement_description?
   validates :management_description, presence: true, if: :validate_management_description_presence?
@@ -225,100 +255,6 @@ class OpenMedium < ApplicationRecord
         word_count: 500
       )
     ) if validate_heritage_at_risk_description?
-
-    if validate_heritage_designations?
-
-      validate_length(
-        :hd_grade_1_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_grade_1_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_grade_2_b_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_grade_2_b_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_grade_2_c_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_grade_2_c_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_local_list_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_local_list_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_monument_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_monument_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_historic_ship_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_historic_ship_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_grade_1_park_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_grade_1_park_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_grade_2_park_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_grade_2_park_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_grade_2_star_park_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_grade_2_star_park_description.too_long',
-          word_count: 300
-        )
-      )
-
-      validate_length(
-        :hd_other_description,
-        300,
-        I18n.t(
-          'activerecord.errors.models.open_medium.attributes.hd_other_description.too_long',
-          word_count: 300
-        )
-      )
-
-    end
 
     validate_length(
       :matter,

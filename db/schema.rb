@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_09_065524) do
+ActiveRecord::Schema.define(version: 2021_04_14_073032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -292,11 +292,11 @@ ActiveRecord::Schema.define(version: 2021_04_09_065524) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "acquisition"
-    t.text "hd_grade_1_description"
-    t.text "hd_grade_2_b_description"
-    t.text "hd_grade_2_c_description"
-    t.text "hd_local_list_description"
-    t.text "hd_monument_description"
+    t.integer "hd_grade_1_description"
+    t.integer "hd_grade_2_b_description"
+    t.integer "hd_grade_2_c_description"
+    t.integer "hd_local_list_description"
+    t.integer "hd_monument_description"
     t.text "hd_historic_ship_description"
     t.text "hd_grade_1_park_description"
     t.text "hd_grade_2_park_description"
