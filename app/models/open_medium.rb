@@ -76,6 +76,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_management_description_presence
   attr_accessor :validate_risk_register_file
   attr_accessor :validate_evaluation_description
+  attr_accessor :validate_jobs_or_apprenticeships_description
   attr_accessor :validate_job_description_files
   attr_accessor :validate_acknowledgement_description
   attr_accessor :validate_governing_document_file
@@ -402,6 +403,15 @@ class OpenMedium < ApplicationRecord
       )
     ) if validate_evaluation_description?
 
+    validate_length(
+      :jobs_or_apprenticeships_description,
+      500,
+      I18n.t(
+        'activerecord.errors.models.open_medium.attributes.jobs_or_apprenticeships_description.too_long',
+        word_count: 500
+      )
+    ) if validate_jobs_or_apprenticeships_description?
+
     validate_file_attached(
       :job_description_files,
       I18n.t('activerecord.errors.models.open_medium.attributes.job_description_files.inclusion')
@@ -590,6 +600,10 @@ class OpenMedium < ApplicationRecord
 
   def validate_evaluation_description?
     validate_evaluation_description == true
+  end
+
+  def validate_jobs_or_apprenticeships_description?
+    validate_jobs_or_apprenticeships_description == true
   end
 
   def validate_job_description_files?

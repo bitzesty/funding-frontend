@@ -154,6 +154,9 @@ export function createAndAppendListItem(message, attribute, modelName) {
             case "management_description":
                 linkElement.setAttribute("href", "#open_medium_management_description");
                 break;
+            case "jobs_or_apprenticeships_description":
+                linkElement.setAttribute("href", "#" + modelName + "_jobs_or_apprenticeships_description");
+                break;
             case "is_partnership":
                 linkElement.setAttribute("href", "#" + modelName + "_is_partnership_false");
                 break;

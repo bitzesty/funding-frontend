@@ -360,6 +360,8 @@ en-GB:
             heritage_at_risk_description:
               blank: "Enter a description of how your heritage is at risk"
               too_long: "Description of how your heritage is at risk must be %{word_count} words or fewer"
+            jobs_or_apprenticeships_description:
+              too_long: "Description of any jobs or apprentcieships that you will create must be %{word_count} words or fewer"
             hd_grade_1_description:
               too_long: "Description of how many Grade I or Grade A listed buildings included in your project must be %{word_count} words or fewer"
             hd_grade_2_b_description:
