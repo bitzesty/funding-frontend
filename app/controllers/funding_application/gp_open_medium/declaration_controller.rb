@@ -1,5 +1,6 @@
 class FundingApplication::GpOpenMedium::DeclarationController < ApplicationController
   include FundingApplicationContext
+  include FundingApplicationHelper
   include ObjectErrorsLogger
 
   # This method is used to set the @standard_terms_link instance variable,
@@ -35,7 +36,13 @@ class FundingApplication::GpOpenMedium::DeclarationController < ApplicationContr
 
       if Flipper.enabled?(:grant_programme_sff_medium)
 
-        redirect_to :funding_application_gp_open_medium_confirm_declaration
+        send_funding_application_to_salesforce(
+          @funding_application,
+          current_user,
+          current_user.organisations.first
+        )
+
+        redirect_to :funding_application_gp_open_medium_application_submitted
 
       else
 

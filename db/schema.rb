@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_073032) do
+ActiveRecord::Schema.define(version: 2021_04_14_073033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_073032) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "project_id"
+    t.string "salesforce_external_id"
     t.index ["project_id"], name: "index_cash_contributions_on_project_id"
   end
 
@@ -332,6 +333,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_073032) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "project_id"
+    t.string "salesforce_external_id"
     t.index ["project_id"], name: "index_non_cash_contributions_on_project_id"
   end
 
@@ -489,6 +491,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_073032) do
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "project_id"
     t.decimal "vat_amount"
+    t.string "salesforce_external_id"
     t.index ["project_id"], name: "index_project_costs_on_project_id"
   end
 
@@ -609,6 +612,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_073032) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "project_id"
+    t.string "salesforce_external_id"
     t.index ["project_id"], name: "index_volunteers_on_project_id"
   end
 
