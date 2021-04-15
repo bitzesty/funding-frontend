@@ -1187,7 +1187,7 @@ module SalesforceApi
 
       Rails.logger.debug("Retrieving blob path for #{type} file")
 
-      blob_path = Rails.application.routes.url_helpers.rails_blob_path(file)
+      blob_path = Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true)
 
       Rails.logger.debug("Finished retrieving blob path for #{type} file")
 
