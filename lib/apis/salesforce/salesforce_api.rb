@@ -1185,14 +1185,9 @@ module SalesforceApi
 
       Rails.logger.info("Creating #{type} file in Salesforce")
 
-      active_storage_service = create_active_storage_service
-
       Rails.logger.debug("Retrieving blob path for #{type} file")
 
-      blob_path = active_storage_service.send(
-        :path_for,
-        file.blob.key
-      )
+      blob_path = Rails.application.routes.url_helpers.rails_blob_path(file)
 
       Rails.logger.debug("Finished retrieving blob path for #{type} file")
 
