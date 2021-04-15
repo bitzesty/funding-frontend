@@ -1,0 +1,73 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('views.funding_application.gp_project.check_your_answers.volunteers') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <table class="govuk-table">
+
+      <thead class="govuk-table__head">
+
+        <tr class="govuk-table__row">
+
+          <th scope="col" class="govuk-table__header">
+            <%= t('generic.description') %>
+          </th>
+
+          <th scope="col" class="govuk-table__header">
+            <%= t('generic.hours') %>
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody class="govuk-table__body">
+
+        <% model_object.volunteers.each do |v| %>
+
+          <tr class="govuk-table__row">
+
+            <td class="govuk-table__cell">
+              <%= v.description %>
+            </td>
+
+            <td class="govuk-table__cell govuk-table__cell--numeric">
+              <%= v.hours %>
+            </td>
+
+          </tr>
+
+        <% end %>
+
+        <tr>
+
+          <td class="govuk-heading-s govuk-!-padding-top-3">
+            <%= t('generic.total') %> <%= t('generic.hours').downcase %>
+          </td>
+
+          <td class="govuk-table__cell--numeric">
+            <%= calculate_volunteer_total(model_object.volunteers) %>
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t('views.funding_application.gp_project.check_your_answers.volunteers')
+      }
+    )
+  %>
+
+</div>

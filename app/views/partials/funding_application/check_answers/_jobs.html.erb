@@ -1,0 +1,55 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.jobs_or_apprenticeships_description') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <p class="govuk-body">
+      <%=
+        model_object.jobs_or_apprenticeships_description.present? ?
+        model_object.jobs_or_apprenticeships_description :
+        t('funding_application.check_answers.not_answered')
+      %>
+    </p>
+
+    <% if model_object.job_description_files.present? %>
+
+      <p class="govuk-body govuk-!-font-weight-bold">
+        <%= t('funding_application.check_answers.job_description_files') %>
+      </p>
+
+      <% model_object.job_description_files.each do |jdf| %>
+        
+        <%=
+          link_to(
+            jdf.filename,
+            rails_blob_path(
+              jdf,
+              disposition: 'attachment'
+            ),
+            title: "#{ t('generic.click_to_view_file') }: " \
+              "#{ jdf.filename }"
+          )
+        %>
+
+      <% end %>
+
+    <% end %>
+  
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.project.jobs_or_apprenticeships_description'
+        )
+      }
+    )
+  %>
+
+</div>

@@ -1,0 +1,43 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.governing_documents') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <% if model_object.governing_document_file.present? %>
+
+      <%=
+        link_to(
+          model_object.governing_document_file.filename,
+          rails_blob_path(
+            model_object.governing_document_file,
+            disposition: 'attachment'
+          ),
+          title: "#{ t('generic.click_to_view_file') }: " \
+            "#{ model_object.governing_document_file.filename }"
+        )
+      %>
+
+    <% else %>
+
+      <%= t('funding_application.check_answers.not_answered') %>
+
+    <% end %>
+  
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.project.governing_documents'
+        )
+      }
+    )
+  %>
+
+</div>

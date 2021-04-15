@@ -1,0 +1,27 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.organisation.board_members_or_trustees') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%=
+      model_object.board_members_or_trustees.present? ?
+      model_object.board_members_or_trustees :
+      t('funding_application.check_answers.not_answered')
+    %>
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.organisation.board_members_or_trustees'
+        )
+      }
+    )
+  %>
+
+</div>

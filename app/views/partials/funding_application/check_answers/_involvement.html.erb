@@ -1,0 +1,26 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('views.funding_application.gp_project.check_your_answers.involvement') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%=
+      model_object.involvement_description.present? ?
+      model_object.involvement_description :
+      t('views.funding_application.gp_project.check_your_answers.not_answered')
+    %>
+  </dd>
+
+  <%=
+    render(
+      partial: 'funding_application/gp_project/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t('views.funding_application.gp_project.check_your_answers.involvement'),
+        anchor_id: "#{ model_object_name }_involvement_description"
+      }
+    )
+  %>
+
+</div>

@@ -1,0 +1,27 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.first_fund_application.question') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%=
+      model_object.first_fund_application.present? ?
+      model_object.first_fund_application :
+      t('funding_application.check_answers.not_answered')
+    %>
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.project.first_fund_application.question'
+        )
+      }
+    )
+  %>
+
+</div>

@@ -41,6 +41,7 @@ en-GB:
     not_answered: "Not answered"
     description: "Description"
     amount: "Amount"
+    vat_amount: "VAT Amount"
     secured: "Secured"
     evidence_attached: "Evidence attached"
     click_to_view_file: "Click to view file"

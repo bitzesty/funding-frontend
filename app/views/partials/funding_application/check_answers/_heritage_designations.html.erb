@@ -1,0 +1,195 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.heritage_designations.question') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <% if model_object.heritage_designations.present? %>
+
+      <ul class="govuk-list govuk-list--bullet">
+
+        <% model_object.heritage_designations.each do |hd| %>
+
+          <li>
+
+            <%= t("heritage_designations.designations.#{hd.designation}") %>
+
+            <% if hd.designation == 'grade_1_or_a_listed_building' && model_object.hd_grade_1_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.how_many_buildings') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_grade_1_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'grade_2_star_or_b_listed_building' && model_object.hd_grade_2_b_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.how_many_buildings') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_grade_2_b_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'grade_2_c_or_cs_listed_building' && model_object.hd_grade_2_c_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.how_many_buildings') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_grade_2_c_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'local_list' && model_object.hd_local_list_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.how_many_buildings') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_local_list_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'scheduled_ancient_monument' && model_object.hd_monument_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.how_many_monuments') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_monument_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'registered_historic_ship' && model_object.hd_historic_ship_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.historic_ship_certificate_number') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_historic_ship_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'grade_1_listed_park_or_garden' && model_object.hd_grade_1_park_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.registration_or_inventory_numbers') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_grade_1_park_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'grade_2_star_listed_park_or_garden' && model_object.hd_grade_2_star_park_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.registration_or_inventory_numbers') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_grade_2_star_park_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'grade_2_listed_park_or_garden' && model_object.hd_grade_2_park_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.registration_or_inventory_numbers') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_grade_2_park_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+            <% if hd.designation == 'other' && model_object.hd_other_description.present? %>
+
+              <ul class="govuk-list govuk-list--bullet">
+
+                <li>
+                  <span class="govuk-!-font-weight-bold">
+                    <%= "#{ t('funding_application.check_answers.project.heritage_designations.other') }:" %>
+                  </span>
+                  <%= "#{ model_object.hd_other_description }" %>
+                </li>
+
+              </ul>
+
+            <% end %>
+
+          </li>
+
+        <% end %>
+
+      </ul>
+
+    <% else %>
+
+      <%= t('funding_application.check_answers.not_answered') %>
+
+    <% end %>
+  
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.project.heritage_designations.question'
+        )
+      }
+    )
+  %>
+
+</div>

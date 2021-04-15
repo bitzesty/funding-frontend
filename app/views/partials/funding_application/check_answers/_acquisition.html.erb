@@ -1,0 +1,37 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.acquisition.question') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <% unless model_object.acquisition.nil? %>
+
+      <%=
+        model_object.acquisition ?
+        t('funding_application.check_answers.project.acquisition.answer_yes') :
+        t('funding_application.check_answers.project.acquisition.answer_no')
+      %>
+
+    <% else %>
+    
+      <%= t('funding_application.check_answers.not_answered') %>
+
+    <% end %>
+
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.project.acquisition.question'
+        )
+      }
+    )
+  %>
+
+</div>

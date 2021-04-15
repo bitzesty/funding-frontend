@@ -1,0 +1,70 @@
+en-GB:
+  funding_application:
+    check_answers:
+      not_answered: "Not answered"
+      organisation:
+        main_purpose: "Your organisation's main purpose and activities"
+        board_members_or_trustees: "How many board members or trustees does your organisation have?"
+        vat_registered:
+          question: "Are you VAT registered?"
+          answer_no: "No, I am not VAT registered"
+          answer_yes: "Yes, I am VAT registered"
+        vat_number: "VAT Number"
+        social_media_info: "Does your organisation use social media?"
+        spend_in_last_financial_year: "How much did your organisation spend in the last financial year?"
+        unrestricted_funds: "What level of unrestricted funds is there in your organisation's reserves?"
+      project:
+        received_advice_description: "Tell us what advice you have received in planning your project and who from"
+        first_fund_application:
+          question: "Is this your organisation's first application to us?"
+          answer_no: "No, this is not my organisation's first application"
+          answer_yes: "Yes, this is my organisation's first application"
+        recent_project_title: "Most recent project title"
+        recent_project_reference: "Most recent project reference number"
+        why_now_description: "Why does your project need to happen now?"
+        acquisition:
+          question: "Does your project involve the acquisition of a building, land, or heritage items?"
+          answer_no: "No, my project does not involve the acquisition of a building, land, or heritage items"
+          answer_yes: "Yes, my project does involve the acquisition of a building, land, or heritage items"
+        heritage_at_risk:
+          question: "Is the heritage considered to be at risk?"
+          answer_no: "No, the heritage is not considered to be at risk"
+          answer_yes: "Yes, the heritage is considered to be at risk"
+        heritage_at_risk_description: "Explain why you consider the heritage to be at risk and how"
+        heritage_designations:
+          question: "Does the heritage have any formal designations?"
+          types: ""
+          how_many_buildings: "Number of buildings of this type included in your project"
+          how_many_monuments: "Number of monuments of this type included in your project"
+          historic_ship_certificate_number: "Certificate number"
+          registration_or_inventory_numbers: "Registration or inventory number(s)"
+          other: "Description"
+        heritage_attracts_visitors:
+          question: "Does your project involve heritage that attracts visitors?"
+          answer_no: "No, my project does not involve heritage that attracts visitors"
+          answer_yes: "Yes, my project involves heritage that attracts visitors"
+        visitors_in_last_financial_year: "How many visitors did you receive in the last financial year?"
+        visitors_expected_per_year: "How many visitors a year do you expect on completion of your project?"
+        environmental_impacts_description: "What measures will you take to increase positive environmental impacts and decrease negative environmental impacts?"
+        is_partnership:
+          question: "Will your project be delivered by a partnership?"
+          answer_no: "No, my project will not be delivered by a partnership"
+          answer_yes: "Yes, my project will be delivered by a partnership"
+        partnership_details: "Who are your partners?"
+        partnership_agreement_file: "Partnership agreement"
+        management_description: "How will your project be managed?"
+        risk_register_file: "Risk register"
+        evaluation_description: "How will you evaluate your project?"
+        acknowledgement_description: "How do you plan to acknowledge your grant?"
+        jobs_or_apprenticeships_description: "Tell us about any jobs or apprenticeships that you will create to deliver your project"
+        job_description_files: "Job descriptions"
+        project_costs:
+          vat_amount: "VAT Amount"
+        governing_documents: "Your organisation's governing document"
+        accounts: "Your organisation's accounts"
+        project_plan: "Project plan"
+        project_plan_file: "Project plan file"
+        work_briefs: "Work briefs for any internally or externally commissioned work"
+        project_images: "Project images"
+        full_cost_recovery: "Calculations for Full Cost Recovery"
+        full_cost_recovery_file: "Full Cost Recovery file"

@@ -1,0 +1,55 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.work_briefs') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <% if model_object.work_brief_files.present? %>
+
+      <ul class="govuk-list">
+
+        <% model_object.work_brief_files.each do |wb| %>
+
+        <li>
+
+          <%=
+            link_to(
+              wb.filename,
+              rails_blob_path(
+                wb,
+                disposition: 'attachment'
+              ),
+              title: "#{ t('generic.click_to_view_file') }: " \
+                "#{ wb.filename }"
+            )
+          %>
+
+        </li>
+
+        <% end %>
+
+      </ul>
+
+    <% else %>
+
+      <%= t('funding_application.check_answers.not_answered') %>
+
+    <% end %>
+  
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.project.work_briefs'
+        )
+      }
+    )
+  %>
+
+</div>

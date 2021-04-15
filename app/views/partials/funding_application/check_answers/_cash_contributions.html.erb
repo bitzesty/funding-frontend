@@ -1,0 +1,115 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('views.funding_application.gp_project.check_your_answers.cash_contributions') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <table class="govuk-table">
+
+      <thead class="govuk-table__head">
+
+        <tr class="govuk-table__row">
+
+          <th scope="col" class="govuk-table__header">
+            <%= t('generic.description') %>
+          </th>
+
+          <th scope="col" class="govuk-table__header">
+            <%= t('generic.secured') %>
+          </th>
+
+          <th scope="col" class="govuk-table__header">
+            <%= t('generic.amount') %>
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody class="govuk-table__body">
+
+        <% model_object.cash_contributions.each do |cc| %>
+
+          <tr class="govuk-table__row">
+
+            <td class="govuk-table__cell">
+              <%= cc.description %>
+            </td>
+
+            <td class="govuk-table__cell">
+
+              <%= cc.secured&.gsub('x_', '')&.humanize&.gsub('Yes ', 'Yes, ') %>
+
+              <% if cc.cash_contribution_evidence_files.present? %>
+
+                <div class="nlhf-!-break-word govuk-!-font-size-16">
+                  <%=
+                    link_to(
+                        t('generic.evidence_attached'),
+                        rails_blob_path(
+                          cc.cash_contribution_evidence_files,
+                          disposition: "attachment"
+                        ),
+                        title: "#{t('generic.click_to_view_file')}: " \
+                          "#{cc.cash_contribution_evidence_files.filename}"
+                    )
+                  %>
+                </div>
+
+              <% end %>
+
+            </td>
+
+            <td class="govuk-table__cell govuk-table__cell--numeric">
+              <%=
+                number_to_currency(
+                  cc.amount,
+                  strip_insignificant_zeros: true
+                )
+              %>
+            </td>
+
+          </tr>
+
+        <% end %>
+
+        <tr>
+
+          <td></td>
+
+          <td class="govuk-heading-s govuk-!-padding-top-3">
+            <%= t('generic.total') %>
+          </td>
+
+          <td class="govuk-table__cell--numeric">
+            <%=
+              number_to_currency(
+                calculate_total(
+                  model_object.cash_contributions
+                ),
+                strip_insignificant_zeros: true
+              )
+            %>
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t('views.funding_application.gp_project.cash_contributions')
+      }
+    )
+  %>
+
+</div>

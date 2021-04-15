@@ -1,0 +1,47 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.partnership_details') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <p class="govuk-body">
+      <%=
+        model_object.partnership_details.present? ?
+        model_object.partnership_details :
+        t('funding_application.check_answers.not_answered')
+      %>
+    </p>
+
+    <% if model_object.partnership_agreement_file.present? %>
+      
+      <%=
+        link_to(
+          t('funding_application.check_answers.project.partnership_agreement_file'),
+          rails_blob_path(
+            model_object.partnership_agreement_file,
+            disposition: 'attachment'
+          ),
+          title: "#{ t('generic.click_to_view_file') }: " \
+            "#{ model_object.partnership_agreement_file.filename }"
+        )
+      %>
+
+    <% end %>
+  
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.project.partnership_details'
+        )
+      }
+    )
+  %>
+
+</div>

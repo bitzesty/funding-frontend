@@ -1,0 +1,37 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.heritage_at_risk.question') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <% unless model_object.heritage_at_risk.nil? %>
+
+      <%=
+        model_object.heritage_at_risk ?
+        t('funding_application.check_answers.project.heritage_at_risk.answer_yes') :
+        t('funding_application.check_answers.project.heritage_at_risk.answer_no')
+      %>
+
+    <% else %>
+    
+      <%= t('funding_application.check_answers.not_answered') %>
+
+    <% end %>
+
+  </dd>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/change_link',
+      locals: {
+        link_url: change_link,
+        link_hidden_label: t(
+          'funding_application.check_answers.project.heritage_at_risk.question'
+        )
+      }
+    )
+  %>
+
+</div>
