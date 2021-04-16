@@ -22,7 +22,6 @@ class FundingApplication::GpOpenMedium::JobsController < ApplicationController
 
     @funding_application.open_medium
       .validate_jobs_or_apprenticeships_description = true
-    @funding_application.open_medium.validate_job_description_files = true
 
     if @funding_application.open_medium.update(open_medium_params)
 
