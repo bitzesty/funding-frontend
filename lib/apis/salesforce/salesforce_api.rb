@@ -3,8 +3,6 @@ module SalesforceApi
   # Class to allow interaction with Salesforce via a Restforce client
   class SalesforceApiClient
 
-    include Rails.application.routes.url_helpers
-
     MAX_RETRIES = 3
 
     # Overrides the .new() method, allowing us to initialise a Restforce client
@@ -1152,24 +1150,6 @@ module SalesforceApi
 
     end
 
-    # Method to create a DiskService object which can then be used to obtain a
-    # file path for ActiveStorage files
-    #
-    # @return [DiskService] A DiskService object
-    def create_active_storage_service()
-
-      Rails.logger.debug('Creating ActiveStorageService')
-
-      active_storage_service = ActiveStorage::Service::DiskService.new(
-        root: Rails.root.to_s + '/storage/'
-      )
-
-      Rails.logger.debug('Finished creating ActiveStorageService')
-
-      active_storage_service
-
-    end
-
     # Method to upsert a ContentVersion in Salesforce for a governing document
     #
     # @param [ActiveStorageBlob] file The governing document file to upload
@@ -1187,7 +1167,7 @@ module SalesforceApi
 
       Rails.logger.debug("Retrieving blob path for #{type} file")
 
-      blob_path = Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true)
+      blob_path = ActiveStorage::Blob.service.path_for(file.key)
 
       Rails.logger.debug("Finished retrieving blob path for #{type} file")
 
@@ -1237,8 +1217,6 @@ module SalesforceApi
     )
 
       Rails.logger.info("Creating #{type} files in Salesforce")
-
-      active_storage_service = create_active_storage_service
 
       files.each_with_index do |file, i|
 
