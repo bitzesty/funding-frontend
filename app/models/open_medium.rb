@@ -90,7 +90,7 @@ class OpenMedium < ApplicationRecord
   attr_accessor :validate_confirm_declaration
 
   validates_inclusion_of :first_fund_application, in: [true, false], if: :validate_first_fund_application?
-  validates :recent_project_reference, presence: true, format: { with: /[A-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
+  validates :recent_project_reference, presence: true, format: { with: /[a-zA-Z]{2}[-][0-9]{2}[-][0-9]{5}/ }, if: :validate_recent_project_reference?
   validates :recent_project_title, presence: true, length: { maximum: 255 }, if: :validate_recent_project_reference?
   validates :project_title, presence: true, length: { maximum: 255 }, if: :validate_title?
   validates :description, presence: true, if: :validate_description?
