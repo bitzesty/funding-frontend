@@ -5,11 +5,21 @@
   </dt>
 
   <dd class="govuk-summary-list__value">
-    <%=
-      model_object.first_fund_application.present? ?
-      model_object.first_fund_application :
-      t('funding_application.check_answers.not_answered')
-    %>
+
+    <% unless model_object.first_fund_application.nil? %>
+
+      <%=
+        model_object.first_fund_application ?
+        t('funding_application.check_answers.project.first_fund_application.answer_yes') :
+        t('funding_application.check_answers.project.first_fund_application.answer_no')
+      %>
+
+    <% else %>
+
+      <%= t('funding_application.check_answers.not_answered') %>
+
+    <% end %>
+
   </dd>
 
   <%=
