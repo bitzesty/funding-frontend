@@ -14,7 +14,7 @@ en-GB:
     examples_item_3: "digitisation of a photographic archive"
     examples_physical_work_html: "For projects involving physical works, for example conservation to a historic building or new building work, please read the ownership requirements section of %{examples_gp_os_guidance} and look at %{examples_receiving_a_grant_guidance}."
     examples_gp_project_guidance: "the £3,000 to £10,000 grant programme guidance"
-    examples_gp_open_medium_guidance: "the £10,000 to £100,000 grant programme guidance"
+    examples_gp_open_medium_guidance: "the £10,000 to £250,000 grant programme guidance"
     examples_receiving_a_grant_guidance: "receiving a grant guidance"
     buttons:
       add_condition_survey: "Add a condition survey"

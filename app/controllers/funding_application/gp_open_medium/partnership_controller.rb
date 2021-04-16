@@ -29,9 +29,7 @@ class FundingApplication::GpOpenMedium::PartnershipController < ApplicationContr
         "ID: #{@funding_application.open_medium.id}"
       )
 
-      redirect_to(
-        :funding_application_gp_open_medium_how_will_your_project_involve_people
-      )
+      redirect_based_on_partnership_agreement_file_param_presence(params)
 
     else
 
@@ -77,5 +75,30 @@ class FundingApplication::GpOpenMedium::PartnershipController < ApplicationContr
       params[:open_medium][:is_partnership] == 'true'
 
   end
+
+  # Method used to determine and enact redirect path
+  #
+  # If a partnership_agreement_file param is present, then the user should be
+  # redirected to the same page, so that their file upload can be confirmed
+  # if necessary, otherwise they should be redirected to the next page
+  # in the journey
+  #
+  # @param [Params] params Incoming form parameters
+  def redirect_based_on_partnership_agreement_file_param_presence(params)
+
+    if params[:open_medium][:partnership_agreement_file].present?
+
+      redirect_to :funding_application_gp_open_medium_partnership
+
+    else
+
+      redirect_to(
+        :funding_application_gp_open_medium_how_will_your_project_involve_people
+      )
+
+    end
+
+  end
+
 
 end
