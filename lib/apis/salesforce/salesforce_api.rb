@@ -386,6 +386,7 @@ module SalesforceApi
           'Case',
           'ApplicationId__c',
           ApplicationId__c: funding_application.id,
+          AccountId: salesforce_account_id,
           Project_Title__c: funding_application.open_medium.project_title,
           Project_Street__c: [
             funding_application.open_medium.line1,
