@@ -14,15 +14,20 @@ class FundingApplication::GpOpenMedium::GrantRequestController < ApplicationCont
 
     @final_grant_amount = @total_project_cost - @total_cash_contributions
 
+    @minimum_request_value = 10000.to_i
     @maximum_request_value = 250000.to_i
 
     @costs_greater_than_contributions = @final_grant_amount.positive?
 
     @grant_request_less_than_funding_band = @final_grant_amount <=
-        @maximum_request_value
+      @maximum_request_value
+
+    @grant_request_more_than_minimum =
+      @final_grant_amount >= @minimum_request_value
 
     @grant_request_is_valid = @costs_greater_than_contributions &&
-        @grant_request_less_than_funding_band
+        @grant_request_less_than_funding_band &&
+        @grant_request_more_than_minimum
 
   end
 

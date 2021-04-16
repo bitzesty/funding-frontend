@@ -28,11 +28,29 @@
 
       <% else %>
 
-        <%# show this message if grant request is a negative number (not greater than the amount being received in contributions)  %>
+        <%#
+          show this message if grant request is a negative number
+          (not greater than the amount being received in contributions)
+        %>
         <% unless @costs_greater_than_contributions %>
           <%= t('application.grant_request.text.6') %>
           <%= "#{number_to_currency(@final_grant_amount.abs, strip_insignificant_zeros: true)}" %>
           <%= t('application.grant_request.text.7') %>
+        <% end %>
+
+        <%#
+          show this message is grant request is not greater than the minimum
+          value for this funding level
+        %>
+        <% unless @grant_request_more_than_minimum %>
+          <%=
+          t(
+            'application.grant_request.text.grant_request_less_than_min',
+            minimum: number_to_currency(
+              @minimum_request_value,
+              strip_insignificant_zeros: true
+            )
+          ) %>
         <% end %>
 
         <%# show this message if grant request is higher than the maximum value for this funding level  %>

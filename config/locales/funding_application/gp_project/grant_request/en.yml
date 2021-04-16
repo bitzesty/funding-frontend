@@ -18,6 +18,7 @@ en-GB:
         7: "more than the total cost of your project."
         8: "Your grant request is higher than %{total} which is the maximum allowable for this funding programme."
         9: "Please review your project costs and cash contributions."
+        grant_request_less_than_min: "Your grant request is lower than %{minimum} which is the minimum allowable for this funding programme."
       links:
         1: "Change project costs"
         2: "Change cash contributions"
