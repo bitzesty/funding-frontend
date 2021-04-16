@@ -3,7 +3,7 @@ module SalesforceApi
   # Class to allow interaction with Salesforce via a Restforce client
   class SalesforceApiClient
 
-    include Rails.application.routes.url_helpers
+    include ApplicationHelper
 
     MAX_RETRIES = 3
 
@@ -1152,30 +1152,13 @@ module SalesforceApi
 
     end
 
-    # Method to create a DiskService object which can then be used to obtain a
-    # file path for ActiveStorage files
-    #
-    # @return [DiskService] A DiskService object
-    def create_active_storage_service()
-
-      Rails.logger.debug('Creating ActiveStorageService')
-
-      active_storage_service = ActiveStorage::Service::DiskService.new(
-        root: Rails.root.to_s + '/storage/'
-      )
-
-      Rails.logger.debug('Finished creating ActiveStorageService')
-
-      active_storage_service
-
-    end
-
     # Method to upsert a ContentVersion in Salesforce for a governing document
     #
     # @param [ActiveStorageBlob] file The governing document file to upload
     # @param [String] type The type of file to upload (e.g. 'governing document')
     # @param [String] salesforce_project_reference The Salesforce Case reference
     #                                              to link this upload to
+    # @param [String] description A description of the file being uploaded
     def create_file_in_salesforce(
       file,
       type,
@@ -1185,39 +1168,17 @@ module SalesforceApi
 
       Rails.logger.info("Creating #{type} file in Salesforce")
 
-      Rails.logger.debug("Retrieving blob path for #{type} file")
+      Rails.logger.debug('Using ApplicationHelper to create file')
 
-      blob_path = Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true)
-
-      Rails.logger.debug("Finished retrieving blob path for #{type} file")
-
-      Rails.logger.debug(
-        "Creating Restforce::UploadIO object for #{type} file"
+      insert_salesforce_attachment(
+        @client,
+        file,
+        type,
+        salesforce_project_reference,
+        description
       )
 
-      file_upload = Restforce::UploadIO.new(
-        File.expand_path(
-          blob_path
-        ),
-        __FILE__
-      )
-
-      Rails.logger.debug(
-        "Finished creating Restforce::UploadIO object for #{type} file"
-      )
-
-      Rails.logger.debug(
-        "Upserting ContentVersion file for #{type} in Salesforce"
-      )
-
-      @client.insert!(
-        'ContentVersion',
-        title: "#{type} File",
-        description: description,
-        pathOnClient: file.blob.filename,
-        versionData: file_upload,
-        FirstPublishLocationId: salesforce_project_reference
-      )
+      Rails.logger.debug('Finished using ApplicationHelper to create file')
 
       Rails.logger.info("Finished creating #{type} file in Salesforce")
 
@@ -1229,6 +1190,7 @@ module SalesforceApi
     # @param [String] type The type of file to upload (e.g. 'accounts')
     # @param [String] salesforce_project_reference The Salesforce Case reference
     #                                              to link an uploaded file to
+    # @param [String] description A description of the file being uploaded
     def create_multiple_files_in_salesforce(
       files,
       type,
@@ -1237,8 +1199,6 @@ module SalesforceApi
     )
 
       Rails.logger.info("Creating #{type} files in Salesforce")
-
-      active_storage_service = create_active_storage_service
 
       files.each_with_index do |file, i|
 
