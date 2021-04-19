@@ -458,6 +458,7 @@ module SalesforceApi
           Grade_I_listed_park_or_garden_Inventory__c: funding_application.open_medium.hd_grade_1_park_description,
           Grade_II_listed_park_or_garden_Inventory__c: funding_application.open_medium.hd_grade_2_park_description,
           Grade_II_listed_parkgarden_Inventory_ast__c: funding_application.open_medium.hd_grade_2_star_park_description,
+          ContactId: salesforce_contact_id, 
           RecordTypeId: '0124J000000t4PsQAI'
         )
 
@@ -1274,7 +1275,7 @@ module SalesforceApi
     #
     # @return [String] A salesforce id for the Account (Organisation is an alias of Account)
     def create_organisation_in_salesforce(organisation)
-      
+
       salesforce_account_id = find_matching_account_for_organisation(organisation)
 
       if salesforce_account_id.nil?
@@ -1298,6 +1299,7 @@ module SalesforceApi
     #
     # @return [String] salesforce_account_id A Salesforce Account Id for the Organisation
     def upsert_account_by_organisation_id(organisation)
+
       @client.upsert!(
         'Account',
         'Account_External_ID__c', 
@@ -1311,7 +1313,14 @@ module SalesforceApi
         Charity_Number__c: organisation.charity_number,
         Charity_Number_NI__c: organisation.charity_number_ni,
         Organisation_Type__c: get_organisation_type_for_salesforce(organisation),
-        Organisation_s_Mission_and_Objectives__c: convert_to_salesforce_mission_types(organisation.mission)
+        Organisation_s_Mission_and_Objectives__c: convert_to_salesforce_mission_types(organisation.mission),
+        Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
+        VAT_number__c: organisation.vat_number,
+        Organisation_s_Main_Purpose_Activities__c: organisation.main_purpose_and_activities,
+        Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees, 
+        Social_Media__c: organisation.social_media_info,
+        Amount_spent_in_the_last_financial_year__c:	organisation.spend_in_last_financial_year,
+        level_of_unrestricted_funds__c: organisation.unrestricted_funds
       )
     end
 
@@ -1338,7 +1347,14 @@ module SalesforceApi
         Charity_Number__c: organisation.charity_number,
         Charity_Number_NI__c: organisation.charity_number_ni,
         Organisation_Type__c: get_organisation_type_for_salesforce(organisation),
-        Organisation_s_Mission_and_Objectives__c: convert_to_salesforce_mission_types(organisation.mission)
+        Organisation_s_Mission_and_Objectives__c: convert_to_salesforce_mission_types(organisation.mission),
+        Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
+        VAT_number__c: organisation.vat_number,
+        Organisation_s_Main_Purpose_Activities__c: organisation.main_purpose_and_activities,
+        Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees, 
+        Social_Media__c: organisation.social_media_info,
+        Amount_spent_in_the_last_financial_year__c:	organisation.spend_in_last_financial_year,
+        level_of_unrestricted_funds__c: organisation.unrestricted_funds
       )
     end
 
@@ -1594,6 +1610,26 @@ module SalesforceApi
     def translate_attracts_visitors_for_salesforce(heritage_attracts_visitors)
 
       attracts_visitors = case heritage_attracts_visitors
+      when true
+        'Yes'
+      when false
+        'No'
+      else
+        'N/A'
+      end
+
+    end
+
+    # Method to translate vat_registered attribute into it's
+    # Salesforce equivalent
+    #
+    # @param [Boolean] vat_registered A Boolean representation of
+    #                                 whether an org is VAT registred
+    # @return [String] A string representation that maps to the correct
+    #                  picklist value in Salesforce
+    def translate_vat_registered_for_salesforce(vat_registered)
+
+      vat_registered_salesforce = case vat_registered
       when true
         'Yes'
       when false
