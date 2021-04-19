@@ -13,11 +13,6 @@ class ProjectCost < ApplicationRecord
     only_integer: true,
     greater_than: 0
   }
-  # Only validate the vat_amount attribute if the parent object
-  # is not an instance of project
-  validates :vat_amount, numericality: {
-    greater_than: 0, unless: -> { self.project.present? }
-  }
   validates :description, presence: true
 
   validate do
