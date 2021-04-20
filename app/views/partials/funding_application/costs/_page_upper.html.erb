@@ -133,11 +133,16 @@
 
           <span class="nlhf-summary__total__title-val">
 
+            <%
+              sum_of_project_costs = calculate_total(
+                  model_object.project_costs)
+
+              sum_of_vat = calculate_vat_total(
+                  model_object.project_costs)
+            %>
+
             <%=
-              number_to_currency(
-                calculate_total(
-                  model_object.project_costs
-                ),
+              number_to_currency(sum_of_project_costs + sum_of_vat, 
                 strip_insignificant_zeros: true
               )
             %>

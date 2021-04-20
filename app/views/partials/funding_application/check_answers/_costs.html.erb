@@ -51,16 +51,8 @@
             </td>
 
             <td class="govuk-table__cell govuk-table__cell--numeric">
-              <%= number_to_currency(pc.amount, strip_insignificant_zeros: true) %>
+              <%= number_to_currency(pc.amount + pc.vat_amount, strip_insignificant_zeros: true) %>
             </td>
-
-            <% if include_vat_amount %>
-
-              <td class="govuk-table__cell govuk-table__cell--numeric">
-                <%= number_to_currency(pc.vat_amount, strip_insignificant_zeros: true) %>
-              </td>
-
-            <% end %>
 
           </tr>
 
@@ -75,28 +67,22 @@
           </td>
 
           <td class="govuk-table__cell--numeric">
+
+            <%
+              sum_of_project_costs = calculate_total(
+                  model_object.project_costs)
+
+              sum_of_vat = calculate_vat_total(
+                  model_object.project_costs)
+            %>
+
             <%=
-              number_to_currency(
-                calculate_total(model_object.project_costs),
+              number_to_currency(sum_of_project_costs + sum_of_vat, 
                 strip_insignificant_zeros: true
               )
             %>
+
           </td>
-
-          <% if include_vat_amount %>
-
-            <td class="govuk-table__cell--numeric">
-
-              <%=
-                number_to_currency(
-                  model_object.project_costs.sum(&:vat_amount),
-                  strip_insignificant_zeros: true
-                )
-              %>
-
-            </td>
-
-          <% end %>
 
         </tr>
 
