@@ -1,0 +1,15 @@
+cy:
+  dates:
+    page_title: "Pryd fydd eich prosiect yn digwydd?"
+    page_heading: "Pryd fydd eich prosiect yn digwydd?"
+    start_date:
+      label: "Dyddiad dechrau'r prosiect"
+      hint: "Er enghraifft, 27 3 2022"
+    end_date:
+      label: "Prosiect a dyddiad"
+      hint: "Er enghraifft, 29 4 2022"
+    day: "Diwrnod"
+    month: "Mis"
+    year: "Blwyddyn"
+    small_length_info: "Nid ydym yn disgwyl i brosiectau ar lefel y grant hwn bara mwy na blwyddyn"
+    small_length_warning: "Gallwch barhau i gyflwyno'ch cais os yw'r dyddiadau dechrau a gorffen dros flwyddyn ond gall hyn effeithio ar asesu."

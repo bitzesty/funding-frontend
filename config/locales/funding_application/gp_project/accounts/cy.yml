@@ -1,0 +1,16 @@
+cy:
+  accounts:
+    page_title: "Lanlwytho cyfrifon eich sefydliad"
+    page_heading: "Lanlwytho cyfrifon eich sefydliad"
+    before_we_assess: "Cyn i ni asesu eich cais, mae angen i ni weld cyfrifon archwiliedig neu cyfrifon sydd wedi'u dilysu diweddaraf eich sefydliad."
+    we_do_not_need: "Nid oes angen i chi lanlwytho eich cyfrifon os ydych yn:"
+    do_not_need:
+      public_org: "sefydliad cyhoeddus. Er enghraifft, awdurdod lleol."
+    if_new_org: "Os ydych yn sefydliad newydd ac nad oes gennych gyfrifon archwiliedig, gallwch gyflwyno eich 3 datganiad banc diwethaf, neu lythyr gan eich banc yn cadarnhau eich bod wedi agor cyfrif."
+    make_sure_verified: "Gwnewch yn siŵr bod eich cyfrifon wedi cael eu harchwilio neu eu dilysu'n ddiweddar gan gyfrifydd."
+    no_accounts_file: "Nid ydych wedi ychwanegu cyfrifon"
+    accounts_file: "Ffeiliau Cyfrifon"
+    labels:
+      add_your_accounts: "Ychwanegu eich cyfrifon"
+    buttons:
+      add_accounts: "Ychwanegu cyfrifon"

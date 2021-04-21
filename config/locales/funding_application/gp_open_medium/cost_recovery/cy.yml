@@ -1,0 +1,11 @@
+cy:
+  cost_recovery:
+    page_title: "Lanlwytho cyfrifiadau ar gyfer adennill costau llawn"
+    page_heading: "Lanlwytho cyfrifiadau ar gyfer adennill costau llawn"
+    page_hint: "Os ydych yn sefydliad yn y sector gwirfoddol, gallwn gwmpasu cyfran o orbenion eich sefydliad sy'n gymesur â'r amser neu'r adnoddau a ddefnyddir ar gyfer eich prosiect. Gallwn hefyd dalu cyfran o gost aelod presennol o staff, ar yr amod nad ydynt yn gweithio ar y prosiect yn unig. Disgwyliwn i'r cyfraniad hwn gael ei gyfrifo gan ddefnyddio Adennill Costau Llawn. Os ydych yn cynnwys Adennill Costau Llawn yng nghyllideb eich prosiect, mae'n rhaid i chi gynnwys dogfen sy'n amlinellu eich cyfrifiad. Gallwch ddod o hyd i daenlen i'ch helpu i gyfrifo'r ffigwr hwn ar ein gwefan."
+    no_cost_recovery_file: "Nid ydych wedi ychwanegu cyfrifiadau ar gyfer adennill costau llawn"
+    cost_recovery_file: "ffeil adennill costau llawn"
+    labels:
+      add_your_cost_recovery: "Ychwanegwch eich adennill costau llawn"
+    buttons:
+      add_cost_recovery: "Ychwanegu costau adennill llawn"

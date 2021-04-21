@@ -1,0 +1,16 @@
+cy:
+  partnership:
+    page_title: "A fydd eich prosiect yn cael ei gyflawni gan bartneriaeth?"
+    page_heading: "A fydd eich prosiect yn cael ei gyflawni gan bartneriaeth?"
+    labels:
+      is_partnership_no: "Na, ni fydd y prosiect yn cael ei gyflawni gan bartneriaeth"
+      is_partnership_yes: "Bydd, bydd y prosiect yn cael ei gyflawni gan bartneriaeth"
+      partnership_details: "Pwy yw eich partneriaid?"
+      partnership_agreement: "Os oes gennych un, lanlwythwch gytundeb partneriaeth."
+      add_your_partnership_agreement_file: "Os oes gennych un, lanlwythwch gytundeb partneriaeth."
+    hints:
+      partnership_details: "Rhowch gyswllt penodol gan bob sefydliad. Sylwch os ydych yn bwriadu gweithio gyda sefydliad arall i gyflawni eich prosiect, hoffem weld eich cytundeb partneriaeth. <br /> <br/> Dylai'r ddogfen hon amlinellu rolau a chyfrifoldebau'r partner a dylai pob parti ei llofnodi. Gallwch ddod o hyd i enghraifft o gytundeb partneriaeth ar ein gwefan, a allai fod yn ddefnyddiol i chi fel man cychwyn. Dylai'r cytundeb hwn adlewyrchu anghenion eich prosiect ac efallai y bydd angen i chi geisio cyngor annibynnol. <br/><br/> Nid oes angen i chi ddarparu cytundeb partneriaeth oni bai bod sefydliad arall yn cyflawni rhan sylweddol o'ch prosiect."
+    no_partnership_agreement_file: "Nid ydych wedi ychwanegu cytundeb partneriaeth"
+    partnership_agreement_file: "Cytundeb partneriaeth"
+    buttons:
+      add_partnership_agreement_file: "Ychwanegu cytundeb partneriaeth"

@@ -1,0 +1,11 @@
+cy:
+  work_briefs:
+    page_title: "Lanlwytho briffiau ar gyfer unrhyw waith a gomisiynir yn fewnol neu'n allanol"
+    page_heading: "Lanlwytho briffiau ar gyfer unrhyw waith a gomisiynir yn fewnol neu'n allanol"
+    page_hint: "Mae briffiau'n disgrifio unrhyw waith rydych chi'n bwriadu ei gomisiynu yn ystod eich prosiect. Os ydych yn comisiynu gwaith (e.e. gan artist neu bensaer) yna dylech gyflwyno briff. Dylai'r briff ddisgrifio'r gwaith, faint o amser y byddant yn ei gymryd, a faint y byddant yn ei gostio. Gallwch ddod o hyd i dempled briff ar ein gwefan. Ar gyfer ffioedd dros £10,000 dylech gael 3 thendr neu ddyfynbris cystadleuol, am ffioedd dros £50,000 byddwn yn disgwyl i chi ddarparu prawf o'r broses dendro gystadleuol"
+    no_work_brief_files: "Nid ydych wedi ychwanegu briffiau gwaith"
+    work_brief_files: "ffeiliau briff gwaith"
+    labels:
+      add_your_work_briefs: "Ychwanegwch eich briffiau gwaith"
+    buttons:
+      add_work_briefs: "Ychwanegu briffiau gwaith"

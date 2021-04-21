@@ -1,0 +1,11 @@
+cy:
+  managed:
+    page_title: "Sut bydd eich prosiect yn cael ei reoli?"
+    page_heading: "Sut bydd eich prosiect yn cael ei reoli?"
+    page_sub_heading: "Os oes gennych gofrestr risg eisoes, gallwch lanlwytho hynny yma yn lle hynny."
+    risk_register_file: "Ffeil cofrestr risg"
+    no_risk_register_file: "Nid ydych wedi ychwanegu cofrestr risg"
+    labels:
+      add_your_risk_register: "Ychwanegu eich cofrestr risg"
+    buttons:
+      add_risk_register: "Ychwanegu cofrestr risg"

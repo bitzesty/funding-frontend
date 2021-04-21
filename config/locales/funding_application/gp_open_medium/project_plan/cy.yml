@@ -1,0 +1,11 @@
+cy:
+  project_plan:
+    page_title: "Lanlwytho eich cynllun prosiect"
+    page_heading: "Lanlwytho eich cynllun prosiect"
+    page_hint: "Mae'n rhaid i bob prosiect gyflwyno cynllun prosiect. Rydym yn argymell eich bod yn defnyddio'r templed a ddarperir ar ein gwefan."
+    no_project_plan: "Nid ydych wedi ychwanegu cynllun prosiect"
+    project_plan_file: "Ffeil cynllun prosiect"
+    labels:
+      add_your_project_plan: "Ychwanegwch eich cynllun prosiect"
+    buttons:
+      add_project_plan: "Ychwanegu cynllun prosiect"

@@ -1,0 +1,16 @@
+cy:
+  permission:
+    page_title: "A oes angen caniatâd arnoch?"
+    page_heading: "A oes angen caniatâd unrhyw un arall arnoch i wneud eich prosiect?"
+    no_permission: "Na, nid oes angen caniatâd arnom"
+    yes_permission: "Oes, mae angen caniatâd arnom"
+    yes_permission_expanded_label: "Rhowch fwy o wybodaeth am bwy sydd angen caniatâd arnoch i wneud eich prosiect"
+    not_sure_permission: "Ddim yn siŵr a oes angen caniatâd arnom"
+    not_sure_permission_expanded_label: "Rhowch ragor o wybodaeth am bwy y gallech fod angen caniatâd ganddyn nhw i gyflawni eich prosiect"
+    examples: "Enghreifftiau o'r hyn y gallai fod angen caniatâd ar ei gyfer"
+    examples_list:
+      item_1: "cytundeb gan berchennog ased treftadaeth"
+      item_2: "hawliau mynediad gan berchennog tir"
+      item_3: "caniatâd cynllunio gan y cyngor"
+      item_4: "cydsynio i recordio sain neu dynnu lluniau o unigolion"
+    dont_know_helper: "Os nad ydych chi'n gwybod a oes angen caniatâd arnoch, dewiswch yr opsiwn 'Ddim yn siŵr' a rhowch fanylion."

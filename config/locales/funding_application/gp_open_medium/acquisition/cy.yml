@@ -1,0 +1,7 @@
+cy:
+  acquisition:
+    page_title: "A yw eich prosiect yn cynnwys caffael adeilad, tir neu eitemau treftadaeth?"
+    page_heading: "A yw eich prosiect yn cynnwys caffael adeilad, tir neu eitemau treftadaeth?"
+    labels:
+      x_yes: "Ydw, mae fy mhrosiect yn cynnwys caffael adeilad, tir neu eitemau treftadaeth"
+      x_no: "Nac ydy, nid yw fy mhrosiect yn cynnwys caffael adeilad, tir neu eitemau treftadaeth"

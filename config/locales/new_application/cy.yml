@@ -10,3 +10,9 @@ cy:
         info_conditional: "Gallwch wneud cais am grant o £3,000 i £10,000 os ydych chi’n:"
         info_conditional_li_1: "sefydliad dielw"
         info_conditional_li_2: "perchennog preifat treftadaeth"
+      gp_oss_medium:
+        name: "Grants of £10,000 to £250,000"
+        info: "This grant level is for a project that can last up to five years."
+        info_conditional: "You can apply for a grant of £10,000 to £250,000 if you are a:"
+        info_conditional_li_1: "not-for-profit organisation"
+        info_conditional_li_2: "private owner of heritage (up to £100,000)"

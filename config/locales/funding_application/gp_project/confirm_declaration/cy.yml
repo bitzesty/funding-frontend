@@ -1,0 +1,11 @@
+cy:
+  confirm_declaration:
+    page_title: "Cadarnhau datganiad"
+    page_heading: "Cadarnhau datganiad"
+    text:
+      ready_to_apply: "Nawr eich bod yn hapus gyda'ch cais, rydych yn barod i wneud cais am gyllid."
+      user_research: "Rydym yn cynnal ymchwil ansoddol i ddefnyddwyr i'n helpu i ddatblygu ein cynnyrch a'n gwasanaethau. Gallai hyn fod o arolwg 20 munud i gyfweliad 2 awr."
+    labels:
+      user_research_declaration: "Ticiwch y blwch hwn os hoffech fod yn rhan o'n hymchwil, neu gael gwybod mwy."
+      confirm_declaration_html: "Rwyf wedi darllen a chytuno â'r %{href}"
+      confirm_declaration_href: "datganiad"

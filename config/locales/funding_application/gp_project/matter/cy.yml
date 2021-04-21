@@ -1,8 +1,9 @@
 cy:
   application:
     matter:
-      page_title: "Why is your project important to your community?"
-      page_heading: "Why is your project important to your community?"
+      page_title: "Pam mae eich prosiect yn bwysig i'ch cymuned?"
+      page_heading: "Pam mae eich prosiect yn bwysig i'ch cymuned?"
       text:
-        explain_community_interest: "Explain why your community is interested in the project and why they care about it."
-        is_heritage_in_a_formal_document: "Tell us if the heritage of the project is included in a formal document, for example, in a local development plan."
+        explain_community_interest: "Eglurwch pam mae gan eich cymuned ddiddordeb yn y prosiect a pham eu bod yn gofalu amdano."
+        is_heritage_in_a_formal_document: "Dywedwch wrthym a yw treftadaeth y prosiect wedi'i chynnwys mewn dogfen ffurfiol, er enghraifft, mewn cynllun datblygu lleol."
+

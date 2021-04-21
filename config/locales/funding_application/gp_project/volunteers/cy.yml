@@ -1,0 +1,17 @@
+cy:
+  volunteers:
+    page_title: "Gwirfoddolwyr"
+    page_heading: "Gwirfoddolwyr"
+    page_hint: "Cefnogaeth i'ch prosiect"
+    tell_us: "Dywedwch wrthym beth sydd gennych eisoes ar waith i helpu gyda'ch prosiect."
+    your_project_volunteers: "Gwirfoddolwyr eich prosiect"
+    not_added_volunteers: "Nid ydych wedi ychwanegu unrhyw wirfoddolwyr"
+    description_heading: "Disgrifiad"
+    hours_column_heading: "Oriau"
+    total_hours_title: "Cyfanswm oriau"
+    add_volunteer_heading: "Ychwanegu gwirfoddolwr"
+    add_volunteer_hint: "Mae gwirfoddolwyr yn bobl sy'n rhoi o'u hamser am ddim i helpu i gyflawni eich prosiect."
+    btn_add_volunteer: "Ychwanegu'r gwirfoddolwr hwn"
+    input_btn_hint: "Os ydych wedi gorffen ychwanegu gwirfoddolwyr"
+    labels:
+      description: "Disgrifiad o wirfoddolwyr"

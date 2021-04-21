@@ -1,0 +1,33 @@
+cy:
+  declaration:
+    page_title: "Datganiad"
+    page_heading: "Datganiad"
+    sub_headings:
+      terms_of_grant: "a) Telerau Grant"
+      foi_and_data_protection: "b) Rhyddid Gwybodaeth a Diogelu Data"
+      appying_on_behalf_of_partnership: "Ydych chi'n gwneud cais ar ran partneriaeth?"
+    labels:
+      declaration_reasons_description: "Pan fyddwch yn cwblhau'r Datganiad ar ddiwedd y ffurflen gais, rydych yn cadarnhau eich bod yn deall ein cyfrifoldebau cyfreithiol o dan ddeddfwriaeth diogelu data a Deddf Rhyddid Gwybodaeth 2000 ac nad oes gennych wrthwynebiad i ni ryddhau Ynghylch eich prosiect a Chymorth i'ch prosiect i unrhyw un sy'n gofyn am eu gweld unwaith y bydd eich cais wedi cwblhau'r broses asesu. Os oes unrhyw wybodaeth yn yr adrannau hyn o'r ffurflen nad ydych am ei darparu i'r cyhoedd, esboniwch eich rhesymau isod:"
+      keep_informed_declaration: "Ticiwch y blwch hwn os hoffech gael gwybod am ein gwaith."
+      partnership_details: "Dywedwch wrthym beth yw'r sefydliad(au) y byddwch yn cyflawni eich prosiect mewn partneriaeth â phob sefydliad partner (enw a swydd) ac yn cysylltu â nhw."
+    text:
+      standard_terms_of_grant_html: "Mae'n rhaid i chi ddarllen y %{href} ar gyfer y rhaglen hon ar ein gwefan."
+      standard_terms_of_grant_href: "telerau grant safonol"
+      confirming_organisation_accepts_terms: "Drwy gwblhau'r Datganiad hwn, rydych yn cadarnhau bod eich sefydliad yn derbyn y telerau hyn. Ar gyfer prosiectau partneriaeth, rhaid i bob partner gadarnhau eu bod yn derbyn telerau safonol y grant drwy ychwanegu cyswllt ar ddiwedd y datganiad."
+      committed_to_being_open: "Rydym wedi ymrwymo i fod mor agored â phosibl. Mae hyn yn cynnwys bod yn glir ynghylch sut rydym yn asesu ac yn gwneud penderfyniadau ar ein grantiau a sut y byddwn yn defnyddio eich ffurflen gais a dogfennau eraill a roddwch i ni. Fel sefydliad cyhoeddus, mae'n rhaid i ni ddilyn yr holl gyfreithiau a rheoliadau diogelu data, gan gynnwys cyfarwyddebau a rheoliadau Senedd Ewrop sy'n gymwys ac sydd mewn grym o bryd i'w gilydd (y 'ddeddfwriaeth Diogelu Data'). Fel y'i diffinnir gan y ddeddfwriaeth Diogelu Data, Ymddiriedolwyr Cronfa Goffa'r Dreftadaeth Genedlaethol (sy'n gweinyddu Cronfa Dreftadaeth y Loteri Genedlaethol) yw'r rheolwr data."
+      collect_name_and_position: "Fel rhan o'r broses ymgeisio byddwn yn casglu eich enw a'ch safle yn y sefydliad rydych yn ei gynrychioli. Efallai y byddwn yn rhannu'r wybodaeth hon gydag un o'r ymgynghorwyr ar ein Cofrestr Gwasanaethau Cymorth os cânt eu penodi i helpu i'ch cefnogi ar eich prosiect. Nid ydym yn trosglwyddo eich data i unrhyw drydydd partïon sydd wedi'u lleoli y tu allan i'r UE. Mae ein Polisi Preifatrwydd yn cynnwys gwybodaeth ychwanegol gan gynnwys gwybodaeth gyswllt ar gyfer ein Swyddog Diogelu Data. Mae i'w weld ar wefan Cronfa Dreftadaeth y Loteri Genedlaethol."
+      declaration_reasons_context: "Byddwn yn ystyried y rhain pan fyddwn yn ymateb i unrhyw gais am fynediad i'r adrannau hynny. Efallai y gofynnir i ni hefyd ryddhau gwybodaeth arall a roddwch i ni. Byddwn yn ymateb i'r ceisiadau hyn ar ôl ystyried eich hawliau a'ch disgwyliadau o dan ddeddfwriaeth Diogelu Data. Yn yr achosion hynny, byddwn bob amser yn ymgynghori â chi yn gyntaf. Ni fyddwn yn gyfrifol am unrhyw golled neu ddifrod a ddioddefwch o ganlyniad i gyflawni'r cyfrifoldebau hyn."
+      declaration_reasons_context_list:
+        whether_to_give_grant: "Penderfynu a ddylid rhoi grant i chi."
+        provide_copies: "Darparu copïau i unigolion neu sefydliadau eraill sy'n ein helpu i asesu, monitro a gwerthuso grantiau."
+        share_information: "Rhannu gwybodaeth gyda sefydliadau ac unigolion sy'n gweithio gyda ni sydd â diddordeb dilys mewn ceisiadau a grantiau'r Loteri neu raglenni ariannu penodol."
+        hold_in_database: "Cynnal cronfa ddata a'i defnyddio at ddibenion ystadegol."
+        publish_information: "Os byddwn yn cynnig grant i chi, byddwn yn cyhoeddi gwybodaeth amdanoch sy'n ymwneud â'r gweithgaredd rydym wedi'i ariannu, gan gynnwys swm y grant a'r gweithgaredd yr oedd ar ei gyfer. Gall y wybodaeth hon ymddangos yn ein datganiadau i'r wasg, yn ein cyhoeddiadau print ac ar-lein, ac yng nghysylltiadau neu wefannau adrannau perthnasol y Llywodraeth ac unrhyw sefydliadau partner sydd wedi ariannu'r gweithgaredd gyda ni."
+        support_our_work: "Os byddwn yn cynnig grant i chi, byddwch yn cefnogi ein gwaith i ddangos gwerth treftadaeth drwy gyfrannu (pan ofynnir iddo) at weithgareddau cyhoeddusrwydd yn ystod y cyfnod rydym yn darparu cyllid ar gyfer gweithgareddau i rannu dysgu a chymryd rhan ynddynt, y gallwn roi grantïon eraill mewn cysylltiad â chi ar eu rhan."
+      we_may_contact_you: "Efallai y byddwn yn cysylltu â chi o bryd i'w gilydd i roi'r wybodaeth ddiweddaraf i chi am waith Cronfa Dreftadaeth y Loteri Genedlaethol."
+      confirmations_list:
+        organisation_has_given_authority: "Rwy'n cadarnhau bod y sefydliad a enwir ar y cais hwn wedi rhoi'r awdurdod i mi gwblhau'r cais hwn ar ei ran."
+        within_purposes: "Rwy'n cadarnhau bod y gweithgaredd yn y cais yn dod o fewn dibenion a phwerau cyfreithiol y sefydliad."
+        power_to_accept: "Rwy'n cadarnhau bod gan y sefydliad y pŵer i dderbyn ac ad-dalu'r grant."
+        keep_to_standard_terms: "Rwy'n cadarnhau, os yw'r sefydliad yn cael grant, y byddwn yn cadw at delerau safonol y grant, ac unrhyw delerau neu amodau pellach fel y nodir yn y llythyr hysbysu am grant, neu mewn unrhyw gontract a baratowyd yn benodol ar gyfer y prosiect."
+        information_true_and_correct: "Rwy'n cadarnhau, hyd y gwn i, fod y wybodaeth yn y cais hwn yn wir ac yn gywir."

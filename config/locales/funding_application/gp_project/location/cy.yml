@@ -1,0 +1,6 @@
+cy:
+  location:
+    page_title: "Ble mae eich prosiect yn digwydd?"
+    page_heading: "A yw'r prosiect yn cael ei gynnal yn yr un lleoliad â chyfeiriad eich sefydliad?"
+    label_yes: "Ydy, mae'r prosiect yn cael ei gynnal yn yr un lleoliad â chyfeiriad fy sefydliad"
+    label_no: "Na, nid yw'r prosiect yn digwydd yn yr un lleoliad â chyfeiriad fy sefydliad"

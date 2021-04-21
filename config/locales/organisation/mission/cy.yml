@@ -1,0 +1,13 @@
+cy:
+  organisation:
+    mission:
+      page_title: "Dywedwch wrthym am genhadaeth, neu amcanion, eich sefydliad"
+      page_heading: "Dywedwch wrthym am genhadaeth, neu amcanion, eich sefydliad"
+      labels:
+        black_or_minority_ethnic_led: "Wedi'i arwain gan bobl dduon neu leiafrifoedd ethnig"
+        disability_led: "Wedi'i arwain gan bobl ag anableddau"
+        lgbt_plus_led: "Wedi'i arwain gan bobl LHDT+"
+        female_led: "Wedi'i arwain gan fenywod"
+        young_people_led: "Wedi'i arwain gan bobl ifanc"
+        mainly_catholic_community_led: "Wedi'i arwain gan bobl o gymunedau Catholig"
+        mainly_protestant_community_led: "Wedi'i arwain gan bobl o gymunedau Protestannaidd"

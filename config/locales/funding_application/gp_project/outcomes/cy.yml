@@ -1,0 +1,15 @@
+cy:
+  outcomes:
+    page_title: "A fydd eich prosiect yn cyflawni unrhyw un o'n canlyniadau eraill?"
+    page_heading: "A fydd eich prosiect yn cyflawni unrhyw un o'n canlyniadau eraill?"
+    page_hint: "Gwiriwch y canlyniadau y byddwch yn eu cyflawni a disgrifiwch sut y byddwch yn eu cyflawni"
+    label_how_will_you_achive_this_outcome: "Sut byddwch chi'n cyflawni'r canlyniad hwn?"
+    checkboxes:
+      heritage_will_be_in_better_condition: "Bydd treftadaeth mewn cyflwr gwell"
+      heritage_will_be_better_defined_and_explained: "Bydd treftadaeth yn cael ei nodi a'i hegluro'n well"
+      people_will_have_developed_skills: "Bydd pobl wedi datblygu sgiliau"
+      people_will_have_learned_about_heritage: "Bydd pobl wedi dysgu am dreftadaeth, gan arwain at newid mewn syniadau a chamau gweithredu"
+      people_will_have_greater_wellbeing: "Bydd gan bobl gwell llesiant"
+      funded_organisation_will_be_more_resilient: "Bydd y sefydliad a ariennir yn fwy gwydn"
+      local_area_better_place: "Bydd yr ardal leol yn lle gwell i fyw, gweithio neu ymweld ag ef"
+      the_local_economy_will_be_boosted: "Bydd yr economi leol yn cael hwb"

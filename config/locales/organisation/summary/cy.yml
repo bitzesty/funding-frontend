@@ -1,0 +1,27 @@
+cy:
+  organisation:
+    summary:
+      page_title: "Crynodeb o'r sefydliad"
+      page_heading: "Gwiriwch eich atebion"
+      warning:
+        heading: ""
+        text: "Drwy gadw'r wybodaeth hon rydych chi'n ei chadarnhau, hyd y gwyddoch, mae'r manylion rydych chi'n eu darparu yn gywir."
+      list_keys:
+        type: "Mae rheoli eich prosiect yn"
+        company_number: "Rhif cwmni'r sefydliad"
+        charity_number: "Rhif elusen y sefydliad"
+        name: "Enw'r sefydliad"
+        location: "Mae eich sefydliad wedi'i leoli yn"
+        mission: "Mae cenhadaeth, neu amcanion eich sefydliad yn cynnwys"
+        legal_signatories: "Llofnodwyr cyfreithiol"
+      change_links:
+        type: "math o sefydliad"
+        company_number: "Rhif cwmni'r sefydliad"
+        charity_number: "Rhif elusen y sefydliad"
+        name: "Enw'r sefydliad"
+        location: "Lleoliad y sefydliad"
+        mission: "Cenhadaeth, neu amcanion y sefydliad"
+        legal_signatories: "Llofnodwyr cyfreithiol y sefydliad"
+
+
+

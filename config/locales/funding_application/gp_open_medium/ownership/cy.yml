@@ -1,0 +1,30 @@
+cy:
+  ownership:
+    page_title: "Dywedwch wrthym pwy sy'n berchen ar unrhyw dir, adeiladau neu eitemau treftadaeth"
+    page_heading: "Os ydych yn gwneud unrhyw waith cyfalaf (gan gynnwys trwsio, adnewyddu ac ati) i dir, adeiladau neu eitemau treftadaeth, dywedwch wrthym pwy sy'n berchen arno."
+    labels:
+      radio_buttons:
+        organisation: "Eich sefydliad"
+        project_partner: "Partner Prosiect"
+        x_neither: "Dim"
+        x_na: "Amh."
+      tell_us: "Dywedwch wrthym:"
+      ownership_document: "Os oes gennych un, lanlwythwch ddogfennau perchnogaeth."
+      x_neither: "Os nad ydych yn bodloni ein gofynion perchnogaeth ar hyn o bryd, dywedwch wrthym y dyddiad pan fyddwch yn disgwyl gwneud hynny."
+      add_your_ownership_file: "Os oes gennych un, lanlwythwch ddogfen berchnogaeth"
+    hints:
+      organisation:
+        list_item_1: "Os oes gan eich sefydliad rydd-ddaliad yr adeilad neu'r tir, neu os yw'n berchen ar yr eitemau treftadaeth yn llwyr;"
+        list_item_2: "Os oes gan eich sefydliad brydles yr adeilad neu'r tir a sawl blwyddyn sydd ar ôl ar y brydles;"
+        list_item_3: "Os oes gan eich sefydliad, neu a ydych yn bwriadu cael, morgais neu unrhyw fenthyciad wedi’i warantu ar adeilad neu dir, neu eitem dreftadaeth;"
+        list_item_4: "Os felly, rhowch fanylion y benthyciwr i ni a swm y morgais neu'r benthyciad."
+      project_partner:
+        list_item_1: "Enw'r sefydliad partner;"
+        list_item_2: "Os oes gan bartner y prosiect rydd-ddaliad yr adeilad neu'r tir, neu os yw'n berchen ar yr eitemau treftadaeth yn llwyr;"
+        list_item_3: "Os oes gan eich sefydliad brydles yr adeilad neu'r tir a sawl blwyddyn sydd ar ôl ar y brydles;"
+        list_item_4: "Os oes gan eich sefydliad, neu a ydych yn bwriadu cael, morgais neu unrhyw fenthyciad wedi’i warantu ar adeilad neu dir, neu eitem dreftadaeth;"
+        list_item_5: "Os felly, rhowch fanylion y benthyciwr i ni a swm y morgais neu'r benthyciad."
+    no_ownership_file: "Nid ydych wedi ychwanegu dogfen berchnogaeth"
+    ownership_file: "Dogfen berchnogaeth"
+    buttons:
+      add_ownership_file: "Ychwanegu dogfen berchnogaeth"

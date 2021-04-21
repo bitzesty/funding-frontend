@@ -1,0 +1,18 @@
+cy:
+  organisation:
+    type:
+      page_title: "Pa fath o sefydliad fydd yn cynnal eich prosiect?"
+      page_heading: "Pa fath o sefydliad fydd yn cynnal eich prosiect?"
+      labels:
+        registered_charity: "Elusen gofrestredig"
+        registered_company: "Cwmni cofrestredig"
+        local_authority: "Awdurdod lleol"
+        other_public_sector_organisation: "Sefydliad arall yn y sector cyhoeddus"
+        community_interest_company: "Cwmni Buddiannau Cymunedol"
+        faith_based_organisation: "Sefydliad ffydd"
+        church_organisation: "Sefydliad yr eglwys"
+        community_group: "Grŵp cymunedol"
+        voluntary_group: "Grŵp gwirfoddol"
+        individual_private_owner_of_heritage: "Perchennog preifat unigol treftadaeth"
+        other: "Arall"
+      other_criteria: "Mae'n rhaid i fathau eraill o sefydliadau hefyd fodloni ein meini prawf ariannu ymgeiswyr."

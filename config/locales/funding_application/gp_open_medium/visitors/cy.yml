@@ -1,0 +1,9 @@
+cy:
+  visitors:
+    page_title: "A yw eich prosiect yn cynnwys treftadaeth sy'n denu ymwelwyr?"
+    page_heading: "A yw eich prosiect yn cynnwys treftadaeth sy'n denu ymwelwyr?"
+    labels:
+      heritage_attracts_visitors_no: "Na, nid yw fy mhrosiect yn cynnwys treftadaeth sy'n denu ymwelwyr"
+      heritage_attracts_visitors_yes: "Ydy, mae fy mhrosiect yn cynnwys treftadaeth sy'n denu ymwelwyr"
+      visitors_in_last_financial_year: "Faint o ymwelwyr a gawsoch yn y flwyddyn ariannol ddiwethaf?"
+      visitors_expected_per_year: "Faint o ymwelwyr y flwyddyn ydych chi'n eu disgwyl ar ôl cwblhau eich prosiect?"

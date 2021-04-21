@@ -1,0 +1,12 @@
+cy:
+  jobs:
+    page_title: "Dywedwch wrthym am unrhyw swyddi neu brentisiaethau y byddwch yn eu creu i gyflawni eich prosiect"
+    page_heading: "Dywedwch wrthym am unrhyw swyddi neu brentisiaethau y byddwch yn eu creu i gyflawni eich prosiect"
+    page_hint: "Os ydych yn bwriadu recriwtio aelod newydd o staff i helpu i gyflawni eich prosiect, gan gynnwys prentis, cyflwynwch ddisgrifiad swydd ar gyfer y swydd honno. Noder: Rhaid i chi hysbysebu pob swydd staff newydd yn agored, oni bai eich bod yn ymestyn oriau aelod o staff presennol neu'n symud aelod presennol o staff i swydd y prosiect."
+    page_sub_heading: "Lanlwytho unrhyw ddisgrifiadau swydd"
+    no_job_description_files: "Nid ydych wedi ychwanegu disgrifiadau swydd"
+    job_description_files: "Ffeiliau disgrifiad swydd"
+    labels:
+      add_your_job_descriptions: "Ychwanegwch eich disgrifiadau swydd"
+    buttons:
+      add_job_descriptions: "Ychwanegu disgrifiadau swydd"

@@ -1,0 +1,8 @@
+cy:
+  at_risk:
+    page_title: "A ystyrir bod y dreftadaeth mewn perygl?"
+    page_heading: "A ystyrir bod y dreftadaeth mewn perygl?"
+    labels:
+      heritage_at_risk_no: "Na, nid ystyrir bod y dreftadaeth mewn perygl"
+      heritage_at_risk_yes: "Ydy, ystyrir bod y dreftadaeth mewn perygl"
+      heritage_at_risk_description: "Eglurwch pam rydych chi'n ystyried bod y dreftadaeth mewn perygl a sut"

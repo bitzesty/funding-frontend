@@ -1,0 +1,11 @@
+cy:
+  first_fund_application:
+    page_title: "Ai hwn yw cais cyntaf eich sefydliad i ni?"
+    page_heading: "Ai hwn yw cais cyntaf eich sefydliad i ni?"
+    labels:
+      x_yes: "Ie, dyma gais cyntaf fy sefydliad"
+      x_no: "Na, nid dyma gais cyntaf fy sefydliad"
+      project_title: "Teitl diweddaraf y prosiect"
+      project_reference: "Cyfeirnod diweddaraf y prosiect"
+    hints:
+      project_reference: "Dylai eich cyfeirnod prosiect diweddaraf fod ar y fformat HG-12-12345"

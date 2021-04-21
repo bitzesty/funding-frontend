@@ -1,0 +1,11 @@
+cy:
+  project_images:
+    page_title: "Uwchlwytho delweddau prosiect"
+    page_heading: "Uwchlwytho delweddau prosiect"
+    page_hint: "Os yw'n berthnasol, rhowch ddelweddau sy'n helpu i ddangos eich prosiect. Er enghraifft, os yw canolbwynt eich prosiect yn archif ffotograffiaeth leol, efallai yr hoffech ddarparu ychydig o ddelweddau o'r casgliad. Neu, os yw eich prosiect yn cynnwys gardd gymunedol, efallai yr hoffech ddarparu map. Os ydych yn ceisio gwella tirwedd neu ardal gadwraeth dylech gynnwys map o'r ardal sy'n dangos lleoliad yr holl brosiectau y byddwch yn eu cyflawni."
+    no_project_image_files: "Nid ydych wedi ychwanegu delweddau prosiect"
+    project_image_files: "ffeiliau delwedd prosiect"
+    labels:
+      add_your_project_images: "Ychwanegwch ddelweddau eich prosiect"
+    buttons:
+      add_project_images: "Ychwanegu delweddau prosiect"
