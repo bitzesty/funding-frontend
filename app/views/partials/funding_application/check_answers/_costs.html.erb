@@ -51,7 +51,8 @@
             </td>
 
             <td class="govuk-table__cell govuk-table__cell--numeric">
-              <%= number_to_currency(pc.amount + pc.vat_amount, strip_insignificant_zeros: true) %>
+              <% # VAT amount can be nil if not entered.  Using ternary to use 0 rather than nil in this scenario %>
+              <%= number_to_currency(pc.amount + (pc.vat_amount.nil? ? 0 : pc.vat_amount), strip_insignificant_zeros: true) %>
             </td>
 
           </tr>
