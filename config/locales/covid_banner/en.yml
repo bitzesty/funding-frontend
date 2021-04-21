@@ -1,11 +1,12 @@
 en-GB:
   covid_banner:
     heading: "Important announcement"
-    use_this_form_to: "Use this form to create an account with the National Lottery Heritage Fund to:"
+    use_this_form_to: "Use this service to create an account with the National Lottery Heritage Fund to:"
     use_old_portal: "If you are applying for any other grant amount, the project is based in Wales or England, or you have an existing application %{href}."
     
     list_items:
-      small_grant: "apply for between £3,000 to £10,000 for a project based in Scotland or Northern Ireland" 
+      grants: "apply for between £3,000 to £250,000 for a project based in Scotland or Northern Ireland" 
+      pef: "submit a Project Enquiry for a project idea for £10,000 to £250,000 in Scotland or Northern Ireland"
       eoi: "submit an Expression of Interest for applications over £250,000 across the UK"
 
     links:
