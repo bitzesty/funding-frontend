@@ -67,7 +67,8 @@ module PreApplicationHelper
       )
 
       pre_application.pa_project_enquiry.update(
-        salesforce_project_enquiry_id: salesforce_references[:salesforce_project_enquiry_reference]
+        salesforce_project_enquiry_id: salesforce_references[:salesforce_project_enquiry_id],
+        salesforce_pef_reference: salesforce_references[:salesforce_project_enquiry_reference]
       ) if pre_application.pa_project_enquiry.salesforce_project_enquiry_id.nil?
 
     end
@@ -82,7 +83,7 @@ module PreApplicationHelper
 
       pre_application.pa_expression_of_interest.update(
         salesforce_expression_of_interest_id: salesforce_references[:salesforce_expression_of_interest_id],
-        salesforce_eoi_reference: salesforce_references[:salesforce_expression_of_interest_reference],
+        salesforce_eoi_reference: salesforce_references[:salesforce_expression_of_interest_reference]
       ) if pre_application.pa_expression_of_interest.salesforce_expression_of_interest_id.nil?
 
     end

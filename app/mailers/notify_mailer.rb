@@ -71,7 +71,7 @@ class NotifyMailer < Mail::Notify::Mailer
                   to: pre_application.user.email,
                   reply_to_id: @reply_to_id,
                   personalisation: {
-                      pa_project_enquiry_reference: pre_application.salesforce_case_id
+                      pa_project_enquiry_reference: pre_application.pa_project_enquiry.salesforce_pef_reference
                   }
     )
   end

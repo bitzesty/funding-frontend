@@ -254,7 +254,7 @@ module SalesforceApi
     # @return [Hash] A Hash, currently containing the salesforce references to the PEF,
     #                Contact and Organisation Salesforce objects
     def create_project_enquiry(project_enquiry, user, organisation)
-      
+
       Rails.logger.info(
         "Begin creating organisation, contact and project enquiry objects in Salesforce"
       )
@@ -267,7 +267,7 @@ module SalesforceApi
 
         salesforce_contact_id = upsert_contact_in_salesforce(user, salesforce_account_id)
 
-        salesforce_project_enquiry_reference = @client.upsert!(
+        salesforce_project_enquiry_id = @client.upsert!(
           'Project_Enquiry__c',
           'Project_Enquiry_external_ID__c',
           Project_Enquiry_external_ID__c: project_enquiry.id,
@@ -287,13 +287,14 @@ module SalesforceApi
         )
  
         Rails.logger.info(
-          "Created a project enquiry record in Salesforce with reference: #{salesforce_project_enquiry_reference}"
+          "Created a project enquiry record in Salesforce with reference: #{salesforce_project_enquiry_id}"
         )
 
         {
           salesforce_account_id: salesforce_account_id,
           salesforce_contact_id: salesforce_contact_id,
-          salesforce_project_enquiry_reference: salesforce_project_enquiry_reference
+          salesforce_project_enquiry_id: salesforce_project_enquiry_id,
+          salesforce_project_enquiry_reference: get_salesforce_salesforce_project_enquiry_reference(project_enquiry)
         }
 
       rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
@@ -1918,6 +1919,61 @@ module SalesforceApi
 
           Rails.logger.info(
             "Will attempt get_salesforce_expression_of_interest_reference again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+    # Method to retrieve an project enquiry's reference from Salesforce
+    #
+    # @param [PaProjectEnquiry] project_enquiry An instance of PaProjectEnquiry
+    #
+    # @return [String] project_enquiry.Name The salesforce reference of the project enquiry
+    def get_salesforce_salesforce_project_enquiry_reference(project_enquiry)
+      
+      retry_number = 0
+
+      begin
+
+        salesforce_project_enquiry = @client.find(
+          'Project_Enquiry__c',
+          project_enquiry.id,
+          'Project_Enquiry_external_ID__c'
+        )
+
+        salesforce_project_enquiry.Name
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+             Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error retrieving salesforce_project_enquiry.Name " \
+          "for project enquiry id #{project_enquiry.id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt get_salesforce_salesforce_project_enquiry_reference again, retry number #{retry_number} " \
             "after a sleeping for up to #{max_sleep_seconds} seconds"
           )
 

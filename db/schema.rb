@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_073033) do
+ActiveRecord::Schema.define(version: 2021_04_22_125507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -418,6 +418,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_073033) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "salesforce_project_enquiry_id"
+    t.string "salesforce_pef_reference"
     t.index ["pre_application_id"], name: "index_pa_project_enquiries_on_pre_application_id"
   end
 
