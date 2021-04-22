@@ -118,18 +118,6 @@
 
 <% end %>
 
-<p class="govuk-body">
-  <%=
-    t(
-      'sessions.new.prior_applications_html',
-      href: link_to(
-        t('sessions.new.prior_applications_href'),
-        'https://forms.hlf.org.uk/officeforms/HLF_Projects.ofml'
-      )
-    )
-  %>
-</p>
-
 <% if Flipper.enabled?(:registration_enabled) %>
   <%= content_for :secondarycontent do %>
     <%= render "partials/signup-panel" %>

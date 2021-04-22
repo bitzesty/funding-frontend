@@ -8,8 +8,6 @@ cy:
       no_confirmation_instructions: "Heb dderbyn cyfarwyddiadau cadarnhau"
       no_account_pullquote_html: "Dyma wasanaeth newydd. Os nad ydych wedi mewngofnodi i'r gwasanaeth hwn o'r blaen, efallai na fydd gennych gyfrif eto. Bydd angen i chi %{href} i gael mynediad i'r gwasanaeth hwn."
       no_account_pullquote_href: "greu cyfrif newydd"
-      prior_applications_html: "Os gwnaethoch chi ddechrau cais am grant o £3,000 i £10,000 cyn 8 Mawrth 2021, mewngofnodwch %{href}"
-      prior_applications_href: "i'n porth ymgeisio"
       label_email: "E-bost"
       label_password: "Cyfrinair"
       signup_panel:
