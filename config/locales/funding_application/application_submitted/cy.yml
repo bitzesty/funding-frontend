@@ -1,0 +1,14 @@
+cy:
+  application_submitted:
+    title: "Cais a gyflwynwyd"
+    heading: "Mae eich cais wedi'i gyflwyno!"
+    sub_heading_1: "Beth sy'n digwydd nesaf?"
+    list_1_item_1: "Byddwn yn anfon e-bost atoch cyn bo hir gyda rhif cyfeirnod prosiect."
+    list_1_item_2: "Byddwn yn anfon e-bost atoch i ofyn am ddogfennau llywodraethu neu gyfansoddiad eich sefydliad, a chyfrifon, os oes angen."
+    list_1_item_3: "Byddwn wedyn yn asesu eich cais ac yn rhoi gwybod i chi am ein penderfyniad o fewn 8 wythnos."
+    sub_heading_2: "Ceisiadau blaenoriaeth"
+    priority_body_1: "Os yw eich prosiect yn Inverclyde neu Ogledd Swydd Lanarkshire byddwn yn blaenoriaethu eich cais. Y rheswm am hyn yw bod yr ardaloedd awdurdodau lleol hyn yn cael eu tangynrychioli yn ein cyllid ar hyn o bryd."
+    priority_body_2: "Mae ceisiadau blaenoriaeth yn fwy tebygol o gael grant dros brosiectau o gryfder cyfartal."
+    to_receive_funding: "Er mwyn derbyn cyllid mae'n rhaid i'ch sefydliad:"
+    list_2_item_1: "cael cyfrif banc yn y DU"
+    list_2_item_2: "gallu derbyn cyllid yn gyfreithiol. Mae hyn yn golygu bod eich cyfansoddiad yn caniatáu i chi dderbyn arian"
