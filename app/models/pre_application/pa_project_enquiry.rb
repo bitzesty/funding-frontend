@@ -18,7 +18,7 @@ class PaProjectEnquiry < ApplicationRecord
   validates :working_title, length: { maximum: 255 }, if: :validate_working_title?
   validates :potential_funding_amount, numericality: {
     greater_than: 0,
-    less_than: 2147483648,
+    less_than: 250001,
     allow_nil: true
   }, if: :validate_potential_funding_amount?
 

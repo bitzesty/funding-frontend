@@ -128,7 +128,7 @@ RSpec.describe PreApplication::ExpressionOfInterest::PotentialFundingAmountContr
       put :update, params: {
         pre_application_id: pre_application.id,
         pa_expression_of_interest: {
-            potential_funding_amount: 7500
+            potential_funding_amount: 250000
         }
       }
 
@@ -148,7 +148,7 @@ RSpec.describe PreApplication::ExpressionOfInterest::PotentialFundingAmountContr
       ).to eq(true)
       expect(
         assigns(:pre_application).pa_expression_of_interest.potential_funding_amount
-      ).to eq(7500)
+      ).to eq(250000)
 
     end
 

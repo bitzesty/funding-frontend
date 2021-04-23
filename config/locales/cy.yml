@@ -539,7 +539,7 @@ cy:
             potential_funding_amount:
               not_a_number: "Mae'n rhaid i'r swm fod yn rhif, fel 500"
               greater_than: "Rhowch swm sy'n fwy na 0"
-              less_than: "Rhowch swm sy'n llai na 2147483648"
+              less_than: "Rhowch swm sy'n llai na 250001"
             working_title:    
               too_long: "Mae'n rhaid i deitl y prosiect gweithio fod yn %{count} nod neu lai"
         pa_expression_of_interest:
@@ -566,7 +566,7 @@ cy:
               too_long: "Mae'n rhaid i'r disgrifiad o gostau'r prosiect fod yn %{word_count} gair neu lai"
             potential_funding_amount:
               not_a_number: "Mae'n rhaid i'r swm fod yn rhif, fel 500"
-              greater_than: "Rhowch swm sy'n fwy na 0"
+              greater_than: "Rhowch swm sy'n fwy na 249999"
               less_than: "Rhowch swm sy'n llai na 2147483648"
             likely_submission_description:
               blank: "Rhowch ddisgrifiad cyflwyno tebygol"

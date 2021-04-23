@@ -539,7 +539,7 @@ en-GB:
             potential_funding_amount:
               not_a_number: "Amount must be a number, like 500"
               greater_than: "Enter an amount greater than 0"
-              less_than: "Enter an amount less than 2147483648"
+              less_than: "Enter an amount less than 250001"
             working_title:    
               too_long: "Working project title must be %{count} characters or fewer"
         pa_expression_of_interest:
@@ -566,7 +566,7 @@ en-GB:
               too_long: "Description of project costs must be %{word_count} words or fewer"
             potential_funding_amount:
               not_a_number: "Amount must be a number, like 500"
-              greater_than: "Enter an amount greater than 0"
+              greater_than: "Enter an amount of 250000 or more"
               less_than: "Enter an amount less than 2147483648"
             likely_submission_description:
               blank: "Enter a likely submission description"
