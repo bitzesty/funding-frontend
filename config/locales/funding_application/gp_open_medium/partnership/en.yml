@@ -9,7 +9,7 @@ en-GB:
       partnership_agreement: "If you have one, upload a partnership agreement."
       add_your_partnership_agreement_file: "If you have one, upload a partnership agreement."
     hints:
-      partnership_details: "Please provide a named contact from each organisation. Please note if you are planning on working with another organisation to carry out your project, we would like to see your partnership agreement. <br /> <br /> This document should outline both partner's roles and responsibilities and should be signed by all parties. You can find an example of a partnership agreement on our website, which you may find useful as a starting point. This agreement should reflect the needs of your project and you may need to seek independent advice. <br/><br/>You do not need to provide a partnership agreement unless another organiation is delivering a significant part of your project."
+      partnership_details: "Please provide a named contact from each organisation. Please note if you are planning on working with another organisation to carry out your project, we would like to see your partnership agreement. <br /> <br /> This document should outline both partner's roles and responsibilities and should be signed by all parties. You can find an example of a partnership agreement on our website, which you may find useful as a starting point. This agreement should reflect the needs of your project and you may need to seek independent advice. <br/><br/>You do not need to provide a partnership agreement unless another organisation is delivering a significant part of your project."
     no_partnership_agreement_file: "You have not added a partnership agreement"
     partnership_agreement_file: "Partnership agreement"
     buttons:
