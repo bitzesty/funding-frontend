@@ -201,20 +201,30 @@
 
   <%=
     render(
-      partial: 'partials/funding_application/check_answers/acquisition',
+      partial: 'partials/funding_application/check_answers/capital_work',
       locals: {
         model_object: @funding_application.open_medium,
-        change_link: funding_application_gp_open_medium_acquisition_path
+        change_link: funding_application_gp_open_medium_capital_works_path
       }
     )
   %>
 
   <%=
     render(
-      partial: 'partials/funding_application/check_answers/capital_work',
+      partial: 'partials/funding_application/check_answers/ownership',
       locals: {
         model_object: @funding_application.open_medium,
-        change_link: funding_application_gp_open_medium_capital_works_path
+        change_link: funding_application_gp_open_medium_ownership_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/check_answers/acquisition',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_acquisition_path
       }
     )
   %>

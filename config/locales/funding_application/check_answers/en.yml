@@ -22,6 +22,15 @@ en-GB:
         recent_project_title: "Most recent project title"
         recent_project_reference: "Most recent project reference number"
         why_now_description: "Why does your project need to happen now?"
+        ownership:
+          question: "If you are undertaking any capital work to land, buildings or heritage items, tell us who owns it."
+          owned_by: "Owned by:"
+          description: "Description:"
+          types:
+            organisation: "Organisation"
+            project_partner: "Project Partner"
+            neither: "Neither"
+            na: "N/A"
         acquisition:
           question: "Does your project involve the acquisition of a building, land, or heritage items?"
           answer_no: "No, my project does not involve the acquisition of a building, land, or heritage items"

@@ -12,7 +12,7 @@ class FundingApplication::GpOpenMedium::CapitalWorksController < ApplicationCont
 
   # This method updates the capital_work and capital_work_file attributes of an
   # OpenMedium, redirecting to
-  # :funding_application_gp_open_medium_acquisition if
+  # :funding_application_gp_open_medium_ownership if
   # successful and re-rendering :show method if unsuccessful
   def update
 
@@ -37,7 +37,7 @@ class FundingApplication::GpOpenMedium::CapitalWorksController < ApplicationCont
       if params[:open_medium][:capital_work_file].present?
         redirect_to :funding_application_gp_open_medium_capital_works
       else
-        redirect_to :funding_application_gp_open_medium_acquisition
+        redirect_to :funding_application_gp_open_medium_ownership
       end
 
     else

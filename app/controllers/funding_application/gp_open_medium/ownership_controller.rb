@@ -27,10 +27,8 @@ class FundingApplication::GpOpenMedium::OwnershipController < ApplicationControl
           'Finished updating ownership_type for open_medium ' \
           "ID: #{@funding_application.open_medium.id}"
         )
-  
-        # TODO: Replace with :funding_application_gp_open_medium_acquisition
-        #       when the corresponding branch has been merged
-        redirect_to :funding_application_gp_open_medium_do_you_need_permission
+
+        redirect_to :funding_application_gp_open_medium_acquisition
   
       else
   
