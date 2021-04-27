@@ -30,6 +30,7 @@ cy:
       national_historic_organ_register: "Cofrestr Genedlaethol Organau Hanesyddol"
       site_of_special_scientific_interest: "Safle o Ddiddordeb Gwyddonol Arbennig"
       local_nature_reserve: "Gwarchodfa Natur Leol"
+      other: "Arall"
     labels:
       hd_grade_1_description: "Faint o adeiladau o'r math hwn sy'n cael eu cynnwys yn eich prosiect?"
       hd_grade_2_b_description: "Faint o adeiladau o'r math hwn sy'n cael eu cynnwys yn eich prosiect?"

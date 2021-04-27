@@ -30,6 +30,7 @@ en-GB:
       national_historic_organ_register: "National Historic Organ Register"
       site_of_special_scientific_interest: "Site of Special Scientific Interest"
       local_nature_reserve: "Local Nature Reserve"
+      other: "Other"
     labels:
       hd_grade_1_description: "How many buildings of this type are included in your project?"
       hd_grade_2_b_description: "How many buildings of this type are included in your project?"
