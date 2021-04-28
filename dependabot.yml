@@ -1,13 +1,13 @@
 version: 2
 updates:
-    # Enable version updates for Ruby Gems
-    - package-ecosystem: "bundler"
+  # Enable version updates for Ruby Gems
+  - package-ecosystem: "bundler"
     # Look for `Gemfile` and `Gemfile.lock` files in the `root` directory
     directory: "/"
     # Check for Ruby Gem updates every weekday
     schedule:
-        interval: "daily"
+      interval: "daily"
     # Set default pull request reviewers
-    default_reviewers:
-        - "stuartmccoll"
-        - "ptrelease"
+    reviewers:
+      - "stuartmccoll"
+      - "ptrelease"
