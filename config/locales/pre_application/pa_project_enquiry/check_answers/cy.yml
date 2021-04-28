@@ -1,0 +1,30 @@
+cy:
+  pa_project_enquiry:
+    check_answers:
+      page_title: "Gwiriwch eich atebion"
+      page_heading: "Gwiriwch eich atebion"
+      buttons:
+        submit: "Cyflwyno Ffurflen Ymholiadau Prosiect"
+      table:
+        row_headings:
+          org_type: "Mae'r sefydliad sy'n rheoli eich prosiect yn"
+          org_name: "Enw'r sefydliad"
+          org_address: "Mae eich sefydliad wedi'i leoli yn"
+          org_mission: "Mae cenhadaeth, neu amcanion eich sefydliad yn cynnwys"
+          previous_contact_name: "Ydych chi wedi siarad ag unrhyw un yn y Gronfa am eich syniad?"
+          what_project_does: "Disgrifiwch beth fyddwch chi'n ei wneud yn ystod y prosiect"
+          working_title: "Teitl y prosiect"
+          programme_outcomes: "Pa ganlyniadau ydych chi am eu cyflawni?"
+          heritage_focus: "Dywedwch wrthym am dreftadaeth y prosiect"
+          project_reasons: "Beth yw'r angen am y prosiect yma?"
+          project_timescales: "Faint o amser ydych chi'n meddwl y bydd y prosiect yn ei gymryd?"
+          overall_cost: "Faint mae'r prosiect yn debygol o gostio?"
+          potential_funding_amount: "Faint o gyllid ydych chi'n bwriadu gwneud cais amdano gennym ni?"
+          likely_submission_description: "Pryd ydych chi'n debygol o gyflwyno cais am gyllid, os gofynnir i chi wneud hynny?"
+          project_participants: "Pwy fydd yn rhan o'r prosiect?"
+          project_likely_cost: "Faint mae eich prosiect yn debygol o gostio?"
+      change_links:
+        org_type: "math o sefydliad sy'n rheoli eich prosiect"
+        org_name: "Enw'r sefydliad"
+        org_address: "Cyfeiriad y sefydliad"
+        org_mission: "Cenhadaeth neu amcanion y sefydliad"

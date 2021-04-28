@@ -1,0 +1,20 @@
+cy:
+  pa_project_enquiry:
+    submitted:
+      title: "Mae eich Ffurflen Ymholiadau Prosiect wedi'i gyflwyno!"
+      heading: "Mae eich Ffurflen Ymholiadau Prosiect wedi'i gyflwyno!"
+      sub_heading_1: "Beth sy'n digwydd nesaf?"
+      list_1_item_1: "Byddwn yn anfon e-bost atoch cyn bo hir i gadarnhau ein bod wedi derbyn eich Ffurflen Ymholiadau Prosiect."
+      list_1_item_2: "Byddwn yn darllen yr hyn rydych wedi'i ddweud wrthym am y prosiect a byddwn mewn cysylltiad o fewn 10 diwrnod gwaith gydag adborth."
+      sub_heading_2: "Oeddech chi'n gwybod?"
+      did_you_know_sub_heading_1: "Rydym yn cynnal digwyddiadau a gweithdai lleol"
+      did_you_know_sub_description_1: "Ar gyfer darpar ymgeiswyr rydym hefyd yn anfon gwybodaeth am ein rhaglenni grant."
+      did_you_know_sub_heading_2: "Rydym yn trefnu ymchwil defnyddwyr"
+      did_you_know_sub_description_2: "Rydym yn cynnal ymchwil ansoddol i ddefnyddwyr i'n helpu i ddatblygu ein cynnyrch a'n gwasanaethau. Gallai hyn fod o arolwg 20 munud i gyfweliad 2 awr."
+      labels:
+        agrees_to_contact: "Ticiwch y blwch hwn os hoffech dderbyn gwahoddiadau i ddigwyddiadau, neu wybodaeth am ein rhaglenni grant."
+        agrees_to_user_research: "Ticiwch y blwch hwn os hoffech fod yn rhan o'n hymchwil, neu gael gwybod mwy."
+      buttons:
+        send_preferences: "Anfon dewisiadau"
+      notifications:
+        success: "Dewisiadau a gyflwynwyd yn llwyddiannus."

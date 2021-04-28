@@ -1,0 +1,7 @@
+cy:
+  pa_expression_of_interest:
+    programme_outcomes:
+      page_title: "Pa ganlyniadau ydych chi am eu cyflawni?"
+      page_heading: "Pa ganlyniadau ydych chi am eu cyflawni?"
+      page_hint_html: "Mae canlyniad yn ganlyniad i'r hyn y mae eich prosiect yn ei wneud. Dywedwch wrthym pa rai o %{href} rydych chi'n bwriadu eu cyflawni."
+      page_hint_href: "ein 9 canlyniad"

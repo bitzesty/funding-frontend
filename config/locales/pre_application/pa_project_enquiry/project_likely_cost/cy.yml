@@ -1,0 +1,6 @@
+cy:
+  pa_project_enquiry:
+    project_likely_cost:
+      page_title: "Faint mae'r prosiect yn debygol o gostio?"
+      page_heading: "Faint mae'r prosiect yn debygol o gostio?"
+      page_hint: "Os ydych chi'n gwybod, dywedwch wrthym am y costau pwysicaf. Gellir amcangyfrif y costau hyn."

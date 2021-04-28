@@ -1,0 +1,6 @@
+cy:
+  pa_project_enquiry:
+    previous_contact_name:
+      page_title: "Ydych chi wedi siarad ag unrhyw un yn y Gronfa am eich syniad?"
+      page_heading: "Ydych chi wedi siarad ag unrhyw un yn y Gronfa am eich syniad?"
+      page_hint: "Os felly, beth oedd eu henw."

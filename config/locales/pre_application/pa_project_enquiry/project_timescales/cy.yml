@@ -1,0 +1,6 @@
+cy:
+  pa_project_enquiry:
+    project_timescales:
+      page_title: "Faint o amser ydych chi'n meddwl y bydd y prosiect yn ei gymryd?"
+      page_heading: "Faint o amser ydych chi'n meddwl y bydd y prosiect yn ei gymryd?"
+      page_hint: "Dywedwch wrthym ddyddiad dechrau a gorffen amcangyfrifedig os oes gennych chi nhw."
