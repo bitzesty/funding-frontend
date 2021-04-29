@@ -79,13 +79,16 @@
 
 <hr class="govuk-section-break--l govuk-section-break--visible">
 
-<form action="<%= funding_application_gp_open_medium_your_grant_request_url %>"
-  method="get">
 
-  <p class="govuk-body">
-    <%= t('application.cash_contributions.text.7') %>
-  </p>
+<p class="govuk-body">
+  <%= t('application.cash_contributions.text.7') %>
+</p>
 
-  <%= render(ButtonComponent.new(element: 'input')) %>
-
-</form>
+<%=
+  render(
+    ButtonComponent.new(
+      element: 'a',
+      href: funding_application_gp_open_medium_your_grant_request_url
+    )
+  )
+%>

@@ -1,0 +1,22 @@
+en-GB:
+  address_details:
+    page_title: "Address details"
+    address_details: "Address details"
+    address_line_1: 'Address line 1'
+    address_line_2: 'Address line 2'
+    address_line_3: 'Address line 3'    
+    town: 'Town'
+    county: 'County'
+    postcode: 'Postcode'
+    enter_project_address: "Enter your project address details"
+    enter_your_address_details: "Enter your address details"
+    enter_organisation_address: "Enter your organisation address details"
+    enter_your: "Enter your"
+    about_your: "About your"
+    about_your_organisation: "About your organisation"
+    about_your_project: "About your project"
+    add_your_details: "Add your details"
+    enter_your_address_details: "Enter your address details"
+    based_in_uk_hint: "Your organisation must be based in the UK"
+    org_name: "Organisation name"
+    

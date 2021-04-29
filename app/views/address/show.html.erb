@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: @model_object,
-             page_title: "Address details"
+             page_title: t('address_details.page_title')
          }
 %>
 
@@ -13,35 +13,35 @@
 
 <% if @type == "organisation" || @type == "project" %>
   <div class="govuk-caption-xl">
-    About your <%= @type %>
+    <%= t('address_details.about_your') + ' ' + @type %>
   </div>
 <% elsif @type == 'preapplication' %>
-  <div class="govuk-caption-xl">About your organisation</div>
+  <div class="govuk-caption-xl"><%= t('address_details.about_your_organisation') %></div>
 <% elsif @type == 'gp-open-medium' %>
-  <div class="govuk-caption-xl">About your project</div>
+  <div class="govuk-caption-xl"><%= t('address_details.about_your_project') %></div>
 <% else %>
   <h1 class="govuk-heading-xl">
-    <span class="govuk-caption-xl">Add your details</span>
-    Enter your address details
+    <span class="govuk-caption-xl"><%= t('address_details.add_your_details') %></span>
+    <%= t('address_details.enter_your_address_details') %>
   </h1>
 <% end %>
 
 <% if @type == "organisation" || @type == "project" %>
   <h1 class="govuk-heading-xl">
-    Enter your <%= "#{@type}" %> address details
+    <%= t('address_details.enter_your') + ' ' + @type + ' ' + t('address_details.address_details') %>
   </h1>
 <% elsif @type == 'gp-open-medium' %>
   <h1 class="govuk-heading-xl">
-    Enter your project address details
+    <%= t('address_details.enter_project_address') %>
   </h1>
 <% elsif @type == 'preapplication' %>
   <h1 class="govuk-heading-xl">
-    Enter your organisation address details
+    <%= t('address_details.enter_organisation_address') %>
   </h1>
 <% end%>
 
 <% if @type == "organisation" || @type == 'preapplication' %>
-  <p class="govuk-hint govuk-!-margin-bottom-8">Your organisation must be based in the UK</p>
+  <p class="govuk-hint govuk-!-margin-bottom-8"><%= t('address_details.based_in_uk_hint') %></p>
 <% end %>
 
 <%= form_for @model_object, url: :address, method: :put do |f|  %>
@@ -49,7 +49,7 @@
   <% if @type == "organisation" || @type == 'preapplication' %>
     <div class="govuk-form-group <%= "#{'govuk-form-group--error'}" if
                                          @model_object.errors[:name].any? %>">
-      <%= f.label :name, "Organisation name", class: "govuk-label" %>
+      <%= f.label :name, t('address_details.org_name'), class: "govuk-label" %>
       <div class="govuk-hint">
         <%= t('address.hints.1') %>
       </div>
@@ -64,7 +64,7 @@
 
     <div class="govuk-form-group <%= "#{'govuk-form-group--error'}" if
                                          @model_object.errors[:line1].any? %>">
-      <%= f.label :line1, "Address line 1", class: "govuk-label" %>
+      <%= f.label :line1, t('address_details.address_line_1'), class: "govuk-label" %>
       <%= render partial: "partials/form_input_errors",
                  locals: {form_object: @model_object,
                           input_field_id: :line1} if @model_object.errors[:line1].any? %>
@@ -74,14 +74,14 @@
     </div>
 
     <div class="govuk-form-group">
-      <%= f.label :line2, "Address line 2", class: "govuk-label" %>
+      <%= f.label :line2, t('address_details.address_line_2'), class: "govuk-label" %>
       <%= f.text_field :line2,
                        autocomplete: 'address-line2',
                        class: "govuk-input govuk-input--width-20" %>
     </div>
 
     <div class="govuk-form-group">
-      <%= f.label :line3, "Address line 3", class: "govuk-label" %>
+      <%= f.label :line3, t('address_details.address_line_3'), class: "govuk-label" %>
       <%= f.text_field :line3,
                        autocomplete: 'address-line3',
                        class: "govuk-input govuk-input--width-20" %>
@@ -89,7 +89,7 @@
 
     <div class="govuk-form-group <%= "#{'govuk-form-group--error'}" if
                                          @model_object.errors[:townCity].any? %>">
-      <%= f.label :townCity, "Town", class: "govuk-label" %>
+      <%= f.label :townCity, t('address_details.town'), class: "govuk-label" %>
       <%= render partial: "partials/form_input_errors",
                  locals: {form_object: @model_object,
                           input_field_id: :townCity} if @model_object.errors[:townCity].any? %>
@@ -100,7 +100,7 @@
 
     <div class="govuk-form-group <%= "#{'govuk-form-group--error'}" if
                                          @model_object.errors[:county].any? %>">
-      <%= f.label :county, "County", class: "govuk-label" %>
+      <%= f.label :county, t('address_details.county'), class: "govuk-label" %>
       <%= render partial: "partials/form_input_errors",
                  locals: {form_object: @model_object,
                           input_field_id: :county} if @model_object.errors[:county].any? %>
@@ -111,7 +111,7 @@
 
     <div class="govuk-form-group <%= "#{'govuk-form-group--error'}" if
                                          @model_object.errors[:postcode].any? %>">
-      <%= f.label :postcode, "Postcode", class: "govuk-label" %>
+      <%= f.label :postcode, t('address_details.postcode'), class: "govuk-label" %>
       <%= render partial: "partials/form_input_errors",
                  locals: {form_object: @model_object,
                           input_field_id: :postcode} if @model_object.errors[:postcode].any? %>

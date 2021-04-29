@@ -1,0 +1,21 @@
+cy:
+  address_details:
+    page_title: "Manylion cyfeiriad"
+    address_details: "manylion cyfeiriad"
+    address_line_1: 'Llinell cyfeiriad 1'
+    address_line_2: 'Llinell cyfeiriad 2'
+    address_line_3: 'Llinell cyfeiriad 3'   
+    town: 'Tref'
+    county: 'Sir'
+    postcode: 'Cod post'
+    enter_project_address: "Rhowch fanylion cyfeiriad eich prosiect"
+    enter_your_address_details: "Rhowch fanylion eich cyfeiriad"
+    enter_organisation_address: "Rhowch fanylion cyfeiriad eich sefydliad"
+    enter_your: "Rhowch eich"
+    about_your: "Ynglŷn â'ch"
+    about_your_organisation: "Ynglŷn â'ch sefydliad"
+    about_your_project: "Ynglŷn â'ch prosiect"
+    add_your_details: "Ychwanegwch eich manylion"
+    enter_your_address_details: "Rhowch fanylion eich cyfeiriad"
+    based_in_uk_hint: "Mae'n rhaid i'ch sefydliad fod wedi'i leoli yn y DU"
+    org_name: "Enw'r sefydliad"

@@ -9,16 +9,16 @@
 <fieldset class="govuk-fieldset">
 
 <% if @type == "organisation" || @type == "project" %>
-  <div class="govuk-caption-xl">About your <%= @type %></div>
+  <div class="govuk-caption-xl"><%= t('postcode.about_your') + ' ' + @type %></div>
 <% elsif @type == 'gp-open-medium' %>
-  <div class="govuk-caption-xl">About your project</div>
+  <div class="govuk-caption-xl"><%= t('postcode.about_your_project') %></div>
 <% else %>
 
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
     <h1 class="govuk-fieldset__heading">
-      <span class="govuk-caption-xl">Add your details</span>
+      <span class="govuk-caption-xl"><%= t('postcode.add_your_details') %></span>
       <label for="address">
-        Select an address
+        <%= t('postcode.select_an_address') %>
       </label>
     </h1>
   </legend>
@@ -28,20 +28,20 @@
 <% if @type == "organisation" || @type == "project" || @type == 'gp-open-medium' %>
   <h1 class="govuk-label-wrapper">
     <label class="govuk-label govuk-label--l" for="address">
-      Select an address
+      <%= t('postcode.select_an_address') %>
     </label>
   </h1>
 <% end %>
 
 <% if @type == "organisation" %>
-  <p class="govuk-body govuk-hint govuk-!-margin-bottom-8">Your organisation must be based in the UK</p>
+  <p class="govuk-body govuk-hint govuk-!-margin-bottom-8"><%= t('postcode.based_in_uk_hint') %></p>
 <% end %>
 
 <%= form_with(url: address_details_path, method: :put, local: true) do |p| %>
 
   <%= select_tag "address", options_for_select(@response_array.map { |p| result_formatter(p) }) , class: 'govuk-select' %>
 
-  <%= p.submit "Select", class: 'govuk-button govuk-button--secondary' %>
+  <%= p.submit t('postcode.select'), class: 'govuk-button govuk-button--secondary' %>
 
 <% end %>
 </fieldset>

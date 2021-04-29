@@ -19,7 +19,7 @@
 
     <% else %>
 
-      <%= t('views.funding_application.gp_project.check_your_answers.not_answered') %>
+      <%= t('generic.not_answered') %>
 
     <% end %>
   </dd>
@@ -47,7 +47,7 @@
     <dd class="govuk-summary-list__value">
       <%=
         model_object.permission_description.nil? ?
-        t('views.funding_application.gp_project.check_your_answers.not_answered') :
+        t('generic.not_answered') :
         model_object.permission_description
       %>
     </dd>

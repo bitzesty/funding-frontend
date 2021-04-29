@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: nil,
-             page_title: "Find your address"
+             page_title: t('postcode.page_title')
          }
 %>
 
@@ -11,34 +11,33 @@
 } if flash[:errors] %>
 
 <% if @type == "organisation" || @type == "project" %>
-  <div class="govuk-caption-xl">About your <%= @type %></div>
+  <div class="govuk-caption-xl"> <%= t('postcode.about_your') + ' ' + @type %></div>
 <% elsif @type == 'gp-open-medium' %>
-  <div class="govuk-caption-xl">About your project</div>
+  <div class="govuk-caption-xl"><%= t('postcode.about_your_project') %></div>
 <% else %>
   <h1 class="govuk-heading-xl">
-    <span class="govuk-caption-xl">Add your details</span>
-    Find your address
+    <span class="govuk-caption-xl"> <%= t('postcode.add_your_details') %> </span>
+    <%= t('postcode.find_your_address') %>
   </h1>
 <% end %>
 
 <% if @type == "organisation" || @type == "project" || @type == 'gp-open-medium' %>
-  <h2 class="govuk-heading-xl">Find your address</h2>
+  <h2 class="govuk-heading-xl"> <%= t('postcode.find_your_address') %> </h2>
 <% end %>
 
 <% if @type == "organisation" %>
-  <p class="govuk-body govuk-hint govuk-!-margin-bottom-8">Your organisation must be based in the UK</p>
+  <p class="govuk-body govuk-hint govuk-!-margin-bottom-8"> <%= t('postcode.based_in_uk_hint') %> </p>
 <% end %>
 
 <%= form_with(url: address_results_path, local: true) do |p| %>
 
   <div class="govuk-form-group <%= "#{'govuk-form-group--error'}" if
                                        flash[:errors] %>">
-
-    <%= label_tag(:postcode_lookup, "Postcode", class: 'govuk-label') %>
+    <%= label_tag(:postcode_lookup, t('postcode.postcode'), class: 'govuk-label') %>
 
     <% if flash[:errors] %>
       <span id="<%= :postcode_lookup %>]-error" class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> <%= flash[:errors]['postcode'] %>
+        <span class="govuk-visually-hidden"> <%= t('generic.error') %> </span> <%= flash[:errors]['postcode'] %>
       </span>
     <% end %>
 
@@ -46,7 +45,7 @@
 
   </div>
 
-  <%= p.submit "Find address",
+  <%= p.submit t('postcode.find_address'),
                class:"govuk-button govuk-button",
                role: "button",
                "data-module" => "govuk-button"

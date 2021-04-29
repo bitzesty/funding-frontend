@@ -75,10 +75,15 @@
 
 <% end %>
 
-<form action="<%= funding_application_gp_open_medium_volunteers_path %>"
-  method="get">
-  <p class="govuk-body">
-    <%= t('application.non_cash_contributions.text.3') %>
-  </p>
-  <%= render(ButtonComponent.new(element: 'input')) %>
-</form>
+<p class="govuk-body">
+  <%= t('application.non_cash_contributions.text.3') %>
+</p>
+
+<%=
+  render(
+    ButtonComponent.new(
+      element: 'a',
+      href: funding_application_gp_open_medium_volunteers_path
+    )
+  )
+%>  

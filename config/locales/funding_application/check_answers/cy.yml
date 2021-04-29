@@ -1,0 +1,80 @@
+cy:
+  funding_application:
+    check_answers:
+      not_answered: "Heb ateb"
+      organisation:
+        main_purpose: "Prif ddiben a gweithgareddau eich sefydliad"
+        board_members_or_trustees: "Faint o aelodau bwrdd neu ymddiriedolwyr sydd gan eich sefydliad?"
+        vat_registered:
+          question: "Ydych chi wedi cofrestru ar gyfer TAW?"
+          answer_no: "Na, nid wyf wedi cofrestru ar gyfer TAW"
+          answer_yes: "Ydw, rwyf wedi cofrestru ar gyfer TAW"
+        vat_number: "Rhif TAW"
+        social_media_info: "A yw eich sefydliad yn defnyddio'r cyfryngau cymdeithasol?"
+        spend_in_last_financial_year: "Faint wariodd eich sefydliad yn y flwyddyn ariannol ddiwethaf?"
+        unrestricted_funds: "Pa lefel o arian anghyfyngedig sydd yng nghronfeydd wrth gefn eich sefydliad?"
+      project:
+        received_advice_description: "Dywedwch wrthym ba gyngor rydych wedi'i gael wrth gynllunio eich prosiect a gan bwy"
+        first_fund_application:
+          question: "Ai dyma gais cyntaf eich sefydliad i ni?"
+          answer_no: "Na, nid dyma gais cyntaf fy sefydliad"
+          answer_yes: "Ie, dyma gais cyntaf fy sefydliad"
+        recent_project_title: "Enw eich prosiect diweddaraf"
+        recent_project_reference: "Cyfeirnod eich prosiect diweddaraf"
+        why_now_description: "Pam mae angen i'ch prosiect ddigwydd nawr?"
+        ownership:
+          question: "Os ydych yn gwneud unrhyw waith cyfalaf i dir, adeiladau neu eitemau treftadaeth, dywedwch wrthym pwy sy'n berchen arno."
+          owned_by: "Perchennog yw:"
+          disgrifiad: "Disgrifiad:"
+          types:
+            organisation: "sefydliad"
+            project_partner: "Partner prosiect"
+            neither: "Dim un"
+            na: "Amh."
+        acquisition:
+          question: "A yw eich prosiect yn cynnwys caffael adeilad, tir neu eitemau treftadaeth?"
+          answer_no: "Na, nid yw fy mhrosiect yn golygu caffael adeilad, tir nac eitemau treftadaeth"
+          answer_yes: "Ydy, mae fy mhrosiect yn cynnwys caffael adeilad, tir neu eitemau treftadaeth"
+        heritage_at_risk:
+          question: "A ystyrir bod y dreftadaeth mewn perygl?"
+          answer_no: "Na, ni ystyrir bod y dreftadaeth mewn perygl"
+          answer_yes: "Ydy, ystyrir bod y dreftadaeth mewn perygl"
+        heritage_at_risk_description: "Eglurwch pam rydych chi'n ystyried bod y dreftadaeth mewn perygl a sut"
+        heritage_designations:
+          question: "A oes gan y dreftadaeth unrhyw ddynodiadau ffurfiol?"
+          types: ""
+          how_many_buildings: "Nifer yr adeiladau o'r math yma sydd wedi'u cynnwys yn eich prosiect"
+          how_many_monuments: "Nifer yr henebion o'r math yma sydd wedi'u cynnwys yn eich prosiect"
+          historic_ship_certificate_number: "Rhif tystysgrif"
+          registration_or_inventory_numbers: "Rhif(au) cofrestru neu ddyfeisio"
+          arall: "Disgrifiad"
+        heritage_attracts_visitors:
+          question: "A yw eich prosiect yn cynnwys treftadaeth sy'n denu ymwelwyr?"
+          answer_no: "Na, nid yw fy mhrosiect yn cynnwys treftadaeth sy'n denu ymwelwyr"
+          answer_yes: "Ydw, mae fy mhrosiect yn cynnwys treftadaeth sy'n denu ymwelwyr"
+        visitors_in_last_financial_year: "Faint o ymwelwyr a gawsoch yn y flwyddyn ariannol ddiwethaf?"
+        visitors_expected_per_year: "Faint o ymwelwyr y flwyddyn ydych chi'n eu disgwyl ar ôl cwblhau eich prosiect?"
+        environmental_impacts_description: "Pa fesurau fyddwch chi'n eu cymryd i gynyddu effeithiau amgylcheddol cadarnhaol a lleihau effeithiau amgylcheddol negyddol?"
+        is_partnership:
+          question: "A fydd eich prosiect yn cael ei gyflawni gan bartneriaeth?"
+          answer_no: "Na, ni fydd fy mhrosiect yn cael ei gyflawni gan bartneriaeth"
+          answer_yes: "Bydd, bydd fy mhrosiect yn cael ei gyflawni gan bartneriaeth"
+        partnership_details: "Pwy yw eich partneriaid?"
+        partnership_agreement_file: "Cytundeb partneriaeth"
+        management_description: "Sut bydd eich prosiect yn cael ei reoli?"
+        risk_register_file: "Cofrestr risg"
+        evaluation_description: "Sut byddwch chi'n gwerthuso eich prosiect?"
+        acknowledgement_description: "Sut ydych chi'n bwriadu cydnabod eich grant?"
+        jobs_or_apprenticeships_description: "Dywedwch wrthym am unrhyw swyddi neu brentisiaethau y byddwch yn eu creu i gyflawni eich prosiect"
+        job_description_files: "Disgrifiadau swydd"
+        project_costs:
+          vat_amount: "Cyfanswm TAW"
+        governing_documents: "Dogfen lywodraethol eich sefydliad"
+        accounts: "Cyfrifon eich sefydliad"
+        project_plan: "Cynllun prosiect"
+        project_plan_file: "Ffeil cynllun prosiect"
+        work_briefs: "Briffiau gwaith ar gyfer unrhyw waith a gomisiynir yn fewnol neu'n allanol"
+        project_images: "Delweddau prosiect"
+        full_cost_recovery: "Cyfrifiadau ar gyfer Adennill Costau Llawn"
+        full_cost_recovery_file: "Ffeil Adennill Costau Llawn"
+        capital_work: "A fydd gwaith cyfalaf yn rhan o'ch prosiect?"

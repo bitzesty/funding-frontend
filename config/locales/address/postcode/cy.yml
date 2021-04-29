@@ -1,0 +1,20 @@
+cy:
+  postcode:
+    postcode: 'Cod post'
+    page_title: "Dod o hyd i'ch cyfeiriad"
+    page_heading: "Dod o hyd i'ch cyfeiriad"
+    about_your: "Ynglŷn â'ch"
+    about_your_project: "Ynglŷn â'ch prosiect"
+    add_your_details: "Ychwanegwch eich manylion"
+    find_your_address: "Dod o hyd i'ch cyfeiriad"
+    find_address: "Dod o hyd i'ch cyfeiriad"
+    based_in_uk_hint: "Mae'n rhaid i'ch sefydliad fod wedi'i leoli yn y DU"
+    select_an_address: "Dewis cyfeiriad"
+    select: "Dewis cyfeiriad"
+    about_your_organisation: "Ynglŷn â'ch sefydliad"
+    about_your_project: "Ynglŷn â'ch prosiect"
+    enter_a_postcode: "Rhowch god post"
+
+
+
+

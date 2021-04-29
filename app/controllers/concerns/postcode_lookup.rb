@@ -59,7 +59,7 @@ module PostcodeLookup
       end
     else
       logger.error 'No postcode entered when searching for an address'
-      redirect_with_errors 'Please enter a postcode'
+      redirect_with_errors t('postcode.enter_a_postcode')
     end
   end
 

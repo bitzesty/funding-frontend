@@ -8,7 +8,7 @@
     <%=
       model_object.start_date.present? ?
       model_object.start_date.strftime('%d %b %Y').to_s :
-      t('views.funding_application.gp_project.check_your_answers.not_answered')
+      t('generic.not_answered')
     %>
   </dd>
 
