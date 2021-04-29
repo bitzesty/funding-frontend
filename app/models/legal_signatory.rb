@@ -18,7 +18,7 @@ class LegalSignatory < ApplicationRecord
     self.delete if ignore_validation_for_empty_second_signatory?(self)
   end
 
-  validates :name, presence: true,
+  validates :name, length: { minimum: 1, maximum: 80 },
             unless: lambda {
                 |record| ignore_validation_for_empty_second_signatory?(record)
             }

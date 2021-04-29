@@ -13,7 +13,7 @@ class Person < ApplicationRecord
   attr_accessor :validate_email
   attr_accessor :validate_phone_number
 
-  validates :name, presence: true, if: :validate_name?
+  validates :name, length: { minimum: 1, maximum: 80 }, if: :validate_name?
   validates :position, presence: true, if: :validate_position?
   validates :email, presence: true, if: :validate_email? 
   validates :phone_number, presence: true, if: :validate_phone_number?

@@ -27,7 +27,7 @@ class User < ApplicationRecord
   attr_accessor :dob_month
   attr_accessor :dob_year
 
-  validates :name, presence: true, if: :validate_details?
+  validates :name, length: { minimum: 1, maximum: 80 }, if: :validate_details?
   validates :dob_day, presence: true, if: :validate_details?
   validates :dob_month, presence: true, if: :validate_details?
   validates :dob_year, presence: true, if: :validate_details?

@@ -129,6 +129,8 @@ en-GB:
           attributes:
             name:
               blank: "Enter the name of a person"
+              too_short: "Enter your full name"
+              too_long: "Full name must be fewer than %{count} characters"
             position:
               blank: "Enter the person's position at their organisation"
             email:
@@ -139,6 +141,8 @@ en-GB:
           attributes:
             name:
               blank: "Enter your full name"
+              too_short: "Enter your full name"
+              too_long: "Your full name must be fewer than %{count} characters"
             dob_day:
               blank: "Enter the day on which you were born"
             dob_month:
@@ -199,6 +203,8 @@ en-GB:
           attributes:
             name:
               blank: "Enter the name of a legal signatory"
+              too_short: "Enter the name of a legal signatory"
+              too_long: "The name of the legal signatory must be fewer than %{count} characters"
             email_address:
               invalid: "Enter a valid email address"
             phone_number:
