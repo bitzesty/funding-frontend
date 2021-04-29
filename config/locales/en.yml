@@ -507,7 +507,8 @@ en-GB:
               blank: "Enter the sort code"
               invalid_format: "Enter a valid sort code like 309430"
             building_society_roll_number:
-              invalid_format: "Building society roll number must not be greater than 18 characters"
+              invalid_format: "Building society roll number must only include letters a to z, numbers, hyphens, spaces, forward slashes and full stops"
+              length: "Building society roll number must be between 1 and 18 characters"
             payment_reference:
               too_long: "Payment reference must not be greater than 18 characters"
               invalid_format: "Payment reference must only contain letters and numbers"

@@ -127,17 +127,36 @@ class PaymentDetails < ApplicationRecord
     end
   end
 
+  # Method to validate that an entered building society roll number
+  # is the correct length and in the correct format. If either validation
+  # check fails, then the errors hash is populated. If both validation
+  # checks pass, then validation is turned off and the encrypted value is
+  # written. This is because validation will fail as the encrypted value
+  # will not meet the validation rules.
   def validate_encrypt_and_set_building_society_roll_number_format
 
     if self.building_society_roll_number.present?
 
-      tmp = self.building_society_roll_number.gsub(/\D/, '')
+      tmp = self.building_society_roll_number
 
       if tmp.length < 1 || tmp.length > 18
 
         errors.add(
           :building_society_roll_number,
-          I18n.t('activerecord.errors.models.payment_details.attributes.building_society_roll_number.invalid_format')
+          I18n.t(
+            'activerecord.errors.models.payment_details.attributes' \
+            '.building_society_roll_number.length'
+          )
+        )
+
+      elsif /[^a-zA-Z\ 0-9.\/-]/.match(tmp)
+
+        errors.add(
+          :building_society_roll_number,
+          I18n.t(
+            'activerecord.errors.models.payment_details.attributes' \
+            '.building_society_roll_number.invalid_format'
+          )
         )
 
       else
