@@ -821,6 +821,12 @@ module SalesforceApi
       ) if funding_application.open_medium.capital_work_file.present?
 
       create_file_in_salesforce(
+        funding_application.open_medium.partnership_agreement_file,
+        'Partnership Agreement',
+        salesforce_project_reference
+      ) if funding_application.open_medium.partnership_agreement_file.present?
+
+      create_file_in_salesforce(
         funding_application.open_medium.risk_register_file,
         'Risk Register',
         salesforce_project_reference
