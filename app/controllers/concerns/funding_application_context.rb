@@ -21,7 +21,7 @@ module FundingApplicationContext
     )
 
     if !@funding_application.present? || (@funding_application.project.nil? && @funding_application.open_medium.nil?) ||
-      (@funding_application.submitted_on.present? && !request.path.include?('/application-submitted'))
+      (@funding_application.submitted_on.present? && !request.path.include?('/application-submitted') && !request.path.include?('/payment-request/'))
 
         logger.error("User redirected to root, error in funding_application_context.rb")
 

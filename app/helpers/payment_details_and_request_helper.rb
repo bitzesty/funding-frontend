@@ -38,7 +38,7 @@ module PaymentDetailsAndRequestHelper
   # @param funding_application [FundingApplication] An instance of a FundingApplication
   # @param payment_request [PaymentRequest] An instance of a PaymentRequest
   def orchestrate_redirect_or_submission(funding_application, payment_request)
-
+  
     payment_related_details = retrieve_payment_related_details(funding_application)
 
     grant_award = payment_related_details[:grant_award]
@@ -125,16 +125,25 @@ module PaymentDetailsAndRequestHelper
   # Helper method to retrieve payment-related details for a given funding application
   #
   # @param funding_application [FundingApplication] An instance of a FundingApplication
+  # @return Hash payemnt_details A hash in the following format:
+  # {
+  #   'grant_award': 100001,
+  #   'grant_percentage': 100
+  # }
+
   def retrieve_payment_related_details(funding_application)
 
-    # salesforce_api_client = SalesforceApiClient.new
-    # salesforce_api_client.get_payment_related_details(funding_application.project.id)
+    salesforce_api_client = SalesforceApiClient.new
 
-    # TODO: Replace hard-coded Hash used in testing with above dynamic call to SalesforceApiClient
-    {
-      'grant_award': 100001,
-      'grant_percentage': 100
-    }
+    if @funding_application.project.present?
+      payment_details = salesforce_api_client.get_payment_related_details(funding_application.project.id)
+    end
+
+    if @funding_application.open_medium.present?
+      payment_details = salesforce_api_client.get_payment_related_details(funding_application.id)
+    end
+
+    payment_details
 
   end
 
@@ -147,7 +156,13 @@ module PaymentDetailsAndRequestHelper
 
     salesforce_api_client = SalesforceApiClient.new
 
-    salesforce_api_client.get_agreed_project_costs(funding_application.project.id)
+    if @funding_application.project.present?
+      salesforce_api_client.get_agreed_project_costs(funding_application.project.id)
+    end
+
+    if @funding_application.open_medium.present?
+      salesforce_api_client.get_agreed_project_costs(funding_application.open_medium.id)
+    end
 
   end
 
