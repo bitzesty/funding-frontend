@@ -1,0 +1,9 @@
+cy:
+  tasks:
+    page_title: "Rheoli eich prosiect sydd wedi cael grant"
+    page_heading: "Rheoli eich prosiect sydd wedi cael grant"
+    todo_list_heading: "Rhestr i'w gwneud"
+    get_a_payment_heading: "Derbyn taliad"
+    page_hint: "Cliciwch ar dasg i ddechrau. Pan fyddwch wedi gorffen tasg, caiff ei marcio fel y'i cwblhawyd."
+    add_bank_details: "Ychwanegu manylion banc"
+

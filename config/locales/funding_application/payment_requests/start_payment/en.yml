@@ -1,0 +1,11 @@
+en-GB:
+  start_payment:
+    page_title: "Get a payment"
+    page_heading: "Get a payment"
+    page_instructions: "Now you need to enter your organisation's bank details so that we can make a grant payment."
+    need_to_heading: "You'll need to:"
+    need_to_list:
+      add_bank_details: "Add your organisation's bank account details"
+      upload_evidence: "Upload evidence of the account. Evidence can be a recent bank statement, cheque, or paying-in slip"
+    page_hint: "The name of the bank account and evidence you upload should match the name of the organisation from the application form."
+

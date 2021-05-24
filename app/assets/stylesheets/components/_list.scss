@@ -21,3 +21,18 @@
         color: inherit;
     }
 }
+
+.nlhf-task-name {
+    float: left;
+    display: block;
+}
+
+.nlhf-task-tag {
+    float: right;
+}
+
+.nlhf-task__item:after {
+    content: "";
+    display: block;
+    clear: both;
+}

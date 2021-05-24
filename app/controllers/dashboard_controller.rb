@@ -1,6 +1,7 @@
   # Controller for the service dashboard page
 class DashboardController < ApplicationController
   before_action :authenticate_user!
+  include DashboardHelper
 
   def show
 
@@ -17,16 +18,32 @@ class DashboardController < ApplicationController
 
         if @funding_applications.present?
 
+          # For these hashes, a FundingApplication will be key
+          # A boolean on whether payment can start will be value
           @gp_open_smalls = []
           @gp_open_mediums = []
+          @awarded_smalls = []
+          @awarded_mediums = []
+
+          salesforce_api_instance = get_salesforce_api_instance()
 
           @funding_applications.each do |funding_application|
 
-            @gp_open_smalls.push(funding_application) if
-              funding_application.project.present?
+            @gp_open_smalls.push(funding_application) \
+              if funding_application.project.present? && \
+                !awarded(funding_application, salesforce_api_instance)
 
-            @gp_open_mediums.push(funding_application) if
-              funding_application.open_medium.present?
+            @gp_open_mediums.push(funding_application) \
+              if funding_application.open_medium.present? && \
+                !awarded(funding_application, salesforce_api_instance)
+            
+            @awarded_smalls.push(funding_application) \
+              if funding_application.project.present? && \
+                awarded(funding_application, salesforce_api_instance)
+
+            @awarded_mediums.push(funding_application) \
+            if funding_application.open_medium.present? && \
+              awarded(funding_application, salesforce_api_instance)
 
           end
 

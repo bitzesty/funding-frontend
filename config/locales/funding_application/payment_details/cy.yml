@@ -1,0 +1,13 @@
+cy:
+  payment_details:
+    page_title: "Rhowch fanylion banc eich sefydliad"
+    page_heading: "Rhowch fanylion banc eich sefydliad"
+    name_on_account_label: "Enw ar gyfrif"
+    account_number_label: "Rhif y cyfrif"
+    account_paid_into: "Dyma'r cyfrif y bydd eich grant yn cael ei dalu iddo."
+    sort_code_hint: "Rhaid bod yn 6 digid o hyd"
+    account_number_hint: "Rhaid bod rhwng 6 ac 8 digid o hyd"
+    building_society_roll_number_label: "Rhif cofrestr cymdeithas adeiladu (os oes gennych un)"
+    building_society_roll_number_hint: "Gallwch ddod o hyd iddo ar eich cerdyn, datganiad neu lyfr cyfrin"
+    payment_reference_label: "Cyfeirnod talu"
+    payment_reference_hint: "Gallwn ychwanegu cyfeirnod i'ch helpu i nodi'r taliad grant yng nghyfrif banc eich sefydliad"

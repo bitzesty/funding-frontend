@@ -8,7 +8,7 @@
 
 <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
   <h1 class="govuk-panel__title">
-    Awaiting payment
+    <%= t('payment_details_submitted.page_heading') %>
   </h1>
 </div>
 
@@ -16,20 +16,24 @@
   <%= t('payment_details_submitted.thank_you_for_confirming') %>
 </p>
 
+<p class="govuk-body">
+  <%= t('payment_details_submitted.confirmation_email') %>
+</p>
+
 <% if @award_type == 'grant_award_under_10000' || @award_type == 'grant_award_between_10000_and_100000' %>
   <p class="govuk-body">
-    We will check your details and aim to pay you within 10 working days.
+    <%= t('payment_details_submitted.check_and_aim') %>
   </p>
 <% elsif @award_type == 'grant_award_over_100000' %>
   <p class="govuk-body">
-    We will check your bank details and look at what you’ve spent so far. If we have any questions about your spending, we will be in touch. After we’ve done our checks, we’ll aim to pay you within 10 working days.
+    <%= t('payment_details_submitted.check_and_look_at') %>
   </p>
 <% end %>
 
 <ul class="govuk-list govuk-list--bullet">
 
   <li>
-    You will be paid <%= number_to_currency(@payment_request.amount_requested, precision: 2, unit: '£') %>, which is <%= @payment_request_percentage %>% of your total grant awarded
+    <%= t('payment_details_submitted.will_be_paid_html', payment_amount: number_to_currency(@payment_request.amount_requested, precision: 2, unit: '£'), percentage_of_total_grant: @payment_request_percentage) %>
   </li>
 
 </ul>

@@ -3,6 +3,7 @@ en-GB:
     page_title: "Awaiting payment"
     page_heading: "Awaiting payment"
     thank_you_for_confirming: "Thank you for confirming your bank details."
+    confirmation_email: "We have sent you a confirmation email."
     check_and_aim: "We will check your details and aim to pay you within 10 working days."
     check_and_look_at: "We will check your bank details and look at what you've spent so far. If we have any questions about your spending, we will be in touch. After we've done our checks, we'll aim to pay you within 10 working days."
     aim_to_pay: "Then we'll aim to pay you within 10 working days."
@@ -18,4 +19,4 @@ en-GB:
     view_your_payment_schedule: "View your payment schedule"
     page_sub_heading: "What happens next"
     email_to_confirm: "We will send you an email to confirm when we have sent the money."
-    email_to_confirm_plus: "We will send you an email to confirm when we have sent the money, along with details of when you can start work on your project."
+    email_to_confirm_plus: "After we have checked your bank details, we will send you an email to confirm when we have sent the money."

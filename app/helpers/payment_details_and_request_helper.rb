@@ -46,29 +46,29 @@ module PaymentDetailsAndRequestHelper
     if grant_award > 0 && grant_award <= 10000
 
       logger.info(
-        "Payment request triggered for funding_application ID: #{@funding_application.id}" \
+        "Payment request triggered for funding_application ID: #{funding_application.id}" \
         ', grant award is between £0 and £10,000'
       )
 
       update_payment_request_amount(payment_request, grant_award)
 
-      submit_payment_request(@funding_application, payment_request)
+      submit_payment_request(funding_application, payment_request)
 
     elsif grant_award > 10000 && grant_award <= 100000
 
       logger.info(
-        "Payment request triggered for funding_application ID: #{@funding_application.id}" \
+        "Payment request triggered for funding_application ID: #{funding_application.id}" \
         ', grant award is between £10,000.01 and £100,000'
       )
 
-      calculate_payment_request_between_10000_and_100000(@funding_application, payment_request, grant_award)
+      calculate_payment_request_between_10000_and_100000(funding_application, payment_request, grant_award)
 
-      submit_payment_request(@funding_application, payment_request)
+      submit_payment_request(funding_application, payment_request)
 
     else
 
       logger.info(
-        "Payment request triggered for funding_application ID: #{@funding_application.id}" \
+        "Payment request triggered for funding_application ID: #{funding_application.id}" \
         ', grant award is above £100,000'
       )
 
@@ -94,16 +94,19 @@ module PaymentDetailsAndRequestHelper
     case
     when grant_award > 0 && grant_award <= 10000
       {
+        grant_award: grant_award,
         grant_award_type: 'grant_award_under_10000',
         payment_request_percentage: 100
       }
     when grant_award > 10000 && grant_award <= 100000
       {
+        grant_award: grant_award,
         grant_award_type: 'grant_award_between_10000_and_100000',
         payment_request_percentage: 50
       }
     when grant_award > 100000
       {
+        grant_award: grant_award,
         grant_award_type: 'grant_award_over_100000',
         payment_request_percentage: payment_related_details[:grant_percentage].to_f / 100.to_f
       } 
@@ -135,11 +138,11 @@ module PaymentDetailsAndRequestHelper
 
     salesforce_api_client = SalesforceApiClient.new
 
-    if @funding_application.project.present?
+    if funding_application.project.present?
       payment_details = salesforce_api_client.get_payment_related_details(funding_application.project.id)
     end
 
-    if @funding_application.open_medium.present?
+    if funding_application.open_medium.present?
       payment_details = salesforce_api_client.get_payment_related_details(funding_application.id)
     end
 
@@ -156,11 +159,11 @@ module PaymentDetailsAndRequestHelper
 
     salesforce_api_client = SalesforceApiClient.new
 
-    if @funding_application.project.present?
+    if funding_application.project.present?
       salesforce_api_client.get_agreed_project_costs(funding_application.project.id)
     end
 
-    if @funding_application.open_medium.present?
+    if funding_application.open_medium.present?
       salesforce_api_client.get_agreed_project_costs(funding_application.open_medium.id)
     end
 
@@ -186,10 +189,34 @@ module PaymentDetailsAndRequestHelper
 
   end
 
-  # Helper method to submit a payment request
+  # Orchestrates submitting a payment request
+  # Calls store_payment_request_state_when_submitted for support, in the
+  # event that the Restforce call fails, this JSON can be looked at.
+  # Creates a SalesforceApiClient and uses to call upsert_payment_records.
+  # If no Exceptions raised, the payment_request will be marked as submitted 
+  # and the json stored by store_payment_request_state_when_submitted removed.
+  # Finally, delete the bank details.  These only remain in Salesforce.
+  #
+  # @param [FundingApplication] funding_application An FundingApplication instance
+  # @param [PaymentRequest] payment_request A PaymentRequest instance
   def submit_payment_request(funding_application, payment_request)
 
-    logger.info('I have submitted the payment request...')
+    logger.info("Attempting to submit payment_request id: #{payment_request.id} for funding_application id: #{funding_application.id}")
+ 
+    store_payment_request_state_when_submitted(funding_application, payment_request)
+
+    # When time, consider if the client instantiated from retrieve_payment_related_details
+    # could be returned and fed into this function.  Fewer SF sessions.
+    salesforce_api_client = SalesforceApiClient.new
+    salesforce_api_client.upsert_payment_records(funding_application, payment_request)
+
+    payment_request.submitted_on = Time.now
+    payment_request.payload_submitted = nil
+    payment_request.save
+
+    funding_application.payment_details.delete
+
+    logger.info("Payment_request id: #{payment_request.id} submitted for funding_application id: #{funding_application.id}")
 
     redirect_to(
       funding_application_payment_request_submitted_path(
@@ -205,7 +232,7 @@ module PaymentDetailsAndRequestHelper
   def get_payment_request_count(funding_application)
 
     logger.debug(
-      "Retrieving count of submitted payment requests for funding_application ID: #{@funding_application.id}"
+      "Retrieving count of submitted payment requests for funding_application ID: #{funding_application.id}"
     )
 
     funding_application.payment_requests.count
@@ -231,7 +258,7 @@ module PaymentDetailsAndRequestHelper
   # @param grant_award [Float] The total grant awarded to the specified funding_application
   def calculate_payment_request_between_10000_and_100000(funding_application, payment_request, grant_award)
 
-    count = get_payment_request_count(@funding_application)
+    count = get_payment_request_count(funding_application)
 
     if count == 1
 
@@ -241,11 +268,11 @@ module PaymentDetailsAndRequestHelper
 
     else
 
-      logger.error("Second payment attempted for funding_application id: #{@funding_application.id}")
+      logger.error("Second payment attempted for funding_application id: #{funding_application.id}")
 
       # TODO: Make sure 500 page is displayed (problem lies with JS on adding bank-details evidence view)
       raise StandardError.new(
-        "Second payment attempted for funding_application id: #{@funding_application.id}"
+        "Second payment attempted for funding_application id: #{funding_application.id}"
       )
 
     end
@@ -265,6 +292,29 @@ module PaymentDetailsAndRequestHelper
 
     update_payment_request_amount(payment_request, payment_request_amount)
 
+  end
+
+  private
+
+  # Stores a encrypted version of the state of payment_request and payment_details
+  # at the point that it is sent to Salesforce.   Intended for support should
+  # the submission fail.
+  #
+  # @param [FundingApplication] funding_application An FundingApplication instance
+  # @param [PaymentRequest] payment_request A PaymentRequest instance
+  def store_payment_request_state_when_submitted(funding_application, payment_request)
+    
+    payment_request.payload_submitted = { 
+      account_name: funding_application.payment_details.account_name, 
+      account_number: funding_application.payment_details.account_number,  
+      building_society_roll_number: funding_application.payment_details.building_society_roll_number,
+      sort_code: funding_application.payment_details.sort_code,
+      payment_reference: funding_application.payment_details.payment_reference,
+      amount_requested: payment_request.amount_requested
+    }
+
+    payment_request.save
+    
   end
 
 end

@@ -1,0 +1,29 @@
+<% if pre_application.submitted_on.nil? %>
+
+  <%=
+    render(
+      partial: 'partials/tag_component',
+      locals: {
+        colour: 'blue',
+        tag_text: t('generic.applying'),
+        tag_id: pre_application.id
+      }
+    )
+  %>
+
+<% end %>
+
+<% if pre_application.submitted_on.present? %>
+
+  <%=
+    render(
+      partial: 'partials/tag_component',
+      locals: {
+        colour: 'grey',
+        tag_text: t('generic.submitted'),
+        tag_id: pre_application.id
+      }
+    )
+  %>
+
+<% end %>

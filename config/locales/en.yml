@@ -59,6 +59,13 @@ en-GB:
     notifications:
       success:
         title: "Success"
+    submitted: "Submitted"
+    awarded: "Awarded"
+    applying: "Applying" 
+    projects: "projects"
+    not_started: "Not started"
+    in_progress: "In progress" 
+    completed: "Completed"
   views:
     organisation:
       common:

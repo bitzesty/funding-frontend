@@ -1,0 +1,11 @@
+cy:
+  start_payment:
+    page_title: "Derbyn taliad"
+    page_heading: "Derbyn taliad"
+    page_instructions: "Nawr mae angen i chi nodi manylion banc eich sefydliad fel y gallwn wneud taliad grant."
+    need_to_heading: "Bydd angen i chi:"
+    need_to_list:
+      add_bank_details: "Ychwanegwch fanylion cyfrif banc eich sefydliad"
+      upload_evidence: "Lanlwytho tystiolaeth o'r cyfrif. Gall tystiolaeth fod yn ddatganiad banc diweddar, siec, neu'n slip talu i mewn"
+    page_hint: "Dylai enw'r cyfrif banc a'r dystiolaeth a lanlwythwch gyfateb i enw'r sefydliad o'r ffurflen gais."
+

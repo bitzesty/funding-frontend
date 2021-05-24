@@ -1,4 +1,4 @@
-module SalesforceApi
+  module SalesforceApi
 
   # Class to allow interaction with Salesforce via a Restforce client
   class SalesforceApiClient
@@ -747,6 +747,134 @@ module SalesforceApi
 
     end
 
+    # Method to check Salesforce to see if an application is awarded
+    # True is returned if a awarded.
+    # Takes and id as a parameter.  Because Salesforce stores project ids for smalls and
+    # funding_ids for everything else.
+    #
+    # Retries if initial call unsuccessful.
+    #
+    # @param [String] salesforce_external_id Can be a FundingApplication.id or a Project.id
+    #
+    # @return [Boolean] True if the funding_application is ready to start the payment journey.
+    def is_project_awarded(salesforce_external_id)    
+
+      retry_number = 0
+
+      begin
+
+        record_type_id = 
+          @client.query_all("select Agreed_to_Declaration__c from Case " \
+            "where ApplicationId__c ='#{salesforce_external_id}'")
+
+        if record_type_id.length != 1
+
+          error_msg = "Row not found for Case. " \
+            "Checking funding application id : '#{salesforce_external_id}'"
+
+          Rails.logger.error(error_msg)
+
+        end
+
+        record_type_id&.first&.Agreed_to_Declaration__c
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error checking if appliaction awarded " \
+          "for funding application id: #{salesforce_external_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt is_project_awarded again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+    # Method to orchestrate creating the salesforce records needed when 
+    # an applicant requests a payment.
+    # creates a record for bank account, then payment request, then 
+    # joins the two with a junction object.
+    # Finally uploads evidence of the bank account against the bank
+    # account record.
+    #
+    # Responsible for retries of its inner scope calls
+    # 
+    # @param [FundingApplication] funding_application An FundingApplication instance
+    # @param [PaymentRequest] payment_request A PaymentRequest instance
+    def upsert_payment_records(funding_application, payment_request)
+
+      retry_number = 0
+
+      begin
+        
+        salesforce_bank_account_id = \
+          upsert_bank_account_details(funding_application)
+        
+        salesforce_payment_request_id = \
+          upsert_payment_request_details(funding_application, payment_request)
+
+        upsert_bank_account_payment_request_junction(salesforce_bank_account_id, \
+          salesforce_payment_request_id)
+
+        create_file_in_salesforce(
+          funding_application.payment_details.evidence_file,
+          'Evidence of bank account',
+          salesforce_bank_account_id
+        ) if funding_application.payment_details.evidence_file.present?
+
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt upsert_payment_records again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+
     private
 
     # Method used to orchestrate creation of associated records in Salesforce
@@ -1164,13 +1292,13 @@ module SalesforceApi
     #
     # @param [ActiveStorageBlob] file The governing document file to upload
     # @param [String] type The type of file to upload (e.g. 'governing document')
-    # @param [String] salesforce_project_reference The Salesforce Case reference
+    # @param [String] salesforce_reference The Salesforce Case reference
     #                                              to link this upload to
     # @param [String] description A description of the file being uploaded
     def create_file_in_salesforce(
       file,
       type,
-      salesforce_project_reference,
+      salesforce_reference,
       description = nil
     )
 
@@ -1182,7 +1310,7 @@ module SalesforceApi
         @client,
         file,
         type,
-        salesforce_project_reference,
+        salesforce_reference,
         description
       )
 
@@ -2112,6 +2240,147 @@ module SalesforceApi
       end
 
       record_type_id&.first&.Id
+
+    end
+
+    # Method to upsert a Bank Account record in Salesforce
+    # Sends the decrypted values
+    # The external id is the account number and sort code concatenated
+    # which is unique across all banks for the UK.
+    #
+    # Retries handled by calling function
+    #
+    # @param [FundingApplication] funding_application An FundingApplication instance
+    #
+    # @return [String] salesforce_bank_account_id The Salesforce reference for the record
+    def upsert_bank_account_details(funding_application)
+
+      begin
+
+        salesforce_account_id = funding_application.organisation.salesforce_account_id
+
+        salesforce_bank_account_id = @client.upsert!(
+          'Bank_Account__c',
+          'Account_Number_Sort_Code__c',
+          Account_Name__c: funding_application.payment_details.decrypt_account_name,
+          Account_Number__c: funding_application.payment_details.decrypt_account_number,
+          Building_Society_Roll_Numbe__c: funding_application.payment_details.decrypt_building_society_roll_number, 
+          Organisation__c: salesforce_account_id,
+          Sort_Code__c: funding_application.payment_details.decrypt_sort_code,
+          Account_Number_Sort_Code__c: funding_application.payment_details.decrypt_account_number \
+            + funding_application.payment_details.decrypt_sort_code
+        )
+
+        Rails.logger.info(
+          'Created a bank account record in Salesforce with ' \
+          "reference: #{salesforce_bank_account_id}"
+        )
+
+        salesforce_bank_account_id
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+            Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error(
+          'Error creating a bank account record in Salesforce using funding application  ' \
+          "#{funding_application.id}"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      end
+
+    end
+    
+    # Method to upsert a Form record in Salesforce with fields
+    # that relate to a payment request
+    # The external id used if the payment_request.id
+    #
+    # Retries handled by calling function
+    #
+    # @param [FundingApplication] funding_application An FundingApplication instance
+    # @param [PaymentRequest] payment_request A PaymentRequest instance
+    #
+    # @return [String] salesforce_payment_request_id The Salesforce reference for the record
+    def upsert_payment_request_details(funding_application, payment_request)
+
+      begin
+        
+        salesforce_payment_request_id = @client.upsert!(
+          'Forms__c',
+          'Payment_Request_External_ID__c',
+          Case__c: funding_application.salesforce_case_id,
+          Payment_Request_External_ID__c: payment_request.id,
+          Payment_Reference_number__c: funding_application.payment_details.decrypt_payment_reference,
+          Payment_Request_From_Applicant__c: payment_request.amount_requested 
+        )
+
+        Rails.logger.info(
+          'Created a payment request record in Salesforce with ' \
+          "reference: #{salesforce_payment_request_id}"
+        )
+
+        salesforce_payment_request_id
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+            Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error(
+          'Error creating a payment request record in Salesforce using funding application id ' \
+          "#{funding_application.id} and payment request id #{payment_request.id}"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      end
+
+    end
+
+    # Method to upsert a Form Bank Account Junction record in Salesforce 
+    # Used by Salesforce to link Forms__c and BankAccount__c records
+    # Specifies an external id to make the request idempotent, but it is
+    # the two parameters concatenated.
+    #
+    # Retries handled by calling function
+    #
+    # @param [String] salesforce_bank_account_id a record id for BankAccount__c
+    # @param [String] salesforce_payment_request_id a record id for Forms__c
+    #
+    # @return [String] salesforce_payment_request_id The Salesforce reference for the record
+    def upsert_bank_account_payment_request_junction(salesforce_bank_account_id, salesforce_payment_request_id)
+
+      begin
+
+        salesforce_form_bank_account_id = @client.upsert!(
+          'Form_Bank_Account__c',
+          'Forms_Bank_Account_External_Id__c',
+          Bank_Account__c: salesforce_bank_account_id,
+          Forms__c: salesforce_payment_request_id,
+          Forms_Bank_Account_External_Id__c: salesforce_bank_account_id + salesforce_payment_request_id,
+        )
+
+        Rails.logger.info(
+          'Created a form bank account junction record in Salesforce with ' \
+          "reference: #{salesforce_form_bank_account_id}"
+        )
+
+        salesforce_form_bank_account_id
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+            Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error(
+          'Error creating a form bank account junction record in Salesforce using ' \
+            "salesforce_bank_account_id: #{salesforce_bank_account_id} and " \
+              "salesforce_payment_request_id: #{salesforce_payment_request_id}"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      end
 
     end
 

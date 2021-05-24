@@ -11,5 +11,3 @@ en-GB:
     building_society_roll_number_hint: "You can find it on your card, statement or passbook"
     payment_reference_label: "Payment reference"
     payment_reference_hint: "We can add a reference to help you identify the grant payment in your organisation's bank account"
-    button:
-      text: "Confirm bank details"

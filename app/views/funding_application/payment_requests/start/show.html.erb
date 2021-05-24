@@ -1,6 +1,35 @@
-<h1 class="govuk-heading-xl">
-  Payment request start stub
-</h1>
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @funding_application,
+             page_title: t('start_payment.page_title')
+         }
+%>
+
+<h1 class="govuk-heading-l"> <%= t('start_payment.page_heading') %> </h1>
+
+<p> <%= t('start_payment.page_instructions') %> </p>
+
+<h2 class="govuk-heading-m">
+  <%= t('start_payment.need_to_heading') %>
+</h2>
+
+<ul class="govuk-list govuk-list--bullet">
+
+  <li>
+    <%= t('start_payment.need_to_list.add_bank_details') %>
+  </li>
+
+  <li>
+    <%= t('start_payment.need_to_list.upload_evidence') %>
+  </li>
+
+</ul>
+
+<span id="email-hint" class="govuk-hint govuk-!-margin-bottom-8">
+  <%= t('start_payment.page_hint') %>
+</span>
+
 
 <%= form_tag(
     url: :funding_application_payment_request_start,
@@ -12,8 +41,7 @@
   <%= render(
       ButtonComponent.new(
         element: "button",
-        is_start_button: true,
-        text: t("buttons.labels.start_now")
+        text: t("buttons.labels.continue")
       )
     ) 
   %>

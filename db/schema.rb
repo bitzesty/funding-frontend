@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_125507) do
+ActiveRecord::Schema.define(version: 2021_05_18_150411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -440,6 +440,7 @@ ActiveRecord::Schema.define(version: 2021_04_22_125507) do
     t.jsonb "payload_submitted"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "submitted_on"
   end
 
   create_table "payment_requests_spends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

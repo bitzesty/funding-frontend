@@ -1,0 +1,8 @@
+en-GB:
+  tasks:
+    page_title: "Manage your awarded project"
+    page_heading: "Manage your awarded project"
+    todo_list_heading: "To-do list"
+    get_a_payment_heading: "Get a payment"
+    page_hint: "Click a task to begin.  When you have finished a task, it will be marked as completed."
+    add_bank_details: "Add bank details"

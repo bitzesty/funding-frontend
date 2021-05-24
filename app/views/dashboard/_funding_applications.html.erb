@@ -1,12 +1,17 @@
 <h1 class="govuk-heading-l">
-  <%= I18n.t("dashboard.funding_applications.sub_heading") %>
+  <%= I18n.t("dashboard.page_heading") %>
 </h1>
+
+
+<h2 class="govuk-heading-m">
+  <%= I18n.t("dashboard.funding_applications.sub_heading") %>
+</h2>
 
 <% unless @funding_applications.present? %>
 
   <div class="nlhf-panel nlhf-alert nlhf-alert--slim govuk-!-margin-bottom-8">
 
-    <h3 class="govuk-heading-m">
+    <h3 class="govuk-heading-s">
       <%= I18n.t("dashboard.funding_applications.none.sub_heading") %>
     </h3>
 
@@ -24,7 +29,7 @@
 
   <% if @funding_applications.present? %>
 
-    <h3 class="govuk-heading-m">
+    <h3 class="govuk-heading-s">
       <%= ("#{I18n.t("funding_programmes.open_small_three_to_ten_k")} #{I18n.t("dashboard.generic.applications")}").html_safe %>
     </h3>
 
@@ -33,17 +38,31 @@
 
         <% @gp_open_smalls.each do| funding_application | %>
 
-          <li class="nlhf-list__item">
+          <li class="nlhf-list__item nlhf-task__item">
+
+            <span class="nlhf-tag-name">
+
+              <%=
+                link_to_unless(
+                  funding_application.submitted_on.present?,
+                  funding_application.project&.project_title.present? ? funding_application.project&.project_title : t('dashboard.funding_applications.untitled'),
+                  funding_application_gp_project_title_path(application_id: funding_application.id),
+                  class: 'govuk-link govuk-link--no-visited-state',
+                  aria: {describedby: funding_application.id}
+                ) do |name|
+                  ("#{name}".html_safe) + ("#{' &ndash; ' + I18n.t("dashboard.generic.reference") + ': ' }".html_safe + funding_application.project_reference_number if funding_application.project_reference_number.present?)
+                end
+              %>
+
+            </span>
 
             <%=
-              link_to_unless(
-                funding_application.submitted_on.present?,
-                funding_application.project&.project_title.present? ? funding_application.project&.project_title : t('dashboard.funding_applications.untitled'),
-                funding_application_gp_project_title_path(application_id: funding_application.id),
-                class: 'govuk-link govuk-link--no-visited-state'
-              ) do |name|
-                ("#{name} &ndash; #{I18n.t("dashboard.generic.submitted")}".html_safe) + ("#{' &ndash; ' + I18n.t("dashboard.generic.reference") + ': ' }".html_safe + funding_application.project_reference_number if funding_application.project_reference_number.present?)
-              end
+              render(
+                partial: 'funding_applications_tags',
+                locals: {
+                  funding_application: funding_application
+                }
+              )
             %>
 
           </li>
@@ -61,7 +80,7 @@
     <% end %>
 
     <% if Flipper.enabled?(:grant_programme_sff_medium) %>
-      <h3 class="govuk-heading-m">
+      <h3 class="govuk-heading-s">
         <%= ("#{I18n.t("funding_programmes.open_small_ten_to_two_hundred_and_fifty_k")} #{I18n.t("dashboard.generic.applications")}").html_safe %>
       </h3>
 
@@ -70,17 +89,31 @@
 
           <% @gp_open_mediums.each do| funding_application | %>
 
-            <li class="nlhf-list__item">
+            <li class="nlhf-list__item nlhf-task__item">
+
+              <span class="nlhf-tag-name">
+
+                <%=
+                  link_to_unless(
+                    funding_application.submitted_on.present?,
+                    funding_application.open_medium&.project_title.present? ? funding_application.open_medium&.project_title : t('dashboard.funding_applications.untitled'),
+                    funding_application_gp_open_medium_main_purpose_of_organisation_path(application_id: funding_application.id),
+                    class: 'govuk-link govuk-link--no-visited-state',
+                    aria: {describedby: funding_application.id}
+                  ) do |name|
+                    ("#{name}".html_safe) + ("#{' &ndash; ' + I18n.t("dashboard.generic.reference") + ': ' }".html_safe + funding_application.project_reference_number if funding_application.project_reference_number.present?)
+                  end
+                %>
+
+              </span>
 
               <%=
-                link_to_unless(
-                  funding_application.submitted_on.present?,
-                  funding_application.open_medium&.project_title.present? ? funding_application.open_medium&.project_title : t('dashboard.funding_applications.untitled'),
-                  funding_application_gp_open_medium_main_purpose_of_organisation_path(application_id: funding_application.id),
-                  class: 'govuk-link govuk-link--no-visited-state'
-                ) do |name|
-                  ("#{name} &ndash; #{I18n.t("dashboard.generic.submitted")}".html_safe) + ("#{' &ndash; ' + I18n.t("dashboard.generic.reference") + ': ' }".html_safe + funding_application.project_reference_number if funding_application.project_reference_number.present?)
-                end
+                render(
+                  partial: 'funding_applications_tags',
+                  locals: {
+                    funding_application: funding_application
+                  }
+                )
               %>
 
             </li>

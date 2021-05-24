@@ -187,7 +187,9 @@ Rails.application.routes.draw do
 
     scope '/:application_id' do
 
-      scope '/payment-request', module: 'payment_requests', as: 'payment_request' do
+      get 'tasks', to: 'tasks#show'
+
+      scope '/payments', module: 'payment_requests', as: 'payment_request' do
 
         get 'start', to: 'start#show', constraints: lambda { Flipper.enabled?(:payment_requests_enabled) }
         post 'start', to: 'start#update', constraints: lambda { Flipper.enabled?(:payment_requests_enabled) }
@@ -240,6 +242,8 @@ Rails.application.routes.draw do
       end
 
       scope 'bank-details', module: 'bank_details', as: 'bank_details' do
+
+        get 'start', to: 'start#show'
 
         get 'enter', to: 'enter#show'
         put 'enter', to: 'enter#update'

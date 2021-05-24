@@ -59,6 +59,13 @@ cy:
     notifications:
       success:
         title: "Llwyddiant" 
+    submitted: "Cyflwynwyd"
+    awarded: "dyfarnwyd"
+    applying: "Ymgeisio" 
+    projects: "prosiectau"
+    not_started: "Heb ddechrau"
+    in_progress: "Ar y gweill" 
+    completed: "Cwblhawyd"
   views:
     organisation:
       common:
@@ -129,6 +136,8 @@ cy:
           attributes:
             name:
               blank: "Rhowch enw person"
+              too_short: "Enter your full name"
+              too_long: "Full name must be fewer than %{count} characters"
             position:
               blank: "Rhowch safle'r person yn ei sefydliad"
             email:
@@ -139,6 +148,8 @@ cy:
           attributes:
             name:
               blank: "Rhowch eich enw llawn"
+              too_short: "Enter your full name"
+              too_long: "Your full name must be fewer than %{count} characters"
             dob_day:
               blank: "Rhowch y diwrnod y cawsoch eich geni"
             dob_month:
@@ -199,6 +210,8 @@ cy:
           attributes:
             name:
               blank: "Rhowch enw llofnodwr cyfreithiol"
+              too_short: "Enter the name of a legal signatory"
+              too_long: "The name of the legal signatory must be fewer than %{count} characters"
             email_address:
               invalid: "Rhowch gyfeiriad e-bost dilys"
             phone_number:
@@ -508,6 +521,7 @@ cy:
               invalid_format: "Rhowch god didoli dilys fel 309430"
             building_society_roll_number:
               invalid_format: "Ni ddylai rhif cofrestr cymdeithas adeiladu fod yn fwy na 18 o nodau"
+              length: "Building society roll number must be between 1 and 18 characters"
             payment_reference:
               too_long: "Mae'n rhaid i'r cyfeirnod talu beidio â bod yn fwy na 18 o nodau"
               invalid_format: "Mae'n rhaid i'r cyfeirnod talu gynnwys llythrennau a rhifau yn unig"

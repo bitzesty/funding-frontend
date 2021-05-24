@@ -1,0 +1,21 @@
+cy:
+  payment_confirm_details:
+    page_title: "Cadarnhau manylion banc"
+    page_heading: "Cadarnhau manylion banc"
+    confirm_details_are_correct: "Cadarnhewch fod manylion eich banc yn gywir a lanlwythwch tystiolaeth o'ch cyfrif. Gall tystiolaeth fod yn ddatganiad banc diweddar, siec neu slip talu i mewn."
+    bank_statements: "Mae angen i ddatganiadau banc fod o fewn y 3 mis diwethaf. Mae angen i ddatganiadau banc ar-lein ddangos logo'r banc, cyfeiriad y wefan, enw'r cyfrif, rhif a chod didoli."
+    page_sub_heading: "Adolygu manylion banc"
+    name_on_account: "Enw ar gyfrif"
+    account_number: "Rhif cyfrif"
+    sort_code: "Cod didoli"
+    building_society_roll_number: "Rhif cofrestr cymdeithas adeiladu"
+    payment_reference: "Cyfeirnod talu"
+    evidence_file_label: "Lanlwytho tystiolaeth o gyfrif banc"
+    no_evidence_uploaded: "Nid ydych wedi ychwanegu tystiolaeth o'ch cyfrif banc"
+    evidence_file: "Tystiolaeth o ffeil cyfrif banc"
+    buttons:
+      add_evidence:
+        text: "Ychwanegu tystiolaeth o gyfrif banc"
+      submit_bank_details: "Cyflwyno manylion banc"
+    change: "Newid"
+    change_span: "manylion banc"

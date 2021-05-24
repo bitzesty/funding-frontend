@@ -1,0 +1,18 @@
+<h1 class="govuk-heading-xl">
+  Tell us your bank details
+</h1>
+
+<p class="govuk-body">
+  Tells your bank details so that we can pay your grant.
+</p>
+
+<%=
+  render(
+    ButtonComponent.new(
+      element: 'a',
+      href: funding_application_bank_details_enter_path,
+      is_start_button: true,
+      text: t('buttons.labels.start_now')
+    )
+  )
+%>

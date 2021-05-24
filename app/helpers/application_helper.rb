@@ -32,14 +32,14 @@ module ApplicationHelper
   # @param [Restforce::Client] client An instance of a Restforce client
   # @param [ActiveStorage::Attachment] file An ActiveStorage Attachment
   # @param [String] type The type of file being inserted
-  # @param [String] salesforce_project_reference The Salesforce Case reference
+  # @param [String] salesforce_reference The Salesforce Case reference
   #                                              to link this upload to
   # @param [String] description A description of the file being uploaded
   def insert_salesforce_attachment(
     client,
     file,
     type,
-    salesforce_project_reference,
+    salesforce_reference,
     description
   )
 
@@ -65,7 +65,7 @@ module ApplicationHelper
         description: description,
         pathOnClient: file.blob.filename,
         versionData: file_upload,
-        FirstPublishLocationId: salesforce_project_reference
+        FirstPublishLocationId: salesforce_reference
       )
 
       Rails.logger.debug(

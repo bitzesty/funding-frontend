@@ -1,0 +1,22 @@
+cy:
+  payment_details_submitted:
+    page_title: "Aros am daliad"
+    page_heading: "Aros am daliad"
+    thank_you_for_confirming: "Diolch am gadarnhau eich manylion banc."
+    confirmation_email: "Rydym wedi anfon e-bost cadarnhau atoch."
+    check_and_aim: "Byddwn yn gwirio eich manylion ac yn anelu at eich talu o fewn 10 diwrnod gwaith."
+    check_and_look_at: "Byddwn yn gwirio manylion eich banc ac yn edrych ar yr hyn rydych wedi'i wario hyd yn hyn. Os oes gennym unrhyw gwestiynau am eich gwariant, byddwn yn cysylltu â chi. Ar ôl i ni wneud ein gwiriadau, byddwn yn anelu at eich talu o fewn 10 diwrnod gwaith."
+    aim_to_pay: "Yna byddwn yn anelu at eich talu o fewn 10 diwrnod gwaith."
+    will_be_paid_final_html: "Byddwch yn cael eich talu <strong>%{payment_amount}</strong>, sef y <strong>%{percentage_of_total_grant}%</strong> o gyfanswm eich grant a ddyfarnwyd"
+    will_be_paid_html: "Cewch eich talu <strong>%{payment_amount}</strong>, sef <strong>%{percentage_of_total_grant}%</strong> o gyfanswm eich grant a ddyfarnwyd"
+    look_at_list:
+      heading: "Byddwn yn edrych ar eich:"
+      item_1: "adroddiad gwerthuso prosiect"
+      item_2: "adroddiad cwblhau"
+      item_3: "beth rydych chi wedi'i wario ar gyfer eich prosiect"
+    payment_schedule_will_receive_html: "%{href} i weld cyfanswm swm eich grant, faint o daliadau y byddwch yn eu derbyn a swm pob taliad."
+    payment_schedule_have_received_html: "%{href} i weld cyfanswm swm eich grant, faint o daliadau rydych wedi'u derbyn a swm pob taliad."
+    view_your_payment_schedule: "Gweld eich amserlen dalu"
+    page_sub_heading: "Beth sy'n digwydd nesaf"
+    email_to_confirm: "Byddwn yn anfon e-bost atoch i gadarnhau pryd rydym wedi anfon yr arian."
+    email_to_confirm_plus: "Ar ôl i ni wirio eich manylion banc, byddwn yn anfon e-bost atoch i gadarnhau pryd rydym wedi anfon yr arian."

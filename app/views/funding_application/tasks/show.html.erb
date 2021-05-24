@@ -1,0 +1,116 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @funding_application,
+             page_title: t('tasks.page_title')
+         }
+%>
+
+<h1 class="govuk-heading-l"> <%= t('tasks.page_heading') %> </h1>
+
+<h1 class="govuk-heading-l">
+
+  <% if @funding_application.project.present? %>
+    <%= @funding_application.project.project_title %>
+  <% end %>
+
+  <% if @funding_application.open_medium.present? %>
+    <%= @funding_application.open_medium.project_title %>
+  <% end %>
+
+  - <%= @funding_application.project_reference_number %>
+
+</h1>
+
+<h2 class="govuk-heading-m">
+  <%= t('tasks.todo_list_heading') %>
+</h2>
+
+<p>
+  <%= t('tasks.page_hint') %>
+</p>
+
+<ul class="govuk-list nlhf-list nlhf-list--links">
+
+  <li class="nlhf-list__item nlhf-task__item">
+
+    <% if @first_payment_not_started %>
+  
+      <span class="nlhf-tag-name">
+        
+        <%=
+          link_to(
+            t('tasks.add_bank_details'),
+            funding_application_payment_request_start_path,
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: {describedby: 'first-payment-not-started'}
+          )
+        %>
+
+      </span>
+
+      <%=
+        render(
+            partial: 'partials/tag_component',
+            locals: {
+              colour: 'grey',
+              tag_text: t('generic.not_started'),
+              tag_id: 'first-payment-not-started'
+            }
+        )
+      %>
+
+    <% end %>
+
+    <% if @first_payment_in_progress %>
+  
+      <span class="nlhf-tag-name">
+        
+        <%=
+          link_to(
+            t('tasks.add_bank_details'),
+            funding_application_payment_request_start_path,
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: {describedby: 'first-payment-in-progress'} 
+          )
+        %>
+
+      </span>
+
+      <%=
+        render(
+            partial: 'partials/tag_component',
+            locals: {
+              colour: 'blue',
+              tag_text: t('generic.in_progress'),
+              tag_id: 'first-payment-in-progress'
+            }
+        )
+      %>
+
+    <% end %>
+    
+    <% if @first_payment_completed %>
+
+      <span class="nlhf-tag-name" aria-describedby="first-payment-completed">
+        
+        <%= t('tasks.add_bank_details') %>
+
+      </span>
+
+      <%=
+        render(
+            partial: 'partials/tag_component',
+            locals: {
+              colour: 'grey',
+              tag_text: t('generic.completed'),
+              tag_id: 'first-payment-completed'
+            }
+        )
+      %>
+
+    <% end %>
+  
+  </li>
+
+</ul>

@@ -1,6 +1,6 @@
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
-<h2 class="govuk-heading-l">
+<h2 class="govuk-heading-m">
   <%= t('dashboard.pa_expressions_of_interest.sub_heading') %>
 </h2>
 
@@ -16,17 +16,31 @@
 
       <% if pre_application.pa_expression_of_interest.present? %>
 
-        <li class="nlhf-list__item">
+        <li class="nlhf-list__item nlhf-task__item">
+
+          <span class="nlhf-tag-name">
+
+            <%=
+              link_to_unless(
+                pre_application.submitted_on.present?,
+                pre_application.pa_expression_of_interest&.working_title.present? ? pre_application.pa_expression_of_interest&.working_title : t('dashboard.pa_expressions_of_interest.untitled'),
+                pre_application_expression_of_interest_previous_contact_path(pre_application_id: pre_application.id),
+                class: 'govuk-link govuk-link--no-visited-state',
+                aria: {describedby: pre_application.id}
+              ) do |name|
+                ("#{name}".html_safe) + ("#{' &ndash; ' + I18n.t("dashboard.generic.reference") + ': ' }".html_safe + pre_application.project_reference_number if pre_application.project_reference_number.present?)
+              end
+            %>
+
+          </span>
 
           <%=
-            link_to_unless(
-              pre_application.submitted_on.present?,
-              pre_application.pa_expression_of_interest&.working_title.present? ? pre_application.pa_expression_of_interest&.working_title : t('dashboard.pa_expressions_of_interest.untitled'),
-              pre_application_expression_of_interest_previous_contact_path(pre_application_id: pre_application.id),
-              class: 'govuk-link govuk-link--no-visited-state'
-            ) do |name|
-              ("#{name} &ndash; #{I18n.t("dashboard.generic.submitted")}".html_safe) + ("#{' &ndash; ' + I18n.t("dashboard.generic.reference") + ': ' }".html_safe + pre_application.project_reference_number if pre_application.project_reference_number.present?)
-            end
+            render(
+              partial: 'pre_applications_tags',
+              locals: {
+                pre_application: pre_application
+              }
+            )
           %>
 
         </li>
@@ -41,7 +55,7 @@
 
 <% if Flipper.enabled?(:expressions_of_interest_enabled) %>
   
-  <h3 class="govuk-heading-m">
+  <h3 class="govuk-heading-s">
     <%= I18n.t("dashboard.pa_expressions_of_interest.new.sub_heading") %>
   </h3>
 

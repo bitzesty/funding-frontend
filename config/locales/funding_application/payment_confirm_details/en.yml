@@ -16,5 +16,6 @@ en-GB:
     buttons:
       add_evidence:
         text: "Add evidence of bank account"
+      submit_bank_details: "Submit bank details"
     change: "Change"
     change_span: "bank details"

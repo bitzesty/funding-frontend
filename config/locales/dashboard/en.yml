@@ -1,6 +1,7 @@
 en-GB:
   dashboard:
     page_title: "Application dashboard"
+    page_heading: "Your heritage projects"
     generic:
       reference: "Reference"
       submitted: "Submitted"
@@ -37,3 +38,13 @@ en-GB:
         resubmit_criteria: "You cannot resubmit an Expression of Interest within 3 months of an unsuccessful submission."
         buttons:
           start: "Start an Expression of Interest"
+    awarded_projects:
+      sub_heading: "Your awarded projects"
+      sub_content: "The following projects have been awarded a grant"
+      none:
+        sub_heading: "No awarded projects"
+        sub_content: "This account currently has no awarded projects with The National Lottery Heritage Fund"
+      awarded:
+        sub_content: "The following projects have been awarded a grant:"
+      no_3k_to_10k_projects: "No £3,000 - £10,000 projects found."
+      no_10k_to_250k_projects: "No £10,000 - £250,000 projects found."
