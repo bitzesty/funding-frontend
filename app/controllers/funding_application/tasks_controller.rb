@@ -1,7 +1,12 @@
 class FundingApplication::TasksController < ApplicationController
-  include FundingApplicationContext, ObjectErrorsLogger
+  include FundingApplicationContext
+  include ObjectErrorsLogger
 
   def show
+
+    @not_agreed_to_terms = @funding_application.agreement&.empty?
+
+    # Todo - whether to start payment journey is still tbc
 
     @first_payment_not_started = @funding_application&.payment_requests&.first.nil?
 

@@ -5,6 +5,7 @@ class FundingApplication < ApplicationRecord
   has_one :project
   has_one :open_medium
   has_one :payment_details
+  has_one :agreement
   belongs_to :organisation, optional: true
 
   has_many :funding_applications_people, inverse_of: :funding_application
@@ -30,6 +31,8 @@ class FundingApplication < ApplicationRecord
 
   has_many :funding_applications_pay_reqs, inverse_of: :funding_application
   has_many :payment_requests, through: :funding_applications_pay_reqs
+
+  has_many :funding_applications_legal_sigs, inverse_of: :funding_application
 
   accepts_nested_attributes_for(
     :organisation,

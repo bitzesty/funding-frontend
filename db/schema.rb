@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_150411) do
+ActiveRecord::Schema.define(version: 2021_05_25_131856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(version: 2021_05_18_150411) do
     t.string "long"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "agreements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.datetime "agreed_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["funding_application_id"], name: "index_agreements_on_funding_application_id"
   end
 
   create_table "cash_contributions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -183,6 +191,16 @@ ActiveRecord::Schema.define(version: 2021_05_18_150411) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["evidence_of_support_id"], name: "index_funding_applications_eos_on_evidence_of_support_id"
     t.index ["funding_application_id"], name: "index_funding_applications_eos_on_funding_application_id"
+  end
+
+  create_table "funding_applications_legal_sigs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.uuid "legal_signatory_id", null: false
+    t.datetime "signed_docs_uploaded"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["funding_application_id"], name: "index_funding_applications_legal_sigs_on_funding_application_id"
+    t.index ["legal_signatory_id"], name: "index_funding_applications_legal_sigs_on_legal_signatory_id"
   end
 
   create_table "funding_applications_nccs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -620,6 +638,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_150411) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "id"
+  add_foreign_key "agreements", "funding_applications"
   add_foreign_key "cash_contributions", "projects"
   add_foreign_key "evidence_of_support", "projects"
   add_foreign_key "funding_application_addresses", "addresses"
@@ -633,6 +652,8 @@ ActiveRecord::Schema.define(version: 2021_05_18_150411) do
   add_foreign_key "funding_applications_dclrtns", "funding_applications"
   add_foreign_key "funding_applications_eos", "evidence_of_support"
   add_foreign_key "funding_applications_eos", "funding_applications"
+  add_foreign_key "funding_applications_legal_sigs", "funding_applications"
+  add_foreign_key "funding_applications_legal_sigs", "legal_signatories"
   add_foreign_key "funding_applications_nccs", "funding_applications"
   add_foreign_key "funding_applications_nccs", "non_cash_contributions"
   add_foreign_key "funding_applications_pay_reqs", "funding_applications"

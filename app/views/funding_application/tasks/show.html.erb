@@ -34,6 +34,34 @@
 
   <li class="nlhf-list__item nlhf-task__item">
 
+    <span class="nlhf-tag-name">
+        
+      <%=
+        link_to(
+          'Do a thing',
+          funding_application_payment_request_start_path,
+          class: 'govuk-link govuk-link--no-visited-state',
+          aria: {describedby: 'agreed-to-terms-not-started'}
+        )
+      %>
+
+    </span>
+
+    <%=
+      render(
+        partial: 'partials/tag_component',
+        locals: {
+          colour: 'grey',
+          tag_text: t('generic.not_started'),
+          tag_id: 'agreed-to-terms-not-started'
+        }
+      )
+    %>
+
+  </li>
+
+  <li class="nlhf-list__item nlhf-task__item">
+
     <% if @first_payment_not_started %>
   
       <span class="nlhf-tag-name">

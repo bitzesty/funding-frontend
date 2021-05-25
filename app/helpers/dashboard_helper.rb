@@ -19,15 +19,15 @@ module DashboardHelper
       salesforce_external_id = 
         funding_application.project.present? ? funding_application.project.id : funding_application.id 
 
-      payment_can_start = salesforce_api_client.is_project_awarded(salesforce_external_id)
+      awarded = salesforce_api_client.is_project_awarded(salesforce_external_id)
 
     else
 
-      payment_can_start = false  
+      awarded = false  
 
     end
 
-    payment_can_start
+    awarded
 
   end
 
