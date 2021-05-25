@@ -1,0 +1,28 @@
+en-GB:
+  agreement:
+    how_to_accept:
+      page_title: "How to accept your grant"
+      page_heading: "How to accept your grant"
+      sub_headings:
+        anything_changed: "Tell us if anything has changed"
+      before_we_can_pay: "Before we can pay your Grant, we need you to:"
+      before_we_can_pay_list:
+        item_1: "tell us if there are any changes to your Project, for example changes to your partners or cash contributiions,"
+        item_2: "check the details of your Project are correct,"
+        item_3: "read the terms and conditions of the Grant,"
+        item_4_html: "read the %{href},"
+        item_4_href: "Standard Terms of Grant"
+        item_5_html: "read the %{href},"
+        item_5_href: "Receiving a Grant guidance"
+        item_6: "read any Additional Grant Conditions, if applicable,"
+        item_7: "get a legal signatory for your organisation to download the terms and conditions, sign and upload the signed terms and conditions,"
+        item_8: "send us any new evidence for your Project."
+      sub_heading_anything_changed: "Tell us if anything has changed"
+      answer_questions_below_html: "Answer the questions below in an email to your Investment Manager, %{name}."
+      answer_questions_list:
+        item_1: "Have you made any changes to your partners or partnership arrangements since you first applied?"
+        item_2: "Have you made any changes to your cash contributions, non-cash contributions or volunteer time?"
+        item_3: "Have your Project costs changed since you first applied?"
+        item_4: "Has the status of your organisation changed since Application? For example, has it merged with another organisation or dissolved?"
+        item_5: "Have there been any other changes which have the potential to affect our decision on your Grant request or the likely success of your Project? If you are usnure, please contact your Investment Manager."
+      timescales: "You have 10 working days to complete these tasks from the date we sent Your Grant offer. If you need any help, contact your Investment Manager, %{name}."

@@ -189,6 +189,19 @@ Rails.application.routes.draw do
 
       get 'tasks', to: 'tasks#show'
 
+      scope '/agreement', module: 'agreement' do
+
+        get 'how-to-accept', to: 'how_to_accept#show'
+        put 'how-to-accept', to: 'how_to_accept#update'
+        get 'check-project-details', to: 'check_details#show'
+        put 'check-project-details', to: 'check_details#update'
+        get 'additional-documents', to: 'additional_docs#show'
+        put 'additional-documents', to: 'additional_docs#update'
+        get 'confirm', to: 'confirm#show'
+        put 'confirm', to: 'confirm#update'
+
+      end
+
       scope '/payments', module: 'payment_requests', as: 'payment_request' do
 
         get 'start', to: 'start#show', constraints: lambda { Flipper.enabled?(:payment_requests_enabled) }

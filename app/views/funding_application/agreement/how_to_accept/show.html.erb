@@ -1,0 +1,109 @@
+<h1 class="govuk-heading-xl">
+  <%= t('agreement.how_to_accept.page_heading') %>
+</h1>
+
+<p class="govuk-body">
+  <%= t('agreement.how_to_accept.before_we_can_pay') %>
+</p>
+
+<ul class="govuk-list govuk-list--bullet">
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_1') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_2') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_3') %>
+  </li>
+
+  <li>
+    <%=
+      t(
+        'agreement.how_to_accept.before_we_can_pay_list.item_4',
+        href: 'https://www.heritagefund.org.uk/publications/standard-terms-grants-3k-10k'
+      )
+    %>
+  </li>
+
+  <li>
+    <%=
+      t(
+        'agreement.how_to_accept.before_we_can_pay_list.item_5',
+        href: 'https://www.heritagefund.org.uk/funding/receiving-grant-guidance-ps3000-ps10000'
+      )
+    %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_6') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_7') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_8') %>
+  </li>
+
+</ul>
+
+<h2 class="govuk-heading-l">
+  <%= t('agreement.how_to_accept.sub_heading_anything_changed') %>
+</h2>
+
+<p class="govuk-body">
+  <%=
+    t(
+      'agreement.how_to_accept.answer_questions_below',
+      name: @investment_manager_name
+    )
+  %>
+</p>
+
+<ol class="govuk-list govuk-list--number">
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_1') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_2') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_3') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_4') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_5') %>
+  </li>
+
+</ol>
+
+<p class="govuk-body">
+  <%=
+    t(
+      'agreement.how_to_accept.timescales',
+      name: @investment_manager_name
+    )
+  %>
+</p>
+
+<%=
+  render(
+    ButtonComponent.new(
+        element: 'a',
+        href: funding_application_agreement_check_project_details_url,
+        text: t('buttons.continue')
+    )
+  )
+%>
