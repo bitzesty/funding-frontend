@@ -87,14 +87,18 @@ class NotifyMailer < Mail::Notify::Mailer
     )
   end
 
-  # @param [Project] project
-  def payment_request_submission_confirmation(project)
-    template_mai(
+  # @param [FundingApplication] funding_application
+  def payment_request_submission_confirmation(
+    funding_application, investment_manager_name, investment_manager_email
+  )
+    template_mail(
       'e35a0532-8b51-4447-bc6d-d39f705bd24c',
       to: project.user.email,
       reply_to_id: @reply_to_id,
       personalisation: {
-        project_reference_number: project.funding_application.project_reference_number
+        project_reference_number: funding_application.project_reference_number,
+        investment_manager_name: investment_manager_name,
+        investment_manager_email: investment_manager_email
       }
     )
   end

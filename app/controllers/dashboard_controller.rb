@@ -22,8 +22,8 @@ class DashboardController < ApplicationController
           # A boolean on whether payment can start will be value
           @gp_open_smalls = []
           @gp_open_mediums = []
-          @awarded_smalls = []
-          @awarded_mediums = []
+          @legally_agreed_smalls = []
+          @legally_agreed_mediums = []
 
           salesforce_api_instance = get_salesforce_api_instance()
 
@@ -31,19 +31,19 @@ class DashboardController < ApplicationController
 
             @gp_open_smalls.push(funding_application) \
               if funding_application.project.present? && \
-                !awarded(funding_application, salesforce_api_instance)
+                !legal_agreement_in_place?(funding_application, salesforce_api_instance)
 
             @gp_open_mediums.push(funding_application) \
               if funding_application.open_medium.present? && \
-                !awarded(funding_application, salesforce_api_instance)
+                !legal_agreement_in_place?(funding_application, salesforce_api_instance)
             
-            @awarded_smalls.push(funding_application) \
+            @legally_agreed_smalls.push(funding_application) \
               if funding_application.project.present? && \
-                awarded(funding_application, salesforce_api_instance)
+                legal_agreement_in_place?(funding_application, salesforce_api_instance)
 
-            @awarded_mediums.push(funding_application) \
+            @legally_agreed_mediums.push(funding_application) \
             if funding_application.open_medium.present? && \
-              awarded(funding_application, salesforce_api_instance)
+              legal_agreement_in_place?(funding_application, salesforce_api_instance)
 
           end
 

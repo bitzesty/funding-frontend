@@ -747,24 +747,28 @@
 
     end
 
-    # Method to check Salesforce to see if an application is awarded
-    # True is returned if a awarded.
-    # Takes and id as a parameter.  Because Salesforce stores project ids for smalls and
-    # funding_ids for everything else.
+    # Method to check Salesforce to see if a legal agreement is in place for
+    # a given Project.
+    #
+    # Takes the Salesforce id as a parameter, rather than a UUID for
+    # a FundingApplication. This is because Salesforce currently stores
+    # the UUID of a Project for a £3,000 to £10,000 application and the UUID
+    # of a FundingApplication for everything else.
     #
     # Retries if initial call unsuccessful.
     #
     # @param [String] salesforce_external_id Can be a FundingApplication.id or a Project.id
     #
-    # @return [Boolean] True if the funding_application is ready to start the payment journey.
-    def is_project_awarded(salesforce_external_id)    
+    # @return [Boolean] Returns True if the Legal_agreement_in_place__c field
+    #                   in Salesforce has been set, otherwise False.
+    def legal_agreement_in_place?(salesforce_external_id)    
 
       retry_number = 0
 
       begin
 
         record_type_id = 
-          @client.query_all("select Agreed_to_Declaration__c from Case " \
+          @client.query_all("select Legal_agreement_in_place__c from Case " \
             "where ApplicationId__c ='#{salesforce_external_id}'")
 
         if record_type_id.length != 1
@@ -776,12 +780,12 @@
 
         end
 
-        record_type_id&.first&.Agreed_to_Declaration__c
+        record_type_id&.first&.Legal_agreement_in_place__c
 
       rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
         Restforce::EntityTooLargeError, Restforce::ResponseError => e
 
-        Rails.logger.error("Error checking if appliaction awarded " \
+        Rails.logger.error("Error checking if legal agreement in place " \
           "for funding application id: #{salesforce_external_id}")
 
         # Raise and allow global exception handler to catch
@@ -796,7 +800,7 @@
           max_sleep_seconds = Float(2 ** retry_number)
 
           Rails.logger.info(
-            "Will attempt is_project_awarded again, retry number #{retry_number} " \
+            "Will attempt legal_agreement_in_place? again, retry number #{retry_number} " \
             "after a sleeping for up to #{max_sleep_seconds} seconds"
           )
 
@@ -857,6 +861,70 @@
 
           Rails.logger.info(
             "Will attempt upsert_payment_records again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+    # Method to find a Project Owner's details.
+    #
+    # Responsible for retries of its inner scope calls
+    #
+    # @param [salesforce_case_id] String A Case Id reference known to Salesforce
+    # @return [<Restforce::SObject>] result&first.  A Restforce object
+    #                                               with query results
+    def project_owner_details(salesforce_case_id)
+      retry_number = 0
+
+      begin
+
+        result = @client.query_all(
+            "SELECT Owner.name, Owner.Email from Case " \
+            "where ID = '#{salesforce_case_id}'"
+        )  
+
+        if result.length != 1 
+
+          error_msg = "Project owner details not found for Case. " \
+            "Checking case id : '#{salesforce_case_id}'"
+
+          Rails.logger.error(error_msg)
+
+        end
+
+        result&.first
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error finding project owner details " \
+          "for case id: #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt project_owner_details again, retry number #{retry_number} " \
             "after a sleeping for up to #{max_sleep_seconds} seconds"
           )
 

@@ -30,11 +30,11 @@
       <%= ("#{I18n.t("funding_programmes.open_small_three_to_ten_k")} #{I18n.t("generic.projects")}").html_safe %>
     </h3>
         
-    <% if @awarded_smalls.present? %>
+    <% if @legally_agreed_smalls.present? %>
     
       <ul class="govuk-list govuk-list--number nlhf-list nlhf-list--links govuk-!-margin-bottom-8">
 
-        <% @awarded_smalls.each do| funding_application | %>
+        <% @legally_agreed_smalls.each do| funding_application | %>
 
           <% if funding_application.submitted_on.present?  %>
 
@@ -85,11 +85,11 @@
       </h3>
 
       
-        <% if @awarded_mediums.present? %>
+        <% if @legally_agreed_mediums.present? %>
 
           <ul class="govuk-list govuk-list--number nlhf-list nlhf-list--links govuk-!-margin-bottom-8">  
 
-            <% @awarded_mediums.each do| funding_application | %>
+            <% @legally_agreed_mediums.each do| funding_application | %>
 
               <% if funding_application.submitted_on.present?  %>  
 

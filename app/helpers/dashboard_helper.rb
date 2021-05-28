@@ -12,14 +12,14 @@ module DashboardHelper
   # @param funding_application [FundingApplication] An instance of a FundingApplication
   # @param salesforce_api_client [SalesforceApiClient] An instance of a SalesforceApiClient
   # @return Boolean True if the project is awarded otherwise false
-  def awarded(funding_application, salesforce_api_client)
+  def legal_agreement_in_place?(funding_application, salesforce_api_client)
     
     if funding_application.submitted_on.present?
 
       salesforce_external_id = 
         funding_application.project.present? ? funding_application.project.id : funding_application.id 
 
-      payment_can_start = salesforce_api_client.is_project_awarded(salesforce_external_id)
+      payment_can_start = salesforce_api_client.legal_agreement_in_place?(salesforce_external_id)
 
     else
 

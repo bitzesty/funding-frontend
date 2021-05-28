@@ -164,7 +164,7 @@ module PaymentDetailsAndRequestHelper
     end
 
     if funding_application.open_medium.present?
-      salesforce_api_client.get_agreed_project_costs(funding_application.open_medium.id)
+      salesforce_api_client.get_agreed_project_costs(funding_application.id)
     end
 
   end
@@ -217,6 +217,14 @@ module PaymentDetailsAndRequestHelper
     funding_application.payment_details.delete
 
     logger.info("Payment_request id: #{payment_request.id} submitted for funding_application id: #{funding_application.id}")
+
+    investment_manager_details = salesforce_api_client.project_owner_details(funding_application.salesforce_case_id)
+
+    NotifyMailer.payment_request_submission_confirmation(
+      funding_application,
+      investment_manager_details.Owner.Name,
+      investment_manager_details.Owner.Email
+    )
 
     redirect_to(
       funding_application_payment_request_submitted_path(
