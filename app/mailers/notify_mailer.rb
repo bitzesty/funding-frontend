@@ -93,7 +93,7 @@ class NotifyMailer < Mail::Notify::Mailer
   )
     template_mail(
       'e35a0532-8b51-4447-bc6d-d39f705bd24c',
-      to: project.user.email,
+      to: funding_application.organisation.users.first.email,
       reply_to_id: @reply_to_id,
       personalisation: {
         project_reference_number: funding_application.project_reference_number,

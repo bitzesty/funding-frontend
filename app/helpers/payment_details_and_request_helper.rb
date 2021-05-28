@@ -224,7 +224,9 @@ module PaymentDetailsAndRequestHelper
       funding_application,
       investment_manager_details.Owner.Name,
       investment_manager_details.Owner.Email
-    )
+    ).deliver_later
+
+    logger.info("Payment request email sent for: #{funding_application.id}")
 
     redirect_to(
       funding_application_payment_request_submitted_path(
