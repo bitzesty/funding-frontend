@@ -2,14 +2,11 @@ cy:
   covid_banner:
     heading: "Cyhoeddiad pwysig"
     use_this_form_to: "Defnyddiwch y gwasanaeth hwn i greu cyfrif gyda Chronfa Dreftadaeth y Loteri Genedlaethol i:"
-    use_old_portal: "Os ydych yn gwneud cais am unrhyw swm grant arall, neu fod y prosiect wedi'i leoli yng Nghymru neu Loegr, neu fod gennych gais sy'n bodoli eisoes, %{href}."
-
+    use_old_portal: "Os oes gennych brosiect sydd eisoes â chyllid, %{href}."
     list_items:
-      grants: "gwneud cais am rhwng £3,000 a £250,000 ar gyfer prosiect sydd wedi'i leoli yn yr Alban neu Ogledd Iwerddon" 
-      pef: "cyflwyno Ymholiad Prosiect am syniad prosiect am £10,000 i £250,000 yn yr Alban neu Ogledd Iwerddon"
-      eoi: "cyflwyno Datganiad o Ddiddordeb ar gyfer ceisiadau dros £250,000 ledled y DU"
-
+      grants: "wneud cais am grant rhwng £3,000 a £250,000"
+      pef: "cyflwyno Ymholiad Prosiect ar gyfer syniad prosiect rhwng £10,000 a £250,000"
+      eoi: "cyflwyno Datganiad o Ddiddordeb ar gyfer ceisiadau dros £250,000"
     links:
       old_portal_text: "mewngofnodwch i'r porth ymgeisio"
       old_portal_url: "https://forms.hlf.org.uk/officeforms/HLF_Projects.ofml"
-
