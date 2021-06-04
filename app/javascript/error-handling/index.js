@@ -187,6 +187,15 @@ export function createAndAppendListItem(message, attribute, modelName) {
             case "full_cost_recovery_file":
                 linkElement.setAttribute("href", "#" + modelName + "_full_cost_recovery_file");
                 break;
+            case "signed_terms_and_conditions":
+                linkElement.setAttribute("href", "#" + modelName + "_signed_terms_and_conditions");
+                break;
+            case "additional_evidence_files":
+                linkElement.setAttribute("href", "#" + modelName + "_additional_evidence_files");
+                break;
+            case "signed_terms_and_conditions":
+                linkElement.setAttribute("href", "#" + modelName + "signed_terms_and_conditions");
+                break;
             default:
                 linkElement.setAttribute("href", attribute === "capital_work" ?
                     "#project_capital_work_false" : "#project_capital_work_true");

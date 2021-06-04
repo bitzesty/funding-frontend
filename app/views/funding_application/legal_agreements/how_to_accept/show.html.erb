@@ -1,0 +1,132 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @funding_application,
+      page_title: t('agreement.how_to_accept.page_title')
+    }
+  )
+%>
+
+<h1 class="govuk-heading-xl">
+  <%= t('agreement.how_to_accept.page_heading') %>
+</h1>
+
+<p class="govuk-body">
+  <%= t('agreement.how_to_accept.before_we_can_pay') %>
+</p>
+
+<ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_1') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_2') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_3') %>
+  </li>
+
+  <li>
+    <%=
+      t(
+        'agreement.how_to_accept.before_we_can_pay_list.item_4_html',
+        href: link_to(
+          t('agreement.how_to_accept.before_we_can_pay_list.item_4_href'), 
+          @standard_terms_link
+        )
+      )
+    %>
+  </li>
+
+  <li>
+    <%=
+      t(
+        'agreement.how_to_accept.before_we_can_pay_list.item_5_html',
+        href: link_to(
+          t('agreement.how_to_accept.before_we_can_pay_list.item_5_href'),
+          @retrieving_a_grant_guidance_link
+        )
+      )
+    %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_6') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_7') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_8') %>
+  </li>
+
+</ul>
+
+<h2 class="govuk-heading-l">
+  <%= t('agreement.how_to_accept.sub_heading_anything_changed') %>
+</h2>
+
+<p class="govuk-body">
+  <%=
+    t(
+      'agreement.how_to_accept.answer_questions_below_html',
+      name: @investment_manager_name
+    )
+  %>
+</p>
+
+<ol class="govuk-list govuk-list--number govuk-list--spaced">
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_1') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_2') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_3') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_4') %>
+  </li>
+
+  <li>
+    <%= t('agreement.how_to_accept.answer_questions_list.item_5') %>
+  </li>
+
+</ol>
+
+<p class="govuk-body">
+  <%=
+    t(
+      'agreement.how_to_accept.timescales',
+      name: @investment_manager_name
+    )
+  %>
+</p>
+
+<%=
+  form_with model: @funding_application,
+  url: :funding_application_how_to_accept,
+  method: :put,
+  remote: false do |f|
+%>
+
+  <%=
+    render(
+      ButtonComponent.new(
+        text: t('buttons.continue')
+      )
+    )
+  %>
+
+<% end %>

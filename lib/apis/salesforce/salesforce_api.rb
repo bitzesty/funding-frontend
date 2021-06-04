@@ -97,7 +97,7 @@
 
       retry_number = 0
 
-      # TODO: remove 
+      # TODO: remove
       id = '37da105a-a899-4868-9a26-7a1329b5ef0a'
 
       begin
@@ -761,13 +761,13 @@
     #
     # @return [Boolean] Returns True if the Legal_agreement_in_place__c field
     #                   in Salesforce has been set, otherwise False.
-    def legal_agreement_in_place?(salesforce_external_id)    
+    def legal_agreement_in_place?(salesforce_external_id)
 
       retry_number = 0
 
       begin
 
-        record_type_id = 
+        record_type_id =
           @client.query_all("select Legal_agreement_in_place__c from Case " \
             "where ApplicationId__c ='#{salesforce_external_id}'")
 
@@ -878,6 +878,70 @@
 
     end
 
+    # Method to find a Project Owner Name.  For example an Investment 
+    # Manager responsible for a project
+    #
+    # Responsible for retries of its inner scope calls
+    # 
+    # @param [salesforce_case_id] String A Case Id reference known to Salesforce 
+    # @return [String] Name. Project Owner name
+    def project_owner_name(salesforce_case_id)
+
+      retry_number = 0
+
+      begin
+
+        record_type_id = 
+          @client.query_all("SELECT Owner.name from Case " \
+            "where Id ='#{salesforce_case_id}'")
+
+        if record_type_id.length != 1
+
+          error_msg = "Owner name not found for Case. " \
+            "Checking case id : '#{salesforce_case_id}'"
+
+          Rails.logger.error(error_msg)
+
+        end
+
+        record_type_id&.first&.Owner.Name
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error finding project owner name " \
+          "for case id: #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt project_owner_name again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
     # Method to find a Project Owner's details.
     #
     # Responsible for retries of its inner scope calls
@@ -942,7 +1006,362 @@
 
     end
 
+    # Method to find a Project's details.
+    # Currently used within the check-project-details route
+    #
+    # Responsible for retries of its inner scope calls
+    # 
+    # @param [salesforce_case_id] String A Case Id reference known to Salesforce 
+    # @return [<Restforce::SObject] result&.first.  A Restforce object 
+    #                                               with query results
+    def project_details(salesforce_case_id)
+      retry_number = 0
 
+      begin
+
+        result = 
+          @client.query_all("SELECT Owner.name, Account.Name, Project_Title__c, " \
+            "Grant_Award__c, Grant_Percentage__c, Total_Development_Income__c, " \
+              "Total_Non_Cash_contributions__c, Total_Volunteer_Contributions__c, " \
+                "Grant_Expiry_Date__c, Project_Ref__c, Contact.Name, Submission_Date_Time__c " \
+                  "from Case " \
+                    "where ID = '#{salesforce_case_id}'")  
+
+        if result.length != 1 
+
+          error_msg = "Project details not found for Case. " \
+            "Checking case id : '#{salesforce_case_id}'"
+
+          Rails.logger.error(error_msg)
+
+        end
+
+        result&.first
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error finding project details " \
+          "for case id: #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt project_details again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+    # Method to find a Project's costs.
+    # Currently used within the check-project-details route
+    #
+    # Responsible for retries of its inner scope calls
+    # 
+    # @param [salesforce_case_id] String A Case Id reference known to Salesforce 
+    # @return [<Restforce::SObject] result.  A Restforce collection 
+    #                                        with query results
+    def project_costs(salesforce_case_id)
+      retry_number = 0
+
+      begin
+
+        result = 
+          @client.query_all("SELECT Cost_Heading__c, Costs__c, Project_Cost_Description__c " \
+            "FROM Project_Cost__c " \
+              "where Case__c = '#{salesforce_case_id}'")  
+
+        if result.length != 1 
+
+          error_msg = "Project costs not found for Case. " \
+            "Checking case id : '#{salesforce_case_id}'"
+
+          Rails.logger.error(error_msg)
+
+        end
+
+        result
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error finding project costs " \
+          "for case id: #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt project_costs again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+
+    # Method to find a Project's approved purposes.
+    # Currently used within the check-project-details route
+    #
+    # Responsible for retries of its inner scope calls
+    # 
+    # @param [salesforce_case_id] String A Case Id reference known to Salesforce 
+    # @return [<Restforce::SObject] result.  A Restforce collection 
+    #                                        with query results
+    def project_approved_purposes(salesforce_case_id)
+      retry_number = 0
+
+      begin
+
+        result = 
+          @client.query_all("SELECT Approved_Purposes__c, Final_summery_of_achievements__c " \
+            "FROM Approved__c " \
+              "where Project__c = '#{salesforce_case_id}'")  
+
+        if result.length != 1 
+
+          error_msg = "Project approved purposes not found for Case. " \
+            "Checking case id : '#{salesforce_case_id}'"
+
+          Rails.logger.error(error_msg)
+
+        end
+
+        result
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error finding project approved purposes " \
+          "for case id: #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt project_approved_purposes again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+    
+    # Method to check Salesforce to see if a legal agreement is in place
+    # True is returned if a legal agreement is in place.
+    # Takes and id as a parameter.  Because Salesforce stores project ids for smalls and
+    # funding_ids for everything else.
+    #
+    # Retries if initial call unsuccessful.
+    #
+    # @param [String] salesforce_external_id Can be a FundingApplication.id or a Project.id
+    #
+    # @return [Boolean] True if a legal agreement is in place for the funding_application
+    def legal_agreement_in_place?(salesforce_external_id)    
+
+      retry_number = 0
+
+      begin
+
+        record_type_id = 
+          @client.query_all("select Legal_agreement_in_place__c from Case " \
+            "where ApplicationId__c ='#{salesforce_external_id}'")
+
+        if record_type_id.length != 1
+
+          error_msg = "Row not found for Case. " \
+            "Checking funding application id : '#{salesforce_external_id}'"
+
+          Rails.logger.error(error_msg)
+
+        end
+
+        record_type_id&.first&.Legal_agreement_in_place__c
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error checking if application awarded " \
+          "for funding application id: #{salesforce_external_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt legal_agreement_in_place? again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+    # Method to inform Investment Manager that the Legal agreement documents
+    # are submitted 
+    # Updates Legal agreement documents submitted
+    #
+    # Retries if initial call unsuccessful.
+    #
+    # @param [salesforce_case_id] String A Case Id reference known to Salesforce 
+    def update_legal_agreement_documents_submitted(salesforce_case_id)
+      
+      retry_number = 0
+
+      begin
+
+        @client.update!(
+          'Case',
+          Id: salesforce_case_id,
+          Legal_agreement_documents_submitted__c: true
+        )
+
+      rescue Restforce::MatchesMultipleError, 
+        Restforce::UnauthorizedError,
+          Restforce::EntityTooLargeError, 
+            Restforce::ResponseError => e
+
+        Rails.logger.error("Error updating " \
+          "update_legal_agreement_documents_submitted for " \
+            "salesforce_case_id #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt " \
+              "update_legal_agreement_documents_submitted again, " \
+                "retry number #{retry_number} " \
+                  "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+    def upload_additional_evidence_files(
+      additional_evidence_files,
+      type,
+      salesforce_case_id
+    )
+      
+      create_multiple_files_in_salesforce(
+        additional_evidence_files,
+        type,
+        salesforce_case_id
+      )
+    
+    end
+
+    def upload_signed_terms_and_conditions(
+      signed_terms_and_conditions_file,
+      type,
+      salesforce_case_id
+    )
+
+      create_file_in_salesforce(
+        signed_terms_and_conditions_file,
+        type,
+        salesforce_case_id
+      )
+
+    end
+
+    
     private
 
     # Method used to orchestrate creation of associated records in Salesforce

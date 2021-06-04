@@ -103,6 +103,43 @@ class NotifyMailer < Mail::Notify::Mailer
     )
   end
 
+  # Method which will trigger an email from GOV.UK Notify containing a link
+  # which will allow a Legal Signatory access to the legal agreement journey
+  #
+  # @param [String] recipient_email_address The email address to send this
+  #                                         email to
+  # @param [String] funding_application_id A UUID for a FundingApplication
+  # @param [String] agreement_link A unique link which will allow a
+  #                                LegalSignatory access to the legal agreement
+  #                                journey
+  # @param [String] project_title The title of a project
+  # @param [String] project_reference_number A unique NLHF-assigned reference
+  #                                          number for a project
+  # @param [String] organisation_name The name of an organisation
+  def legal_signatory_agreement_link(
+    recipient_email_address,
+    funding_application_id,
+    agreement_link,
+    project_title,
+    project_reference_number,
+    organisation_name
+  )
+
+    template_mail(
+      'a990844f-700a-4185-9b77-6c1f33cf938e',
+      to: recipient_email_address,
+      reply_to_id: @reply_to_id,
+      personalisation: {
+        funding_application_id: funding_application_id,
+        agreement_link: agreement_link,
+        project_title: project_title,
+        project_reference_number: project_reference_number,
+        organisation_name: organisation_name
+      }
+    )
+
+  end
+
   def report_a_problem(message, name, email)
     template_mail("4d789cc6-bd6a-499f-bae2-502b633c098b",
                   to: Rails.configuration.x.support_email_address,

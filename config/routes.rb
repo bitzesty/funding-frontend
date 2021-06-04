@@ -189,6 +189,46 @@ Rails.application.routes.draw do
 
       get 'tasks', to: 'tasks#show'
 
+      # This section relates to the applicant journey of
+      # accepting a grant, including if the applicant is
+      # also a legal signatory
+      scope '/agreement', module: 'legal_agreements' do
+
+        get 'how-to-accept', to: 'how_to_accept#show'
+        put 'how-to-accept', to: 'how_to_accept#update'
+        get 'check-project-details', to: 'check_details#show'
+        put 'check-project-details', to: 'check_details#update'
+        get 'additional-documents', to: 'additional_docs#show'
+        put 'additional-documents', to: 'additional_docs#update'
+        get 'confirm', to: 'confirm#show'
+        put 'confirm', to: 'confirm#update'
+        get 'agreed', to: 'agreed#show'
+        get 'terms-and-conditions', to: 'terms#show'
+        put 'terms-and-conditions', to: 'terms#update'
+        get 'sign-terms-and-conditions', to: 'sign_terms#show'
+        put 'sign-terms-and-conditions', to: 'sign_terms#update'
+        put 'submit-signed-terms-and-conditions', to: 'sign_terms#submit'
+        get 'submitted', to: 'submitted#show'
+
+        # This section relates to the legal signatory-only journey
+        # of accepting a grant. We use the 'as' parameter here so that the
+        # auto-generated routes differ from the non-applicant agreement
+        # section (e.g. funding_application_signatories_terms_and_conditions)
+        scope '/:encoded_signatory_id', module: 'signatories', as: 'signatories' do
+          
+          get 'check-project-details', to: 'check_details#show'
+          put 'check-project-details', to: 'check_details#update'
+          get 'terms-and-conditions', to: 'terms#show'
+          put 'terms-and-conditions', to: 'terms#update'
+          get 'sign-terms-and-conditions', to: 'sign_terms#show'
+          put 'sign-terms-and-conditions', to: 'sign_terms#update'
+          put 'submit-signed-terms-and-conditions', to: 'sign_terms#submit'
+          get 'submitted', to: 'submitted#show'
+          
+        end
+
+      end
+
       scope '/payments', module: 'payment_requests', as: 'payment_request' do
 
         get 'start', to: 'start#show', constraints: lambda { Flipper.enabled?(:payment_requests_enabled) }

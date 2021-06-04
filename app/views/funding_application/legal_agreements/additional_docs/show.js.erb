@@ -1,0 +1,35 @@
+<% if @funding_application.errors.any? %>
+
+  document.title = "Error: <%== I18n.t('agreement.additional_docs.page_title') %>";
+
+  removeAllFormGroupErrors(
+    "additional_evidence_files-form-group",
+    "additional_evidence_files-errors"
+  );
+
+  createSummaryErrorsSkeleton();
+
+  var errorKeys = [];
+
+  <% @funding_application.errors.each do |error| %>
+
+    errorKeys.push("<%= error.attribute.to_s %>");
+
+    addSummaryError(
+        false,
+        "<%= error.attribute %>",
+        "<%= error.message %>",
+        "funding_application"
+    );
+
+    addFormGroupError(
+        "<%= error.attribute %>-form-group",
+        "<%= error.attribute %>-errors",
+        "<%= error.attribute %>",
+        "<%= error.message %>",
+        "funding_application"
+    );
+
+  <% end %>
+
+<% end %>

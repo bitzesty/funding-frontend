@@ -35,7 +35,8 @@ module FundingApplicationContext
 
     path.exclude?('/application-submitted') && \
       path.exclude?('/tasks') && \
-        path.exclude?('/payments')
+        path.exclude?('/payments') && \
+        path.exclude?('/agreement')
     
   end
 

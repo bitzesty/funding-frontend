@@ -1,0 +1,43 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @funding_application,
+      page_title: t('agreement.terms.page_title')
+    }
+  )
+%>
+
+<%=
+  render(
+    partial: 'partials/funding_application/legal_agreements/terms',
+    locals: {
+      next_link: funding_application_sign_terms_and_conditions_url
+    }
+  )
+%>
+
+<% if @applicant_is_legal_signatory %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/legal_agreements/terms_signatory',
+      locals: {
+        model_object: @funding_application,
+        button_link: funding_application_sign_terms_and_conditions_url
+      }
+    )
+  %>
+
+<% else %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/legal_agreements/terms_applicant',
+      locals: {
+        model_object: @funding_application
+      }
+    )
+  %>
+
+<% end %>

@@ -1,0 +1,49 @@
+en-GB:
+  agreement:
+    check_project_details:
+      page_title: "Check your Project details"
+      page_heading: "Check your Project details"
+      sub_headings:
+        your_grant: "Your Grant"
+        your_grant_contract: "Your Grant Contract"
+        your_project: "Your Project"
+        what_money_is_for: "What the money is for"
+        what_project_will_do: "What the Project will do"
+        your_contribution: "Your contribution"
+      if_details_wrong: "If any of these Project details are wrong or have changed since you submitted your application, email your Investment Manager, %{name}. They will agree any changes to the Project or the Grant Contract before the grant is paid."
+      your_grant_details:
+        project_title: "Project title:"
+        project_reference: "Project reference number:"
+        grant_amount_awarded: "Grant amount awarded:"
+        payment_percentage: "Payment %:"
+        to_be_paid_to: "Grant to be paid to:"
+        submitted_by: "Application submitted by:"
+        date_of_application: "Date of Application:"
+        expiry_date: "Grant Expiry Date:"
+      your_grant_contract: "Your Grant Contract is made up of:"
+      your_grant_contract_list:
+        item_1: "this page that lists your Grant and Project details,"
+        item_2: "terms and conditions,"
+        item_3: "any Additional Grant Conditions, if applicable,"
+        item_4_html: "%{href}. If there are any consistencies between the Standard Terms of Grant and the Terms and conditions, the %{href} will take precedence,"
+        item_4_href: "Standard Terms of Grant"
+        item_5_html: "%{href}."
+        item_5_href: "Receiving a Grant guidance"
+      you_must_agree: "You must read and agree to all parts of your Grant Contract before we can pay your Grant."
+      based_on_application: "Based on your Application, this is the Project we have agreed to fund."
+      when_you_applied: "When you applied, you described your Project costs as:"
+      costs_told: "The costs you told us about in your Application detailed above were used to create the following Approved Purposes for your Project."
+      approved_purposes: "Approved Purposes summarise the Project described in your Application."
+      described_additional_funding: "When you applied, you described additional funding and support of:"
+      cash_contributions: "%{amount} in cash contributions, sometimes known as match funding"
+      non_cash_contributions: "%{amount} in non-cash contributions, sometimes known as in-kind support"
+      volunteers: "%{amount} hours of volunteer time"
+      advice: "We advise that you do not start work on the Project until all pre-conditions defined in the Receiving a Grant Guidance and any Additional Conditions have been met. Plus, the Grant contract has been signed and agreed. Project work started before this happens is done so at the organisation's own risk."
+    costs_table:
+      heading:
+        amount: "Amount"
+        description: "Description"
+        cost: 'Cost'
+    approved_purpose_table:
+      heading:
+          approved_purpose: "Approved purpose"

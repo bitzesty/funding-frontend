@@ -1,0 +1,13 @@
+en-GB:
+  agreement:
+    additional_docs:
+      page_title: "Have you received any new evidence for your project since submitting your application?"
+      page_heading: "Have you received any new evidence for your project since submitting your application?"
+      new_evidence: "Evidence could include secured cash contributions, secured permissions, or secured licenses. If your Investment Manager needs anything specific, they will let you know."
+      labels:
+        radio_yes: "Yes, I have new evidence"
+        radio_no: "No, I do not have new evidence"
+      buttons:
+        add_evidence: "Add new evidence files"
+      no_evidence_files: "You have not added any new evidence files"
+      evidence_file: "Evidence file"

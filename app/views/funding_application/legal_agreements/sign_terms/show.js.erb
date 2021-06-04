@@ -1,0 +1,35 @@
+<% if @model_object.errors.any? %>
+
+    document.title = "Error: <%== I18n.t('agreement.sign_terms.page_title') %>";
+
+    removeAllFormGroupErrors(
+        "signed_terms_and_conditions-form-group",
+        "signed_terms_and_conditions-errors"
+    );
+
+    createSummaryErrorsSkeleton();
+
+    var errorKeys = [];
+
+    <% @model_object.errors.each do |attr, msg| %>
+
+        errorKeys.push("<%= attr.to_s %>");
+
+        addSummaryError(
+            false,
+            "<%= attr %>",
+            "<%= msg %>",
+            "funding_applications_legal_sig"
+        );
+
+        addFormGroupError(
+            "<%= attr %>-form-group",
+            "<%= attr %>-errors",
+            "<%= attr %>",
+            "<%= msg %>",
+            "funding_applications_legal_sig"
+        );
+
+    <% end %>
+
+<% end %>

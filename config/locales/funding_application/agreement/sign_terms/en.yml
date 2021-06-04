@@ -1,0 +1,20 @@
+en-GB:
+  agreement:
+    sign_terms:
+      page_title: "Sign the terms and conditions"
+      page_heading: "Sign the terms and conditions"
+      sub_headings:
+        download_terms: "Download the terms and conditions"
+        sign_terms: "Sign the terms and conditions"
+        upload_terms: "Upload the terms and conditions"
+      buttons:
+        add_signed_terms: "Add signed terms and conditions"
+      labels:
+        add_your_signed_terms: "Add your signed terms and conditions"
+      as_a_signatory: "As a legal signatory for your organisation, we need you to sign the terms and conditions. This is confirmation that your organisation will follow the terms and conditions throughout the Project."
+      to_do_this: "To do this:"
+      download: "Download the terms and conditions"
+      signing: "You can either digitally sign the document or print the document, sign it and scan it. No matter how you do this, it needs to be a new signature. It cannot be a copy."
+      uploading: "After you have signed the document, you should upload the signed copy. Make sure you've included all of the pages of the document."
+      no_signed_terms_and_conditions: "You have not added evidence of signed terms and conditions"
+      signed_terms_and_conditions: "Signed terms and conditions"

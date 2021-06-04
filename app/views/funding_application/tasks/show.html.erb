@@ -34,7 +34,98 @@
 
   <li class="nlhf-list__item nlhf-task__item">
 
-    <% if @first_payment_not_started %>
+    <span class="nlhf-tag-name">
+
+      <% if @has_agreed_to_grant || @not_awarded %>
+
+        Check and agree your Grant  
+
+      <% else %>
+
+        <%=
+          link_to(
+            'Check and agree your grant',
+            funding_application_how_to_accept_path,
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'check-and-agree' } 
+          )
+        %>
+
+      <% end %>
+
+        <%=
+          render(
+            partial: 'partials/tag_component',
+            locals: {
+              colour: @agreement_status_tag_colour,
+              tag_text: @agreement_status_tag_label,
+              tag_id: 'check-and-agree'
+            }
+          )
+        %>
+
+    </span>
+
+    
+
+  </li>
+
+  <li class="nlhf-list__item nlhf-task__item">
+
+    <span class="nlhf-tag-name">
+
+      <% if @has_agreed_to_grant && @has_not_agreed_to_terms %>
+      
+        <%=
+          link_to(
+            'Agree terms and conditions',
+            funding_application_terms_and_conditions_path,
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'agreed-to-terms' }
+          )
+        %>
+
+      <% else %>
+
+        Agree terms and conditions
+
+      <% end %>
+
+    </span>
+
+    <%=
+      render(
+        partial: 'partials/tag_component',
+        locals: {
+          colour: @terms_status_tag_colour,
+          tag_text: @terms_status_tag_label,
+          tag_id: 'agreed-to-terms'
+        }
+      )
+    %>
+
+  </li>
+
+  <li class="nlhf-list__item nlhf-task__item">
+
+    <% if @first_payment_not_started && !@legal_agreement_in_place %>
+
+      <%= t('tasks.add_bank_details') %>
+
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour: 'grey',
+            tag_text: t('generic.cannot_yet_start'),
+            tag_id: 'first-payment-not-started'
+          }
+        )
+      %>
+
+    <% end %>
+
+    <% if @first_payment_not_started && @legal_agreement_in_place %>
   
       <span class="nlhf-tag-name">
         
@@ -103,7 +194,7 @@
             partial: 'partials/tag_component',
             locals: {
               colour: 'grey',
-              tag_text: t('generic.completed'),
+              tag_text: t('generic.submitted'),
               tag_id: 'first-payment-completed'
             }
         )

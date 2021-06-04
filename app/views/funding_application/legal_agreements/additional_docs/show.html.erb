@@ -1,0 +1,203 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @funding_application,
+      page_title: t('agreement.additional_docs.page_title')
+    }
+  )
+%>
+
+<noscript><% no_js = true %></noscript>
+
+<div id="summary-errors"></div>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application,
+      first_form_element: :new_evidence_false
+    }
+  ) if @funding_application.errors.any?
+%>
+
+<%=
+  form_with model: @funding_application,
+  url: :funding_application_additional_documents,
+  method: :put,
+  remote: no_js ? false : true do |f|
+%>
+
+  <div class="govuk-form-group <%= "govuk-form-group--error" if 
+  @funding_application.errors.any? %>">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+
+      <h1 class="govuk-fieldset__heading">
+
+      <%= t('agreement.additional_docs.page_heading') %>
+
+      </h1>
+
+    </legend>
+
+    <p class="govuk-body">
+      <%= t('agreement.additional_docs.new_evidence') %>
+    </p>
+
+    <div id="form-group-errors"></div>
+
+    <%=
+      render(
+        partial: "partials/form_group_errors",
+        locals: {
+          form_object: @funding_application
+        }
+      ) if @funding_application.errors.any?
+    %>
+
+    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+      <div class="govuk-radios__item">
+
+        <%=
+          f.radio_button :new_evidence,
+          "false",
+          class: "govuk-radios__input"
+        %>
+
+        <%=
+          f.label :new_evidence_false,
+          t('agreement.additional_docs.labels.radio_no'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          f.radio_button :new_evidence,
+          "true",
+          class: "govuk-radios__input",
+          checked: @funding_application.additional_evidence_files.attached? ? true : false,
+          "data-aria-controls" => "conditional-funding_application_new_evidence_true"
+        %>
+
+        <%=
+          f.label :new_evidence_true,
+          t('agreement.additional_docs.labels.radio_yes'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="conditional-funding_application_new_evidence_true">
+
+        <div class="govuk-form-group" id="additional_evidence_files-form-group"
+          data-form-group="file">
+
+          <%=
+            f.label :new_evidence,
+            t('generic.upload_a_file'),
+            class: "govuk-label"
+          %>
+
+          <div id="additional_evidence_files-errors"></div>
+
+          <%=
+            f.file_field :additional_evidence_files,
+            multiple: true,
+            direct_upload: true,
+            class: "govuk-file-upload",
+            'data-input-identifier': 'file',
+            'data-attribute': :additional_evidence_files,
+            'data-model': 'funding_application',
+            'autocomplete' => 'off'
+          %>
+
+          <%=
+            render(
+              ButtonComponent.new(
+                type: "button",
+                text: t('agreement.additional_docs.buttons.add_evidence'),
+                classes: "govuk-button--secondary"
+              )
+            )
+          %>
+
+        </div>
+
+        <% unless @funding_application.additional_evidence_files.attached? %>
+
+          <p class="govuk-body">
+            <%= t('agreement.additional_docs.no_evidence_files') %>
+          </p>
+
+        <% else %>
+
+          <table class="govuk-table">
+
+            <thead class="govuk-table__head">
+
+              <tr class="govuk-table__row">
+
+                <th scope="col" class="govuk-table__header">
+                  <%= t("agreement.additional_docs.evidence_file") %>
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody class="govuk-table__body">
+
+            <% @funding_application.additional_evidence_files.each do |af| %>
+
+              <tr>
+
+                <td>
+
+                  <%=
+                    link_to(
+                      af.blob.filename,
+                      rails_blob_path(
+                        af,
+                        disposition: 'attachment'
+                      )
+                    )
+                  %>
+
+                </td>
+
+              </tr>
+
+            <% end %>
+
+            </tbody>
+
+          </table>
+
+        <% end %>
+
+      </div>
+
+      <%#
+        See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+        for the reasoning behind this workaround
+      %>
+      <input type="hidden" name="ieworkaround">
+
+    </div>
+
+  </fieldset>
+
+</div>
+
+  <%= render(ButtonComponent.new(element: 'input')) %>
+
+<% end %>

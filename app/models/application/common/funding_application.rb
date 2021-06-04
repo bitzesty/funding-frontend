@@ -1,10 +1,13 @@
 class FundingApplication < ApplicationRecord
+  include ActiveModel::Validations
+  include GenericValidator
 
   has_many :addresses, through: :funding_application_addresses
 
   has_one :project
   has_one :open_medium
   has_one :payment_details
+  has_one :agreement
   belongs_to :organisation, optional: true
 
   has_many :funding_applications_people, inverse_of: :funding_application
@@ -31,6 +34,10 @@ class FundingApplication < ApplicationRecord
   has_many :funding_applications_pay_reqs, inverse_of: :funding_application
   has_many :payment_requests, through: :funding_applications_pay_reqs
 
+  has_many :funding_applications_legal_sigs, inverse_of: :funding_application
+
+  has_many_attached :additional_evidence_files
+
   accepts_nested_attributes_for(
     :organisation,
     :people,
@@ -51,10 +58,13 @@ class FundingApplication < ApplicationRecord
   attr_accessor :validate_evidence_of_support
   attr_accessor :validate_non_cash_contributions
   attr_accessor :validate_non_cash_contributions_question
+  attr_accessor :validate_new_evidence
+  attr_accessor :validate_additional_evidence_files
 
   attr_accessor :cash_contributions_question
   attr_accessor :non_cash_contributions_question
   attr_accessor :payment_still_details_question
+  attr_accessor :new_evidence
 
   validates_associated :organisation
   validates_associated :people if :validate_people
@@ -71,6 +81,7 @@ class FundingApplication < ApplicationRecord
   validates_inclusion_of :non_cash_contributions_question,
     in: ["true", "false"],
     if: :validate_non_cash_contributions_question?
+  validates_inclusion_of :new_evidence, in: ["true", "false"], if: :validate_new_evidence?
 
   def validate_people?
     validate_people == true
@@ -106,6 +117,21 @@ class FundingApplication < ApplicationRecord
 
   def validate_has_associated_project_costs?
     validate_has_associated_project_costs == true
+  end
+
+  def validate_new_evidence?
+    validate_new_evidence == true
+  end
+
+  def validate_additional_evidence_files?
+    validate_additional_evidence_files == true
+  end
+
+  validate do
+    validate_file_attached(
+        :additional_evidence_files,
+        I18n.t("activerecord.errors.models.funding_application.attributes.additional_evidence_files.inclusion")
+    ) if validate_additional_evidence_files?
   end
 
   private

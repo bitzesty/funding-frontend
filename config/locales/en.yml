@@ -14,6 +14,9 @@ en-GB:
       start_now: "Start now"
       send: "Send"
       continue: "Continue"
+      confirm: "Confirm"
+      submit: "Submit"
+      i_agree: "I agree"
   generic:
     countries:
       scotland: "Scotland"
@@ -66,6 +69,7 @@ en-GB:
     not_started: "Not started"
     in_progress: "In progress" 
     completed: "Completed"
+    cannot_start: "Cannot start yet"
   views:
     organisation:
       common:
@@ -224,6 +228,10 @@ en-GB:
               inclusion: "Select whether or not your project is getting any cash contributions"
             non_cash_contributions_question:
                 inclusion: "Select whether or not your project is getting any non-cash contributions"
+            additional_evidence_files:
+              inclusion: "Add any new evidence for your project since submitting your application"
+            signed_terms_and_conditions:
+              inclusion: "Add evidence of your signed terms and conditions"
         project:
           attributes:
             project_costs:
@@ -600,3 +608,7 @@ en-GB:
               not_a_number: "VAT amount must be a number"
             gross_amount:
               not_a_number: "Gross amount must be a number"
+        funding_applications_legal_sig:
+          attributes:
+            signed_terms_and_conditions:
+              invalid: "Add evidence of your signed terms and conditions"

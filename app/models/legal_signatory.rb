@@ -7,6 +7,9 @@ class DoesNotMatchOtherSignatoryValidator < ActiveModel::EachValidator
 end
 
 class LegalSignatory < ApplicationRecord
+
+  has_many :funding_applications_legal_sigs, inverse_of: :legal_signatory
+
   belongs_to :organisation
   self.implicit_order_column = "created_at"
 
