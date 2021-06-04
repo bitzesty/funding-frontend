@@ -17,7 +17,7 @@ class FundingApplication::TasksController < ApplicationController
   #                                                 FundingApplication
   def set_instance_variables(funding_application)
 
-    @not_awarded = !awarded(
+    @not_awarded = !legal_agreement_in_place?(
       funding_application,
       get_salesforce_api_instance()
     )
