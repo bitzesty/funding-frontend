@@ -31,19 +31,19 @@ class DashboardController < ApplicationController
 
             @gp_open_smalls.push(funding_application) \
               if funding_application.project.present? && \
-                !legal_agreement_in_place?(funding_application, salesforce_api_instance)
+                !awarded(funding_application, salesforce_api_instance)
 
             @gp_open_mediums.push(funding_application) \
               if funding_application.open_medium.present? && \
-                !legal_agreement_in_place?(funding_application, salesforce_api_instance)
+                !awarded(funding_application, salesforce_api_instance)
             
             @legally_agreed_smalls.push(funding_application) \
               if funding_application.project.present? && \
-                legal_agreement_in_place?(funding_application, salesforce_api_instance)
+                awarded(funding_application, salesforce_api_instance)
 
             @legally_agreed_mediums.push(funding_application) \
             if funding_application.open_medium.present? && \
-              legal_agreement_in_place?(funding_application, salesforce_api_instance)
+              awarded(funding_application, salesforce_api_instance)
 
           end
 

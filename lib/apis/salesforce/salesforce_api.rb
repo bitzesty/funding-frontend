@@ -1361,6 +1361,68 @@
 
     end
 
+    # Method to check Salesforce to see if an application is awarded
+    # True is returned if a awarded.
+    # Takes and id as a parameter.  Because Salesforce stores project ids for smalls and
+    # funding_ids for everything else.
+    #
+    # Retries if initial call unsuccessful.
+    #
+    # @param [String] salesforce_external_id Can be a FundingApplication.id or a Project.id
+    #
+    # @return [Boolean] True if the funding_application is ready to start the payment journey.
+    def is_project_awarded(salesforce_external_id)    
+
+      retry_number = 0
+
+      begin
+
+        record_type_id = 
+          @client.query_all("select Start_the_legal_agreement_process__c from Case " \
+            "where ApplicationId__c ='#{salesforce_external_id}'")
+
+        if record_type_id.length != 1
+          error_msg = "Row not found for Case. " \
+            "Checking funding application id : '#{salesforce_external_id}'"
+          Rails.logger.error(error_msg)
+
+        end
+
+        record_type_id&.first&.Start_the_legal_agreement_process__c
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+        Rails.logger.error("Error checking if appliaction awarded " \
+          "for funding application id: #{salesforce_external_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt is_project_awarded again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+      
+    end
+
     
     private
 
