@@ -220,10 +220,16 @@ module PaymentDetailsAndRequestHelper
 
     investment_manager_details = salesforce_api_client.project_owner_details(funding_application.salesforce_case_id)
 
+    im_name = investment_manager_details.Owner&.Name ? 
+      investment_manager_details.Owner&.Name : 'Name not known'
+    
+    im_email = investment_manager_details.Owner&.Email ? 
+      investment_manager_details.Owner&.Email : 'email not known' 
+
     NotifyMailer.payment_request_submission_confirmation(
       funding_application,
-      investment_manager_details.Owner.Name,
-      investment_manager_details.Owner.Email
+      im_name,
+      im_email 
     ).deliver_later
 
     logger.info("Payment request email sent for: #{funding_application.id}")
