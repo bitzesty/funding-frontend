@@ -2,6 +2,7 @@ class FundingApplication::TasksController < ApplicationController
   include FundingApplicationContext
   include ObjectErrorsLogger
   include DashboardHelper
+  include DashboardHelper
 
   def show
 
@@ -17,7 +18,7 @@ class FundingApplication::TasksController < ApplicationController
   #                                                 FundingApplication
   def set_instance_variables(funding_application)
 
-    @not_awarded = !legal_agreement_in_place?(
+    @not_awarded = !awarded(
       funding_application,
       get_salesforce_api_instance()
     )
