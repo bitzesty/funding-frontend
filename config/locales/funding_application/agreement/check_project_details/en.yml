@@ -5,12 +5,17 @@ en-GB:
       page_heading: "Check your Project details"
       sub_headings:
         your_grant: "Your Grant"
+        the_grant: "The Grant"
         your_grant_contract: "Your Grant Contract"
+        the_grant_contract: "The Grant Contract"
         your_project: "Your Project"
+        the_project: "The Project"
         what_money_is_for: "What the money is for"
         what_project_will_do: "What the Project will do"
         your_contribution: "Your contribution"
+        the_organisations_contribution: "The organisation’s contribution"
       if_details_wrong: "If any of these Project details are wrong or have changed since you submitted your application, email your Investment Manager, %{name}. They will agree any changes to the Project or the Grant Contract before the grant is paid."
+      details_of_awarded_grant: "These are the details of the Grant that has been awarded and how it should be used for the Project."
       your_grant_details:
         project_title: "Project title:"
         project_reference: "Project reference number:"
@@ -21,8 +26,10 @@ en-GB:
         date_of_application: "Date of Application:"
         expiry_date: "Grant Expiry Date:"
       your_grant_contract: "Your Grant Contract is made up of:"
-      your_grant_contract_list:
+      the_grant_contract: "The Grant Contract is made up of:"
+      grant_contract_list:
         item_1: "this page that lists your Grant and Project details,"
+        item_1_the: this page that lists the Grant and Project details, 
         item_2: "terms and conditions,"
         item_3: "any Additional Grant Conditions, if applicable,"
         item_4_html: "%{href}. If there are any inconsistencies between the Standard Terms of Grant and the Terms and conditions, the %{href} will take precedence,"
@@ -31,14 +38,20 @@ en-GB:
         item_5_href: "Receiving a Grant guidance"
       you_must_agree: "You must read and agree to all parts of your Grant Contract before we can pay your Grant."
       based_on_application: "Based on your Application, this is the Project we have agreed to fund."
+      based_on_the_application: "Based on the Application, this is the Project we have agreed to fund."
       when_you_applied: "When you applied, you described your Project costs as:"
+      when_the_org_applied: "When the organisation applied, they described the Project costs as:"
       costs_told: "The costs you told us about in your Application detailed above were used to create the following Approved Purposes for your Project."
+      costs_told_by_applicant: "The costs they told us about in the Application detailed above were used to create the following Approved Purposes for the Project."
       approved_purposes: "Approved Purposes summarise the Project described in your Application."
+      approved_purposes_for_the_application: "Approved Purposes summarise the Project described in the Application."
       described_additional_funding: "When you applied, you described additional funding and support of:"
+      their_described_additional_funding: "When they applied, the organisation described additional funding and support of:"
       cash_contributions: "%{amount} in cash contributions, sometimes known as match funding"
       non_cash_contributions: "%{amount} in non-cash contributions, sometimes known as in-kind support"
       volunteers: "%{amount} hours of volunteer time"
       advice: "We advise that you do not start work on the Project until all pre-conditions defined in the Receiving a Grant Guidance and any Additional Conditions have been met. Plus, the Grant contract has been signed and agreed. Project work started before this happens is done so at the organisation's own risk."
+      advice_to_signatory: "We advise that the organisation does not start work on the Project until all pre-conditions defined in the Receiving a Grant Guidance and any Additional Conditions have been met. Plus, the Grant contract has been signed and agreed. Project work started before this happens is done so at the organisation’s own risk."
     costs_table:
       heading:
         amount: "Amount"

@@ -3,11 +3,11 @@
 </h1>
 
 <p class="govuk-body">
-  <%= t('agreement.check_project_details.if_details_wrong', name: @project_details.Owner.Name ) %>
+  <%= t('agreement.check_project_details.details_of_awarded_grant') %>
 </p>
 
 <h2 class="govuk-heading-l">
-  <%= t('agreement.check_project_details.sub_headings.your_grant') %>
+  <%= t('agreement.check_project_details.sub_headings.the_grant') %>
 </h2>
 
 <dl class="govuk-summary-list">
@@ -135,39 +135,39 @@
 </dl>
 
 <h2 class="govuk-heading-l">
-  <%= t('agreement.check_project_details.sub_headings.your_grant_contract') %>
+  <%= t('agreement.check_project_details.sub_headings.the_grant_contract') %>
 </h2>
 
 <p class="govuk-body">
-  <%= t('agreement.check_project_details.your_grant_contract') %>
+  <%= t('agreement.check_project_details.the_grant_contract') %>
 </p>
 
 <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
 
   <li>
     <%=
-      t('agreement.check_project_details.your_grant_contract_list.item_1')
+      t('agreement.check_project_details.grant_contract_list.item_1_the')
     %>
   </li>
 
   <li>
     <%=
-      t('agreement.check_project_details.your_grant_contract_list.item_2')
+      t('agreement.check_project_details.grant_contract_list.item_2')
     %>
   </li>
 
   <li>
     <%=
-      t('agreement.check_project_details.your_grant_contract_list.item_3')
+      t('agreement.check_project_details.grant_contract_list.item_3')
     %>
   </li>
 
   <li>
     <%=
       t(
-        'agreement.check_project_details.your_grant_contract_list.item_4_html',
+        'agreement.check_project_details.grant_contract_list.item_4_html',
         href: link_to(
-          t('agreement.check_project_details.your_grant_contract_list.item_4_href'),
+          t('agreement.check_project_details.grant_contract_list.item_4_href'),
           'https://www.heritagefund.org.uk/publications/standard-terms-grants-3k-10k'
         )
       )
@@ -177,9 +177,9 @@
   <li>
     <%=
       t(
-        'agreement.check_project_details.your_grant_contract_list.item_5_html',
+        'agreement.check_project_details.grant_contract_list.item_5_html',
         href: link_to(
-          t('agreement.check_project_details.your_grant_contract_list.item_5_href'),
+          t('agreement.check_project_details.grant_contract_list.item_5_href'),
           'https://www.heritagefund.org.uk/funding/receiving-grant-guidance-ps3000-ps10000'
         )
       )
@@ -189,11 +189,11 @@
 </ul>
 
 <h2 class="govuk-heading-l">
-  <%= t('agreement.check_project_details.sub_headings.your_project') %>
+  <%= t('agreement.check_project_details.sub_headings.the_project') %>
 </h2>
 
 <p class="govuk-body">
-  <%= t('agreement.check_project_details.based_on_application') %>
+  <%= t('agreement.check_project_details.based_on_the_application') %>
 </p>
 
 <h3 class="govuk-heading-m">
@@ -201,7 +201,7 @@
 </h3>
 
 <p class="govuk-body">
-  <%= t('agreement.check_project_details.when_you_applied') %>
+  <%= t('agreement.check_project_details.when_the_org_applied') %>
 </p>
 
 <table class="govuk-table nlhf-table nlhf-table--responsive-columns" role="table">
@@ -270,11 +270,11 @@
 </h3>
 
 <p class="govuk-body">
-  <%= t('agreement.check_project_details.costs_told') %>
+  <%= t('agreement.check_project_details.costs_told_by_applicant') %>
 </p>
 
 <p class="govuk-body">
-  <%= t('agreement.check_project_details.approved_purposes') %>
+  <%= t('agreement.check_project_details.approved_purposes_for_the_application') %>
 </p>
 
 <table class="govuk-table nlhf-table nlhf-table--responsive-columns" role="table">
@@ -309,11 +309,11 @@
 </table>
 
 <h3 class="govuk-heading-m">
-  <%= t('agreement.check_project_details.sub_headings.your_contribution') %>
+  <%= t('agreement.check_project_details.sub_headings.the_organisations_contribution') %>
 </h3>
 
 <p class="govuk-body">
-  <%= t('agreement.check_project_details.described_additional_funding') %>
+  <%= t('agreement.check_project_details.their_described_additional_funding') %>
 </p>
 
 <p class="govuk-body">
@@ -364,7 +364,7 @@
       <%= t('generic.warning') %>
     </span>
 
-    <%= t('agreement.check_project_details.advice') %>
+    <%= t('agreement.check_project_details.advice_to_signatory') %>
   </strong>
 
 </div>
