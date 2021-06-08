@@ -7,5 +7,5 @@ en-GB:
     need_to_list:
       add_bank_details: "Add your organisation's bank account details"
       upload_evidence: "Upload evidence of the account. Evidence can be a recent bank statement, cheque, or paying-in slip"
-    page_hint: "The name of the bank account and evidence you upload should match the name of the organisation from the application form."
+    page_hint: "The name of the bank account and evidence you upload should match the name of the organisation from the application."
 

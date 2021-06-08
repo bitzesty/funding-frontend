@@ -31,11 +31,15 @@
   </li>
 
   <li>
+    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_4') %>
+  </li>
+
+  <li>
     <%=
       t(
-        'agreement.how_to_accept.before_we_can_pay_list.item_4_html',
+        'agreement.how_to_accept.before_we_can_pay_list.item_5_html',
         href: link_to(
-          t('agreement.how_to_accept.before_we_can_pay_list.item_4_href'), 
+          t('agreement.how_to_accept.before_we_can_pay_list.item_5_href'), 
           @standard_terms_link
         )
       )
@@ -45,9 +49,9 @@
   <li>
     <%=
       t(
-        'agreement.how_to_accept.before_we_can_pay_list.item_5_html',
+        'agreement.how_to_accept.before_we_can_pay_list.item_6_html',
         href: link_to(
-          t('agreement.how_to_accept.before_we_can_pay_list.item_5_href'),
+          t('agreement.how_to_accept.before_we_can_pay_list.item_6_href'),
           @retrieving_a_grant_guidance_link
         )
       )
@@ -55,18 +59,19 @@
   </li>
 
   <li>
-    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_6') %>
-  </li>
-
-  <li>
     <%= t('agreement.how_to_accept.before_we_can_pay_list.item_7') %>
   </li>
 
-  <li>
-    <%= t('agreement.how_to_accept.before_we_can_pay_list.item_8') %>
-  </li>
-
 </ul>
+
+<p class="govuk-body">
+  <%=
+    t(
+      'agreement.how_to_accept.timescales',
+      name: @investment_manager_name
+    )
+  %>
+</p>
 
 <h2 class="govuk-heading-l">
   <%= t('agreement.how_to_accept.sub_heading_anything_changed') %>
@@ -104,15 +109,6 @@
   </li>
 
 </ol>
-
-<p class="govuk-body">
-  <%=
-    t(
-      'agreement.how_to_accept.timescales',
-      name: @investment_manager_name
-    )
-  %>
-</p>
 
 <%=
   form_with model: @funding_application,

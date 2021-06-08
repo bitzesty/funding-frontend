@@ -25,7 +25,7 @@ en-GB:
         item_1: "this page that lists your Grant and Project details,"
         item_2: "terms and conditions,"
         item_3: "any Additional Grant Conditions, if applicable,"
-        item_4_html: "%{href}. If there are any consistencies between the Standard Terms of Grant and the Terms and conditions, the %{href} will take precedence,"
+        item_4_html: "%{href}. If there are any inconsistencies between the Standard Terms of Grant and the Terms and conditions, the %{href} will take precedence,"
         item_4_href: "Standard Terms of Grant"
         item_5_html: "%{href}."
         item_5_href: "Receiving a Grant guidance"

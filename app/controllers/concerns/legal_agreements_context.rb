@@ -23,14 +23,11 @@ module LegalAgreementsContext
       id: params[:application_id],
     )
 
-    redirect_to :root unless @funding_application.present?
-
-    redirect_to :root unless @funding_application.submitted_on.present?
-
-    redirect_to :root unless encoded_signatory_id_verifies?(
-      @funding_application,
-      params[:encoded_signatory_id]
-    )
+    redirect_to :root unless @funding_application&.submitted_on.present? \
+      && encoded_signatory_id_verifies?(
+        @funding_application,
+        params[:encoded_signatory_id]
+      )
 
   end
 
