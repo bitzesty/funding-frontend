@@ -7,7 +7,7 @@ en-GB:
       3: "Help and guidance"
       4: "Other ways to contact us"
       5: "Phone"
-      6: "Text phone"
+      6: "You can also make contact through Relay UK using your text phone or Relay UK App."
     items:
       1: "Report a problem"
       2: "Ask a question or give feedback"
@@ -19,3 +19,4 @@ en-GB:
       support_hours:
         1: "We can only provide support during office hours which are 9:00am to 5:00pm, Monday to Friday."
         2: "Outside office hours, your query will be stored for us to read the next working day."
+      insert_18001_plus: "Insert 18001 plus"
