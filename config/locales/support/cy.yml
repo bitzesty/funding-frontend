@@ -7,7 +7,7 @@ cy:
       3: "Cymorth a chanllaw"
       4: "Ffyrdd eraill o gysylltu â ni"
       5: "Ffôn"
-      6: "Ffôn testun"
+      6: "Gallwch hefyd gysylltu drwy Relay UK gan ddefnyddio eich ffôn testun neu ap Relay UK."
     items:
       1: "Rhoi gwybod am broblem"
       2: "Gofynnwch gwestiwn neu rhowch adborth"
@@ -19,3 +19,4 @@ cy:
       support_hours:
         1: "Dim ond yn ystod oriau swyddfa rhwng 9:00am a 5:00pm, o ddydd Llun i ddydd Gwener y gallwn ddarparu cymorth."
         2: "Y tu allan i oriau swyddfa, bydd eich ymholiad yn cael ei storio er mwyn i ni ei ddarllen y diwrnod gwaith nesaf."
+      insert_18001_plus: "Rhowch 18001 ac yna’r arwydd plws"
