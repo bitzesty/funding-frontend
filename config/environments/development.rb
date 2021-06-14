@@ -79,7 +79,7 @@ Rails.application.configure do
   config.x.payment_encryption_salt = ENV.fetch("PAYMENT_ENCRYPTION_SALT")
 
   config.x.support_email_address = ENV.fetch("SUPPORT_EMAIL_ADDRESS")
-  config.x.reply_email_address = ENV.fetch("REPLY_EMAIL_ADDRESS")
+  config.x.reply_email_guid = ENV.fetch("REPLY_EMAIL_GUID")
 
   config.x.consumer.username = 'test'
   config.x.consumer.password = 'test'

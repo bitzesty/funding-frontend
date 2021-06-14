@@ -1,6 +1,6 @@
 class NotifyMailer < Mail::Notify::Mailer
 
-  before_action { @reply_to_id = "3bd255ca-7071-4cdb-aee8-f554bed5042d" }
+  before_action { @reply_to_id = Rails.configuration.x.reply_email_guid }
 
   include Devise::Controllers::UrlHelpers
 

@@ -136,6 +136,9 @@ Rails.application.configure do
     config.x.payment_encryption_key = ENV.fetch("PAYMENT_ENCRYPTION_KEY")
     config.x.payment_encryption_salt = ENV.fetch("PAYMENT_ENCRYPTION_SALT")
 
+    config.x.support_email_address = ENV.fetch("SUPPORT_EMAIL_ADDRESS")
+    config.x.reply_email_guid = ENV.fetch("REPLY_EMAIL_GUID")
+
     config.lograge.enabled = true
     config.assets.quiet = true
     config.x.consumer.username = ENV.fetch("CONSUMER_USERNAME")
