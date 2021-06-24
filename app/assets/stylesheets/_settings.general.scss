@@ -21,8 +21,8 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 $nlhf-settings: (
     'colour': (
         'blue' : (
-            'accessible': #005565, // better constrast ratio (8.4) inperseptible to a typical user but better for those with sight problems
-            'default': #015D72, // technically AAA contrast ratio (7.4) when used with white
+            'accessible': #005565, // better constrast ratio (8.4) imperceptible to a typical user but better for those with sight problems
+            'default': #007FA1,
             '20': #c1d4d2,
             '5': #f5f7f8
         ),
