@@ -75,7 +75,8 @@ RSpec.describe Organisation::SignatoriesController do
 
       expect(assigns(:organisation).errors.empty?).to eq(false)
 
-      # Checking the overall organisation errors hash first
+      # Checking the overall organisation errors hash first - these
+      # are the errors that can occur.
       expect(assigns(:organisation).errors["legal_signatories"][0])
           .to eq("is invalid")
       expect(assigns(:organisation).errors["legal_signatories.name"][0])
@@ -100,8 +101,18 @@ RSpec.describe Organisation::SignatoriesController do
                  .legal_signatories.first.errors[:phone_number][0])
           .to eq("Enter the phone number of a legal signatory")
 
+      # Checking the second legal signatories errors hash
       expect(assigns(:organisation)
-                 .legal_signatories.second.errors.empty?).to eq(true)
+                 .legal_signatories.second.errors.empty?).to eq(false)
+      expect(assigns(:organisation)
+                 .legal_signatories.second.errors[:name][0])
+          .to eq("Enter the name of a legal signatory")
+      expect(assigns(:organisation)
+                 .legal_signatories.second.errors[:email_address][0])
+          .to eq("Enter a valid email address")
+      expect(assigns(:organisation)
+                 .legal_signatories.second.errors[:phone_number][0])
+          .to eq("Enter the phone number of a legal signatory")
 
     end
 
@@ -224,8 +235,8 @@ RSpec.describe Organisation::SignatoriesController do
 
     end
 
-    it "should successfully redirect if a single valid legal signatory is " \
-       "added" do
+    it "should re-render the page if a single valid legal signatory is " \
+       "added.  Two must be added." do
 
       put :update,
           params: {
@@ -246,10 +257,10 @@ RSpec.describe Organisation::SignatoriesController do
               }
           }
 
-      expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(:organisation_summary)
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:show)
 
-      expect(assigns(:organisation).errors.empty?).to eq(true)
+      expect(assigns(:organisation).errors.present?).to eq(true)
 
       expect(assigns(:organisation).legal_signatories.first.name)
           .to eq("Joe Bloggs")
@@ -257,6 +268,19 @@ RSpec.describe Organisation::SignatoriesController do
           .to eq("joe@bloggs.com")
       expect(assigns(:organisation).legal_signatories.first.phone_number)
           .to eq("07123456789")
+
+      # Checking the second legal signatories errors hash
+      expect(assigns(:organisation)
+                 .legal_signatories.second.errors.empty?).to eq(false)
+      expect(assigns(:organisation)
+                 .legal_signatories.second.errors[:name][0])
+          .to eq("Enter the name of a legal signatory")
+      expect(assigns(:organisation)
+                 .legal_signatories.second.errors[:email_address][0])
+          .to eq("Enter a valid email address")
+      expect(assigns(:organisation)
+                 .legal_signatories.second.errors[:phone_number][0])
+          .to eq("Enter the phone number of a legal signatory")
 
     end
 

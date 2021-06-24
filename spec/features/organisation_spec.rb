@@ -67,6 +67,11 @@ RSpec.feature 'Organisation', type: :feature do
       fill_in I18n.t('organisation.signatories.labels.email_address'), match: :first, with: 'test@example.com'
       fill_in I18n.t('organisation.signatories.labels.phone_number'), match: :first, with: '123'
 
+      # I18n labels reused for first and second signatory.  So here, refer by id of the element directly. 
+      fill_in "organisation_legal_signatories_attributes_1_name", with: 'John Doe'
+      fill_in "organisation_legal_signatories_attributes_1_email_address",  with: 'test2@example.com'
+      fill_in "organisation_legal_signatories_attributes_1_phone_number",  with: '321'
+
       click_link_or_button 'Save and continue'
 
       expect(page.title).to include(I18n.t('organisation.summary.page_title'))
