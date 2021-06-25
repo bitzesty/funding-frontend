@@ -10,6 +10,9 @@ class Organisation::NumbersController < ApplicationController
 
     logger.info "Updating company_number/charity_number for organisation ID: #{@organisation.id}"
 
+    @organisation.validate_company_number = true
+    @organisation.validate_charity_number = true
+
     @organisation.update(organisation_params)
 
     if @organisation.valid?

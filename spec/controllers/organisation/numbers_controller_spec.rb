@@ -94,6 +94,38 @@ RSpec.describe Organisation::NumbersController do
 
     end
 
+    it "should re-render the show page with errors if the charity and " \
+    "company numbers exceed 20 characters" do
+
+      put :update, params: {
+          organisation_id: subject.current_user.organisations.first.id,
+          organisation: {
+              charity_number: "CHNO123456789123456789",
+              company_number: "CONO987654321987654321"
+          }
+      }
+
+      expect(assigns(:organisation).charity_number).to eq("CHNO123456789123456789")
+      expect(assigns(:organisation).company_number).to eq("CONO987654321987654321")
+
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:show)
+
+      expect(assigns(:organisation).errors.present?).to eq(true)
+
+
+      expect(
+        assigns(:organisation).errors.messages[:charity_number][0]
+      ).to eq(I18n.t("activerecord.errors.models.organisation.attributes." \
+        "charity_number.too_long"))
+
+      expect(
+        assigns(:organisation).errors.messages[:company_number][0]
+      ).to eq(I18n.t("activerecord.errors.models.organisation.attributes." \
+        "company_number.too_long"))
+
+    end
+
   end
 
 end

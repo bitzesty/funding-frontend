@@ -202,6 +202,10 @@ en-GB:
             vat_number:
               too_short: "Enter the VAT number of your organisation in the correct format"
               too_long: "Enter the VAT number of your organisation in the correct format"
+            company_number:
+              too_long: "Company number must be 20 characters or fewer"
+            charity_number:
+              too_long: "Charity number must be 20 characters or fewer. For example 1234567 in England and Wales, SC000123 in Scotland, or 10000-0 in Northern Ireland"
             social_media_info:
               too_long: "Description of your organisation's social media must be %{word_count} words or fewer"
             unrestricted_funds:

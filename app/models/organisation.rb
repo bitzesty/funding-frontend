@@ -28,6 +28,8 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_board_members_or_trustees
   attr_accessor :validate_vat_registered
   attr_accessor :validate_vat_number
+  attr_accessor :validate_company_number
+  attr_accessor :validate_charity_number
   attr_accessor :validate_social_media_info
   attr_accessor :validate_spend_in_last_financial_year
   attr_accessor :validate_unrestricted_funds
@@ -54,6 +56,9 @@ class Organisation < ApplicationRecord
   validates :vat_number, length: { minimum: 9, maximum: 12 }, if: :validate_vat_number?
   validates :spend_in_last_financial_year, numericality: { greater_than: 0, allow_nil: true }, if: :validate_spend_in_last_financial_year?
   validates :unrestricted_funds, numericality: { greater_than: 0, allow_nil: true }, if: :validate_unrestricted_funds?
+  validates :company_number, length: { maximum: 20 }, if: :validate_company_number?
+  validates :charity_number, length: { maximum: 20 }, if: :validate_charity_number?
+  
 
   validate do
 
@@ -105,6 +110,14 @@ class Organisation < ApplicationRecord
   
   def validate_vat_number?
     validate_vat_number == true
+  end
+
+  def validate_company_number?
+    validate_company_number == true
+  end
+
+  def validate_charity_number?
+    validate_charity_number == true
   end
 
   def validate_vat_registered?
