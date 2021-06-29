@@ -198,6 +198,10 @@ cy:
                 vat_number:
                   too_short: "Rhowch rif TAW eich sefydliad yn y fformat cywir" 
                   too_long: "Rhowch rif TAW eich sefydliad yn y fformat cywir" 
+                company_number:
+                   too_long: "Mae'n rhaid i rif y cwmni fod yn 20 nod neu'n llai"
+                charity_number:
+                  too_long: "Mae'n rhaid i rif elusen fod yn 20 nod neu lai. Er enghraifft 1234567 yng Nghymru a Lloegr, SC000123 yn yr Alban, neu 10000-0 yng Ngogledd Iwerddon"
                 social_media_info:
                   too_long: "Rhaid i ddisgrifiad o gyfryngau cymdeithasol eich sefydliad fod yn %{word_count} gair neu lai" 
                 unrestricted_funds:
