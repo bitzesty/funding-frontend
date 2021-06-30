@@ -50,10 +50,11 @@ RSpec.describe Project, type: :model do
 
       @project.user.organisations.append(organisation)
 
+      # Upcase the email, to check that isAlsoApplicant check handles differing cases
       legal_signatory_one = build(
           :legal_signatory,
           name: "Joe Bloggs",
-          email_address: @project.user.email,
+          email_address: @project.user.email.upcase,
           phone_number: "07123456789"
       )
 
@@ -119,7 +120,7 @@ RSpec.describe Project, type: :model do
       expect(project_salesforce_json['application']['authorisedSignatoryOneDetails']['name'])
           .to eq("Joe Bloggs")
       expect(project_salesforce_json['application']['authorisedSignatoryOneDetails']['email'])
-          .to eq(@project.user.email)
+          .to eq(@project.user.email.upcase)
       expect(project_salesforce_json['application']['authorisedSignatoryOneDetails']['isAlsoApplicant'])
           .to eq(true)
       expect(project_salesforce_json['application']['authorisedSignatoryOneDetails']['phone'])

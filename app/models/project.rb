@@ -439,7 +439,7 @@ class Project < ApplicationRecord
                     json.set!("email", ls.email_address)
                     json.set!("phone", ls.phone_number)
                     # Salesforce uses this flag to determine whether or not to create a single Contact object
-                    json.set!("isAlsoApplicant", self.user.email == ls.email_address)
+                    json.set!("isAlsoApplicant", self.user.email&.upcase == ls.email_address&.upcase)
                     json.set!("role", "")
                 }
                 @ls_one = self.user.organisations.first.legal_signatories.first
