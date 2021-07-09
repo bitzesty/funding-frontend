@@ -1,0 +1,15 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.organisation.board_members_or_trustees') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%=
+      model_object.board_members_or_trustees.present? ?
+      model_object.board_members_or_trustees :
+      t('generic.not_answered')
+    %>
+  </dd>
+
+</div>

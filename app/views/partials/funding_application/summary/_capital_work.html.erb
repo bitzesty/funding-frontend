@@ -1,0 +1,30 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('funding_application.check_answers.project.capital_work') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <%= model_object.capital_work? ? "Yes" : "No" %>
+
+    <% if model_object.capital_work_file.present? %>
+
+      <br />
+
+      <p class="govuk-body">
+        <%= t('generic.uploaded_file') %>: <%= link_to(
+          model_object.capital_work_file.blob.filename,
+            rails_blob_path(
+              model_object.capital_work_file,
+              disposition: 'attachment'
+            )
+          )
+        %>
+      </p>
+
+    <% end %>
+
+  </dd>
+  
+</div>

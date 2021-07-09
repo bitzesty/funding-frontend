@@ -1,0 +1,37 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('pa_expression_of_interest.check_answers.table.row_headings.org_address') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <% unless @organisation.line1.present? %>
+      <%= t('generic.not_answered') %>
+    <% else %>
+      <% if @organisation.line1.present? %>
+        <p><%= @organisation.line1 %></p>
+      <% end %>
+
+      <% if @organisation.line2.present? %>
+        <p><%= @organisation.line2 %></p>
+      <% end %>
+
+      <% if @organisation.line3.present? %>
+        <p><%= @organisation.line3 %></p>
+      <% end %>
+
+      <% if @organisation.townCity.present? %>
+        <p><%= @organisation.townCity %></p>
+      <% end %>
+
+      <% if @organisation.county.present? %>
+        <p><%= @organisation.county %></p>
+      <% end %>
+
+      <% if @organisation.postcode.present? %>
+        <p><%= @organisation.postcode %></p>
+      <% end %>
+    <% end %>
+  </dd>
+  
+</div>

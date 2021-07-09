@@ -140,6 +140,7 @@ Rails.application.routes.draw do
         put 'check-your-answers', to: 'check_answers#update'
         get 'submitted', to: 'submitted#show'
         put 'submitted', to: 'submitted#update'
+        get 'summary', to: 'summary#show'
 
       end
 
@@ -175,6 +176,7 @@ Rails.application.routes.draw do
         put 'check-your-answers', to: 'check_answers#update'
         get 'submitted', to: 'submitted#show'
         put 'submitted', to: 'submitted#update'
+        get 'summary', to: 'summary#show'
 
       end
 
@@ -426,6 +428,7 @@ Rails.application.routes.draw do
         put 'declaration', to: 'declaration#update_declaration', constraints: lambda { Flipper.enabled?(:new_applications_enabled) }
         put 'declaration', to: redirect('/', status: 302), constraints: lambda { !Flipper.enabled?(:new_applications_enabled) }
         get 'application-submitted', to: 'application_submitted#show'
+        get 'summary', to: 'summary#show'
 
       end
     
@@ -508,6 +511,7 @@ Rails.application.routes.draw do
         put 'declaration', to: 'declaration#update_declaration', constraints: lambda { Flipper.enabled?(:new_applications_enabled) }
         put 'declaration', to: redirect('/', status: 302), constraints: lambda { !Flipper.enabled?(:new_applications_enabled) }
         get 'application-submitted', to: 'application_submitted#show'
+        get 'summary', to: 'summary#show'
 
       end
 

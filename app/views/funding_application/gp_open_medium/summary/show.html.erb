@@ -1,0 +1,542 @@
+<%=
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @funding_application,
+      page_title: t('views.summary.page_title')
+    }
+  )
+%>
+
+<div class="govuk-caption-xl">
+  <%= t('gp_open_medium.summary.sub_heading') %>
+</div>
+
+<%= render 'partials/summary/header_and_hint' %>
+
+<dl class="govuk-summary-list">
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/main_purpose',
+      locals: {
+        model_object: @funding_application.organisation,
+        change_link: funding_application_gp_open_medium_main_purpose_of_organisation_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/board_members_or_trustees',
+      locals: {
+        model_object: @funding_application.organisation,
+        change_link: funding_application_gp_open_medium_board_members_or_trustees_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/vat_registered',
+      locals: {
+        model_object: @funding_application.organisation,
+        change_link: funding_application_gp_open_medium_vat_registered_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/vat_number',
+      locals: {
+        model_object: @funding_application.organisation,
+        change_link: funding_application_gp_open_medium_vat_registered_path
+      }
+    ) if @funding_application.organisation.vat_number.present?
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/social_media',
+      locals: {
+        model_object: @funding_application.organisation,
+        change_link: funding_application_gp_open_medium_social_media_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/spend_last_year',
+      locals: {
+        model_object: @funding_application.organisation,
+        change_link: funding_application_gp_open_medium_spend_last_year_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/unrestricted_funds',
+      locals: {
+        model_object: @funding_application.organisation,
+        change_link: funding_application_gp_open_medium_unrestricted_funds_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/received_advice',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_advice_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/first_fund_application',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_first_fund_application_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/recent_project_title',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_first_fund_application_path
+      }
+    ) if @funding_application.open_medium.recent_project_title.present? 
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/recent_project_reference',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_first_fund_application_path
+      }
+    ) if @funding_application.open_medium.recent_project_reference.present? 
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/title',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_title_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/start_date',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_dates_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/end_date',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_dates_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/why_now',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_why_now_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/location',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_location_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/description',
+      locals: {
+        model_object: @funding_application.open_medium,
+        model_object_name: 'open_medium',
+        change_link: funding_application_gp_open_medium_description_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/capital_work',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_capital_works_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/ownership',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_ownership_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/acquisition',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_acquisition_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/permission',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_do_you_need_permission_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/difference',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_project_difference_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/at_risk',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_at_risk_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/at_risk_description',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_at_risk_path
+      }
+    ) if @funding_application.open_medium.heritage_at_risk_description.present?
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/heritage_designations',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_any_formal_designation_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/heritage_attracts_visitors',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_visitors_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/visitors_in_last_financial_year',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_visitors_path
+      }
+    ) if @funding_application.open_medium.visitors_in_last_financial_year.present?
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/visitors_expected_per_year',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_visitors_path
+      }
+    ) if @funding_application.open_medium.visitors_expected_per_year.present?
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/community_matters',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_how_does_your_project_matter_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/environmental_impacts',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_environmental_impacts_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/heritage',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_your_project_heritage_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/best_placed',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_why_is_your_organisation_best_placed_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/partnership',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_partnership_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/partnership_details',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_partnership_path
+      }
+    ) if @funding_application.open_medium.partnership_details.present?
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/involvement',
+      locals: {
+        model_object: @funding_application.open_medium,
+        model_object_name: 'open_medium',
+        change_link: funding_application_gp_open_medium_how_will_your_project_involve_people_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/other_outcomes',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_our_other_outcomes_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/management',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_how_will_your_project_be_managed_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/evaluation',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_how_will_you_evaluate_your_project_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/acknowledgement',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_plans_to_acknowledge_grant_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/jobs',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_jobs_or_apprenticeships_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/costs',
+      locals: {
+        model_object: @funding_application,
+        model_object_name: 'funding_application',
+        include_vat_amount: false, # TODO: Breaks page styling
+        change_link: funding_application_gp_open_medium_costs_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/cash_contributions',
+      locals: {
+        model_object: @funding_application,
+        change_link: funding_application_gp_open_medium_cash_contributions_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/non_cash_contributions',
+      locals: {
+        model_object: @funding_application,
+        change_link: funding_application_gp_open_medium_non_cash_contributions_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/volunteers',
+      locals: {
+        model_object: @funding_application,
+        change_link: funding_application_gp_open_medium_volunteers_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/evidence_of_support',
+      locals: {
+        model_object: @funding_application,
+        change_link: funding_application_gp_open_medium_evidence_of_support_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/governing_documents',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_governing_documents_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/accounts',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_accounts_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/project_plan',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_project_plan_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/work_briefs',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_work_briefs_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/project_images',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_project_images_path
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/full_cost_recovery',
+      locals: {
+        model_object: @funding_application.open_medium,
+        change_link: funding_application_gp_open_medium_full_cost_recovery_path
+      }
+    )
+  %>
+
+</dl>
+
+<%=
+  render(
+      ButtonComponent.new(
+          href: @last_page,
+          text: t('views.summary.button'),
+      )
+  )
+%>

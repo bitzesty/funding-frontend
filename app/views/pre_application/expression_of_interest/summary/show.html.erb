@@ -1,0 +1,41 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @pre_application.pa_expression_of_interest,
+             page_title: t('views.summary.page_title')
+         }
+%>
+
+<div class="govuk-caption-xl">
+  <%= t('pa_expression_of_interest.summary.sub_heading') %>
+</div>
+
+<%= render 'partials/summary/header_and_hint' %>
+
+<dl class="govuk-summary-list">
+
+  <%= render 'pre_application/expression_of_interest/summary/organisation_type' %>
+  <%= render 'pre_application/expression_of_interest/summary/organisation_name' %>
+  <%= render 'pre_application/expression_of_interest/summary/organisation_address' %>
+  <%= render 'pre_application/expression_of_interest/summary/organisation_mission' %>
+  <%= render 'pre_application/expression_of_interest/summary/previous_contact_name' %>
+  <%= render 'pre_application/expression_of_interest/summary/what_project_does' %>
+  <%= render 'pre_application/expression_of_interest/summary/title' %>
+  <%= render 'pre_application/expression_of_interest/summary/programme_outcomes' %>
+  <%= render 'pre_application/expression_of_interest/summary/heritage_focus' %>
+  <%= render 'pre_application/expression_of_interest/summary/project_reasons' %>
+  <%= render 'pre_application/expression_of_interest/summary/project_timescales' %>
+  <%= render 'pre_application/expression_of_interest/summary/overall_cost' %>
+  <%= render 'pre_application/expression_of_interest/summary/potential_funding_amount' %>
+  <%= render 'pre_application/expression_of_interest/summary/likely_submission_description' %>
+
+</dl>
+
+<%=
+  render(
+      ButtonComponent.new(
+          href: @last_page,
+          text: t('views.summary.button'),
+      )
+  )
+%>

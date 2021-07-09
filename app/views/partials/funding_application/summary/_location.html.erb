@@ -1,0 +1,43 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('views.funding_application.gp_project.check_your_answers.where_is_your_project_taking_place') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <% unless model_object.line1.present? %>
+
+      <%= t('generic.not_answered') %>
+
+    <% else %>
+
+      <% if model_object.line1.present? %>
+        <p><%= model_object.line1 %></p>
+      <% end %>
+
+      <% if model_object.line2.present? %>
+        <p><%= model_object.line2 %></p>
+      <% end %>
+
+      <% if model_object.line3.present? %>
+        <p><%= model_object.line3 %></p>
+      <% end %>
+
+      <% if model_object.townCity.present? %>
+        <p><%= model_object.townCity %></p>
+      <% end %>
+
+      <% if model_object.county.present? %>
+        <p><%= model_object.county %></p>
+      <% end %>
+
+      <% if model_object.postcode.present? %>
+        <p><%= model_object.postcode %></p>
+      <% end %>
+
+    <% end %>
+
+  </dd>
+
+</div>

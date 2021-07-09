@@ -1,0 +1,25 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.first_fund_application.question') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <% unless model_object.first_fund_application.nil? %>
+
+      <%=
+        model_object.first_fund_application ?
+        t('funding_application.check_answers.project.first_fund_application.answer_yes') :
+        t('funding_application.check_answers.project.first_fund_application.answer_no')
+      %>
+
+    <% else %>
+
+      <%= t('generic.not_answered') %>
+
+    <% end %>
+
+  </dd>
+
+</div>

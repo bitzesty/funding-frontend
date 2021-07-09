@@ -1,0 +1,11 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('pa_project_enquiry.check_answers.table.row_headings.working_title') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%= @pre_application.pa_project_enquiry.working_title? ? @pre_application.pa_project_enquiry.working_title : t('generic.not_answered') %>
+  </dd>
+
+</div>

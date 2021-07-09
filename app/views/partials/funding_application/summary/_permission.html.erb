@@ -1,0 +1,47 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('views.funding_application.gp_project.check_your_answers.permission') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <% if model_object.permission_type.present? %>
+
+      <% if model_object.permission_type == 'no' || model_object.permission_type == 'yes' %>
+
+        <%= model_object.permission_type.humanize %>
+
+      <% else %>
+
+        <%= t('generic.not_sure') %>
+
+      <% end %>
+
+    <% else %>
+
+      <%= t('generic.not_answered') %>
+
+    <% end %>
+  </dd>
+
+</div>
+
+<% if model_object.permission_type == "yes" || model_object.permission_type == "x_not_sure" %>
+
+  <div class="govuk-summary-list__row">
+
+    <dt class="govuk-summary-list__key">
+      <%= t('views.funding_application.gp_project.check_your_answers.more_info_about_permission') %>
+    </dt>
+
+    <dd class="govuk-summary-list__value">
+      <%=
+        model_object.permission_description.nil? ?
+        t('generic.not_answered') :
+        model_object.permission_description
+      %>
+    </dd>
+
+  </div>
+
+<% end %>

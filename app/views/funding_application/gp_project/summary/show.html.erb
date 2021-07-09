@@ -1,0 +1,192 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @funding_application.project,
+             page_title: t('views.summary.page_title')
+         }
+%>
+
+<span class="govuk-caption-xl">
+  <%= t('gp_project.summary.sub_heading') %>
+</span>
+
+<%= render 'partials/summary/header_and_hint' %>
+
+<dl class="govuk-summary-list">
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/title',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/start_date',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/end_date',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/location',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/description',
+      locals: {
+        model_object: @funding_application.project,
+        model_object_name: 'project',
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/capital_work',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/permission',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/difference',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/community_matters',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/heritage',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/best_placed',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/involvement',
+      locals: {
+        model_object: @funding_application.project,
+        model_object_name: 'project'
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/other_outcomes',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/costs',
+      locals: {
+        model_object: @funding_application.project,
+        model_object_name: 'project',
+        include_vat_amount: false, # TODO: Breaks page styling
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/cash_contributions',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/non_cash_contributions',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/volunteers',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/summary/evidence_of_support',
+      locals: {
+        model_object: @funding_application.project
+      }
+    )
+  %>
+
+</dl>
+
+<%=
+  render(
+      ButtonComponent.new(
+          href: @last_page,
+          text: t('views.summary.button'),
+      )
+  )
+%>

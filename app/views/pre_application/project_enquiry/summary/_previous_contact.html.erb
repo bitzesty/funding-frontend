@@ -1,0 +1,11 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('pa_project_enquiry.check_answers.table.row_headings.previous_contact_name') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%= @pre_application.pa_project_enquiry.previous_contact_name.present? ? @pre_application.pa_project_enquiry.previous_contact_name : t('generic.not_answered')%>
+  </dd>
+
+</div>

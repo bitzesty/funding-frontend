@@ -1,0 +1,11 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('pa_project_enquiry.check_answers.table.row_headings.project_likely_cost') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%= @pre_application.pa_project_enquiry.project_likely_cost.present? ? @pre_application.pa_project_enquiry.project_likely_cost : t('generic.not_answered')%>
+  </dd>
+
+</div>

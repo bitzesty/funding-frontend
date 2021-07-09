@@ -1,0 +1,15 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('views.funding_application.gp_project.check_your_answers.heritage') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%=
+      model_object.heritage_description.present? ?
+      model_object.heritage_description :
+      t('generic.not_answered')
+    %>
+  </dd>
+
+</div>

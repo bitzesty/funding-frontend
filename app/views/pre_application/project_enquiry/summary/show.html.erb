@@ -1,0 +1,41 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @pre_application.pa_project_enquiry,
+             page_title: t('views.summary.page_title')
+         }
+%>
+
+<div class="govuk-caption-xl">
+  <%= t('pa_project_enquiry.summary.sub_heading') %>
+</div>
+
+<%= render 'partials/summary/header_and_hint' %>
+
+<dl class="govuk-summary-list">
+
+  <%= render 'pre_application/project_enquiry/summary/organisation_type' %>
+  <%= render 'pre_application/project_enquiry/summary/organisation_name' %>
+  <%= render 'pre_application/project_enquiry/summary/organisation_address' %>
+  <%= render 'pre_application/project_enquiry/summary/organisation_mission' %>
+  <%= render 'pre_application/project_enquiry/summary/previous_contact' %> 
+  <%= render 'pre_application/project_enquiry/summary/project_reasons' %> 
+  <%= render 'pre_application/project_enquiry/summary/what_project_does' %> 
+  <%= render 'pre_application/project_enquiry/summary/working_title' %> 
+  <%= render 'pre_application/project_enquiry/summary/heritage_focus' %> 
+  <%= render 'pre_application/project_enquiry/summary/programme_outcomes' %> 
+  <%= render 'pre_application/project_enquiry/summary/project_participants' %>
+  <%= render 'pre_application/project_enquiry/summary/project_timescales' %>
+  <%= render 'pre_application/project_enquiry/summary/project_likely_cost' %>
+  <%= render 'pre_application/project_enquiry/summary/potential_funding_amount' %>
+
+</dl>
+
+<%=
+  render(
+      ButtonComponent.new(
+          href: @last_page,
+          text: t('views.summary.button'),
+      )
+  )
+%>

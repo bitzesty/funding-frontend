@@ -1,0 +1,128 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('funding_application.check_answers.project.ownership.question') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <% if model_object.ownership_type.present? %>
+
+      <% if model_object.ownership_type == 'organisation' %>
+
+        <p class="govuk-body">
+
+          <span class="govuk-!-font-weight-bold">
+            <%= t('funding_application.check_answers.project.ownership.owned_by') %>
+          </span>
+
+          <%= t('funding_application.check_answers.project.ownership.types.organisation') %>
+
+        </p>
+
+        <% if model_object.ownership_type_org_description.present? %>
+
+          <p class="govuk-body">
+
+            <span class="govuk-!-font-weight-bold">
+              <%= t('funding_application.check_answers.project.ownership.description') %>
+            </span>
+
+            <%= model_object.ownership_type_org_description %>
+
+          </p>
+
+        <% end %>
+
+        <% if model_object.ownership_file.present? %>
+
+          <p class="govuk-body">
+
+            <%= t('generic.uploaded_file') %>: <%= link_to(
+              model_object.ownership_file.blob.filename,
+                rails_blob_path(
+                  model_object.ownership_file,
+                  disposition: 'attachment'
+                )
+              )
+            %>
+
+          </p>
+
+        <% end %>
+
+      <% end %>
+
+      <% if model_object.ownership_type == 'project_partner' %>
+
+        <p class="govuk-body">
+
+          <span class="govuk-!-font-weight-bold">
+            <%= t('funding_application.check_answers.project.ownership.owned_by') %>
+          </span>
+
+          <%= t('funding_application.check_answers.project.ownership.types.project_partner') %>
+
+        </p>
+
+        <% if model_object.ownership_type_pp_description.present? %>
+
+          <p class="govuk-body">
+
+            <span class="govuk-!-font-weight-bold">
+              <%= t('funding_application.check_answers.project.ownership.description') %>
+            </span>
+
+            <%= model_object.ownership_type_pp_description %>
+
+          </p>
+
+        <% end %>
+
+      <% end %>
+
+      <% if model_object.ownership_type == 'neither' %>
+
+        <p class="govuk-body">
+
+          <span class="govuk-!-font-weight-bold">
+            <%= t('funding_application.check_answers.project.ownership.owned_by') %>
+          </span>
+
+          <%= t('funding_application.check_answers.project.ownership.types.neither') %>
+
+        </p>
+
+        <% if model_object.ownership_type_neither_description.present? %>
+
+          <p class="govuk-body">
+
+            <span class="govuk-!-font-weight-bold">
+              <%= t('funding_application.check_answers.project.ownership.description') %>
+            </span>
+
+            <%= model_object.ownership_type_neither_description %>
+
+          </p>
+
+        <% end %>
+
+      <% end %>
+
+      <% if model_object.ownership_type == 'na' %>
+
+        <p class="govuk-body">
+          <%= t('funding_application.check_answers.project.ownership.types.na') %>
+        </p>
+
+      <% end %>
+
+    <% else %>
+
+      <%= t('funding_application.check_answers.not_answered') %>
+
+    <% end %>
+
+  </dd>
+
+</div>

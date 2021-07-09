@@ -1,0 +1,15 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('funding_application.check_answers.project.acknowledgement_description') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%=
+      model_object.acknowledgement_description.present? ?
+      model_object.acknowledgement_description :
+      t('generic.not_answered')
+    %>
+  </dd>
+
+</div>
