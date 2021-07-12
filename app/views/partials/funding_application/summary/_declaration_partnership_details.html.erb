@@ -1,0 +1,19 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('declaration.sub_headings.appying_on_behalf_of_partnership') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <% if model_object.partnership_details.present? %>
+
+      <%= model_object.partnership_details %>
+
+    <% else %>
+
+      <%= t('generic.x_no') %>
+
+    <% end %>
+  </dd>
+
+</div>

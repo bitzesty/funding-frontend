@@ -1,0 +1,19 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('confirm_declaration.labels.user_research_declaration') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <% if model_object.user_research_declaration? %>
+
+      <%= t('generic.x_yes') %>
+
+    <% else %>
+
+      <%= t('generic.x_no') %>
+
+    <% end %>
+  </dd>
+
+</div>

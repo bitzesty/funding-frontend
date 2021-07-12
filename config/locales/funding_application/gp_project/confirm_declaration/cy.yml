@@ -9,3 +9,4 @@ cy:
       user_research_declaration: "Ticiwch y blwch hwn os hoffech fod yn rhan o'n hymchwil, neu gael gwybod mwy."
       confirm_declaration_html: "Rwyf wedi darllen a chytuno â'r %{href}"
       confirm_declaration_href: "datganiad"
+      confirm_declaration: "Rwyf wedi darllen a chytuno â'r datganiad"

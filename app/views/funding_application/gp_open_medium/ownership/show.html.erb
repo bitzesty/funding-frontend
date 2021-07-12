@@ -34,6 +34,7 @@
   form_for @funding_application.open_medium,
   url: :funding_application_gp_open_medium_ownership,
   method: :put,
+  authenticity_token: true,
   remote: no_js ? true : false do |f|
 %>
 

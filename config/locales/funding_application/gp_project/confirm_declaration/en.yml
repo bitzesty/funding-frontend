@@ -9,3 +9,4 @@ en-GB:
       user_research_declaration: "Tick this box if you would like to be involved in our research, or find out more."
       confirm_declaration_html: "I have read and agreed with the %{href}"
       confirm_declaration_href: "declaration"
+      confirm_declaration: "I have read and agreed with the declaration"

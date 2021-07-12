@@ -1,0 +1,19 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('declaration.labels.keep_informed_declaration') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <% if model_object.keep_informed_declaration? %>
+
+      <%= t('generic.x_yes') %>
+
+    <% else %>
+
+      <%= t('generic.x_no') %>
+
+    <% end %>
+  </dd>
+
+</div>
