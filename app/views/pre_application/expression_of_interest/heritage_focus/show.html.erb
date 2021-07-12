@@ -2,9 +2,17 @@
   render partial: "partials/page_title",
          locals: {
              model_object: @pre_application.pa_expression_of_interest,
-      page_title: t('pa_expression_of_intereest.heritage_focus.page_title')
+      page_title: t('pa_expression_of_interest.heritage_focus.page_title')
          }
 %>
+
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: pre_application_expression_of_interest_summary_path
+    } 
+  %>
+<% end %>
 
 <%= render partial: "partials/summary_errors", locals: {
     form_object: @pre_application.pa_expression_of_interest,

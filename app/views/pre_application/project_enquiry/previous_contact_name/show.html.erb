@@ -6,9 +6,13 @@
          }
 %>
 
-<a>
-  <%= link_to 'view progress', pre_application_project_enquiry_summary_path, class: 'govuk-link govuk-link--no-visited-state' %>
-</a>
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: pre_application_project_enquiry_summary_path
+    } 
+  %>
+<% end %>
 
 <%= render partial: "partials/summary_errors", locals: {
     form_object: @pre_application.pa_project_enquiry,

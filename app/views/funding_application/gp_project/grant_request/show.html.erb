@@ -6,6 +6,14 @@
          }
 %>
 
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: funding_application_gp_project_summary_path
+    } 
+  %>
+<% end %>
+
 <h1 class="govuk-heading-xl">
   <span class="govuk-caption-xl">
     <%= t('views.funding_application.common.about_your_project') %>

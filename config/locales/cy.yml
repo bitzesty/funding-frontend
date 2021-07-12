@@ -14,6 +14,9 @@ cy:
       start_now: "Dechrau nawr"
       send: "Anfon"
       continue: "Parhau"
+      confirm: "Confirm"
+      submit: "Submit"
+      i_agree: "I agree"
   generic:
     countries:
       scotland: "Yr Alban"
@@ -66,10 +69,19 @@ cy:
     not_started: "Heb ddechrau"
     in_progress: "Ar y gweill" 
     completed: "Cwblhawyd"
+    cannot_start: "Cannot start yet"
+    back: "< Nôl"
   views:
     organisation:
       common:
         about_your_organisation: "Ynglŷn â'ch sefydliad" 
+    summary:
+      page_title: "View questions and answers"
+      page_heading: "View questions and answers"
+      related_link_heading: "Related link"
+      related_link_text: "View questions and answers"
+      page_hint: "This page will update each time you add a new answer. You will have a chance to edit your answers before you submit the application."
+      button: "Return to question"
     funding_application:
       common:
         about_your_project: "Ynglŷn â'ch prosiect"

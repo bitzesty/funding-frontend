@@ -22,9 +22,10 @@
   <div class="govuk-width-container">
     <%= render "partials/phase-banner" %>
 
-    <% if ['check_answers', 'dashboard', 'submitted', 'application_submitted', 'sessions' ].exclude?(controller_name) %>
+    <% if ['check_answers', 'dashboard', 'submitted', \
+      'application_submitted', 'sessions'].exclude?(controller_name) %>
       <script>
-        var txt = "< Back";
+        var txt = "<%= t('generic.back') %>";
         document.write(txt.link('javascript:history.back()'));
       </script>
      <% end %>

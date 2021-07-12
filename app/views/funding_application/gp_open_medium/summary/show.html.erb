@@ -532,11 +532,4 @@
 
 </dl>
 
-<%=
-  render(
-      ButtonComponent.new(
-          href: @last_page,
-          text: t('views.summary.button'),
-      )
-  )
-%>
+<%= render 'partials/summary/return_to_question_button' %>

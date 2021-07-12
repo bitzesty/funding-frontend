@@ -1,0 +1,30 @@
+<noscript>
+
+  <%=
+    render(
+        ButtonComponent.new(
+            href: @last_page,
+            text: t('views.summary.button'),
+        )
+    )
+    
+  %>
+
+</noscript>
+
+<script>
+
+  var return_button = document.createElement("button");
+  return_button.textContent = "<%= t('views.summary.button') %>";
+
+  var body = document.getElementsByTagName("main")[0];
+  
+  return_button.classList.add("govuk-button");
+
+  return_button.addEventListener("click", function(){
+    window.history.back(); 
+  });
+
+  body.appendChild(return_button);
+
+</script>

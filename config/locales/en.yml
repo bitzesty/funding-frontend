@@ -70,6 +70,7 @@ en-GB:
     in_progress: "In progress" 
     completed: "Completed"
     cannot_start: "Cannot start yet"
+    back: "< Back"
   views:
     organisation:
       common:
@@ -77,6 +78,8 @@ en-GB:
     summary:
       page_title: "View questions and answers"
       page_heading: "View questions and answers"
+      related_link_heading: "Related link"
+      related_link_text: "View questions and answers"
       page_hint: "This page will update each time you add a new answer. You will have a chance to edit your answers before you submit the application."
       button: "Return to question"
     funding_application:

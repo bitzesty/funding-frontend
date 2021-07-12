@@ -8,6 +8,14 @@
   )
 %>
 
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: funding_application_gp_open_medium_summary_path
+    } 
+  %>
+<% end %>
+
 <%=
   render(
     partial: "partials/summary_errors",
