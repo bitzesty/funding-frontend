@@ -10,7 +10,14 @@
   <%= t('pa_project_enquiry.summary.sub_heading') %>
 </div>
 
-<%= render 'partials/summary/header_and_hint' %>
+<%= 
+  render(
+      partial: 'partials/summary/header_and_hint',
+      locals: {
+        hint_suffix: t('pa_project_enquiry.summary.hint_suffix')
+      }
+    )
+%>
 
 <dl class="govuk-summary-list">
 

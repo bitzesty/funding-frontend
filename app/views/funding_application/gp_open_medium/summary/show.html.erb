@@ -12,7 +12,14 @@
   <%= t('gp_open_medium.summary.sub_heading') %>
 </div>
 
-<%= render 'partials/summary/header_and_hint' %>
+<%= 
+  render(
+      partial: 'partials/summary/header_and_hint',
+      locals: {
+        hint_suffix: t('gp_open_medium.summary.hint_suffix')
+      }
+    )
+%>
 
 <dl class="govuk-summary-list">
 
