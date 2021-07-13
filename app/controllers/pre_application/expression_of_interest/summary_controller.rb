@@ -1,6 +1,7 @@
 # Controller for the expression of interest 'check your answers' page
 class PreApplication::ExpressionOfInterest::SummaryController < ApplicationController
   include PreApplicationContext
+  layout "summary"
 
   def show
     @organisation = Organisation.find(@pre_application.organisation_id)

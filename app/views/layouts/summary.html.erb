@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<% # This layout exactly duplicates application.html.erb, except where %>
+<% # application.html.erb breaks "govuk-width-container" into %>
+<% # a 2/3 column and a further 1/3 column for secondary content, %>
+<% # this layout uses the full width of "govuk-width-container" %>
+<html lang="en" class="govuk-template nlhf-template">
+<head>
+  <%= Gon::Base.render_data %>
+  <title><%= yield(:page_title) %> - National Lottery Heritage Fund</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="turbolinks-visit-control" content="reload">
+  <%= render "partials/social_meta_tags" %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  
+</head>
+<body class="govuk-template__body nlhf-template__body" data-turbolinks="false">
+  <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+  <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+  <%= render "partials/cookie_banner" %>
+  <%= render "partials/header" %>
+  <%= render "partials/toolbar" %>
+  <div class="govuk-width-container">
+    <%= render "partials/phase-banner" %>
+
+    <% if ['check_answers', 'dashboard', 'submitted', \
+      'application_submitted', 'sessions'].exclude?(controller_name) %>
+      <script>
+        var txt = "<%= t('generic.back') %>";
+        document.write(txt.link('javascript:history.back()'));
+      </script>
+     <% end %>
+
+    <main class="govuk-main-wrapper" id="main-content" role="main">
+      <div class="govuk-grid-row">
+        <%= yield %>
+      </div>
+    </main>
+  </div>
+  <%= render "partials/footer" %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-suppress-warning':'true', 'data-turbolinks-eval': "false", 'data-turbolinks-track': 'reload' %>
+  <%= javascript_tag("fileUploadHandlingHooks()") if @has_file_upload %>
+</body>
+</html>
+<!-- Thanks to Tom (@Steiny), Sue (@SueBow94) & Paul (@paulmsmith) -->

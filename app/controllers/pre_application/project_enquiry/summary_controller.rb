@@ -1,6 +1,7 @@
 # Controller for the project enquiry 'check answers' page
 class PreApplication::ProjectEnquiry::SummaryController < ApplicationController
-  include PreApplicationContext 
+  include PreApplicationContext
+  layout "summary"
 
   def show
     @organisation = Organisation.find(@pre_application.organisation_id)

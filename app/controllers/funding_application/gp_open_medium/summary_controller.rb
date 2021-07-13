@@ -1,5 +1,6 @@
 # Controller for a page that asks shows the summary
 class FundingApplication::GpOpenMedium::SummaryController < ApplicationController
+  layout "summary"
   include FundingApplicationContext
 
   def show
