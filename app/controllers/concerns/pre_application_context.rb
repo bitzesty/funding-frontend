@@ -32,8 +32,8 @@ module PreApplicationContext
       organisation_id: current_user.organisations.first&.id
     )
 
-    if !@pre_application.present? || (@pre_application.submitted_on.present? &&
-        !request.path.include?('/submitted'))
+    if !@pre_application.present? || (@pre_application.submitted_on.present? \
+      && not_an_allowed_paths_for_submitted_projects(request.path))
 
       logger.error('User redirected to root, error in pre_application_context.rb')
 
@@ -81,5 +81,13 @@ module PreApplicationContext
     end
 
   end
+
+  private
+
+    # Returns true if the passed path is NOT allowed for submitted applications.
+    def not_an_allowed_paths_for_submitted_projects(path)
+      path.exclude?('/submitted') && \
+        path.exclude?('/summary')
+    end
 
 end

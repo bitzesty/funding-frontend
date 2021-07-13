@@ -31,13 +31,13 @@ module FundingApplicationContext
 
   end
 
+  # Returns true if the passed path is NOT allowed for submitted applications.
   def not_an_allowed_paths_for_submitted_projects(path)
-
     path.exclude?('/application-submitted') && \
       path.exclude?('/tasks') && \
         path.exclude?('/payments') && \
-        path.exclude?('/agreement')
-    
+          path.exclude?('/agreement') && \
+            path.exclude?('/summary') 
   end
 
 end

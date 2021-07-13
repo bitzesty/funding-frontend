@@ -6,6 +6,14 @@
          }
 %>
 
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: funding_application_gp_project_summary_path
+    } 
+  %>
+<% end %>
+
 <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
   <h1 class="govuk-panel__title">
     <%= I18n.t("application_submitted.heading") %>
