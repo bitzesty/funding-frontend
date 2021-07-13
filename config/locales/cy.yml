@@ -71,6 +71,7 @@ cy:
     completed: "Cwblhawyd"
     cannot_start: "Cannot start yet"
     back: "< Nôl"
+    print_this_page: "Print this page"
   views:
     organisation:
       common:
@@ -88,7 +89,7 @@ cy:
         cost_type: "Math o gost" 
         total_costs: "Cyfanswm costau" 
         support_for_your_project: "cefnogaeth i'ch prosiect"
-      gp_project:
+      gp_project: 
         check_your_answers:
           not_answered: "Heb ateb"
           page_title: "Gwiriwch eich atebion"

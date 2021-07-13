@@ -1,0 +1,6 @@
+<%= content_for :secondarycontent do %>
+  <script>
+    var txt = "<%= t('generic.print_this_page') %>";
+    document.write(txt.link('javascript:if(window.print)window.print()'));
+  </script>
+<% end %>
