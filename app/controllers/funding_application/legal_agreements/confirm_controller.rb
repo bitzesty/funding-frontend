@@ -10,12 +10,15 @@ class FundingApplication::LegalAgreements::ConfirmController < ApplicationContro
 
     @funding_application.agreement.update(grant_agreed_at: DateTime.now)
 
-    create_legal_signatory_agreements(@funding_application)
+    if @funding_application.funding_applications_legal_sigs.empty?
 
-    trigger_legal_signatory_emails(
-      @funding_application,
-      current_user
-    )
+      create_legal_signatory_agreements(@funding_application)
+
+      trigger_legal_signatory_emails(
+        @funding_application,
+        current_user
+      )
+    end
 
     upload_additional_evidence_files(@funding_application) if
       @funding_application.additional_evidence_files.any?

@@ -21,13 +21,18 @@ class FundingApplication::LegalAgreements::HowToAcceptController < ApplicationCo
       "#{@funding_application.id}"
     )
 
-    Agreement.create(funding_application_id: @funding_application.id)
+    # Only one agreement per funding application.
+    if @funding_application.agreement.nil?
 
-    logger.info(
-      'Created a new Agreement with ID: ' \
-      "#{@funding_application.agreement.id}, redirecting to " \
-      ':funding_application_check_project_details'
-    )
+      Agreement.create(funding_application_id: @funding_application.id)
+
+      logger.info(
+        'Created a new Agreement with ID: ' \
+        "#{@funding_application.agreement.id}, redirecting to " \
+        ':funding_application_check_project_details'
+      )
+
+    end
 
     redirect_to :funding_application_check_project_details
   
