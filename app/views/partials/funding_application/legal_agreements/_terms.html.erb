@@ -9,7 +9,7 @@
       'agreement.in_this_summary_html',
       href: link_to(
         t('agreement.in_this_summary_href'),
-        'https://www.heritagefund.org.uk/publications/standard-terms-grants-3k-10k'
+        @standard_terms_link 
       )
     )
   %>
@@ -21,7 +21,11 @@
 </h2>
 
 <h3 class="govuk-heading-m">
-  <%= t('agreement.terms.sub_headings.get_grant_payment') %>
+  <%= 
+    @funding_application.is_3_to_10k? ? \
+      t('agreement.terms.sub_headings.get_grant_payment') : \
+        t('agreement.terms.sub_headings.get_grant_payments') 
+  %> 
 </h3>
 
 <p class="govuk-body">
@@ -50,12 +54,24 @@
     <%= t('agreement.to_complete_list.item_2') %>
   </li>
 
-  <li>
-    <%= t('agreement.to_complete_list.item_3') %>
-  </li>
+  <% if @funding_application.is_3_to_10k? %>
+    <li>
+      <%= t('agreement.to_complete_list.item_3_10k') %>
+    </li>
+  <% end %>
+
+  <% if @award_more_than_10k %>
+    <li>
+      <%= t('agreement.to_complete_list.item_3_over_10k') %>
+    </li>
+  <% end %>
 
   <li>
-    <%= t('agreement.to_complete_list.item_4') %>
+    <%=
+      @funding_application.is_3_to_10k? ? \
+        t('agreement.to_complete_list.item_4_grant_report') : \
+          t('agreement.to_complete_list.item_4_completion_report') 
+    %> 
   </li>
 
 </ul>
@@ -88,7 +104,7 @@
         'agreement.includes_list.item_4_html',
         href: link_to(
           t('agreement.includes_list.item_4_href'),
-          'https://www.heritagefund.org.uk/publications/receiving-grant-guidance-ps3000-ps10000#heading-8'
+          @receiving_guidance_property_ownership_link
         )
       )
     %>
@@ -178,6 +194,20 @@
     <%= t('agreement.organisations_must_list.item_4') %>
   </li>
 
+  <% if @award_more_than_10k %>
+    <li>
+      <%= 
+        t(
+          'agreement.organisations_must_list.item_5_html',
+          href: link_to(
+            t('agreement.organisations_must_list.item_5_href'),
+              @standard_terms_link
+          )
+        )   
+      %>
+    </li>
+  <% end %>
+
 </ul>
 
 <h3 class="govuk-heading-m">
@@ -237,8 +267,14 @@
 </h4>
 
 <p class="govuk-body">
-  <%= t('agreement.under_10k') %>
+  <%= t('agreement.terms.good_and_services.under_10k') %>
 </p>
+
+<% if @award_more_than_10k %>
+  <%= render 'partials/funding_application/legal_agreements/terms/goods_services_over_10k' %>
+  <%= render 'partials/funding_application/legal_agreements/terms/additional_competitive_tendering_info' %>
+  <%= render 'partials/funding_application/legal_agreements/terms/social_values' %>
+<% end %>
 
 <h3 class="govuk-heading-m">
   <%= t('agreement.terms.sub_headings.digital_outputs') %>
@@ -372,19 +408,43 @@
         'agreement.property_must_list.item_2_html',
         href_1: link_to(
           t('agreement.property_must_list.item_2_href_1'),
-          'https://www.heritagefund.org.uk/funding/receiving-grant-guidance-ps3000-ps10000'
+            @retrieving_a_grant_guidance_link
         ),
         href_2: link_to(
           t('agreement.property_must_list.item_2_href_2'),
-          'https://www.heritagefund.org.uk/funding/national-lottery-grants-heritage-2021/3-10k'
+            @programme_application_guidance
         )
       )
     %>
   </li>
 
+  <% if @award_more_than_10k %>
+
+    <li>
+      <%= t('agreement.property_must_list.item_3') %>
+    </li>
+
+    <li>
+      <%= t('agreement.property_must_list.item_4') %>
+    </li>
+
+    <li>
+      <%= t('agreement.property_must_list.item_5') %>
+    </li>  
+
+  <% end %>
+
   <li>
-    <%= t('agreement.property_must_list.item_3') %>
+    <%= t('agreement.property_must_list.item_6') %>
   </li>
+
+  <% if @award_more_than_10k %>
+
+    <li>
+      <%= t('agreement.property_must_list.item_7') %>
+    </li>
+
+  <% end %>
 
 </ul>
 
@@ -398,7 +458,7 @@
       'agreement.we_will_pay_html',
       href: link_to(
         t('agreement.we_will_pay_href'),
-        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance-ps3000-ps10000'
+        @retrieving_a_grant_guidance_link
       )
     )
   %>
@@ -416,7 +476,7 @@
         'agreement.payment_list.item_2_html',
         href: link_to(
           t('agreement.payment_list.item_2_href'),
-          'https://www.heritagefund.org.uk/publications/standard-terms-grants-3k-10k'
+          @standard_terms_link
         )
       )
     %>
@@ -427,6 +487,20 @@
   </li>
 
 </ul>
+
+<% if @award_more_than_10k %>
+  <p class="govuk-body">  
+    <%=
+      t(
+        'agreement.terms.must_not_tranfer_grant_html',
+        href: link_to(
+          t('agreement.terms.must_not_tranfer_grant_href'),
+          @standard_terms_link
+        )
+      )
+    %>
+  </p>
+<% end %>
 
 <h3 class="govuk-heading-m">
   <%= t('agreement.terms.sub_headings.what_happens_underspend') %>
@@ -535,6 +609,10 @@
 <p class="govuk-body">
   <%= t('agreement.if_above_applies') %>
 </p>
+
+<% if @award_more_than_10k %>
+  <%= render 'partials/funding_application/legal_agreements/terms/general_terms_and_conditions' %>
+<% end %>
 
 <h2 class="govuk-heading-l">
   <%= t('agreement.terms.sub_headings.check_and_confirm') %>

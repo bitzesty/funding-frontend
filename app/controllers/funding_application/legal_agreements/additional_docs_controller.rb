@@ -1,11 +1,13 @@
 class FundingApplication::LegalAgreements::AdditionalDocsController < ApplicationController
   include FundingApplicationContext
+  include FundingApplicationHelper
   include ObjectErrorsLogger
 
   # This method is used to set the @has_file_upload instance variable before
   # rendering the :show template. This is used within the
   # _direct_file_upload_hooks partial
   def show
+    set_award_type(@funding_application)
     @has_file_upload = true
   end
 

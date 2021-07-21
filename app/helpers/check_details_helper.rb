@@ -14,13 +14,25 @@ module CheckDetailsHelper
 
     salesforce_api_client = SalesforceApiClient.new
 
-    project_details = salesforce_api_client.project_details(funding_application.salesforce_case_id)
+    project_details = 
+      salesforce_api_client.project_details \
+        (funding_application.salesforce_case_id)
 
-    project_costs = salesforce_api_client.project_costs(funding_application.salesforce_case_id)
+    project_costs = 
+      salesforce_api_client.project_costs \
+        (funding_application.salesforce_case_id)
 
-    project_approved_purposes = salesforce_api_client.project_approved_purposes(funding_application.salesforce_case_id)
+    project_approved_purposes = 
+      salesforce_api_client.project_approved_purposes \
+        (funding_application.salesforce_case_id)
 
-    { "project_details": project_details, "project_costs": project_costs, "project_approved_purposes": project_approved_purposes }
+    cash_contributions = 
+      salesforce_api_client.cash_contributions \
+        (funding_application.salesforce_case_id)
+
+    { "project_details": project_details, "project_costs": project_costs, \
+      "project_approved_purposes": project_approved_purposes, \
+        "cash_contributions": cash_contributions}
 
   end
 

@@ -1,0 +1,53 @@
+<p class="govuk-body">
+  <%= t('agreement.check_project_details.term_of_grant_contract') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('agreement.check_project_details.will_vary_depending') %>
+</p>
+
+<ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+
+  <li>
+    <%=
+      t('agreement.check_project_details.term_of_grant_contract_signatory_list.is_activities_only')
+    %>
+  </li>
+
+    <li>
+    <%=
+      t('agreement.check_project_details.term_of_grant_contract_signatory_list.is_acquisition_project')
+    %>
+  </li>
+
+  <% if @funding_application.is_10_to_100k? %>
+
+    <li>
+      <%=
+        t('agreement.check_project_details.term_of_grant_contract_signatory_list.organisation_not_for_profit')
+      %>
+  </li>
+
+    <li>
+      <%=
+        t('agreement.check_project_details.term_of_grant_contract_signatory_list.organisation_for_profit_10_100k')
+      %>
+    </li>
+
+  <% end %>
+
+  <% if @funding_application.is_100_to_250k? %>
+
+    <li>
+      <%=
+        t('agreement.check_project_details.term_of_grant_contract_signatory_list.organisation_for_profit_100_250k')
+      %>
+    </li>
+
+  <% end %>
+
+</ul>
+
+<p> 
+  <%= t('agreement.check_project_details.the_project_completion') %>
+</p>

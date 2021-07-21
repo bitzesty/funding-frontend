@@ -18,6 +18,7 @@ class FundingApplication::LegalAgreements::ConfirmController < ApplicationContro
         @funding_application,
         current_user
       )
+
     end
 
     upload_additional_evidence_files(@funding_application) if

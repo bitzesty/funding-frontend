@@ -1,8 +1,10 @@
 en-GB:
   agreement:
     check_project_details:
-      page_title: "Check your Project details"
-      page_heading: "Check your Project details"
+      page_title_applicant: "Check your Project details"
+      page_heading_applicant: "Check your Project details"
+      page_title_signatory: "Check the Project details"
+      page_heading_signatory: "Check the Project details"
       sub_headings:
         your_grant: "Your Grant"
         the_grant: "The Grant"
@@ -52,11 +54,33 @@ en-GB:
       volunteers: "%{amount} hours of volunteer time"
       advice: "We advise that you do not start work on the Project until all pre-conditions defined in the Receiving a Grant Guidance and any Additional Conditions have been met. Plus, the Grant contract has been signed and agreed. Project work started before this happens is done so at the organisation's own risk."
       advice_to_signatory: "We advise that the organisation does not start work on the Project until all pre-conditions defined in the Receiving a Grant Guidance and any Additional Conditions have been met. Plus, the Grant contract has been signed and agreed. Project work started before this happens is done so at the organisation’s own risk."
+      term_of_grant_contract_list:
+          sub_heading: "Term of grant contract: The grant contract will"
+          item_1: "last until your Project Completion Date [activities only]"
+          item_2: "last from the date we confirm you can start Your Project and run for a term of 5 years (not for profit)"
+          item_3: "last from the date we confirm you can start Your Project and run for a term of 10 years (private individuals and for-profit organisations £10,000 to £100,000)"
+          item_4: "20 years (not for profit organisations £100,000 to £250,000) after Project Completion Date [capital works]  NB We only fund private individuals and for profit organisations up to £100,000."
+          item_5: "last indefinitely [acquisition] – Investment Manager to delete as appropriate."
+      term_of_grant_contract: "Term of grant contract:"
+      the_project_completion: "The Project Completion Date is the date of the letter we send you letting you know that the Project is recorded as complete."
+      will_vary_depending: "The term of grant contract will vary depending on the type of project and organisation."
+      term_of_grant_contract_signatory_list:
+        is_activities_only: "Activities-only project, the grant contract ends on the Project Completion Date,"
+        is_acquisition_project: "Acquisition project, the grant contract will last indefinitely,"
+        organisation_not_for_profit: "If the organisation is not-for-profit, and the project includes capital or digital, the grant contract will last from the Project Completion Date and run for a term of 5 years, "
+        organisation_for_profit_10_100k: "If your organisation is a for-profit organisation, or you are a private individual, the grant contract will last from the Project Completion Date and run for a term of 10 years."
+        organisation_for_profit_100_250k: "If the project is a capital works project the grant contract will last for 20 years after the Project Completion Date."
     costs_table:
       heading:
         amount: "Amount"
         description: "Description"
         cost: 'Cost'
+        vat: 'VAT'
+    cash_contributions_table:
+      heading:
+        amount: "Amount"
+        description: "Description"
+        secured: 'Secured'
     approved_purpose_table:
       heading:
           approved_purpose: "Approved purpose"

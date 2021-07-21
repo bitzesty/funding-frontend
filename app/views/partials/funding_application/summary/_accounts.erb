@@ -1,0 +1,59 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+    <%= t('views.funding_application.gp_project.check_your_answers.evidence_of_support') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+
+    <table class="govuk-table">
+
+      <thead class="govuk-table__head">
+
+        <tr class="govuk-table__row">
+
+          <th scope="col" class="govuk-table__header">
+            <%= t('generic.description') %>
+          </th>
+
+          <th scope="col" class="govuk-table__header">
+            <%= t('generic.files') %>
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody class="govuk-table__body">
+
+        <% model_object.evidence_of_support.each do |eos| %>
+
+          <tr class="govuk-table__row">
+
+            <td class="govuk-table__cell">
+              <%= eos.description %>
+            </td>
+
+            <td class="govuk-table__cell govuk-table__cell--numeric">
+              <%=
+                link_to(
+                  eos.evidence_of_support_files.blob.filename,
+                  rails_blob_path(
+                    eos.evidence_of_support_files.blob,
+                    disposition: 'attachment'
+                  )
+                )
+              %>
+            </td>
+
+          </tr>
+
+        <% end %>
+
+      </tbody>
+
+    </table>
+
+  </dd>
+
+</div>

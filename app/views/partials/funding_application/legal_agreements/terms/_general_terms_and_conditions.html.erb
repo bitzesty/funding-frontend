@@ -1,0 +1,47 @@
+<h2 class="govuk-heading-l">
+  <%= t('agreement.terms.general_terms_and_conditions.sub_heading') %>
+</h2>
+
+<p class="govuk-body">
+  <%= 
+    t(
+      'agreement.terms.general_terms_and_conditions.we_may_rely_on_html',
+      href: link_to(
+        t('agreement.terms.general_terms_and_conditions.we_may_rely_on_href'),
+          @standard_terms_link
+      )
+    ) 
+  %>
+</p>
+
+<p class="govuk-body">
+  <%= t('agreement.terms.general_terms_and_conditions.if_you_need') %>
+</p>
+
+<p class="govuk-body">
+  <%=
+    t(
+      'agreement.terms.general_terms_and_conditions.any_notice_request_html',
+      href: link_to(
+        t('agreement.terms.general_terms_and_conditions.any_notice_request_href'),
+          @standard_terms_link
+      )
+    )
+  %>
+</p>
+
+<p class="govuk-body">
+  <%=
+    t(
+      'agreement.terms.general_terms_and_conditions.any_documents_you_need_html',
+      href: link_to(
+        t('agreement.terms.general_terms_and_conditions.any_documents_you_need_href'),
+          @standard_terms_link
+      )
+    )
+  %>
+</p>
+
+<p class="govuk-body">
+  <%= t('agreement.terms.general_terms_and_conditions.these_terms_conditions') %>
+</p>

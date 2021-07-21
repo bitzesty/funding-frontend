@@ -25,3 +25,7 @@ en-GB:
         item_4: "Has the status of your organisation changed since Application? For example, has it merged with another organisation or dissolved?"
         item_5: "Have there been any other changes which have the potential to affect our decision on your Grant request or the likely success of your Project? If you are unsure, please contact your Investment Manager."
       timescales: "You have 10 working days to complete these tasks from the date we sent Your Grant offer. If you need any help, contact your Investment Manager, %{name}."
+      behalf_of_partnership: 
+        sub_heading: "Tell us if you are applying on behalf of a partnership"
+        text: "If you are, please tell us the name, position and organisation details of your partner, or partners. You can do this when you send the email with your answers to the questions above to your Investment Manager."
+

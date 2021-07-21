@@ -2,6 +2,7 @@ class FundingApplication::LegalAgreements::Signatories::SignTermsController < Ap
   include LegalAgreementsContext
   include LegalAgreementsHelper
   include ObjectErrorsLogger
+  include FundingApplicationHelper
 
   # This method is used to set the @has_file_upload instance variable before
   # rendering the :show template. This is used within the
@@ -11,6 +12,25 @@ class FundingApplication::LegalAgreements::Signatories::SignTermsController < Ap
     @has_file_upload = true
 
     set_model_object(@funding_application, params[:encoded_signatory_id])
+
+    set_award_type(@funding_application)
+
+    @download_link = 
+      '/terms_and_conditions/National Lottery Heritage Fund terms and ' \
+        'conditions for £3,000 to £10,000.docx' \
+          if @funding_application.is_3_to_10k?
+         
+    
+    @download_link = 
+      '/terms_and_conditions/Signatory only National Lottery Heritage ' \
+        'Fund terms and conditions for £10,000 to £100,000.docx' \
+          if @funding_application.is_10_to_100k?
+          
+    
+    @download_link = 
+      '/terms_and_conditions/Signatory only National Lottery Heritage ' \
+        'Fund terms and conditions for £100,000 to £250,000.docx' \
+          if @funding_application.is_100_to_250k?          
 
   end
 
@@ -131,11 +151,11 @@ class FundingApplication::LegalAgreements::Signatories::SignTermsController < Ap
     )
 
     @model_object = FundingApplicationsLegalSig.find_by(
-      legal_signatory_id: signatory.id
+      legal_signatory_id: signatory.id,
+      funding_application_id: funding_application.id
     )
 
   end
-
 
   def funding_application_legal_sig_params
 

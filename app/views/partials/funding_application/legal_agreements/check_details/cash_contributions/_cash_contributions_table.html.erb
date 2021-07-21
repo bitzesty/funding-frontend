@@ -1,0 +1,58 @@
+<table class="govuk-table nlhf-table nlhf-table--responsive-columns" role="table">
+  <thead class="govuk-table__head nlhf-table__head">
+    <tr class="govuk-table__row nlhf-table__row">
+      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
+        <%= t('agreement.cash_contributions_table.heading.description') %>
+      </th>
+      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
+        <%= t('agreement.cash_contributions_table.heading.amount') %>
+      </th>
+      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
+        <%= t('agreement.cash_contributions_table.heading.secured') %>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody class="govuk-table__body nlhf-table__body">
+
+    <% cash_contributions.each do |contribution| %>
+
+      <tr class="govuk-table__row nlhf-table__row">
+
+        <td class="govuk-table__cell nlhf-table__cell">
+          <div class="nlhf-table__cell-data">
+            <div class="nlhf-table__cell-data__item">
+              <%= contribution.Description_for_cash_contributions__c %>
+            </div>
+          </div>
+        </td>
+
+        <td class="govuk-table__cell nlhf-table__cell">
+          <div class="nlhf-table__cell-data">
+            <div class="nlhf-table__cell-data__item">
+              <%=
+                number_to_currency(
+                  contribution.Amount_you_have_received__c,
+                  strip_insignificant_zeros: true,
+                  precision: 2
+                )
+              %>
+            </div>
+          </div>
+        </td>   
+
+        <td class="govuk-table__cell nlhf-table__cell">
+          <div class="nlhf-table__cell-data">
+            <div class="nlhf-table__cell-data__item">
+              <%= contribution.Secured_non_cash_contributions__c %>
+            </div>
+          </div>
+        </td>
+
+      </tr>
+
+    <% end %>
+
+  </tbody>
+
+</table>

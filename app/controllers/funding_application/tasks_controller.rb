@@ -3,11 +3,12 @@ class FundingApplication::TasksController < ApplicationController
   include ObjectErrorsLogger
   include DashboardHelper
   include DashboardHelper
+  include FundingApplicationHelper
 
   def show
 
     set_instance_variables(@funding_application)
-  
+
   end
 
   private
@@ -76,7 +77,6 @@ class FundingApplication::TasksController < ApplicationController
   # @param [FundingApplication] funding_application An instance of
   #                                                 FundingApplication
   def set_agreement_status_tag(funding_application)
-
     case
     when funding_application.agreement.nil?
       @agreement_status_tag_label = I18n.t('generic.not_started')
@@ -113,6 +113,11 @@ class FundingApplication::TasksController < ApplicationController
   #
   # @param [FundingApplication] funding_application An instance of
   #                                                 FundingApplication
+  #
+  # Todo. This is overcomplicated. Ruby has no fallthroughs and 
+  # executes in order.  So could use safe operators to make the 
+  # when statements one line, and execute in revesre order so
+  # targeting the latest agreement statuses first.
   def set_terms_status_tag(funding_application)
 
     case

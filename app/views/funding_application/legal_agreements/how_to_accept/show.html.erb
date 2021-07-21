@@ -110,6 +110,18 @@
 
 </ol>
 
+<% if @award_more_than_10k  %>
+
+  <h2 class="govuk-heading-l">
+    <%= t('agreement.how_to_accept.behalf_of_partnership.sub_heading') %> 
+  </h2>
+
+  <p class="govuk-body">
+    <%= t('agreement.how_to_accept.behalf_of_partnership.text') %> 
+  </p>
+
+<% end %>
+
 <%=
   form_with model: @funding_application,
   url: :funding_application_how_to_accept,

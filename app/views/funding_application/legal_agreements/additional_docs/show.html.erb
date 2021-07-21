@@ -44,9 +44,19 @@
 
     </legend>
 
-    <p class="govuk-body">
-      <%= t('agreement.additional_docs.new_evidence') %>
-    </p>
+    <% if @funding_application.is_3_to_10k? %>
+      <p class="govuk-body">
+        <%= t('agreement.additional_docs.new_evidence') %>
+      </p>
+    <% end %>
+
+    <% if @funding_application.is_10_to_100k? %>
+      <%= render 'partials/funding_application/legal_agreements/additional_docs/add_for_10_to_100k' %>
+    <% end %>
+    
+    <% if @funding_application.is_100_to_250k? %>
+      <%= render 'partials/funding_application/legal_agreements/additional_docs/add_for_100_to_250k' %>
+    <% end %>
 
     <div id="form-group-errors"></div>
 

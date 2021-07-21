@@ -1,5 +1,5 @@
 <h1 class="govuk-heading-xl">
-  <%= t('agreement.check_project_details.page_heading') %>
+  <%= t('agreement.check_project_details.page_heading_signatory') %>
 </h1>
 
 <p class="govuk-body">
@@ -134,6 +134,10 @@
 
 </dl>
 
+<% if @award_more_than_10k %>
+  <%= render 'partials/funding_application/legal_agreements/check_details/terms_of_grant_contract' %>
+<% end %>
+
 <h2 class="govuk-heading-l">
   <%= t('agreement.check_project_details.sub_headings.the_grant_contract') %>
 </h2>
@@ -168,7 +172,7 @@
         'agreement.check_project_details.grant_contract_list.item_4_html',
         href: link_to(
           t('agreement.check_project_details.grant_contract_list.item_4_href'),
-          'https://www.heritagefund.org.uk/publications/standard-terms-grants-3k-10k'
+          @standard_terms_link
         )
       )
     %>
@@ -180,7 +184,7 @@
         'agreement.check_project_details.grant_contract_list.item_5_html',
         href: link_to(
           t('agreement.check_project_details.grant_contract_list.item_5_href'),
-          'https://www.heritagefund.org.uk/funding/receiving-grant-guidance-ps3000-ps10000'
+          @retrieving_a_grant_guidance_link
         )
       )
     %>
@@ -204,66 +208,29 @@
   <%= t('agreement.check_project_details.when_the_org_applied') %>
 </p>
 
-<table class="govuk-table nlhf-table nlhf-table--responsive-columns" role="table">
-  <thead class="govuk-table__head nlhf-table__head">
-    <tr class="govuk-table__row nlhf-table__row">
-      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
-        <%= t('agreement.cost_table.heading.cost') %>
-      </th>
-      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
-        <%= t('agreement.cost_table.heading.description') %>
-      </th>
-      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
-        <%= t('agreement.cost_table.heading.amount') %>
-      </th>
-    </tr>
-  </thead>
+<% if @award_more_than_10k %>
 
-  <tbody class="govuk-table__body nlhf-table__body">
+  <%=
+    render(
+      partial: "partials/funding_application/legal_agreements/check_details/project_costs/project_costs_with_vat",
+      locals: {
+        project_costs: @project_costs
+      }
+    )
+  %>
 
-    <% @project_costs.each do |cost| %>
+<% else %>
 
-      <tr class="govuk-table__row nlhf-table__row">
+  <%=
+    render(
+      partial: "partials/funding_application/legal_agreements/check_details/project_costs/project_costs_no_vat",
+      locals: {
+        project_costs: @project_costs
+      }
+    )
+  %>
 
-        <td class="govuk-table__cell nlhf-table__cell">
-          <div class="nlhf-table__cell-data">
-            <div class="nlhf-table__cell-data__item">
-              <%= cost.Cost_heading__c %>
-            </div>
-          </div>
-        </td>
-
-
-        <td class="govuk-table__cell nlhf-table__cell">
-          <div class="nlhf-table__cell-data">
-            <div class="nlhf-table__cell-data__item">
-              <%= cost.Project_Cost_Description__c %>
-            </div>
-          </div>
-        </td>
-        
-
-        <td class="govuk-table__cell nlhf-table__cell">
-          <div class="nlhf-table__cell-data">
-            <div class="nlhf-table__cell-data__item">
-              <%=
-                number_to_currency(
-                  cost.Costs__c,
-                  strip_insignificant_zeros: true,
-                  precision: 2
-                )
-              %>
-            </div>
-          </div>
-        </td>         
-
-      </tr>
-
-    <% end %>
-
-  </tbody>
-
-</table>
+<% end %>
 
 <h3 class="govuk-heading-m">
   <%= t('agreement.check_project_details.sub_headings.what_project_will_do') %>
@@ -328,6 +295,19 @@
     )
   %>
 </p>
+
+<% if @award_more_than_10k %>
+
+  <%=
+    render(
+      partial: "partials/funding_application/legal_agreements/check_details/cash_contributions/cash_contributions_table",
+      locals: {
+        cash_contributions: @cash_contributions
+      }
+    )
+  %>
+
+<% end %>
 
 <p class="govuk-body">
   <%=

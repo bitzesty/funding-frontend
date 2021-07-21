@@ -50,32 +50,19 @@ module FundingApplicationHelper
   #         of Grant
   def get_standard_terms_link(funding_application)
 
+    set_award_type(funding_application) if funding_application.award_type_unknown?
+
     standard_terms_link =
       'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
-      '-3k-10k' if funding_application.project.present?
+        '-3k-10k' if funding_application.is_3_to_10k?
 
-    if funding_application.open_medium.present?
+    standard_terms_link =
+      'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
+        '-10k-100k' if funding_application.is_10_to_100k?
 
-      # TODO: Get grant awarded value from Salesforce
-      #       and use this to determine the links
-
-      # if grant_award >= 10000 & grant_award <= 100000
-
-        # standard_terms_link =
-        #   'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
-        #   '-10k-100k'
-
-      # elsif grant_award > 100000
-
-        # standard_terms_link =
-        #   'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
-        #   '-100k-250k'
-
-      # end
-
-      standard_terms_link = ''
-
-    end
+    standard_terms_link =
+      'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
+        '-100k-250k' if funding_application.is_100_to_250k?
 
     standard_terms_link
 
@@ -90,36 +77,76 @@ module FundingApplicationHelper
   #         Grant guidance
   def get_receiving_a_grant_guidance_link(funding_application)
 
+    set_award_type(funding_application) if funding_application.award_type_unknown?
+
     receiving_a_grant_guidance_link =
       'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-      '-ps3000-ps10000' if funding_application.project.present?
+      '-ps3000-ps10000' if funding_application.is_3_to_10k?
 
-    if funding_application.open_medium.present?
+    receiving_a_grant_guidance_link =
+      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+        '-ps10000-ps100000' if funding_application.is_10_to_100k?
 
-      # TODO: Get grant awarded value from Salesforce
-      #       and use this to determine the links
-
-      # if grant_award >= 10000 & grant_award <= 100000
-
-        # receiving_a_grant_guidance_link =
-        #   'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-        #   '-ps10000-ps100000'
-
-      # elsif grant_award > 100000
-
-        # receiving_a_grant_guidance_link =
-        #   'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-        #   '-ps100000-ps250000'
-
-      # end
-
-      receiving_a_grant_guidance_link = ''
-
-    end
+    receiving_a_grant_guidance_link =
+      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+      '-ps100000-ps250000' if funding_application.is_100_to_250k?
 
     receiving_a_grant_guidance_link
 
   end
+
+  # Method used to retrieve the link to the Retrieving a guidance on 
+  # property ownership, 
+  # based on the level of funding that has been awarded
+  # @param funding_application [FundingApplication] An instance of
+  #                                                 FundingApplication
+  #
+  # @return A string containing the link to the relevant guidance
+  def get_receiving_guidance_property_ownership_link(funding_application)
+
+    set_award_type(funding_application) if funding_application.award_type_unknown?
+
+    link =
+      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+      '-ps3000-ps10000#heading-8' if funding_application.is_3_to_10k?
+
+    link =
+      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+        '-ps10000-ps100000#heading-10' if funding_application.is_10_to_100k?
+
+    link =
+      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+      '-ps100000-ps250000#heading-10' if funding_application.is_100_to_250k?
+
+    link
+
+  end
+
+  # Method used to retrieve the link to the Retrieving 
+  # programme application guidance.
+  # Initialises link to larger grant levels, overwrites if under 10k
+  # based on the level of funding that has been awarded
+  # @param funding_application [FundingApplication] An instance of
+  #                                                 FundingApplication
+  #
+  # @return A string containing the link to the relevant guidance
+  def get_programme_application_guidance_link(funding_application)
+
+    set_award_type(funding_application) if funding_application.award_type_unknown?
+
+    link =
+      'https://www.heritagefund.org.uk/funding/' \
+        'national-lottery-grants-heritage-10k-250k' 
+      
+    link =
+      'https://www.heritagefund.org.uk/funding/' \
+        'national-lottery-grants-heritage-2021/3-10k' \
+          if funding_application.is_3_to_10k?
+
+    link
+
+  end
+
 
   # Method used to determine whether or not the applicant
   # is also a legal signatory for a given funding application
@@ -147,6 +174,77 @@ module FundingApplicationHelper
     end
 
     applicant_is_also_legal_signatory
+
+  end
+
+  # Return true if grant award between 10000 and 100000
+  #
+  # @param grant award [Integer] Grant award amount
+  #
+  # @return result Boolean value indicating award falls in threshold
+  def is_10001k_100000k_award(grant_award)
+    
+    if grant_award
+      result = (grant_award > 10000) && (grant_award <= 100000)
+    else
+      result = false      
+    end
+
+    result 
+
+  end
+
+  # Return true if grant award between 100001 and 250000
+  #
+  # @param grant award [Integer] Grant award amount
+  #
+  # @return result Boolean value indicating award falls in threshold
+  def is_100001k_250000k_award(grant_award)
+
+    if grant_award
+      result = (grant_award > 100000) && (grant_award <= 250000) if grant_award
+    else
+      result = false      
+    end
+
+    result 
+
+  end
+
+  # Sets an in memory enumerated type for the passed instance of
+  # FundingApplication.  Used to dynamically determine what content
+  # should be shown based on the category of award type.
+  #
+  # @param grant award [FundingApplication] an instance of this class
+  def set_award_type(funding_application)
+
+    funding_application.award_type = :award_type_unknown
+
+    if funding_application.project.present? 
+      funding_application.award_type = :is_3_to_10k
+
+    elsif funding_application.open_medium.present?
+
+      salesforce_api_client = SalesforceApiClient.new
+
+      award_hash = 
+        salesforce_api_client.get_payment_related_details \
+          (funding_application.id) 
+
+      funding_application.award_type = :is_10_to_100k \
+        if is_10001k_100000k_award(award_hash[:grant_award])
+
+      funding_application.award_type = :is_100_to_250k \
+        if is_100001k_250000k_award(award_hash[:grant_award])
+
+    end
+      
+    if funding_application.award_type_unknown?
+      raise StandardError.new(
+        "Could not identify an award type for: #{funding_application.id}"
+      )
+  
+    end
 
   end
 

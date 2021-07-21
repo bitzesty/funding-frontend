@@ -1,0 +1,76 @@
+<table class="govuk-table nlhf-table nlhf-table--responsive-columns" role="table">
+  <thead class="govuk-table__head nlhf-table__head">
+    <tr class="govuk-table__row nlhf-table__row">
+      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
+        <%= t('agreement.cost_table.heading.cost') %>
+      </th>
+      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
+        <%= t('agreement.cost_table.heading.description') %>
+      </th>
+      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
+        <%= t('agreement.cost_table.heading.amount') %>
+      </th>
+      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
+        <%= t('agreement.cost_table.heading.vat') %>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody class="govuk-table__body nlhf-table__body">
+
+    <% project_costs.each do |cost| %>
+
+      <tr class="govuk-table__row nlhf-table__row">
+
+        <td class="govuk-table__cell nlhf-table__cell">
+          <div class="nlhf-table__cell-data">
+            <div class="nlhf-table__cell-data__item">
+              <%= cost.Cost_heading__c %>
+            </div>
+          </div>
+        </td>
+
+
+        <td class="govuk-table__cell nlhf-table__cell">
+          <div class="nlhf-table__cell-data">
+            <div class="nlhf-table__cell-data__item">
+              <%= cost.Project_Cost_Description__c %>
+            </div>
+          </div>
+        </td>
+        
+
+        <td class="govuk-table__cell nlhf-table__cell">
+          <div class="nlhf-table__cell-data">
+            <div class="nlhf-table__cell-data__item">
+              <%=
+                number_to_currency(
+                  cost.Costs__c,
+                  strip_insignificant_zeros: true,
+                  precision: 2
+                )
+              %>
+            </div>
+          </div>
+        </td>         
+
+        <td class="govuk-table__cell nlhf-table__cell">
+          <div class="nlhf-table__cell-data">
+            <div class="nlhf-table__cell-data__item">
+              <%=
+                number_to_currency(
+                  cost.Vat__c,
+                  strip_insignificant_zeros: true,
+                  precision: 2
+                )
+              %>
+            </div>
+          </div>
+        </td>    
+      </tr>
+
+    <% end %>
+
+  </tbody>
+
+</table>

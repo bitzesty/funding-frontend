@@ -1,0 +1,11 @@
+<div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('views.funding_application.gp_project.check_your_answers.project_title') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%= @funding_application.project.project_title.present? ? @funding_application.project.project_title : t('views.funding_application.gp_project.check_your_answers.not_answered')%>
+  </dd>
+
+</div>

@@ -58,7 +58,7 @@ module PaymentDetailsAndRequestHelper
 
       logger.info(
         "Payment request triggered for funding_application ID: #{funding_application.id}" \
-        ', grant award is between £10,000.01 and £100,000'
+        ', grant award is between £10,000 and £100,000'
       )
 
       calculate_payment_request_between_10000_and_100000(funding_application, payment_request, grant_award)

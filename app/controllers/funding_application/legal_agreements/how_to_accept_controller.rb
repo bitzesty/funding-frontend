@@ -9,7 +9,7 @@ class FundingApplication::LegalAgreements::HowToAcceptController < ApplicationCo
   def show
 
     get_and_set_instance_variables(@funding_application)
-
+    
     render :show
 
   end
@@ -24,14 +24,13 @@ class FundingApplication::LegalAgreements::HowToAcceptController < ApplicationCo
     # Only one agreement per funding application.
     if @funding_application.agreement.nil?
 
-      Agreement.create(funding_application_id: @funding_application.id)
+      new_agreement = Agreement.create(funding_application_id: @funding_application.id)
 
       logger.info(
         'Created a new Agreement with ID: ' \
-        "#{@funding_application.agreement.id}, redirecting to " \
+        "#{new_agreement.id}, redirecting to " \
         ':funding_application_check_project_details'
       )
-
     end
 
     redirect_to :funding_application_check_project_details
@@ -53,6 +52,8 @@ class FundingApplication::LegalAgreements::HowToAcceptController < ApplicationCo
       get_receiving_a_grant_guidance_link(funding_application)
 
     @investment_manager_name = project_owner_name(funding_application)
+
+    @award_more_than_10k = funding_application.open_medium.present?
 
   end
 

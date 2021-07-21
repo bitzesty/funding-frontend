@@ -102,10 +102,10 @@
 
       begin
 
-        # Equivalent of "SELECT SUM(Costs__c), Cost_heading__c FROM Project_Cost__c
+        # Equivalent of "SELECT SUM(Costs__c), SELECT SUM(Vat__c), Cost_heading__c FROM Project_Cost__c
         # WHERE Case__r.ApplicationId__c= '#{id}' GROUP BY Cost_heading__c"
         restforce_response = @client.query(
-          "SELECT SUM(Costs__c), Cost_heading__c FROM Project_Cost__c WHERE Case__r.ApplicationId__c= '#{id}' GROUP BY Cost_heading__c"
+          "SELECT SUM(Costs__c), SUM(Vat__c), Cost_heading__c FROM Project_Cost__c WHERE Case__r.ApplicationId__c= '#{id}' GROUP BY Cost_heading__c"
         )
 
         if restforce_response.length == 0
@@ -1077,7 +1077,7 @@
     # Method to find a Project's costs.
     # Currently used within the check-project-details route
     #
-    # Responsible for retries of its inner scope calls
+    # Responsible for retries
     # 
     # @param [salesforce_case_id] String A Case Id reference known to Salesforce 
     # @return [<Restforce::SObject] result.  A Restforce collection 
@@ -1088,7 +1088,7 @@
       begin
 
         result = 
-          @client.query_all("SELECT Cost_Heading__c, Costs__c, Project_Cost_Description__c " \
+          @client.query_all("SELECT Cost_Heading__c, Costs__c, Vat__c, Project_Cost_Description__c " \
             "FROM Project_Cost__c " \
               "where Case__c = '#{salesforce_case_id}'")  
 
@@ -1139,6 +1139,73 @@
 
     end
 
+    # Method to find a Project's cash contributions.
+    # Currently used within the check-project-details route
+    #
+    # Responsible for retries
+    # 
+    # @param [salesforce_case_id] String A Case Id reference known to Salesforce 
+    # @return [<Restforce::SObject] result.  A Restforce collection 
+    #                                        with query results
+    def cash_contributions(salesforce_case_id)
+      retry_number = 0
+
+      begin
+
+        result = 
+          @client.query_all("SELECT Description_for_cash_contributions__c, " \
+            "Amount_you_have_received__c, " \
+              "Secured_non_cash_contributions__c, Secured__c " \
+                "FROM Project_Income__c " \
+                  "where Case__c = '#{salesforce_case_id}'")  
+
+        if result.length != 1 
+
+          error_msg = "cash contributions not found for Case. " \
+            "Checking case id : '#{salesforce_case_id}'"
+
+          Rails.logger.error(error_msg)
+
+        end
+
+        result
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error finding cash contributions " \
+          "for case id: #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt to get cash contributions again, " \
+            "retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
 
     # Method to find a Project's approved purposes.
     # Currently used within the check-project-details route

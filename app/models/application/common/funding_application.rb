@@ -186,5 +186,12 @@ class FundingApplication < ApplicationRecord
 
   end
 
+  enum award_type: {
+    is_3_to_10k: 0,
+    is_10_to_100k: 1,
+    is_100_to_250k: 2,
+    award_type_unknown: 3
+  }, _default: :award_type_unknown
+
 end
 
