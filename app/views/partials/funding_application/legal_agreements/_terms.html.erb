@@ -614,6 +614,10 @@
   <%= render 'partials/funding_application/legal_agreements/terms/general_terms_and_conditions' %>
 <% end %>
 
+<% if @additional_grant_conditions.any? %>
+  <%= render 'partials/funding_application/legal_agreements/terms/additional_grant_conditions' %>
+<% end %>
+
 <h2 class="govuk-heading-l">
   <%= t('agreement.terms.sub_headings.check_and_confirm') %>
 </h2>

@@ -91,26 +91,21 @@
 
     end
 
-    def get_agreed_project_costs(id)
+    def get_agreed_project_costs(salesforce_case_id)
 
-      Rails.logger.info("Retrieving agreed project costs for project ID: #{id}")
+      Rails.logger.info("Retrieving agreed project costs for salesforce case ID: #{salesforce_case_id}")
 
       retry_number = 0
 
-      # TODO: remove
-      id = '37da105a-a899-4868-9a26-7a1329b5ef0a'
-
       begin
 
-        # Equivalent of "SELECT SUM(Costs__c), SELECT SUM(Vat__c), Cost_heading__c FROM Project_Cost__c
-        # WHERE Case__r.ApplicationId__c= '#{id}' GROUP BY Cost_heading__c"
         restforce_response = @client.query(
-          "SELECT SUM(Costs__c), SUM(Vat__c), Cost_heading__c FROM Project_Cost__c WHERE Case__r.ApplicationId__c= '#{id}' GROUP BY Cost_heading__c"
+          "SELECT SUM(Costs__c), SUM(Vat__c), Cost_heading__c FROM Project_Cost__c WHERE Case__c = '#{salesforce_case_id}' GROUP BY Cost_heading__c"
         )
 
         if restforce_response.length == 0
 
-          error_msg = "No project costs found when retrieving agreed project costs for project ID: #{id}"
+          error_msg = "No project costs found when retrieving agreed project costs for salesforce case ID: #{salesforce_case_id}"
 
           Rails.logger.error(error_msg)
 
@@ -124,7 +119,7 @@
              Restforce::EntityTooLargeError, Restforce::ResponseError => e
 
         Rails.logger.error(
-          "Exception occured when retrieving agreed project costs for project ID: #{id}: (#{e})"
+          "Exception occured when retrieving agreed project costs for salesforce case ID: #{salesforce_case_id}: (#{e})"
         )
 
         # Raise and allow global exception handler to catch
@@ -1225,7 +1220,7 @@
             "FROM Approved__c " \
               "where Project__c = '#{salesforce_case_id}'")  
 
-        if result.length != 1 
+        if result.length < 1 
 
           error_msg = "Project approved purposes not found for Case. " \
             "Checking case id : '#{salesforce_case_id}'"
@@ -1488,6 +1483,72 @@
 
       end
       
+    end
+
+    # Method to find additional grant conditions for an awarded project.
+    # Currently used within the terms route
+    #
+    # Responsible for retries
+    # 
+    # @param [salesforce_case_id] String A Case Id reference known to Salesforce 
+    # @return [<Restforce::SObject] result.  A Restforce collection 
+    #                                        with query results
+    def additional_grant_conditions(salesforce_case_id)
+      retry_number = 0
+
+      begin
+
+        result = 
+          @client.query_all("SELECT Additional_Grant_Condition_Text__c, Summary_of_progress__c " \
+            "FROM Additional_Grant_Condition__c " \
+              "where Project__c = '#{salesforce_case_id}'")  
+
+        if result.length < 1 
+
+          info_msg = "Additional grant conditions not found for Case: " \
+            "'#{salesforce_case_id}'"
+
+          Rails.logger.info(info_msg)
+
+        end
+
+        result
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error finding Additional grant conditions " \
+          "for case id: #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt additional_grant_conditions again, " \
+              "retry number #{retry_number} " \
+                "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
     end
 
     

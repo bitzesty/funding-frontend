@@ -1,0 +1,21 @@
+<h2 class="govuk-heading-l">
+  <%= t('agreement.terms.sub_headings.additional_conditions') %>
+</h2>
+
+<p class="govuk-body">
+  <%= t('agreement.terms.additional_grant_conditions.during_our_assessment') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('agreement.terms.additional_grant_conditions.if_you_need_support', name: @investment_manager_name) %>
+</p>
+
+<% @additional_grant_conditions.each do |additional_grant_condition| %>
+
+  <p class="govuk-body">
+    <%= additional_grant_condition.Additional_Grant_Condition_Text__c %>  
+  </p>
+
+<% end %>
+
+

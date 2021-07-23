@@ -159,13 +159,7 @@ module PaymentDetailsAndRequestHelper
 
     salesforce_api_client = SalesforceApiClient.new
 
-    if funding_application.project.present?
-      salesforce_api_client.get_agreed_project_costs(funding_application.project.id)
-    end
-
-    if funding_application.open_medium.present?
-      salesforce_api_client.get_agreed_project_costs(funding_application.id)
-    end
+    salesforce_api_client.get_agreed_project_costs(funding_application.salesforce_case_id)
 
   end
 
@@ -205,7 +199,7 @@ module PaymentDetailsAndRequestHelper
  
     store_payment_request_state_when_submitted(funding_application, payment_request)
 
-    # When time, consider if the client instantiated from retrieve_payment_related_details
+    # When time, consider if the salesforce_api_client instantiated from retrieve_payment_related_details
     # could be returned and fed into this function.  Fewer SF sessions.
     salesforce_api_client = SalesforceApiClient.new
     salesforce_api_client.upsert_payment_records(funding_application, payment_request)

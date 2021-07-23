@@ -196,4 +196,40 @@ module LegalAgreementsHelper
 
   end
 
+  # Method responsible for orchestrating the retrieval of
+  # additional grant conditions from Salesforce
+  #
+  # @param [FundingApplication] funding_application An instance of
+  #                                                 FundingApplication
+  # @param [FundingApplicationsLegalSig] funding_applications_legal_sig
+  #                          An instance of FundingApplicationsLegalSig
+  def additional_grant_conditions(funding_application)
+
+    client = SalesforceApiClient.new
+
+    case_id = funding_application.salesforce_case_id
+
+    additional_grant_conditions =
+      client.additional_grant_conditions \
+        (funding_application.salesforce_case_id)
+
+  end
+
+  # Method responsible for retreiving a subset of Salesforce 
+  # information for a project
+  #
+  # @param [FundingApplication] funding_application An instance of
+  #                                                 FundingApplication
+  # @return [<Restforce::SObject] project details. A collection 
+  #                                               containing project details.
+  def project_details(funding_application)
+
+    client = SalesforceApiClient.new
+
+    project_details =
+      client.project_details \
+        (funding_application.salesforce_case_id)
+
+  end
+
 end

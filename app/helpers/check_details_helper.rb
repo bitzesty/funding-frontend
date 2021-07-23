@@ -9,7 +9,7 @@ module CheckDetailsHelper
   # Passes through the project id for small, funding application id otherwise
   #
   # @param funding_application [FundingApplication] An instance of a FundingApplication
-  # @return String project_owner_name The project owner
+  # @return Hash a hash containing project details.
   def salesforce_content_for_form(funding_application)
 
     salesforce_api_client = SalesforceApiClient.new

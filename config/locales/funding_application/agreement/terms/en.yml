@@ -66,6 +66,9 @@ en-GB:
         any_documents_you_need_html: "Any documents you need to send us under these terms and conditions or %{href} are for our own purposes only. If we approve or accept any documents, this does not mean that we have approved or accepted them for any other purpose."
         any_documents_you_need_href: "Standard Terms of Grant"
         these_terms_conditions: "These terms and conditions cannot be enforced by anybody other than you or us."
+      additional_grant_conditions:
+        during_our_assessment: "During our assessment of your Project, we identified some additional actions you need to take in order to meet our standards for funding. We will monitor your Project against these, alongside your agreed Project costs and Approved Purposes."
+        if_you_need_support: "If you need support to fulfil these conditions, contact your Investment Manager %{name}."
     in_this_summary_html: "In this summary we highlight some of the main terms. However, you should always read and refer to our full %{href}. They also include the definitions used which are the same both here and in the Standard Terms of Grant."
     in_this_summary_href: "Standard Terms of Grant"
     must_have_requested: "You must have requested and received 100% of your Grant amount by your Grant Expiry Date. After this date, your Grant offer expires, and we won't be able to make any more payments to you. If you think you need an extension to this date, contact your Investment Manager."

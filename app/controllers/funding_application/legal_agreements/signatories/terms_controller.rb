@@ -19,6 +19,10 @@ class FundingApplication::LegalAgreements::Signatories::TermsController < Applic
     @programme_application_guidance =
       get_programme_application_guidance_link(@funding_application)
 
+    @additional_grant_conditions = additional_grant_conditions(@funding_application)
+
+    @investment_manager_name = project_details(@funding_application).Owner.Name
+    
   end
 
 end
