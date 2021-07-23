@@ -108,7 +108,7 @@ module PaymentDetailsAndRequestHelper
       {
         grant_award: grant_award,
         grant_award_type: 'grant_award_over_100000',
-        payment_request_percentage: payment_related_details[:grant_percentage].to_f / 100.to_f
+        payment_request_percentage: ((funding_application.payment_requests.first.amount_requested / payment_related_details[:grant_award]) * 100.to_f).truncate(2)
       } 
     end
 
@@ -226,7 +226,8 @@ module PaymentDetailsAndRequestHelper
       im_email 
     ).deliver_later
 
-    logger.info("Payment request email sent for: #{funding_application.id}")
+    logger.info("Payment request email sent for: #{funding_application.id}. " \
+      "Redirecting to payment request submitted")
 
     redirect_to(
       funding_application_payment_request_submitted_path(
@@ -255,7 +256,8 @@ module PaymentDetailsAndRequestHelper
   # @param amount [Float] The value to set as the PaymentRequest.amount_requested attribute
   def update_payment_request_amount(payment_request, amount)
 
-    # TODO: Add validation
+    # TODO: The table is a numeric so will only accept numerical values.
+    # However, when time allows would be good to marry this validation with Salesforce's
     payment_request.update(amount_requested: amount)
 
   end
@@ -294,6 +296,7 @@ module PaymentDetailsAndRequestHelper
   #
   # @param payment_request [PaymentRequest] An instance of a PaymentRequest
   # @param grant_percentage [Float] The grant_percentage used to calculate the payment request amount
+  # @return Float, the calculated payment_request_amount
   def calculate_payment_request_over_100000(payment_request, grant_percentage)
 
     total_spend_evidenced = payment_request.spends.sum(:gross_amount)
@@ -301,6 +304,8 @@ module PaymentDetailsAndRequestHelper
     payment_request_amount = total_spend_evidenced * (grant_percentage.to_f / 100.to_f)
 
     update_payment_request_amount(payment_request, payment_request_amount)
+
+    payment_request_amount
 
   end
 

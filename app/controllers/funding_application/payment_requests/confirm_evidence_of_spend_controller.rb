@@ -29,11 +29,12 @@ class FundingApplication::PaymentRequests::ConfirmEvidenceOfSpendController < Ap
 
     grant_percentage = retrieve_payment_related_details(@funding_application)[:grant_percentage]
   
-    calculate_payment_request_over_100000(@payment_request, grant_percentage)
+    payment_request_amount = 
+      calculate_payment_request_over_100000(@payment_request, grant_percentage)
 
-    logger.info('Redirecting to payment request submitted ')
+    logger.info("payment request amount for ID: #{@payment_request.id} is #{payment_request_amount}")
 
-    redirect_to(:funding_application_payment_request_submitted)
+    submit_payment_request(@funding_application, @payment_request)
 
   end
 
