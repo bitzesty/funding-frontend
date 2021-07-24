@@ -2,9 +2,15 @@
   <%= t('agreement.terms.sub_headings.additional_conditions') %>
 </h2>
 
-<p class="govuk-body">
-  <%= t('agreement.terms.additional_grant_conditions.during_our_assessment') %>
-</p>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term: t('agreement.terms.additional_grant_conditions.during_our_assessment'),
+      list_number: 24
+    }
+  )
+%>
 
 <p class="govuk-body">
   <%= t('agreement.terms.additional_grant_conditions.if_you_need_support', name: @investment_manager_name) %>

@@ -1,0 +1,19 @@
+
+<%# show with a bulleted number if award over 10k %>
+<% if @funding_application.is_3_to_10k? %>
+  <p class="govuk-body">
+    <%= legal_term %>
+  </p>
+<% end %>
+
+<% if @award_more_than_10k %>
+  <ul>
+    <ol class="govuk-list govuk-list--number govuk-list--spaced" start=<%= list_number %> >
+
+      <li>
+        <%= legal_term %>
+      </li>
+
+    </ol>
+  </ul>
+<% end %>

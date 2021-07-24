@@ -242,33 +242,9 @@
   <%= t('agreement.important_to_provide') %>
 </p>
 
-<h3 class="govuk-heading-m">
-  <%= t('agreement.terms.sub_headings.if_buying') %>
-</h3>
-
-<p class="govuk-body">
-  <%= t('agreement.in_all_projects') %>
-</p>
-
-<p class="govuk-body">
-  <%= t('agreement.if_public_body') %>
-</p>
-
-<p class="govuk-body">
-  <%= t('agreement.procedures_to_recruit') %>
-</p>
-
-<p class="govuk-body">
-  <%= t('agreement.if_unsure') %>
-</p>
-
-<h4 class="govuk-heading-s">
-  <%= t('agreement.terms.sub_headings.under_10k') %>
-</h4>
-
-<p class="govuk-body">
-  <%= t('agreement.terms.good_and_services.under_10k') %>
-</p>
+<% if @funding_application.is_3_to_10k? %>
+  <%= render 'partials/funding_application/legal_agreements/terms/goods_services_under_10k' %>
+<% end %>
 
 <% if @award_more_than_10k %>
   <%= render 'partials/funding_application/legal_agreements/terms/goods_services_over_10k' %>
@@ -280,9 +256,16 @@
   <%= t('agreement.terms.sub_headings.digital_outputs') %>
 </h3>
 
-<p class="govuk-body">
-  <%= t('agreement.digital_outputs_include') %>
-</p>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term:  t('agreement.digital_outputs_include'),
+      list_number: 10
+    }
+  )
+%>
+
 
 <p class="govuk-body">
   <%= t('agreement.digital_outputs_agree') %>
@@ -364,9 +347,15 @@
 
 </ul>
 
-<p class="govuk-body">
-  <%= t('agreement.must_continue_to_own') %>
-</p>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term:  t('agreement.must_continue_to_own'),
+      list_number: 11
+    }
+  )
+%>
 
 <p class="govuk-body">
   <%= t('agreement.our_approval') %>
@@ -388,9 +377,15 @@
 
 </ul>
 
-<p class="govuk-body">
-  <%= t('agreement.may_claim') %>
-</p>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term:  t('agreement.may_claim'),
+      list_number: 12
+    }
+  )
+%>
 
 <p class="govuk-body">
   <%= t('agreement.you_must') %>
@@ -452,79 +447,109 @@
   <%= t('agreement.terms.sub_headings.grant_payment') %>
 </h2>
 
-<p class="govuk-body">
-  <%=
-    t(
-      'agreement.we_will_pay_html',
-      href: link_to(
-        t('agreement.we_will_pay_href'),
-        @retrieving_a_grant_guidance_link
-      )
-    )
-  %>
-</p>
-
-<ul class="govuk-list govuk-list--bullet">
-
-  <li>
-    <%= t('agreement.payment_list.item_1') %>
-  </li>
-
-  <li>
-    <%=
-      t(
-        'agreement.payment_list.item_2_html',
-        href: link_to(
-          t('agreement.payment_list.item_2_href'),
-          @standard_terms_link
-        )
-      )
-    %>
-  </li>
-
-  <li>
-    <%= t('agreement.payment_list.item_3') %>
-  </li>
-
-</ul>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term: t('agreement.we_will_pay_html', 
+        href: link_to(t('agreement.we_will_pay_href'), 
+          @retrieving_a_grant_guidance_link)),
+      list_number: 13
+    }
+  )
+%>
 
 <% if @award_more_than_10k %>
-  <p class="govuk-body">  
-    <%=
-      t(
-        'agreement.terms.must_not_tranfer_grant_html',
-        href: link_to(
-          t('agreement.terms.must_not_tranfer_grant_href'),
-          @standard_terms_link
-        )
-      )
-    %>
-  </p>
+<ul class="govuk-list govuk-list--bullet">
+  <ul class="govuk-list govuk-list--bullet">
+    <ul class="govuk-list govuk-list--bullet">
+<% end %>
+
+      <ul class="govuk-list govuk-list--bullet">
+
+        <li>
+          <%= t('agreement.payment_list.item_1') %>
+        </li>
+
+        <li>
+          <%=
+            t(
+              'agreement.payment_list.item_2_html',
+              href: link_to(
+                t('agreement.payment_list.item_2_href'),
+                @standard_terms_link
+              )
+            )
+          %>
+        </li>
+
+        <li>
+          <%= t('agreement.payment_list.item_3') %>
+        </li>
+
+      </ul>
+
+<% if @award_more_than_10k %>
+    </ul>
+  </ul>
+</ul>
+<% end %>
+
+<% if @award_more_than_10k %>
+  <%=
+    render(
+      partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+      locals: {
+        legal_term: t('agreement.terms.must_not_tranfer_grant_html', 
+          href: link_to(t('agreement.terms.must_not_tranfer_grant_href'), 
+            @standard_terms_link)),
+        list_number: 14
+      }
+    )
+  %>
 <% end %>
 
 <h3 class="govuk-heading-m">
   <%= t('agreement.terms.sub_headings.what_happens_underspend') %>
 </h3>
 
-<p class="govuk-body">
-  <%= t('agreement.if_underspend') %>
-</p>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term: t('agreement.if_underspend'),
+      list_number: 15
+    }
+  )
+%>
 
 <h3 class="govuk-heading-m">
   <%= t('agreement.terms.sub_headings.what_happens_overspend') %>
 </h3>
 
-<p class="govuk-body">
-  <%= t('agreement.if_overspend') %>
-</p>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term: t('agreement.if_overspend'),
+      list_number: 16
+    }
+  )
+%>
 
 <h3 class="govuk-heading-m">
   <%= t('agreement.terms.sub_headings.when_repay') %>
 </h3>
 
-<p class="govuk-body">
-  <%= t('agreement.there_are_situations') %>
-</p>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term: t('agreement.there_are_situations'),
+      list_number: 17
+    }
+  )
+%>
 
 <p class="govuk-body">
   <%= t('agreement.circumstances_include') %>
@@ -582,29 +607,48 @@
 
 </ul>
 
-<p class="govuk-body">
-  <%= t('agreement.grant_funding_shall') %>
-</p>
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
+    locals: {
+      legal_term: t('agreement.grant_funding_shall'),
+      list_number: 18
+    }
+  )
+%>
 
+<% if @award_more_than_10k %>
 <ul class="govuk-list govuk-list--bullet">
+  <ul class="govuk-list govuk-list--bullet">
+    <ul class="govuk-list govuk-list--bullet">
+<% end %>
 
-  <li>
-    <%= t('agreement.not_repayable_list.item_1') %>
-  </li>
+      <ul class="govuk-list govuk-list--bullet">
 
-  <li>
-    <%= t('agreement.not_repayable_list.item_2') %>
-  </li>
+        <li>
+          <%= t('agreement.not_repayable_list.item_1') %>
+        </li>
 
-  <li>
-    <%= t('agreement.not_repayable_list.item_3') %>
-  </li>
+        <li>
+          <%= t('agreement.not_repayable_list.item_2') %>
+        </li>
 
-  <li>
-    <%= t('agreement.not_repayable_list.item_4') %>
-  </li>
+        <li>
+          <%= t('agreement.not_repayable_list.item_3') %>
+        </li>
 
+        <li>
+          <%= t('agreement.not_repayable_list.item_4') %>
+        </li>
+
+      </ul>
+
+<% if @award_more_than_10k %>
+    </ul>
+  </ul>
 </ul>
+<% end %>
+
 
 <p class="govuk-body">
   <%= t('agreement.if_above_applies') %>
