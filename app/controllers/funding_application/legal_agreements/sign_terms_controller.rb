@@ -16,7 +16,7 @@ class FundingApplication::LegalAgreements::SignTermsController < ApplicationCont
     set_award_type(@funding_application)
 
     @download_link = 
-      '/terms_and_conditions/National Lottery Heritage Fund terms and ' \
+      '/terms_and_conditions/Applicant only National Lottery Heritage Fund terms and ' \
         'conditions for £3,000 to £10,000.docx' \
           if @funding_application.is_3_to_10k?
          
