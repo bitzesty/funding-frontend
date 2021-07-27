@@ -29,6 +29,25 @@ class FundingApplication::LegalAgreements::TermsController < ApplicationControll
     @additional_grant_conditions = additional_grant_conditions(@funding_application)
 
     @investment_manager_name = project_details(@funding_application).Owner.Name
+
+    # This was duplicated from sign terms controller during a bug fix.  
+    # Given time, would be good to write a helper function to consolidate the
+    # filenames in one place.  Maybe cater for the signatory download links 
+    # too.
+    @download_link = 
+      '/terms_and_conditions/Applicant only National Lottery Heritage Fund terms and ' \
+        'conditions for £3,000 to £10,000.docx' \
+          if @funding_application.is_3_to_10k?
+
+    @download_link = 
+      '/terms_and_conditions/Applicant only National Lottery Heritage ' \
+        'Fund terms and conditions for £10,000 to £100,000.docx' \
+          if @funding_application.is_10_to_100k?
+
+    @download_link = 
+      '/terms_and_conditions/Applicant only National Lottery Heritage ' \
+        'Fund terms and conditions for £100,000 to £250,000.docx' \
+          if @funding_application.is_100_to_250k?       
     
   end
 

@@ -1,15 +1,32 @@
 module DashboardHelper
   include SalesforceApi
+  include FundingApplicationHelper
 
   # Allows use of the saleslforce_api lib file.  
   # Returns true if a legal agreement is in place
   # The salesforce_api_client is passed in to reduce instances.
-  # @param funding_application [FundingApplication] An instance of a FundingApplication
-  # @param salesforce_api_client [SalesforceApiClient] An instance of a SalesforceApiClient
+  #
+  # Todo: At the moment this function will never allowed awards over
+  # 100k to begin the payment journey.  This is so that the design can
+  # be finished.
+  #
+  # When payments > 100k can be enabled.  Remove reference to 
+  # FundingApplicationHelper and remove the lines indicated by comments below.
+
+  # @param funding_application [FundingApplication] An instance of a 
+  #                                                        FundingApplication
+  # @param salesforce_api_client [SalesforceApiClient] An instance of 
+  #                                                        a SalesforceApiClient
   # @return Boolean True if the project is awarded otherwise false
   def legal_agreement_in_place?(funding_application, salesforce_api_client)
+  
+    # remove once payments > 100k allowed
+    set_award_type(funding_application)
 
-    if funding_application.submitted_on.present?
+    # Remove "&& !funding_application.is_100_to_250k?" when payments 
+    # over 100k allowed 
+    if funding_application.submitted_on.present? && 
+        !funding_application.is_100_to_250k?
 
       salesforce_external_id = 
         funding_application.project.present? ? funding_application.project.id : funding_application.id 

@@ -29,6 +29,8 @@ class FundingApplication::TasksController < ApplicationController
     @has_not_agreed_to_terms =
       funding_application.agreement&.terms_agreed_at.nil?
 
+    # Todo: legal_agreement_in_place? temporarily return false if
+    # the award is >100k.  To prevent this journey starting.
     @legal_agreement_in_place = legal_agreement_in_place?(
       funding_application,
       get_salesforce_api_instance()
