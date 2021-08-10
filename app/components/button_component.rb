@@ -20,14 +20,19 @@ class ButtonComponent < ViewComponent::Base
   # @param [Array] attributes array of objects :attribute, :value
   # @param [String] name used for button element
   # @param [String] value add value attribute for button
+  # @param [string] data_method Rails function that allows HTTP methods 
+  #                 other than GET to be used.
   # @param [Boolean] disabled is the button disabled - disabled and aria
   #                           attributes will be set
   # @param [Boolean] is_start_button Use to configure as call to action 'start'
   #                                  button
+  # @param [Boolean] data-disable Used to disable a button once clicked for
+  #                               Javascript enabled applicants.
 
   def initialize (
       text: nil, element: nil, href: nil, classes: nil, attributes: nil,
-      type: nil, name: nil, value: nil, data_method: nil, disabled: false, is_start_button: false
+      type: nil, name: nil, value: nil, data_method: nil, disabled: false, 
+      is_start_button: false, data_disable: false
   )
 
     # If a text parameter has been passed into the initialiser, then use
@@ -73,6 +78,7 @@ class ButtonComponent < ViewComponent::Base
     @attributes = attributes
     @disabled = disabled
     @is_start_button = is_start_button
+    @data_disable_string = data_disable ? "data-disable=true" : ""
 
     # All button types have these common attributes
     @common_attributes = %(class="#{class_names}" data-module="govuk-button")

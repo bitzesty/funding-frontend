@@ -31,5 +31,5 @@
     <%- if @is_start_button %><%= start_icon.html_safe %><% end -%>
 </button>
 <%- elsif @element == 'input' -%>
-<input <%= @common_attributes.html_safe %> type="<%= @type %>" value="<%= @text %>" <%= @button_attributes.html_safe %>>
+<input <%= @common_attributes.html_safe %> type="<%= @type %>" value="<%= @text %>" <%= @button_attributes.html_safe %> <%= @data_disable_string %> >
 <%- end -%>

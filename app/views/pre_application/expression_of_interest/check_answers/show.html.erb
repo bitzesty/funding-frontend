@@ -48,6 +48,7 @@
         ButtonComponent.new(
             element: "input",
             text: t('pa_expression_of_interest.check_answers.buttons.submit'),
+            data_disable: true,
             attributes: [
                 {
                     attribute: ("disabled" unless Flipper.enabled?(:expressions_of_interest_enabled)),

@@ -186,4 +186,15 @@ RSpec.describe ButtonComponent, type: :component do
 
   end
 
+ it "should render data_disable when called with an data-disable param " \
+    "of 'true'" do
+
+    expect(render_inline(ButtonComponent.new(element: "input", name: "custom", data_disable: true))
+              .to_html)
+       .to eq("<input class=\"govuk-button\" data-module=\"govuk-button\" " \
+              "type=\"submit\" value=\"#{I18n.t("buttons.labels.default")}" \
+              "\" name=\"custom\" data-disable=\"true\">\n")
+
+end
+
 end
