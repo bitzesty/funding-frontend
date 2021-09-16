@@ -4,7 +4,7 @@
   <%= I18n.t("dashboard.awarded_projects.sub_heading") %>
 </h2>
 
-<% unless @funding_applications.present? %>
+<% unless @funding_applications.present? || @large_applications.present?%>
 
   <div class="nlhf-panel nlhf-alert nlhf-alert--slim govuk-!-margin-bottom-8">
 
@@ -133,7 +133,40 @@
         <% end %>
 
     <% end %>
+  <% end %>
 
+  <% if @large_applications[:delivery].present? %>
+    <h2 class="govuk-heading-m">
+          Delivery Phase
+    </h2>
+    <ul class="govuk-list govuk-list--number nlhf-list nlhf-list--links govuk-!-margin-bottom-8">  
+      <% @large_applications[:delivery].each do| delivery_app | %>
+
+        <li class="nlhf-list__item nlhf-task__item">
+
+          <span class="nlhf-tag-name">
+          <p><%= delivery_app[:Project_Title__c]%></p>
+        </li>
+
+      <%end%>
+    </ul>
+  <% end %>
+
+  <% if @large_applications[:development].present? %>
+    <h2 class="govuk-heading-m">
+          Development Phase
+    </h2>
+    <ul class="govuk-list govuk-list--number nlhf-list nlhf-list--links govuk-!-margin-bottom-8">  
+      <% @large_applications[:development].each do| delivery_app | %>
+
+        <li class="nlhf-list__item nlhf-task__item">
+
+          <span class="nlhf-tag-name">
+          <p><%= delivery_app[:Project_Title__c]%></p>
+        </li>
+
+      <%end%>
+    </ul>
   <% end %>
 
 <% end %>

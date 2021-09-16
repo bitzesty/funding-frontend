@@ -69,4 +69,38 @@ module DashboardHelper
     awarded
   end
 
+  # Allows use of the saleslforce_api lib file.  
+  # Reruns dictionary of large project title and record types registered against user.
+  # Passes through email to query sales force contact against.
+  # @param salesforce_api_client [SalesforceApiClient] An instance of a SalesforceApiClient
+  # @param email [String] An email address.  
+  # @return Hash A hash containing two arrays of restforce data.  One for
+  #               Delivery applications.  One for Development.
+  def get_large_salesforce_applications(salesforce_api_client, email)
+
+    delivery = []
+    development = []
+
+    if Flipper.enabled?(:permission_to_start_enabled)
+
+      large_application = salesforce_api_client.select_large_applications(email)
+
+      large_application.each do | app |  
+
+        if app[:RecordType][:DeveloperName] == "Large"
+          delivery.push(app)
+        end 
+        
+        if app[:RecordType][:DeveloperName] == "Large_Development_250_500k"
+          development.push(app)
+        end
+
+      end
+
+    end
+
+    return {delivery: delivery, development: development}
+
+  end
+
 end

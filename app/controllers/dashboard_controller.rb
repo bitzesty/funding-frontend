@@ -7,6 +7,8 @@ class DashboardController < ApplicationController
 
     if user_details_complete(current_user)
 
+      salesforce_api_instance = get_salesforce_api_instance()
+
       gon.push({ tracking_url_path: '/project-dashboard' })
 
       @projects = current_user.projects
@@ -24,8 +26,7 @@ class DashboardController < ApplicationController
           @gp_open_mediums = []
           @legally_agreed_smalls = []
           @legally_agreed_mediums = []
-
-          salesforce_api_instance = get_salesforce_api_instance()
+          @large_applications = []
 
           @funding_applications.each do |funding_application|
 
@@ -53,6 +54,8 @@ class DashboardController < ApplicationController
 
         @pa_project_enquiry_presence = get_pa_project_enquiry_presence(@pre_applications)
         @pa_expression_of_interest_presence = get_pa_expression_of_interest_presence(@pre_applications)
+        
+        @large_applications = get_large_salesforce_applications(salesforce_api_instance, current_user.email)
 
       end
 

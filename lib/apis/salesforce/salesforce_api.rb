@@ -1551,6 +1551,74 @@
 
     end
 
+    # Method to find all large projects in Salesforce that have an email address
+    # matching the current user logged into Funding Frontend.
+    # Currently used by dashboard controller
+    #
+    # @param [email] Current logged in users' email
+    # @return [<Restforce::SObject] result.  A Restforce collection 
+    #                                        with query results
+    def select_large_applications(email)
+
+      retry_number = 0
+
+      begin
+
+      large_applications = []
+
+      account_id = 
+        @client.query_all("SELECT AccountId FROM Contact where Id IN " \
+          "(SELECT ContactId FROM User WHERE email = '#{email}')")
+
+      if account_id.length > 1 
+        info_msg = "Multiple account IDs found for email: " \
+        "'#{email}'"
+
+        Rails.logger.error(info_msg)
+      end
+
+      if account_id&.first.present?
+        large_applications = 
+          @client.query_all("SELECT Project_Title__c, Id, " \
+            "recordType.DeveloperName FROM Case WHERE AccountId " \
+              "= '#{account_id.first[:AccountId]}' " \
+                "AND Application_Submitted__c = TRUE AND " \
+                  "Start_the_legal_agreement_process__c = TRUE")
+      end
+
+      return large_applications
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::ResponseError => e
+        Rails.logger.error("Error retrieving large applications " \
+          "for funding user with email: #{email}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt to retrieve large applications again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+      end
+    end
+
     
     private
 
@@ -3060,7 +3128,5 @@
       end
 
     end
-
   end
-
 end

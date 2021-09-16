@@ -18,5 +18,6 @@ if ActiveRecord::Base.connection.table_exists? :flipper_features
     Flipper[:expressions_of_interest_enabled].add
     Flipper[:payment_requests_enabled].add
     Flipper[:grant_programme_sff_medium].add
+    Flipper[:permission_to_start_enabled].add
   end
 end
