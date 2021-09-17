@@ -1566,23 +1566,23 @@
 
       large_applications = []
 
-      account_id = 
-        @client.query_all("SELECT AccountId FROM Contact where Id IN " \
-          "(SELECT ContactId FROM User WHERE email = '#{email}')")
+      user = @client.query_all("SELECT AccountId, Id FROM Contact WHERE Id IN  " \
+        "(SELECT ContactId FROM User where email = '#{email}') ")
 
-      if account_id.length > 1 
+      if user.length > 1 
         info_msg = "Multiple account IDs found for email: " \
         "'#{email}'"
 
         Rails.logger.error(info_msg)
       end
 
-      if account_id&.first.present?
+      unless user&.first.values.any? { | detail |  detail.nil? }
         large_applications = 
-          @client.query_all("SELECT Project_Title__c, Id, " \
-            "recordType.DeveloperName FROM Case WHERE AccountId " \
-              "= '#{account_id.first[:AccountId]}' " \
-                "AND Application_Submitted__c = TRUE AND " \
+        @client.query_all("SELECT Project_Title__c, Id, " \
+          "recordType.DeveloperName FROM Case WHERE  " \
+            "AccountId = '#{user.first[:AccountId]}' AND " \
+              "contactId = '#{user.first[:Id]}' AND " \
+                "Application_Submitted__c = TRUE AND " \
                   "Start_the_legal_agreement_process__c = TRUE")
       end
 

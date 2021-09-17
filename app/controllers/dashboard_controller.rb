@@ -57,6 +57,8 @@ class DashboardController < ApplicationController
         
         @large_applications = get_large_salesforce_applications(salesforce_api_instance, current_user.email)
 
+        @large_applications = get_large_salesforce_applications(salesforce_api_instance, current_user.email)
+
       end
 
     else

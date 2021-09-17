@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_16_105759) do
+ActiveRecord::Schema.define(version: 2021_09_16_124657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -571,6 +571,14 @@ ActiveRecord::Schema.define(version: 2021_09_16_105759) do
     t.jsonb "payload"
     t.integer "form_type"
     t.index ["project_id"], name: "index_released_forms_on_project_id"
+  end
+
+  create_table "sfx_pts_payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "salesforce_case_id"
+    t.string "email_address"
+    t.jsonb "pts_answers_json"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "spends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
