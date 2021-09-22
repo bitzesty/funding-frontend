@@ -519,6 +519,22 @@ Rails.application.routes.draw do
 
   end
 
+  scope 'salesforce-experience-application', module: 'salesforce_experience_application', as: :sfx_pts_payment do
+
+    scope '/:salesforce_case_id' do
+
+      get '/permission-to-start', to: 'pts_start#show'
+      post '/permission-to-start', to: 'pts_start#update'
+      get '/approved-purposes', to: 'approved_purposes#show'
+      post '/approved-purposes', to: 'approved_purposes#update'
+      get '/agreed-costs', to: 'agreed_costs#show'
+      post '/agreed-costs', to: 'agreed_costs#update'
+
+    end
+
+  end
+
+
   # Static pages within the service
   get '/accessibility-statement', to: 'static_pages#show_accessibility_statement'
 

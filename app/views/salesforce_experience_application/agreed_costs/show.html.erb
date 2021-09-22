@@ -1,0 +1,168 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: 'Permission to Start -  Agreed Costs'
+         }
+%>
+
+<span class="govuk-caption-xl govuk-!-padding-bottom-2">Agreed Costs</span>
+<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+  Are the project costs still correct?
+</h1>
+
+<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
+
+  <header class="nlhf-summary__header">
+
+    <h2 class="govuk-heading-m">
+        <%= t('application.costs.headings.2') %>
+    </h2>
+
+  </header>
+
+    <div class="nlhf-summary__body">
+
+        <table class="govuk-table">
+
+        <thead class="govuk-table__head">
+
+        <tr class="govuk-table__row">
+
+            <th scope="col" class="govuk-table__header">
+                Cost heading
+            </th>
+
+            <th scope="col" class="govuk-table__header">
+                Agreed cost (£)
+            </th>
+
+            <th scope="col" class="govuk-table__header">
+                Agreed VAT (£)
+            </th>
+
+            <th scope="col" class="govuk-table__header">
+                    Total Proposed Cost
+            </th>
+
+        </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+            <tr class="govuk-table__row">
+
+                <td scope="govuk-table__cell" class="govuk-table__cell">
+                    Planting Trees
+                </td>
+
+                <td class="govuk-table__cell">
+                    100
+                </td>
+
+                <td class="govuk-table__cell">
+                    200
+                </td>
+
+                <td class="govuk-table__cell">
+                    200
+                </td>
+
+            </tr>
+              <tr class="govuk-table__row">
+
+                <th scope="govuk-table__cell" class="govuk-table__header">
+                    Total (£)
+                </th>
+
+                <td class="govuk-table__cell ">
+                    100
+                </td>
+
+                <td class="govuk-table__cell">
+                    200
+                </td>
+
+                <td class="govuk-table__header">
+                    200
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<div class="govuk-body">
+    <p>Total VAT allocation:  [Total VAT allocation from SF] </p>
+    <p class="govuk-!-margin-bottom-9">Total contingency allocation: [Total contingency allocation from SF] </p>
+    <p class="govuk-!-padding-bottom-9">Payment percentage: [calculated in SF] </p>
+</div>
+
+
+
+
+<%= form_with(
+    url: :sfx_pts_payment_agreed_costs,
+    method: :post,
+    local: true
+  ) do |f| 
+%>
+
+    <div class="govuk-form-group">
+
+        <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-8" data-module="govuk-radios">
+
+          <div class="govuk-radios__item">
+
+            <%=
+              f.radio_button :costs_are_correct,
+              "purposes_match",
+              class: "govuk-radios__input"
+            %>
+
+            <%= 
+              f.label :costs_are_correct_true, 
+              "Yes, the projects costs are correct",
+              class: "govuk-label govuk-radios__label govuk-label--s" 
+            %>
+
+          </div>
+
+          <div class="govuk-radios__item">
+
+            <%=
+              f.radio_button :costs_are_correct,
+              "purposes_match",
+              class: "govuk-radios__input",
+              "data-aria-controls" => "conditional-costs_are_correct"
+            %>
+
+            <%= 
+              f.label :costs_are_correct_false, 
+               "No, the the project costs are not correct",
+              class: "govuk-label govuk-radios__label govuk-label--s" 
+            %>
+
+          </div>
+
+          <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+              id="conditional-costs_are_correct">
+
+            <p class="govuk-body">
+                Changes to costs need to be agreed with your Investment Manager. Contact your Investment Manager to discuss any changes.
+            </p>
+            
+          </div>
+        </div>
+
+      <%= render(
+        ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: "Save and continue"
+        )
+      )%>
+
+    </div>
+
+<% end %>

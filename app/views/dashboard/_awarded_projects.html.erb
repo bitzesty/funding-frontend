@@ -44,7 +44,7 @@
 
                 <%=
                   link_to(
-                    funding_application.project&.project_title.present? ? funding_application.project&.project_title : t('dashboard.funding_applicaawarded_projectstions.untitled'),
+                    funding_application.project&.project_title.present? ? funding_application.project&.project_title : t('dashboard.funding_applications.untitled'),
                     funding_application_tasks_path(application_id: funding_application.id),
                     class: 'govuk-link govuk-link--no-visited-state',
                     aria: {describedby: funding_application.id}
@@ -145,7 +145,15 @@
         <li class="nlhf-list__item nlhf-task__item">
 
           <span class="nlhf-tag-name">
-          <p><%= delivery_app[:Project_Title__c]%></p>
+
+          <%=
+            link_to(
+              delivery_app[:Project_Title__c],
+              sfx_pts_payment_permission_to_start_path(salesforce_case_id: delivery_app[:Id]),
+              class: 'govuk-link govuk-link--no-visited-state'
+            )
+          %>
+
         </li>
 
       <%end%>
@@ -157,15 +165,24 @@
           Development Phase
     </h2>
     <ul class="govuk-list govuk-list--number nlhf-list nlhf-list--links govuk-!-margin-bottom-8">  
-      <% @large_applications[:development].each do| delivery_app | %>
+      <% @large_applications[:development].each do| development_app | %>
 
         <li class="nlhf-list__item nlhf-task__item">
 
           <span class="nlhf-tag-name">
-          <p><%= delivery_app[:Project_Title__c]%></p>
-        </li>
+          
+          <%=
+            link_to(
+              development_app[:Project_Title__c],
+              sfx_pts_payment_permission_to_start_path(salesforce_case_id: development_app[:Id]),
+              class: 'govuk-link govuk-link--no-visited-state'
+            )
+          %>
 
+        </li>
+        
       <%end%>
+
     </ul>
   <% end %>
 
