@@ -7,6 +7,8 @@ class FundingApplication::TasksController < ApplicationController
 
   def show
 
+    set_award_type(@funding_application)
+
     set_instance_variables(@funding_application)
 
   end

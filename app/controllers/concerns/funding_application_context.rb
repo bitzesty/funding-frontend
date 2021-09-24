@@ -20,6 +20,10 @@ module FundingApplicationContext
       organisation_id: current_user.organisations.first&.id
     )
 
+    # Consider adding set_award_type(@funding_application) here 
+    # rather than calling throughout the app when needed.  Would
+    # Need testing on all journeys.
+
     if !@funding_application.present? || (@funding_application.project.nil? && @funding_application.open_medium.nil?) ||
       (@funding_application.submitted_on.present? && not_an_allowed_paths_for_submitted_projects(request.path))
 
