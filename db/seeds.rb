@@ -46,6 +46,36 @@ cost_types_sql = <<-EOL
     insert into cost_types (name, created_at, updated_at) values ('Contingency', now(), now());
 EOL
 
+heritage_designations_sql = <<-EOL
+    insert into heritage_designations (designation, created_at, updated_at) values ('accredited_museum_gallery_or_archive', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('designated_or_significant_collection', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('dcms_funded_museum_gallery_or_archive', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('world_heritage_site', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('grade_1_or_a_listed_building', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('grade_2_star_or_b_listed_building', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('grade_2_c_or_cs_listed_building', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('local_list', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('scheduled_ancient_monument', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('registered_historic_ship', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('conservation_area', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('registered_battlefield', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('anob_or_nsa', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('national_park', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('national_nature_reserve', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('ramsar_site', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('rigs', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('sac', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('spa', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('grade_1_listed_park_or_garden', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('grade_2_star_listed_park_or_garden', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('grade_2_listed_park_or_garden', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('protected_wreck_site', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('national_historic_organ_register', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('site_of_special_scientific_interest', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('local_nature_reserve', now(), now());
+    insert into heritage_designations (designation, created_at, updated_at) values ('other', now(), now());
+EOL
+
 connection = ActiveRecord::Base.connection()
 
 flipper_gates_sql.split(';').each do |s|
@@ -53,5 +83,9 @@ flipper_gates_sql.split(';').each do |s|
 end
 
 cost_types_sql.split(';').each do |s|
+    connection.execute(s.strip) unless s.strip.empty?
+end
+
+heritage_designations_sql.split(';').each do |s|
     connection.execute(s.strip) unless s.strip.empty?
 end
