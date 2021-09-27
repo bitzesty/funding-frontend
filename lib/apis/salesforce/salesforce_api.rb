@@ -167,7 +167,7 @@
 
         salesforce_account_id = create_organisation_in_salesforce(organisation)
 
-        salesforce_contact_id = upsert_contact_in_salesforce(user, salesforce_account_id)
+        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation, salesforce_account_id)
 
         salesforce_expression_of_interest_id = @client.upsert!(
           'Expression_Of_Interest__c',
@@ -260,7 +260,7 @@
         
         salesforce_account_id = create_organisation_in_salesforce(organisation)
 
-        salesforce_contact_id = upsert_contact_in_salesforce(user, salesforce_account_id)
+        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation, salesforce_account_id)
 
         salesforce_project_enquiry_id = @client.upsert!(
           'Project_Enquiry__c',
@@ -350,6 +350,7 @@
 
         salesforce_contact_id = upsert_contact_in_salesforce(
           user,
+          organisation,
           salesforce_account_id
         )
 
@@ -2251,21 +2252,24 @@
     # @param [User] user An instance of a User object
     # @param [String] salesforce_account_id a salesforce organisation 
     #                                                   reference for the User's organisation
+    # @param [Organisation] organisation a salesforce organisation for the user
     #
     # @return [String] salesforce_contact_id A Salesforce contact Id for the Contact/User
-    def upsert_contact_in_salesforce(user, salesforce_account_id)
+    def upsert_contact_in_salesforce(user, organisation, salesforce_account_id)
       
       salesforce_contact_id = find_matching_contact_for_user(user)
 
+      applicant_is_signatory = is_applicant_legal_signatory(user, organisation)
+
       if salesforce_contact_id.nil?
-        salesforce_contact_id = upsert_contact_by_user_id(user, salesforce_account_id)       
+        salesforce_contact_id = upsert_contact_by_user_id(user, 
+          salesforce_account_id, applicant_is_signatory)       
       else
-        upsert_contact_by_salesforce_id(user, salesforce_contact_id, salesforce_account_id)    
+        upsert_contact_by_salesforce_id(user, salesforce_contact_id, 
+          salesforce_account_id, applicant_is_signatory)    
       end
 
-      Rails.logger.info(
-        "Upserted a Contact record in Salesforce with Id: #{salesforce_contact_id}"
-      )
+      Rails.logger.info( "Upserted a Contact record in Salesforce with id #{salesforce_contact_id}" )
 
       salesforce_contact_id
 
@@ -2280,8 +2284,9 @@
     # @param [String] salesforce_contact_id The Contact record's Id
     # @param [String] salesforce_account_id A salesforce organisation 
     #                                                   reference for the User's organisation
+    # @param [boolean] applicant_is_signatory True if the applicant is a signatory
     # @return [String] salesforce_contact_id A Salesforce contact Id for the Contact/User
-    def upsert_contact_by_salesforce_id(user, salesforce_contact_id, salesforce_account_id) 
+    def upsert_contact_by_salesforce_id(user, salesforce_contact_id, salesforce_account_id, applicant_is_signatory) 
       salesforce_contact_id = @client.upsert!(
         'Contact',
         'Id',
@@ -2304,7 +2309,8 @@
         # Ensure we use a type of language preference known to Salesforce. If a different type, cover ourselves with both
         Language_Preference__c: (['english', 'welsh', 'both'].include? user.language_preference) ? user.language_preference : 'both',
         Agrees_To_User_Research__c: (user.agrees_to_user_research.present?) ? user.agrees_to_user_research : false,
-        AccountId: salesforce_account_id
+        AccountId: salesforce_account_id,
+        Is_Authorised_Signatory__c: applicant_is_signatory
        ) 
     end 
 
@@ -2316,7 +2322,9 @@
     # @param [User] user An instance of a User object
     # @param [String] salesforce_account_id A salesforce organisation 
     #                                                   reference for the User's organisation
-    def upsert_contact_by_user_id(user, salesforce_account_id) 
+    # @param [boolean] applicant_is_signatory True if the applicant is a signatory
+    # @return [String] salesforce_contact_id A Salesforce contact Id for the Contact/User
+    def upsert_contact_by_user_id(user, salesforce_account_id, applicant_is_signatory) 
       salesforce_contact_id = @client.upsert!(
         'Contact',
         'Contact_External_ID__c',
@@ -2338,7 +2346,8 @@
         # Ensure we use a type of language preference known to Salesforce. If a different type, cover ourselves with both
         Language_Preference__c: (['english', 'welsh', 'both'].include? user.language_preference) ? user.language_preference : 'both',
         Agrees_To_User_Research__c: (user.agrees_to_user_research.present?) ? user.agrees_to_user_research : false,
-        AccountId: salesforce_account_id
+        AccountId: salesforce_account_id,
+        Is_Authorised_Signatory__c: applicant_is_signatory
        ) 
     end 
 
@@ -3133,5 +3142,11 @@
       end
 
     end
+
+    def is_applicant_legal_signatory(user, organisation)
+      applicant_is_sig  = organisation.legal_signatories.any? { |sig| 
+        sig.email_address&.strip&.upcase == user.email&.strip&.upcase }
+    end
   end
+
 end
