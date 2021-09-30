@@ -15,6 +15,6 @@ en-GB:
       to_do_this: "To do this:"
       download: "Download the terms and conditions"
       signing: "You can either digitally sign the document or print the document, sign it and scan it. No matter how you do this, it needs to be a new signature. It cannot be a copy."
-      uploading: "After you have signed the document, you should upload the signed copy. Make sure you've included all of the pages of the document."
+      uploading: "Make sure you upload all pages of the signed terms and conditions as 1 document."
       no_signed_terms_and_conditions: "You have not added evidence of signed terms and conditions"
       signed_terms_and_conditions: "Signed terms and conditions"
