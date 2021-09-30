@@ -3,7 +3,7 @@ cy:
     signatories:
       page_title: "Pwy yw eich llofnodwr cyfreithiol?"
       page_heading: "Pwy yw eich llofnodwr cyfreithiol?"
-      page_hint: "Mae llofnodwr yn berson sydd wedi'i awdurdodi i lofnodi dogfennau cyfreithiol ar ran eich sefydliad. Dywedwch wrthym enwau 2 lofnodwr cyfreithiol, neu awdurdodedig, ar gyfer eich sefydliad."
+      page_hint: "Mae llofnodwr yn berson sydd wedi'i awdurdodi i lofnodi dogfennau cyfreithiol ar ran eich sefydliad. Dywedwch wrthym enwau 2 lofnodwr cyfreithiol, neu awdurdodedig, ar gyfer eich sefydliad. Os byddwn yn ariannu eich prosiect, byddwn yn anfon e-bost at y llofnodwyr cyfreithiol cyswllt uniongyrchol. Bydd angen i bob un ohonynt dderbyn y grant ar ran y sefydliad."
       expected_amount_html: "Rydym yn disgwyl i sefydliad gael 2 lofnodwr cyfreithiol. Fodd bynnag, gallwn dderbyn 1 llofnodwr mewn rhai achosion cyfyngedig, %{href} i drafod eich cais."
       expected_amount_href: "cysylltwch â ni"
       legal_signatory: "Llofnodwr cyfreithiol"
