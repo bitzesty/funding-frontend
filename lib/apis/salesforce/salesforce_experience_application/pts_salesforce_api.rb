@@ -46,6 +46,55 @@ module PtsSalesforceApi
 
     end
 
+    # Method to find a Project's approved purposes.
+    # If there are no approved purpose, view will inform User.
+    # 
+    # @param [salesforce_case_id] String A Case Id reference 
+    #                                     known to Salesforce 
+    # @return [<Restforce::SObject] restforce_response.  A Restforce collection 
+    #                                     with query results
+    def get_approved_purposes(salesforce_case_id)
+      Rails.logger.info("Retrieving Approved Purposes " \
+        "for case ID: #{salesforce_case_id}")
+
+      query_string = "SELECT id, Approved_Purposes__c FROM Approved__c " \
+        "WHERE Project__c = '#{salesforce_case_id}'"
+      
+      restforce_response = run_salesforce_query(query_string, 
+        "get_approved_purposes", salesforce_case_id)
+
+      restforce_response
+    end
+
+    # Method to find a Project's costs by case id and record type.
+    #
+    # @param [salesforce_case] String A Case Id reference
+    #                                     known to Salesforce
+    # @return [<Restforce::SObject] restforce_response.  A Restforce collection
+    #                                     with query results
+    def get_agreed_costs(salesforce_case)
+      Rails.logger.info("Retrieving Agreed Costs " \
+        "for case ID: #{salesforce_case.salesforce_case_id}")
+
+      restforce_response = []
+
+      query_string = "SELECT Costs__c, Vat__c, Cost_heading__c FROM Project_Cost__c " \
+      "WHERE Case__c = '#{salesforce_case.salesforce_case_id}' " \
+        "and recordType.DeveloperName = 'Large_Grants_Actual_Delivery'" \
+          if salesforce_case.large_delivery?
+      
+      query_string = "SELECT Costs__c, Vat__c, Cost_heading__c FROM Project_Cost__c " \
+      "WHERE Case__c = '#{salesforce_case.salesforce_case_id}' " \
+        "and recordType.DeveloperName = 'Large_Grants_Development'" \
+          if salesforce_case.large_development?
+
+      restforce_response = run_salesforce_query(query_string, 
+        "get_agreed_costs", salesforce_case.salesforce_case_id) \
+          if query_string.present?
+
+      restforce_response
+
+    end
 
     private
 

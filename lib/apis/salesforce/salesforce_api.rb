@@ -1572,7 +1572,7 @@
 
       if users.length == 1
 
-        Rails.logger.error("Found matching salesforce contact id: " \
+        Rails.logger.info("Found matching salesforce contact id: " \
           "#{users.first[:Id]} where user email is '#{email}'")
 
         unless users&.first&.values&.any? { | detail |  detail.nil? }

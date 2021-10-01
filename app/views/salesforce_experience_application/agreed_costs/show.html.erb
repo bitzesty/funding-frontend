@@ -4,109 +4,154 @@
              model_object: nil,
              page_title: 'Permission to Start -  Agreed Costs'
          }
+%><%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @salesforce_experience_application,
+      first_form_element: :costs_are_correct_true
+    }
+  ) if @salesforce_experience_application.errors.any?
 %>
 
-<span class="govuk-caption-xl govuk-!-padding-bottom-2">Agreed Costs</span>
-<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-  Are the project costs still correct?
-</h1>
+<div class="govuk-form-group <%= "govuk-form-group--error" if
+  @salesforce_experience_application.errors.any? %>">
 
-<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
+  <span class="govuk-caption-xl govuk-!-padding-bottom-2">Agreed Costs</span>
+  <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+    Are the project costs still correct?
+  </h1>
 
-  <header class="nlhf-summary__header">
+  <section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
 
-    <h2 class="govuk-heading-m">
-        <%= t('application.costs.headings.2') %>
-    </h2>
+    <header class="nlhf-summary__header">
 
-  </header>
+      <h2 class="govuk-heading-m">
+          <%= t('application.costs.headings.2') %>
+      </h2>
 
-    <div class="nlhf-summary__body">
+    </header>
 
-        <table class="govuk-table">
+      <div class="nlhf-summary__body">
 
-        <thead class="govuk-table__head">
+          <table class="govuk-table">
 
-        <tr class="govuk-table__row">
+          <thead class="govuk-table__head">
 
-            <th scope="col" class="govuk-table__header">
-                Cost heading
-            </th>
+          <tr class="govuk-table__row">
 
-            <th scope="col" class="govuk-table__header">
-                Agreed cost (£)
-            </th>
+              <th scope="col" class="govuk-table__header">
+                  Cost heading
+              </th>
 
-            <th scope="col" class="govuk-table__header">
-                Agreed VAT (£)
-            </th>
+              <th scope="col" class="govuk-table__header">
+                  Agreed costs (£)
+              </th>
 
-            <th scope="col" class="govuk-table__header">
-                    Total Proposed Cost
-            </th>
+              <th scope="col" class="govuk-table__header">
+                  Agreed VAT (£)
+              </th>
 
-        </tr>
+              <th scope="col" class="govuk-table__header">
+                  Agreed total costs (£)
+              </th>
 
-        </thead>
+          </tr>
 
-        <tbody class="govuk-table__body">
+          </thead>
+
+          <tbody class="govuk-table__body">
+
+            <% @agreed_costs.each do |ac| %>
+              <tr class="govuk-table__row">
+
+                  <td scope="govuk-table__cell" class="govuk-table__cell">
+                    <%= ac[:cost_heading] %>
+                  </td>
+
+                  <td class="govuk-table__cell">
+                      <%= number_to_currency(ac[:cost], unit: "",  precision: 2) %>
+                  </td>
+
+                  <td class="govuk-table__cell">
+                    <%= number_to_currency(ac[:vat], unit: "",  precision: 2) %>
+                  </td>
+
+                  <td class="govuk-table__cell">
+                    <%= number_to_currency(ac[:total], unit: "",  precision: 2) %>
+                  </td>
+              </tr>
+
+            <% end %>
 
             <tr class="govuk-table__row">
 
-                <td scope="govuk-table__cell" class="govuk-table__cell">
-                    Planting Trees
-                </td>
+              <th scope="govuk-table__cell" class="govuk-table__header">
+                  Total (£)
+              </th>
 
-                <td class="govuk-table__cell">
-                    100
-                </td>
+              <td class="govuk-table__cell ">
+                  <%= 
+                    number_to_currency(
+                    @agreed_costs.sum {|ac| ac[:cost] }, 
+                    unit: "",
+                    precision: 2
+                    ) 
+                  %>
+              </td>
 
-                <td class="govuk-table__cell">
-                    200
-                </td>
+              <td class="govuk-table__cell">
+                <%= 
+                  number_to_currency(
+                  @agreed_costs.sum {|ac| ac[:vat] }, 
+                  unit: "",
+                  precision: 2
+                  ) 
+                %>
+              </td>
 
-                <td class="govuk-table__cell">
-                    200
-                </td>
+              <td class="govuk-table__header">
+                <%= 
+                  number_to_currency(
+                  @agreed_costs.sum {|ac| ac[:total] }, 
+                  unit: "",
+                  precision: 2
+                  ) 
+                %>
+              </td>
 
-            </tr>
-              <tr class="govuk-table__row">
-
-                <th scope="govuk-table__cell" class="govuk-table__header">
-                    Total (£)
-                </th>
-
-                <td class="govuk-table__cell ">
-                    100
-                </td>
-
-                <td class="govuk-table__cell">
-                    200
-                </td>
-
-                <td class="govuk-table__header">
-                    200
-                </td>
-            </tr>
+          </tr>
         </table>
-    </div>
-</section>
+      </div>
+  </section>
 
-<div class="govuk-body">
-    <p>Total VAT allocation:  [Total VAT allocation from SF] </p>
-    <p class="govuk-!-margin-bottom-9">Total contingency allocation: [Total contingency allocation from SF] </p>
-    <p class="govuk-!-padding-bottom-9">Payment percentage: [calculated in SF] </p>
-</div>
+  <div class="govuk-body">
+      <p>Total VAT allocation:  [Not in SF at the time of writing] </p>
+      <p class="govuk-!-margin-bottom-9">Total contingency allocation:  <%= 
+                  number_to_currency(
+                  @total_contingency, 
+                  precision: 2
+                  ) 
+                %>
+        </p>
+      <p class="govuk-!-padding-bottom-9">Payment percentage: [Not in SF at the time of writing] </p>
+  </div>
 
+  <%=
+    render(
+      partial: 'partials/form_group_errors',
+      locals: {
+        form_object: @salesforce_experience_application
+      }
+    ) if @salesforce_experience_application.errors.any?
+  %>
 
-
-
-<%= form_with(
-    url: :sfx_pts_payment_agreed_costs,
-    method: :post,
-    local: true
-  ) do |f| 
-%>
+  <%= form_with(
+      url: :sfx_pts_payment_agreed_costs,
+      method: :post,
+      local: true
+    ) do |f| 
+  %>
 
     <div class="govuk-form-group">
 
@@ -116,7 +161,7 @@
 
             <%=
               f.radio_button :costs_are_correct,
-              "purposes_match",
+              true,
               class: "govuk-radios__input"
             %>
 
@@ -132,14 +177,14 @@
 
             <%=
               f.radio_button :costs_are_correct,
-              "purposes_match",
+              false,
               class: "govuk-radios__input",
               "data-aria-controls" => "conditional-costs_are_correct"
             %>
 
             <%= 
               f.label :costs_are_correct_false, 
-               "No, the the project costs are not correct",
+              "No, the project costs are not correct",
               class: "govuk-label govuk-radios__label govuk-label--s" 
             %>
 
@@ -155,14 +200,14 @@
           </div>
         </div>
 
-      <%= render(
-        ButtonComponent.new(
-        element: 'button',
-        is_start_button: false,
-        text: "Save and continue"
-        )
-      )%>
+        <%= render(
+          ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: "Save and continue"
+          )
+        )%>
 
     </div>
-
+  </div>
 <% end %>

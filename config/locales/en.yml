@@ -625,3 +625,9 @@ en-GB:
           attributes:
             signed_terms_and_conditions:
               invalid: "Add evidence of your signed terms and conditions"
+        sfx_pts_payment:
+          attributes:
+            approved_purposes_match:
+              blank: "Select if the Approved Purposes match or do not match"
+            agreed_costs_match:
+              blank: "Select if project costs are correct or not correct"

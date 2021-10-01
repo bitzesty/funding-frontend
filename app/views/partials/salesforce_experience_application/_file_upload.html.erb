@@ -1,0 +1,166 @@
+<div class="govuk-form-group <%= "govuk-form-group--error" if 
+  model_object.errors.any? %>">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+
+      <h1 class="govuk-fieldset__heading">
+
+        <span class="govuk-caption-xl">
+          <%= t('views.funding_application.common.about_your_project') %>
+        </span>
+
+        <%= t('capital_works.page_heading') %>
+
+      </h1>
+
+    </legend>
+
+    <div id="form-group-errors"></div>
+
+    <%=
+      render(
+        partial: "partials/form_group_errors",
+        locals: {
+          form_object: model_object
+        }
+      ) if model_object.errors.any?
+    %>
+
+    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :capital_work,
+          "false",
+          class: "govuk-radios__input"
+        %>
+
+        <%=
+          form_object.label :capital_work_false,
+          t('capital_works.no_text'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          form_object.radio_button :capital_work,
+          "true",
+          class: "govuk-radios__input",
+          "data-aria-controls" => "conditional-#{ model_object_name }_capital_work_true"
+        %>
+
+        <%=
+          form_object.label :capital_work_true,
+          t('capital_works.yes_text'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="conditional-<%= "#{ model_object_name }" %>_capital_work_true">
+
+        <span id="<%= model_object_name %>_capital_work_file-hint"
+          class="govuk-hint">
+          <%= t('capital_works.condition_survey_hint_html') %>
+        </span>
+
+        <div class="govuk-form-group" id="capital-works-form-group-main"
+          data-form-group="file">
+
+          <%=
+            form_object.label :capital_work_file,
+            t('generic.upload_a_file'),
+            class: "govuk-label"
+          %>
+
+          <%=
+            form_object.file_field :capital_work_file,
+            multiple: false,
+            direct_upload: true,
+            class: "govuk-file-upload",
+            'data-input-identifier': 'file',
+            'data-attribute': :capital_work_file,
+            'data-model': model_object_name,
+            'autocomplete' => 'off'
+          %>
+
+          <%=
+            render(
+              ButtonComponent.new(
+                type: "button",
+                text: t('capital_works.buttons.add_condition_survey'),
+                classes: "govuk-button--secondary"
+              )
+            )
+          %>
+
+        </div>
+
+        <% unless model_object.capital_work_file.present? == true %>
+
+          <p class="govuk-body">
+            <%= t('capital_works.no_condition_survey') %>
+          </p>
+
+        <% else %>
+
+          <table class="govuk-table">
+
+            <thead class="govuk-table__head">
+
+              <tr class="govuk-table__row">
+
+                <th scope="col" class="govuk-table__header">
+                  <%= t('capital_works.condition_survey_file') %>
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody class="govuk-table__body">
+
+              <tr>
+
+                <td>
+
+                  <%=
+                    link_to(
+                      model_object.capital_work_file.blob.filename,
+                      rails_blob_path(
+                        model_object.capital_work_file,
+                        disposition: "attachment"
+                      )
+                    )
+                  %>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        <% end %>
+
+      </div>
+
+      <%#
+        See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+        for the reasoning behind this workaround
+      %>
+      <input type="hidden" name="ieworkaround">
+
+    </div>
+
+  </fieldset>
+
+</div>

@@ -529,6 +529,8 @@ Rails.application.routes.draw do
       post '/approved-purposes', to: 'approved_purposes#update'
       get '/agreed-costs', to: 'agreed_costs#show'
       post '/agreed-costs', to: 'agreed_costs#update'
+      get '/agreed-costs-documents', to: 'agreed_costs_documents#show'
+      post '/agreed-costs-documents', to: 'agreed_costs_documents#update'
 
     end
 

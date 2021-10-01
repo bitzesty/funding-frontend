@@ -22,7 +22,7 @@ flipper_gates_sql = <<-EOL
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('expressions_of_interest_enabled', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('payment_requests_enabled', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('grant_programme_sff_medium', 'boolean', 'true', now(), now());
-
+    INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('permission_to_start_enabled', 'boolean', 'true', now(), now());
 EOL
 
 cost_types_sql = <<-EOL
@@ -87,5 +87,5 @@ cost_types_sql.split(';').each do |s|
 end
 
 heritage_designations_sql.split(';').each do |s|
-    connection.execute(s.strip) unless s.strip.empty?
+#    connection.execute(s.strip) unless s.strip.empty?
 end

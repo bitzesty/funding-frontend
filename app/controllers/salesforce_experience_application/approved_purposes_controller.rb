@@ -1,17 +1,46 @@
 class SalesforceExperienceApplication::ApprovedPurposesController < ApplicationController
-
-  # consider a context here to retrieve the sfx row using case_id, then reuse across journey.
+  include SfxPtsPaymentContext
+  include PermissionToStartHelper
 
   def show
-    @approved_purpose_match ={};
-
+    set_approved_purposes()
   end
 
   def update 
-    salesforce_case_id = params.fetch(:salesforce_case_id)
 
-    redirect_to(
-      sfx_pts_payment_agreed_costs_path(salesforce_case_id)
-    )
+    @salesforce_experience_application.validate_approved_purposes_match = true
+    
+    @salesforce_experience_application.approved_purposes_match = 
+      params[:sfx_pts_payment].nil? ? nil : params[:sfx_pts_payment][:approved_purposes_match]
+    
+    if @salesforce_experience_application.valid?
+      
+      json_answers = @salesforce_experience_application.pts_answers_json
+
+      json_answers[:approved_purposes_match] = 
+        @salesforce_experience_application.approved_purposes_match
+
+      @salesforce_experience_application.pts_answers_json = json_answers
+      @salesforce_experience_application.save
+
+      redirect_to(
+        sfx_pts_payment_agreed_costs_path(@salesforce_experience_application.salesforce_case_id)
+      )
+    
+    else
+
+      set_approved_purposes()
+       
+      render :show
+
+    end
+
   end
+
+  private 
+
+  def set_approved_purposes()
+    @approved_purposes = get_approved_purposes( @salesforce_experience_application.salesforce_case_id)
+  end
+
 end
