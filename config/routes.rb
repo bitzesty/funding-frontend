@@ -531,7 +531,10 @@ Rails.application.routes.draw do
       post '/agreed-costs', to: 'agreed_costs#update'
       get '/agreed-costs-documents', to: 'agreed_costs_documents#show'
       post '/agreed-costs-documents', to: 'agreed_costs_documents#update'
-
+      get '/cash-contributions-correct', to: 'cash_contributions_correct#show'
+      post '/cash-contributions-correct', to: 'cash_contributions_correct#update'
+      get '/cash-contributions-evidence', to: 'cash_contributions_evidence#show'
+      post '/cash-contributions-evidence', to: 'cash_contributions_evidence#update'
     end
 
   end
