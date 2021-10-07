@@ -96,6 +96,39 @@ module PtsSalesforceApi
 
     end
 
+    # Method to find a Project's incomes by case id and record type.
+    #
+    # @param [salesforce_case] String A Case Id reference
+    #                                     known to Salesforce
+    # @return [<Restforce::SObject] restforce_response.  A Restforce collection
+    #                                     with query results
+    def get_incomes(salesforce_case)
+      Rails.logger.info("Retrieving incomes" \
+        "for case ID: #{salesforce_case.salesforce_case_id}")
+
+      restforce_response = []
+      
+      record_type = 'Large_Grants_Actual_Delivery' \
+        if salesforce_case.large_delivery?
+
+      record_type = 'Large_Development' \
+        if salesforce_case.large_development?
+
+      query_string = "SELECT Source_Of_Funding__c, " \
+        "Description_for_cash_contributions__c, Amount_you_have_received__c " \
+          "FROM Project_Income__c " \
+            "where Case__c = '#{salesforce_case.salesforce_case_id}' " \
+              "and recordType.DeveloperName = '#{record_type}' " \
+                if salesforce_case.large_delivery?
+
+      restforce_response = run_salesforce_query(query_string, 
+        "get_incomes", salesforce_case.salesforce_case_id) \
+          if query_string.present?
+
+      restforce_response
+
+    end
+
     private
 
     # Method to initialise a new Restforce client, called as part of object instantiation

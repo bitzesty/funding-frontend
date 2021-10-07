@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: nil,
-             page_title: 'Permission to Start -  Are the cash contributions still correct'
+             page_title: 'Permission to Start -  Are the non-cash contributions still correct'
          }
 %>
 
@@ -21,7 +21,7 @@
 
   <span class="govuk-caption-xl govuk-!-padding-bottom-2">Cash and non-cash contributions</span>
   <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-    Are the cash contributions still correct?
+    Are the non-cash contributions still correct?
   </h1>
 
   <section class="nlhf-summary govuk-!-margin-bottom-9">
@@ -29,7 +29,7 @@
     <header class="nlhf-summary__header">
 
       <h2 class="govuk-heading-m">
-          Cash contributions summary
+          Non-cash contributions summary
       </h2>
 
     </header>
@@ -56,7 +56,7 @@
 
           <tbody class="govuk-table__body">
 
-            <% @cash_contributions.each do |cc| %>
+            <% @non_cash_contributions.each do |cc| %>
 
               <tr class="govuk-table__row">
 
@@ -71,7 +71,7 @@
               </tr>
 
             <% end %>
-            
+
           </tbody>
 
         </table>
@@ -90,10 +90,10 @@
   %>
 
   <%= form_with(
-      url: :sfx_pts_payment_cash_contributions_correct,
+      url: :sfx_pts_payment_non_cash_contributions_correct,
       method: :post,
       local: true
-    ) do |f| 
+    ) do |f|
   %>
 
     <div class="govuk-form-group">
@@ -108,10 +108,10 @@
               class: "govuk-radios__input"
             %>
 
-            <%= 
-              f.label :contributions_are_correct_true, 
-              "Yes, the cash contributions are correct",
-              class: "govuk-label govuk-radios__label govuk-label--s" 
+            <%=
+              f.label :contributions_are_correct_true,
+              "Yes, the non-cash contributions are correct",
+              class: "govuk-label govuk-radios__label govuk-label--s"
             %>
 
           </div>
@@ -125,10 +125,10 @@
               "data-aria-controls" => "conditional-contributions_are_correct"
             %>
 
-            <%= 
-              f.label :contributions_are_correct_false, 
-              "No, the cash contributions are not correct",
-              class: "govuk-label govuk-radios__label govuk-label--s" 
+            <%=
+              f.label :contributions_are_correct_false,
+              "No, the non-cash contributions are not correct",
+              class: "govuk-label govuk-radios__label govuk-label--s"
             %>
 
           </div>
@@ -137,9 +137,9 @@
               id="conditional-contributions_are_correct">
 
             <p class="govuk-body">
-                Changes to cash contributions need to be agreed with your Investment Manager. Contact your Investment Manager for further details.
+                Changes to non-cash contributions need to be agreed with your Investment Manager. Contact your Investment Manager for further details.
             </p>
-            
+
           </div>
         </div>
 

@@ -532,9 +532,20 @@ Rails.application.routes.draw do
       get '/agreed-costs-documents', to: 'agreed_costs_documents#show'
       post '/agreed-costs-documents', to: 'agreed_costs_documents#update'
       get '/cash-contributions-correct', to: 'cash_contributions_correct#show'
-      post '/cash-contributions-correct', to: 'cash_contributions_correct#update'
-      get '/cash-contributions-evidence', to: 'cash_contributions_evidence#show'
-      post '/cash-contributions-evidence', to: 'cash_contributions_evidence#update'
+      post '/cash-contributions-correct', to: 
+        'cash_contributions_correct#update'
+      get '/cash-contributions-evidence', to: 
+        'cash_contributions_evidence#show'
+      post '/cash-contributions-evidence', to: 
+        'cash_contributions_evidence#update'
+      get '/fundraising-evidence', to: 
+        'fundraising_evidence#show'
+      post '/fundraising-evidence', to: 
+        'fundraising_evidence#update'
+      get '/non-cash-contributions-correct', to: 
+        'non_cash_contributions_correct#show'
+      post '/non-cash-contributions-correct', to: 
+        'non_cash_contributions_correct#update'
     end
 
   end

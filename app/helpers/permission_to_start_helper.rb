@@ -73,6 +73,7 @@ module PermissionToStartHelper
 
   # Method to find and transform agreed costs from salesforce.
   # Transforms restforce collection into a testable array.
+  # Convert values to float. This will change nil values to zero.
   #
   # @param [SfxPtsPayment] salesforce_case Instance of an  
   #                    object holding info about a Salesforce Experience case
@@ -92,9 +93,9 @@ module PermissionToStartHelper
 
       result.push({
         cost_heading: ac[:Cost_heading__c],
-        cost: ac[:Costs__c],
-        vat: ac[:Vat__c],
-        total: ac[:Vat__c] + ac[:Costs__c]
+        cost: ac[:Costs__c].to_f,
+        vat: ac[:Vat__c].to_f,
+        total: ac[:Vat__c].to_f + ac[:Costs__c].to_f
         })
     end
 
@@ -114,7 +115,7 @@ module PermissionToStartHelper
 
     costs.each do |cost| 
       if cost[:cost_heading] == "Contingency"
-        total_contingency += cost[:total]
+        total_contingency += cost[:total].to_f
       end
     end
 
@@ -152,5 +153,67 @@ module PermissionToStartHelper
     end
 
   end
+
+  # Method to get contributions for review by the applicant
+  # Comes from Salesforce experience.  This function transforms
+  # an filters a restforce collection into a testable array.
+  # Caution - Salesforce queries return picklist labels NOT 
+  # API names as docs specify.  Means SF label changing could
+  # break this.
+  # 
+  # @param [salesforce_case_id] String A Case Id reference known to Salesforce
+  # @param [is_cash_contribution] Boolean True if cash contribution
+  #                                       False if non-cash contribution  
+  # @return [Array] result An array contain hashes for each 
+  #                                            contribution
+  def get_contributions(salesforce_case, is_cash_contribution)
+
+    result = []
+
+    sf_api = get_pts_salesforce_api_instance()
+
+    contributions_restforce_collection = 
+      sf_api.get_incomes(salesforce_case)
+
+    contributions_restforce_collection.each do |contribution|
+      if filter_contributions(contribution[:Source_Of_Funding__c], is_cash_contribution)
+        result.push(
+          {
+            description_of_funding: \
+              contribution[:Description_for_cash_contributions__c], 
+            amount_expected: contribution[:Amount_you_have_received__c].to_f
+          }
+        )
+      end
+    end
+
+    result
+
+  end
+
+  private 
+
+    # Takes a contribution and a boolean to ask whether the contribution 
+    # is a cash or non-cash contribution.
+    # Upon finding the contribution matches the required type - returns true.
+    # 
+    # @param [source_of_funding] String A salesforce label denoting whether cash
+    #                                   or non-cash contribution
+    # @param [is_cash_contribution] Boolean True if cash contribution
+    #                                       False if non-cash contribution  
+    # @return [result] Boolean 
+    def filter_contributions(source_of_funding, is_cash_contribution)
+
+      result = nil
+
+      if is_cash_contribution
+        result = ['Volunteer Time','Non-cash contributions'].exclude? (source_of_funding) 
+      else # is non-cash contribution
+        result = ['Volunteer Time','Non-cash contributions'].include? (source_of_funding) 
+      end
+      
+      result
+
+    end
 
 end

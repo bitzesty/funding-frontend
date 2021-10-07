@@ -631,3 +631,7 @@ en-GB:
               blank: "Select if the Approved Purposes match or do not match"
             agreed_costs_match:
               blank: "Select if project costs are correct or not correct"
+            cash_contributions_correct:
+              blank: "Select if cash contributions are correct or not correct"
+            non_cash_contributions_correct:
+              blank: "Select if non-cash contributions are correct or not correct"
