@@ -28,7 +28,7 @@ class SalesforceExperienceApplication::NonCashContributionsCorrectController < A
       @salesforce_experience_application.save
 
       redirect_to(
-        sfx_pts_payment_non_cash_contributions_correct_path \
+        sfx_pts_payment_timetable_work_programme_path \
           (@salesforce_experience_application.salesforce_case_id)
       )
 

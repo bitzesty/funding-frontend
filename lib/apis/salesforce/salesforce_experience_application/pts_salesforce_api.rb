@@ -118,8 +118,7 @@ module PtsSalesforceApi
         "Description_for_cash_contributions__c, Amount_you_have_received__c " \
           "FROM Project_Income__c " \
             "where Case__c = '#{salesforce_case.salesforce_case_id}' " \
-              "and recordType.DeveloperName = '#{record_type}' " \
-                if salesforce_case.large_delivery?
+              "and recordType.DeveloperName = '#{record_type}' "
 
       restforce_response = run_salesforce_query(query_string, 
         "get_incomes", salesforce_case.salesforce_case_id) \

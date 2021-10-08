@@ -195,7 +195,8 @@ module PermissionToStartHelper
 
     # Takes a contribution and a boolean to ask whether the contribution 
     # is a cash or non-cash contribution.
-    # Upon finding the contribution matches the required type - returns true.
+    # Upon finding the contribution matches the required type - returns true
+    # TODO: Remove the 'Non-cash contributions' values when fix deployed.
     # 
     # @param [source_of_funding] String A salesforce label denoting whether cash
     #                                   or non-cash contribution
@@ -207,9 +208,11 @@ module PermissionToStartHelper
       result = nil
 
       if is_cash_contribution
-        result = ['Volunteer Time','Non-cash contributions'].exclude? (source_of_funding) 
+        result = ['Volunteer Time','Non-cash contributions', 
+          'Non cash contributions'].exclude? (source_of_funding) 
       else # is non-cash contribution
-        result = ['Volunteer Time','Non-cash contributions'].include? (source_of_funding) 
+        result = ['Volunteer Time','Non-cash contributions', 
+          'Non cash contributions'].include? (source_of_funding) 
       end
       
       result

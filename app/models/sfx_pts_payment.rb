@@ -5,16 +5,19 @@ class SfxPtsPayment < ApplicationRecord
     attr_accessor :validate_agreed_costs_match
     attr_accessor :validate_cash_contributions_are_correct
     attr_accessor :validate_non_cash_contributions_are_correct
+    attr_accessor :validate_permissions_or_licences_received
 
     attr_accessor :approved_purposes_match
     attr_accessor :agreed_costs_match
     attr_accessor :cash_contributions_correct
     attr_accessor :non_cash_contributions_correct
+    attr_accessor :permissions_or_licences_received
 
     validates :approved_purposes_match, presence: true, if: :validate_approved_purposes_match?
     validates :agreed_costs_match, presence: true, if: :validate_agreed_costs_match?
     validates :cash_contributions_correct, presence: true, if: :validate_cash_contributions_are_correct?
     validates :non_cash_contributions_correct, presence: true, if: :validate_non_cash_contributions_are_correct?
+    validates :permissions_or_licences_received, presence: true, if: :validate_permissions_or_licences_received?
 
     def validate_approved_purposes_match?
       validate_approved_purposes_match == true
@@ -30,6 +33,10 @@ class SfxPtsPayment < ApplicationRecord
 
     def validate_non_cash_contributions_are_correct?
       validate_non_cash_contributions_are_correct == true
+    end
+
+    def validate_permissions_or_licences_received?
+      validate_permissions_or_licences_received == true
     end
 
     enum application_type: {

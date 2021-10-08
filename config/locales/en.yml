@@ -635,3 +635,5 @@ en-GB:
               blank: "Select if cash contributions are correct or not correct"
             non_cash_contributions_correct:
               blank: "Select if non-cash contributions are correct or not correct"
+            permissions_or_licences_received:
+              blank: "Select if you have received new statutory permissions or licenses"

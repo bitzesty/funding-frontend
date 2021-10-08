@@ -532,20 +532,36 @@ Rails.application.routes.draw do
       get '/agreed-costs-documents', to: 'agreed_costs_documents#show'
       post '/agreed-costs-documents', to: 'agreed_costs_documents#update'
       get '/cash-contributions-correct', to: 'cash_contributions_correct#show'
-      post '/cash-contributions-correct', to: 
+      post '/cash-contributions-correct', to:
         'cash_contributions_correct#update'
       get '/cash-contributions-evidence', to: 
         'cash_contributions_evidence#show'
       post '/cash-contributions-evidence', to: 
         'cash_contributions_evidence#update'
-      get '/fundraising-evidence', to: 
-        'fundraising_evidence#show'
-      post '/fundraising-evidence', to: 
-        'fundraising_evidence#update'
+      get '/fundraising-evidence', to: 'fundraising_evidence#show'
+      post '/fundraising-evidence', to: 'fundraising_evidence#update'
       get '/non-cash-contributions-correct', to: 
         'non_cash_contributions_correct#show'
       post '/non-cash-contributions-correct', to: 
         'non_cash_contributions_correct#update'
+      get '/timetable-work-programme', to: 'timetable_work_programme#show'
+      post '/timetable-work-programme', to: 'timetable_work_programme#update'
+      get '/project-management-structure', to: 
+        'project_management_structure#show'
+      post '/project-management-structure', to:
+        'project_management_structure#update'
+      get '/property-ownership-evidence', to: 
+        'property_ownership_evidence#show'
+      post '/property-ownership-evidence', to:
+        'property_ownership_evidence#update'
+      get '/permissions-or-licences', to: 'permissions_or_licences#show'
+      post '/permissions-or-licences', to: 'permissions_or_licences#update'
+      get '/add-permissions-or-licences', to: 'permissions_or_licences_add#show'
+      post '/add_permissions-or-licences', to: 'permissions_or_licences_add#update'
+      get '/edit-permissions-or-licences', to: 'permissions_or_licences_edit#show'
+      post '/edit-permissions-or-licences', to: 'permissions_or_licences_edit#update'
+      get '/declaration', to: 'declaration#show'
+      post '/declaration', to: 'declaration#update'
     end
 
   end
