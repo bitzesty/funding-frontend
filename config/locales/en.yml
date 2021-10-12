@@ -637,3 +637,7 @@ en-GB:
               blank: "Select if non-cash contributions are correct or not correct"
             permissions_or_licences_received:
               blank: "Select if you have received new statutory permissions or licenses"
+            has_agreed_costs_docs:  
+              blank: "Select if you will upload or email a cost breakdown and cashflow"
+            agreed_costs_files:
+              inclusion: "Kerry will give us an error message for when a file is not uploaded"
