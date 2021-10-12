@@ -119,18 +119,17 @@ class SalesforceExperienceApplication::AgreedCostsDocumentsController < Applicat
 
 	def delete 
 
-		blob_id = params[:blob_id]
-		logger.info "Removing agreed cost document with blob id of #{blob_id}"
+		delete_blob(params[:blob_id])
 
-		# deletes from active_storage_blobs and active_storage_attachments
-		attachment_to_delete = ActiveStorage::Attachment.find_by(blob_id: blob_id)
-		attachment_to_delete.purge
+		logger.info "Removed file for salesforce case id: " \
+			"#{@salesforce_experience_application.salesforce_case_id}"
 		
 		@attached_agreed_docs = get_attachments()
 
 		redirect_to(
 			sfx_pts_payment_agreed_costs_documents_path(@salesforce_experience_application.salesforce_case_id)
 		)
+
 	end
 
 	private
