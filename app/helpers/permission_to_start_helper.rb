@@ -191,6 +191,19 @@ module PermissionToStartHelper
 
   end
 
+  # Deletes a blob using its id
+  # @param [blob_id] String A blob Id
+  def delete_blob(blob_id)
+
+    blob_id = params[:blob_id]
+		logger.info "Removing file with blob id of #{blob_id}"
+
+		# deletes from active_storage_blobs and active_storage_attachments
+		attachment_to_delete = ActiveStorage::Attachment.find_by(blob_id: blob_id)
+		attachment_to_delete.purge
+    
+  end
+
   private 
 
     # Takes a contribution and a boolean to ask whether the contribution 
