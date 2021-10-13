@@ -561,8 +561,14 @@ Rails.application.routes.draw do
       post '/add_permissions-or-licences', to: 'permissions_or_licences_add#update'
       get '/edit-permissions-or-licences', to: 'permissions_or_licences_edit#show'
       post '/edit-permissions-or-licences', to: 'permissions_or_licences_edit#update'
+      get '/signatories', to: 'signatories#show'
+      post '/signatories', to: 'signatories#update'
+      get '/partnerships', to: 'partnerships#show'
+      post '/partnerships', to: 'partnerships#update'
       get '/declaration', to: 'declaration#show'
       post '/declaration', to: 'declaration#update'
+      get '/upload-permission-to-start', to: 'upload_permission_to_start#show'
+      post '/upload-permission-to-start', to: 'upload_permission_to_start#update'
     end
 
   end

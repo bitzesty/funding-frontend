@@ -4,7 +4,9 @@
              model_object: nil,
              page_title: 'Agreed Costs'
          }
-%><%=
+%>
+
+<%=
   render(
     partial: 'partials/summary_errors',
     locals: {
@@ -173,7 +175,7 @@
             <%= 
               f.label :costs_are_correct_true, 
               "Yes, the projects costs are correct",
-              class: "govuk-label govuk-radios__label govuk-label--s" 
+              class: "govuk-label govuk-radios__label" 
             %>
 
           </div>
@@ -190,7 +192,7 @@
             <%= 
               f.label :costs_are_correct_false, 
               "No, the project costs are not correct",
-              class: "govuk-label govuk-radios__label govuk-label--s" 
+              class: "govuk-label govuk-radios__label" 
             %>
 
           </div>

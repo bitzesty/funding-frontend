@@ -31,7 +31,7 @@ class SalesforceExperienceApplication::PermissionsOrLicencesController < Applica
           )
       else
         redirect_to(
-          sfx_pts_payment_declaration_path \
+          sfx_pts_payment_signatories_path \
             (@salesforce_experience_application.salesforce_case_id)
         )
       end

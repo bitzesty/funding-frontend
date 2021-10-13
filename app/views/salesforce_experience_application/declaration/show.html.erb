@@ -1,11 +1,155 @@
-<p> Todo - Declaration </p>
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: t('salesforce_experience_application.declaration.page_title')
+         }
+%>
 
-<% # Temp button to advance the journey %>
 <%=
   render(
-    ButtonComponent.new(
-      element: 'a',
-      href: 'declaration'
-    )
-  )
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @salesforce_experience_application,
+      first_form_element: :agrees_with_declaration_statements
+    }
+  ) if @salesforce_experience_application.errors.any?
 %>
+  
+<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+  <%= t('salesforce_experience_application.declaration.page_heading') %>
+</h1> 
+
+<p class="govuk-body">
+  <%= t('salesforce_experience_application.declaration.text.by_completing_this_declaration') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('salesforce_experience_application.declaration.text.we_are_committed_to_being') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('salesforce_experience_application.declaration.text.when_you_completed_the_declaration_at_the_end_of_the_application') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('salesforce_experience_application.declaration.text.we_will_take_these_into_account') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('salesforce_experience_application.declaration.text.when_you_completed_the_declaration_you_also_agreed') %>
+</p>
+
+<ul class="govuk-list govuk-list--bullet">
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.agreed_list.to_decide') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.agreed_list.to_provide') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.agreed_list.to_share') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.agreed_list.to_hold') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.agreed_list.to_publish') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.agreed_list.to_support') %>
+  </li>
+
+</ul>
+
+<p class="govuk-body">
+  <%= t('salesforce_experience_application.declaration.text.we_may_use_your_photographs') %>
+</p>
+
+<p>
+  <%= t('salesforce_experience_application.declaration.text.i_confirm_that') %>
+</p>
+
+<ul class="govuk-list govuk-list--bullet">
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_organisation_named') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_activity_in_the_application') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_organisation_has_the_power') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.we_will_keep_to_the_standard_terms') %>
+  </li>
+
+  <li>
+    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.as_far_as_I_know') %>
+  </li>
+
+</ul>
+
+<%=
+  render(
+    partial: 'partials/form_group_errors',
+    locals: {
+      form_object: @salesforce_experience_application
+    }
+  ) if @salesforce_experience_application.errors.any?
+%>
+
+<%=
+  form_with model: @salesforce_experience_application,
+  url: :sfx_pts_payment_declaration,
+  local: true,
+  method: :post do |f|
+%>
+
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
+    @salesforce_experience_application.errors.any? %>">
+
+    <div class="govuk-form-group">
+
+      <div class="govuk-checkboxes__item">
+
+        <%=
+          f.check_box :agrees_with_declaration_statements,
+                      {
+                          id: :agrees_with_declaration_statements,
+                          class: "govuk-checkboxes__input"
+                      },
+                      'true', nil
+        %>
+
+        <%=
+          f.label :agrees_with_declaration_statements,
+                  "I agree with the above statements.",
+                  class: "govuk-label govuk-checkboxes__label"
+        %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <%= render(
+    ButtonComponent.new(
+    element: 'button',
+    is_start_button: false,
+    text: "Save and continue"
+    )
+  )%>
+
+<% end %>

@@ -641,3 +641,5 @@ en-GB:
               blank: "Select if you will upload or email a cost breakdown and cashflow"
             agreed_costs_files:
               inclusion: "Kerry will give us an error message for when a file is not uploaded"
+            agrees_to_declaration:
+              blank: "Kerry will give us an error message for when the declaration is not agreed to"
