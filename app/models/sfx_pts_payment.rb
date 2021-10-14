@@ -10,6 +10,8 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_non_cash_contributions_are_correct
 	attr_accessor :validate_permissions_or_licences_received
 	attr_accessor :validate_agrees_to_declaration
+	attr_accessor :validate_legal_sig_one
+	attr_accessor :validate_legal_sig_two
 
 	attr_accessor :approved_purposes_match
 	attr_accessor :agreed_costs_match
@@ -18,6 +20,8 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :non_cash_contributions_correct
 	attr_accessor :permissions_or_licences_received
 	attr_accessor :agrees_to_declaration
+	attr_accessor :legal_sig_one
+	attr_accessor :legal_sig_two
 
 	has_many_attached :agreed_costs_files
 
@@ -28,6 +32,8 @@ class SfxPtsPayment < ApplicationRecord
 	validates :non_cash_contributions_correct, presence: true, if: :validate_non_cash_contributions_are_correct?
 	validates :permissions_or_licences_received, presence: true, if: :validate_permissions_or_licences_received?
 	validates :agrees_to_declaration, presence: true, if: :validate_agrees_to_declaration?
+	validates :legal_sig_one, presence: true, if: :validate_legal_sig_one?
+	validates :legal_sig_two, presence: true, if: :validate_legal_sig_two?
 
 	validate do
 
@@ -68,6 +74,14 @@ class SfxPtsPayment < ApplicationRecord
 
 	def validate_agrees_to_declaration?
 		validate_agrees_to_declaration == true
+	end
+
+	def validate_legal_sig_one? 
+		validate_legal_sig_one == true
+	end
+
+	def validate_legal_sig_two?
+		validate_legal_sig_two == true
 	end
 
 	enum application_type: {

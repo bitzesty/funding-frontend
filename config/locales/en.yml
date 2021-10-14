@@ -643,3 +643,7 @@ en-GB:
               inclusion: "Kerry will give us an error message for when a file is not uploaded"
             agrees_to_declaration:
               blank: "Kerry will give us an error message for when the declaration is not agreed to"
+            legal_sig_one: 
+              blank: "Enter name of legal signatory 1"
+            legal_sig_two: 
+              blank: "Enter name of legal signatory 2"

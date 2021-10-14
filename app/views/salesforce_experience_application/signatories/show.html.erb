@@ -1,11 +1,89 @@
-<p> Todo - signatories </p>
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: 'Details of Signatories'
+         }
+%>
 
-<% # Temp button to advance the journey %>
 <%=
   render(
-    ButtonComponent.new(
-      element: 'a',
-      href: 'partnerships'
-    )
-  )
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @salesforce_experience_application,
+      form_object_name: "sfx_pts_payment",
+      first_form_element:  :sfx_pts_payments_legal_sig_one
+    }
+  ) if @salesforce_experience_application.errors.any?
 %>
+
+<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+  Details of 2 signatories authorised to sign on behalf of your organisation
+</h1>
+
+  <%= 
+    form_with model: @salesforce_experience_application,
+    url: :sfx_pts_payment_signatories,
+    method: :post,
+    local: true do |f|
+  %>
+
+    <div class="govuk-form-group govuk-!-padding-bottom-9 
+      <%= "govuk-form-group--error" if
+        @salesforce_experience_application.errors[:legal_sig_one].any? %>">
+
+      <% if   @salesforce_experience_application.errors[:legal_sig_one].any? %>
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter name of signatory for your organisation
+        </span>
+      <%end%>
+
+      <p class="govuk-body-l">Person 1 for your organisation</p>
+
+      <%=
+        f.label :legal_sig_one,
+        t('organisation.signatories.labels.full_name'),
+        class: "govuk-label"
+      %>
+
+      <%=
+        f.text_field :legal_sig_one,
+        class: "govuk-input govuk-input--width-20"
+      %>
+
+    </div>
+
+    <div class="govuk-form-group govuk-!-padding-bottom-9
+       <%= "govuk-form-group--error" if
+        @salesforce_experience_application.errors[:legal_sig_two].any? %>">
+      
+      <% if   @salesforce_experience_application.errors[:legal_sig_two].any? %>
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter name of signatory for your organisation
+        </span>
+      <%end%>
+
+      <p class="govuk-body-l">Person 2 for your organisation</p>
+
+      <%=
+        f.label :legal_sig_two,
+        t('organisation.signatories.labels.full_name'),
+        class: "govuk-label"
+      %>
+
+      <%=
+        f.text_field :legal_sig_two,
+        class: "govuk-input govuk-input--width-20"
+      %>
+
+    </div>
+
+    <%= render(
+        ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: "Save and continue"
+        )
+      )%>
+
+  <%end%>
