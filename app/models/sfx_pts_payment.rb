@@ -16,6 +16,8 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_fundraising_evidence_files
 	attr_accessor :validate_legal_sig_one
 	attr_accessor :validate_legal_sig_two
+	attr_accessor :validate_partnership_application
+	attr_accessor :validate_project_partner_name
 	attr_accessor :validate_timetable_work_programme_question
 	attr_accessor :validate_timetable_work_programme_files
 
@@ -30,6 +32,8 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :fundraising_evidence_question
 	attr_accessor :legal_sig_one
 	attr_accessor :legal_sig_two
+	attr_accessor :partnership_application
+	attr_accessor :project_partner_name
 	attr_accessor :timetable_work_programme_question
 
 	has_many_attached :agreed_costs_files
@@ -50,6 +54,8 @@ class SfxPtsPayment < ApplicationRecord
 		if: :validate_fundraising_evidence_question?
 	validates :legal_sig_one, presence: true, if: :validate_legal_sig_one?
 	validates :legal_sig_two, presence: true, if: :validate_legal_sig_two?
+	validates :partnership_application, presence: true, if: :validate_partnership_application?
+	validates :project_partner_name, presence: true, if: :validate_project_partner_name?
 	validates :timetable_work_programme_question, presence: true, 
 		if: :validate_timetable_work_programme_question?
 
@@ -134,6 +140,14 @@ class SfxPtsPayment < ApplicationRecord
 
 	def validate_legal_sig_two?
 		validate_legal_sig_two == true
+	end
+
+	def validate_partnership_application?
+		validate_partnership_application == true
+	end
+
+	def validate_project_partner_name? 
+		validate_project_partner_name == true
 	end
 
 	def validate_timetable_work_programme_files?
