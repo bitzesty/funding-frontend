@@ -94,19 +94,18 @@
 							'autocomplete' => 'off'
 						%>
 
-						<div>
+						<div class="govuk-!-padding-top-6">
 							<%=
 								render(
 									ButtonComponent.new(
 										type: "button",
 										text: "Upload files",
-										classes: "govuk-button--secondary ",
+										classes: "govuk-button--primary ",
 										name: 'add_file_button'
 									)
 								)
 							%>
 						</div>
-
 					</div>
 
 						<% if @attached_agreed_docs&.first&.present?%>
