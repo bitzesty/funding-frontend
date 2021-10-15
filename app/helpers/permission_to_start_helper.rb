@@ -227,7 +227,7 @@ module PermissionToStartHelper
 
     json_answers = @salesforce_experience_application.pts_answers_json
   
-    json_answers[json_key] = nil
+    json_answers.except!(json_key.to_s)
 
     @salesforce_experience_application.pts_answers_json = json_answers
     @salesforce_experience_application.save
