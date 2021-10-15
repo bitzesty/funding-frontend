@@ -18,6 +18,8 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_legal_sig_two
 	attr_accessor :validate_partnership_application
 	attr_accessor :validate_project_partner_name
+	attr_accessor :validate_timetable_work_programme_question
+	attr_accessor :validate_timetable_work_programme_files
 
 	attr_accessor :approved_purposes_match
 	attr_accessor :agreed_costs_match
@@ -32,10 +34,12 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :legal_sig_two
 	attr_accessor :partnership_application
 	attr_accessor :project_partner_name
+	attr_accessor :timetable_work_programme_question
 
 	has_many_attached :agreed_costs_files
 	has_many_attached :cash_contributions_evidence_files
 	has_many_attached :fundraising_evidence_files
+	has_many_attached :timetable_work_programme_files
 
 	validates :approved_purposes_match, presence: true, if: :validate_approved_purposes_match?
 	validates :agreed_costs_match, presence: true, if: :validate_agreed_costs_match?
@@ -52,6 +56,8 @@ class SfxPtsPayment < ApplicationRecord
 	validates :legal_sig_two, presence: true, if: :validate_legal_sig_two?
 	validates :partnership_application, presence: true, if: :validate_partnership_application?
 	validates :project_partner_name, presence: true, if: :validate_project_partner_name?
+	validates :timetable_work_programme_question, presence: true, 
+		if: :validate_timetable_work_programme_question?
 
 	validate do
 
@@ -71,6 +77,12 @@ class SfxPtsPayment < ApplicationRecord
 			I18n.t('activerecord.errors.models.sfx_pts_payment.attributes.' \
 				'fundraising_evidence_files.inclusion')
 		) if validate_fundraising_evidence_files?
+
+		validate_file_attached(
+			:timetable_work_programme_files,
+			I18n.t('activerecord.errors.models.sfx_pts_payment.attributes.' \
+				'timetable_work_programme_files.inclusion')
+		) if validate_timetable_work_programme_files?
 
 	end
 
@@ -136,6 +148,14 @@ class SfxPtsPayment < ApplicationRecord
 
 	def validate_project_partner_name? 
 		validate_project_partner_name == true
+	end
+
+	def validate_timetable_work_programme_files?
+		validate_timetable_work_programme_files == true
+	end
+
+	def validate_timetable_work_programme_question?
+		validate_timetable_work_programme_question == true
 	end
 
 	enum application_type: {

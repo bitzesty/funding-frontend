@@ -662,3 +662,7 @@ en-GB:
               blank: "Select if applying on behalf of a partnership"
             project_partner_name:  
               blank: "Enter project partner name"
+            timetable_work_programme_question:
+              blank: "Select if you will provide a timetable or work programme"
+            timetable_work_programme_files:
+              inclusion: "Select evidence of a timetable or work programme file"

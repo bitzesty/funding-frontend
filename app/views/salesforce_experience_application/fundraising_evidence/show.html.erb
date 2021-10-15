@@ -30,6 +30,16 @@
 	) if @salesforce_experience_application.errors.any?
 %>
 
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive">
+      <%= t('generic.warning') %>
+    </span>
+    <%= t('salesforce_experience_application.fundraising_evidence.warning') %>
+  </strong>
+</div>
+
 <%= 
 	form_with model: @salesforce_experience_application,
   url: :sfx_pts_payment_fundraising_evidence,
