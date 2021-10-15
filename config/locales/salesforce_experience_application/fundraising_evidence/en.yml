@@ -4,6 +4,7 @@ en-GB:
       page_title: "Fundraising plan"
       page_heading: "Evidence of fundraising plan"
       page_hint: "Cash and non-cash contributions"
+      warning: "If you have not secured your cash contributions, you need to upload a fundraising plan."
       bullets:
         yes_i_will_upload: "Yes, I will upload a fundraising plan"
         upload_fundraising_plan: "Upload fundraising plan"

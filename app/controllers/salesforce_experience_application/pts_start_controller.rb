@@ -14,7 +14,10 @@ class SalesforceExperienceApplication::PtsStartController < ApplicationControlle
     salesforce_case = SfxPtsPayment.find_or_create_by(salesforce_case_id:
        salesforce_case_id)
 
-    salesforce_case.pts_answers_json = Hash.new
+    # initialise the answers hash unless one exists.
+    salesforce_case.pts_answers_json = Hash.new unless 
+      salesforce_case.pts_answers_json.present?
+
     set_application_type(salesforce_case)
 
     

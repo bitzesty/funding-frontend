@@ -658,3 +658,7 @@ en-GB:
               blank: "Enter name of legal signatory 1"
             legal_sig_two: 
               blank: "Enter name of legal signatory 2"
+            timetable_work_programme_question:
+              blank: "Select if you will provide a timetable or work programme"
+            timetable_work_programme_files:
+              inclusion: "Select evidence of a timetable or work programme file"

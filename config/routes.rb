@@ -545,14 +545,17 @@ Rails.application.routes.draw do
       get '/fundraising-evidence', to: 'fundraising_evidence#show'
       post '/fundraising-evidence', to: 'fundraising_evidence#update'
       delete '/fundraising-evidence/:blob_id', to: 
-      'fundraising_evidence#delete', 
-        as: :fundraising_evidence_blob_delete
+        'fundraising_evidence#delete', 
+          as: :fundraising_evidence_blob_delete
       get '/non-cash-contributions-correct', to: 
         'non_cash_contributions_correct#show'
       post '/non-cash-contributions-correct', to: 
         'non_cash_contributions_correct#update'
       get '/timetable-work-programme', to: 'timetable_work_programme#show'
       post '/timetable-work-programme', to: 'timetable_work_programme#update'
+      delete '/timetable-work-programme/:blob_id', to: 
+        'timetable_work_programme#delete', 
+          as: :timetable_work_programme_blob_delete
       get '/project-management-structure', to: 
         'project_management_structure#show'
       post '/project-management-structure', to:

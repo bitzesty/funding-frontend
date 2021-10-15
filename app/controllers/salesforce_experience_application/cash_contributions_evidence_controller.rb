@@ -8,6 +8,10 @@ class SalesforceExperienceApplication::CashContributionsEvidenceController < App
 
 
   def update
+
+    # clear previous answers, otherwise can they show when rendering error page
+    clear_pts_answers_json_for_key(:cash_contributions_evidence_question)
+
     # Form submitted to save and continue.  Validate and act accordingly.
 		if params.has_key?(:save_and_continue_button)
 
@@ -42,7 +46,7 @@ class SalesforceExperienceApplication::CashContributionsEvidenceController < App
 			"#{@salesforce_experience_application.salesforce_case_id}"
 
     # If the file list is now empty, protect against the applicant url
-    # manipulating to continue with this answer and no files.
+    # manipulating to continue journey with this answer and no files.
     clear_pts_answers_json_for_key(:cash_contributions_evidence_question) if 
       @salesforce_experience_application.cash_contributions_evidence_files.empty?
       		
@@ -90,6 +94,7 @@ class SalesforceExperienceApplication::CashContributionsEvidenceController < App
           @salesforce_experience_application.cash_contributions_evidence_question
         )
 
+        # clear attachments if the file upload bullet not chosen
         clear_all_attachments unless 
           @salesforce_experience_application.validate_cash_contributions_evidence_files?
   				
@@ -163,17 +168,33 @@ class SalesforceExperienceApplication::CashContributionsEvidenceController < App
 
 	end
 
-  # initialises the attributes needed tp correctly display the form.
+  # initialises the attributes needed to correctly display the form.
   # get the files attachments
   # sets the appropriate radio button
+  # will show the file upload radio button if model has file errors.
   def initialise_view_attributes
     
     @files = get_attachments()
 
-    @salesforce_experience_application.cash_contributions_evidence_question = 
-      @salesforce_experience_application.pts_answers_json[
-        "cash_contributions_evidence_question"
-      ] 
+    select_file_upload_bullet = false
+
+    @salesforce_experience_application.errors.any? do |error|
+      select_file_upload_bullet = error.attribute == :cash_contributions_evidence_files
+    end
+
+    if select_file_upload_bullet
+
+      @salesforce_experience_application.cash_contributions_evidence_question =
+      t('salesforce_experience_application.cash_contribution_evidence.' \
+          'bullets.yes_i_will_upload')  
+
+    else
+
+      @salesforce_experience_application.cash_contributions_evidence_question = 
+        @salesforce_experience_application.pts_answers_json[
+          "cash_contributions_evidence_question"
+        ] 
+    end
 
   end
 
