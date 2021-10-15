@@ -1,3 +1,6 @@
+# Todo - if the reusable functions created by the other file uploaders work
+# then update this controller so that the functions are more testable.
+
 class SalesforceExperienceApplication::AgreedCostsDocumentsController < ApplicationController
 	include SfxPtsPaymentContext
 	include PermissionToStartHelper

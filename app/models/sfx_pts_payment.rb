@@ -10,6 +10,10 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_non_cash_contributions_are_correct
 	attr_accessor :validate_permissions_or_licences_received
 	attr_accessor :validate_agrees_to_declaration
+	attr_accessor :validate_cash_contributions_evidence_question
+	attr_accessor :validate_cash_contributions_evidence_files
+	attr_accessor :validate_fundraising_evidence_question
+	attr_accessor :validate_fundraising_evidence_files
 	attr_accessor :validate_legal_sig_one
 	attr_accessor :validate_legal_sig_two
 
@@ -20,10 +24,14 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :non_cash_contributions_correct
 	attr_accessor :permissions_or_licences_received
 	attr_accessor :agrees_to_declaration
+	attr_accessor :cash_contributions_evidence_question
+	attr_accessor :fundraising_evidence_question
 	attr_accessor :legal_sig_one
 	attr_accessor :legal_sig_two
 
 	has_many_attached :agreed_costs_files
+	has_many_attached :cash_contributions_evidence_files
+	has_many_attached :fundraising_evidence_files
 
 	validates :approved_purposes_match, presence: true, if: :validate_approved_purposes_match?
 	validates :agreed_costs_match, presence: true, if: :validate_agreed_costs_match?
@@ -32,6 +40,10 @@ class SfxPtsPayment < ApplicationRecord
 	validates :non_cash_contributions_correct, presence: true, if: :validate_non_cash_contributions_are_correct?
 	validates :permissions_or_licences_received, presence: true, if: :validate_permissions_or_licences_received?
 	validates :agrees_to_declaration, presence: true, if: :validate_agrees_to_declaration?
+	validates :cash_contributions_evidence_question, presence: true, 
+		if: :validate_cash_contributions_evidence_question?
+	validates :fundraising_evidence_question, presence: true, 
+		if: :validate_fundraising_evidence_question?
 	validates :legal_sig_one, presence: true, if: :validate_legal_sig_one?
 	validates :legal_sig_two, presence: true, if: :validate_legal_sig_two?
 
@@ -41,6 +53,18 @@ class SfxPtsPayment < ApplicationRecord
 				:agreed_costs_files,
 				I18n.t("activerecord.errors.models.sfx_pts_payment.attributes.agreed_costs_files.inclusion")
 		) if validate_agreed_costs_files?
+
+		validate_file_attached(
+			:cash_contributions_evidence_files,
+			I18n.t('activerecord.errors.models.sfx_pts_payment.attributes.' \
+				'cash_contributions_evidence_files.inclusion')
+		) if validate_cash_contributions_evidence_files?
+
+		validate_file_attached(
+			:fundraising_evidence_files,
+			I18n.t('activerecord.errors.models.sfx_pts_payment.attributes.' \
+				'fundraising_evidence_files.inclusion')
+		) if validate_fundraising_evidence_files?
 
 	end
 
@@ -74,6 +98,22 @@ class SfxPtsPayment < ApplicationRecord
 
 	def validate_agrees_to_declaration?
 		validate_agrees_to_declaration == true
+	end
+
+	def validate_cash_contributions_evidence_files?
+		validate_cash_contributions_evidence_files == true
+	end
+
+	def validate_cash_contributions_evidence_question?
+		validate_cash_contributions_evidence_question == true
+	end
+
+	def validate_fundraising_evidence_files?
+		validate_fundraising_evidence_files == true
+	end
+
+	def validate_fundraising_evidence_question?
+		validate_fundraising_evidence_question == true
 	end
 
 	def validate_legal_sig_one? 

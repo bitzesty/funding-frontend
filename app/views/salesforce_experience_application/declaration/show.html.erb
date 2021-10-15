@@ -76,48 +76,48 @@
   <%= t('salesforce_experience_application.declaration.text.i_confirm_that') %>
 </p>
 
-<ul class="govuk-list govuk-list--bullet">
+<div class="govuk-form-group <%= "govuk-form-group--error" if
+  @salesforce_experience_application.errors.any? %>">
 
-  <li>
-    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_organisation_named') %>
-  </li>
+  <ul class="govuk-list govuk-list--bullet">
 
-  <li>
-    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_activity_in_the_application') %>
-  </li>
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_organisation_named') %>
+    </li>
 
-  <li>
-    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_organisation_has_the_power') %>
-  </li>
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_activity_in_the_application') %>
+    </li>
 
-  <li>
-    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.we_will_keep_to_the_standard_terms') %>
-  </li>
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_organisation_has_the_power') %>
+    </li>
 
-  <li>
-    <%= t('salesforce_experience_application.declaration.i_confirm_that_list.as_far_as_I_know') %>
-  </li>
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.we_will_keep_to_the_standard_terms') %>
+    </li>
 
-</ul>
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.as_far_as_I_know') %>
+    </li>
 
-<%=
-  render(
-    partial: 'partials/form_group_errors',
-    locals: {
-      form_object: @salesforce_experience_application
-    }
-  ) if @salesforce_experience_application.errors.any?
-%>
+  </ul>
 
-<%=
-  form_with model: @salesforce_experience_application,
-  url: :sfx_pts_payment_declaration,
-  local: true,
-  method: :post do |f|
-%>
+  <%=
+    render(
+      partial: 'partials/form_group_errors',
+      locals: {
+        form_object: @salesforce_experience_application
+      }
+    ) if @salesforce_experience_application.errors.any?
+  %>
 
-  <div class="govuk-form-group <%= "govuk-form-group--error" if
-    @salesforce_experience_application.errors.any? %>">
+  <%=
+    form_with model: @salesforce_experience_application,
+    url: :sfx_pts_payment_declaration,
+    local: true,
+    method: :post do |f|
+  %>
 
     <div class="govuk-form-group">
 
@@ -142,14 +142,14 @@
 
     </div>
 
-  </div>
+</div>
 
-  <%= render(
-    ButtonComponent.new(
-    element: 'button',
-    is_start_button: false,
-    text: "Save and continue"
-    )
-  )%>
+    <%= render(
+      ButtonComponent.new(
+      element: 'button',
+      is_start_button: false,
+      text: "Save and continue"
+      )
+    )%>
 
-<% end %>
+  <% end %>

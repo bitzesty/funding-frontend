@@ -1,0 +1,12 @@
+en-GB:
+  salesforce_experience_application:
+    cash_contribution_evidence:
+      page_title: "Cash contribution"
+      page_heading: "Evidence of secured cash contributions"
+      page_hint: "Cash and non-cash contributions"
+      bullets:
+        yes_i_will_upload: "Yes, I will upload evidence of secured cash contributions"
+        upload_evidence_of: "Upload evidence of secured cash contribution"
+        i_have_emailed_evidence: "I have emailed evidence of secured cash contributions to my Investment Manager"
+        i_provided_evidence: "I provided evidence of secured cash contributions as part of my application"
+        no_i_do_not_have_evidence: "No, I do not have evidence for secured cash contributions yet"

@@ -539,8 +539,14 @@ Rails.application.routes.draw do
         'cash_contributions_evidence#show'
       post '/cash-contributions-evidence', to: 
         'cash_contributions_evidence#update'
+      delete '/cash-contributions-evidence/:blob_id', to: 
+        'cash_contributions_evidence#delete', 
+          as: :cash_contributions_evidence_blob_delete
       get '/fundraising-evidence', to: 'fundraising_evidence#show'
       post '/fundraising-evidence', to: 'fundraising_evidence#update'
+      delete '/fundraising-evidence/:blob_id', to: 
+      'fundraising_evidence#delete', 
+        as: :fundraising_evidence_blob_delete
       get '/non-cash-contributions-correct', to: 
         'non_cash_contributions_correct#show'
       post '/non-cash-contributions-correct', to: 

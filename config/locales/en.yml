@@ -37,6 +37,9 @@ en-GB:
     words_remaining: "You have %{remaining_words} words remaining"
     upload_a_file: "Upload a file"
     uploaded_file: "Uploaded file"
+    upload_files: "Upload files"
+    uploaded_files: "Uploaded files"
+    has_been_uploaded: "has been uploaded"
     select_one_option: "Select one option"
     delete: "Delete"
     there_is_a_problem: "There is a problem"
@@ -640,9 +643,17 @@ en-GB:
             has_agreed_costs_docs:  
               blank: "Select if you will upload or email a cost breakdown and cashflow"
             agreed_costs_files:
-              inclusion: "Kerry will give us an error message for when a file is not uploaded"
+              inclusion: "Select a cost breakdown and cashflow file"
             agrees_to_declaration:
-              blank: "Kerry will give us an error message for when the declaration is not agreed to"
+              blank: "Select your agreement with the declaration statements"
+            cash_contributions_evidence_question:
+              blank: "Select if you will provide evidence of secured cash contributions"
+            cash_contributions_evidence_files:
+              inclusion: "Select evidence of secured cash contribution file"
+            fundraising_evidence_question:
+              blank: "Select if you will provide a fundraising plan"
+            fundraising_evidence_files:
+              inclusion: "Select evidence of a fundraising plan file"
             legal_sig_one: 
               blank: "Enter name of legal signatory 1"
             legal_sig_two: 

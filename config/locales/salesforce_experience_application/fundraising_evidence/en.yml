@@ -1,0 +1,11 @@
+en-GB:
+  salesforce_experience_application:
+    fundraising_evidence:
+      page_title: "Fundraising plan"
+      page_heading: "Evidence of fundraising plan"
+      page_hint: "Cash and non-cash contributions"
+      bullets:
+        yes_i_will_upload: "Yes, I will upload a fundraising plan"
+        upload_fundraising_plan: "Upload fundraising plan"
+        i_have_emailed: "I have emailed a fundraising plan to my Investment Manager"
+        not_applicable: "This is not applicable to my project"

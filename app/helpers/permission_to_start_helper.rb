@@ -204,6 +204,36 @@ module PermissionToStartHelper
     
   end
 
+  # Retrieves the answers json then either:
+  # appends a new answer or updates an existing answer
+  # then saves
+  # @param [json_key] String A string or symbol denoting key in JSON
+  # @param [json_value] String What is stored against the json_key  
+  def update_pts_answers_json(json_key, json_value)
+
+    json_answers = @salesforce_experience_application.pts_answers_json
+
+    json_answers[json_key] = json_value
+      @salesforce_experience_application.fundraising_evidence_question
+
+    @salesforce_experience_application.pts_answers_json = json_answers
+    @salesforce_experience_application.save
+
+  end
+
+  # Clears the answers json for the specified json key:
+  # @param [json_key] String A string or symbol denoting key in JSON
+  def clear_pts_answers_json_for_key(json_key)
+
+    json_answers = @salesforce_experience_application.pts_answers_json
+  
+    json_answers[json_key] = nil
+
+    @salesforce_experience_application.pts_answers_json = json_answers
+    @salesforce_experience_application.save
+
+  end
+
   private 
 
     # Takes a contribution and a boolean to ask whether the contribution 

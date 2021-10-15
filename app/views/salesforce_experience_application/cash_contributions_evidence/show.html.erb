@@ -1,11 +1,239 @@
-<p> Todo - Evidence of secured cash contributions </p>
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t("salesforce_experience_application.cash_contribution_evidence.page_title")
+    }
+%>
 
-<% # Temp button to advance the journey %>
 <%=
   render(
-    ButtonComponent.new(
-      element: 'a',
-      href: 'fundraising-evidence'
-    )
-  )
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @salesforce_experience_application,
+      first_form_element: :sfx_pts_payment_cash_contributions_evidence_question_yes_i_will_upload_evidence_of_secured_cash_contributions,
+    }
+  ) if @salesforce_experience_application.errors.any?
 %>
+
+<span class="govuk-caption-xl govuk-!-padding-bottom-2"><%= t("salesforce_experience_application.cash_contribution_evidence.page_hint") %></span>
+<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+  <%= t("salesforce_experience_application.cash_contribution_evidence.page_heading") %>
+</h1>
+
+<%=
+	render(
+		partial: 'partials/form_group_errors',
+		locals: {
+			form_object: @salesforce_experience_application
+		}
+	) if @salesforce_experience_application.errors.any?
+%>
+
+<%= 
+	form_with model: @salesforce_experience_application,
+  url: :sfx_pts_payment_cash_contributions_evidence,
+  method: :post,
+  local: true do |f|
+%>
+
+  <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+		<%=
+			render(
+				partial: 'partials/form_input_errors',
+				locals: {
+					form_object: @salesforce_experience_application,
+					input_field_id: :'sfx_pts_payments.cash_contributions_evidence_question'
+				}
+			) if @salesforce_experience_application.errors['sfx_pts_payments.cash_contributions_evidence_question'].any?
+		%>
+
+		<div class="govuk-form-group <%= "govuk-form-group--error" if
+  	@salesforce_experience_application.errors.any? %>">
+
+			<div id="sfx_pts_payments.cash_contributions_evidence_question-errors"></div>
+
+			<div id="form-group-errors"></div>
+
+			<div class="govuk-radios__item govuk-!-margin-bottom-9">
+
+				<%=
+					# i18n value passed as value
+					f.radio_button :cash_contributions_evidence_question,
+					t('salesforce_experience_application.cash_contribution_evidence.bullets.yes_i_will_upload'),
+					class: "govuk-radios__input",
+					"data-aria-controls" => "conditional-cash_contributions_evidence_question "
+				%>
+							
+				<%=
+					f.label :cash_contributions_evidence_question_true,
+					t('salesforce_experience_application.cash_contribution_evidence.bullets.yes_i_will_upload'),
+					class: "govuk-label govuk-radios__label"
+				%>
+									
+				<div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+					id="conditional-cash_contributions_evidence_question">
+
+					<div class="govuk-form-group" id="capital-works-form-group-main"
+						data-form-group="file">
+
+						<%=
+							f.label :cash_contributions_evidence_files,
+							t('salesforce_experience_application.cash_contribution_evidence.bullets.upload_evidence_of'),
+							class: "govuk-label govuk-!-font-weight-bold"
+						%>
+
+						<%=
+							f.file_field :cash_contributions_evidence_files,
+							multiple: true,
+							direct_upload: true,
+							class: "govuk-file-upload",
+							'data-input-identifier': 'file',
+							'data-attribute': :cash_contributions_evidence_files,
+							'data-model': 'sfx_pts_payments',
+							'autocomplete' => 'off'
+						%>
+
+						<div>
+							<%=
+								render(
+									ButtonComponent.new(
+										type: "button",
+										text: t('generic.upload_files'),
+										classes: "govuk-button--secondary ",
+										name: 'add_file_button'
+									)
+								)
+							%>
+						</div>
+
+					</div>
+
+						<% if @files&.first&.present?%>
+
+							<p class="govuk-body">
+									<%= t('generic.uploaded_files') %>
+							</p>
+
+							<% @files.each do |blob| %>
+							
+								<table class="govuk-table govuk-!-margin-bottom-0">
+									<tbody>
+										<tr"govuk-table__row">
+											<td class="govuk-table__cell">
+													<p class="govuk-body">
+														<%=
+															link_to(
+																blob.filename,
+																rails_blob_path(
+																	blob,
+																	disposition: "attachment"
+																),
+																class: 'govuk-link',
+															)
+														%> 
+
+														<%= t('generic.has_been_uploaded') %>
+												</p>
+											</td>
+
+											<td class="govuk-table__cell govuk-!-width-one-quarter">
+						
+														<%=
+															link_to(
+																t('generic.delete'),
+																sfx_pts_payment_cash_contributions_evidence_blob_delete_path(blob_id: blob.id),
+																class: 'govuk-button govuk-button--warning',
+																id: 'delete-file',
+																:method => 'delete'
+															)
+														%> 
+													
+											</td>
+										
+										</tr>
+
+									</tbody>
+									
+								</table>
+
+							<% end %>
+
+						<% end %>
+
+				</div>
+
+			</div>
+
+			<div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+				<%=
+					# i18n value passed as value
+					f.radio_button :cash_contributions_evidence_question,
+					t('salesforce_experience_application.cash_contribution_evidence.bullets.i_have_emailed_evidence'),
+					class: "govuk-radios__input"
+				%>
+
+				<%=	
+						f.label :cash_contributions_evidence_question_false,
+						t('salesforce_experience_application.cash_contribution_evidence.bullets.i_have_emailed_evidence'),
+						class: "govuk-label govuk-radios__label"
+				%>
+
+			</div>
+
+			<div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+				<%=
+					# i18n value passed as value
+					f.radio_button :cash_contributions_evidence_question,
+					t('salesforce_experience_application.cash_contribution_evidence.bullets.i_provided_evidence'),
+					class: "govuk-radios__input"
+				%>
+
+				<%=	
+						f.label :cash_contributions_evidence_question_false,
+						t('salesforce_experience_application.cash_contribution_evidence.bullets.i_provided_evidence'),
+						class: "govuk-label govuk-radios__label"
+				%>
+
+			</div>
+
+			<div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+				<%=
+					# i18n value passed as value
+					f.radio_button :cash_contributions_evidence_question,
+					t('salesforce_experience_application.cash_contribution_evidence.bullets.no_i_do_not_have_evidence'),
+					class: "govuk-radios__input"
+				%>
+
+				<%=	
+						f.label :cash_contributions_evidence_question_false,
+						t('salesforce_experience_application.cash_contribution_evidence.bullets.no_i_do_not_have_evidence'),
+						class: "govuk-label govuk-radios__label"
+				%>
+
+			</div>
+		
+		</div>
+
+		<%=
+			render(
+				ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+					name: "save_and_continue_button"
+				)
+			)
+		%>
+
+		<%#
+			See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+			for the reasoning behind this workaround
+		%>
+    <input type="hidden" name="ieworkaround">
+  </div>
+<% end %>
