@@ -16,6 +16,8 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_fundraising_evidence_files
 	attr_accessor :validate_legal_sig_one
 	attr_accessor :validate_legal_sig_two
+	attr_accessor :validate_partnership_application
+	attr_accessor :validate_project_partner_name
 
 	attr_accessor :approved_purposes_match
 	attr_accessor :agreed_costs_match
@@ -28,6 +30,8 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :fundraising_evidence_question
 	attr_accessor :legal_sig_one
 	attr_accessor :legal_sig_two
+	attr_accessor :partnership_application
+	attr_accessor :project_partner_name
 
 	has_many_attached :agreed_costs_files
 	has_many_attached :cash_contributions_evidence_files
@@ -46,6 +50,8 @@ class SfxPtsPayment < ApplicationRecord
 		if: :validate_fundraising_evidence_question?
 	validates :legal_sig_one, presence: true, if: :validate_legal_sig_one?
 	validates :legal_sig_two, presence: true, if: :validate_legal_sig_two?
+	validates :partnership_application, presence: true, if: :validate_partnership_application?
+	validates :project_partner_name, presence: true, if: :validate_project_partner_name?
 
 	validate do
 
@@ -122,6 +128,14 @@ class SfxPtsPayment < ApplicationRecord
 
 	def validate_legal_sig_two?
 		validate_legal_sig_two == true
+	end
+
+	def validate_partnership_application?
+		validate_partnership_application == true
+	end
+
+	def validate_project_partner_name? 
+		validate_project_partner_name == true
 	end
 
 	enum application_type: {

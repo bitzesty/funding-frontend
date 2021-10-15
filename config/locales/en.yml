@@ -658,3 +658,7 @@ en-GB:
               blank: "Enter name of legal signatory 1"
             legal_sig_two: 
               blank: "Enter name of legal signatory 2"
+            partnership_application:  
+              blank: "Select if applying on behalf of a partnership"
+            project_partner_name:  
+              blank: "Enter project partner name"

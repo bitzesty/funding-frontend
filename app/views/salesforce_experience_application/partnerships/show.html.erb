@@ -11,16 +11,10 @@
     partial: 'partials/summary_errors',
     locals: {
       form_object: @salesforce_experience_application,
-      first_form_element: :sfx_pts_payment_has_agreed_costs_docs_true,
+      first_form_element: :partnership_application,
     }
   ) if @salesforce_experience_application.errors.any?
 %>
-
-<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-  Are you applying on behalf of a partnership?
-</h1>
-
-<p>If you are applying on behalf of a partnership, the project partner also needs to sign this form.</p>
 
 <%= 
 	form_with model: @salesforce_experience_application,
@@ -29,68 +23,82 @@
   local: true do |f|
 %>
 
-   <div class="govuk-form-group">
+   <div class="govuk-form-group  <%= "govuk-form-group--error" if
+  	@salesforce_experience_application.errors.any? %>">
 
-       <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-8" data-module="govuk-radios">
-          <div class="govuk-radios__item">
+      <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+        Are you applying on behalf of a partnership?
+      </h1>
 
-            <%=
-              f.radio_button :partnership_application,
-              false,
-              class: "govuk-radios__input",
-              "data-aria-controls" => "conditional-partnership_application_true"
-            %>
+      <p>If you are applying on behalf of a partnership, the project partner also needs to sign this form.</p>
 
-            <%= 
-              f.label :partnership_application_true, 
-              "Yes, I am applying on behalf of a partnership",
-              class: "govuk-label govuk-radios__label" 
-            %>
+      <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+        <div class="govuk-radios__item">
 
-          </div>
+          <%=
+            f.radio_button :partnership_application,
+            true,
+            class: "govuk-radios__input",
+            "data-aria-controls" => "conditional-partnership_application_true"
+          %>
 
-          <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-              id="conditional-partnership_application_true">
-
-              <%=
-                f.label :project_partner_name,
-                "Full name of person signing on behalf of project partner",
-                class: "govuk-label govuk-!-padding-left-2"
-              %>
-
-              <%=
-                f.text_field :project_partner_name,
-                class: "govuk-input govuk-input--width-20"
-              %>
-            
-          </div>
-
-          <div class="govuk-radios__item">
-
-            <%=
-              f.radio_button :partnership_application,
-              true,
-              class: "govuk-radios__input"
-            %>
-
-            <%= 
-              f.label :partnership_application_false, 
-              "No, I am not applying on behalf of a partnership",
-              class: "govuk-label govuk-radios__label" 
-            %>
-
-          </div>
+          <%= 
+            f.label :partnership_application_true, 
+            "Yes, I am applying on behalf of a partnership",
+            class: "govuk-label govuk-radios__label" 
+          %>
 
         </div>
 
-        <%= render(
-          ButtonComponent.new(
-          element: 'button',
-          is_start_button: false,
-          text: "Save and continue"
-          )
-        )%>
+        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+            id="conditional-partnership_application_true">
+
+          <% if   @salesforce_experience_application.errors[:project_partner_name].any? %>
+            <span class="govuk-error-message govuk-!-padding-left-2">
+              <span class="govuk-visually-hidden">Error:</span> Enter the name of person signing on behalf of project partner
+            </span>
+          <%end%>
+
+            <%=
+              f.label :project_partner_name,
+              "Full name of person signing on behalf of project partner",
+              class: "govuk-label govuk-!-padding-left-2"
+            %>
+
+          <%=
+            f.text_field :project_partner_name,
+            class: "govuk-input govuk-input--width-20"
+          %>
+          
+        </div>
+
+        <div class="govuk-radios__item">
+
+          <%=
+            f.radio_button :partnership_application,
+            false,
+            class: "govuk-radios__input"
+          %>
+
+          <%= 
+            f.label :partnership_application_false, 
+            "No, I am not applying on behalf of a partnership",
+            class: "govuk-label govuk-radios__label" 
+          %>
+
+        </div>
+
+      </div>
 
     </div>
+
+    <%= render(
+      ButtonComponent.new(
+      element: 'button',
+      is_start_button: false,
+      text: "Save and continue"
+      )
+    )%>
   </div>
+
 <% end %>
