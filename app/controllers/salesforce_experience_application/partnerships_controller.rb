@@ -25,6 +25,8 @@ class SalesforceExperienceApplication::PartnershipsController < ApplicationContr
 
   def validate_and_store_answers(params)
 
+    result = false
+
     logger.info(
       'Save and continue clicked on apply on behalf of' \
         'partnership for case ID:' \
@@ -39,7 +41,7 @@ class SalesforceExperienceApplication::PartnershipsController < ApplicationContr
 
     @salesforce_experience_application.project_partner_name  = 
       params[:sfx_pts_payment].nil? ? nil : \
-        params[:sfx_pts_payment][:project_partner_name]
+        params[:sfx_pts_payment][:project_partner_name]     
 
     @salesforce_experience_application.validate_project_partner_name = true if 
       @salesforce_experience_application.partnership_application == "true"
@@ -54,10 +56,14 @@ class SalesforceExperienceApplication::PartnershipsController < ApplicationContr
           :project_partner_name,
           @salesforce_experience_application.project_partner_name 
         )
-      return true
+
+        result = true
     end
 
-    return false
+    clear_pts_answers_json_for_key(:project_partner_name) if 
+    @salesforce_experience_application.partnership_application == "false"
+
+    return result
   end
   
 end
