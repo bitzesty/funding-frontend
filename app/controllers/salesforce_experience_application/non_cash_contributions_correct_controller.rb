@@ -6,16 +6,17 @@ class SalesforceExperienceApplication::NonCashContributionsCorrectController < A
 
     @non_cash_contributions = 
       get_contributions(@salesforce_experience_application, false)
-    
+      initialize_view()
   end
 
 
   def update
 
-    @salesforce_experience_application.validate_non_cash_contributions_are_correct = true
+    @salesforce_experience_application.validate_non_cash_contributions_correct = true
 
     @salesforce_experience_application.non_cash_contributions_correct =
-      params[:contributions_are_correct]
+      params[:sfx_pts_payment].nil? ? nil : 
+        params[:sfx_pts_payment][:non_cash_contributions_correct]
 
      if @salesforce_experience_application.valid?
 
@@ -41,6 +42,18 @@ class SalesforceExperienceApplication::NonCashContributionsCorrectController < A
 
      end
 
+  end
+
+  private
+
+  def initialize_view() 
+    if @salesforce_experience_application
+      .pts_answers_json["non_cash_contributions_correct"] == true.to_s
+      @salesforce_experience_application.non_cash_contributions_correct = true.to_s
+    elsif @salesforce_experience_application
+      .pts_answers_json["non_cash_contributions_correct"] == false.to_s
+      @salesforce_experience_application.non_cash_contributions_correct = false.to_s
+    end
   end
   
 end

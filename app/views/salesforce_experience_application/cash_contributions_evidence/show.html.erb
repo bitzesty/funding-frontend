@@ -44,7 +44,7 @@
 				partial: 'partials/form_input_errors',
 				locals: {
 					form_object: @salesforce_experience_application,
-					input_field_id: :'sfx_pts_payments.cash_contributions_evidence_question'
+					input_field_id: :'sfx_pts_payments_cash_contributions_evidence_question_true'
 				}
 			) if @salesforce_experience_application.errors['sfx_pts_payments.cash_contributions_evidence_question'].any?
 		%>

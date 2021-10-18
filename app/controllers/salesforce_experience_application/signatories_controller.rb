@@ -3,7 +3,7 @@ class SalesforceExperienceApplication::SignatoriesController < ApplicationContro
   include PermissionToStartHelper
 
   def show
-    
+    initialize_view()
   end
 
   def update 
@@ -40,6 +40,15 @@ class SalesforceExperienceApplication::SignatoriesController < ApplicationContro
       render :show
     end
 
+  end
+
+  private
+
+  def initialize_view() 
+      @salesforce_experience_application.legal_sig_one = @salesforce_experience_application
+      .pts_answers_json["legal_sig_one"]
+      @salesforce_experience_application.legal_sig_two = @salesforce_experience_application
+      .pts_answers_json["legal_sig_two"]
   end
   
 end

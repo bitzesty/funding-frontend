@@ -3,6 +3,7 @@ class SalesforceExperienceApplication::AgreedCostsController < ApplicationContro
   include PermissionToStartHelper
 
   def show
+    initialize_view()
     set_agreed_costs()
   end
 
@@ -11,7 +12,8 @@ class SalesforceExperienceApplication::AgreedCostsController < ApplicationContro
     @salesforce_experience_application.validate_agreed_costs_match = true
     
     @salesforce_experience_application.agreed_costs_match = 
-      params[:costs_are_correct]
+     params[:sfx_pts_payment].nil? ? nil : 
+        params[:sfx_pts_payment][:agreed_costs_match]
 
      if @salesforce_experience_application.valid?
 
@@ -39,6 +41,16 @@ class SalesforceExperienceApplication::AgreedCostsController < ApplicationContro
   def set_agreed_costs()
     @agreed_costs =  get_agreed_costs(@salesforce_experience_application)
     @total_contingency = get_total_contingency(@agreed_costs)
+  end
+
+  def initialize_view() 
+    if @salesforce_experience_application
+      .pts_answers_json["agreed_costs_match"] == true.to_s
+      @salesforce_experience_application.agreed_costs_match = true.to_s
+    elsif @salesforce_experience_application
+      .pts_answers_json["agreed_costs_match"] == false.to_s
+      @salesforce_experience_application.agreed_costs_match = false.to_s
+    end
   end
   
 end

@@ -3,7 +3,7 @@ class SalesforceExperienceApplication::PartnershipsController < ApplicationContr
   include PermissionToStartHelper
 
   def show
-    
+    initialize_view()
   end
 
   def update
@@ -65,5 +65,20 @@ class SalesforceExperienceApplication::PartnershipsController < ApplicationContr
 
     return result
   end
+
+  private
   
+  def initialize_view() 
+    if @salesforce_experience_application
+      .pts_answers_json["partnership_application"] == true.to_s
+        @salesforce_experience_application.partnership_application = true.to_s
+        @salesforce_experience_application
+          .project_partner_name = @salesforce_experience_application
+            .pts_answers_json["project_partner_name"]
+    elsif @salesforce_experience_application
+      .pts_answers_json["partnership_application"] == false.to_s
+        @salesforce_experience_application.partnership_application = false.to_s
+    end
+  end
+
 end

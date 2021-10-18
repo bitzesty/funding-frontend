@@ -6,8 +6,8 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_agreed_costs_match
 	attr_accessor :validate_agreed_costs_files
 	attr_accessor :validate_has_agreed_costs_docs
-	attr_accessor :validate_cash_contributions_are_correct
-	attr_accessor :validate_non_cash_contributions_are_correct
+	attr_accessor :validate_cash_contributions_correct
+	attr_accessor :validate_non_cash_contributions_correct
 	attr_accessor :validate_permissions_or_licences_received
 	attr_accessor :validate_agrees_to_declaration
 	attr_accessor :validate_cash_contributions_evidence_question
@@ -52,8 +52,8 @@ class SfxPtsPayment < ApplicationRecord
 	validates :approved_purposes_match, presence: true, if: :validate_approved_purposes_match?
 	validates :agreed_costs_match, presence: true, if: :validate_agreed_costs_match?
 	validates :has_agreed_costs_docs, presence: true, if: :validate_has_agreed_costs_docs?
-	validates :cash_contributions_correct, presence: true, if: :validate_cash_contributions_are_correct?
-	validates :non_cash_contributions_correct, presence: true, if: :validate_non_cash_contributions_are_correct?
+	validates :cash_contributions_correct, presence: true, if: :validate_cash_contributions_correct?
+	validates :non_cash_contributions_correct, presence: true, if: :validate_non_cash_contributions_correct?
 	validates :permissions_or_licences_received, presence: true, if: :validate_permissions_or_licences_received?
 	validates :agrees_to_declaration, presence: true, if: :validate_agrees_to_declaration?
 	validates :cash_contributions_evidence_question, presence: true, 
@@ -126,12 +126,12 @@ class SfxPtsPayment < ApplicationRecord
 		validate_agreed_costs_files == true
 	end
 
-	def validate_cash_contributions_are_correct?
-		validate_cash_contributions_are_correct == true
+	def validate_cash_contributions_correct?
+		validate_cash_contributions_correct == true
 	end
 
-	def validate_non_cash_contributions_are_correct?
-		validate_non_cash_contributions_are_correct == true
+	def validate_non_cash_contributions_correct?
+		validate_non_cash_contributions_correct == true
 	end
 
 	def validate_permissions_or_licences_received?

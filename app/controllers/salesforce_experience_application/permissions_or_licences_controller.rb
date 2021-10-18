@@ -3,7 +3,7 @@ class SalesforceExperienceApplication::PermissionsOrLicencesController < Applica
   include PermissionToStartHelper
 
   def show
-
+    initialize_view()
   end
 
   def update 
@@ -42,6 +42,18 @@ class SalesforceExperienceApplication::PermissionsOrLicencesController < Applica
 
     end
 
+  end
+
+  private
+
+  def initialize_view() 
+    if @salesforce_experience_application
+      .pts_answers_json["permissions_or_licences_received"] == true.to_s
+      @salesforce_experience_application.permissions_or_licences_received = true.to_s
+    elsif @salesforce_experience_application
+      .pts_answers_json["permissions_or_licences_received"] == false.to_s
+      @salesforce_experience_application.permissions_or_licences_received = false.to_s
+    end
   end
   
 end

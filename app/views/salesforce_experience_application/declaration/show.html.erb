@@ -124,16 +124,16 @@
       <div class="govuk-checkboxes__item">
 
         <%=
-          f.check_box :agrees_with_declaration_statements,
+          f.check_box :agrees_to_declaration,
                       {
-                          id: :agrees_with_declaration_statements,
+                          id: :agrees_to_declaration,
                           class: "govuk-checkboxes__input"
                       },
                       'true', nil
         %>
 
         <%=
-          f.label :agrees_with_declaration_statements,
+          f.label :agrees_to_declaration,
                   "I agree with the above statements.",
                   class: "govuk-label govuk-checkboxes__label"
         %>

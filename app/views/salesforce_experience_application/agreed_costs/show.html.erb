@@ -11,7 +11,7 @@
     partial: 'partials/summary_errors',
     locals: {
       form_object: @salesforce_experience_application,
-      first_form_element: :costs_are_correct_true
+      first_form_element: :sfx_pts_payment_agreed_costs_match_true
     }
   ) if @salesforce_experience_application.errors.any?
 %>
@@ -153,11 +153,10 @@
     ) if @salesforce_experience_application.errors.any?
   %>
 
-  <%= form_with(
+  <%= form_with model: @salesforce_experience_application,
       url: :sfx_pts_payment_agreed_costs,
       method: :post,
-      local: true
-    ) do |f| 
+      local: true do |f| 
   %>
 
     <div class="govuk-form-group">
@@ -167,13 +166,13 @@
           <div class="govuk-radios__item">
 
             <%=
-              f.radio_button :costs_are_correct,
+              f.radio_button :agreed_costs_match,
               true,
               class: "govuk-radios__input"
             %>
 
             <%= 
-              f.label :costs_are_correct_true, 
+              f.label :agreed_costs_match_true, 
               "Yes, the projects costs are correct",
               class: "govuk-label govuk-radios__label" 
             %>
@@ -183,14 +182,14 @@
           <div class="govuk-radios__item">
 
             <%=
-              f.radio_button :costs_are_correct,
+              f.radio_button :agreed_costs_match,
               false,
               class: "govuk-radios__input",
-              "data-aria-controls" => "conditional-costs_are_correct"
+              "data-aria-controls" => "conditional-agreed_costs_match"
             %>
 
             <%= 
-              f.label :costs_are_correct_false, 
+              f.label :agreed_costs_match_false, 
               "No, the project costs are not correct",
               class: "govuk-label govuk-radios__label" 
             %>
@@ -198,10 +197,11 @@
           </div>
 
           <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-              id="conditional-costs_are_correct">
+              id="conditional-agreed_costs_match">
 
             <p class="govuk-body">
-                Changes to costs need to be agreed with your Investment Manager. Contact your Investment Manager to discuss any changes.
+                Changes to costs need to be agreed with your Investment Manager. 
+                Contact your Investment Manager to discuss any changes.
             </p>
             
           </div>
