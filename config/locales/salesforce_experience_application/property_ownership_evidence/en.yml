@@ -1,0 +1,12 @@
+en-GB:
+  salesforce_experience_application:
+    property_ownership_evidence:
+      page_title: "Evidence of ownership"
+      page_heading: "Evidence of who owns any property that forms part of the project and information on restrictions or other claims on it"
+      page_hint: "Evidence of ownership"
+      bullets:
+        i_will_upload: "I will upload evidence of ownership"
+        upload_evidence: "Upload evidence of ownership"
+        i_have_emailed: "I have emailed evidence of ownership to my Investment Manager"
+        not_applicable: "This is not applicable to my project"
+

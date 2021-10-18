@@ -20,6 +20,10 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_project_partner_name
 	attr_accessor :validate_timetable_work_programme_question
 	attr_accessor :validate_timetable_work_programme_files
+	attr_accessor :validate_project_management_structure_question
+	attr_accessor :validate_project_management_structure_files
+	attr_accessor :validate_property_ownership_evidence_question
+	attr_accessor :validate_property_ownership_evidence_files
 
 	attr_accessor :approved_purposes_match
 	attr_accessor :agreed_costs_match
@@ -35,11 +39,15 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :partnership_application
 	attr_accessor :project_partner_name
 	attr_accessor :timetable_work_programme_question
+	attr_accessor :project_management_structure_question
+	attr_accessor :property_ownership_evidence_question
 
 	has_many_attached :agreed_costs_files
 	has_many_attached :cash_contributions_evidence_files
 	has_many_attached :fundraising_evidence_files
 	has_many_attached :timetable_work_programme_files
+	has_many_attached :project_management_structure_files
+	has_many_attached :property_ownership_evidence_files
 
 	validates :approved_purposes_match, presence: true, if: :validate_approved_purposes_match?
 	validates :agreed_costs_match, presence: true, if: :validate_agreed_costs_match?
@@ -58,6 +66,10 @@ class SfxPtsPayment < ApplicationRecord
 	validates :project_partner_name, presence: true, if: :validate_project_partner_name?
 	validates :timetable_work_programme_question, presence: true, 
 		if: :validate_timetable_work_programme_question?
+	validates :project_management_structure_question, presence: true, 
+		if: :validate_project_management_structure_question?
+	validates :property_ownership_evidence_question, presence: true, 
+		if: :validate_property_ownership_evidence_question?
 
 	validate do
 
@@ -83,6 +95,18 @@ class SfxPtsPayment < ApplicationRecord
 			I18n.t('activerecord.errors.models.sfx_pts_payment.attributes.' \
 				'timetable_work_programme_files.inclusion')
 		) if validate_timetable_work_programme_files?
+
+		validate_file_attached(
+			:project_management_structure_files,
+			I18n.t('activerecord.errors.models.sfx_pts_payment.attributes.' \
+				'project_management_structure_files.inclusion')
+		) if validate_project_management_structure_files?
+
+		validate_file_attached(
+			:property_ownership_evidence_files,
+			I18n.t('activerecord.errors.models.sfx_pts_payment.attributes.' \
+				'property_ownership_evidence_files.inclusion')
+		) if validate_property_ownership_evidence_files?
 
 	end
 
@@ -157,6 +181,23 @@ class SfxPtsPayment < ApplicationRecord
 	def validate_timetable_work_programme_question?
 		validate_timetable_work_programme_question == true
 	end
+
+	def validate_project_management_structure_files?
+		validate_project_management_structure_files == true
+	end
+
+	def validate_project_management_structure_question?
+		validate_project_management_structure_question == true
+	end
+
+	def validate_property_ownership_evidence_files?
+		validate_property_ownership_evidence_files == true
+	end
+
+	def validate_property_ownership_evidence_question?
+		validate_property_ownership_evidence_question == true
+	end
+
 
 	enum application_type: {
 		large_delivery: 0,

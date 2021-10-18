@@ -560,10 +560,16 @@ Rails.application.routes.draw do
         'project_management_structure#show'
       post '/project-management-structure', to:
         'project_management_structure#update'
+      delete '/project-management-structure/:blob_id', to: 
+        'project_management_structure#delete', 
+          as: :project_management_structure_blob_delete
       get '/property-ownership-evidence', to: 
         'property_ownership_evidence#show'
       post '/property-ownership-evidence', to:
         'property_ownership_evidence#update'
+      delete '/property-ownership-evidence/:blob_id', to: 
+        'property_ownership_evidence#delete', 
+          as: :property_ownership_evidence_blob_delete
       get '/permissions-or-licences', to: 'permissions_or_licences#show'
       post '/permissions-or-licences', to: 'permissions_or_licences#update'
       get '/add-permissions-or-licences', to: 'permissions_or_licences_add#show'

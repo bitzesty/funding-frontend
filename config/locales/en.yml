@@ -666,3 +666,12 @@ en-GB:
               blank: "Select if you will provide a timetable or work programme"
             timetable_work_programme_files:
               inclusion: "Select evidence of a timetable or work programme file"
+            project_management_structure_question:
+              blank: "Select if you will provide a project management structure"
+            project_management_structure_files:
+              inclusion: "Select project management structure file"
+            property_ownership_evidence_question:
+              blank: "Select if you will provide evidence of ownership"
+            property_ownership_evidence_files:
+              inclusion: "Select evidence of ownership file"
+

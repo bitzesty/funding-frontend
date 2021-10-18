@@ -1,0 +1,10 @@
+en-GB:
+  salesforce_experience_application:
+    project_management_structure:
+      page_title: "Project management and procurement"
+      page_heading: "Upload a project management structure, including methods for choosing consultants, contracts and suppliers"
+      page_hint: "Project management and procurement"
+      bullets:
+        i_will_upload: "I will upload a project management structure"
+        upload_evidence: "Upload evidence of project management structure"
+        i_have_emailed: "I have emailed a project management structure to my Investment Manager"
