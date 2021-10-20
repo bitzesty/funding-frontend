@@ -1,11 +1,176 @@
-<p> Todo - upload permission to start </p>
+<%=
+  render partial: "partials/page_title",
+    locals: {
+        model_object: nil,
+        page_title: 'Upload permission to start '
+    }
+%>
 
-<% # Temp button to advance the journey %>
 <%=
   render(
-    ButtonComponent.new(
-      element: 'a',
-      href: 'upload-permission-to-start'
-    )
-  )
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @salesforce_experience_application,
+      first_form_element: :sfx_pts_payment_pts_form_files
+    }
+  ) if @salesforce_experience_application.errors.any?
 %>
+
+<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+  Download, sign and upload Permission to Start Form
+</h1>
+
+<div class = "govuk-!-padding-bottom-4">
+  <h2 class="govuk-heading-m">
+    Download Permission to Start Form
+  </h2>
+
+  <a href="#" class="govuk-link">Download Permission to Start Form</a>
+</div>
+
+
+  <div class = "govuk-!-padding-bottom-2">
+    <h2 class="govuk-heading-m">
+      Sign Permission to Start Form
+    </h2>
+
+    <p class="govuk-body">To sign the form, you can:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>print the form and sign by hand</li>
+      <li>digitally sign using an electronic pen</li>
+    </ul>
+
+    <p class="govuk-body">However you sign the form, all signatures must be new. They cannot be a copy.  </p>
+  </div>
+
+<%= 
+  form_with model: @salesforce_experience_application,
+  url: :sfx_pts_payment_upload_permission_to_start,
+  method: :post,
+  local: true do |f|
+%>
+
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
+    @salesforce_experience_application.errors.any? %>">
+
+    <div>
+      <h2 class="govuk-heading-m govuk-!-padding-bottom-2">
+        Upload signed Permission to Start Form
+      </h2>
+
+      <p class="govuk-body">You must include all the pages of the document.</p>
+    </div>
+
+    <%=
+      render(
+        partial: 'partials/form_group_errors',
+        locals: {
+          form_object: @salesforce_experience_application
+        }
+      ) if @salesforce_experience_application.errors.any?
+    %>
+
+    <section class="nlhf-summary govuk-!-padding-4  govuk-!-margin-bottom-9" id="project-costs">
+      <div class="govuk-form-group" id="uplload-permission-to-start-form-group-main"
+        data-form-group="file">
+
+          <%=
+            f.label :pts_form_files,
+            "Upload signed Permission to Start Form",
+            class: "govuk-label govuk-!-font-weight-bold"
+          %>
+
+          <%=
+            f.file_field :pts_form_files,
+            multiple: true,
+            direct_upload: true,
+            class: "govuk-file-upload",
+            'data-input-identifier': 'file',
+            'data-attribute': :pts_form_files,
+            'data-model': 'sfx_pts_payments',
+            'autocomplete' => 'off'
+          %>
+
+          <div class="govuk-!-padding-top-6">
+            <%=
+              render(
+                ButtonComponent.new(
+                  type: "button",
+                  text: "Upload files",
+                  classes: "govuk-button--primary ",
+                  name: 'add_file_button'
+                )
+              )
+            %>
+          </div>
+        </div>
+
+        <% if @attached_pts_docs&.first&.present?%>
+
+          <p class="govuk-body">
+              Uploaded files
+          </p>
+
+          <% @attached_pts_docs.each do |blob| %>
+          
+            <table class="govuk-table govuk-!-margin-bottom-0">
+              <tbody>
+                <tr"govuk-table__row">
+                  <td class="govuk-table__cell">
+                      <p class="govuk-body">
+                        <%=
+                          link_to(
+                            blob.filename,
+                            rails_blob_path(
+                              blob,
+                              disposition: "attachment"
+                            ),
+                            class: 'govuk-link',
+                          )
+                        %> 
+
+                        has been uploaded
+                    </p>
+                  </td>
+
+                  <td class="govuk-table__cell govuk-!-width-one-quarter">
+        
+                        <%=
+                          link_to(
+                            "Delete",
+                            sfx_pts_payment_pts_form_files_blob_delete_path(blob_id: blob.id),
+                            class: 'govuk-button govuk-button--warning',
+                            id: 'delete-file',
+                            :method => 'delete'
+                          )
+                        %> 
+                      
+                  </td>
+                
+                </tr>
+
+              </tbody>
+              
+            </table>
+
+          <% end %>
+
+        <% end %>
+      </section>
+  </div>
+
+  <%=
+    render(
+      ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: "Submit",
+        name: "save_and_continue_button"
+      )
+    )
+  %>
+
+<%end%>
+
+
+

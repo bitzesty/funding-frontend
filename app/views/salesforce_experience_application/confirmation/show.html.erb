@@ -1,0 +1,45 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+        model_object: nil,
+        page_title: 'Confirmation '
+    }
+%>
+
+<div class="govuk-panel govuk-panel--confirmation">
+  <h1 class="govuk-panel__title">
+    Permission to Start submitted
+  </h1>
+</div>
+
+<p class="govuk-body">We have sent a confirmation email to [<%= @salesforce_experience_application.email_address%>]</p>
+
+<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+  What happens next
+</h1>
+
+<p class="govuk-body">
+  We will review your Permission to Start Form and be in touch if we have any questions.
+  We will let you know once our checks are complete and when you can start work on your project.
+</p>
+
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive">Warning</span>
+    It is important that you do not start your project until you hear from us.
+  </strong>
+</div>
+
+<p class="govuk-body govuk-!-padding-bottom-2">If you have any questions, contact your Investment Manager.</p>
+
+<%=
+  render(
+    ButtonComponent.new(
+        element: "a",
+        href: destroy_user_session_path,
+        text: 'Sign out',
+        data_method: 'delete'
+    )
+  )
+%>

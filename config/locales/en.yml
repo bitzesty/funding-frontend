@@ -674,4 +674,6 @@ en-GB:
               blank: "Select if you will provide evidence of ownership"
             property_ownership_evidence_files:
               inclusion: "Select evidence of ownership file"
+            pts_form_files:
+              inclusion: "Select signed Permission to Start Form"
 

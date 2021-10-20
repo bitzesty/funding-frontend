@@ -24,6 +24,7 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_project_management_structure_files
 	attr_accessor :validate_property_ownership_evidence_question
 	attr_accessor :validate_property_ownership_evidence_files
+	attr_accessor :validate_pts_form_files
 
 	attr_accessor :approved_purposes_match
 	attr_accessor :agreed_costs_match
@@ -48,6 +49,7 @@ class SfxPtsPayment < ApplicationRecord
 	has_many_attached :timetable_work_programme_files
 	has_many_attached :project_management_structure_files
 	has_many_attached :property_ownership_evidence_files
+	has_many_attached :pts_form_files
 
 	validates :approved_purposes_match, presence: true, if: :validate_approved_purposes_match?
 	validates :agreed_costs_match, presence: true, if: :validate_agreed_costs_match?
@@ -70,7 +72,7 @@ class SfxPtsPayment < ApplicationRecord
 		if: :validate_project_management_structure_question?
 	validates :property_ownership_evidence_question, presence: true, 
 		if: :validate_property_ownership_evidence_question?
-
+	
 	validate do
 
 		validate_file_attached(
@@ -107,6 +109,11 @@ class SfxPtsPayment < ApplicationRecord
 			I18n.t('activerecord.errors.models.sfx_pts_payment.attributes.' \
 				'property_ownership_evidence_files.inclusion')
 		) if validate_property_ownership_evidence_files?
+
+		validate_file_attached(
+			:pts_form_files,
+			I18n.t("activerecord.errors.models.sfx_pts_payment.attributes.pts_form_files.inclusion")
+	) if validate_pts_form_files?
 
 	end
 
@@ -198,6 +205,9 @@ class SfxPtsPayment < ApplicationRecord
 		validate_property_ownership_evidence_question == true
 	end
 
+	def validate_pts_form_files?
+		validate_pts_form_files == true
+	end
 
 	enum application_type: {
 		large_delivery: 0,

@@ -582,8 +582,13 @@ Rails.application.routes.draw do
       post '/partnerships', to: 'partnerships#update'
       get '/declaration', to: 'declaration#show'
       post '/declaration', to: 'declaration#update'
+      get '/confirmation', to: 'confirmation#show'
+      post '/confirmation', to: 'confirmation#update'
       get '/upload-permission-to-start', to: 'upload_permission_to_start#show'
       post '/upload-permission-to-start', to: 'upload_permission_to_start#update'
+      delete '/upload-permission-to-start/:blob_id', to: 
+      'upload_permission_to_start#delete', 
+        as: :pts_form_files_blob_delete
     end
 
   end
