@@ -7,5 +7,5 @@ cy:
     need_to_list:
       add_bank_details: "Ychwanegwch fanylion cyfrif banc eich sefydliad"
       upload_evidence: "Lanlwytho tystiolaeth o'r cyfrif. Gall tystiolaeth fod yn ddatganiad banc diweddar, siec, neu'n slip talu i mewn"
-    page_hint: "Dylai enw'r cyfrif banc a'r dystiolaeth a lanlwythwch gyfateb i enw'r sefydliad o'r ffurflen gais."
+    page_hint: "Mae'n rhaid i enw'r cyfrif banc a'r dystiolaeth a lanlwythwch gyfateb i enw'r sefydliad o'r cais. Ni allwn wneud taliad os nad ydynt yn cyfateb."
 
