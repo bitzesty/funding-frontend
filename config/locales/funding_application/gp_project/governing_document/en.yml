@@ -18,7 +18,7 @@ en-GB:
       united_reformed_church: "United Reformed Church"
     no_signed_copy: "If you do not have a signed copy, you can submit other evidence to show that the governing document has been adopted, for example, minutes of a committee meeting."
     warning: "Warning"
-    warning_text: "Make sure that your governing document is signed and dated."
+    warning_text: "The name on your governing document must match your organisation name and it must be signed and dated."
     no_governing_document: "You have not added a governing document"
     governing_document_file: "Governing Document File"
     what_is_a_governing_document: "What is a governing document?"
