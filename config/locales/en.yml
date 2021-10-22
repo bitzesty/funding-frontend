@@ -42,6 +42,7 @@ en-GB:
     has_been_uploaded: "has been uploaded"
     select_one_option: "Select one option"
     delete: "Delete"
+    remove: "Remove"
     there_is_a_problem: "There is a problem"
     we_have_found_a_problem: "We have found a problem"
     not_answered: "Not answered"
@@ -639,7 +640,7 @@ en-GB:
             non_cash_contributions_correct:
               blank: "Select if non-cash contributions are correct or not correct"
             permissions_or_licences_received:
-              blank: "Select if you have received new statutory permissions or licenses"
+              blank: "Select if you have received new statutory permissions or licences"
             has_agreed_costs_docs:  
               blank: "Select if you will upload or email a cost breakdown and cashflow"
             agreed_costs_files:
@@ -674,6 +675,31 @@ en-GB:
               blank: "Select if you will provide evidence of ownership"
             property_ownership_evidence_files:
               inclusion: "Select evidence of ownership file"
+            property_ownership_evidence_question:
+              blank: "Select if you will provide evidence of ownership"
+            property_ownership_evidence_files:
+              inclusion: "Select evidence of ownership file"
+            add_another_statutory_permission_or_licence:
+              blank: "Select if you will add_another statutory permission or licence"
             pts_form_files:
               inclusion: "Select signed Permission to Start Form"
+        statutory_permission_or_licence:
+          attributes:
+            upload_question:
+              blank: "Select if you will provide evidence for this statutory permission or licence"
+            upload_files:
+              inclusion: "Select evidence for this statutory permission or licence file"
+            licence_type: 
+              blank: "Enter a type of statutory permission or licence"
+            date_day: 
+              blank: "Enter the day"
+            date_month: 
+              blank: "Enter the month"
+            date_year: 
+              not_a_number: "Enter the year"
+              greater_than: "Enter a year of 1700 or more"
+              less_than: "Enter a year of less than 4000"
+            licence_date: 
+              invalid: "Enter a valid statutory permission or licence date"
+
 

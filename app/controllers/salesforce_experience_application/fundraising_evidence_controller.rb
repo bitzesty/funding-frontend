@@ -185,7 +185,7 @@ class SalesforceExperienceApplication::FundraisingEvidenceController < Applicati
 
     if select_file_upload_bullet
 
-      @salesforce_experience_application.cash_contributions_evidence_question =
+      @salesforce_experience_application.fundraising_evidence_question =
       t('salesforce_experience_application.fundraising_evidence_files.' \
           'bullets.yes_i_will_upload')  
 

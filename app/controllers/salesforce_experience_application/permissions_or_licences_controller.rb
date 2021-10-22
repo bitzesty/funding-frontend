@@ -26,7 +26,7 @@ class SalesforceExperienceApplication::PermissionsOrLicencesController < Applica
       if @salesforce_experience_application. \
         permissions_or_licences_received.downcase == "true"
           redirect_to(
-            sfx_pts_payment_add_permissions_or_licences_path \
+            sfx_pts_payment_statutory_permission_or_licence_add_path \
               (@salesforce_experience_application.salesforce_case_id)
           )
       else

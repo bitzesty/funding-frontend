@@ -1,0 +1,186 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @statutory_permission_or_licence,
+             page_title: 'ADD statutory permissions and licenses'
+         }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @statutory_permission_or_licence,
+      form_object_name: "sfx_pts_payment",
+      first_form_element:  :statutory_permission_or_licence_licence_type
+    }
+  ) if @statutory_permission_or_licence.errors.any?
+%>
+
+<span class="govuk-caption-xl govuk-!-padding-bottom-2">Statutory permissions and licences</span>
+<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+  Add a statutory permission or licence
+</h1>
+
+  <%= 
+    form_with model: @statutory_permission_or_licence,
+    url: controller_url,
+    method: :post,
+    local: true do |f|
+  %>
+
+    <div class="govuk-form-group govuk-!-padding-bottom-4 
+      <%= "govuk-form-group--error" if
+        @statutory_permission_or_licence.errors[:licence_type].any? %>">
+
+      <% if @statutory_permission_or_licence.errors[:licence_type].any? %>
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter a type of statutory permission or licence
+        </span>
+      <%end%>
+
+      <%=
+        f.label :licence_type,
+        'Type of statutory permission or licence',
+        class: "govuk-label"
+      %>
+
+      <%=
+        f.text_field :licence_type,
+        class: "govuk-input govuk-input--width-20"
+      %>
+
+    </div>
+
+    <div class="govuk-form-group govuk-!-padding-bottom-4       
+      <%= "govuk-form-group--error" if 
+        @statutory_permission_or_licence.errors[:date_day].any? ||  
+          @statutory_permission_or_licence.errors[:date_month].any? || 
+            @statutory_permission_or_licence.errors[:date_year].any? %> " >
+
+      <% if @statutory_permission_or_licence.errors[:date_day].any? %>
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter the day
+        </span>
+      <%end%>
+
+      <% if @statutory_permission_or_licence.errors[:date_month].any? %>
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter the month
+        </span>
+      <%end%>
+
+      <% if @statutory_permission_or_licence.errors[:date_year].any? %>
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> Enter the year
+        </span>
+      <%end%>
+
+
+      <fieldset class="govuk-fieldset" role="group"
+        aria-describedby="statutory_permission_or_licence-start-hint">
+
+        <label class="govuk-label" id="statutory_permission_or_licence_start_date">
+          What date did you receive or will you receive the statutory permission or licence?
+        </label>
+
+        <div id="statutory_permission_or_licence-start-hint" class="govuk-hint">
+          For example, 27 6 2022
+        </div>
+
+        <% @statutory_permission_or_licence.errors.each do |error| %>
+
+          <% if error.attribute.to_s.include? 'start' %>
+
+            <span id="statutory_permission_or_licence[<%= error.attribute %>]-error" class="govuk-error-message">
+              <span class="govuk-visually-hidden">
+                <%= t('generic.error') %>:
+              </span> <%= error.message %>
+            </span>
+
+          <% end %>
+
+        <% end %>
+
+        <% date_css = "govuk-input govuk-date-input__input govuk-input--width-2" %>
+        <% date_year_css = "govuk-input govuk-date-input__input govuk-input--width-4" %>
+        <% date_error_css = "govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" %>
+        <% date_year_error_css = "govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error" %>
+
+        <div class="govuk-date-input" id="start-date">
+
+          <div class="govuk-date-input__item">
+
+            <div class="govuk-form-group">
+
+              <%=
+                f.label :date_day,
+                t('dates.day'),
+                class: 'govuk-label govuk-date-input__label'
+              %>
+
+              <%=
+                f.number_field :date_day,
+                class: @statutory_permission_or_licence.errors[:date_day].any? ?  
+                  date_error_css : date_css
+              %> 
+
+            </div>
+
+          </div>
+
+          <div class="govuk-date-input__item">
+
+            <div class="govuk-form-group">
+
+              <%=
+                f.label :date_month,
+                t('dates.month'),
+                class: 'govuk-label govuk-date-input__label'
+              %>
+
+            </div>
+
+            <%=
+              f.number_field :date_month,
+              class: @statutory_permission_or_licence.errors[:date_month].any? ?  
+                  date_error_css : date_css
+            %> 
+
+          </div>
+
+          <div class="govuk-date-input__item">
+
+            <div class="govuk-form-group">
+
+              <%=
+                f.label :date_year,
+                t('dates.year'),
+                class: 'govuk-label govuk-date-input__label'
+              %>
+
+              <%=
+                f.number_field :date_year,
+                class: @statutory_permission_or_licence.errors[:date_year].any? ? 
+                  date_year_error_css : date_year_css
+              %> 
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </fieldset>
+
+    </div>
+
+    <%= render(
+        ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: "Add a statutory permission or licence"
+        )
+      )%>
+
+  <%end%>

@@ -572,10 +572,10 @@ Rails.application.routes.draw do
           as: :property_ownership_evidence_blob_delete
       get '/permissions-or-licences', to: 'permissions_or_licences#show'
       post '/permissions-or-licences', to: 'permissions_or_licences#update'
-      get '/add-permissions-or-licences', to: 'permissions_or_licences_add#show'
-      post '/add_permissions-or-licences', to: 'permissions_or_licences_add#update'
-      get '/edit-permissions-or-licences', to: 'permissions_or_licences_edit#show'
-      post '/edit-permissions-or-licences', to: 'permissions_or_licences_edit#update'
+      get '/permissions-or-licences-add', to: 'permissions_or_licences_add#show'
+      post '/permissions-or-licences-add', to: 'permissions_or_licences_add#update'
+      get '/permissions-or-licences-edit', to: 'permissions_or_licences_edit#show'
+      post '/permissions-or-licences-edit', to: 'permissions_or_licences_edit#update'
       get '/signatories', to: 'signatories#show'
       post '/signatories', to: 'signatories#update'
       get '/partnerships', to: 'partnerships#show'
@@ -589,6 +589,31 @@ Rails.application.routes.draw do
       delete '/upload-permission-to-start/:blob_id', to: 
       'upload_permission_to_start#delete', 
         as: :pts_form_files_blob_delete
+
+      scope '/statutory-permission-or-licence', 
+        module: 'statutory_permission_or_licence', 
+            as: 'statutory_permission_or_licence' do
+
+        get 'add', to: 'add#show'
+        post 'add', to: 'add#update'
+        get 'summary', to: 'summary#show'
+        post 'summary', to: 'summary#update'
+        delete 'summary/:statutory_permission_or_licence_id', to: 
+          'summary#delete', as: :summary_delete
+
+        scope '/:statutory_permission_or_licence_id' do
+
+          get 'files', to: 'files#show'
+          post 'files', to: 'files#update'
+          delete '/files/:blob_id', to: 
+          'files#delete', 
+            as: :files_blob_delete
+          get 'change', to: 'change#show'
+          post 'change', to: 'change#update'
+        end
+
+      end
+
     end
 
   end

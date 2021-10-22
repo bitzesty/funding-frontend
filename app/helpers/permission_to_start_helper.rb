@@ -200,7 +200,7 @@ module PermissionToStartHelper
 
 		# deletes from active_storage_blobs and active_storage_attachments
 		attachment_to_delete = ActiveStorage::Attachment.find_by(blob_id: blob_id)
-		attachment_to_delete.purge
+		attachment_to_delete&.purge
     
   end
 
@@ -214,7 +214,6 @@ module PermissionToStartHelper
     json_answers = @salesforce_experience_application.pts_answers_json
 
     json_answers[json_key] = json_value
-      @salesforce_experience_application.fundraising_evidence_question
 
     @salesforce_experience_application.pts_answers_json = json_answers
     @salesforce_experience_application.save
@@ -233,6 +232,40 @@ module PermissionToStartHelper
     @salesforce_experience_application.save
 
   end
+
+  # Clears the answers json for the specified json key:
+  # @param [target_obj] StatutoryPermissionOrLicence An instance
+  # @param [json_key] String A string or symbol denoting target key in JSON
+  def clear_statutory_permissions_or_licences_json_for_key(target_obj, json_key)
+
+    json_answers = target_obj.details_json
+  
+    json_answers.except!(json_key.to_s)
+
+    target_obj.details_json = json_answers
+    target_obj.save
+
+  end
+
+  # Retrieves the answers json then either:
+  # appends a new answer or updates an existing answer
+  # then saves
+  # @param [target_obj] StatutoryPermissionOrLicence An instance
+  # @param [json_key] String A string or symbol denoting key in JSON
+  # @param [json_value] String What is stored against the json_key  
+  def update_statutory_permissions_or_licences_json(
+    target_obj, json_key, json_value)
+
+    target_obj.details_json.nil? ? (json_answers = {}) : \
+      (json_answers = target_obj.details_json)
+
+    json_answers[json_key] = json_value
+
+    target_obj.details_json = json_answers
+    target_obj.save
+
+  end
+
 
   private 
 
@@ -259,6 +292,77 @@ module PermissionToStartHelper
       end
       
       result
+
+    end
+
+    # This is a common update method used by:
+    # StatutoryPermissionOrLicence::ChangeController
+    # StatutoryPermissionOrLicence::AddController
+    def update_statutory_permission_or_licence
+
+      @statutory_permission_or_licence.validate_date_year_month_day = true
+      @statutory_permission_or_licence.validate_licence_type = true
+  
+      @statutory_permission_or_licence.date_day = 
+        permitted_params[:date_day]
+      @statutory_permission_or_licence.date_month = 
+        permitted_params[:date_month]
+      @statutory_permission_or_licence.date_year = 
+        permitted_params[:date_year]
+      @statutory_permission_or_licence.licence_type = 
+        permitted_params[:licence_type.to_s]    
+  
+      if @statutory_permission_or_licence.valid?
+  
+        # Form inputs present and correct.  Now check they make a date.
+        @statutory_permission_or_licence.validate_licence_date = true
+  
+        if @statutory_permission_or_licence.valid?
+  
+          @statutory_permission_or_licence.licence_date = Date.new(
+            permitted_params[:date_year].to_i,
+            permitted_params[:date_month].to_i,
+            permitted_params[:date_day].to_i
+          )
+
+          update_statutory_permissions_or_licences_json(
+            @statutory_permission_or_licence,
+            :licence_type,
+            permitted_params[:licence_type.to_s] 
+          )
+
+          update_statutory_permissions_or_licences_json(
+            @statutory_permission_or_licence,
+            :date,
+            @statutory_permission_or_licence.licence_date 
+          )
+          
+          @statutory_permission_or_licence.save
+  
+          logger.info(
+            'Applicant has updated statutory_permission_or_licence_id: ' \
+              "#{@statutory_permission_or_licence.id} " \
+                "for sfx_pts_payment_id: #{@salesforce_experience_application.id}"
+          )
+  
+          redirect_to(
+            sfx_pts_payment_statutory_permission_or_licence_files_path(
+              @salesforce_experience_application.salesforce_case_id, 
+                @statutory_permission_or_licence.id
+            )
+          )
+        
+        else
+  
+          render :show
+  
+        end
+        
+      else
+  
+        render :show
+  
+      end
 
     end
 

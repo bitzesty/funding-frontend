@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_30_112435) do
+ActiveRecord::Schema.define(version: 2021_10_18_140527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -594,6 +594,14 @@ ActiveRecord::Schema.define(version: 2021_09_30_112435) do
     t.index ["cost_type_id"], name: "index_spends_on_cost_type_id"
   end
 
+  create_table "statutory_permission_or_licences", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.jsonb "details_json"
+    t.uuid "sfx_pts_payment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sfx_pts_payment_id"], name: "index_statutory_permission_or_licences_on_sfx_pts_payment_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -692,6 +700,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_112435) do
   add_foreign_key "projects", "funding_applications"
   add_foreign_key "projects", "users"
   add_foreign_key "spends", "cost_types"
+  add_foreign_key "statutory_permission_or_licences", "sfx_pts_payments"
   add_foreign_key "users", "people"
   add_foreign_key "users_organisations", "organisations"
   add_foreign_key "users_organisations", "users"

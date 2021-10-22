@@ -185,7 +185,7 @@ class SalesforceExperienceApplication::ProjectManagementStructureController < Ap
 
     if select_file_upload_bullet
 
-      @salesforce_experience_application.cash_contributions_evidence_question =
+      @salesforce_experience_application.project_management_structure_question =
       t('salesforce_experience_application.project_management_structure_files.' \
           'bullets.i_will_upload')
 

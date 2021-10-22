@@ -187,7 +187,7 @@ class SalesforceExperienceApplication::PropertyOwnershipEvidenceController < App
 
     if select_file_upload_bullet
 
-      @salesforce_experience_application.cash_contributions_evidence_question =
+      @salesforce_experience_application.property_ownership_evidence_question =
       t('salesforce_experience_application.' \
         'property_ownership_evidence_files.bullets.i_will_upload')
 

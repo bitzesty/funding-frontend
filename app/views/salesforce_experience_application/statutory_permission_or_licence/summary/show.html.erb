@@ -1,0 +1,137 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: "Add another"
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @salesforce_experience_application,
+      first_form_element: :sfx_pts_payment_add_another_statutory_permission_or_licence_true,
+    }
+  ) if @salesforce_experience_application.errors.any?
+%>
+
+<span class="govuk-caption-xl govuk-!-padding-bottom-2">Statutory permissions and licenses</span>
+<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+  You have added <%= @total_count %> statutory permission or
+  <% if @total_count == 1%>
+    licence
+  <% else %>
+    licences
+  <% end %>
+</h1>
+
+<dl class="govuk-summary-list govuk-!-padding-bottom-9">
+
+  <% @salesforce_experience_application.statutory_permission_or_licence.each do |spl| %>
+
+    <div class="govuk-summary-list__row">
+      <dd class="govuk-summary-list__value">
+        <%= spl.details_json[:licence_type.to_s] %>
+      </dd>
+      <dd class="govuk-summary-list__actions">
+        <% # for screen reader to describe the following link%>
+        <span class="govuk-visually-hidden"> change statutory permission or licence</span>
+        <%=
+          link_to(
+            t('generic.change'),
+            sfx_pts_payment_statutory_permission_or_licence_change_path(statutory_permission_or_licence_id: spl.id),
+            class: 'govuk-link',
+            id: 'change-statutory_permission_or_licence'
+          )
+        %>
+      </dd>
+      <dd class="govuk-summary-list__actions">
+        <% # for screen reader to check this hidden span describe the following link%>
+        <span class="govuk-visually-hidden"> remove statutory permission or licence</span>
+        <%=
+          link_to(
+            t('generic.remove'),
+            sfx_pts_payment_statutory_permission_or_licence_summary_delete_path(statutory_permission_or_licence_id: spl.id),
+            class: 'govuk-link',
+            id: 'delete-statutory_permission_or_licence',
+            :method => 'delete'
+          )
+        %>
+      </dd>
+    </div>
+  
+  <% end %>
+  
+</dl>
+
+<%= 	
+    form_with model: @salesforce_experience_application,
+    url: :sfx_pts_payment_statutory_permission_or_licence_summary,
+    method: :post,
+      local: true do |f| 
+  %>
+
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
+    @salesforce_experience_application.errors.any? %>">
+
+      <h1 class="govuk-heading-l">
+        Do you want to add another statutory permission or licence?
+      </h1>
+
+      <%=
+        render(
+          partial: 'partials/form_group_errors',
+          locals: {
+            form_object: @salesforce_experience_application
+          }
+        ) if @salesforce_experience_application.errors.any?
+      %>
+
+      <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-9" data-module="govuk-radios">
+
+        <div class="govuk-radios__item">
+
+          <%=
+            f.radio_button :add_another_statutory_permission_or_licence,
+            true,
+            class: "govuk-radios__input"
+          %>
+
+          <%= 
+            f.label :add_another_statutory_permission_or_licence_true, 
+            "Yes, I want to add another statutory permission or licence",
+            class: "govuk-label govuk-radios__label" 
+          %>
+
+        </div>
+
+        <div class="govuk-radios__item">
+
+          <%=
+            f.radio_button :add_another_statutory_permission_or_licence,
+            false,
+            class: "govuk-radios__input"
+          %>
+
+          <%= 
+            f.label :add_another_statutory_permission_or_licence_false, 
+            "No, I do not want to add another statutory permission or licence",
+            class: "govuk-label govuk-radios__label" 
+          %>
+
+        </div>
+
+      </div>
+
+      <%= render(
+        ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: "Save and continue"
+        )
+      )%>
+
+  </div>
+
+<% end %>

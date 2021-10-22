@@ -19,4 +19,16 @@ module GenericValidator
 
   end
 
+  def validate_date(field, day, month, year)
+
+    if !Date.valid_date? date_year.to_i, date_month.to_i, date_day.to_i
+      errors.add(
+          field,
+          I18n.t("activerecord.errors.models.statutory_permission_or_" \
+            "licence.attributes.licence_date.invalid")
+      )
+    end
+
+  end
+
 end

@@ -184,7 +184,7 @@ class SalesforceExperienceApplication::TimetableWorkProgrammeController < Applic
 
     if select_file_upload_bullet
 
-      @salesforce_experience_application.cash_contributions_evidence_question =
+      @salesforce_experience_application.timetable_work_programme_question =
       t('salesforce_experience_application.timetable_work_programme_files.' \
           'bullets.i_will_upload')
 

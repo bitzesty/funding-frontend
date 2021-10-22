@@ -1,0 +1,15 @@
+en-GB:
+  salesforce_experience_application:
+    permissions_or_licences:
+      todo: "all the translations for permissions_or_licences#show"
+    statutory_permission_or_licence:
+      add:
+        todo: "translations for add page"
+      files:
+        page_title: "Statutory permissions and licences upload"
+        page_heading: "Do you want to upload evidence for this statutory permission or licence?"
+        page_hint: "Statutory permissions and licences"
+        bullets:
+          i_will_upload: "I will upload evidence"
+          upload_evidence: "Upload evidence of statutory permission or licence"
+          no_i_do_not_have_evidence: "No, I do not have evidence yet"

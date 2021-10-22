@@ -1,4 +1,5 @@
-# This encapsulates the permission to start and payments data needed to process an application started in Salesforce Experience.
+# This encapsulates the permission to start and payments data needed to 
+# process a large application started in Salesforce Experience.
 class SfxPtsPayment < ApplicationRecord
 	include GenericValidator
 
@@ -24,6 +25,7 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :validate_project_management_structure_files
 	attr_accessor :validate_property_ownership_evidence_question
 	attr_accessor :validate_property_ownership_evidence_files
+	attr_accessor :validate_add_another_statutory_permission_or_licence
 	attr_accessor :validate_pts_form_files
 
 	attr_accessor :approved_purposes_match
@@ -42,7 +44,9 @@ class SfxPtsPayment < ApplicationRecord
 	attr_accessor :timetable_work_programme_question
 	attr_accessor :project_management_structure_question
 	attr_accessor :property_ownership_evidence_question
+	attr_accessor :add_another_statutory_permission_or_licence
 
+	has_many :statutory_permission_or_licence
 	has_many_attached :agreed_costs_files
 	has_many_attached :cash_contributions_evidence_files
 	has_many_attached :fundraising_evidence_files
@@ -72,7 +76,9 @@ class SfxPtsPayment < ApplicationRecord
 		if: :validate_project_management_structure_question?
 	validates :property_ownership_evidence_question, presence: true, 
 		if: :validate_property_ownership_evidence_question?
-	
+	validates :add_another_statutory_permission_or_licence, presence: true, 
+		if: :validate_add_another_statutory_permission_or_licence?
+
 	validate do
 
 		validate_file_attached(
@@ -205,6 +211,10 @@ class SfxPtsPayment < ApplicationRecord
 		validate_property_ownership_evidence_question == true
 	end
 
+	def validate_add_another_statutory_permission_or_licence?
+		validate_add_another_statutory_permission_or_licence == true
+	end
+	
 	def validate_pts_form_files?
 		validate_pts_form_files == true
 	end
