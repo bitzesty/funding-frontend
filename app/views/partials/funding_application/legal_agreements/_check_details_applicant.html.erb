@@ -6,357 +6,367 @@
   <%= t('agreement.check_project_details.if_details_wrong', name: @project_details.Owner.Name ) %>
 </p>
 
-<h2 class="govuk-heading-l">
-  <%= t('agreement.check_project_details.sub_headings.your_grant') %>
-</h2>
+<% # renders section HTML from the controller%>
+<%= raw @section_start_html %>
 
-<dl class="govuk-summary-list">
+  <h2 class="govuk-heading-l">
+    <%= t('agreement.check_project_details.sub_headings.your_grant') %>
+  </h2>
 
-  <div class="govuk-summary-list__row">
+  <dl class="govuk-summary-list">
 
-    <dt class="govuk-summary-list__key">
-      <%= t('agreement.check_project_details.your_grant_details.project_title') %>
-    </dt>
+    <div class="govuk-summary-list__row">
 
-    <dt class="govuk-summary-list__value">
-      <%= @project_details.Project_Title__c %>
-    </dt>
+      <dt class="govuk-summary-list__key">
+        <%= t('agreement.check_project_details.your_grant_details.project_title') %>
+      </dt>
 
-  </div>
+      <dt class="govuk-summary-list__value">
+        <%= @project_details.Project_Title__c %>
+      </dt>
 
-  <div class="govuk-summary-list__row">
+    </div>
 
-    <dt class="govuk-summary-list__key">
-      <%= t('agreement.check_project_details.your_grant_details.project_reference') %>
-    </dt>
+    <div class="govuk-summary-list__row">
 
-    <dt class="govuk-summary-list__value">
-      <%= @project_details.Project_Reference_Number__c %>
-    </dt>
+      <dt class="govuk-summary-list__key">
+        <%= t('agreement.check_project_details.your_grant_details.project_reference') %>
+      </dt>
 
-  </div>
+      <dt class="govuk-summary-list__value">
+        <%= @project_details.Project_Reference_Number__c %>
+      </dt>
 
-  <div class="govuk-summary-list__row">
+    </div>
 
-    <dt class="govuk-summary-list__key">
-      <%= t('agreement.check_project_details.your_grant_details.grant_amount_awarded') %>
-    </dt>
+    <div class="govuk-summary-list__row">
 
-    <dt class="govuk-summary-list__value">
+      <dt class="govuk-summary-list__key">
+        <%= t('agreement.check_project_details.your_grant_details.grant_amount_awarded') %>
+      </dt>
+
+      <dt class="govuk-summary-list__value">
+        <%=
+          number_to_currency(
+            @project_details.Grant_Award__c,
+            strip_insignificant_zeros: true,
+            precision: 2
+          )
+        %>
+      </dt>
+
+    </div>
+
+    <div class="govuk-summary-list__row">
+
+      <dt class="govuk-summary-list__key">
+        <%= t('agreement.check_project_details.your_grant_details.payment_percentage') %>
+      </dt>
+
+      <dt class="govuk-summary-list__value">
+        <%=
+          number_to_human(
+            @project_details.Grant_Percentage__c,
+            strip_insignificant_zeros: true
+          )
+        %>
+      </dt>
+
+    </div>
+
+    <div class="govuk-summary-list__row">
+
+      <dt class="govuk-summary-list__key">
+        <%= t('agreement.check_project_details.your_grant_details.to_be_paid_to') %>
+      </dt>
+
+      <dt class="govuk-summary-list__value">
+        <%= @project_details.Account.Name %>
+      </dt>
+
+    </div>
+
+    <div class="govuk-summary-list__row">
+
+      <dt class="govuk-summary-list__key">
+        <%= t('agreement.check_project_details.your_grant_details.submitted_by') %>
+      </dt>
+
+      <dt class="govuk-summary-list__value">
+        <%= @project_details.Contact.Name %>
+      </dt>
+
+    </div>
+
+    <div class="govuk-summary-list__row">
+
+      <dt class="govuk-summary-list__key">
+        <%= t('agreement.check_project_details.your_grant_details.date_of_application') %>
+      </dt>
+
+      <dt class="govuk-summary-list__value">
+        <%
+          submission_date = Date.parse(
+            @project_details.Submission_Date_Time__c
+          )
+        %>
+        <%= submission_date.strftime("%d/%m/%Y") %>
+      </dt>
+
+    </div>
+
+    <div class="govuk-summary-list__row">
+
+      <dt class="govuk-summary-list__key">
+        <%= t('agreement.check_project_details.your_grant_details.expiry_date') %>
+      </dt>
+
+      <dt class="govuk-summary-list__value">
+        <% if @project_details.Grant_Expiry_Date__c.present? %>
+          <% grant_expiry_date = Date.parse(
+            @project_details.Grant_Expiry_Date__c 
+          )
+          %>
+          <%= grant_expiry_date.strftime("%d/%m/%Y") %>
+        <% else %>
+          N/A
+        <% end %>
+      </dt>
+
+    </div>
+
+  </dl>
+
+  <% if @award_more_than_10k %>
+
+    <%= render 'partials/funding_application/legal_agreements/check_details/terms_of_grant_contract' %>
+
+  <% end %>
+
+  <h2 class="govuk-heading-l">
+    <%= t('agreement.check_project_details.sub_headings.your_grant_contract') %>
+  </h2>
+
+  <p class="govuk-body">
+    <%= t('agreement.check_project_details.your_grant_contract') %>
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+
+    <li>
       <%=
-        number_to_currency(
-          @project_details.Grant_Award__c,
+        t('agreement.check_project_details.grant_contract_list.item_1')
+      %>
+    </li>
+
+    <li>
+      <%=
+        t('agreement.check_project_details.grant_contract_list.item_2')
+      %>
+    </li>
+
+    <li>
+      <%=
+        t('agreement.check_project_details.grant_contract_list.item_3')
+      %>
+    </li>
+
+    <li>
+      <%=
+        t(
+          'agreement.check_project_details.grant_contract_list.item_4_html',
+          href: link_to(
+            t('agreement.check_project_details.grant_contract_list.item_4_href'),
+            @standard_terms_link
+          )
+        )
+      %>
+    </li>
+
+    <li>
+      <%=
+        t(
+          'agreement.check_project_details.grant_contract_list.item_5_html',
+          href: link_to(
+            t('agreement.check_project_details.grant_contract_list.item_5_href'),
+            @retrieving_a_grant_guidance_link
+          )
+        )
+      %>
+    </li>
+
+  </ul>
+
+  <h2 class="govuk-heading-l">
+    <%= t('agreement.check_project_details.sub_headings.your_project') %>
+  </h2>
+
+  <p class="govuk-body">
+    <%= t('agreement.check_project_details.based_on_application') %>
+  </p>
+
+  <h3 class="govuk-heading-m">
+    <%= t('agreement.check_project_details.sub_headings.what_money_is_for') %>
+  </h3>
+
+  <p class="govuk-body">
+    <%= t('agreement.check_project_details.when_you_applied') %>
+  </p>
+
+  <% if @award_more_than_10k %>
+
+    <%=
+      render(
+        partial: "partials/funding_application/legal_agreements/check_details/project_costs/project_costs_with_vat",
+        locals: {
+          project_costs: @project_costs
+        }
+      )
+    %>
+
+  <% else %>
+
+    <%=
+      render(
+        partial: "partials/funding_application/legal_agreements/check_details/project_costs/project_costs_no_vat",
+        locals: {
+          project_costs: @project_costs
+        }
+      )
+    %>
+
+  <% end %>
+
+  <h3 class="govuk-heading-m">
+    <%= t('agreement.check_project_details.sub_headings.what_project_will_do') %>
+  </h3>
+
+  <p class="govuk-body">
+    <%= t('agreement.check_project_details.costs_told') %>
+  </p>
+
+  <p class="govuk-body">
+    <%= t('agreement.check_project_details.approved_purposes') %>
+  </p>
+
+  <table class="govuk-table nlhf-table nlhf-table--responsive-columns" role="table">
+    <thead class="govuk-table__head nlhf-table__head">
+      <tr class="govuk-table__row nlhf-table__row">
+        <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
+          <%= t('agreement.approved_purpose_table.heading.approved_purpose') %>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody class="govuk-table__body nlhf-table__body">
+
+      <% @project_approved_purposes.each do |approved_purpose| %>
+
+        <tr class="govuk-table__row nlhf-table__row">
+
+          <td class="govuk-table__cell nlhf-table__cell">
+            <div class="nlhf-table__cell-data">
+              <div class="nlhf-table__cell-data__item">
+                <%= approved_purpose.Approved_Purposes__c %>  
+              </div>
+            </div>
+          </td>
+          
+        </tr>
+
+      <% end %>
+
+    </tbody>
+
+  </table>
+
+  <h3 class="govuk-heading-m">
+    <%= t('agreement.check_project_details.sub_headings.your_contribution') %>
+  </h3>
+
+  <p class="govuk-body">
+    <%= t('agreement.check_project_details.described_additional_funding') %>
+  </p>
+
+  <p class="govuk-body">
+    <%=
+      t(
+        'agreement.check_project_details.cash_contributions',
+        amount: number_to_currency(
+          @project_details.Total_Development_Income__c,
           strip_insignificant_zeros: true,
           precision: 2
         )
-      %>
-    </dt>
+      )
+    %>
+  </p>
 
-  </div>
+  <% if @award_more_than_10k %>
 
-  <div class="govuk-summary-list__row">
+    <%=
+      render(
+        partial: "partials/funding_application/legal_agreements/check_details/cash_contributions/cash_contributions_table",
+        locals: {
+          cash_contributions: @cash_contributions
+        }
+      )
+    %>
 
-    <dt class="govuk-summary-list__key">
-      <%= t('agreement.check_project_details.your_grant_details.payment_percentage') %>
-    </dt>
+  <% end %>
 
-    <dt class="govuk-summary-list__value">
-      <%=
-        number_to_human(
-          @project_details.Grant_Percentage__c,
+  <p class="govuk-body">
+    <%=
+      t(
+        'agreement.check_project_details.non_cash_contributions',
+        amount: number_to_currency(
+          @project_details.Total_Non_Cash_contributions__c,
+          strip_insignificant_zeros: true,
+          precision: 2
+        )
+      )
+    %>
+  </p>
+
+  <p class="govuk-body">
+    <%=
+      t(
+        'agreement.check_project_details.volunteers',
+        amount: number_to_human(
+          @project_details.Total_Volunteer_Contributions__c,
           strip_insignificant_zeros: true
         )
-      %>
-    </dt>
-
-  </div>
-
-  <div class="govuk-summary-list__row">
-
-    <dt class="govuk-summary-list__key">
-      <%= t('agreement.check_project_details.your_grant_details.to_be_paid_to') %>
-    </dt>
-
-    <dt class="govuk-summary-list__value">
-      <%= @project_details.Account.Name %>
-    </dt>
-
-  </div>
-
-  <div class="govuk-summary-list__row">
-
-    <dt class="govuk-summary-list__key">
-      <%= t('agreement.check_project_details.your_grant_details.submitted_by') %>
-    </dt>
-
-    <dt class="govuk-summary-list__value">
-      <%= @project_details.Contact.Name %>
-    </dt>
-
-  </div>
-
-  <div class="govuk-summary-list__row">
-
-    <dt class="govuk-summary-list__key">
-      <%= t('agreement.check_project_details.your_grant_details.date_of_application') %>
-    </dt>
-
-    <dt class="govuk-summary-list__value">
-      <%
-        submission_date = Date.parse(
-          @project_details.Submission_Date_Time__c
-        )
-      %>
-      <%= submission_date.strftime("%d/%m/%Y") %>
-    </dt>
-
-  </div>
-
-  <div class="govuk-summary-list__row">
-
-    <dt class="govuk-summary-list__key">
-      <%= t('agreement.check_project_details.your_grant_details.expiry_date') %>
-    </dt>
-
-    <dt class="govuk-summary-list__value">
-      <% if @project_details.Grant_Expiry_Date__c.present? %>
-        <% grant_expiry_date = Date.parse(
-          @project_details.Grant_Expiry_Date__c 
-        )
-        %>
-        <%= grant_expiry_date.strftime("%d/%m/%Y") %>
-      <% else %>
-        N/A
-      <% end %>
-    </dt>
-
-  </div>
-
-</dl>
-
-<% if @award_more_than_10k %>
-
-  <%= render 'partials/funding_application/legal_agreements/check_details/terms_of_grant_contract' %>
-
-<% end %>
-
-<h2 class="govuk-heading-l">
-  <%= t('agreement.check_project_details.sub_headings.your_grant_contract') %>
-</h2>
-
-<p class="govuk-body">
-  <%= t('agreement.check_project_details.your_grant_contract') %>
-</p>
-
-<ul class="govuk-list govuk-list--bullet govuk-list--spaced">
-
-  <li>
-    <%=
-      t('agreement.check_project_details.grant_contract_list.item_1')
-    %>
-  </li>
-
-  <li>
-    <%=
-      t('agreement.check_project_details.grant_contract_list.item_2')
-    %>
-  </li>
-
-  <li>
-    <%=
-      t('agreement.check_project_details.grant_contract_list.item_3')
-    %>
-  </li>
-
-  <li>
-    <%=
-      t(
-        'agreement.check_project_details.grant_contract_list.item_4_html',
-        href: link_to(
-          t('agreement.check_project_details.grant_contract_list.item_4_href'),
-          @standard_terms_link
-        )
       )
     %>
-  </li>
+  </p>
 
-  <li>
-    <%=
-      t(
-        'agreement.check_project_details.grant_contract_list.item_5_html',
-        href: link_to(
-          t('agreement.check_project_details.grant_contract_list.item_5_href'),
-          @retrieving_a_grant_guidance_link
-        )
-      )
-    %>
-  </li>
+  <div class="govuk-warning-text">
 
-</ul>
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
 
-<h2 class="govuk-heading-l">
-  <%= t('agreement.check_project_details.sub_headings.your_project') %>
-</h2>
+    <strong class="govuk-warning-text__text">
 
-<p class="govuk-body">
-  <%= t('agreement.check_project_details.based_on_application') %>
-</p>
+      <span class="govuk-warning-text__assistive">
+        <%= t('generic.warning') %>
+      </span>
 
-<h3 class="govuk-heading-m">
-  <%= t('agreement.check_project_details.sub_headings.what_money_is_for') %>
-</h3>
+      <%= t('agreement.check_project_details.advice') %>
+    </strong>
 
-<p class="govuk-body">
-  <%= t('agreement.check_project_details.when_you_applied') %>
-</p>
+  </div>
 
-<% if @award_more_than_10k %>
+</section>
+
+<% # renders section HTML from the controller%>
+<%= raw @section_end_html %>
 
   <%=
     render(
-      partial: "partials/funding_application/legal_agreements/check_details/project_costs/project_costs_with_vat",
-      locals: {
-        project_costs: @project_costs
-      }
-    )
-  %>
-
-<% else %>
-
-  <%=
-    render(
-      partial: "partials/funding_application/legal_agreements/check_details/project_costs/project_costs_no_vat",
-      locals: {
-        project_costs: @project_costs
-      }
-    )
-  %>
-
-<% end %>
-
-<h3 class="govuk-heading-m">
-  <%= t('agreement.check_project_details.sub_headings.what_project_will_do') %>
-</h3>
-
-<p class="govuk-body">
-  <%= t('agreement.check_project_details.costs_told') %>
-</p>
-
-<p class="govuk-body">
-  <%= t('agreement.check_project_details.approved_purposes') %>
-</p>
-
-<table class="govuk-table nlhf-table nlhf-table--responsive-columns" role="table">
-  <thead class="govuk-table__head nlhf-table__head">
-    <tr class="govuk-table__row nlhf-table__row">
-      <th scope="col" role="columnheader" class="govuk-table__header nlhf-table__header">
-        <%= t('agreement.approved_purpose_table.heading.approved_purpose') %>
-      </th>
-    </tr>
-  </thead>
-
-  <tbody class="govuk-table__body nlhf-table__body">
-
-    <% @project_approved_purposes.each do |approved_purpose| %>
-
-      <tr class="govuk-table__row nlhf-table__row">
-
-        <td class="govuk-table__cell nlhf-table__cell">
-          <div class="nlhf-table__cell-data">
-            <div class="nlhf-table__cell-data__item">
-              <%= approved_purpose.Approved_Purposes__c %>  
-            </div>
-          </div>
-        </td>
-        
-      </tr>
-
-    <% end %>
-
-  </tbody>
-
-</table>
-
-<h3 class="govuk-heading-m">
-  <%= t('agreement.check_project_details.sub_headings.your_contribution') %>
-</h3>
-
-<p class="govuk-body">
-  <%= t('agreement.check_project_details.described_additional_funding') %>
-</p>
-
-<p class="govuk-body">
-  <%=
-    t(
-      'agreement.check_project_details.cash_contributions',
-      amount: number_to_currency(
-        @project_details.Total_Development_Income__c,
-        strip_insignificant_zeros: true,
-        precision: 2
+      ButtonComponent.new(
+          element: 'a',
+          href: next_link,
+          text: t('buttons.continue')
       )
     )
   %>
-</p>
 
-<% if @award_more_than_10k %>
-
-  <%=
-    render(
-      partial: "partials/funding_application/legal_agreements/check_details/cash_contributions/cash_contributions_table",
-      locals: {
-        cash_contributions: @cash_contributions
-      }
-    )
-  %>
-
-<% end %>
-
-<p class="govuk-body">
-  <%=
-    t(
-      'agreement.check_project_details.non_cash_contributions',
-      amount: number_to_currency(
-        @project_details.Total_Non_Cash_contributions__c,
-        strip_insignificant_zeros: true,
-        precision: 2
-      )
-    )
-  %>
-</p>
-
-<p class="govuk-body">
-  <%=
-    t(
-      'agreement.check_project_details.volunteers',
-      amount: number_to_human(
-        @project_details.Total_Volunteer_Contributions__c,
-        strip_insignificant_zeros: true
-      )
-    )
-  %>
-</p>
-
-<div class="govuk-warning-text">
-
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-
-  <strong class="govuk-warning-text__text">
-
-    <span class="govuk-warning-text__assistive">
-      <%= t('generic.warning') %>
-    </span>
-
-    <%= t('agreement.check_project_details.advice') %>
-  </strong>
-
-</div>
-
-<%=
-  render(
-    ButtonComponent.new(
-        element: 'a',
-        href: next_link,
-        text: t('buttons.continue')
-    )
-  )
-%>
+</section>

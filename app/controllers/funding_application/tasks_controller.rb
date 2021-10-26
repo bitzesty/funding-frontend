@@ -38,6 +38,14 @@ class FundingApplication::TasksController < ApplicationController
       get_salesforce_api_instance()
     )
 
+    # Show if agreements.terms_agreed_at is not null
+    # AND the actual agreements table needs to have copies stored.
+    # Which isn't the case for older applications.
+    @view_signed_agreement =
+      @funding_application&.agreement&.terms_agreed_at.present? &&
+        @funding_application&.agreement&.project_details_html.present? &&
+          @funding_application&.agreement&.terms_html.present?
+
     @first_payment_not_started =
       funding_application&.payment_requests&.first.nil?
 

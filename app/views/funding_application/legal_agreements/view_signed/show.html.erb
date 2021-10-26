@@ -1,0 +1,17 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: 'View grant contract'
+    }
+%>
+
+<% # Show raw html. Sanitizing preferable, but prevents tables showing %>
+<% # As no user input within this HTML, this is acceptable. %>
+<%= raw @stored_details %>
+
+<% # Show raw html. Sanitizing preferable, but prevents dymanic numbering %>
+<% # As no user input within this HTML, this is acceptable. %>
+<%= raw @stored_terms %>
+
+<p class="govuk-body">Date: <%= @terms_agreed_at %> </p>

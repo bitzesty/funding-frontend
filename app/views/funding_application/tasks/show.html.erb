@@ -106,6 +106,27 @@
 
   </li>
 
+  <% if @view_signed_agreement %>
+
+    <li class="nlhf-list__item nlhf-task__item">
+
+      <span class="nlhf-tag-name">
+
+          <%=
+            link_to(
+              'View signed agreement',
+              funding_application_view_signed_path,
+              class: 'govuk-link govuk-link--no-visited-state',
+              aria: { describedby: 'view_signed' }
+            )
+          %>
+
+      </span>
+
+    </li>
+
+  <% end %>
+
   <% # todo: remove when payments possible for medium applications > 100k %>
   <% unless @funding_application.is_100_to_250k? %>
 

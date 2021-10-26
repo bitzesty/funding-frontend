@@ -1,37 +1,42 @@
-<p class="govuk-body">
-  <%=
-    t(
-      'agreement.before_you_agree_html',
-      href: link_to(
-        t('agreement.before_you_agree_href'),
-          @download_link
-      )
-    )
-  %>
-</p>
+<% # renders section HTML from the controller%>
+<%= raw @section_end_html %>
 
-<p class="govuk-body">
-  <%= t('agreement.when_ready') %>
-</p>
-
-<div class="govuk-form-group">
-
-  <%=
-    form_with model: model_object,
-      url: :funding_application_terms_and_conditions,
-      method: :put,
-      remote: false do |f|
-  %>
-
+  <p class="govuk-body">
     <%=
-      render(
-        ButtonComponent.new(
-            element: "input",
-            text: t('buttons.labels.i_agree')
+      t(
+        'agreement.before_you_agree_html',
+        href: link_to(  
+          t('agreement.before_you_agree_href'),
+            @download_link
         )
       )
     %>
+  </p>
 
-  <% end %>
+  <p class="govuk-body">
+    <%= t('agreement.when_ready') %>
+  </p>
 
-</div>
+  <div class="govuk-form-group">
+
+    <%=
+      form_with model: model_object,
+        url: :funding_application_terms_and_conditions,
+        method: :put,
+        remote: false do |f|
+    %>
+
+      <%=
+        render(
+          ButtonComponent.new(
+              element: "input",
+              text: t('buttons.labels.i_agree')
+          )
+        )
+      %>
+
+    <% end %>
+
+  </div>
+
+</section>

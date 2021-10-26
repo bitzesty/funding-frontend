@@ -211,6 +211,7 @@ Rails.application.routes.draw do
         put 'sign-terms-and-conditions', to: 'sign_terms#update'
         put 'submit-signed-terms-and-conditions', to: 'sign_terms#submit'
         get 'submitted', to: 'submitted#show'
+        get 'view-signed', to: 'view_signed#show'
 
         # This section relates to the legal signatory-only journey
         # of accepting a grant. We use the 'as' parameter here so that the

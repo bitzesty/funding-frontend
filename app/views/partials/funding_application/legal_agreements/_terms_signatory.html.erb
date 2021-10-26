@@ -1,33 +1,43 @@
-<h3 class="govuk-heading-m">
-  <%= t('agreement.terms.sub_headings.sign_and_upload') %>
-</h3>
+<% # renders section HTML from the controller when an applicant%>
+<% if @section_end_html.present? %> 
+  <%= raw @section_end_html %>
+<% end %>
 
-<p class="govuk-body">
-  <%= t('agreement.two_signatories') %>
-</p>
+  <h3 class="govuk-heading-m">
+    <%= t('agreement.terms.sub_headings.sign_and_upload') %>
+  </h3>
 
-<p class="govuk-body">
-  <%= t('agreement.names_should_match') %>
-</p>
+  <p class="govuk-body">
+    <%= t('agreement.two_signatories') %>
+  </p>
 
-<p class="govuk-body">
-  <%= t('agreement.confirmation') %>
-</p>
+  <p class="govuk-body">
+    <%= t('agreement.names_should_match') %>
+  </p>
 
-<div class="hide-unless-print">
-  <p class="govuk-body govuk-!-font-weight-bold">Name</p>
-  <p class="govuk-body govuk-!-font-weight-bold">Position</p>
-  <p class="govuk-body govuk-!-font-weight-bold">Organisation</p>
-  <p class="govuk-body govuk-!-font-weight-bold">Signature</p>
-  <p class="govuk-body govuk-!-font-weight-bold">Date</p>
-</div>
+  <p class="govuk-body">
+    <%= t('agreement.confirmation') %>
+  </p>
 
-<%=
-  render(
-    ButtonComponent.new(
-      element: 'a',
-      href: button_link,
-      text: t('buttons.labels.continue')
+  <div class="hide-unless-print">
+    <p class="govuk-body govuk-!-font-weight-bold">Name</p>
+    <p class="govuk-body govuk-!-font-weight-bold">Position</p>
+    <p class="govuk-body govuk-!-font-weight-bold">Organisation</p>
+    <p class="govuk-body govuk-!-font-weight-bold">Signature</p>
+    <p class="govuk-body govuk-!-font-weight-bold">Date</p>
+  </div>
+
+  <%=
+    render(
+      ButtonComponent.new(
+        element: 'a',
+        href: button_link,
+        text: t('buttons.labels.continue')
+      )
     )
-  )
-%>
+  %>
+
+<% # renders section close tag if html present %>
+<% if @section_end_html.present? %> 
+  </section>
+<% end %>
