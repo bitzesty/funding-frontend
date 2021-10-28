@@ -5,13 +5,27 @@
 }
 
 @media print {
+  .govuk-link:link, a:link {
+    color: black;
+    text-decoration: none;
+    font-style: italic;
+  }
+
   a[href]:after {
     content: none !important;
   }
-
-  .no-print, .no-print *
-  {
-      display: none !important;
+  .govuk-footer, .nlhf-toolbar, 
+  .nlhf-cookie-banner,
+  .govuk-phase-banner,
+  .nlhf-header-global,
+  .no-print, .no-print * {
+    display: none !important;
   }
 
+  .pagebreak {
+    clear: both;
+    page-break-before: always;
+  }
+  
+  @page { size: auto;  margin: 3mm; }
 }

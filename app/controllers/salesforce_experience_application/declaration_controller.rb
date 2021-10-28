@@ -25,7 +25,7 @@ class SalesforceExperienceApplication::DeclarationController < ApplicationContro
       @salesforce_experience_application.save
 
       redirect_to(
-        sfx_pts_payment_upload_permission_to_start_path \
+        sfx_pts_payment_download_instructions_path \
           (@salesforce_experience_application.salesforce_case_id)
       )
 

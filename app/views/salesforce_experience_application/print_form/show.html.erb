@@ -1,0 +1,734 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+        model_object: nil,
+        page_title: 'Downlaod and Sign PTS '
+    }
+%>
+
+<h1 class="govuk-heading-xl no-print">
+  Download and sign Permission to Start form
+</h1>
+
+<p class="no-print">
+  <script>
+    var txt = "Download Permission to Start Form";
+    document.write(txt.link('javascript:if(window.print)window.print()'));
+  </script>
+</p>
+
+<div class="hide-unless-print">
+  <img src="<%= image_path("NLHF_Logo_English_Landscape_Full_Colour_CMYK.jpg") %>" alt="<%= t("header.logo_alt_text") %>" width=60%>
+</div>
+ 
+<div class="govuk-!-padding-top-2">
+  <h2 class="govuk-heading-l ">
+    Permission to Start Form <%=@project_info[:large_application_type]%> phase
+  </h2> 
+</div>
+
+<p>Project title: <%=@project_info[:project_title]%></p>
+<p>Project reference number: <%=@project_info[:project_ref_no]%></p>
+<p>Grant expiry date: <%=@project_info[:grant_expiry_date]%></p>
+<p>Organisation: <%=@project_info[:org_name]%></p>
+
+<div id="approved-purposes" class="pagebreak govuk-!-margin-top-9"> 
+
+  <h3 class="govuk-heading-s">
+    1. Approved Purposes
+  </h3>
+
+  <div class="govuk-body govuk-!-padding-bottom-2">
+    <% unless @approved_purposes.empty? %>
+      <ul class="govuk-list govuk-list--number">
+          <% @approved_purposes.each do |ap| %>
+            <li> <%= ap %> </li>
+          <% end %>
+      </ul>
+    <% else %>
+      <p> Contact your Investment Manager for your Approved Purposes </p>
+    <% end %>
+  </div>
+</div>
+
+<div id="agreed-costs"class="pagebreak govuk-!-margin-top-6">
+  <h3 class="govuk-heading-s">
+    2. Agreed Costs
+  </h3>
+  
+  <% if @pts_answers["agreed_costs_match"] == true.to_s %>
+    <section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
+
+      <header class="nlhf-summary__header">
+
+        <h2 class="govuk-heading-m">
+            <%= t('application.costs.headings.2') %>
+        </h2>
+
+      </header>
+
+        <div class="nlhf-summary__body">
+
+          <table class="govuk-table">
+
+            <thead class="govuk-table__head">
+
+              <tr class="govuk-table__row">
+
+                  <th scope="col" class="govuk-table__header">
+                      Cost heading
+                  </th>
+
+                  <th scope="col" class="govuk-table__header">
+                      Agreed costs (£)
+                  </th>
+
+                  <th scope="col" class="govuk-table__header">
+                      Agreed VAT (£)
+                  </th>
+
+                  <th scope="col" class="govuk-table__header">
+                      Agreed total costs (£)
+                  </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody class="govuk-table__body">
+
+              <% @agreed_costs.each do |ac| %>
+                <tr class="govuk-table__row">
+
+                    <td scope="govuk-table__cell" class="govuk-table__cell">
+                      <%= ac[:cost_heading] %>
+                    </td>
+
+                    <td class="govuk-table__cell">
+                        <%= number_to_currency(ac[:cost], unit: "",  precision: 2) %>
+                    </td>
+
+                    <td class="govuk-table__cell">
+                      <%= number_to_currency(ac[:vat], unit: "",  precision: 2) %>
+                    </td>
+
+                    <td class="govuk-table__cell">
+                      <%= number_to_currency(ac[:total], unit: "",  precision: 2) %>
+                    </td>
+                </tr>
+
+              <% end %>
+
+              <tr class="govuk-table__row">
+
+                <th scope="govuk-table__cell" class="govuk-table__header">
+                    Total (£)
+                </th>
+
+                <td class="govuk-table__cell ">
+                    <%= 
+                      number_to_currency(
+                      @agreed_costs.sum {|ac| ac[:cost] }, 
+                      unit: "",
+                      precision: 2
+                      ) 
+                    %>
+                </td>
+
+                <td class="govuk-table__cell">
+                  <%= 
+                    number_to_currency(
+                    @agreed_costs.sum {|ac| ac[:vat] }, 
+                    unit: "",
+                    precision: 2
+                    ) 
+                  %>
+                </td>
+
+                <td class="govuk-table__header">
+                  <%= 
+                    number_to_currency(
+                    @agreed_costs.sum {|ac| ac[:total] }, 
+                    unit: "",
+                    precision: 2
+                    ) 
+                  %>
+                </td>
+
+              </tr>
+
+            </tbody>  
+
+          </table>
+
+        </div>
+        
+    </section>
+
+    <div class="govuk-body">
+        <p>Total VAT allocation:  [Not in SF at the time of writing] </p>
+        <p class="govuk-!-margin-bottom-9">Total contingency allocation:  
+          <%= 
+            number_to_currency(
+            @total_contingency, 
+            precision: 2
+            ) 
+          %>
+          </p>
+        <p class="govuk-!-padding-bottom-6">Payment percentage: [Not in SF at the time of writing] </p>
+    </div>
+  <%else%>
+    <p> Project costs will be discussed and agreed with Investment Manager. </p>
+  <%end%>
+
+</div>
+
+<div class="pagebreak govuk-!-margin-top-6">
+  <h3 class="govuk-heading-s">
+    3. Cost breakdown and cashflow with an indication of when you will be seeking grant payments 
+  </h3>
+
+  <% if @pts_answers["has_agreed_costs_docs"] == true.to_s %>
+    <% @attached_agreed_docs.each do |blob| %>
+      <table class="govuk-table govuk-!-margin-top-0">
+        <tbody>
+          <tr"govuk-table__row">
+            <td class="govuk-table__cell">
+                <p class="govuk-body">
+                  <%=
+                    link_to(
+                      blob.filename,
+                      rails_blob_path(
+                        blob,
+                        disposition: "attachment"
+                      ),
+                      class: 'govuk-link',
+                    )
+                  %> 
+                    has been uploaded
+                </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <%end%>
+  <%else%>
+    <p> Document emailed to Investment Manager </p>
+  <%end%>
+</div>
+
+<div class="pagebreak">
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">Cash and non-cash contributions</h2>
+</div>
+
+<div class="govuk-!-margin-top-6">
+  <h3 class="govuk-heading-s">
+    4. Cash contributions
+  </h3>
+
+  <% if @pts_answers["cash_contributions_correct"] == true.to_s %>
+    <section class="nlhf-summary govuk-!-margin-bottom-9">
+      <header class="nlhf-summary__header">
+        <h2 class="govuk-heading-m">
+            Cash contributions summary
+        </h2>
+      </header>
+      <div class="nlhf-summary__body">
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">
+                    Description of funding
+                </th>
+                <th scope="col" class="govuk-table__header">
+                    Amount expected (£)
+                </th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <% @cash_contributions.each do |cc| %>
+              <tr class="govuk-table__row">
+                  <td scope="govuk-table__cell" class="govuk-table__cell">
+                    <%= cc[:description_of_funding] %>
+                  </td>
+                  <td class="govuk-table__cell">
+                      <%= number_to_currency(cc[:amount_expected], unit: "",  precision: 2) %>
+                  </td>
+              </tr>
+            <% end %>   
+          </tbody>
+        </table>
+      </div>
+    </section>
+  <%else%>
+    <p> Cash contributions will be discussed and agreed with Investment Manager </p>
+  <%end%>
+</div>
+
+<div class="govuk-!-margin-top-6 pagebreak">
+  <h3 class="govuk-heading-s">
+    5. Evidence of secured cash contributions
+  </h3>
+
+  <p><%= @pts_answers["cash_contributions_evidence_question"] %></p>
+
+  <% if @pts_answers["cash_contributions_evidence_question"] == 
+    t('salesforce_experience_application.cash_contribution_evidence.' \
+      'bullets.yes_i_will_upload')%>
+
+    <% @cash_contributions_evidence.each do |blob| %>
+      <table class="govuk-table govuk-!-margin-top-0">
+        <tbody>
+          <tr"govuk-table__row">
+            <td class="govuk-table__cell">
+                <p class="govuk-body">
+                  <%=
+                    link_to(
+                      blob.filename,
+                      rails_blob_path(
+                        blob,
+                        disposition: "attachment"
+                      ),
+                      class: 'govuk-link',
+                    )
+                  %> 
+                    has been uploaded
+                </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <%end%>
+  <%end%>
+</div>
+
+<div class="govuk-!-margin-top-9 pagebreak">
+  <h3 class="govuk-heading-s">
+    6. Evidence of fundraising plan
+  </h3>
+
+  <p><%= @pts_answers["fundraising_evidence_question"] %></p>
+
+  <% if @pts_answers["fundraising_evidence_question"] == 
+    t('salesforce_experience_application.fundraising_evidence.bullets.yes_i_will_upload')%>
+
+    <% @fundraising_evidence_files.each do |blob| %>
+      <table class="govuk-table govuk-!-margin-top-0">
+        <tbody>
+          <tr"govuk-table__row">
+            <td class="govuk-table__cell">
+                <p class="govuk-body">
+                  <%=
+                    link_to(
+                      blob.filename,
+                      rails_blob_path(
+                        blob,
+                        disposition: "attachment"
+                      ),
+                      class: 'govuk-link',
+                    )
+                  %> 
+                    has been uploaded
+                </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <%end%>
+  <%end%>
+</div>
+
+<div class="govuk-!-margin-top-9 pagebreak">
+  <h3 class="govuk-heading-s">
+    7. Non-cash contributions
+  </h3>
+
+  <% if @pts_answers["non_cash_contributions_correct"] == true.to_s %>
+    <section class="nlhf-summary govuk-!-margin-bottom-9">
+      <header class="nlhf-summary__header">
+        <h2 class="govuk-heading-m">
+            Non-cash contributions summary
+        </h2>
+      </header>
+      <div class="nlhf-summary__body">
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">
+                    Description of funding
+                </th>
+                <th scope="col" class="govuk-table__header">
+                    Amount expected (£)
+                </th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <% @non_cash_contributions.each do |cc| %>
+              <tr class="govuk-table__row">
+                  <td scope="govuk-table__cell" class="govuk-table__cell">
+                    <%= cc[:description_of_funding] %>
+                  </td>
+                  <td class="govuk-table__cell">
+                      <%= number_to_currency(cc[:amount_expected], unit: "",  precision: 2) %>
+                  </td>
+              </tr>
+            <% end %>   
+          </tbody>
+        </table>
+      </div>
+    </section>
+  <%else%>
+    <p> Non-cash contributions will be discussed and agreed with Investment Manager </p>
+  <%end%>
+</div>
+
+<div class="pagebreak">
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">Timetable or programme</h2>
+</div>
+
+<div class="govuk-!-margin-top-6">
+  <h3 class="govuk-heading-s">
+    8. Proposed timetable or work programme with milestones including dates for getting grant payments and giving project updates
+  </h3>
+
+  <% if @pts_answers["timetable_work_programme_question"] == 	
+    t('salesforce_experience_application.timetable_work_programme.bullets.i_will_upload') %>
+    <% @timetable_work_programme_files.each do |blob| %>
+      <table class="govuk-table govuk-!-margin-top-0">
+        <tbody>
+          <tr"govuk-table__row">
+            <td class="govuk-table__cell">
+                <p class="govuk-body">
+                  <%=
+                    link_to(
+                      blob.filename,
+                      rails_blob_path(
+                        blob,
+                        disposition: "attachment"
+                      ),
+                      class: 'govuk-link',
+                    )
+                  %> 
+                    has been uploaded
+                </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <%end%>
+  <%else%>
+    <p> Document emailed to Investment Manager </p>
+  <%end%>
+</div>
+
+<div class="pagebreak">
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">Project management and procurement</h2>
+</div>
+
+<div class="govuk-!-margin-top-6">
+  <h3 class="govuk-heading-s">
+    9. Project management structure, including methods for choosing consultants, contracts and suppliers
+  </h3>
+
+  <% if @pts_answers["project_management_structure_question"] == 	
+    t('salesforce_experience_application.project_management_structure.bullets.i_will_upload') %>
+    <% @project_management_structure_files.each do |blob| %>
+      <table class="govuk-table govuk-!-margin-top-0">
+        <tbody>
+          <tr"govuk-table__row">
+            <td class="govuk-table__cell">
+                <p class="govuk-body">
+                  <%=
+                    link_to(
+                      blob.filename,
+                      rails_blob_path(
+                        blob,
+                        disposition: "attachment"
+                      ),
+                      class: 'govuk-link',
+                    )
+                  %> 
+                    has been uploaded
+                </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <%end%>
+  <%else%>
+    <p> Document emailed to Investment Manager </p>
+  <%end%>
+</div>
+
+<div class="pagebreak">
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">Evidence of ownership</h2>
+</div>
+
+<div class="govuk-!-margin-top-6">
+  <h3 class="govuk-heading-s">
+    10. Evidence of who owns any property that forms part of the project and information on restrictions or other claims on it
+  </h3>
+
+  <p><%= @pts_answers["property_ownership_evidence_question"] %></p>
+
+  <% if @pts_answers["property_ownership_evidence_question"] == 
+    t('salesforce_experience_application.property_ownership_evidence.bullets.i_will_upload')%>
+
+    <% @fundraising_evidence_files.each do |blob| %>
+      <table class="govuk-table govuk-!-margin-top-0">
+        <tbody>
+          <tr"govuk-table__row">
+            <td class="govuk-table__cell">
+                <p class="govuk-body">
+                  <%=
+                    link_to(
+                      blob.filename,
+                      rails_blob_path(
+                        blob,
+                        disposition: "attachment"
+                      ),
+                      class: 'govuk-link',
+                    )
+                  %> 
+                    has been uploaded
+                </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <%end%>
+  <%end%>
+</div>
+
+<div class="pagebreak">
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">Statutory permission</h2>
+</div>
+
+<div>
+  <% if @statutory_permission_or_licence.present? %>
+    <section class="nlhf-summary govuk-!-margin-bottom-9">
+      <header class="nlhf-summary__header">
+        <h2 class="govuk-heading-m">
+            Type of statutory permission or licences
+        </h2>
+      </header>
+      <div class="nlhf-summary__body">
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">
+                    Type of statutory permission or licences
+                </th>
+                <th scope="col" class="govuk-table__header">
+                    Evidence received
+                </th>
+                 <th scope="col" class="govuk-table__header">
+                    Evidence files
+                </th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <% @statutory_permission_or_licence.each do |stat| %>
+              <tr class="govuk-table__row">
+                  <td scope="govuk-table__cell" class="govuk-table__cell">
+                    <%= stat.details_json["licence_type"]%> 
+                  </td>
+                  <td class="govuk-table__cell">
+                    <% if stat.details_json["upload_question"] == 
+                      t('salesforce_experience_application.statutory_permission_or_licence.files.bullets.i_will_upload')%>
+                      <p>Yes</p>
+                    <% else%>
+                      <p>No</p>
+                    <%end%>
+                  </td>
+                  <td scope="govuk-table__cell" class="govuk-table__cell">
+                    <% stat.upload_files.blobs.each do |blob| %>
+                      <p class="govuk-body">
+                        <%=
+                          link_to(
+                            blob.filename,
+                            rails_blob_path(
+                              blob,
+                              disposition: "attachment"
+                            ),
+                            class: 'govuk-link',
+                          )
+                        %> 
+                      </p>
+                      <%end%>
+                  </td>
+              </tr>
+            <% end %>   
+          </tbody>
+        </table>
+      </div>
+    </section>
+  <%else%>
+    <p>No new statutory permissions or licenses</p>
+  <%end%>
+</div>
+
+<div class="pagebreak">
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">Declaration</h2>
+</div>
+
+<div>
+  <p class="govuk-body">
+    <%= t('salesforce_experience_application.declaration.text.by_completing_this_declaration') %>
+  </p>
+
+  <p class="govuk-body">
+    <%= t('salesforce_experience_application.declaration.text.we_are_committed_to_being') %>
+  </p>
+
+  <p class="govuk-body">
+    <%= t('salesforce_experience_application.declaration.text.when_you_completed_the_declaration_at_the_end_of_the_application') %>
+  </p>
+
+  <p class="govuk-body">
+    <%= t('salesforce_experience_application.declaration.text.we_will_take_these_into_account') %>
+  </p>
+
+</div>
+
+<div class="pagebreak govuk-!-margin-top-6">
+  <p class="govuk-body">
+    <%= t('salesforce_experience_application.declaration.text.when_you_completed_the_declaration_you_also_agreed') %>
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet">
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.agreed_list.to_decide') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.agreed_list.to_provide') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.agreed_list.to_share') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.agreed_list.to_hold') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.agreed_list.to_publish') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.agreed_list.to_support') %>
+    </li>
+
+  </ul>
+</div>
+
+<div class="pagebreak govuk-!-margin-top-6">
+  <p class="govuk-body">
+    <%= t('salesforce_experience_application.declaration.text.we_may_use_your_photographs') %>
+  </p>
+
+  <p>
+    <%= t('salesforce_experience_application.declaration.text.i_confirm_that') %>
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet">
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_organisation_named') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_activity_in_the_application') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.the_organisation_has_the_power') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.we_will_keep_to_the_standard_terms') %>
+    </li>
+
+    <li>
+      <%= t('salesforce_experience_application.declaration.i_confirm_that_list.as_far_as_I_know') %>
+    </li>
+
+  </ul>
+</div>
+
+<p>I agree with the above statements.</p>
+
+<noscript>
+  <div class="govuk-warning-text no-print">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive">Warning</span>
+    Javascript is disabled on your device. Please download this form using your browser's print functionaility.
+  </strong>
+</div>
+</noscript>
+
+<div>
+  <%=
+  link_to(
+    'Continue',
+    sfx_pts_payment_upload_permission_to_start_path(@salesforce_experience_application.salesforce_case_id),
+    class: 'govuk-button no-print govuk-!-margin-top-6',
+    aria: { describedby: 'Continue' } 
+  )
+  %>
+</div>
+
+<div class="hide-unless-print pagebreak govuk-!-margin-top-6">
+  <div>
+    <h2 class="govuk-heading-m govuk-!-margin-top-8">Person completing the form sign</h2>
+    <p>Full name: <%=@user.name%></p>
+    <p>Position: …....................................... <p>
+    <p>Organisation: <%=@project_info[:org_name]%> <p>
+    <p>Signature: …....................................... </p>
+    <p>Date: ....................................... </p>
+  </div>
+
+  <div class="govuk-!-padding-bottom-4">
+    <h2 class="govuk-heading-m govuk-!-margin-top-8">Authorised signatories sign</h2>
+    <p>Names and signatures of 2 people who are authorised to sign documents for your organisation</p>
+
+    <p class="govuk-heading-s">Signatory One for your organisation </p>
+    <p>Full name: <%=@pts_answers["legal_sig_one"]%></p>
+    <p>Signature: …....................................... </p>
+    <p>Date: …....................................... </p>
+
+    <p class="govuk-heading-s">Signatory Two for your organisation </p>
+    <p>Full name:  <%=@pts_answers["legal_sig_two"]%></p>
+    <p>Signature: …....................................... </p>
+    <p>Date: …....................................... </p>
+  </div>
+
+  <% if @pts_answers["partnership_application"] == 
+    true.to_s%>
+    <div class="govuk-!-padding-top-4 pagebreak">
+      <h2 class="govuk-heading-m govuk-!-margin-top-8">Project partner sign</h2>
+      <p>Project partner organisation’s name: </p>
+      <p>…..................................</p>
+      <p>Name of person signing on behalf of project partner: </p>
+      <p><%=@pts_answers["project_partner_name"]%></p>
+      <p>Position of person signing on behalf of project partner: </p>
+      <p>…..................................</p>  
+      <p>Signature: …............................. </p>
+      <p>Date: …............................. </p>
+    </div>
+  <%end%>
+
+  <div class="govuk-!-padding-top-4 pagebreak">
+    <h2 class="govuk-heading-m govuk-!-margin-top-8">National Heritage Memorial Fund sign</h2>
+    <p class="govuk-!-font-weight-bold">This section is for National Lottery Heritage Fund use only </p>
+    <p>We have reviewed your request and give our permission for you to start the project</p>
+
+    <p>Signed for NHMF: …....................................... </p>
+    <p>Date: …....................................... </p>
+  </div>
+</div>
+

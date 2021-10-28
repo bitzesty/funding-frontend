@@ -17,31 +17,8 @@
 %>
 
 <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-  Download, sign and upload Permission to Start Form
+  Upload signed Permission to Start Form
 </h1>
-
-<div class = "govuk-!-padding-bottom-4">
-  <h2 class="govuk-heading-m">
-    Download Permission to Start Form
-  </h2>
-
-  <a href="#" class="govuk-link">Download Permission to Start Form</a>
-</div>
-
-
-  <div class = "govuk-!-padding-bottom-2">
-    <h2 class="govuk-heading-m">
-      Sign Permission to Start Form
-    </h2>
-
-    <p class="govuk-body">To sign the form, you can:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>print the form and sign by hand</li>
-      <li>digitally sign using an electronic pen</li>
-    </ul>
-
-    <p class="govuk-body">However you sign the form, all signatures must be new. They cannot be a copy.  </p>
-  </div>
 
 <%= 
   form_with model: @salesforce_experience_application,
@@ -53,14 +30,8 @@
   <div class="govuk-form-group <%= "govuk-form-group--error" if
     @salesforce_experience_application.errors.any? %>">
 
-    <div>
-      <h2 class="govuk-heading-m govuk-!-padding-bottom-2">
-        Upload signed Permission to Start Form
-      </h2>
-
-      <p class="govuk-body">You must include all the pages of the document.</p>
-    </div>
-
+    <p class="govuk-body">You must include all the pages of the document.</p>
+ 
     <%=
       render(
         partial: 'partials/form_group_errors',

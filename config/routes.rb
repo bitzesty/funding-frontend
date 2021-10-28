@@ -585,6 +585,10 @@ Rails.application.routes.draw do
       post '/declaration', to: 'declaration#update'
       get '/confirmation', to: 'confirmation#show'
       post '/confirmation', to: 'confirmation#update'
+      get '/download-instructions', to: 'download_instructions#show'
+      post '/download-instructions', to: 'download_instructions#update'
+      get '/print-form', to: 'print_form#show'
+      post '/print-form', to: 'print_form#update'
       get '/upload-permission-to-start', to: 'upload_permission_to_start#show'
       post '/upload-permission-to-start', to: 'upload_permission_to_start#update'
       delete '/upload-permission-to-start/:blob_id', to: 
