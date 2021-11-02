@@ -13,6 +13,7 @@ class SalesforceExperienceApplication::UploadPermissionToStartController < Appli
       @salesforce_experience_application.validate_pts_form_files =  true;
 
       if @salesforce_experience_application.valid?
+				upload_to_salesforce()
         redirect_to(
           sfx_pts_payment_confirmation_path(
             @salesforce_experience_application.salesforce_case_id
@@ -79,5 +80,10 @@ class SalesforceExperienceApplication::UploadPermissionToStartController < Appli
 		@salesforce_experience_application.save
 	end
 
+	# Method to upload files to Salesforce using PermisionToStartHelper
+	# @param [SfxPtsPayments] model The saleforce experince application model
+	def upload_to_salesforce()
+		upload_salesforce_pts_files(@salesforce_experience_application)
+	end
   
 end

@@ -33,6 +33,8 @@ class SalesforceExperienceApplication::PrintFormController < ApplicationControll
     @project_management_structure_files = @salesforce_experience_application.project_management_structure_files.blobs
     @property_ownership_evidence_files = @salesforce_experience_application.property_ownership_evidence_files.blobs
     @statutory_permission_or_licence = @salesforce_experience_application.statutory_permission_or_licence
+    @total_vat_cost = get_vat_costs(@salesforce_experience_application)
+    @payment_percentage = get_payment_percentage(@salesforce_experience_application)
     @user = current_user
   end
 

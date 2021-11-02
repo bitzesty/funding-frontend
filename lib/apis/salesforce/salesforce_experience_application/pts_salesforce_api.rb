@@ -13,6 +13,33 @@ module PtsSalesforceApi
 
     end
 
+    # Method to upsert a PTS form files in Salesforce for a Permission to Start application
+    #
+    # @param [ActiveStorageBlob] file PTS file to upload
+    # @param [String] type The type of file to upload (e.g. 'property ownership evidence')
+    # @param [String] salesforce_reference The Salesforce Case reference
+    #                                              to link this upload to
+    # @param [String] description A description of the file being uploaded
+    def create_file_in_salesforce(
+      file,
+      type,
+      salesforce_reference,
+      description = nil
+    )
+
+      Rails.logger.info("Creating #{type} file in Salesforce")
+
+      UploadPtsToSalesforceJob.perform_later(
+        file,
+        type,
+        salesforce_reference,
+        description
+      )
+
+      Rails.logger.info("Finished creating #{type} file in Salesforce")
+
+    end
+
     # Method to find permission-to-start start page info.
     #
     # @param [salesforce_case_id] String A Case Id reference known to Salesforce
@@ -94,6 +121,61 @@ module PtsSalesforceApi
 
       restforce_response
 
+    end
+
+    # Method to find a Project's total VAT Cost by case id and record type.
+    #
+    # @param [salesforce_case] String A Case Id reference
+    #                                     known to Salesforce
+    # @return [<Restforce::SObject] restforce_response.  A Restforce collection
+    #                                     with query results
+    def get_vat_costs(salesforce_case)
+      Rails.logger.info("Retrieving VAT total Costs " \
+        "for case ID: #{salesforce_case.salesforce_case_id}")
+
+      restforce_response = []
+
+      query_string = "SELECT Total_delivery_costs_VAT__c from Case " \
+        "WHERE Id = '#{salesforce_case.salesforce_case_id}' "  \
+          if salesforce_case.large_delivery? 
+      
+      query_string = "SELECT Total_development_costs_VAT__c from Case " \
+        "WHERE Id = '#{salesforce_case.salesforce_case_id}' "  \
+          if salesforce_case.large_development? 
+      
+      restforce_response = run_salesforce_query(query_string, 
+        "get_VAT_total", salesforce_case.salesforce_case_id) \
+          if query_string.present?
+
+      restforce_response
+
+    end
+
+    # Method to find a Project's total Payment Percentage by case id and record type.
+    #
+    # @param [salesforce_case] String A Case Id reference
+    #                                     known to Salesforce
+    # @return [<Restforce::SObject] restforce_response.  A Restforce collection
+    #                                     with query results
+    def get_payment_percentage(salesforce_case)
+      Rails.logger.info("Retrieving Payment Percentage" \
+        "for case ID: #{salesforce_case.salesforce_case_id}")
+
+      restforce_response = []
+
+      query_string = "SELECT Delivery_payment_percentage__c from Case " \
+        "WHERE Id = '#{salesforce_case.salesforce_case_id}' "  \
+          if salesforce_case.large_delivery? 
+      
+      query_string = "SELECT Development_payment_percentage__c from Case " \
+        "WHERE Id = '#{salesforce_case.salesforce_case_id}' "  \
+          if salesforce_case.large_development? 
+      
+      restforce_response = run_salesforce_query(query_string, 
+        "get_payment_percentage", salesforce_case.salesforce_case_id) \
+          if query_string.present?
+
+      restforce_response
     end
 
     # Method to find a Project's incomes by case id and record type.

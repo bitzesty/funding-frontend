@@ -133,7 +133,7 @@
   </section>
 
   <div class="govuk-body">
-      <p>Total VAT allocation:  [Not in SF at the time of writing] </p>
+      <p>Total VAT allocation:  <%= number_to_currency(@total_vat_cost, unit: "£",  precision: 2) %></p>
       <p class="govuk-!-margin-bottom-9">Total contingency allocation:  <%= 
                   number_to_currency(
                   @total_contingency, 
@@ -141,7 +141,7 @@
                   ) 
                 %>
         </p>
-      <p class="govuk-!-padding-bottom-9">Payment percentage: [Not in SF at the time of writing] </p>
+      <p class="govuk-!-padding-bottom-9">Payment percentage: <%= @payment_percentage %> %</p>
   </div>
 
   <%=

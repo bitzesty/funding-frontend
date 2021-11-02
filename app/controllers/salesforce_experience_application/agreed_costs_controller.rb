@@ -41,6 +41,8 @@ class SalesforceExperienceApplication::AgreedCostsController < ApplicationContro
   def set_agreed_costs()
     @agreed_costs =  get_agreed_costs(@salesforce_experience_application)
     @total_contingency = get_total_contingency(@agreed_costs)
+    @total_vat_cost = get_vat_costs(@salesforce_experience_application)
+    @payment_percentage = get_payment_percentage(@salesforce_experience_application)
   end
 
   def initialize_view() 
