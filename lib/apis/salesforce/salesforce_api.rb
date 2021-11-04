@@ -3038,9 +3038,9 @@
         
         salesforce_payment_request_id = @client.upsert!(
           'Forms__c',
-          'Payment_Request_External_ID__c',
+          'Frontend_External_Id__c',
           Case__c: funding_application.salesforce_case_id,
-          Payment_Request_External_ID__c: payment_request.id,
+          Frontend_External_Id__c: payment_request.id,
           Payment_Reference_number__c: funding_application.payment_details.decrypt_payment_reference,
           Payment_Request_From_Applicant__c: payment_request.amount_requested 
         )

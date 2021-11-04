@@ -219,9 +219,9 @@ module PtsSalesforceApi
       begin
         salesforce_pts_form_record_id = @client.upsert!(
           'Forms__c',
-          'Payment_Request_External_ID__c',
+          'Frontend_External_Id__c',
           Case__c: salesforce_experience_application.salesforce_case_id,
-          Payment_Request_External_ID__c: salesforce_experience_application.id,
+          Frontend_External_Id__c: salesforce_experience_application.id,
           RecordTypeId: get_salesforce_record_type_id('Large_Grants_Permission_To_Start', 'Forms__c')
         )
   
