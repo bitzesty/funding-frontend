@@ -312,12 +312,11 @@ module PermissionToStartHelper
   end
 
   # Uploads all permission to start salesforce experience application
-  # TODO: Retries
+  # Retries handled in UploadPtsToSalesforceJob
   # TODO: Persistent queues
-  # TODO: Attach to a Large_Grant_Permission_To_Start record, not case
   #
   # @param [salesforce_experience_application] SfxPtsPayment instance
-  def upload_salesforce_pts_files(salesforce_experience_application)
+  def upload_salesforce_pts_files(pts_form_record_id, salesforce_experience_application)
     case_id = salesforce_experience_application.salesforce_case_id
 
     sf_api = get_pts_salesforce_api_instance()
@@ -327,7 +326,7 @@ module PermissionToStartHelper
       sf_api.create_file_in_salesforce(
         agreed_costs_file,
         "Evidence of Agreed Costs -#{agreed_costs_file.blob.filename}",
-        case_id
+        pts_form_record_id
       )
     end
 
@@ -336,7 +335,7 @@ module PermissionToStartHelper
       sf_api.create_file_in_salesforce(
         cash_contributions_evidence_file,
         "Evidence of Cash Contributions -#{cash_contributions_evidence_file.blob.filename}",
-        case_id
+        pts_form_record_id
        )
     end
 
@@ -345,7 +344,7 @@ module PermissionToStartHelper
       sf_api.create_file_in_salesforce(
         fundraising_evidence_file,
         "Evidence of Fundraising  -#{fundraising_evidence_file.blob.filename}",
-        case_id
+        pts_form_record_id
       )
     end
 
@@ -354,7 +353,7 @@ module PermissionToStartHelper
       sf_api.create_file_in_salesforce(
         timetable_work_programme_file,
         "Evidence of Timetable Work Programme  -#{timetable_work_programme_file.blob.filename}",
-        case_id
+        pts_form_record_id
       )
     end
 
@@ -363,7 +362,7 @@ module PermissionToStartHelper
       sf_api.create_file_in_salesforce(
         project_management_structure_file,
         "Evidence of Project Management Structure  -#{project_management_structure_file.blob.filename}",
-        case_id
+        pts_form_record_id
       )
     end
 
@@ -372,7 +371,7 @@ module PermissionToStartHelper
       sf_api.create_file_in_salesforce(
         project_management_structure_file,
         "Evidence of Project Management Structure  -#{project_management_structure_file.blob.filename}",
-        case_id
+        pts_form_record_id
       )
     end
 
@@ -381,7 +380,7 @@ module PermissionToStartHelper
       sf_api.create_file_in_salesforce(
         property_ownership_evidence_file,
         "Evidence of Property Ownership  -#{property_ownership_evidence_file.blob.filename}",
-        case_id
+        pts_form_record_id
       )
     end
 
@@ -390,7 +389,7 @@ module PermissionToStartHelper
       sf_api.create_file_in_salesforce(
         pts_form_file,
         "Permission to Start Form -#{pts_form_file.blob.filename}",
-        case_id
+        pts_form_record_id
       )
     end
 
@@ -400,13 +399,17 @@ module PermissionToStartHelper
         sf_api.create_file_in_salesforce(
           stat_perm_file,
           "Evidence of statutory permission or licence -#{stat_perm_file.blob.filename}",
-          case_id
+          pts_form_record_id
         )
       end
     end
 
   end
 
+  def create_pts_form_record(salesforce_experience_application) 
+    sf_api = get_pts_salesforce_api_instance()
+    sf_api.create_pts_form_record(salesforce_experience_application)
+  end
 
   private 
 

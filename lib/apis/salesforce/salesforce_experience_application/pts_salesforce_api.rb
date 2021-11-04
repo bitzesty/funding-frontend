@@ -2,6 +2,7 @@ module PtsSalesforceApi
 
   # Class to allow interaction with Salesforce via a Restforce client
   class PtsSalesforceApiClient
+    include SalesforceApiHelper
 
     MAX_RETRIES = 3
 
@@ -210,7 +211,66 @@ module PtsSalesforceApi
 
     end
 
+
+    def create_pts_form_record(salesforce_experience_application) 
+
+      retry_number = 0;
+
+      begin
+        salesforce_pts_form_record_id = @client.upsert!(
+          'Forms__c',
+          'Payment_Request_External_ID__c',
+          Case__c: salesforce_experience_application.salesforce_case_id,
+          Payment_Request_External_ID__c: salesforce_experience_application.id,
+          RecordTypeId: get_salesforce_record_type_id('Large_Grants_Permission_To_Start', 'Forms__c')
+        )
+  
+        Rails.logger.info(
+          'Created a pts form record in Salesforce with reference: ' \
+          "#{salesforce_pts_form_record_id}"
+        )
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error(
+          'Error creating a PTS for record in Salesforce using ' \
+          "funding_application #{funding_application.id}," \
+          " user #{user.id} and organisation #{organisation.id}"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt create_project again, retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+      salesforce_pts_form_record_id
+    end
+
     private
+
 
     # Method to initialise a new Restforce client, called as part of object instantiation
     def initialise_client

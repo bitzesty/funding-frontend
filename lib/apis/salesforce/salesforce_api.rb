@@ -3,7 +3,7 @@
   # Class to allow interaction with Salesforce via a Restforce client
   class SalesforceApiClient
 
-    include ApplicationHelper
+    include SalesforceApiHelper
 
     MAX_RETRIES = 3
 
@@ -2969,36 +2969,6 @@
         "organisation id #{organisation.id}") if account_salesforce_id.nil?
       
       account_salesforce_id
-
-    end
-
-    # Method check Salesforce for a correct RecordType Id
-    # A Salesforce Id for the RecordType is returned if a match is made. 
-    # Otherwise a not found exception is raised.
-    #
-    # exceptions and retries should be handled in calling function.
-    #
-    # @param [String] developer_name An salesforce Developername for a RecordType
-    # @param [String] object_type An salesforce SobjectType for a RecordType
-    #
-    # @return [String] record_type_id&.first&.Id The RecordType.Id found
-    def get_salesforce_record_type_id(developer_name, object_type)    
-
-      record_type_id = 
-        @client.query_all("select Id, SObjectType from RecordType where DeveloperName = '#{developer_name}' " \
-                          "and SObjectType = '#{object_type}'")
-
-      if record_type_id.length != 1
-
-        error_msg = "No RecordType found for DeveloperName: #{developer_name} and SObjectType: #{developer_name}"
-
-        Rails.logger.error(error_msg)
-
-        raise Restforce::NotFoundError.new(error_msg, { status: 500 } )
-
-      end
-
-      record_type_id&.first&.Id
 
     end
 
