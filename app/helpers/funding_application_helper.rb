@@ -148,6 +148,11 @@ module FundingApplicationHelper
   end
 
 
+  # TODO: Noticed that salesforce_api.rb also has its own 
+  # is_applicant_legal_signatory function.  Would be a quick 
+  # change to have one function in application_helper.rb
+  # however, requires a fair bit of testing.
+  #
   # Method used to determine whether or not the applicant
   # is also a legal signatory for a given funding application
   #
@@ -163,7 +168,7 @@ module FundingApplicationHelper
 
     funding_application.organisation.legal_signatories.each do |ls|
 
-      if ls.email_address == applicant.email
+      if ls.email_address&.strip&.upcase == applicant.email&.strip&.upcase
 
         applicant_is_also_legal_signatory = true
 

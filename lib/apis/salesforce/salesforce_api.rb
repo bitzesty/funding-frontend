@@ -708,6 +708,8 @@
           Agrees_To_User_Research__c: (user.agrees_to_user_research.present?) ? user.agrees_to_user_research : false
         )
 
+        Rails.logger.info("Updated user preferences for contact #{user.salesforce_contact_id}")
+
       rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
              Restforce::EntityTooLargeError, Restforce::ResponseError => e
 
@@ -2120,7 +2122,7 @@
 
         unless contact_is_legal_signatory?(user, ls)
 
-          @client.upsert!(
+          sig_id = @client.upsert!(
             'Contact',
             'Contact_External_ID__c',
             Contact_External_ID__c: ls.id,
@@ -2131,6 +2133,8 @@
             Is_Authorised_Signatory__c: true,
             AccountID: salesforce_account_id
           )
+
+          Rails.logger.info("Created legal sig contact #{sig_id} in Salesforce")
 
         end
 

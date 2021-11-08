@@ -1,3 +1,15 @@
-<strong class="nlhf-task-tag govuk-tag govuk-tag--<%= colour %>" id="<%= tag_id %>" >
-  <%= tag_text %>
-</strong>
+<% unless colour.blank? %>
+
+  <% # Use the passed tag colour %>
+  <strong class="nlhf-task-tag govuk-tag govuk-tag--<%= colour %>" id="<%= tag_id %>" >
+    <%= tag_text %>
+  </strong>
+
+<% else %>
+
+  <% # Use the default tag colour %>
+  <strong class="nlhf-task-tag govuk-tag" id="<%= tag_id %>" >
+    <%= tag_text %>
+  </strong>
+
+<% end %>

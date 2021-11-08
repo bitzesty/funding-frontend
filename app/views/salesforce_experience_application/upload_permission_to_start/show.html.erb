@@ -133,9 +133,10 @@
   <%=
     render(
       ButtonComponent.new(
-        element: 'button',
+        element: 'input',
         is_start_button: false,
         text: "Submit",
+        data_disable: true,
         name: "save_and_continue_button"
       )
     )

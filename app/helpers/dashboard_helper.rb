@@ -83,16 +83,33 @@ module DashboardHelper
 
     if Flipper.enabled?(:permission_to_start_enabled)
 
-      large_application = salesforce_api_client.select_large_applications(email)
+      large_application = 
+        salesforce_api_client.select_large_applications(email)
 
-      large_application.each do | app |  
+      large_application.each do | app |
 
+        app_hash = {}
+
+        # Set the status of the app_hash, depending on info in the db
+        in_progress_app = SfxPtsPayment.find_by(salesforce_case_id: app.Id)
+
+        unless in_progress_app.blank?
+          in_progress_app.submitted_on.present? ? \
+            app_hash[:status] = t('generic.submitted') : \
+              app_hash[:status] = t('generic.in_progress')
+        else
+          app_hash[:status] = t('generic.not_started')
+        end
+
+        # assign app_hash to a RecordType array and add SF info
         if app[:RecordType][:DeveloperName] == "Large"
-          delivery.push(app)
+          app_hash[:salesforce_info] = app
+          delivery.push(app_hash)
         end 
         
         if app[:RecordType][:DeveloperName] == "Large_Development_250_500k"
-          development.push(app)
+          app_hash[:salesforce_info] = app
+          development.push(app_hash)
         end
 
       end

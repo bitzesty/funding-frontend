@@ -13,8 +13,11 @@ class SalesforceExperienceApplication::UploadPermissionToStartController < Appli
       @salesforce_experience_application.validate_pts_form_files =  true;
 
       if @salesforce_experience_application.valid?
+
 				pts_form_record_id = create_pts_form_record(@salesforce_experience_application)
 				upload_to_salesforce(pts_form_record_id)
+				set_submitted_on()
+
         redirect_to(
           sfx_pts_payment_confirmation_path(
             @salesforce_experience_application.salesforce_case_id
@@ -85,6 +88,11 @@ class SalesforceExperienceApplication::UploadPermissionToStartController < Appli
 	# @param [int] pts_form_record_id The pts form record model to attach documents to. 
 	def upload_to_salesforce(pts_form_record_id)
 		upload_salesforce_pts_files(pts_form_record_id, @salesforce_experience_application)
+	end
+
+	def set_submitted_on()
+		@salesforce_experience_application.submitted_on = Time.current
+		@salesforce_experience_application.save
 	end
   
 end
