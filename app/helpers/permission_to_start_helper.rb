@@ -21,19 +21,26 @@ module PermissionToStartHelper
 
     grant_expiry_date_string = ''
 
-    unless salesforce_info_for_start_page.Grant_Expiry_Date__c.blank?
-      grant_expiry_date = Date.parse(salesforce_info_for_start_page.Grant_Expiry_Date__c)
-      grant_expiry_date_string = grant_expiry_date.strftime("%d/%m/%Y")
-    end
-
     if salesforce_info_for_start_page[:RecordType][:DeveloperName] \
       == "Large"
       large_application_type = 'Delivery'
+
+      unless salesforce_info_for_start_page.Grant_Expiry_Date__c.blank?
+        grant_expiry_date = Date.parse(salesforce_info_for_start_page.Grant_Expiry_Date__c)
+        grant_expiry_date_string = grant_expiry_date.strftime("%d/%m/%Y")
+      end
+
     end 
     
     if salesforce_info_for_start_page[:RecordType][:DeveloperName] \
       == "Large_Development_250_500k"
       large_application_type = 'Development'
+
+      unless salesforce_info_for_start_page.Development_grant_expiry_date__c.blank?
+        grant_expiry_date = Date.parse(salesforce_info_for_start_page.Development_grant_expiry_date__c)
+        grant_expiry_date_string = grant_expiry_date.strftime("%d/%m/%Y")
+      end
+
     end
 
     formatted_start_page_info = 

@@ -53,8 +53,9 @@ module PtsSalesforceApi
 
       query_string = "SELECT Id, Project_Title__c,  " \
         "Project_Reference_Number__c, Grant_Expiry_Date__c, " \
-          "Account.name, recordType.DeveloperName " \
-            "FROM Case where Id = '#{salesforce_case_id}'"
+          "Account.name, recordType.DeveloperName, " \
+            "Development_grant_expiry_date__c " \
+              "FROM Case where Id = '#{salesforce_case_id}'"
       
       restforce_response = run_salesforce_query(query_string, 
         "get_info_for_start_page", salesforce_case_id)
