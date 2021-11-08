@@ -123,9 +123,9 @@ module PermissionToStartHelper
     payment_percentage_restforce_response = 
       sf_api.get_payment_percentage(salesforce_case)
 
-    if salesforce_case.application_type = "large_delivery"
+    if salesforce_case.large_delivery?
       result = payment_percentage_restforce_response.first[:Delivery_payment_percentage__c]
-    elsif salesforce_case.application_type = "large_development"
+    elsif salesforce_case.large_development?
       result = payment_percentage_restforce_response.first[:Development_payment_percentage__c]
     end
 
@@ -145,9 +145,9 @@ module PermissionToStartHelper
     total_vat_restforce_response = 
       sf_api.get_vat_costs(salesforce_case)
 
-    if salesforce_case.application_type = "large_delivery"
+    if salesforce_case.large_delivery?
       result = total_vat_restforce_response.first[:Total_delivery_costs_VAT__c]
-    elsif salesforce_case.application_type = "large_development"
+    elsif salesforce_case.large_development?
       result = total_vat_restforce_response.first[:Total_development_costs_VAT__c]
     end
 
