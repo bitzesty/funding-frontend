@@ -1,6 +1,9 @@
 module PermissionToStartHelper
   include PtsSalesforceApi
 
+  # The strings are salesforce developer names.
+  PROJECT_COSTS_TO_HIDE = ['Volunteer time','Non-cash contributions']
+
   # Creates and returns an instance of SalesforceApiClient
   # @return SalesforceApiClient [SalesforceApiClient] an instance of this class
   def get_pts_salesforce_api_instance()
@@ -94,16 +97,19 @@ module PermissionToStartHelper
     agreed_costs_restforce_collection = 
       sf_api.get_agreed_costs(salesforce_case)
 
-    total_contingency = 0
-
     agreed_costs_restforce_collection.each do |ac|
 
-      result.push({
-        cost_heading: ac[:Cost_heading__c],
-        cost: ac[:Costs__c].to_f,
-        vat: ac[:Vat__c].to_f,
-        total: ac[:Vat__c].to_f + ac[:Costs__c].to_f
-        })
+      unless PROJECT_COSTS_TO_HIDE.include? (ac[:Cost_heading__c])
+
+        result.push({
+          cost_heading: ac[:Cost_heading__c],
+          cost: ac[:Costs__c].to_f,
+          vat: ac[:Vat__c].to_f,
+          total: ac[:Vat__c].to_f + ac[:Costs__c].to_f
+          })
+
+      end
+
     end
 
     result
@@ -136,7 +142,7 @@ module PermissionToStartHelper
   # 
   #
   # @param [Array] costs An array created by the get_agreed_costs function
-  # @return [Float] total_contingency Sum of all the contingency costs
+  # @return [Float] total_vat_restforce_response Sum of all the vat costs
   def get_vat_costs(salesforce_case)
     result = []
 
