@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
         model_object: nil,
-        page_title: 'Downlaod and Sign PTS '
+        page_title: 'Download and Sign PTS '
     }
 %>
 
@@ -184,41 +184,57 @@
 </div>
 
 <div class="pagebreak govuk-!-margin-top-6">
-  <h3 class="govuk-heading-s">
+
+<h3 class="govuk-heading-s">
     3. Cost breakdown and cashflow with an indication of when you will be seeking grant payments 
   </h3>
 
   <% if @pts_answers["has_agreed_costs_docs"] == true.to_s %>
-    <% @attached_agreed_docs.each do |blob| %>
-      <table class="govuk-table govuk-!-margin-top-0">
+      <table class="govuk-table" role="presentation">
+        <tr class="govuk-table__row ">
+          <thead class="govuk-table__head">
+              <th class="govuk-table__header">
+                  Uploaded files:
+              </th>
+          </thead>
+        </tr>
         <tbody>
-          <tr"govuk-table__row">
-            <td class="govuk-table__cell">
-                <p class="govuk-body">
-                  <%=
-                    link_to(
-                      blob.filename,
-                      rails_blob_path(
-                        blob,
-                        disposition: "attachment"
-                      ),
-                      class: 'govuk-link',
-                    )
-                  %> 
-                    has been uploaded
+          <% @attached_agreed_docs.each do |blob| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell ">
+              
+              <div class="govuk-table govuk-!-margin-top-3">
+                <%=
+                  link_to(
+                    blob.filename,
+                    rails_blob_path(
+                      blob,
+                      disposition: "attachment"
+                    ),
+                    class: 'govuk-link',
+                  )
+                %> 
+
+                <p>	
+                  has been uploaded
                 </p>
-            </td>
+              </div>
+      
+
+            </td>         
           </tr>
+          <% end %>
+
         </tbody>
+          
       </table>
-    <%end%>
   <%else%>
     <p> Document emailed to Investment Manager </p>
   <%end%>
 </div>
 
 <div class="pagebreak">
-  <h2 class="govuk-heading-m govuk-!-margin-top-8">Cash and non-cash contributions</h2>
+  <h2 class="govuk-heading-m govuk-!-margin-top-9">Cash and non-cash contributions</h2>
 </div>
 
 <div class="govuk-!-margin-top-6">
@@ -276,29 +292,43 @@
     t('salesforce_experience_application.cash_contribution_evidence.' \
       'bullets.yes_i_will_upload')%>
 
-    <% @cash_contributions_evidence.each do |blob| %>
-      <table class="govuk-table govuk-!-margin-top-0">
+      <table class="govuk-table" role="presentation">
+        <tr class="govuk-table__row ">
+          <thead class="govuk-table__head">
+              <th class="govuk-table__header">
+                  Uploaded files:
+              </th>
+          </thead>
+        </tr>
         <tbody>
-          <tr"govuk-table__row">
-            <td class="govuk-table__cell">
-                <p class="govuk-body">
-                  <%=
-                    link_to(
-                      blob.filename,
-                      rails_blob_path(
-                        blob,
-                        disposition: "attachment"
-                      ),
-                      class: 'govuk-link',
-                    )
-                  %> 
-                    has been uploaded
+          <% @cash_contributions_evidence.each do |blob| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell ">
+              
+              <div class="govuk-table govuk-!-margin-top-3">
+                <%=
+                  link_to(
+                    blob.filename,
+                    rails_blob_path(
+                      blob,
+                      disposition: "attachment"
+                    ),
+                    class: 'govuk-link',
+                  )
+                %> 
+
+                <p>	
+                  has been uploaded
                 </p>
-            </td>
+              </div>
+
+            </td>         
           </tr>
+          <% end %>
+
         </tbody>
+          
       </table>
-    <%end%>
   <%end%>
 </div>
 
@@ -311,30 +341,41 @@
 
   <% if @pts_answers["fundraising_evidence_question"] == 
     t('salesforce_experience_application.fundraising_evidence.bullets.yes_i_will_upload')%>
+    <table class="govuk-table" role="presentation">
+      <tr class="govuk-table__row ">
+        <thead class="govuk-table__head">
+            <th class="govuk-table__header">
+                Uploaded files:
+            </th>
+        </thead>
+      </tr>
+      <tbody>
+        <% @fundraising_evidence_files.each do |blob| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell ">
+            <div class="govuk-table govuk-!-margin-top-3">
+              <%=
+                link_to(
+                  blob.filename,
+                  rails_blob_path(
+                    blob,
+                    disposition: "attachment"
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
 
-    <% @fundraising_evidence_files.each do |blob| %>
-      <table class="govuk-table govuk-!-margin-top-0">
-        <tbody>
-          <tr"govuk-table__row">
-            <td class="govuk-table__cell">
-                <p class="govuk-body">
-                  <%=
-                    link_to(
-                      blob.filename,
-                      rails_blob_path(
-                        blob,
-                        disposition: "attachment"
-                      ),
-                      class: 'govuk-link',
-                    )
-                  %> 
-                    has been uploaded
-                </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <%end%>
+              <p>	
+                has been uploaded
+              </p>
+            </div>
+
+          </td>         
+        </tr>
+        <% end %>
+
+      </tbody>
+    </table>
   <%end%>
 </div>
 
@@ -393,29 +434,40 @@
 
   <% if @pts_answers["timetable_work_programme_question"] == 	
     t('salesforce_experience_application.timetable_work_programme.bullets.i_will_upload') %>
-    <% @timetable_work_programme_files.each do |blob| %>
-      <table class="govuk-table govuk-!-margin-top-0">
-        <tbody>
-          <tr"govuk-table__row">
-            <td class="govuk-table__cell">
-                <p class="govuk-body">
-                  <%=
-                    link_to(
-                      blob.filename,
-                      rails_blob_path(
-                        blob,
-                        disposition: "attachment"
-                      ),
-                      class: 'govuk-link',
-                    )
-                  %> 
-                    has been uploaded
-                </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <%end%>
+    <table class="govuk-table" role="presentation">
+      <tr class="govuk-table__row ">
+        <thead class="govuk-table__head">
+            <th class="govuk-table__header">
+                Uploaded files:
+            </th>
+        </thead>
+      </tr>
+      <tbody>
+        <% @timetable_work_programme_files.each do |blob| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell ">
+            <div class="govuk-table govuk-!-margin-top-3">
+              <%=
+                link_to(
+                  blob.filename,
+                  rails_blob_path(
+                    blob,
+                    disposition: "attachment"
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+
+              <p>	
+                has been uploaded
+              </p>
+            </div>
+
+          </td>         
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   <%else%>
     <p> Document emailed to Investment Manager </p>
   <%end%>
@@ -432,29 +484,40 @@
 
   <% if @pts_answers["project_management_structure_question"] == 	
     t('salesforce_experience_application.project_management_structure.bullets.i_will_upload') %>
-    <% @project_management_structure_files.each do |blob| %>
-      <table class="govuk-table govuk-!-margin-top-0">
-        <tbody>
-          <tr"govuk-table__row">
-            <td class="govuk-table__cell">
-                <p class="govuk-body">
-                  <%=
-                    link_to(
-                      blob.filename,
-                      rails_blob_path(
-                        blob,
-                        disposition: "attachment"
-                      ),
-                      class: 'govuk-link',
-                    )
-                  %> 
-                    has been uploaded
-                </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <%end%>
+    <table class="govuk-table" role="presentation">
+      <tr class="govuk-table__row ">
+        <thead class="govuk-table__head">
+            <th class="govuk-table__header">
+                Uploaded files:
+            </th>
+        </thead>
+      </tr>
+      <tbody>
+        <% @project_management_structure_files.each do |blob| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell ">
+            <div class="govuk-table govuk-!-margin-top-3">
+              <%=
+                link_to(
+                  blob.filename,
+                  rails_blob_path(
+                    blob,
+                    disposition: "attachment"
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+
+              <p>	
+                has been uploaded
+              </p>
+            </div>
+
+          </td>         
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   <%else%>
     <p> Document emailed to Investment Manager </p>
   <%end%>
@@ -474,29 +537,40 @@
   <% if @pts_answers["property_ownership_evidence_question"] == 
     t('salesforce_experience_application.property_ownership_evidence.bullets.i_will_upload')%>
 
-    <% @fundraising_evidence_files.each do |blob| %>
-      <table class="govuk-table govuk-!-margin-top-0">
-        <tbody>
-          <tr"govuk-table__row">
-            <td class="govuk-table__cell">
-                <p class="govuk-body">
-                  <%=
-                    link_to(
-                      blob.filename,
-                      rails_blob_path(
-                        blob,
-                        disposition: "attachment"
-                      ),
-                      class: 'govuk-link',
-                    )
-                  %> 
-                    has been uploaded
-                </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <%end%>
+    <table class="govuk-table" role="presentation">
+      <tr class="govuk-table__row ">
+        <thead class="govuk-table__head">
+            <th class="govuk-table__header">
+                Uploaded files:
+            </th>
+        </thead>
+      </tr>
+      <tbody>
+        <% @property_ownership_evidence_files.each do |blob| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell ">
+            <div class="govuk-table govuk-!-margin-top-3">
+              <%=
+                link_to(
+                  blob.filename,
+                  rails_blob_path(
+                    blob,
+                    disposition: "attachment"
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+
+              <p>	
+                has been uploaded
+              </p>
+            </div>
+
+          </td>         
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   <%end%>
 </div>
 
@@ -676,8 +750,7 @@
   link_to(
     'Continue',
     sfx_pts_payment_upload_permission_to_start_path(@salesforce_experience_application.salesforce_case_id),
-    class: 'govuk-button no-print govuk-!-margin-top-6',
-    aria: { describedby: 'Continue' } 
+    class: 'govuk-button no-print govuk-!-margin-top-6'
   )
   %>
 </div>

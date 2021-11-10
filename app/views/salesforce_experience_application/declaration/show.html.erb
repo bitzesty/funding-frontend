@@ -11,7 +11,7 @@
     partial: 'partials/summary_errors',
     locals: {
       form_object: @salesforce_experience_application,
-      first_form_element: :agrees_with_declaration_statements
+      first_form_element: :sfx_pts_payment_agrees_to_declaration
     }
   ) if @salesforce_experience_application.errors.any?
 %>
@@ -126,10 +126,10 @@
         <%=
           f.check_box :agrees_to_declaration,
                       {
-                          id: :agrees_to_declaration,
                           class: "govuk-checkboxes__input"
                       },
-                      'true', nil
+                      'true', 
+                      nil
         %>
 
         <%=

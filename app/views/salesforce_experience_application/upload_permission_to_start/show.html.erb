@@ -77,55 +77,53 @@
         </div>
 
         <% if @attached_pts_docs&.first&.present?%>
+          <table class="govuk-table" role="presentation">
+            <tr class="govuk-table__row">
+              <thead class="govuk-table__head">
+                  <th class="govuk-table__header">
+                      Uploaded files
+                  </th>
+              </thead>
+            </tr>
+            <tbody>
+              <% @attached_pts_docs.each do |blob| %>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell ">
+                  
+                  <div class="govuk-table govuk-!-margin-top-3">
+                    <%=
+                      link_to(
+                        blob.filename,
+                        rails_blob_path(
+                          blob,
+                          disposition: "attachment"
+                        ),
+                        class: 'govuk-link',
+                      )
+                    %> 
 
-          <p class="govuk-body">
-              Uploaded files
-          </p>
-
-          <% @attached_pts_docs.each do |blob| %>
-          
-            <table class="govuk-table govuk-!-margin-bottom-0">
-              <tbody>
-                <tr"govuk-table__row">
-                  <td class="govuk-table__cell">
-                      <p class="govuk-body">
-                        <%=
-                          link_to(
-                            blob.filename,
-                            rails_blob_path(
-                              blob,
-                              disposition: "attachment"
-                            ),
-                            class: 'govuk-link',
-                          )
-                        %> 
-
-                        has been uploaded
+                    <p>	
+                      has been uploaded
                     </p>
-                  </td>
-
-                  <td class="govuk-table__cell govuk-!-width-one-quarter">
-        
-                        <%=
-                          link_to(
-                            "Delete",
-                            sfx_pts_payment_pts_form_files_blob_delete_path(blob_id: blob.id),
-                            class: 'govuk-button govuk-button--warning',
-                            id: 'delete-file',
-                            :method => 'delete'
-                          )
-                        %> 
-                      
-                  </td>
-                
-                </tr>
-
-              </tbody>
-              
-            </table>
-
-          <% end %>
-
+                  </div>
+                </td>
+                <td>
+                  <div class="govuk-table govuk-!-margin-top-5 govuk-table govuk-!-margin-left-3">
+                      <%=
+                        link_to(
+                          "Delete",
+                          sfx_pts_payment_pts_form_files_blob_delete_path(blob_id: blob.id),
+                          class: 'govuk-button govuk-button--warning',
+                          id: 'delete-file',
+                          :method => 'delete'
+                        )
+                      %> 
+                  </div>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
         <% end %>
       </section>
   </div>

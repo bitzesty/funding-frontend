@@ -67,7 +67,7 @@
 				%>
 
 				<%=
-					f.label :timetable_work_programme_question_true,
+					f.label "timetable_work_programme_question_" + 	t('salesforce_experience_application.timetable_work_programme.bullets.i_will_upload').parameterize.underscore,
 					t('salesforce_experience_application.timetable_work_programme.bullets.i_will_upload'),
 					class: "govuk-label govuk-radios__label"
 				%>
@@ -79,7 +79,7 @@
 						data-form-group="file">
 
 						<%=
-							f.label :timetable_work_programme_files,
+							f.label  :timetable_work_programme_files,
 							t('salesforce_experience_application.timetable_work_programme.bullets.upload_a_proposed_timetable'),
 							class: "govuk-label govuk-!-font-weight-bold"
 						%>
@@ -111,54 +111,59 @@
 					</div>
 
 						<% if @files&.first&.present?%>
-
-							<p class="govuk-body">
-									<%= t('generic.uploaded_files') %>
-							</p>
-
-							<% @files.each do |blob| %>
-
-								<table class="govuk-table govuk-!-margin-bottom-0">
+						
+								<table class="govuk-table" role="presentation">
+									<tr class="govuk-table__row">
+										<thead class="govuk-table__head">
+												<th class="govuk-table__header">
+														Uploaded files
+												</th>
+										</thead>
+									</tr>
 									<tbody>
-										<tr"govuk-table__row">
-											<td class="govuk-table__cell">
-													<p class="govuk-body">
-														<%=
-															link_to(
-																blob.filename,
-																rails_blob_path(
-																	blob,
-																	disposition: "attachment"
-																),
-																class: 'govuk-link',
-															)
-														%>
+										<% @files.each do |blob| %>
+										<tr class="govuk-table__row">
+											<td class="govuk-table__cell ">
+												
+												<div class="govuk-table govuk-!-margin-top-3">
+													<%=
+														link_to(
+															blob.filename,
+															rails_blob_path(
+																blob,
+																disposition: "attachment"
+															),
+															class: 'govuk-link',
+														)
+													%> 
 
-														<%= t('generic.has_been_uploaded') %>
-												</p>
+													<p>	
+														has been uploaded
+													</p>
+												</div>
+								
+
 											</td>
-
-											<td class="govuk-table__cell govuk-!-width-one-quarter">
-
+											<td>
+												<div class="govuk-table govuk-!-margin-top-5 govuk-table govuk-!-margin-left-3">
 														<%=
 															link_to(
-																t('generic.delete'),
+																"Delete",
 																sfx_pts_payment_timetable_work_programme_blob_delete_path(blob_id: blob.id),
 																class: 'govuk-button govuk-button--warning',
 																id: 'delete-file',
 																:method => 'delete'
 															)
-														%>
-
+														%> 
+												</div>
+											
 											</td>
-
 										</tr>
+										<% end %>
 
 									</tbody>
-
+									
 								</table>
-
-							<% end %>
 
 						<% end %>
 
@@ -176,7 +181,7 @@
 				%>
 
 				<%=
-						f.label :timetable_work_programme_question_false,
+						f.label "timetable_work_programme_question_" + t('salesforce_experience_application.timetable_work_programme.bullets.i_have_emailed').parameterize.underscore,
 						t('salesforce_experience_application.timetable_work_programme.bullets.i_have_emailed'),
 						class: "govuk-label govuk-radios__label"
 				%>

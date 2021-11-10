@@ -16,141 +16,146 @@
   ) if @salesforce_experience_application.errors.any?
 %>
 
-<div class="govuk-form-group <%= "govuk-form-group--error" if
+<fieldset class="govuk-fieldset">
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
   @salesforce_experience_application.errors.any? %>">
 
-  <span class="govuk-caption-xl govuk-!-padding-bottom-2">Cash and non-cash contributions</span>
-  <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-    Are the cash contributions still correct?
-  </h1>
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <span class="govuk-caption-xl govuk-!-padding-bottom-2">Cash and non-cash contributions</span>
+      <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+        Are the cash contributions still correct?
+      </h1>
+    </legend>
 
-  <section class="nlhf-summary govuk-!-margin-bottom-9">
+    <section class="nlhf-summary govuk-!-margin-bottom-9">
 
-    <header class="nlhf-summary__header">
+      <header class="nlhf-summary__header">
 
-      <h2 class="govuk-heading-m">
-          Cash contributions summary
-      </h2>
+        <h2 class="govuk-heading-m">
+            Cash contributions summary
+        </h2>
 
-    </header>
+      </header>
 
-      <div class="nlhf-summary__body">
+        <div class="nlhf-summary__body">
 
-        <table class="govuk-table">
+          <table class="govuk-table">
 
-          <thead class="govuk-table__head">
-
-            <tr class="govuk-table__row">
-
-                <th scope="col" class="govuk-table__header">
-                    Description of funding
-                </th>
-
-                <th scope="col" class="govuk-table__header">
-                    Amount expected (£)
-                </th>
-
-            </tr>
-
-          </thead>
-
-          <tbody class="govuk-table__body">
-
-            <% @cash_contributions.each do |cc| %>
+            <thead class="govuk-table__head">
 
               <tr class="govuk-table__row">
 
-                  <td scope="govuk-table__cell" class="govuk-table__cell">
-                    <%= cc[:description_of_funding] %>
-                  </td>
+                  <th scope="col" class="govuk-table__header">
+                      Description of funding
+                  </th>
 
-                  <td class="govuk-table__cell">
-                      <%= number_to_currency(cc[:amount_expected], unit: "",  precision: 2) %>
-                  </td>
+                  <th scope="col" class="govuk-table__header">
+                      Amount expected (£)
+                  </th>
 
               </tr>
 
-            <% end %>
-            
-          </tbody>
+            </thead>
 
-        </table>
+            <tbody class="govuk-table__body">
 
-      </div>
+              <% @cash_contributions.each do |cc| %>
 
-  </section>
+                <tr class="govuk-table__row">
 
-  <%=
-    render(
-      partial: 'partials/form_group_errors',
-      locals: {
-        form_object: @salesforce_experience_application
-      }
-    ) if @salesforce_experience_application.errors.any?
-  %>
+                    <td scope="govuk-table__cell" class="govuk-table__cell">
+                      <%= cc[:description_of_funding] %>
+                    </td>
 
-  <%= 	
-      form_with model: @salesforce_experience_application,
-      url: :sfx_pts_payment_cash_contributions_correct,
-      method: :post,
-      local: true do |f| 
-  %>
+                    <td class="govuk-table__cell">
+                        <%= number_to_currency(cc[:amount_expected], unit: "",  precision: 2) %>
+                    </td>
 
-    <div class="govuk-form-group">
+                </tr>
 
-        <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-8" data-module="govuk-radios">
+              <% end %>
+              
+            </tbody>
 
-          <div class="govuk-radios__item">
+          </table>
 
-            <%=
-              f.radio_button :cash_contributions_correct,
-              true,
-              class: "govuk-radios__input"
-            %>
-
-            <%= 
-              f.label :cash_contributions_correct_true, 
-              "Yes, the cash contributions are correct",
-              class: "govuk-label govuk-radios__label" 
-            %>
-
-          </div>
-
-          <div class="govuk-radios__item">
-
-            <%=
-              f.radio_button :cash_contributions_correct,
-              false,
-              class: "govuk-radios__input",
-              "data-aria-controls" => "conditional-contributions_are_correct"
-            %>
-
-            <%= 
-              f.label :cash_contributions_correct_false, 
-              "No, the cash contributions are not correct",
-              class: "govuk-label govuk-radios__label" 
-            %>
-
-          </div>
-
-          <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-              id="conditional-contributions_are_correct">
-
-            <p class="govuk-body">
-                Changes to cash contributions need to be agreed with your Investment Manager. Contact your Investment Manager for further details.
-            </p>
-            
-          </div>
         </div>
 
-        <%= render(
-          ButtonComponent.new(
-          element: 'button',
-          is_start_button: false,
-          text: "Save and continue"
-          )
-        )%>
+    </section>
 
-    </div>
+    <%=
+      render(
+        partial: 'partials/form_group_errors',
+        locals: {
+          form_object: @salesforce_experience_application
+        }
+      ) if @salesforce_experience_application.errors.any?
+    %>
+
+    <%= 	
+        form_with model: @salesforce_experience_application,
+        url: :sfx_pts_payment_cash_contributions_correct,
+        method: :post,
+        local: true do |f| 
+    %>
+
+      <div class="govuk-form-group">
+
+          <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-8" data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+
+              <%=
+                f.radio_button :cash_contributions_correct,
+                true,
+                class: "govuk-radios__input"
+              %>
+
+              <%= 
+                f.label :cash_contributions_correct_true, 
+                "Yes, the cash contributions are correct",
+                class: "govuk-label govuk-radios__label" 
+              %>
+
+            </div>
+
+            <div class="govuk-radios__item">
+
+              <%=
+                f.radio_button :cash_contributions_correct,
+                false,
+                class: "govuk-radios__input",
+                "data-aria-controls" => "conditional-contributions_are_correct"
+              %>
+
+              <%= 
+                f.label :cash_contributions_correct_false, 
+                "No, the cash contributions are not correct",
+                class: "govuk-label govuk-radios__label" 
+              %>
+
+            </div>
+
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                id="conditional-contributions_are_correct">
+
+              <p class="govuk-body">
+                  Changes to cash contributions need to be agreed with your Investment Manager. Contact your Investment Manager for further details.
+              </p>
+              
+            </div>
+          </div>
+
+          <%= render(
+            ButtonComponent.new(
+            element: 'button',
+            is_start_button: false,
+            text: "Save and continue"
+            )
+          )%>
+
+      </div>
+    <% end %>
   </div>
-<% end %>
+</fieldset>
+

@@ -72,66 +72,70 @@
       local: true do |f| 
   %>
 
-  <div class="govuk-form-group <%= "govuk-form-group--error" if
-    @salesforce_experience_application.errors.any? %>">
+  <fieldset class="govuk-fieldset">
+    <div class="govuk-form-group <%= "govuk-form-group--error" if
+      @salesforce_experience_application.errors.any? %>">
 
-      <h1 class="govuk-heading-l">
-        Do you want to add another statutory permission or licence?
-      </h1>
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-heading-l">
+            Do you want to add another statutory permission or licence?
+          </h1>
+        </legend>
 
-      <%=
-        render(
-          partial: 'partials/form_group_errors',
-          locals: {
-            form_object: @salesforce_experience_application
-          }
-        ) if @salesforce_experience_application.errors.any?
-      %>
+        <%=
+          render(
+            partial: 'partials/form_group_errors',
+            locals: {
+              form_object: @salesforce_experience_application
+            }
+          ) if @salesforce_experience_application.errors.any?
+        %>
 
-      <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-9" data-module="govuk-radios">
+        <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-9" data-module="govuk-radios">
 
-        <div class="govuk-radios__item">
+          <div class="govuk-radios__item">
 
-          <%=
-            f.radio_button :add_another_statutory_permission_or_licence,
-            true,
-            class: "govuk-radios__input"
-          %>
+            <%=
+              f.radio_button :add_another_statutory_permission_or_licence,
+              true,
+              class: "govuk-radios__input"
+            %>
 
-          <%= 
-            f.label :add_another_statutory_permission_or_licence_true, 
-            "Yes, I want to add another statutory permission or licence",
-            class: "govuk-label govuk-radios__label" 
-          %>
+            <%= 
+              f.label :add_another_statutory_permission_or_licence_true, 
+              "Yes, I want to add another statutory permission or licence",
+              class: "govuk-label govuk-radios__label" 
+            %>
+
+          </div>
+
+          <div class="govuk-radios__item">
+
+            <%=
+              f.radio_button :add_another_statutory_permission_or_licence,
+              false,
+              class: "govuk-radios__input"
+            %>
+
+            <%= 
+              f.label :add_another_statutory_permission_or_licence_false, 
+              "No, I do not want to add another statutory permission or licence",
+              class: "govuk-label govuk-radios__label" 
+            %>
+
+          </div>
 
         </div>
 
-        <div class="govuk-radios__item">
+        <%= render(
+          ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: "Save and continue"
+          )
+        )%>
 
-          <%=
-            f.radio_button :add_another_statutory_permission_or_licence,
-            false,
-            class: "govuk-radios__input"
-          %>
-
-          <%= 
-            f.label :add_another_statutory_permission_or_licence_false, 
-            "No, I do not want to add another statutory permission or licence",
-            class: "govuk-label govuk-radios__label" 
-          %>
-
-        </div>
-
-      </div>
-
-      <%= render(
-        ButtonComponent.new(
-        element: 'button',
-        is_start_button: false,
-        text: "Save and continue"
-        )
-      )%>
-
-  </div>
+    </div>
+  </fieldset>
 
 <% end %>

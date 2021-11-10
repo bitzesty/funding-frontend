@@ -16,78 +16,82 @@
   ) if @salesforce_experience_application.errors.any?
 %>
 
-<div class="govuk-form-group <%= "govuk-form-group--error" if
+<fieldset class="govuk-fieldset">
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
   @salesforce_experience_application.errors.any? %>">
 
-  <span class="govuk-caption-xl govuk-!-padding-bottom-2">Statutory permissions and licenses</span>
-  <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-    Have you received any new statutory permissions or licenses?
-  </h1>
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <span class="govuk-caption-xl govuk-!-padding-bottom-2">Statutory permissions and licenses</span>
+      <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+        Have you received any new statutory permissions or licenses?
+      </h1>
+    </legend>
 
-  <%=
-    render(
-      partial: 'partials/form_group_errors',
-      locals: {
-        form_object: @salesforce_experience_application
-      }
-    ) if @salesforce_experience_application.errors.any?
-  %>
+    <%=
+      render(
+        partial: 'partials/form_group_errors',
+        locals: {
+          form_object: @salesforce_experience_application
+        }
+      ) if @salesforce_experience_application.errors.any?
+    %>
 
-  <%=
-    form_with model: @salesforce_experience_application,
-    url: :sfx_pts_payment_permissions_or_licences,
-    local: true,
-    method: :post do |f|
-  %>
-      <div class="govuk-form-group">
+    <%=
+      form_with model: @salesforce_experience_application,
+      url: :sfx_pts_payment_permissions_or_licences,
+      local: true,
+      method: :post do |f|
+    %>
+        <div class="govuk-form-group">
 
-          <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-8" data-module="govuk-radios">
+            <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-8" data-module="govuk-radios">
 
-            <div class="govuk-radios__item">
+              <div class="govuk-radios__item">
 
-              <%=
-                f.radio_button :permissions_or_licences_received,
-                true,
-                class: "govuk-radios__input"
-              %>
+                <%=
+                  f.radio_button :permissions_or_licences_received,
+                  true,
+                  class: "govuk-radios__input"
+                %>
 
-              <%= 
-                f.label :permissions_or_licences_received_true, 
-                "Yes, I have received new statutory permissions or licenses",
-                class: "govuk-label govuk-radios__label" 
-              %>
+                <%= 
+                  f.label :permissions_or_licences_received_true, 
+                  "Yes, I have received new statutory permissions or licenses",
+                  class: "govuk-label govuk-radios__label" 
+                %>
+
+              </div>
+
+              <div class="govuk-radios__item">
+
+                <%=
+                  f.radio_button :permissions_or_licences_received,
+                  false,
+                  class: "govuk-radios__input"
+                %>
+
+                <%= 
+                  f.label :permissions_or_licences_received_false, 
+                  "No, I have not received new statutory permissions or licenses",
+                  class: "govuk-label govuk-radios__label" 
+                %>
+
+              </div>
 
             </div>
 
-            <div class="govuk-radios__item">
+          <%= render(
+            ButtonComponent.new(
+            element: 'button',
+            is_start_button: false,
+            text: "Save and continue"
+            )
+          )%>
 
-              <%=
-                f.radio_button :permissions_or_licences_received,
-                false,
-                class: "govuk-radios__input"
-              %>
+        </div>
 
-              <%= 
-                f.label :permissions_or_licences_received_false, 
-                "No, I have not received new statutory permissions or licenses",
-                class: "govuk-label govuk-radios__label" 
-              %>
+    <% end %>
 
-            </div>
-
-          </div>
-
-        <%= render(
-          ButtonComponent.new(
-          element: 'button',
-          is_start_button: false,
-          text: "Save and continue"
-          )
-        )%>
-
-      </div>
-
-  <% end %>
-
-</div>
+  </div>
+</fieldset>
 

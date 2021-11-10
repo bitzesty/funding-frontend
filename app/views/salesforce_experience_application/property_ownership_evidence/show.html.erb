@@ -16,113 +16,118 @@
   ) if @salesforce_experience_application.errors.any?
 %>
 
-<span class="govuk-caption-xl govuk-!-padding-bottom-2"><%= t("salesforce_experience_application.property_ownership_evidence.page_hint") %></span>
-<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-  <%= t("salesforce_experience_application.property_ownership_evidence.page_heading") %>
-</h1>
+<fieldset class="govuk-fieldset">
+	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2"><%= t("salesforce_experience_application.property_ownership_evidence.page_hint") %></span>
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+			<%= t("salesforce_experience_application.property_ownership_evidence.page_heading") %>
+		</h1>
+	</legend>
 
-<%=
-	render(
-		partial: 'partials/form_group_errors',
-		locals: {
-			form_object: @salesforce_experience_application
-		}
-	) if @salesforce_experience_application.errors.any?
-%>
+	<%=
+		render(
+			partial: 'partials/form_group_errors',
+			locals: {
+				form_object: @salesforce_experience_application
+			}
+		) if @salesforce_experience_application.errors.any?
+	%>
 
-<%= 
-	form_with model: @salesforce_experience_application,
-  url: :sfx_pts_payment_property_ownership_evidence,
-  method: :post,
-  local: true do |f|
-%>
+	<%= 
+		form_with model: @salesforce_experience_application,
+		url: :sfx_pts_payment_property_ownership_evidence,
+		method: :post,
+		local: true do |f|
+	%>
 
-  <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+		<div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
 
-		<%=
-			render(
-				partial: 'partials/form_input_errors',
-				locals: {
-					form_object: @salesforce_experience_application,
-					input_field_id: :'sfx_pts_payments.property_ownership_evidence_question'
-				}
-			) if @salesforce_experience_application.errors['sfx_pts_payments.property_ownership_evidence_question'].any?
-		%>
+			<%=
+				render(
+					partial: 'partials/form_input_errors',
+					locals: {
+						form_object: @salesforce_experience_application,
+						input_field_id: :'sfx_pts_payments.property_ownership_evidence_question'
+					}
+				) if @salesforce_experience_application.errors['sfx_pts_payments.property_ownership_evidence_question'].any?
+			%>
 
-		<div class="govuk-form-group <%= "govuk-form-group--error" if
-  	  @salesforce_experience_application.errors.any? %>">
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+				@salesforce_experience_application.errors.any? %>">
 
-			<div id="sfx_pts_payments.property_ownership_evidence_question-errors"></div>
+				<div id="sfx_pts_payments.property_ownership_evidence_question-errors"></div>
 
-			<div id="form-group-errors"></div>
+				<div id="form-group-errors"></div>
 
-			<div class="govuk-radios__item govuk-!-margin-bottom-4">
+				<div class="govuk-radios__item govuk-!-margin-bottom-4">
 
-				<%=
-					# i18n value passed as value
-					f.radio_button :property_ownership_evidence_question,
-					t('salesforce_experience_application.property_ownership_evidence.bullets.i_will_upload'),
-					class: "govuk-radios__input",
-					"data-aria-controls" => "conditional-property_ownership_evidence_question "
-				%>
+					<%=
+						# i18n value passed as value
+						f.radio_button :property_ownership_evidence_question,
+						t('salesforce_experience_application.property_ownership_evidence.bullets.i_will_upload'),
+						class: "govuk-radios__input",
+						"data-aria-controls" => "conditional-property_ownership_evidence_question "
+					%>
 
-				<%=
-					f.label :property_ownership_evidence_question_true,
-					t('salesforce_experience_application.property_ownership_evidence.bullets.i_will_upload'),
-					class: "govuk-label govuk-radios__label"
-				%>
+					<%=
+						f.label "property_ownership_evidence_question_" + t('salesforce_experience_application.property_ownership_evidence.bullets.i_will_upload').parameterize.underscore,
+						t('salesforce_experience_application.property_ownership_evidence.bullets.i_will_upload'),
+						class: "govuk-label govuk-radios__label"
+					%>
 
-				<div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-					id="conditional-property_ownership_evidence_question">
+					<div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+						id="conditional-property_ownership_evidence_question">
 
-					<div class="govuk-form-group" id="capital-works-form-group-main"
-						data-form-group="file">
+						<div class="govuk-form-group" id="capital-works-form-group-main"
+							data-form-group="file">
 
-						<%=
-							f.label :property_ownership_evidence_files,
-							t('salesforce_experience_application.property_ownership_evidence.bullets.upload_evidence'),
-							class: "govuk-label govuk-!-font-weight-bold"
-						%>
-
-						<%=
-							f.file_field :property_ownership_evidence_files,
-							multiple: true,
-							direct_upload: true,
-							class: "govuk-file-upload",
-							'data-input-identifier': 'file',
-							'data-attribute': :property_ownership_evidence_files,
-							'data-model': 'sfx_pts_payments',
-							'autocomplete' => 'off'
-						%>
-
-						<div class="govuk-!-padding-top-6">
 							<%=
-								render(
-									ButtonComponent.new(
-										type: "button",
-										text: t('generic.upload_files'),
-										classes: "govuk-button--primary ",
-										name: 'add_file_button'
-									)
-								)
+								f.label :property_ownership_evidence_files,
+								t('salesforce_experience_application.property_ownership_evidence.bullets.upload_evidence'),
+								class: "govuk-label govuk-!-font-weight-bold"
 							%>
+
+							<%=
+								f.file_field :property_ownership_evidence_files,
+								multiple: true,
+								direct_upload: true,
+								class: "govuk-file-upload",
+								'data-input-identifier': 'file',
+								'data-attribute': :property_ownership_evidence_files,
+								'data-model': 'sfx_pts_payments',
+								'autocomplete' => 'off'
+							%>
+
+							<div class="govuk-!-padding-top-6">
+								<%=
+									render(
+										ButtonComponent.new(
+											type: "button",
+											text: t('generic.upload_files'),
+											classes: "govuk-button--primary ",
+											name: 'add_file_button'
+										)
+									)
+								%>
+							</div>
+
 						</div>
 
-					</div>
-
-						<% if @files&.first&.present?%>
-
-							<p class="govuk-body">
-									<%= t('generic.uploaded_files') %>
-							</p>
-
-							<% @files.each do |blob| %>
-
-								<table class="govuk-table govuk-!-margin-bottom-0">
-									<tbody>
-										<tr"govuk-table__row">
-											<td class="govuk-table__cell">
-													<p class="govuk-body">
+							<% if @files&.first&.present?%>
+									<table class="govuk-table" role="presentation">
+										<tr class="govuk-table__row">
+											<thead class="govuk-table__head">
+													<th class="govuk-table__header">
+															Uploaded files
+													</th>
+											</thead>
+										</tr>
+										<tbody>
+											<% @files.each do |blob| %>
+											<tr class="govuk-table__row">
+												<td class="govuk-table__cell ">
+													
+													<div class="govuk-table govuk-!-margin-top-3">
 														<%=
 															link_to(
 																blob.filename,
@@ -132,91 +137,94 @@
 																),
 																class: 'govuk-link',
 															)
-														%>
+														%> 
 
-														<%= t('generic.has_been_uploaded') %>
-												</p>
-											</td>
+														<p>	
+															has been uploaded
+														</p>
+													</div>
+									
 
-											<td class="govuk-table__cell govuk-!-width-one-quarter">
+												</td>
+												<td>
+													<div class="govuk-table govuk-!-margin-top-5 govuk-table govuk-!-margin-left-3">
+															<%=
+																link_to(
+																	"Delete",
+																	sfx_pts_payment_property_ownership_evidence_blob_delete_path(blob_id: blob.id),
+																	class: 'govuk-button govuk-button--warning',
+																	id: 'delete-file',
+																	:method => 'delete'
+																)
+															%> 
+													</div>
+												
+												</td>
+											</tr>
+											<% end %>
 
-														<%=
-															link_to(
-																t('generic.delete'),
-																sfx_pts_payment_property_ownership_evidence_blob_delete_path(blob_id: blob.id),
-																class: 'govuk-button govuk-button--warning',
-																id: 'delete-file',
-																:method => 'delete'
-															)
-														%>
-
-											</td>
-
-										</tr>
-
-									</tbody>
-
-								</table>
+										</tbody>
+										
+									</table>
 
 							<% end %>
 
-						<% end %>
+					</div>
+
+				</div>
+
+				<div class="govuk-radios__item  govuk-!-margin-bottom-4">
+
+					<%=
+						# i18n value passed as value
+						f.radio_button :property_ownership_evidence_question,
+						t('salesforce_experience_application.property_ownership_evidence.bullets.i_have_emailed'),
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+							f.label "property_ownership_evidence_question_" + t('salesforce_experience_application.property_ownership_evidence.bullets.i_have_emailed').parameterize.underscore,
+							t('salesforce_experience_application.property_ownership_evidence.bullets.i_have_emailed'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item  govuk-!-margin-bottom-4">
+
+					<%=
+						# i18n value passed as value
+						f.radio_button :property_ownership_evidence_question,
+						t('salesforce_experience_application.property_ownership_evidence.bullets.not_applicable'),
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+							f.label "property_ownership_evidence_question_" + t('salesforce_experience_application.property_ownership_evidence.bullets.not_applicable').parameterize.underscore,
+							t('salesforce_experience_application.property_ownership_evidence.bullets.not_applicable'),
+							class: "govuk-label govuk-radios__label"
+					%>
 
 				</div>
 
 			</div>
 
-			<div class="govuk-radios__item  govuk-!-margin-bottom-4">
-
-				<%=
-					# i18n value passed as value
-					f.radio_button :property_ownership_evidence_question,
-					t('salesforce_experience_application.property_ownership_evidence.bullets.i_have_emailed'),
-					class: "govuk-radios__input"
-				%>
-
-				<%=
-						f.label :property_ownership_evidence_question_false,
-						t('salesforce_experience_application.property_ownership_evidence.bullets.i_have_emailed'),
-						class: "govuk-label govuk-radios__label"
-				%>
-
-			</div>
-
-      <div class="govuk-radios__item  govuk-!-margin-bottom-4">
-
-				<%=
-					# i18n value passed as value
-					f.radio_button :property_ownership_evidence_question,
-					t('salesforce_experience_application.property_ownership_evidence.bullets.not_applicable'),
-					class: "govuk-radios__input"
-				%>
-
-				<%=
-						f.label :property_ownership_evidence_question_false,
-						t('salesforce_experience_application.property_ownership_evidence.bullets.not_applicable'),
-						class: "govuk-label govuk-radios__label"
-				%>
-
-			</div>
-
-		</div>
-
-		<%=
-			render(
-				ButtonComponent.new(
-          element: 'button',
-          is_start_button: false,
-          text: t('buttons.labels.default'),
-					name: "save_and_continue_button"
+			<%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
 				)
-			)
-		%>
+			%>
 
-		<%#
-			See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
-			for the reasoning behind this workaround
-		%>
-    <input type="hidden" name="ieworkaround">
-  </div>
-<% end %>
+			<%#
+				See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+				for the reasoning behind this workaround
+			%>
+			<input type="hidden" name="ieworkaround">
+		</div>
+	<% end %>
+</fieldset>

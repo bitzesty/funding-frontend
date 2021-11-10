@@ -6,151 +6,155 @@
          }
 %>
 
-<%=
-  render(
-    partial: 'partials/summary_errors',
-    locals: {
-      form_object: @salesforce_experience_application,
-      first_form_element: :sfx_pts_payment_non_cash_contributions_correct_true
-    }
-  ) if @salesforce_experience_application.errors.any?
-%>
-
-<div class="govuk-form-group <%= "govuk-form-group--error" if
-  @salesforce_experience_application.errors.any? %>">
-
-  <span class="govuk-caption-xl govuk-!-padding-bottom-2">Cash and non-cash contributions</span>
-  <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-    Are the non-cash contributions still correct?
-  </h1>
-
-  <section class="nlhf-summary govuk-!-margin-bottom-9">
-
-    <header class="nlhf-summary__header">
-
-      <h2 class="govuk-heading-m">
-          Non-cash contributions summary
-      </h2>
-
-    </header>
-
-      <div class="nlhf-summary__body">
-
-        <table class="govuk-table">
-
-          <thead class="govuk-table__head">
-
-            <tr class="govuk-table__row">
-
-                <th scope="col" class="govuk-table__header">
-                    Description of funding
-                </th>
-
-                <th scope="col" class="govuk-table__header">
-                    Amount expected (£)
-                </th>
-
-            </tr>
-
-          </thead>
-
-          <tbody class="govuk-table__body">
-
-            <% @non_cash_contributions.each do |cc| %>
-
-              <tr class="govuk-table__row">
-
-                  <td scope="govuk-table__cell" class="govuk-table__cell">
-                    <%= cc[:description_of_funding] %>
-                  </td>
-
-                  <td class="govuk-table__cell">
-                      <%= number_to_currency(cc[:amount_expected], unit: "",  precision: 2) %>
-                  </td>
-
-              </tr>
-
-            <% end %>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-  </section>
-
+<fieldset class="govuk-fieldset">
   <%=
     render(
-      partial: 'partials/form_group_errors',
+      partial: 'partials/summary_errors',
       locals: {
-        form_object: @salesforce_experience_application
+        form_object: @salesforce_experience_application,
+        first_form_element: :sfx_pts_payment_non_cash_contributions_correct_true
       }
     ) if @salesforce_experience_application.errors.any?
   %>
 
-  <%=   
-    form_with model: @salesforce_experience_application,
-      url: :sfx_pts_payment_non_cash_contributions_correct,
-      method: :post,
-      local: true do |f|
-  %>
+  <div class="govuk-form-group <%= "govuk-form-group--error" if
+    @salesforce_experience_application.errors.any? %>">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <span class="govuk-caption-xl govuk-!-padding-bottom-2">Cash and non-cash contributions</span>
+      <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+        Are the non-cash contributions still correct?
+      </h1>
+    </legend>
 
-    <div class="govuk-form-group">
+    <section class="nlhf-summary govuk-!-margin-bottom-9">
 
-        <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-8" data-module="govuk-radios">
+      <header class="nlhf-summary__header">
 
-          <div class="govuk-radios__item">
+        <h2 class="govuk-heading-m">
+            Non-cash contributions summary
+        </h2>
 
-            <%=
-              f.radio_button :non_cash_contributions_correct,
-              true,
-              class: "govuk-radios__input"
-            %>
+      </header>
 
-            <%=
-              f.label :non_cash_contributions_correct_true,
-              "Yes, the non-cash contributions are correct",
-              class: "govuk-label govuk-radios__label"
-            %>
+        <div class="nlhf-summary__body">
 
-          </div>
+          <table class="govuk-table">
 
-          <div class="govuk-radios__item">
+            <thead class="govuk-table__head">
 
-            <%=
-              f.radio_button :non_cash_contributions_correct,
-              false,
-              class: "govuk-radios__input",
-              "data-aria-controls" => "conditional-contributions_are_correct"
-            %>
+              <tr class="govuk-table__row">
 
-            <%=
-              f.label :non_cash_contributions_correct_false,
-              "No, the non-cash contributions are not correct",
-              class: "govuk-label govuk-radios__label"
-            %>
+                  <th scope="col" class="govuk-table__header">
+                      Description of funding
+                  </th>
 
-          </div>
+                  <th scope="col" class="govuk-table__header">
+                      Amount expected (£)
+                  </th>
 
-          <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-              id="conditional-contributions_are_correct">
+              </tr>
 
-            <p class="govuk-body">
-                Changes to non-cash contributions need to be agreed with your Investment Manager. Contact your Investment Manager for further details.
-            </p>
+            </thead>
 
-          </div>
+            <tbody class="govuk-table__body">
+
+              <% @non_cash_contributions.each do |cc| %>
+
+                <tr class="govuk-table__row">
+
+                    <td scope="govuk-table__cell" class="govuk-table__cell">
+                      <%= cc[:description_of_funding] %>
+                    </td>
+
+                    <td class="govuk-table__cell">
+                        <%= number_to_currency(cc[:amount_expected], unit: "",  precision: 2) %>
+                    </td>
+
+                </tr>
+
+              <% end %>
+
+            </tbody>
+
+          </table>
+
         </div>
 
-        <%= render(
-          ButtonComponent.new(
-          element: 'button',
-          is_start_button: false,
-          text: "Save and continue"
-          )
-        )%>
+    </section>
 
-    </div>
+    <%=
+      render(
+        partial: 'partials/form_group_errors',
+        locals: {
+          form_object: @salesforce_experience_application
+        }
+      ) if @salesforce_experience_application.errors.any?
+    %>
+
+    <%=   
+      form_with model: @salesforce_experience_application,
+        url: :sfx_pts_payment_non_cash_contributions_correct,
+        method: :post,
+        local: true do |f|
+    %>
+
+      <div class="govuk-form-group">
+
+          <div class="govuk-radios govuk-radios--conditional govuk-!-padding-bottom-8" data-module="govuk-radios">
+
+            <div class="govuk-radios__item">
+
+              <%=
+                f.radio_button :non_cash_contributions_correct,
+                true,
+                class: "govuk-radios__input"
+              %>
+
+              <%=
+                f.label :non_cash_contributions_correct_true,
+                "Yes, the non-cash contributions are correct",
+                class: "govuk-label govuk-radios__label"
+              %>
+
+            </div>
+
+            <div class="govuk-radios__item">
+
+              <%=
+                f.radio_button :non_cash_contributions_correct,
+                false,
+                class: "govuk-radios__input",
+                "data-aria-controls" => "conditional-contributions_are_correct"
+              %>
+
+              <%=
+                f.label :non_cash_contributions_correct_false,
+                "No, the non-cash contributions are not correct",
+                class: "govuk-label govuk-radios__label"
+              %>
+
+            </div>
+
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                id="conditional-contributions_are_correct">
+
+              <p class="govuk-body">
+                  Changes to non-cash contributions need to be agreed with your Investment Manager. Contact your Investment Manager for further details.
+              </p>
+
+            </div>
+          </div>
+
+          <%= render(
+            ButtonComponent.new(
+            element: 'button',
+            is_start_button: false,
+            text: "Save and continue"
+            )
+          )%>
+
+      </div>
+    <% end %>
   </div>
-<% end %>
+</fieldset>
+
