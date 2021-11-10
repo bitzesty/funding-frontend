@@ -334,11 +334,11 @@ module PermissionToStartHelper
 
     sf_api = get_pts_salesforce_api_instance()
 
-    #Upload all Agreed Cost Evidence files
+    #Upload all Agreed Cost Evidence files, using the prefix 'cost breakdown'
     salesforce_experience_application.agreed_costs_files.each do |agreed_costs_file|
       sf_api.create_file_in_salesforce(
         agreed_costs_file,
-        "Evidence of Agreed Costs -#{agreed_costs_file.blob.filename}",
+        "Cost breakdown -#{agreed_costs_file.blob.filename}",
         pts_form_record_id
       )
     end
@@ -352,20 +352,20 @@ module PermissionToStartHelper
        )
     end
 
-    #Upload all Evidence of Fundraising
+    #Upload all Evidence of Fundraising - with prefix 'Fundraising plan'
     salesforce_experience_application.fundraising_evidence_files.each do |fundraising_evidence_file|
       sf_api.create_file_in_salesforce(
         fundraising_evidence_file,
-        "Evidence of Fundraising  -#{fundraising_evidence_file.blob.filename}",
+        "Fundraising plan  -#{fundraising_evidence_file.blob.filename}",
         pts_form_record_id
       )
     end
 
-    #Upload all Evidence of Fundraising files
+    #Upload all Evidence of timetable or work programme files
     salesforce_experience_application.timetable_work_programme_files.each do |timetable_work_programme_file|
       sf_api.create_file_in_salesforce(
         timetable_work_programme_file,
-        "Evidence of Timetable Work Programme  -#{timetable_work_programme_file.blob.filename}",
+        "Timetable Work Programme  -#{timetable_work_programme_file.blob.filename}",
         pts_form_record_id
       )
     end

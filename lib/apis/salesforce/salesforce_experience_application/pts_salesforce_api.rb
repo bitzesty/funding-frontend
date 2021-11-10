@@ -212,7 +212,12 @@ module PtsSalesforceApi
 
     end
 
-
+    # Creates the Large_Grants_Permission_To_Start form in Salesforce.
+    #
+    # @param [salesforce_experience_application] SfxPtsPayment instance
+    #                                     holding required information
+    # @return [salesforce_pts_form_record_id] String.  Id for the upserted
+    #                                                      Forms__c record
     def create_pts_form_record(salesforce_experience_application) 
 
       retry_number = 0;

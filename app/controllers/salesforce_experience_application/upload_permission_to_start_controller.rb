@@ -16,7 +16,7 @@ class SalesforceExperienceApplication::UploadPermissionToStartController < Appli
 
 				pts_form_record_id = create_pts_form_record(@salesforce_experience_application)
 				upload_to_salesforce(pts_form_record_id)
-				set_submitted_on()
+				save_submitted_on_and_form_id(pts_form_record_id)
 
         redirect_to(
           sfx_pts_payment_confirmation_path(
@@ -85,13 +85,24 @@ class SalesforceExperienceApplication::UploadPermissionToStartController < Appli
 	end
 
 	# Method to upload files to Salesforce using PermisionToStartHelper
-	# @param [int] pts_form_record_id The pts form record model to attach documents to. 
+	# @param [int] pts_form_record_id The pts form record model to attach 
+	# documents to. 
 	def upload_to_salesforce(pts_form_record_id)
-		upload_salesforce_pts_files(pts_form_record_id, @salesforce_experience_application)
+		upload_salesforce_pts_files(pts_form_record_id, 
+				@salesforce_experience_application)
 	end
 
-	def set_submitted_on()
+	# Sets the submitted_on and salesforce_pts_form_record_id for an 
+	# SfxPtsPayment instance.
+	# Saves these attributes to the database once set 
+	# 
+	# @param [pts_form_record_id] String An id for the Forms__c 
+	# record that was created for the permission to start form in Salesforce.
+	#
+	def save_submitted_on_and_form_id(pts_form_record_id)
 		@salesforce_experience_application.submitted_on = Time.current
+		@salesforce_experience_application.salesforce_pts_form_record_id = \
+			pts_form_record_id
 		@salesforce_experience_application.save
 	end
   
