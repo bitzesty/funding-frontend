@@ -11,9 +11,14 @@
     font-style: italic;
   }
 
+  .nlhf-summary, .nlhf-summary__header{
+    color: black !important;
+  }
+
   a[href]:after {
     content: none !important;
   }
+
   .govuk-footer, .nlhf-toolbar, 
   .nlhf-cookie-banner,
   .govuk-phase-banner,
