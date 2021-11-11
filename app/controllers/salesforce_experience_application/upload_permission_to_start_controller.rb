@@ -104,6 +104,9 @@ class SalesforceExperienceApplication::UploadPermissionToStartController < Appli
 		@salesforce_experience_application.salesforce_pts_form_record_id = \
 			pts_form_record_id
 		@salesforce_experience_application.save
+		project_ref_number = get_info_for_start_page(
+      @salesforce_experience_application.salesforce_case_id)[:project_ref_no]
+		NotifyMailer.pts_submission_confirmation(@salesforce_experience_application.email_address, project_ref_number).deliver_later 
 	end
   
 end

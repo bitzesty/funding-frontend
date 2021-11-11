@@ -65,6 +65,18 @@ class NotifyMailer < Mail::Notify::Mailer
     )
   end
 
+  def pts_submission_confirmation(email, project_reference_number)
+    logger.info "Sent confirmation email to: " \
+			"email #{email}"
+    template_mail('24833676-a335-4e88-9fff-2470b4fe0b95',
+                  to: email,
+                  reply_to_id: @reply_to_id,
+                  personalisation: {
+                  project_reference_number: project_reference_number
+                }
+      )
+  end
+
   #  @param [PreApplication] pre_application
   def project_enquiry_submission_confirmation(pre_application)
     template_mail('34ec207b-e8d1-46be-87ee-2eca4b665cbc',
