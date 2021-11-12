@@ -10,4 +10,4 @@ en-GB:
     building_society_roll_number_label: "Building society roll number (if you have one)"
     building_society_roll_number_hint: "You can find it on your card, statement or passbook"
     payment_reference_label: "Payment reference"
-    payment_reference_hint: "We can add a reference to help you identify the grant payment in your organisation's bank account"
+    payment_reference_hint: "Add a reference to help identify the payment in your organisation's bank account. It can be up to 18 characters and contain letters and numbers. It cannot contain spaces"

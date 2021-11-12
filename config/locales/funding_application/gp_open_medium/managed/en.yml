@@ -2,6 +2,7 @@ en-GB:
   managed:
     page_title: "How will your project be managed?"
     page_heading: "How will your project be managed?"
+    page_hint: "Tell us who will make decisions, the experience of the people involved and their roles in the project. We know all projects have risks. We want to know what risks have been considered and how they will be managed."
     page_sub_heading: "If you already have a risk register, you can upload that here instead."
     risk_register_file: "Risk register file"
     no_risk_register_file: "You have not added a risk register"

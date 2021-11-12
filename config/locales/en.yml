@@ -548,7 +548,7 @@ en-GB:
               invalid_format: "Building society roll number must only include letters a to z, numbers, hyphens, spaces, forward slashes and full stops"
               length: "Building society roll number must be between 1 and 18 characters"
             payment_reference:
-              too_long: "Payment reference must not be greater than 18 characters"
+              too_long: "Payment reference must not be over 18 characters or contain spaces"
               invalid_format: "Payment reference must only contain letters and numbers"
             evidence_file:
               inclusion: "Add evidence of bank account details"

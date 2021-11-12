@@ -2,6 +2,7 @@ cy:
   managed:
     page_title: "Sut bydd eich prosiect yn cael ei reoli?"
     page_heading: "Sut bydd eich prosiect yn cael ei reoli?"
+    page_hint: "Dywedwch wrthym pwy fydd yn gwneud penderfyniadau, profiad y bobl dan sylw a'u rolau yn y prosiect. Rydym yn gwybod bod gan bob prosiect risgiau. Rydym am wybod pa risgiau sydd wedi'u hystyried a sut y cânt eu rheoli."
     page_sub_heading: "Os oes gennych gofrestr risg eisoes, gallwch lanlwytho hynny yma yn lle hynny."
     risk_register_file: "Ffeil cofrestr risg"
     no_risk_register_file: "Nid ydych wedi ychwanegu cofrestr risg"

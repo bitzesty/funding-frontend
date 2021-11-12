@@ -5,7 +5,7 @@
     model_object.errors[:management_description].any? %>"
     id="management_description-form-group">
 
-    <h1 class="govuk-label-wrapper">
+    <h1 class="govuk-label-wrapper" aria-describedby="how_managed-hint">
 
       <span class="govuk-caption-xl">
         <%= t('views.funding_application.common.about_your_project') %>
@@ -18,6 +18,10 @@
       %>
 
     </h1>
+
+    <span id="how_managed-hint" class="govuk-hint">
+      <%= t('managed.page_hint') %>
+    </span>
 
     <%=
       render(
