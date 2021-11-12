@@ -1,9 +1,9 @@
 en-GB:
   salesforce_experience_application:
     timetable_work_programme:
-      page_title: "Timetable and programme"
+      page_title: "Timetable or programme"
       page_heading: "Upload a proposed timetable or work programme with milestones including dates for getting grant payments and giving project updates"
-      page_hint: "Timetable and programme"
+      page_hint: "Timetable or programme"
       bullets:
         i_will_upload: "I will upload a proposed timetable or work programme"
         upload_a_proposed_timetable: "Upload a proposed timetable or work programme"
