@@ -8,11 +8,11 @@ class SalesforceExperienceApplication::PropertyOwnershipEvidenceController < App
 
   def update
 
-    # clear previous answers, otherwise can they show when rendering error page
-    clear_pts_answers_json_for_key(:property_ownership_evidence_question)
-
     # Form submitted to save and continue.  Validate and act accordingly.
 		if params.has_key?(:save_and_continue_button)
+
+      # clear previous answers, otherwise can they show when rendering error page
+      clear_pts_answers_json_for_key(:property_ownership_evidence_question)
 
       if validate_and_store_answers(params)
         redirect_to(
@@ -33,13 +33,18 @@ class SalesforceExperienceApplication::PropertyOwnershipEvidenceController < App
       validate_and_store_files(params)
     end
 
+    # Form submitted to delete a file. Pass params with blob id.
+		if params.has_key?(:delete_file_button)
+			delete(params[:delete_file_button]) 
+		end
+
   end
 
   # deletes an attachment
   # queries params and deletes by blob id
-  def delete 
+	def delete(blob_id) 
 
-		delete_blob(params[:blob_id])
+		delete_blob(blob_id)
 
 		logger.info "Removed file for salesforce case id: " \
 			"#{@salesforce_experience_application.salesforce_case_id}"

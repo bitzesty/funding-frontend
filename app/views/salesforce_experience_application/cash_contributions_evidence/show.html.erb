@@ -148,21 +148,18 @@
 
 										</td>
 										<td>
-											<div class="govuk-table govuk-!-margin-top-5 govuk-table govuk-!-margin-left-3">
-													<%=
-														link_to(
-															"Delete",
-															sfx_pts_payment_cash_contributions_evidence_blob_delete_path(blob_id: blob.id),
-															class: 'govuk-button govuk-button--warning',
-															id: 'delete-file',
-															:method => 'delete'
-														)
-													%> 
-											</div>
-										
+
+											<%=
+												render(
+													partial: 'partials/salesforce_experience_application/delete_button',
+													locals: {
+														blob_id: blob.id,
+													}
+												) 
+											%>
+								
 										</td>
 				
-									
 									</tr>
 									<% end %>
 

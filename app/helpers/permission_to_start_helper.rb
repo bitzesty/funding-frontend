@@ -253,7 +253,6 @@ module PermissionToStartHelper
   # @param [blob_id] String A blob Id
   def delete_blob(blob_id)
 
-    blob_id = params[:blob_id]
 		logger.info "Removing file with blob id of #{blob_id}"
 
 		# deletes from active_storage_blobs and active_storage_attachments
@@ -326,7 +325,6 @@ module PermissionToStartHelper
 
   # Uploads all permission to start salesforce experience application
   # Retries handled in UploadPtsToSalesforceJob
-  # TODO: Persistent queues
   #
   # @param [salesforce_experience_application] SfxPtsPayment instance
   def upload_salesforce_pts_files(pts_form_record_id, salesforce_experience_application)

@@ -41,6 +41,11 @@ class SalesforceExperienceApplication::AgreedCostsDocumentsController < Applicat
       validate_and_store_files(params)
     end
 
+		# Form submitted to delete a file. Pass params with blob id.
+		if params.has_key?(:delete_file_button)
+			delete(params[:delete_file_button]) 
+		end
+
 	end
 
 
@@ -75,9 +80,9 @@ class SalesforceExperienceApplication::AgreedCostsDocumentsController < Applicat
 
 	end
 
-	def delete 
+	def delete(blob_id) 
 
-		delete_blob(params[:blob_id])
+		delete_blob(blob_id)
 
 		logger.info "Removed file for salesforce case id: " \
 			"#{@salesforce_experience_application.salesforce_case_id}"

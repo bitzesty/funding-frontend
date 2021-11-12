@@ -12,14 +12,14 @@ class SalesforceExperienceApplication::StatutoryPermissionOrLicence::FilesContro
       params[:statutory_permission_or_licence_id]
     )
 
-    # clear previous answers, otherwise can they show when rendering error page
-    clear_statutory_permissions_or_licences_json_for_key(
-      @statutory_permission_or_licence,
-      :upload_question
-    )
-
     # Form submitted to save and continue.  Validate and act accordingly.
 		if params.has_key?(:save_and_continue_button)
+
+      # clear previous answers, otherwise can they show when rendering error page
+      clear_statutory_permissions_or_licences_json_for_key(
+        @statutory_permission_or_licence,
+        :upload_question
+      )
 
       if validate_and_store_answers(params)
 
@@ -46,17 +46,23 @@ class SalesforceExperienceApplication::StatutoryPermissionOrLicence::FilesContro
       validate_and_store_files(params)
     end
 
+    # Form submitted to delete a file. Pass params with blob id.
+		if params.has_key?(:delete_file_button)
+			delete(params[:delete_file_button]) 
+		end
+
+
   end
 
   # deletes an attachment
   # queries params and deletes by blob id
-  def delete 
+	def delete(blob_id) 
 
     @statutory_permission_or_licence = StatutoryPermissionOrLicence.find(
       params[:statutory_permission_or_licence_id]
     )
 
-		delete_blob(params[:blob_id])
+    delete_blob(blob_id)
 
 		logger.info "Removed file from statutory_permission_or_licence.id: " \
 			"#{@statutory_permission_or_licence.id}"
