@@ -11,8 +11,8 @@
     partial: 'partials/summary_errors',
     locals: {
       form_object: @statutory_permission_or_licence,
-      form_object_name: "sfx_pts_payment",
-      first_form_element:  :statutory_permission_or_licence_licence_type
+      form_object_name: "statutory_permission_or_licence",
+      first_form_element:  :licence_type
     }
   ) if @statutory_permission_or_licence.errors.any?
 %>
@@ -56,23 +56,24 @@
       <%= "govuk-form-group--error" if 
         @statutory_permission_or_licence.errors[:date_day].any? ||  
           @statutory_permission_or_licence.errors[:date_month].any? || 
-            @statutory_permission_or_licence.errors[:date_year].any? %> " >
+            @statutory_permission_or_licence.errors[:date_year].any? ||   
+              @statutory_permission_or_licence.errors.first&.attribute.to_s.include?('licence_date') %> " >
 
       <% if @statutory_permission_or_licence.errors[:date_day].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter the day
+          <span class="govuk-visually-hidden">Error:</span> Enter a valid day
         </span>
       <%end%>
 
       <% if @statutory_permission_or_licence.errors[:date_month].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter the month
+          <span class="govuk-visually-hidden">Error:</span> Enter a valid  month
         </span>
       <%end%>
 
       <% if @statutory_permission_or_licence.errors[:date_year].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter the year
+          <span class="govuk-visually-hidden">Error:</span> Enter a valid year
         </span>
       <%end%>
 
@@ -91,7 +92,7 @@
 
         <% @statutory_permission_or_licence.errors.each do |error| %>
 
-          <% if error.attribute.to_s.include? 'start' %>
+          <% if error.attribute.to_s.include? 'licence_date' %>
 
             <span id="statutory_permission_or_licence[<%= error.attribute %>]-error" class="govuk-error-message">
               <span class="govuk-visually-hidden">
@@ -122,8 +123,9 @@
 
               <%=
                 f.number_field :date_day,
-                class: @statutory_permission_or_licence.errors[:date_day].any? ?  
-                  date_error_css : date_css
+                class: @statutory_permission_or_licence.errors[:date_day].any? ||  
+                  @statutory_permission_or_licence.errors.first&.attribute.to_s.include?('licence_date') ?  
+                    date_error_css : date_css
               %> 
 
             </div>
@@ -144,7 +146,8 @@
 
             <%=
               f.number_field :date_month,
-              class: @statutory_permission_or_licence.errors[:date_month].any? ?  
+              class: @statutory_permission_or_licence.errors[:date_month].any? ||
+                @statutory_permission_or_licence.errors.first&.attribute.to_s.include?('licence_date') ?    
                   date_error_css : date_css
             %> 
 
@@ -162,8 +165,9 @@
 
               <%=
                 f.number_field :date_year,
-                class: @statutory_permission_or_licence.errors[:date_year].any? ? 
-                  date_year_error_css : date_year_css
+                class: @statutory_permission_or_licence.errors[:date_year].any? ||
+                  @statutory_permission_or_licence.errors.first&.attribute.to_s.include?('licence_date') ?   
+                    date_year_error_css : date_year_css
               %> 
 
             </div>

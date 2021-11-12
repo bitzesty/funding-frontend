@@ -24,8 +24,14 @@ class StatutoryPermissionOrLicence < ApplicationRecord
   has_many_attached :upload_files
 
   validates :upload_question, presence: true, if: :validate_upload_question?
-  validates :date_day, presence: true, if: :validate_date_year_month_day?
-  validates :date_month, presence: true, if: :validate_date_year_month_day?
+  validates :date_day, numericality: {
+    greater_than: 0,
+    less_than: 32,
+  }, if: :validate_date_year_month_day?
+  validates :date_month, numericality: {
+    greater_than: 0,
+    less_than: 13,
+  }, if: :validate_date_year_month_day?
   validates :date_year, numericality: {
     greater_than: 1699,
     less_than: 4000,

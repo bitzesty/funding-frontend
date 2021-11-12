@@ -692,9 +692,13 @@ en-GB:
             licence_type: 
               blank: "Enter a type of statutory permission or licence"
             date_day: 
-              blank: "Enter the day"
+              not_a_number: "Enter the day"
+              greater_than: "A day value cannot be less than 1"
+              less_than: "A day value cannot exceed 31"
             date_month: 
-              blank: "Enter the month"
+              not_a_number: "Enter the month"
+              greater_than: "A month value cannot be less than 1"
+              less_than: "A month value cannot exceed 12"
             date_year: 
               not_a_number: "Enter the year"
               greater_than: "Enter a year of 1700 or more"
