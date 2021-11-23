@@ -28,8 +28,8 @@ module PermissionToStartHelper
       == "Large"
       large_application_type = 'Delivery'
 
-      unless salesforce_info_for_start_page.Grant_Expiry_Date__c.blank?
-        grant_expiry_date = Date.parse(salesforce_info_for_start_page.Grant_Expiry_Date__c)
+      unless salesforce_info_for_start_page[:Grant_Expiry_Date__c].blank?
+        grant_expiry_date = Date.parse(salesforce_info_for_start_page[:Grant_Expiry_Date__c])
         grant_expiry_date_string = grant_expiry_date.strftime("%d/%m/%Y")
       end
 
@@ -39,8 +39,8 @@ module PermissionToStartHelper
       == "Large_Development_250_500k"
       large_application_type = 'Development'
 
-      unless salesforce_info_for_start_page.Development_grant_expiry_date__c.blank?
-        grant_expiry_date = Date.parse(salesforce_info_for_start_page.Development_grant_expiry_date__c)
+      unless salesforce_info_for_start_page[:Development_grant_expiry_date__c].blank?
+        grant_expiry_date = Date.parse(salesforce_info_for_start_page[:Development_grant_expiry_date__c])
         grant_expiry_date_string = grant_expiry_date.strftime("%d/%m/%Y")
       end
 
@@ -48,11 +48,11 @@ module PermissionToStartHelper
 
     formatted_start_page_info = 
       {
-        org_name: salesforce_info_for_start_page.Account.Name,
+        org_name: salesforce_info_for_start_page[:Account][:Name],
         grant_expiry_date: grant_expiry_date_string,
         project_ref_no: 
-          salesforce_info_for_start_page.Project_Reference_Number__c,
-        project_title: salesforce_info_for_start_page.Project_Title__c,
+          salesforce_info_for_start_page[:Project_Reference_Number__c],
+        project_title: salesforce_info_for_start_page[:Project_Title__c],
         large_application_type: large_application_type
       }
 
