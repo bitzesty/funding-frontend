@@ -85,7 +85,7 @@ en-GB:
     includes_list:
       item_1: "activities, like an exhibition, or an event with no Digital Outputs, these terms of Grant end on the Project Completion Date,"
       item_2: "Digital Outputs, like the creation of a website, these terms of Grant will apply until 5 years after the Project Completion Date, if you are a not-for-profit organisation. If you are a private individual or for-profit commercial organisation the terms will apply for 10 years after the Project Completion Date,"
-      item_3: "capital works, like a building extension or restoration, these terms of Grant will apply until 5 years after the Project Completion Date. For a private individual or for-profit commercial organisation the terms will apply for 10 years after the Project Completion Date,"
+      item_3: "capital works, like a building or restoration, these terms of Grant will apply until 20 years after the Project Completion Date,"
       item_4_html: "buying a heritage item, land or a building, these terms of Grant will apply indefinitely. If you want to sell, destroy or dispose of what you have bought in future, you must ask for our permission and we may claim back all, or part of, your Grant or require share of proceeds in proportion to the value of the Grant. More information about this can be found in our %{href}."
       item_4_href: "guidance on Property Ownership"
     projects_must_list:
