@@ -1,23 +1,37 @@
 <% # renders section HTML from the controller%>
 <%= raw @section_end_html %>
 
-  <p class="govuk-body">
-    <%=
-      t(
-        'agreement.before_you_agree_html',
-        href: link_to(  
-          t('agreement.before_you_agree_href'),
-            @download_link
-        )
-      )
-    %>
-  </p>
+<p class="no-print">
+  <%= t('agreement.before_you_agree_html') %>
+  <% if I18n.locale.to_s == 'en-GB' %>
+    <script>
+      var txt = "download the terms and conditions";
+      document.write(txt.link('javascript:if(window.print)window.print()'));
+    </script>
+  <% end %>
+  <% if I18n.locale.to_s == 'cy' %>
+    <script>
+      var txt = "download the terms and conditions";
+      document.write(txt.link('javascript:if(window.print)window.print()'));
+    </script>
+  <% end %>
+</p>
+
+<noscript>
+  <div class="govuk-warning-text no-print">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive">Warning</span>
+    Download this form using your browser's print functionaility. Javascript is disabled on your device. 
+  </strong>
+</div>
+</noscript>
 
   <p class="govuk-body">
     <%= t('agreement.when_ready') %>
   </p>
 
-  <div class="govuk-form-group">
+  <div class="govuk-form-group no-print">
 
     <%=
       form_with model: model_object,

@@ -1,22 +1,25 @@
 <% # renders section HTML from the controller%>
 <%= raw @section_start_html %>
 
+  <div class="hide-unless-print">
+    <img src="<%= image_path("NLHF_Logo_English_Landscape_Black_RGB.jpg") %>" alt="<%= t("header.logo_alt_text") %>" width=60%>
+  </div>
+
   <h1 class="govuk-heading-xl">
     <%= t('agreement.terms.page_heading') %>
   </h1>
 
   <p class="govuk-body">
-
     <%=
       t(
         'agreement.in_this_summary_html',
         href: link_to(
           t('agreement.in_this_summary_href'),
-          @standard_terms_link 
+          @standard_terms_link,
+          class: "printable-link"
         )
       )
     %>
-
   </p>
 
   <h2 class="govuk-heading-l">
@@ -107,7 +110,8 @@
           'agreement.includes_list.item_4_html',
           href: link_to(
             t('agreement.includes_list.item_4_href'),
-            @receiving_guidance_property_ownership_link
+            @receiving_guidance_property_ownership_link,
+            class: "printable-link"
           )
         )
       %>
@@ -175,8 +179,9 @@
           'agreement.organisations_must_list.item_2_html',
           href: link_to(
             t('agreement.organisations_must_list.item_2_href'),
-            'https://www.gov.uk/government/publications/the-7-principles-of-public-life/the-7-principles-of-public-life--2'
-          )
+            'https://www.gov.uk/government/publications/the-7-principles-of-public-life/the-7-principles-of-public-life--2',
+            class: "printable-link"
+            )
         )
       %>
     </li>
@@ -187,7 +192,8 @@
           'agreement.organisations_must_list.item_3_html',
           href: link_to(
             t('agreement.organisations_must_list.item_3_href'),
-            'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/771152/2019-01-15_Code_of_Conduct_for_Grant_Recipients_v._1.01.pdf'
+            'https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/771152/2019-01-15_Code_of_Conduct_for_Grant_Recipients_v._1.01.pdf',
+            class: "printable-link"
           )
         )
       %>
@@ -204,7 +210,8 @@
             'agreement.organisations_must_list.item_5_html',
             href: link_to(
               t('agreement.organisations_must_list.item_5_href'),
-                @standard_terms_link
+              @standard_terms_link,
+              class: "printable-link"
             )
           )   
         %>
@@ -282,11 +289,13 @@
           'agreement.digital_outputs_list.item_1_html',
           href_1: link_to(
             t('agreement.digital_outputs_list.item_1_href_1'),
-            'https://creativecommons.org/licenses/by/4.0/'
+            'https://creativecommons.org/licenses/by/4.0/',
+            class: "printable-link"
           ),
           href_2: link_to(
             t('agreement.digital_outputs_list.item_1_href_2'),
-            'https://creativecommons.org/publicdomain/zero/1.0/'
+            'https://creativecommons.org/publicdomain/zero/1.0/',
+            class: "printable-link"
           )
         )
       %>
@@ -406,11 +415,13 @@
           'agreement.property_must_list.item_2_html',
           href_1: link_to(
             t('agreement.property_must_list.item_2_href_1'),
-              @retrieving_a_grant_guidance_link
+            @retrieving_a_grant_guidance_link,
+            class: "printable-link"
           ),
           href_2: link_to(
             t('agreement.property_must_list.item_2_href_2'),
-              @programme_application_guidance
+            @programme_application_guidance,
+            class: "printable-link"
           )
         )
       %>
@@ -455,8 +466,12 @@
       partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
       locals: {
         legal_term: t('agreement.we_will_pay_html', 
-          href: link_to(t('agreement.we_will_pay_href'), 
-            @retrieving_a_grant_guidance_link)),
+          href: link_to(
+            t('agreement.we_will_pay_href'), 
+            @retrieving_a_grant_guidance_link,
+            class: "printable-link"
+          )
+        ),
         list_number: 13
       }
     )
@@ -480,7 +495,8 @@
                 'agreement.payment_list.item_2_html',
                 href: link_to(
                   t('agreement.payment_list.item_2_href'),
-                  @standard_terms_link
+                  @standard_terms_link,
+                  class: "printable-link"
                 )
               )
             %>
@@ -504,8 +520,12 @@
         partial: "partials/funding_application/legal_agreements/terms/list_when_over_10k",
         locals: {
           legal_term: t('agreement.terms.must_not_tranfer_grant_html', 
-            href: link_to(t('agreement.terms.must_not_tranfer_grant_href'), 
-              @standard_terms_link)),
+            href: link_to(
+              t('agreement.terms.must_not_tranfer_grant_href'), 
+              @standard_terms_link,
+              class: "printable-link"
+            )
+          ),
           list_number: 14
         }
       )
