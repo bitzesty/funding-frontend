@@ -11,7 +11,7 @@
   <% end %>
   <% if I18n.locale.to_s == 'cy' %>
     <script>
-      var txt = "download the terms and conditions";
+      var txt = "lawrlwytho'r telerau ac amodau";
       document.write(txt.link('javascript:if(window.print)window.print()'));
     </script>
   <% end %>
@@ -22,7 +22,7 @@
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
     <span class="govuk-warning-text__assistive">Warning</span>
-    Download this form using your browser's print functionaility. Javascript is disabled on your device. 
+      <%= t('generic.javascript_off') %>
   </strong>
 </div>
 </noscript>

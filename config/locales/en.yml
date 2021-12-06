@@ -76,6 +76,7 @@ en-GB:
     cannot_start: "Cannot start yet"
     back: "< Back"
     print_this_page: "Print this page"
+    javascript_off: "Javascript is disabled on your device. Please download this form using your browser's print functionality."
   views:
     organisation:
       common:

@@ -197,6 +197,6 @@ cy:
     two_signatories: "Dylai dau lofnodwr awdurdodedig ar gyfer eich sefydliad lawrlwytho a llofnodi'r ddogfen hon."
     names_should_match: "Dylai'r enwau a'r llofnodwyr isod gyfateb i'r llofnodwyr awdurdodedig yn eich Cais oni bai ein bod yn cael gwybod am newid."
     confirmation: "Rwy'n cadarnhau fy mod wedi darllen y Contract Grant gydag Ymddiriedolwyr Cronfa Goffa'r Dreftadaeth Genedlaethol sy'n gweinyddu cyllid drwy Gronfa Treftadaeth y Loteri Genedlaethol. Rwy'n cytuno, ar ran y Sefydliad, i ymrwymo i'r contract."
-    before_you_agree_html: "Cyn i chi gytuno, gallwch %{href}."
+    before_you_agree_html: "Cyn i chi gytuno, gallwch "
     before_you_agree_href: "lawrlwytho'r telerau ac amodau"
     when_ready: "Pan fyddwch yn barod, mae angen i chi gytuno i'r telerau ac amodau a gorffen y broses i dderbyn eich grant."
