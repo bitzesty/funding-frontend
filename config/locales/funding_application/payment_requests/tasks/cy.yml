@@ -6,4 +6,6 @@ cy:
     get_a_payment_heading: "Derbyn taliad"
     page_hint: "Cliciwch ar dasg i ddechrau. Pan fyddwch wedi gorffen tasg, caiff ei marcio fel y'i cwblhawyd."
     add_bank_details: "Ychwanegu manylion banc"
-
+    check_agree_grant: "Gwirio a chytuno ar eich Grant"
+    agree_terms_conditions: "Cytuno ar delerau ac amodau"
+    view_grant_contract: "Gweld Contract Grant"

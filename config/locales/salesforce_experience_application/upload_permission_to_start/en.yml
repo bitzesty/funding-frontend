@@ -1,0 +1,7 @@
+en-GB:
+  salesforce_experience_application:
+    upload_permission_to_start:
+      page_title: "Upload permission to start"
+      page_heading: "Upload signed Permission to Start Form"
+      page_hint: "You must include all the pages of the document."
+      upload: "Upload signed Permission to Start Form"

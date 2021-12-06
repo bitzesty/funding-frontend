@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: @statutory_permission_or_licence,
-             page_title: 'ADD statutory permissions and licenses'
+             page_title: t('salesforce_experience_application.statutory_permission_or_licence.add.page_title')
          }
 %>
 
@@ -17,9 +17,12 @@
   ) if @statutory_permission_or_licence.errors.any?
 %>
 
-<span class="govuk-caption-xl govuk-!-padding-bottom-2">Statutory permissions and licences</span>
+<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+  <%= t('salesforce_experience_application.statutory_permission_or_licence.add.page_caption') %>
+</span>
+
 <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-  Add a statutory permission or licence
+  <%= t('salesforce_experience_application.statutory_permission_or_licence.add.page_heading') %>
 </h1>
 
   <%= 
@@ -35,13 +38,14 @@
 
       <% if @statutory_permission_or_licence.errors[:licence_type].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter a type of statutory permission or licence
+          <span class="govuk-visually-hidden"><%= t('generic.error') %>:</span> 
+          <%= t('salesforce_experience_application.statutory_permission_or_licence.add.errors.type') %>
         </span>
       <%end%>
 
       <%=
         f.label :licence_type,
-        'Type of statutory permission or licence',
+        t('salesforce_experience_application.statutory_permission_or_licence.add.type'),
         class: "govuk-label"
       %>
 
@@ -61,19 +65,22 @@
 
       <% if @statutory_permission_or_licence.errors[:date_day].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter a valid day
+          <span class="govuk-visually-hidden"><%= t('generic.error') %>:</span>
+          <%= t('salesforce_experience_application.statutory_permission_or_licence.add.errors.day') %>
         </span>
       <%end%>
 
       <% if @statutory_permission_or_licence.errors[:date_month].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter a valid  month
+          <span class="govuk-visually-hidden"><%= t('generic.error') %>:</span>
+          <%= t('salesforce_experience_application.statutory_permission_or_licence.add.errors.month') %>
         </span>
       <%end%>
 
       <% if @statutory_permission_or_licence.errors[:date_year].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter a valid year
+          <span class="govuk-visually-hidden"><%= t('generic.error') %>:</span>
+          <%= t('salesforce_experience_application.statutory_permission_or_licence.add.errors.year') %>
         </span>
       <%end%>
 
@@ -82,12 +89,12 @@
         aria-describedby="statutory_permission_or_licence-start-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <label class="govuk-label" id="statutory_permission_or_licence_start_date">
-            What date did you receive or will you receive the statutory permission or licence?
+            <%= t('salesforce_experience_application.statutory_permission_or_licence.add.what_date_hint') %> 
           </label>
         </legend>
 
         <div id="statutory_permission_or_licence-start-hint" class="govuk-hint">
-          For example, 27 6 2022
+          <%= t('salesforce_experience_application.statutory_permission_or_licence.add.date_example') %> 
         </div>
 
         <% @statutory_permission_or_licence.errors.each do |error| %>
@@ -184,7 +191,7 @@
         ButtonComponent.new(
         element: 'button',
         is_start_button: false,
-        text: "Add a statutory permission or licence"
+        text: t('salesforce_experience_application.statutory_permission_or_licence.add.button')
         )
       )%>
 

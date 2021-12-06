@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
         model_object: nil,
-        page_title: 'Upload permission to start '
+        page_title: t('salesforce_experience_application.upload_permission_to_start.page_title')
     }
 %>
 
@@ -17,7 +17,7 @@
 %>
 
 <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-  Upload signed Permission to Start Form
+  <%= t('salesforce_experience_application.upload_permission_to_start.page_heading') %>
 </h1>
 
 <%= 
@@ -30,7 +30,9 @@
   <div class="govuk-form-group <%= "govuk-form-group--error" if
     @salesforce_experience_application.errors.any? %>">
 
-    <p class="govuk-body">You must include all the pages of the document.</p>
+    <p class="govuk-body">
+      <%= t('salesforce_experience_application.upload_permission_to_start.page_hint') %>
+    </p>
  
     <%=
       render(
@@ -42,12 +44,12 @@
     %>
 
     <section class="nlhf-summary govuk-!-padding-4  govuk-!-margin-bottom-9" id="project-costs">
-      <div class="govuk-form-group" id="uplload-permission-to-start-form-group-main"
+      <div class="govuk-form-group" id="upload-permission-to-start-form-group-main"
         data-form-group="file">
 
           <%=
             f.label :pts_form_files,
-            "Upload signed Permission to Start Form",
+            t('salesforce_experience_application.upload_permission_to_start.upload'),
             class: "govuk-label govuk-!-font-weight-bold"
           %>
 
@@ -81,7 +83,7 @@
             <tr class="govuk-table__row">
               <thead class="govuk-table__head">
                   <th class="govuk-table__header">
-                      Uploaded files
+                    <%= t('generic.uploaded_files') %>
                   </th>
               </thead>
             </tr>
@@ -103,7 +105,7 @@
                     %> 
 
                     <p>	
-                      has been uploaded
+                      <%= t('generic.has_been_uploaded') %>
                     </p>
                   </div>
                 </td>
@@ -132,7 +134,7 @@
       ButtonComponent.new(
         element: 'input',
         is_start_button: false,
-        text: "Submit",
+        text: t('buttons.labels.submit'),
         data_disable: true,
         name: "save_and_continue_button"
       )

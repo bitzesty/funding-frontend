@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: nil,
-             page_title: 'Cash Contribution'
+             page_title: t('salesforce_experience_application.cash_contributions_correct.page_title')
          }
 %>
 
@@ -21,10 +21,15 @@
   @salesforce_experience_application.errors.any? %>">
 
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <span class="govuk-caption-xl govuk-!-padding-bottom-2">Cash and non-cash contributions</span>
+
+      <span class="govuk-caption-xl govuk-!-padding-bottom-2">
+        <%= t('salesforce_experience_application.cash_contributions_correct.page_caption') %>
+      </span>
+
       <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-        Are the cash contributions still correct?
+        <%= t('salesforce_experience_application.cash_contributions_correct.page_heading') %>
       </h1>
+
     </legend>
 
     <section class="nlhf-summary govuk-!-margin-bottom-9">
@@ -32,7 +37,7 @@
       <header class="nlhf-summary__header">
 
         <h2 class="govuk-heading-m">
-            Cash contributions summary
+          <%= t('salesforce_experience_application.cash_contributions_correct.table.name') %>
         </h2>
 
       </header>
@@ -46,11 +51,11 @@
               <tr class="govuk-table__row">
 
                   <th scope="col" class="govuk-table__header">
-                      Description of funding
+                    <%= t('salesforce_experience_application.cash_contributions_correct.table.headings.desc') %>
                   </th>
 
                   <th scope="col" class="govuk-table__header">
-                      Amount expected (£)
+                    <%= t('salesforce_experience_application.cash_contributions_correct.table.headings.amount') %>
                   </th>
 
               </tr>
@@ -113,7 +118,7 @@
 
               <%= 
                 f.label :cash_contributions_correct_true, 
-                "Yes, the cash contributions are correct",
+                t('salesforce_experience_application.cash_contributions_correct.yes_radio'),
                 class: "govuk-label govuk-radios__label" 
               %>
 
@@ -130,7 +135,7 @@
 
               <%= 
                 f.label :cash_contributions_correct_false, 
-                "No, the cash contributions are not correct",
+                t('salesforce_experience_application.cash_contributions_correct.no_radio'),
                 class: "govuk-label govuk-radios__label" 
               %>
 
@@ -140,7 +145,7 @@
                 id="conditional-contributions_are_correct">
 
               <p class="govuk-body">
-                  Changes to cash contributions need to be agreed with your Investment Manager. Contact your Investment Manager for further details.
+                <%= t('salesforce_experience_application.cash_contributions_correct.if_no') %>
               </p>
               
             </div>
@@ -150,7 +155,7 @@
             ButtonComponent.new(
             element: 'button',
             is_start_button: false,
-            text: "Save and continue"
+            text: t('buttons.labels.default')
             )
           )%>
 

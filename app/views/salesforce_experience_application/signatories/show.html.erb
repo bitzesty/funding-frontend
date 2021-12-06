@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: nil,
-             page_title: 'Details of Signatories'
+             page_title: t('salesforce_experience_application.signatories.page_title')
          }
 %>
 
@@ -18,10 +18,10 @@
 %>
 
 <h1 class="govuk-heading-l ">
-  Details of 2 signatories authorised to sign on behalf of your organisation
+  <%= t('salesforce_experience_application.signatories.page_heading') %>
 </h1>
 <p class="govuk-body govuk-hint govuk-!-padding-bottom-4">
-  When you download the Permission to Start form to sign it, the 2 signatories added here will also have to sign it too.
+  <%= t('salesforce_experience_application.signatories.page_hint') %>
 </p>
 
   <%= 
@@ -35,13 +35,16 @@
       <%= "govuk-form-group--error" if
         @salesforce_experience_application.errors[:legal_sig_one].any? %>">
 
-      <% if   @salesforce_experience_application.errors[:legal_sig_one].any? %>
+      <% if @salesforce_experience_application.errors[:legal_sig_one].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter name of signatory for your organisation
+          <span class="govuk-visually-hidden"><%= t('generic.error') %>:</span>
+          <%= t('salesforce_experience_application.signatories.no_name_error') %>
         </span>
       <%end%>
 
-      <p class="govuk-body-l">Person 1 for your organisation</p>
+      <p class="govuk-body-l">
+        <%= t('salesforce_experience_application.signatories.person_for_your_organisation', person_number: 1) %>
+      </p>
 
       <%=
         f.label :legal_sig_one,
@@ -62,11 +65,14 @@
       
       <% if   @salesforce_experience_application.errors[:legal_sig_two].any? %>
         <span class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> Enter name of signatory for your organisation
+          <span class="govuk-visually-hidden"><%= t('generic.error') %>:</span> 
+          <%= t('salesforce_experience_application.signatories.no_name_error') %>
         </span>
       <%end%>
 
-      <p class="govuk-body-l">Person 2 for your organisation</p>
+      <p class="govuk-body-l">
+        <%= t('salesforce_experience_application.signatories.person_for_your_organisation', person_number: 2) %>
+      </p>
 
       <%=
         f.label :legal_sig_two,
@@ -85,7 +91,7 @@
         ButtonComponent.new(
         element: 'button',
         is_start_button: false,
-        text: "Save and continue"
+        text: t('buttons.labels.default')
         )
       )%>
 

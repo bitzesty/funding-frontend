@@ -2,36 +2,53 @@
   render partial: "partials/page_title",
     locals: {
         model_object: nil,
-        page_title: 'Download and Sign PTS '
+        page_title: t('salesforce_experience_application.download_instructions.page_title')
     }
 %>
 
 <h1 class="govuk-heading-xl">
-  Before you submit the Permission to Start Form
+  <%= t('salesforce_experience_application.download_instructions.page_heading') %>
 </h1>
 
 <div class="govuk-!-padding-bottom-4">
   <h2 class="govuk-heading-m">
-    What you need to do:
+    <%= t('salesforce_experience_application.download_instructions.what_you_need_to_do') %>
   </h2>
 
-    <p class="govuk-body">To sign the form:</p>
-    <ul class="govuk-list govuk-list--number">
-      <li>Download the Permission to Start</li> 
-      <li>Sign the document</li>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>You can either digitally sign the document or print, sign  and scan the document.</li>
-        </ul>
-      <li>Upload the signed Permission to Start</li>
-    </ul>
+    <p class="govuk-body">
+      <%= t('salesforce_experience_application.download_instructions.to_sign_the_form') %>
+    </p>
 
-     <p class="govuk-body">All signatures must be new. They cannot be copies.</p>
+    <ol class="govuk-list govuk-list--number">
+      <li>
+        <%= t('salesforce_experience_application.download_instructions.list.download') %>
+      </li> 
+
+      <li>
+        <%= t('salesforce_experience_application.download_instructions.list.sign') %>
+      </li>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>
+            <%= t('salesforce_experience_application.download_instructions.list.signing_options') %>
+          </li>
+        </ul>
+
+      <li>
+        <%= t('salesforce_experience_application.download_instructions.list.upload') %>
+      </li>
+
+    </ol>
+
+    <p class="govuk-body">
+      <%= t('salesforce_experience_application.download_instructions.all_signatures_must') %>
+    </p>
 </div>
 
 <div class=" govuk-!-margin-bottom-9">
   <%=
     link_to(
-      'I have already downloaded and signed Permission to Start Form',
+      t('salesforce_experience_application.download_instructions.already_completed_link'),
       sfx_pts_payment_upload_permission_to_start_path(@salesforce_experience_application.salesforce_case_id),
       class: 'govuk-link',
     )
@@ -49,7 +66,7 @@
       ButtonComponent.new(
         element: 'button',
         is_start_button: false,
-        text: 'Continue'
+        text: t('buttons.labels.continue')
       )
     ) 
   %>

@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
       model_object: nil,
-      page_title: 'Permission to Start -  Agreed Costs Documents'
+      page_title: t('salesforce_experience_application.agreed_costs_documents.page_title')
     }
 %>
 
@@ -18,10 +18,15 @@
 
 <fieldset class="govuk-fieldset">
  	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-		<span class="govuk-caption-xl govuk-!-padding-bottom-2">Agreed Costs</span>
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('salesforce_experience_application.agreed_costs_documents.page_caption') %>
+		</span>
+
 		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-			Upload a cost breakdown and cashflow, with an indication of when you will be seeking grant payments
+			<%= t('salesforce_experience_application.agreed_costs_documents.page_heading') %>
 		</h1>
+
 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
 	<%=
@@ -71,7 +76,7 @@
 								
 					<%=
 						f.label :has_agreed_costs_docs_true,
-						"I will upload a cost breakdown and cashflow",
+						t('salesforce_experience_application.agreed_costs_documents.upload_radio'),
 						class: "govuk-label govuk-radios__label"
 					%>
 										
@@ -83,7 +88,7 @@
 
 							<%=
 								f.label :agreed_costs_files,
-								"Upload a cost breakdown and cashflow",
+								t('salesforce_experience_application.agreed_costs_documents.upload_a_cost_breakdown_and_cashflow'),
 								class: "govuk-label govuk-!-font-weight-bold"
 							%>
 
@@ -103,7 +108,7 @@
 									render(
 										ButtonComponent.new(
 											type: "button",
-											text: "Upload files",
+											text: t('generic.upload_files'),
 											classes: "govuk-button--primary ",
 											name: 'add_file_button'
 										)
@@ -118,7 +123,7 @@
 								<tr class="govuk-table__row">
 									<thead class="govuk-table__head">
 											<th class="govuk-table__header">
-													Uploaded files
+													<%= t('generic.uploaded_files') %>
 											</th>
 									</thead>
 								</tr>
@@ -140,7 +145,7 @@
 												%> 
 
 												<p>	
-													has been uploaded
+													<%= t('generic.has_been_uploaded') %>
 												</p>
 											</div>
 							
@@ -184,7 +189,7 @@
 
 					<%=	
 							f.label :has_agreed_costs_docs_false,
-							"I have emailed a cost breakdown and cashflow to my Investment Manager",
+							t('salesforce_experience_application.agreed_costs_documents.emailed_radio'),
 							class: "govuk-label govuk-radios__label"
 					%>
 
@@ -197,7 +202,7 @@
 					ButtonComponent.new(
 						element: 'button',
 						is_start_button: false,
-						text: "Save and continue",
+						text: t('buttons.labels.default'),
 						name: "save_and_continue_button"
 					)
 				)

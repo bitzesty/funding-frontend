@@ -1,10 +1,25 @@
 en-GB:
   salesforce_experience_application:
     permissions_or_licences:
-      todo: "all the translations for permissions_or_licences#show"
+      page_title: "Statutory permission"
+      page_heading: "Have you received any new statutory permissions or licences?"
+      page_caption: "Statutory permissions and licences"
+      radio_yes: "Yes, I have received new statutory permissions or licences"
+      radio_no: "No, I have not received new statutory permissions or licences"
     statutory_permission_or_licence:
       add:
-        todo: "translations for add page"
+        page_title: "ADD statutory permissions or licenses"
+        page_heading: "Add a statutory permission or licence"
+        page_caption: "Statutory permissions and licences"
+        type: "Type of statutory permission or licence"
+        what_date_hint: "What date did you receive or will you receive the statutory permission or licence?"
+        date_example: "For example, 27 6 2022"
+        button: "Add a statutory permission or licence"
+        errors:
+          type: "Enter a type of statutory permission or licence"
+          day: "Enter a valid day"
+          month: "Enter a valid  month"
+          year: "Enter a valid year"
       files:
         page_title: "Statutory permissions and licences upload"
         page_heading: "Do you want to upload evidence for this statutory permission or licence?"
@@ -13,3 +28,15 @@ en-GB:
           i_will_upload: "I will upload evidence"
           upload_evidence: "Upload evidence of statutory permission or licence"
           no_i_do_not_have_evidence: "No, I do not have evidence yet"
+      summary:
+        page_title: "Add another"
+        page_heading_prefix: "You have added %{count} statutory permission or"
+        page_heading_suffix_singular: "licence"
+        page_heading_suffix_plural: "licences"
+        page_caption: "Statutory permissions and licenses"
+        change_link_hint: "change statutory permission or licence"
+        remove_link_hint: "remove statutory permission or licence"
+        heading_add_another: "Do you want to add another statutory permission or licence?"
+        radio_yes: "Yes, I want to add another statutory permission or licence"
+        radio_no: "No, I do not want to add another statutory permission or licence"
+        

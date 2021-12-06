@@ -3,8 +3,6 @@ en-GB:
     how_to_accept:
       page_title: "How to accept your grant"
       page_heading: "How to accept your grant"
-      sub_headings:
-        anything_changed: "Tell us if anything has changed"
       before_we_can_pay: "Before we can pay your Grant, we need you to:"
       before_we_can_pay_list:
         item_1: "tell us if there are any changes to your Project, for example changes to your partners or cash contributions,"

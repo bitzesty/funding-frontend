@@ -1,4 +1,3 @@
----
 en-GB:
   funding_programmes:
     open_small_three_to_ten_k: "£3,000 &ndash; £10,000"
@@ -17,6 +16,7 @@ en-GB:
       confirm: "Confirm"
       submit: "Submit"
       i_agree: "I agree"
+      sign_out: "Sign out"
   generic:
     countries:
       scotland: "Scotland"
@@ -249,6 +249,8 @@ en-GB:
               inclusion: "Add any new evidence for your project since submitting your application"
             signed_terms_and_conditions:
               inclusion: "Add evidence of your signed terms and conditions"
+            new_evidence:
+              inclusion: "Select whether you have any new evidence for your project since submitting your application"
         project:
           attributes:
             project_costs:

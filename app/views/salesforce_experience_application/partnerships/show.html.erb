@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
       model_object: nil,
-      page_title: 'Permission to Start -  Details of signatories'
+      page_title: t('salesforce_experience_application.partnerships.page_title')
     }
 %>
 
@@ -29,11 +29,11 @@
 
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-            Are you applying on behalf of a partnership?
+            <%= t('salesforce_experience_application.partnerships.page_heading') %>
           </h1>
         </legend>
 
-        <p>If you are applying on behalf of a partnership, the project partner also needs to sign this form.</p>
+        <p><%= t('salesforce_experience_application.partnerships.page_hint') %></p>
 
         <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
           <div class="govuk-radios__item">
@@ -47,7 +47,7 @@
 
             <%= 
               f.label :partnership_application_true, 
-              "Yes, I am applying on behalf of a partnership",
+              t('salesforce_experience_application.partnerships.radio_yes'),
               class: "govuk-label govuk-radios__label" 
             %>
 
@@ -58,13 +58,14 @@
 
             <% if   @salesforce_experience_application.errors[:project_partner_name].any? %>
               <span class="govuk-error-message govuk-!-padding-left-2">
-                <span class="govuk-visually-hidden">Error:</span> Enter full name of person signing on behalf of project partner
+                <span class="govuk-visually-hidden"><%= t('generic.error') %>:</span> 
+                <%= t('salesforce_experience_application.partnerships.full_name_error') %>
               </span>
             <%end%>
 
               <%=
                 f.label :project_partner_name,
-                "Full name of person signing on behalf of project partner",
+                t('salesforce_experience_application.partnerships.full_name'),
                 class: "govuk-label govuk-!-padding-left-2"
               %>
 
@@ -85,7 +86,7 @@
 
             <%= 
               f.label :partnership_application_false, 
-              "No, I am not applying on behalf of a partnership",
+              t('salesforce_experience_application.partnerships.radio_no'),
               class: "govuk-label govuk-radios__label" 
             %>
 
@@ -99,7 +100,7 @@
         ButtonComponent.new(
         element: 'button',
         is_start_button: false,
-        text: "Save and continue"
+        text: t('buttons.labels.default')
         )
       )%>
     </div>

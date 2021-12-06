@@ -1,0 +1,12 @@
+en-GB:
+  salesforce_experience_application:
+    confirmation:
+      page_title: "Confirmation"
+      page_heading: "Permission to Start submitted"
+      email_sent_to: "We have sent a confirmation email to"
+      what_happens_next: "What happens next"
+      will_review: "We will review your Permission to Start Form and be in touch if we have any questions."
+      will_let_know: "We will let you know once our checks are complete and when you can start work on your project."
+      warning: "It is important that you do not start your project until you hear from us."
+      any_questions: "If you have any questions, contact your Investment Manager."
+

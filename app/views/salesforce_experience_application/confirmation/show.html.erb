@@ -2,43 +2,50 @@
   render partial: "partials/page_title",
     locals: {
         model_object: nil,
-        page_title: 'Confirmation '
+        page_title: t('salesforce_experience_application.confirmation.page_title')
     }
 %>
 
 <div class="govuk-panel govuk-panel--confirmation">
   <h1 class="govuk-panel__title">
-    Permission to Start submitted
+    <%= t('salesforce_experience_application.confirmation.page_heading')%>
   </h1>
 </div>
 
-<p class="govuk-body">We have sent a confirmation email to <%= @salesforce_experience_application.email_address%></p>
+<p class="govuk-body">
+  <%= t('salesforce_experience_application.confirmation.email_sent_to')%>
+  <%= @salesforce_experience_application.email_address%>
+</p>
 
 <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-  What happens next
+  <%= t('salesforce_experience_application.confirmation.what_happens_next')%>
 </h1>
 
 <p class="govuk-body">
-  We will review your Permission to Start Form and be in touch if we have any questions.
-  We will let you know once our checks are complete and when you can start work on your project.
+  <%= t('salesforce_experience_application.confirmation.will_review')%>
+  <%= t('salesforce_experience_application.confirmation.will_let_know')%>
 </p>
 
 <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
-    <span class="govuk-warning-text__assistive">Warning</span>
-    It is important that you do not start your project until you hear from us.
+    <span class="govuk-warning-text__assistive">
+      <%= t('generic.warning') %>
+    </span>
+    <%= t('salesforce_experience_application.confirmation.warning')%>
   </strong>
 </div>
 
-<p class="govuk-body govuk-!-padding-bottom-2">If you have any questions, contact your Investment Manager.</p>
+<p class="govuk-body govuk-!-padding-bottom-2">
+  <%= t('salesforce_experience_application.confirmation.any_questions')%>  
+</p>
 
 <%=
   render(
     ButtonComponent.new(
         element: "a",
         href: destroy_user_session_path,
-        text: 'Sign out',
+        text: t('buttons.labels.sign_out'),
         data_method: 'delete'
     )
   )

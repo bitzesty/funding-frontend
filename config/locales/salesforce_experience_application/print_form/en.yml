@@ -1,0 +1,102 @@
+en-GB:
+  salesforce_experience_application:
+    print_form:
+      page_title: "Permission to Start"
+      page_heading: "Download and sign Permission to Start form"
+      javascript_link: "Download Permission to Start Form"
+      delivery: "Delivery"
+      development: "Development"
+      phase: "Permission to Start Form %{name} phase"
+      project_title: "Project title:"
+      project_reference_number: "Project reference number:"
+      grant_expiry_date: "Grant expiry date:"
+      organisation: "Organisation:"
+      approved_purposes:
+        heading: "1. Approved Purposes"
+        empty: "Contact your Investment Manager for your Approved Purposes"
+      agreed_costs:
+        heading: "2. Agreed Costs"
+        table_name: "Your project costs"
+        cost_heading: "Cost heading"
+        agreed_costs: "Agreed costs (£)"
+        agreed_vat: "Agreed VAT (£)"
+        agreed_total_costs: "Agreed total costs (£)"
+        total: "Total (£)"
+        total_vat_allocation: "Total VAT allocation:"
+        contingency: "Total contingency allocation:"
+        payment_percentage: "Payment percentage:"
+        not_agreed: "Project costs will be discussed and agreed with Investment Manager."
+      cost_breakdown:
+        heading: "3. Cost breakdown and cashflow with an indication of when you will be seeking grant payments"
+        emailed: "Document emailed to Investment Manager"
+      cash_and_non_cash_contributions: "Cash and non-cash contributions"
+      cash_contributions: 
+        heading: "4. Cash contributions"
+        not_correct: "Cash contributions will be discussed and agreed with Investment Manager"
+        summary: "Cash contributions summary"
+        description: "Description of funding"
+        amount: "Amount expected (£)"
+      cc_evidence:
+        heading: "5. Evidence of secured cash contributions"
+      fundraising_evidence:
+        heading: "6. Evidence of fundraising plan"
+      non_cash_contributions:
+        heading: "7. Non-cash contributions"
+        not_correct: "Non-cash contributions will be discussed and agreed with Investment Manager"
+        summary: "Non-cash contributions summary"
+        description: "Description of funding"
+        amount: "Amount expected (£)"
+      timetable:
+        section: "Timetable or programme"
+        heading: "8. Proposed timetable or work programme with milestones including dates for getting grant payments and giving project updates"
+        emailed: "Document emailed to Investment Manager"
+      project_mgt:
+        section: "Project management and procurement"
+        heading: "9. Project management structure, including methods for choosing consultants, contracts and suppliers"
+        emailed: "Document emailed to Investment Manager"      
+      evidence_ownership:
+        section: "Evidence of ownership"
+        heading: "10. Evidence of who owns any property that forms part of the project and information on restrictions or other claims on it"
+      statutory_permission:
+        section: "Statutory permission"
+        type: "Type of statutory permission or licences"
+        evidence_y_n: "Evidence received"
+        files: "Evidence files"
+        none: "No new statutory permissions or licenses"
+      declaration:
+        section: "Declaration"
+        i_agree: "I agree with the above statements."
+        javascript_off: "Javascript is disabled on your device. Please download this form using your browser's print functionaility."
+        signatories: "Signatories"
+        person_completing: "Person completing the form signature"
+        full_name: "Full name"
+        position: "Position"
+        organisation: "Organisation"
+        signature: "Signature"
+        date: "Date"
+        authorised_signatories_sign: "Authorised signatories sign"
+        names_and_sigs: "Names and signatures of 2 people who are authorised to sign documents for your organisation"
+        signatory_one: "Signatory One for your organisation"
+        signatory_two: "Signatory Two for your organisation"
+        project_partner: "Project Partner"
+        project_partner_org_name: "Project partner organisation’s name"
+        behalf_partner: "Name of person signing on behalf of project partner"
+        position_partner: "Position of person signing on behalf of project partner"
+        NHMF_sign: "National Heritage Memorial Fund sign"
+        NLHF_use: "This section is for National Lottery Heritage Fund use only"
+        permission_given: "We have reviewed your request and give our permission for you to start the project"
+        signed_for_NHMF: "Signed for NHMF"
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      

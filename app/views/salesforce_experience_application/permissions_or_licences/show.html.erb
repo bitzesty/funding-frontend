@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: nil,
-             page_title: 'Statutory permission'
+             page_title: t('salesforce_experience_application.permissions_or_licences.page_title')
          }
 %>
 
@@ -21,9 +21,13 @@
   @salesforce_experience_application.errors.any? %>">
 
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <span class="govuk-caption-xl govuk-!-padding-bottom-2">Statutory permissions and licences</span>
+    
+      <span class="govuk-caption-xl govuk-!-padding-bottom-2">
+        <%= t('salesforce_experience_application.permissions_or_licences.page_caption') %>
+      </span>
+
       <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-        Have you received any new statutory permissions or licences?
+        <%= t('salesforce_experience_application.permissions_or_licences.page_heading') %>
       </h1>
     </legend>
 
@@ -56,7 +60,7 @@
 
                 <%= 
                   f.label :permissions_or_licences_received_true, 
-                  "Yes, I have received new statutory permissions or licences",
+                  t('salesforce_experience_application.permissions_or_licences.radio_yes'),
                   class: "govuk-label govuk-radios__label" 
                 %>
 
@@ -72,7 +76,7 @@
 
                 <%= 
                   f.label :permissions_or_licences_received_false, 
-                  "No, I have not received new statutory permissions or licences",
+                  t('salesforce_experience_application.permissions_or_licences.radio_no'),
                   class: "govuk-label govuk-radios__label" 
                 %>
 
@@ -84,7 +88,7 @@
             ButtonComponent.new(
             element: 'button',
             is_start_button: false,
-            text: "Save and continue"
+            text: t('buttons.labels.default')
             )
           )%>
 

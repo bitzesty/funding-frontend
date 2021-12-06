@@ -1,0 +1,10 @@
+en-GB:
+  salesforce_experience_application:
+    partnerships:
+      page_title: "Permission to Start -  Details of signatories"
+      page_heading: "Are you applying on behalf of a partnership?"
+      page_hint: "If you are applying on behalf of a partnership, the project partner also needs to sign this form."
+      radio_yes: "Yes, I am applying on behalf of a partnership"
+      full_name: "Full name of person signing on behalf of project partner"
+      full_name_error: "Enter full name of person signing on behalf of project partner"
+      radio_no: "No, I am not applying on behalf of a partnership"

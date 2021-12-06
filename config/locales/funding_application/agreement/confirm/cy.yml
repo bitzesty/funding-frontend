@@ -1,0 +1,10 @@
+cy:
+  agreement:
+    confirm:
+      page_title: "Cytuno i'r Grant"
+      page_heading: "Cytuno i'r Grant"
+      sub_headings:
+        what_happens_next: "Beth sy'n digwydd nesaf"
+      by_clicking_confirm: "Drwy glicio cadarnhau eich bod yn cytuno bod manylion y Prosiect yn gywir ac nad oes rhagor o newidiadau rydych chi'n gwybod amdanynt."
+      we_ask_signatories: "Gofynnwn i'r ddau lofnodwr cyfreithiol lofnodi'r telerau ac amodau. Os ydych yn un o'r llofnodwyr cyfreithiol, gallwch wneud hyn ar unwaith."
+      if_not_signatory: "Os nad ydych yn un o'r llofnodwyr cyfreithiol, byddant yn derbyn cyswllt uniongyrchol. Bydd angen i chi ddarllen y telerau ac amodau o hyd."

@@ -1,0 +1,14 @@
+en-GB:
+  salesforce_experience_application:
+    download_instructions:
+      page_title: "Download and sign PTS"
+      page_heading: "Before you submit the Permission to Start Form"
+      what_you_need_to_do: "What you need to do:"
+      to_sign_the_form: "To sign the form:"
+      list:
+        download: "Download the Permission to Start"
+        sign: "Sign the document"
+        signing_options: "You can either digitally sign the document or print, sign and scan the document."
+        upload: "Upload the signed Permission to Start"
+      all_signatures_must: "All signatures must be new. They cannot be copies."
+      already_completed_link: "I have already downloaded and signed Permission to Start Form"

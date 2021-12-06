@@ -1,0 +1,20 @@
+en-GB:
+  salesforce_experience_application:
+    permissions_to_start:
+      page_title: "Permission to Start"
+      page_heading: "Permission to Start"
+      delivery: "Delivery"
+      development: "Development"
+      page_caption: "Phase"
+      project_details: "Project details"
+      project_title: "Project title:"
+      project_reference_number: "Project reference number:"
+      grant_expiry_date: "Grant expiry date:"
+      organisation: "Organisation:"
+      we_will_ask_you_to: "We will ask you to:"
+      bullets:
+        provide: "provide copies of documents"
+        tell_us: "tell us how your project will progress"
+        download: "download, print and sign the Permission to Start Form"
+        upload: "upload the signed document"
+      warning: "It is important that you do not start your project until you hear from us."

@@ -1,0 +1,9 @@
+en-GB:
+  salesforce_experience_application:
+    agreed_costs_documents:
+      page_title: "Permission to Start -  Agreed Costs Documents"
+      page_heading: "Upload a cost breakdown and cashflow, with an indication of when you will be seeking grant payments"
+      page_caption: "Agreed Costs"
+      upload_a_cost_breakdown_and_cashflow: "Upload a cost breakdown and cashflow"
+      upload_radio: "I will upload a cost breakdown and cashflow"
+      emailed_radio: "I have emailed a cost breakdown and cashflow to my Investment Manager"

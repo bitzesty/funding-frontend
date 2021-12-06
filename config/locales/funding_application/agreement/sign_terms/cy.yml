@@ -1,0 +1,20 @@
+cy:
+  agreement:
+    sign_terms:
+      page_title: "Llofnodwch y telerau ac amodau"
+      page_heading: "Llofnodwch y telerau ac amodau"
+      sub_headings:
+        download_terms: "Lawrlwythwch y telerau ac amodau"
+        sign_terms: "Llofnodwch y telerau ac amodau"
+        upload_terms: "Lanlwytho'r telerau ac amodau"
+      buttons:
+        add_signed_terms: "Ychwanegu telerau ac amodau wedi'u llofnodi"
+      labeli:
+        add_your_signed_terms: "Ychwanegwch eich telerau ac amodau wedi'u llofnodi"
+      as_a_signatory: "Fel llofnodwr cyfreithiol i'ch sefydliad, mae angen i chi lofnodi'r telerau ac amodau. Mae hyn yn gadarnhad y bydd eich sefydliad yn dilyn y telerau ac amodau drwy gydol y Prosiect."
+      to_do_this: "I wneud hyn:"
+      download: "Lawrlwythwch y telerau ac amodau"
+      signing: "Gallwch naill ai lofnodi'r ddogfen yn ddigidol neu argraffu'r ddogfen, ei llofnodi a'i sganio. Ni waeth sut rydych chi'n gwneud hyn, mae angen iddo fod yn lofnod newydd. Ni all fod yn gopi."
+      uploading: "Ar ôl i chi lofnodi'r ddogfen, dylech lanlwytho'r copi wedi'i lofnodi. Gwnewch yn siŵr eich bod wedi cynnwys holl dudalennau'r ddogfen."
+      no_signed_terms_and_conditions: "Nid ydych wedi ychwanegu tystiolaeth o delerau ac amodau wedi'u llofnodi"
+      signed_terms_and_conditions: "Telerau ac amodau wedi'u llofnodi"

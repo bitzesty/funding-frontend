@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
       model_object: nil,
-      page_title: "Add another"
+      page_title: t('salesforce_experience_application.statutory_permission_or_licence.summary.page_title')
     }
 %>
 
@@ -16,13 +16,21 @@
   ) if @salesforce_experience_application.errors.any?
 %>
 
-<span class="govuk-caption-xl govuk-!-padding-bottom-2">Statutory permissions and licenses</span>
+<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+  <%= t('salesforce_experience_application.statutory_permission_or_licence.summary.page_caption') %>
+</span>
+
 <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-  You have added <%= @total_count %> statutory permission or
+  <%= 
+    t(
+      'salesforce_experience_application.statutory_permission_or_licence.summary.page_heading_prefix', 
+      count: @total_count
+    ) 
+  %>
   <% if @total_count == 1%>
-    licence
+    <%= t('salesforce_experience_application.statutory_permission_or_licence.summary.page_heading_suffix_singular') %>
   <% else %>
-    licences
+    <%= t('salesforce_experience_application.statutory_permission_or_licence.summary.page_heading_suffix_plural') %>
   <% end %>
 </h1>
 
@@ -36,7 +44,9 @@
       </dd>
       <dd class="govuk-summary-list__actions">
         <% # for screen reader to describe the following link%>
-        <span class="govuk-visually-hidden"> change statutory permission or licence</span>
+        <span class="govuk-visually-hidden">
+          <%= t('salesforce_experience_application.statutory_permission_or_licence.summary.change_link_hint') %>
+        </span>
         <%=
           link_to(
             t('generic.change'),
@@ -48,7 +58,9 @@
       </dd>
       <dd class="govuk-summary-list__actions">
         <% # for screen reader to check this hidden span describe the following link%>
-        <span class="govuk-visually-hidden"> remove statutory permission or licence</span>
+        <span class="govuk-visually-hidden">
+          <%= t('salesforce_experience_application.statutory_permission_or_licence.summary.remove_link_hint') %>
+        </span>
         <%=
           link_to(
             t('generic.remove'),
@@ -78,7 +90,7 @@
 
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-heading-l">
-            Do you want to add another statutory permission or licence?
+            <%= t('salesforce_experience_application.statutory_permission_or_licence.summary.heading_add_another') %>
           </h1>
         </legend>
 
@@ -103,7 +115,7 @@
 
             <%= 
               f.label :add_another_statutory_permission_or_licence_true, 
-              "Yes, I want to add another statutory permission or licence",
+              t('salesforce_experience_application.statutory_permission_or_licence.summary.radio_yes'),
               class: "govuk-label govuk-radios__label" 
             %>
 
@@ -119,7 +131,7 @@
 
             <%= 
               f.label :add_another_statutory_permission_or_licence_false, 
-              "No, I do not want to add another statutory permission or licence",
+              t('salesforce_experience_application.statutory_permission_or_licence.summary.radio_no'),
               class: "govuk-label govuk-radios__label" 
             %>
 
@@ -131,7 +143,7 @@
           ButtonComponent.new(
           element: 'button',
           is_start_button: false,
-          text: "Save and continue"
+          text: t('buttons.labels.default')
           )
         )%>
 

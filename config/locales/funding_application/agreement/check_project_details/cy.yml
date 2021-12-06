@@ -1,0 +1,87 @@
+cy:
+  agreement:
+    check_project_details:
+      page_title_applicant: "Gwiriwch fanylion eich Prosiect"
+      page_heading_applicant: "Gwiriwch fanylion eich Prosiect"
+      page_title_signatory: "Gwiriwch fanylion y Prosiect"
+      page_heading_signatory: "Gwiriwch fanylion y Prosiect"
+      sub_headings:
+        your_grant: "Eich Grant"
+        the_grant: "Y Grant"
+        your_grant_contract: "Eich Contract Grant"
+        the_grant_contract: "Y Contract Grant"
+        your_project: "Eich Prosiect"
+        the_project: "Y Prosiect"
+        what_money_is_for: "Ar gyfer beth mae'r arian"
+        what_project_will_do: "Beth fydd y Prosiect yn ei wneud"
+        your_contribution: "Eich cyfraniad"
+        the_organisations_contribution: "Cyfraniad y sefydliad"
+      if_details_wrong: "Os oes unrhyw un o fanylion y Prosiect hyn yn anghywir neu wedi newid ers i chi gyflwyno'ch cais, e-bostiwch eich Rheolwr Buddsoddi, %{name}. Byddant yn cytuno ar unrhyw newidiadau i'r Prosiect neu'r Contract Grant cyn i'r grant gael ei dalu."
+      details_of_awarded_grant: "Dyma fanylion y Grant sydd wedi'i ddyfarnu a sut y dylid ei ddefnyddio ar gyfer y Prosiect."
+      your_grant_details:
+        project_title: "Teitl y prosiect:"
+        project_reference: "Cyfeirnod y prosiect:"
+        grant_amount_awarded: "Swm grant a ddyfarnwyd:"
+        payment_percentage: "% taliad:"
+        to_be_paid_to: "Grant i'w dalu i:"
+        submitted_by: "Cais a gyflwynwyd gan:"
+        date_of_application: "Dyddiad y Cais:"
+        expiry_date: "Dyddiad y daw'r grant i ben:"
+      your_grant_contract: "Mae eich Contract Grant yn cynnwys:"
+      the_grant_contract: "Mae'r Contract Grant yn cynnwys:"
+      grant_contract_list:
+        item_1: "y dudalen hon sy'n rhestru manylion eich Grant a'ch Prosiect,"
+        item_1_the: y dudalen hon sy'n rhestru manylion y Grant a'r Prosiect, 
+        item_2: "telerau ac amodau,"
+        item_3: "unrhyw Amodau Grant Ychwanegol, os yw'n berthnasol,"
+        item_4_html: "%{href}. Os oes unrhyw anghysondebau rhwng Telerau Safonol y Grant a'r Telerau ac amodau, bydd y %{href} yn cael blaenoriaeth,"
+        item_4_href: "Telerau Safonol y Grant"
+        item_5_html: "%{href}."
+        item_5_href: "Canllawiau Derbyn Grant"
+        item_6: "Eic cais."
+      you_must_agree: "Mae'n rhaid i chi ddarllen a chytuno i bob rhan o'ch Contract Grant cyn y gallwn dalu eich Grant."
+      based_on_application: "Yn seiliedig ar eich Cais, dyma'r Prosiect rydym wedi cytuno i'w ariannu."
+      based_on_the_application: "Yn seiliedig ar y Cais, dyma'r Prosiect rydym wedi cytuno i'w ariannu."
+      when_you_applied: "Pan wnaethoch gais, fe wnaethoch chi ddisgrifio costau eich Prosiect fel:"
+      when_the_org_applied: "Pan wnaeth y sefydliad gais, fe wnaethant ddisgrifio costau'r Prosiect fel:"
+      costs_told: "Defnyddiwyd y costau y gwnaethoch ddweud wrthym amdanynt yn eich Cais a nodir uchod i greu'r Dibenion Cymeradwy canlynol ar gyfer eich Prosiect."
+      costs_told_by_applicant: "Roedd y costau y gwnaethant ddweud wrthym amdanynt yn y Cais a nodir uchod yn cael eu defnyddio i greu'r Dibenion Cymeradwy canlynol ar gyfer y Prosiect."
+      approved_purposes: "Mae Dibenion Cymeradwy yn crynhoi'r Prosiect a ddisgrifir yn eich Cais."
+      approved_purposes_for_the_application: "Mae Dibenion Cymeradwy yn crynhoi'r Prosiect a ddisgrifir yn y Cais."
+      described_additional_funding: "Pan wnaethoch gais, disgrifioch gyllid a chefnogaeth ychwanegol o:"
+      their_described_additional_funding: "Pan wnaethant gais, disgrifiodd y sefydliad gyllid a chefnogaeth ychwanegol o:"
+      cash_contributions: "%{amount} mewn cyfraniadau arian parod, a elwir weithiau'n arian cyfatebol"
+      non_cash_contributions: "%{amount} mewn cyfraniadau nad ydynt yn arian parod, a elwir weithiau'n gymorth mewn da"
+      volunteers: "%{amount} awr o amser gwirfoddoli"
+      advice: "Rydym yn cynghori nad ydych yn dechrau gweithio ar y Prosiect nes bod yr holl telerau ymlaen llaw a ddiffinnir yn y Canllawiau Derbyn Grant ac unrhyw Amodau Ychwanegol wedi'u bodloni. Hefyd, mae'r contract Grant wedi'i lofnodi a'i gytuno. Mae gwaith prosiect a ddechreuwyd cyn i hyn ddigwydd yn cael ei wneud felly ar risg y sefydliad ei hun."
+      advice_to_signatory: "Rydym yn cynghori nad yw'r sefydliad yn dechrau gweithio ar y Prosiect nes bod yr holl telerau a ddiffinnir yn y Canllawiau Derbyn Grant ac unrhyw Amodau Ychwanegol wedi'u bodloni. Hefyd, mae'r contract Grant wedi'i lofnodi a'i gytuno. Mae gwaith prosiect a ddechreuwyd cyn i hyn ddigwydd yn cael ei wneud felly ar risg y sefydliad ei hun."
+      term_of_grant_contract_list:
+          sub_heading: "Tymor y contract grant: Bydd y contract grant"
+          item_1: "yn para tan ddyddiad Cwblhau eich Prosiect [gweithgareddau yn unig]"
+          item_2: "yn para o'r dyddiad rydym yn cadarnhau y gallwch ddechrau eich Prosiect am gyfnod o 5 mlynedd (nid er elw)"
+          item_3: "yn para o'r dyddiad rydym yn cadarnhau y gallwch ddechrau eich Prosiect am gyfnod o 10 mlynedd (unigolion preifat a sefydliadau er elw rhwng £10,000 a £100,000)"
+          item_4: "20 mlynedd (sefydliadau dielw £100,000 i £250,000) ar ôl Cwblhau'r Prosiect Dyddiad [gwaith cyfalaf] DS Dim ond hyd at £100,000 y byddwn yn ariannu unigolion preifat a sefydliadau er elw."
+          item_5: "yn para am gyfnod amhenodol [caffael] – Rheolwr Buddsoddi i ddileu fel y bo'n briodol."
+      term_of_grant_contract: "Cyfnod y contract grant:"
+      the_project_completion: "Dyddiad Cwblhau'r Prosiect yw dyddiad y llythyr a anfonwn atoch yn rhoi gwybod i chi bod y Prosiect wedi'i gofnodi'n gyflawn."
+      will_vary_depending: "Bydd cyfnod y contract grant yn amrywio yn dibynnu ar y math o brosiect a threfniadaeth."
+      term_of_grant_contract_signatory_list:
+        is_activities_only: "Prosiect gweithgareddau yn unig, mae'r contract grant yn dod i ben ar Ddyddiad Cwblhau'r Prosiect,"
+        is_acquisition_project: "Prosiect caffael, bydd y contract grant yn para am gyfnod amhenodol,"
+        organisation_not_for_profit: "Os nad yw'r sefydliad yn gwneud elw, a bod y prosiect yn cynnwys cyfalaf neu ddigidol, bydd y contract grant yn para o Ddyddiad Cwblhau'r Prosiect am gyfnod o 5 mlynedd, "
+        organisation_for_profit_10_100k: "Os yw eich sefydliad yn sefydliad er elw, neu os ydych yn unigolyn preifat, bydd y contract grant yn para o Ddyddiad Cwblhau'r Prosiect am gyfnod o 10 mlynedd."
+        organisation_for_profit_100_250k: "Os yw'r prosiect yn brosiect gwaith cyfalaf bydd y contract grant yn para am 20 mlynedd ar ôl Dyddiad Cwblhau'r Prosiect."
+    costs_table:
+      heading:
+        amount: "Swm"
+        description: "Disgrifiad"
+        cost: 'Cost'
+        vat: 'TAW'
+    cash_contributions_table:
+      heading:
+        amount: "Swm"
+        description: "Disgrifiad"
+        secured: "Wedi'i sicrhau"
+    approved_purpose_table:
+      heading:
+          approved_purpose: "Diben cymeradwy"

@@ -2,43 +2,63 @@
   render partial: "partials/page_title",
          locals: {
              model_object: nil,
-             page_title: 'Permission to Start'
+             page_title: t('salesforce_experience_application.permissions_to_start.page_title')
          }
 %>
 
 <h1 class="govuk-heading-xl">
-  Permission to Start
+  <%=t('salesforce_experience_application.permissions_to_start.page_heading')%>
 </h1>
 
 <span class="govuk-caption-xl govuk-!-padding-bottom-2">
-  <%= @salesforce_info_for_page[:large_application_type] %> Phase
+  <% if @salesforce_info_for_page[:large_application_type] == 'Delivery' %>
+    <%= t('salesforce_experience_application.permissions_to_start.delivery') %>
+  <% elsif @salesforce_info_for_page[:large_application_type] == 'Development' %>
+    <%= t('salesforce_experience_application.permissions_to_start.development') %>
+  <% end %>
+  <%= t('salesforce_experience_application.permissions_to_start.page_caption')%>
 </span>
 
 <h2 class="govuk-heading-m">
-  Project details
+  <%=t('salesforce_experience_application.permissions_to_start.project_details')%>
 </h2>
 
-<p class="govuk-body-m">Project title: <%= @salesforce_info_for_page[:project_title] %> </p>
-<p class="govuk-body-m">Project reference number: <%= @salesforce_info_for_page[:project_ref_no] %> </p>
-<p class="govuk-body-m">Grant expiry date: <%= @salesforce_info_for_page[:grant_expiry_date] %> </p>
-<p class="govuk-body-m">Organisation: <%= @salesforce_info_for_page[:org_name] %> </p>
+<p class="govuk-body-m">
+  <%= t('salesforce_experience_application.permissions_to_start.project_title')%> 
+  <%= @salesforce_info_for_page[:project_title] %> 
+</p>
+
+<p class="govuk-body-m">
+  <%= t('salesforce_experience_application.permissions_to_start.project_reference_number')%> 
+  <%= @salesforce_info_for_page[:project_ref_no] %> 
+</p>
+
+<p class="govuk-body-m">
+  <%= t('salesforce_experience_application.permissions_to_start.grant_expiry_date')%> 
+  <%= @salesforce_info_for_page[:grant_expiry_date] %> 
+</p>
+
+<p class="govuk-body-m">
+  <%= t('salesforce_experience_application.permissions_to_start.organisation')%> 
+  <%= @salesforce_info_for_page[:org_name] %> 
+</p>
 
 <h2 class="govuk-heading-m">
-  We will ask you to:
+  <%= t('salesforce_experience_application.permissions_to_start.we_will_ask_you_to')%> 
 </h2>
 
 <ul class="govuk-list govuk-list--bullet">
-  <li>provide copies of documents</li>
-  <li>tell us how your project will progress</li>
-  <li>download, print and sign the Permission to Start Form</li>
-  <li>upload the signed document</li>
+  <li><%= t('salesforce_experience_application.permissions_to_start.bullets.provide')%></li>
+  <li><%= t('salesforce_experience_application.permissions_to_start.bullets.tell_us')%></li>
+  <li><%= t('salesforce_experience_application.permissions_to_start.bullets.download')%></li>
+  <li><%= t('salesforce_experience_application.permissions_to_start.bullets.upload')%></li>
 </ul>
 
 <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
     <span class="govuk-warning-text__assistive">Warning</span>
-    It is important that you do not start your project until you hear from us.
+    <%= t('salesforce_experience_application.permissions_to_start.warning')%>
   </strong>
 </div>
 

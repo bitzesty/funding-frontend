@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: nil,
-             page_title: 'Approved Purposes'
+             page_title: t('salesforce_experience_application.approved_purposes.page_title')
          }
 %>
 
@@ -21,10 +21,15 @@
     @salesforce_experience_application.errors.any? %>">
 
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <span class="govuk-caption-xl govuk-!-padding-bottom-2">Approved Purposes</span>
+
+      <span class="govuk-caption-xl govuk-!-padding-bottom-2">
+        <%= t('salesforce_experience_application.approved_purposes.page_caption')%>
+      </span>
+
       <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-        Do the Approved Purposes listed below match the ones in your Grant Notification Letter? 
+        <%= t('salesforce_experience_application.approved_purposes.page_heading') %>
       </h1>
+
     <legend >
 
     <div class="govuk-body govuk-!-padding-bottom-4">
@@ -35,7 +40,7 @@
             <% end %>
         </ul>
       <% else %>
-        <p> Contact your Investment Manager for your Approved Purposes </p>
+        <p> <%= t('salesforce_experience_application.approved_purposes.no_approved_purposes') %> </p>
       <% end %>
     </div>
 
@@ -69,7 +74,7 @@
 
             <%= 
               f.label :approved_purposes_match_true, 
-              "Yes, the Approved Purposes match",
+              t('salesforce_experience_application.approved_purposes.yes_radio'),
               class: "govuk-label govuk-radios__label" 
             %>
 
@@ -86,7 +91,7 @@
 
             <%= 
               f.label :approved_purposes_match_false, 
-              "No, the Approved Purposes do not match",
+              t('salesforce_experience_application.approved_purposes.no_radio'),
               class: "govuk-label govuk-radios__label" 
             %>
 
@@ -96,7 +101,7 @@
               id="conditional-approved_purpose_match">
 
             <p class="govuk-body">
-              Contact your Investment Manager
+              <%= t('salesforce_experience_application.approved_purposes.contact') %>
             </p>
             
           </div>
@@ -107,7 +112,7 @@
           ButtonComponent.new(
           element: 'button',
           is_start_button: false,
-          text: "Save and continue"
+          text: t('buttons.labels.default')
           )
         )%>
 

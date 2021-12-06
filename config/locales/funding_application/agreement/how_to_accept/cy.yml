@@ -1,0 +1,28 @@
+cy:
+  agreement:
+    how_to_accept:
+      page_title: "Sut i dderbyn eich grant"
+      page_heading: "Sut i dderbyn eich grant"
+      before_we_can_pay: "Cyn y gallwn dalu eich Grant, mae angen i chi:"
+      before_we_can_pay_list:
+        item_1: "dywedwch wrthym a oes unrhyw newidiadau i'ch Prosiect, er enghraifft newidiadau i'ch partneriaid neu gyfraniadau arian parod,"
+        item_2: "gwiriwch fod manylion eich Prosiect yn gywir,"
+        item_3: "anfonwch unrhyw dystiolaeth newydd atom ar gyfer eich Prosiect, er enghraifft cyfraniadau arian parod, caniatâd neu drwyddedau,"
+        item_4: "darllenwch telerau ac amodau'r Grant,"
+        item_5_html: "darllenwch y %{href},"
+        item_5_href: "Telerau Safonol y Grant"
+        item_6_html: "darllenwch y %{href},"
+        item_6_href: "Canllawiau Derbyn Grant"
+        item_7: "cytuno i'r telerau ac amodau"
+      sub_heading_anything_changed: "Dywedwch wrthym a oes unrhyw beth wedi newid"
+      answer_questions_below_html: "Atebwch y cwestiynau isod mewn e-bost at eich Rheolwr Buddsoddi, %{name}."
+      answer_questions_list:
+        item_1: "Ydych chi wedi gwneud unrhyw newidiadau i'ch partneriaid neu drefniadau partneriaeth ers i chi wneud cais am y tro cyntaf?"
+        item_2: "Ydych chi wedi gwneud unrhyw newidiadau i'ch cyfraniadau arian parod, cyfraniadau nad ydynt yn arian parod neu amser gwirfoddolwyr?"
+        item_3: "A yw costau eich Prosiect wedi newid ers i chi wneud cais am y tro cyntaf?"
+        item_4: "A yw statws eich sefydliad wedi newid ers y Cais? Er enghraifft, a yw wedi uno â sefydliad arall neu wedi'i ddiddymu?"
+        item_5: "A fu unrhyw newidiadau eraill sydd â'r potensial i effeithio ar ein penderfyniad ar eich cais am Grant neu lwyddiant tebygol eich Prosiect? Os ydych yn ansicr, cysylltwch â'ch Rheolwr Buddsoddi."
+      timescales: "Mae gennych 10 diwrnod gwaith i gwblhau'r tasgau hyn o'r dyddiad y gwnaethom anfon eich cynnig Grant. Os oes angen unrhyw help arnoch, cysylltwch â'ch Rheolwr Buddsoddi, %{name}."
+      behalf_of_partnership: 
+        sub_heading: "Dywedwch wrthym a ydych yn gwneud cais ar ran partneriaeth"
+        text: "Os ydych, rhowch wybod i ni enw, safle a manylion sefydliad eich partner, neu bartneriaid. Gallwch wneud hyn pan fyddwch yn anfon yr e-bost gyda'ch atebion i'r cwestiynau uchod at eich Rheolwr Buddsoddi."

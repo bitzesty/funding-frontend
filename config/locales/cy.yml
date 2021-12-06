@@ -1,4 +1,3 @@
----
 cy:
   funding_programmes:
     open_small_three_to_ten_k: "£3,000-£10,000"
@@ -14,9 +13,10 @@ cy:
       start_now: "Dechrau nawr"
       send: "Anfon"
       continue: "Parhau"
-      confirm: "Confirm"
-      submit: "Submit"
-      i_agree: "I agree"
+      confirm: "Cadarnhau"
+      submit: "Cyflwyno"
+      i_agree: "Rwy'n cytuno"
+      sign_out: "Allgofnodi"
   generic:
     countries:
       scotland: "Yr Alban"
@@ -32,13 +32,17 @@ cy:
     important: "Pwysig" 
     error: "Gwall"
     character_count: "Gallwch roi hyd at %{max_characters} o nodau" 
-    characters_remaining: "Mae gennych %{remaining_characters} nod sy'n weddill" 
-    word_count: "Gallwch roi %{max_words} o eiriau"
-    words_remaining: "Mae gennych %{remaining_words} o eiriau yn weddill"
-    upload_a_file: "Lanlwytho ffeil"
+    characters_remaining: "Mae gennych %{remaining_characters} o nodau sy'n weddill" 
+    word_count: "Gallwch roi %{max_words} o nodau"
+    words_remaining: "Mae gennych %{remaining_words} o nodau yn weddill"
+    upload_a_file: "lanlwytho ffeil"
     uploaded_file: "Ffeil wedi'i lanlwytho" 
+    upload_files: "Lanlwytho ffeiliau"
+    uploaded_files: "Ffeiliau sydd wedi'u lanlwytho"
+    has_been_uploaded: "wedi'i lanlwytho"
     select_one_option: "Dewiswch un opsiwn"
     delete: "Dileu"
+    remove: "Dileu"
     there_is_a_problem: "Mae yno broblem"
     we_have_found_a_problem: "Rydym wedi dod o hyd i broblem"
     not_answered: "Heb ateb"
@@ -69,20 +73,20 @@ cy:
     not_started: "Heb ddechrau"
     in_progress: "Ar y gweill" 
     completed: "Cwblhawyd"
-    cannot_start: "Cannot start yet"
-    back: "< Nôl"
-    print_this_page: "Print this page"
+    cannot_start: "Does dim modd dechrau eto"
+    back: "< Yn ôl"
+    print_this_page: "Argraffu'r dudalen hon"
   views:
     organisation:
       common:
         about_your_organisation: "Ynglŷn â'ch sefydliad" 
     summary:
-      page_title: "See questions and answers"
-      page_heading: "See questions and answers"
-      related_link_heading: "Related link"
-      related_link_text: "See all questions and your answers"
-      page_hint: "This page will update each time you add a new answer. You will have a chance to edit your answers before you submit"
-      button: "Return to question"
+      page_title: "Gweld cwestiynau ac atebion"
+      page_heading: "Gweld cwestiynau ac atebion"
+      related_link_heading: "Dolen gysylltiedig"
+      related_link_text: "Gweld yr holl gwestiynau a'ch atebion"
+      page_hint: "Bydd y dudalen hon yn diweddaru bob tro y byddwch yn ychwanegu ateb newydd. Cewch gyfle i olygu eich atebion cyn i chi gyflwyno"
+      button: "Dychwelyd i'r cwestiwn"
     funding_application:
       common:
         about_your_project: "Ynglŷn â'ch prosiect"
@@ -149,8 +153,8 @@ cy:
           attributes:
             name:
               blank: "Rhowch enw person"
-              too_short: "Enter your full name"
-              too_long: "Full name must be fewer than %{count} characters"
+              too_short: "Rhowch enw llawn"
+              too_long: "Mae'n rhaid i'r enw llawn fod yn llai na %{count} o gymeriadau"
             position:
               blank: "Rhowch safle'r person yn ei sefydliad"
             email:
@@ -161,10 +165,10 @@ cy:
           attributes:
             name:
               blank: "Rhowch eich enw llawn"
-              too_short: "Enter your full name"
-              too_long: "Your full name must be fewer than %{count} characters"
+              too_short: "Rhowch eich enw llawn"
+              too_long: "Mae'n rhaid i'ch enw llawn fod yn llai na %{count} o gymeriadau"
             dob_day:
-              blank: "Rhowch y diwrnod y cawsoch eich geni"
+              blank: "Rhowch y dyddiad y cawsoch eich geni"
             dob_month:
               blank: "Rhowch y mis y cawsoch eich geni"
             dob_year:
@@ -203,7 +207,7 @@ cy:
                   blank: "Nodwch brif ddiben neu weithgareddau eich sefydliad" 
                   too_long: "Rhaid i ddisgrifiad o brif ddiben neu weithgareddau eich sefydliad fod yn %{word_count} gair neu lai" 
                 board_members_or_trustees:
-                  not_a_number: "Rhaid i nifer aelodau'r bwrdd neu ymddiriedolwyr fod yn rif" 
+                  not_a_number: "Mae'n rhaid i nifer aelodau'r bwrdd neu ymddiriedolwyr fod yn rif" 
                   greater_than: "Rhowch swm sy'n fwy na 0" 
                   less_than: "Nodwch swm sy'n llai na 2147483648" 
                 vat_registered:
@@ -227,8 +231,8 @@ cy:
           attributes:
             name:
               blank: "Rhowch enw llofnodwr cyfreithiol"
-              too_short: "Enter the name of a legal signatory"
-              too_long: "The name of the legal signatory must be fewer than %{count} characters"
+              too_short: "Rhowch enw llofnodwr cyfreithiol"
+              too_long: "Mae'n rhaid i enw'r llofnodwr cyfreithiol fod yn llai na %{count} cymeriadau"
             email_address:
               invalid: "Rhowch gyfeiriad e-bost dilys"
             phone_number:
@@ -240,7 +244,13 @@ cy:
             cash_contributions_question:
               inclusion: "Dewiswch a yw eich prosiect yn cael unrhyw gyfraniadau arian parod ai peidio" 
             non_cash_contributions_question:
-                inclusion: "Dewiswch a yw eich prosiect yn cael unrhyw gyfraniadau nad ydynt yn arian parod ai peidio" 
+                inclusion: "Dewiswch a yw eich prosiect yn cael unrhyw gyfraniadau nad ydynt yn arian parod ai peidio"
+            additional_evidence_files:
+              inclusion: "Ychwanegwch unrhyw dystiolaeth newydd ar gyfer eich prosiect ers cyflwyno eich cais"
+            signed_terms_and_conditions:
+              inclusion: "Ychwanegwch dystiolaeth o'ch telerau ac amodau wedi'u llofnodi"
+            new_evidence:
+              inclusion: "Dewiswch a oes gennych unrhyw dystiolaeth newydd ar gyfer eich prosiect ers cyflwyno eich cais"
         project:
           attributes:
             project_costs:
@@ -617,3 +627,83 @@ cy:
               not_a_number: "Mae'n rhaid i swm TAW fod yn rhif"
             gross_amount:
               not_a_number: "Mae'n rhaid i swm gros fod yn rhif"
+        funding_applications_legal_sig:
+          attributes:
+            signed_terms_and_conditions:
+              invalid: "Ychwanegwch dystiolaeth o'ch telerau ac amodau wedi'u llofnodi"
+        sfx_pts_payment:
+          attributes:
+            approved_purposes_match:
+              blank: "Dewiswch os yw'r Dibenion Cymeradwy yn cyfateb neu ddim yn cyfateb"
+            agreed_costs_match:
+              blank: "Dewiswch a yw costau'r prosiect yn gywir neu'n angyywir"
+            cash_contributions_correct:
+              blank: "Dewiswch os yw cyfraniadau arian parod yn gywir neu'n anghywir"
+            non_cash_contributions_correct:
+              blank: "Dewiswch a yw cyfraniadau nad ydynt yn arian parod yn gywir neu'n anghywir"
+            permissions_or_licences_received:
+              blank: "Dewiswch os ydych wedi derbyn caniatâd neu drwyddedau statudol newydd"
+            has_agreed_costs_docs:  
+              blank: "Dewiswch a fyddwch yn uwchlwytho neu'n e-bostio dadansoddiad cost a llif arian"
+            agreed_costs_files:
+              inclusion: "Dewiswch ffeil dadansoddi costau a llif arian"
+            agrees_to_declaration:
+              blank: "Dewiswch eich cytundeb gyda'r datganiadau datganiad"
+            cash_contributions_evidence_question:
+              blank: "Dewiswch a fyddwch yn darparu tystiolaeth o gyfraniadau arian parod wedi'u sicrhau"
+            cash_contributions_evidence_files:
+              inclusion: "Dewiswch dystiolaeth o ffeil cyfraniad arian parod wedi'i sicrhau"
+            fundraising_evidence_question:
+              blank: "Dewiswch a fyddwch yn darparu cynllun codi arian"
+            fundraising_evidence_files:
+              inclusion: "Dewiswch dystiolaeth o ffeil cynllun codi arian"
+            legal_sig_one: 
+              blank: "Rhowch enw'r llofnodwr cyfreithiol 1"
+            legal_sig_two: 
+              blank: "Rhowch enw'r llofnodwr cyfreithiol 2"
+            partnership_application:  
+              blank: "Dewiswch os ydych yn gwneud cais ar ran partneriaeth"
+            project_partner_name:  
+              blank: "Rhowch enw partner y prosiect"
+            timetable_work_programme_question:
+              blank: "Dewiswch a fyddwch yn darparu amserlen neu raglen waith"
+            timetable_work_programme_files:
+              inclusion: "Dewiswch dystiolaeth o amserlen neu ffeil rhaglen waith"
+            project_management_structure_question:
+              blank: "Dewiswch a fyddwch yn darparu strwythur rheoli prosiect"
+            project_management_structure_files:
+              inclusion: "Dewiswch ffeil strwythur rheoli prosiect"
+            property_ownership_evidence_question:
+              blank: "Dewiswch a fyddwch yn darparu tystiolaeth o berchnogaeth"
+            property_ownership_evidence_files:
+              inclusion: "Dewiswch dystiolaeth o ffeil perchnogaeth"
+            property_ownership_evidence_question:
+              blank: "Dewiswch a fyddwch yn darparu tystiolaeth o berchnogaeth"
+            property_ownership_evidence_files:
+              inclusion: "Dewiswch dystiolaeth o ffeil perchnogaeth"
+            add_another_statutory_permission_or_licence:
+              blank: "Dewiswch a fyddwch yn ychwanegu caniatâd neu drwydded statudol arall"
+            pts_form_files:
+              inclusion: "Dewiswch Ffurflen Caniatâd i Ddechrau wedi'i llofnodi"
+        statutory_permission_or_licence:
+          attributes:
+            upload_question:
+              blank: "Dewiswch a fyddwch yn darparu tystiolaeth ar gyfer y caniatâd neu'r drwydded statudol hon"
+            upload_files:
+              inclusion: "Dewiswch dystiolaeth ar gyfer y ffeil caniatâd statudol neu drwydded hon"
+            licence_type: 
+              blank: "Rhowch fath o ganiatâd neu drwydded statudol"
+            date_day: 
+              not_a_number: "Rhowch y diwrnod"
+              greater_than: "Ni all gwerth diwrnod fod yn llai nag 1"
+              less_than: "Ni all gwerth diwrnod fod yn fwy na 31"
+            date_month: 
+              not_a_number: "Rhowch y mis"
+              greater_than: "Ni all gwerth mis fod yn llai nag 1"
+              less_than: "Ni all gwerth mis fod yn fwy na 12"
+            date_year: 
+              not_a_number: "Rhowch y flwyddyn"
+              greater_than: "Rhowch flwyddyn o 1700 neu fwy"
+              less_than: "Rhowch flwyddyn o lai na 4000"
+            licence_date: 
+              invalid: "Rhowch ganiatâd statudol dilys neu ddyddiad trwydded"

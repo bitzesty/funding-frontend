@@ -1,0 +1,14 @@
+en-GB:
+  salesforce_experience_application:
+    cash_contributions_correct:
+      page_title: "Cash contribution"
+      page_heading: "Are the cash contributions still correct?"
+      page_caption: "Cash and non-cash contributions"
+      table:
+        name: "Cash contributions summary"
+        headings:
+          desc: "Description of funding"
+          amount: "Amount expected (£)"
+      yes_radio: "Yes, the cash contributions are correct"
+      no_radio: "No, the cash contributions are not correct"
+      if_no: "Changes to cash contributions need to be agreed with your Investment Manager. Contact your Investment Manager for further details."

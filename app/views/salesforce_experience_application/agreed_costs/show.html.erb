@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
         model_object: nil,
-        page_title: 'Agreed Costs'
+        page_title: t('salesforce_experience_application.agreed_costs.page_title')
     }
 %>
 
@@ -21,10 +21,15 @@
     @salesforce_experience_application.errors.any? %>">
 
      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <span class="govuk-caption-xl govuk-!-padding-bottom-2">Agreed Costs</span>
+
+        <span class="govuk-caption-xl govuk-!-padding-bottom-2">
+          <%=t('salesforce_experience_application.agreed_costs.page_caption')%>
+        </span>
+
         <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-          Are the project costs still correct?
+          <%=t('salesforce_experience_application.agreed_costs.page_heading')%>
         </h1>
+
      </legend>
 
     <section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
@@ -32,7 +37,7 @@
       <header class="nlhf-summary__header">
 
         <h2 class="govuk-heading-m">
-            <%= t('application.costs.headings.2') %>
+          <%= t('salesforce_experience_application.agreed_costs.table.name') %>
         </h2>
 
       </header>
@@ -46,19 +51,19 @@
               <tr class="govuk-table__row">
 
                   <th scope="col" class="govuk-table__header">
-                      Cost heading
+                    <%= t('salesforce_experience_application.agreed_costs.table.headings.cost_heading') %>
                   </th>
 
                   <th scope="col" class="govuk-table__header">
-                      Agreed costs (£)
+                    <%= t('salesforce_experience_application.agreed_costs.table.headings.costs') %>
                   </th>
 
                   <th scope="col" class="govuk-table__header">
-                      Agreed VAT (£)
+                    <%= t('salesforce_experience_application.agreed_costs.table.headings.vat') %>
                   </th>
 
                   <th scope="col" class="govuk-table__header">
-                      Agreed total costs (£)
+                    <%= t('salesforce_experience_application.agreed_costs.table.headings.total') %>
                   </th>
 
               </tr>
@@ -92,7 +97,7 @@
               <tr class="govuk-table__row">
 
                 <th scope="govuk-table__cell" class="govuk-table__header">
-                    Total (£)
+                    <%= t('salesforce_experience_application.agreed_costs.table.total_row') %>
                 </th>
 
                 <td class="govuk-table__cell ">
@@ -136,15 +141,26 @@
     </section>
 
     <div class="govuk-body">
-        <p>Total VAT allocation:  <%= number_to_currency(@total_vat_cost, unit: "£",  precision: 2) %></p>
-        <p class="govuk-!-margin-bottom-9">Total contingency allocation:  <%= 
+
+        <p>
+          <%= t('salesforce_experience_application.agreed_costs.total_vat_allocation') %>
+          <%= number_to_currency(@total_vat_cost, unit: "£",  precision: 2) %>
+        </p>
+
+        <p class="govuk-!-margin-bottom-9">
+          <%= t('salesforce_experience_application.agreed_costs.total_contingency_allocation') %>
+          <%= 
                     number_to_currency(
                     @total_contingency, 
                     precision: 2
                     ) 
                   %>
-          </p>
-        <p class="govuk-!-padding-bottom-9">Payment percentage: <%= @payment_percentage %> %</p>
+        </p>
+
+        <p class="govuk-!-padding-bottom-9">
+          <%= t('salesforce_experience_application.agreed_costs.payment_percentage') %>
+          <%= @payment_percentage %> %
+        </p>
     </div>
 
     <%=
@@ -177,7 +193,7 @@
 
               <%= 
                 f.label :agreed_costs_match_true, 
-                "Yes, the projects costs are correct",
+                t('salesforce_experience_application.agreed_costs.radio_yes'),
                 class: "govuk-label govuk-radios__label" 
               %>
 
@@ -194,7 +210,7 @@
 
               <%= 
                 f.label :agreed_costs_match_false, 
-                "No, the project costs are not correct",
+                t('salesforce_experience_application.agreed_costs.radio_no'),
                 class: "govuk-label govuk-radios__label" 
               %>
 
@@ -204,8 +220,7 @@
                 id="conditional-agreed_costs_match">
 
               <p class="govuk-body">
-                  Changes to costs need to be agreed with your Investment Manager. 
-                  Contact your Investment Manager to discuss any changes.
+                <%= t('salesforce_experience_application.agreed_costs.if_no') %>
               </p>
               
             </div>
@@ -215,7 +230,7 @@
             ButtonComponent.new(
             element: 'button',
             is_start_button: false,
-            text: "Save and continue"
+            text: t('buttons.labels.default')
             )
           )%>
 

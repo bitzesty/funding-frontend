@@ -1,0 +1,35 @@
+cy:
+  agreement:
+    additional_docs:
+      page_title: "Ydych chi wedi derbyn unrhyw dystiolaeth newydd ar gyfer eich prosiect ers cyflwyno'ch cais?"
+      page_heading: "Ydych chi wedi derbyn unrhyw dystiolaeth newydd ar gyfer eich prosiect ers cyflwyno'ch cais?"
+      new_evidence: "Gallai tystiolaeth gynnwys cyfraniadau arian parod gwarantedig, caniatadau gwarantedig, neu drwyddedau gwarantedig. Bydd eich Rheolwr Buddsoddi yn rhoi gwybod i chi os oes eisiau unrhyw beth penodol."
+      labels:
+        radio_yes: "Oes, mae gen i dystiolaeth newydd"
+        radio_no: "Na, nid oes gennyf dystiolaeth newydd"
+      buttons:
+        add_evidence: "Ychwanegu ffeiliau tystiolaeth newydd"
+      no_evidence_files: "Nid ydych wedi ychwanegu unrhyw ffeiliau tystiolaeth newydd"
+      evidence_file: "Ffeil dystiolaeth"
+      headings:
+        secured_cash_contributions: "Wedi sicrhau cyfraniadau arian parod, caniatadau neu drwyddedau"
+        ownership_lands_buildings: "Prawf perchnogaeth ar gyfer tir ac adeiladau"
+        ownership_objects_collections: "Prawf o berchnogaeth ar gyfer gwrthrychau a chasgliadau"
+        cashflow_forecast: "Rhagolwg llif arian"
+        timetable: "Amserlen"
+        project_management_structure: "Strwythur rheoli prosiectau a chaffael"
+        fundraising_plan: "Cynllun codi arian"
+        legal_charge: "Tâl cyfreithiol"
+      text: 
+        upload_instructions: "Lanlwythwch y dogfennau canlynol ar gyfer Eich Prosiect, os ydynt yn berthnasol. Os oes angen unrhyw beth penodol ar eich Rheolwr Buddsoddi, bydd yn rhoi gwybod i chi."
+        secured_cash_contributions: "Os ydych wedi derbyn unrhyw dystiolaeth newydd o gyfraniadau, caniatadau neu drwyddedau arian parod gwarantedig ers cyflwyno'ch Cais, anfonwch y dogfennau perthnasol atom."
+        ownership_lands_buildings_1: "Os nad ydych eisoes wedi gwneud hynny, anfonwch brawf o berchnogaeth arnom o'r tir neu'r adeiladau sy'n cael eu hariannu, gan gynnwys copïau cyfredol o gofrestr teitl y Gofrestrfa Tir gyda chynllun a lle bo'n berthnasol, prydlesi a thystiolaeth o unrhyw forgeisi presennol."
+        ownership_lands_buildings_2: "Ni all y Prosiect ddechrau nes i ni dderbyn prawf priodol o bwy sy'n berchen ar unrhyw Eiddo a gwybodaeth am unrhyw gyfyngiadau neu hawliadau arno, sy'n rhan o'r Prosiect."
+        ownership_objects_collections_1: "Yn achos gwrthrych treftadaeth neu dystiolaeth gasglu gall gynnwys cytundeb gwerthu wedi'i gwblhau neu ddogfen/dogfennau eraill sy'n dangos tystiolaeth o'ch perchnogaeth gyfreithiol."
+        ownership_objects_collections_2: "Ni all y Prosiect ddechrau nes i ni dderbyn prawf priodol o bwy sy'n berchen ar unrhyw wrthrychau neu gasgliadau a gwybodaeth am unrhyw gyfyngiadau neu hawliadau ar hynny sy'n rhan o'r Prosiect."
+        cashflow_forecast: "Os nad ydych eisoes wedi gwneud hynny, anfonwch ragolygon llif arian atom ar gyfer y Prosiect."
+        timetable_1: "Amserlen neu raglen waith arfaethedig ar gyfer y Prosiect gyda cherrig milltir sy'n cynnwys dyddiadau ar gyfer cyflwyno ceisiadau am daliadau ac adroddiadau cynnydd."
+        timetable_2: "Ni all y Prosiect ddechrau nes ein bod wedi cymeradwyo amserlen."
+        project_management_structure: "Os nad ydych eisoes wedi gwneud hynny, anfonwch fanylion eich strwythur rheoli Prosiect a'ch dulliau ar gyfer dewis ymgynghorwyr, contractwyr a chyflenwyr."
+        fundraising_plan: "Os nad yw eich holl gyllid partneriaeth ar waith yna efallai y byddwn yn ystyried derbyn cynllun codi arian realistig yn lle hynny."
+        legal_charge: "Os yw'n berthnasol, anfonwch gopi o'r tâl cyfreithiol wedi'i gwblhau atom."

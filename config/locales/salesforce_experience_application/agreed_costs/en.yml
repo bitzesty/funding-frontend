@@ -1,0 +1,21 @@
+en-GB:
+  salesforce_experience_application:
+    agreed_costs:
+      page_title: "Agreed Costs"
+      page_heading: "Are the project costs still correct?"
+      page_caption: "Agreed Costs"
+      table:
+        name: "Your project costs"
+        headings:
+          cost_heading: "Cost heading"
+          costs: "Agreed costs (£)"
+          vat: "Agreed VAT (£)"
+          total: "Agreed total costs (£)"
+        total_row: "Total (£)"
+      total_vat_allocation: "Total VAT allocation:"
+      total_contingency_allocation: "Total contingency allocation:"
+      payment_percentage: "Payment percentage:"
+      radio_yes: "Yes, the projects costs are correct"
+      radio_no: "No, the project costs are not correct"
+      if_no: "Changes to costs need to be agreed with your Investment Manager. Contact your Investment Manager to discuss any changes."
+

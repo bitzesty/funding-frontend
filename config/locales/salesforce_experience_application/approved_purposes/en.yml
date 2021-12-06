@@ -1,0 +1,11 @@
+en-GB:
+  salesforce_experience_application:
+    approved_purposes:
+      page_title: "Approved Purposes"
+      page_heading: "Do the Approved Purposes listed below match the ones in your Grant Notification Letter?"
+      page_caption: "Approved Purposes"
+      no_approved_purposes: "Contact your Investment Manager for your Approved Purposes"
+      yes_radio: "Yes, the Approved Purposes match"
+      no_radio: "No, the Approved Purposes do not match"
+      contact: "Contact your Investment Manager"
+    

@@ -18,10 +18,15 @@
 	%>
 
 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-		<span class="govuk-caption-xl govuk-!-padding-bottom-2"><%= t("salesforce_experience_application.fundraising_evidence.page_hint") %></span>
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t("salesforce_experience_application.fundraising_evidence.page_hint") %>
+		</span>
+
 		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
 			<%= t("salesforce_experience_application.fundraising_evidence.page_heading") %>
 		</h1>
+
 	</legend>
 
 	<%=
@@ -128,7 +133,7 @@
 									<tr class="govuk-table__row">
 										<thead class="govuk-table__head">
 												<th class="govuk-table__header">
-														Uploaded files
+														<%= t('generic.uploaded_files') %>
 												</th>
 										</thead>
 									</tr>
@@ -150,7 +155,7 @@
 													%> 
 
 													<p>	
-														has been uploaded
+														<%= t('generic.has_been_uploaded') %>
 													</p>
 												</div>
 								

@@ -1,0 +1,8 @@
+en-GB:
+  salesforce_experience_application:
+    signatories:
+      page_title: "Details of Signatories"
+      page_heading: "Details of 2 signatories authorised to sign on behalf of your organisation"
+      page_hint: "When you download the Permission to Start form to sign it, the 2 signatories added here will also have to sign it too."
+      no_name_error: "Enter name of signatory for your organisation"
+      person_for_your_organisation: "Person %{person_number} for your organisation"

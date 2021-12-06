@@ -134,7 +134,7 @@
 
         <%=
           f.label :agrees_to_declaration,
-                  "I agree with the above statements.",
+                  t('salesforce_experience_application.declaration.check_i_agree'),
                   class: "govuk-label govuk-checkboxes__label"
         %>
 
@@ -148,7 +148,7 @@
       ButtonComponent.new(
       element: 'button',
       is_start_button: false,
-      text: "Save and continue"
+      text: t('buttons.labels.default')
       )
     )%>
 

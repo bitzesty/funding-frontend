@@ -1,0 +1,17 @@
+cy:
+  agreement:
+    submitted:
+      sub_headings:
+        what_happens_next: "Beth sy'n digwydd nesaf"
+      signed:
+        page_title: "Telerau ac amodau wedi'u llofnodi a gyflwynwyd"
+        page_heading: "Telerau ac amodau wedi'u llofnodi a gyflwynwyd"
+        after_receipt: "Ar ôl i ni dderbyn copïau wedi'u llofnodi gan y ddau lofnodwr cyfreithiol, byddwn yn gwirio eu bod yn iawn."
+        what_next_applicant: "Byddwn wedyn mewn cysylltiad o fewn 3 diwrnod gwaith i gadarnhau y gallwch ddechrau eich prosiect a gofyn am fanylion banc eich sefydliad."
+        what_next_signatory: "Byddwn wedyn mewn cysylltiad â'r sawl a gyflwynodd y cais o fewn 3 diwrnod gwaith i gadarnhau y gallwch ddechrau eich prosiect a gofyn am fanylion banc eich sefydliad."
+      agreed:
+        page_title: "Cytuno ar delerau ac amodau"
+        page_heading: "Cytuno ar delerau ac amodau"
+        sent_links: "Rydym wedi anfon y dolenni unigryw at y 2 lofnodwr cyfreithiol ar gyfer y prosiect. Mae angen iddynt ddarllen manylion y prosiect a thelerau ac amodau'r prosiect cyn llofnodi a dychwelyd copi."
+        after_receipt: "Ar ôl i ni dderbyn copïau wedi'u llofnodi gan y ddau lofnodwr cyfreithiol, byddwn yn gwirio eu bod yn iawn."
+        what_next: "Byddwn wedyn mewn cysylltiad o fewn 3 diwrnod gwaith i gadarnhau y gallwch ddechrau eich prosiect a gofyn am fanylion banc eich sefydliad."
