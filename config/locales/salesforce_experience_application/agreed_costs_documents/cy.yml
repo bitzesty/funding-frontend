@@ -1,0 +1,9 @@
+cy:
+  salesforce_experience_application:
+    agreed_costs_documents:
+      page_title: "Caniatâd i Ddechrau - Dogfennau Costau y cytunwyd arnynt"
+      page_heading: "Lanlwytho dadansoddiad cost a llif arian, gyda syniad pryd y byddwch yn ceisio taliadau grant"
+      page_caption: "Costau y cytunwyd arnynt"
+      upload_a_cost_breakdown_and_cashflow: "Lanlwytho dadansoddiad costau a llif arian"
+      upload_radio: "Byddaf yn lanlwytho dadansoddiad costau a llif arian"
+      emailed_radio: "Rwyf wedi e-bostio dadansoddiad costau a llif arian at fy Rheolwr Buddsoddi"

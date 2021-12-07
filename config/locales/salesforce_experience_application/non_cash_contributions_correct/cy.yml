@@ -1,0 +1,15 @@
+cy:
+  salesforce_experience_application:
+    non_cash_contributions_correct:
+      page_title: "Cyfraniad heb fod yn arian parod"
+      page_heading: "A yw'r cyfraniadau nad ydynt yn arian parod yn dal yn gywir?"
+      page_caption: "Cyfraniadau arian parod a chyfraniadau nad ydynt yn arian parod"
+      table:
+        name: "Crynodeb o gyfraniadau nad ydynt yn arian parod"
+        headings:
+          desc: "Disgrifiad o'r cyllid"
+          amount: "Swm a ddisgwylir (£)"
+      radio_yes: "Ydy, mae'r cyfraniadau nad ydynt yn arian parod yn gywir"
+      radio_no: "Na, nid yw'r cyfraniadau nad ydynt yn arian parod yn gywir"
+      if_no: "Mae angen cytuno ar newidiadau i gyfraniadau nad ydynt yn arian parod gyda'ch Rheolwr Buddsoddi. Cysylltwch â'ch Rheolwr Buddsoddi i gael rhagor o fanylion."
+

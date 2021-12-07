@@ -1,0 +1,12 @@
+cy:
+  salesforce_experience_application:
+    property_ownership_evidence:
+      page_title: "Tystiolaeth o berchnogaeth"
+      page_heading: "Tystiolaeth o bwy sy'n berchen ar unrhyw eiddo sy'n rhan o'r prosiect a gwybodaeth am gyfyngiadau neu hawliadau eraill arno"
+      page_hint: "Tystiolaeth o berchnogaeth"
+      bullets:
+        i_will_upload: "Byddaf yn lanlwytho tystiolaeth o berchnogaeth"
+        upload_evidence: "Lanlwytho tystiolaeth o berchnogaeth"
+        i_have_emailed: "Rwyf wedi e-bostio tystiolaeth o berchnogaeth at fy Rheolwr Buddsoddi"
+        not_applicable: "Nid yw hyn yn berthnasol i'm prosiect"
+

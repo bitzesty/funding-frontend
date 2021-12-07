@@ -1,0 +1,20 @@
+cy:
+  salesforce_experience_application:
+    permissions_to_start:
+      page_title: "Caniatâd i Ddechrau"
+      page_heading: "Caniatâd i Ddechrau"
+      cyflawni: "Cyflawni"
+      datblygiad: "Datblygu"
+      page_caption: "Cyfnod"
+      project_details: "Manylion y prosiect"
+      project_title: "Teitl y prosiect:"
+      project_reference_number: "Cyfeirnod y prosiect:"
+      grant_expiry_date: "Dyddiad y daw'r grant i ben:"
+      sefydliad: "Sefydliad:"
+      we_will_ask_you_to: "Byddwn yn gofyn i chi:"
+      bullets:
+        provide: "darparu copïau o ddogfennau"
+        tell_us: "dywedwch wrthym sut y bydd eich prosiect yn symud ymlaen"
+        download: "lawrlwytho, argraffu a llofnodi'r Ffurflen Caniatâd i Ddechrau"
+        upload: "lanlwytho'r ddogfen wedi'i llofnodi"
+      warning: "Mae'n bwysig nad ydych yn dechrau eich prosiect hyd nes y clywch gennym."

@@ -1,0 +1,21 @@
+cy:
+  salesforce_experience_application:
+    agreed_costs:
+      page_title: "Costau y cytunwyd arnynt"
+      page_heading: "A yw costau'r prosiect yn dal yn gywir?"
+      page_caption: "Costau y cytunwyd arnynt"
+      table:
+        name: "Costau eich prosiect"
+        headings:
+          cost_heading: "Pennawd cost"
+          costs: "Costau y cytunwyd arnynt (£)"
+          vat: "TAW y cytunwyd arno (£)"
+          total: "Cyfanswm y costau y cytunwyd arnynt  (£)"
+        total_row: "Cyfanswm (£)"
+      total_vat_allocation: "Cyfanswm y dyraniad TAW:"
+      total_contingency_allocation: "Cyfanswm y dyraniad wrth gefn:"
+      payment_percentage: "Canran y taliad:"
+      radio_yes: "Ydy, mae costau'r prosiect yn gywir"
+      radio_no: "Na, nid yw costau'r prosiect yn gywir"
+      if_no: "Mae angen cytuno ar newidiadau i gostau gyda'ch Rheolwr Buddsoddi. Cysylltwch â'ch Rheolwr Buddsoddi i drafod unrhyw newidiadau."
+

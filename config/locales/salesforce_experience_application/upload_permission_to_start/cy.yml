@@ -1,0 +1,7 @@
+cy:
+  salesforce_experience_application:
+    upload_permission_to_start:
+      page_title: "Lanlwytho caniatâd i ddechrau"
+      page_heading: "Lanlwytho Ffurflen Caniatâd i Ddechrau wedi'i llofnodi"
+      page_hint: "Mae'n rhaid i chi gynnwys holl dudalennau'r ddogfen."
+      upload: "Lanlwytho Ffurflen Caniatâd i Ddechrau wedi'i llofnodi"

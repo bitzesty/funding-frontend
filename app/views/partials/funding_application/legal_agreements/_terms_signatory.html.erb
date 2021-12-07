@@ -53,15 +53,18 @@
     <p class="govuk-body govuk-!-font-weight-bold">Date</p>
   </div>
 
-  <%=
-    render(
-      ButtonComponent.new(
-        element: 'a',
-        href: button_link,
-        text: t('buttons.labels.continue')
+
+<div class="no-print">
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'a',
+          href: button_link,
+          text: t('buttons.labels.continue')
+        )
       )
-    )
-  %>
+    %>
+  </div> 
 
 <% # renders section close tag if html present %>
 <% if @section_end_html.present? %> 

@@ -1,0 +1,14 @@
+cy:
+  salesforce_experience_application:
+    download_instructions:
+      page_title: "Lawrlwytho a llofnodi Caniatâd i Ddechrau"
+      page_heading: "Cyn i chi gyflwyno'r Ffurflen Caniatâd i Ddechrau"
+      what_you_need_to_do: "Beth sydd angen i chi ei wneud:"
+      to_sign_the_form: "I lofnodi'r ffurflen:"
+      list:
+        download: "Lawrlwythwch y Caniatâd i Ddechrau"
+        sign: "Llofnodwch y ddogfen"
+        signing_options: "Gallwch naill ai lofnodi'r ddogfen yn ddigidol neu argraffu, llofnodi a sganio'r ddogfen."
+        upload: "Lanlwytho'r Caniatâd i Ddechrau wedi'i lofnodi"
+      all_signatures_must: "Mae'n rhaid i bob llofnod fod yn newydd. Ni ellir eu copïo."
+      already_completed_link: "Rwyf eisoes wedi lawrlwytho a llofnodi Ffurflen Caniatâd i Ddechrau"

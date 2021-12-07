@@ -1,0 +1,10 @@
+cy:
+  salesforce_experience_application:
+    partnerships:
+      page_title: "Caniatâd i Ddechrau - manylion y llofnodwyr"
+      page_heading: "Ydych chi'n gwneud cais ar ran partneriaeth?"
+      page_hint: "Os ydych yn gwneud cais ar ran partneriaeth, mae angen i bartner y prosiect lofnodi'r ffurflen hon hefyd."
+      radio_yes: "Ydw, rwy'n gwneud cais ar ran partneriaeth"
+      full_name: "Enw llawn y person sy'n llofnodi ar ran partner y prosiect"
+      full_name_error: "Rhowch enw llawn y person sy'n llofnodi ar ran partner y prosiect"
+      radio_no: "Na, nid wyf yn gwneud cais ar ran partneriaeth"

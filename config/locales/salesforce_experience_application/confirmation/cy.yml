@@ -1,0 +1,12 @@
+cy:
+  salesforce_experience_application:
+    confirmation:
+      page_title: "Cadarnhad"
+      page_heading: "Caniatâd i Ddechrau a gyflwynwyd"
+      email_sent_to: "Rydym wedi anfon e-bost cadarnhau at"
+      what_happens_next: "Beth sy'n digwydd nesaf"
+      will_review: "Byddwn yn adolygu eich Ffurflen Caniatâd i Ddechrau a byddwn mewn cysylltiad os oes gennym unrhyw gwestiynau."
+      will_let_know: "Byddwn yn rhoi gwybod i chi unwaith y bydd ein gwiriadau wedi'u cwblhau a phryd y gallwch ddechrau gweithio ar eich prosiect."
+      warning: "Mae'n bwysig nad ydych yn dechrau eich prosiect hyd nes y clywch gennym."
+      any_questions: "Os oes gennych unrhyw gwestiynau, cysylltwch â'ch Rheolwr Buddsoddi."
+

@@ -1,0 +1,42 @@
+cy:
+  salesforce_experience_application:
+    permissions_or_licences:
+      page_title: "Caniatâd statudol"
+      page_heading: "Ydych chi wedi derbyn unrhyw ganiatadau neu drwyddedau statudol newydd?"
+      page_caption: "Caniatadau a thrwyddedau statudol"
+      radio_yes: "Ydw, rwyf wedi derbyn caniatâd neu drwyddedau statudol newydd"
+      radio_no: "Na, nid wyf wedi derbyn caniatâd na thrwyddedau statudol newydd"
+    statutory_permission_or_licence:
+      add:
+        page_title: "YCHWANEGU caniatâd neu drwyddedau statudol"
+        page_heading: "Ychwanegu caniatâd neu drwydded statudol"
+        page_caption: "Caniatadau a thrwyddedau statudol"
+        type: "Math o ganiatâd neu drwydded statudol"
+        what_date_hint: "Pa ddyddiad y cawsoch neu a fyddwch yn derbyn y caniatâd neu'r drwydded statudol?"
+        date_example: "Er enghraifft, 27 6 2022"
+        button: "Ychwanegu caniatâd neu drwydded statudol"
+        errors:
+          type: "Rhowch fath o ganiatâd neu drwydded statudol"
+          day: "Rhowch ddiwrnod dilys"
+          month: "Rhowch fis dilys"
+          year: "Rhowch fLWYDDYN dilys"
+      files:
+        page_title: "Llwytho caniatâd a thrwyddedau statudol i fyny"
+        page_heading: "Ydych chi am lanlwytho tystiolaeth ar gyfer y caniatâd neu'r drwydded statudol hon?"
+        page_hint: "Caniatadau a thrwyddedau statudol"
+        bullets:
+          i_will_upload: "Byddaf yn lanlwytho tystiolaeth"
+          upload_evidence: "Lanlwytho tystiolaeth o ganiatâd neu drwydded statudol"
+          no_i_do_not_have_evidence: "Na, nid oes gennyf dystiolaeth eto"
+      summary:
+        page_title: "Ychwanegu un arall"
+        page_heading_prefix: "Rydych wedi ychwanegu caniatâd statudol %{count} neu"
+        page_heading_suffix_singular: "trwydded"
+        page_heading_suffix_plural: "trwyddedau"
+        page_caption: "Caniatadau a thrwyddedau statudol"
+        change_link_hint: "newid caniatâd neu drwydded statudol"
+        remove_link_hint: "dileu caniatâd neu drwydded statudol"
+        heading_add_another: "Ydych chi am ychwanegu caniatâd neu drwydded statudol arall?"
+        radio_yes: "Ydw, rwyf am ychwanegu caniatâd neu drwydded statudol arall"
+        radio_no: "Na, nid wyf am ychwanegu caniatâd neu drwydded statudol arall"
+        

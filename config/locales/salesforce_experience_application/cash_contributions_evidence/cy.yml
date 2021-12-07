@@ -1,0 +1,12 @@
+cy:
+  salesforce_experience_application:
+    cash_contribution_evidence:
+      page_title: "Cyfraniad arian parod"
+      page_heading: "Tystiolaeth o gyfraniadau arian parod wedi'u sicrhau"
+      page_hint: "Arian parod a chyfraniadau nad ydynt yn arian parod"
+      bullets:
+        yes_i_will_upload: "Byddaf yn lanlwytho tystiolaeth o gyfraniadau arian parod wedi'u sicrhau"
+        upload_evidence_of: "Lanlwytho tystiolaeth o gyfraniad arian parod wedi'i sicrhau"
+        i_have_emailed_evidence: "Rwyf wedi e-bostio tystiolaeth o gyfraniadau arian parod wedi'u sicrhau i'm Rheolwr Buddsoddi"
+        i_provided_evidence: "Rhoddais dystiolaeth o gyfraniadau arian parod wedi'u sicrhau fel rhan o'm cais"
+        no_i_do_not_have_evidence: "Na, nid oes gennyf dystiolaeth ar gyfer cyfraniadau arian parod wedi'u sicrhau eto"

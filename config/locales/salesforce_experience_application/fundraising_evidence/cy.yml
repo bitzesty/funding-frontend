@@ -1,0 +1,12 @@
+cy:
+  salesforce_experience_application:
+    fundraising_evidence:
+      page_title: "Cynllun codi arian"
+      page_heading: "Tystiolaeth o gynllun codi arian"
+      page_hint: "Cyfraniadau arian parod a chyfraniadau nad ydynt yn arian parod"
+      rhybudd: "Os nad ydych wedi sicrhau eich cyfraniadau ariannol, mae angen i chi lanlwytho cynllun codi arian."
+      bullets:
+        yes_i_will_upload: "Bydd, byddaf yn lanlwytho cynllun codi arian"
+        upload_fundraising_plan: "Lanlwytho cynllun codi arian"
+        i_have_emailed: "Rwyf wedi e-bostio cynllun codi arian at fy Rheolwr Buddsoddi"
+        not_applicable: "Nid yw hyn yn berthnasol i'm prosiect"

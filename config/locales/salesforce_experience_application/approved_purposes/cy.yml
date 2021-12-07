@@ -1,0 +1,11 @@
+cy:
+  salesforce_experience_application:
+    approved_purposes:
+      page_title: "Dibenion Cymeradwy"
+      page_heading: "A yw'r Dibenion Cymeradwy a restrir isod yn cyfateb i'r rhai yn eich Llythyr Hysbysu Grant?"
+      page_caption: "Dibenion Cymeradwy"
+      no_approved_purposes: "Cysylltwch â'ch Rheolwr Buddsoddi ar gyfer eich Dibenion Cymeradwy"
+      yes_radio: "Ydy, mae'r Dibenion Cymeradwy yn cyfateb"
+      no_radio: "Na, nid yw'r Dibenion Cymeradwy yn cyfateb"
+      contact: "Cysylltwch â'ch Rheolwr Buddsoddi"
+    

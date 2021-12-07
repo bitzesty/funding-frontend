@@ -1,0 +1,10 @@
+cy:
+  salesforce_experience_application:
+    project_management_structure:
+      page_title: "Rheoli prosiectau a chaffael"
+      page_heading: "Lanlwytho strwythur rheoli prosiect, gan gynnwys dulliau ar gyfer dewis ymgynghorwyr, contractau a chyflenwyr"
+      page_hint: "Rheoli prosiectau a chaffael"
+      bullets:
+        i_will_upload: "Byddaf yn lanlwytho strwythur rheoli prosiect"
+        upload_evidence: "Lanlwytho tystiolaeth o strwythur rheoli prosiect"
+        i_have_emailed: "Rwyf wedi e-bostio strwythur rheoli prosiect at fy Rheolwr Buddsoddi"

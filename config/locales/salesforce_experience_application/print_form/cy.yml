@@ -1,0 +1,102 @@
+cy:
+  salesforce_experience_application:
+    print_form:
+      page_title: "Caniatâd i Ddechrau"
+      page_heading: "Lawrlwytho a llofnodi ffurflen Caniatâd i Ddechrau"
+      javascript_link: "Lawrlwytho Ffurflen Caniatâd i Ddechrau"
+      delivery: "Cyflawni"
+      development: "Datblygiad"
+      phase: "Ffurflen Caniatâd i Ddechrau cam %{name} "
+      project_title: "Teitl y prosiect:"
+      project_reference_number: "Cyfeirnod y prosiect:"
+      grant_expiry_date: "Dyddiad y daw'r grant i ben:"
+      organisation: "Sefydliad:"
+      approved_purposes:
+        heading: "1. Dibenion Cymeradwy"
+        empty: "Cysylltwch â'ch Rheolwr Buddsoddi at eich Dibenion Cymeradwy"
+      agreed_costs:
+        heading: "2. Costau y cytunwyd arnynt"
+        table_name: "Costau eich prosiect"
+        cost_heading: "Pennawd cost"
+        agreed_costs: "Costau y cytunwyd arnynt (£)"
+        agreed_vat: "TAW y cytunwyd arno (£)"
+        agreed_total_costs: "Cyfanswm y costau y cytunwyd arnynt (£)"
+        total: "Cyfanswm (£)"
+        total_vat_allocation: "Cyfanswm y dyraniad TAW:"
+        contingency: "Cyfanswm y dyraniad wrth gefn:"
+        payment_percentage: "Canran y taliad:"
+        not_agreed: "Bydd costau'r prosiect yn cael eu trafod a'u cytuno gyda'r Rheolwr Buddsoddi."
+      cost_breakdown:
+        heading: "3. Dadansoddiad o gostau a llif arian gyda syniad o ba bryd y byddwch yn ceisio taliadau grant"
+        emailed: "Dogfen wedi'i e-bostio at y Rheolwr Buddsoddi"
+      cash_and_non_cash_contributions: "Arian parod a chyfraniadau nad ydynt yn arian parod"
+      cash_contributions: 
+        heading: "4. Cyfraniadau arian parod"
+        not_correct: "Bydd cyfraniadau arian parod yn cael eu trafod a'u cytuno gyda'r Rheolwr Buddsoddi"
+        summary: "Crynodeb cyfraniadau arian parod"
+        description: "Disgrifiad o'r cyllid"
+        amount: "Swm a ddisgwylir (£)"
+      cc_evidence:
+        heading: "5. Tystiolaeth o gyfraniadau arian parod wedi'u sicrhau"
+      fundraising_evidence:
+        heading: "6. Tystiolaeth o gynllun codi arian"
+      non_cash_contributions:
+        heading: "7. Cyfraniadau nad ydynt yn arian parod"
+        not_correct: "Bydd cyfraniadau nad ydynt yn arian parod yn cael eu trafod a'u cytuno gyda'r Rheolwr Buddsoddi"
+        summary: "Crynodeb o gyfraniadau nad ydynt yn arian parod"
+        description: "Disgrifiad o'r cyllid"
+        amount: "Swm a ddisgwylir (£)"
+      timetable:
+        section: "Amserlen neu raglen"
+        heading: "8. Amserlen neu raglen waith arfaethedig gyda cherrig milltir gan gynnwys dyddiadau ar gyfer cael taliadau grant a rhoi diweddariadau prosiect"
+        emailed: "Dogfen wedi'i e-bostio at y Rheolwr Buddsoddi"
+      project_mgt:
+        section: "Rheoli prosiectau a chaffael"
+        heading: "9. Strwythur rheoli prosiectau, gan gynnwys dulliau ar gyfer dewis ymgynghorwyr, contractau a chyflenwyr"
+        emailed: "Dogfen wedi'i e-bostio at y Rheolwr Buddsoddi"      
+      evidence_ownership:
+        section: "Tystiolaeth o berchnogaeth"
+        heading: "10. Tystiolaeth pwy sy'n berchen ar unrhyw eiddo sy'n rhan o'r prosiect a gwybodaeth am gyfyngiadau neu hawliadau eraill arno"
+      statutory_permission:
+        section: "Caniatâd statudol"
+        type: "Math o ganiatâd neu drwyddedau statudol"
+        evidence_y_n: "Tystiolaeth wedi'i dderbyn"
+        files: "Ffeiliau tystiolaeth"
+        none: "Dim caniatadau na thrwyddedau statudol newydd"
+      declaration:
+        section: "Datganiad"
+        i_agree: "Rwy'n cytuno â'r datganiadau uchod."
+        javascript_off: "Mae Javascript wedi'i analluogi ar eich dyfais. Lawrlwythwch y ffurflen hon gan ddefnyddio swyddogaeth argraffu eich porwr."
+        signatories: "Llofnodwyr"
+        person_completing: "Llofnod y person sy'n cwblhau'r ffurflen"
+        full_name: "Enw llawn"
+        position: "Rôl"
+        organisation: "Sefydliad"
+        signature: "Llofnod"
+        date: "Dyddiad"
+        authorised_signatories_sign: "Llofnod llofnodwyr awdurdodedig"
+        names_and_sigs: "Enwau a llofnodion 2 berson sydd wedi'u hawdurdodi i lofnodi dogfennau ar gyfer eich sefydliad"
+        signatory_one: "Llofnodwr Un ar gyfer eich sefydliad"
+        signatory_two: "Llofnodwr Dau ar gyfer eich sefydliad"
+        project_partner: "Partner Prosiect"
+        project_partner_org_name: "Enw sefydliad partner prosiect"
+        behalf_partner: "Enw'r person sy'n llofnodi ar ran partner prosiect"
+        position_partner: "Swydd y person sy'n llofnodi ar ran partner y prosiect"
+        NHMF_sign: "Llofnod ar ran Cronfa Goffa'r Dreftadaeth Genedlaethol"
+        NLHF_use: "Mae'r adran yma at ddefnydd Cronfa Treftadaeth y Loteri Genedlaethol yn unig"
+        permission_given: "Rydym wedi adolygu eich cais ac yn rhoi ein caniatâd i chi ddechrau'r prosiect"
+        signed_for_NHMF: "Llofnodwyd ar gyfer CGDG"
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      

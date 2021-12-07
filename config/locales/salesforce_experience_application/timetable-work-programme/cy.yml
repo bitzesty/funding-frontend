@@ -1,0 +1,10 @@
+cy:
+  salesforce_experience_application:
+    timetable_work_programme:
+      page_title: "Amserlen neu raglen"
+      page_heading: "Lanlwytho amserlen neu raglen waith arfaethedig gyda cherrig milltir gan gynnwys dyddiadau ar gyfer cael taliadau grant a rhoi diweddariadau i'r prosiect"
+      page_hint: "Amserlen neu raglen"
+      bullets:
+        i_will_upload: "Byddaf yn uwchlwytho amserlen neu raglen waith arfaethedig"
+        upload_a_proposed_timetable: "Upload a proposed timetable or work programme"
+        i_have_emailed: "Rwyf wedi e-bostio amserlen neu raglen waith arfaethedig at fy Rheolwr Buddsoddi"

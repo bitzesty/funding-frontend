@@ -1,0 +1,8 @@
+cy:
+  salesforce_experience_application:
+    signatories:
+      page_title: "Manylion Llofnodwyr"
+      page_heading: "Manylion y 2 lofnodwr sydd wedi'u hawdurdodi i lofnodi ar ran eich sefydliad"
+      page_hint: "Pan fyddwch chi'n lawrlwytho'r ffurflen Caniatâd i Ddechrau i'w llofnodi, bydd yn rhaid i'r 2 lofnodwr a ychwanegwyd yma hefyd ei lofnodi."
+      no_name_error: "Rhowch enw llofnodwr eich sefydliad"
+      person_for_your_organisation: "Person %{person_number} ar gyfer eich sefydliad"
