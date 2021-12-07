@@ -70,7 +70,7 @@ en-GB:
         is_acquisition_project: "Acquisition project, the grant contract will last indefinitely,"
         organisation_not_for_profit: "If the organisation is not-for-profit, and the project includes capital or digital, the grant contract will last from the Project Completion Date and run for a term of 5 years, "
         organisation_for_profit_10_100k: "If your organisation is a for-profit organisation, or you are a private individual, the grant contract will last from the Project Completion Date and run for a term of 10 years."
-        organisation_for_profit_100_250k: "If the project is a capital works project the grant contract will last for 20 years after the Project Completion Date."
+        organisation_for_profit_100_250k: "If your project is a capital works project the grant contract will last for 20 years after the Project Completion Date. "
     costs_table:
       heading:
         amount: "Amount"
