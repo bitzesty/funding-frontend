@@ -1570,7 +1570,8 @@
       large_applications = []
 
       users = @client.query_all("SELECT AccountId, Id FROM Contact WHERE Id IN  " \
-        "(SELECT ContactId FROM User where email = '#{email}') ")
+        "(SELECT ContactId FROM User where email = '#{email}' " \
+          "AND profile.name = 'NLHF Portal Login User') ")
 
       if users.length == 1
 
