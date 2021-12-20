@@ -91,22 +91,6 @@
         current_user.errors.attribute_names.find {|k| "dob".in? k.to_s or "date_of_birth".in? k.to_s} %>"
       id="user_date_of_birth">
 
-      <% current_user.errors.each do |error| %>
-
-        <% if "dob".in? error.attribute.to_s or "date_of_birth".in? error.attribute.to_s %>
-
-            <span id="user[<%= error.attribute %>]-error" class="govuk-error-message">
-
-              <span class="govuk-visually-hidden">
-                <%= t('details.error') %>
-              </span> <%= error.message %>
-              
-            </span>
-
-        <% end %>
-
-      <% end %>
-
       <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-hint">
 
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
@@ -118,6 +102,22 @@
         <span id="dob-hint" class="govuk-hint">
           <%= t('details.label_dob_hint') %>
         </span>
+
+        <% current_user.errors.each do |error| %>
+
+          <% if "dob".in? error.attribute.to_s or "date_of_birth".in? error.attribute.to_s %>
+
+              <span id="user[<%= error.attribute %>]-error" class="govuk-error-message">
+
+                <span class="govuk-visually-hidden">
+                  <%= t('details.error') %>
+                </span> <%= error.message %>
+                
+              </span>
+
+          <% end %>
+
+        <% end %>
 
         <div class="govuk-date-input" id="start-date">
 

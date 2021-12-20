@@ -61,8 +61,12 @@ class User < ApplicationRecord
     unless Date.valid_date?(self.dob_year.to_i, self.dob_month.to_i, self.dob_day.to_i)
       errors.add(:date_of_birth, 'Date of birth must be a valid date')
     else
-      unless Date.new(self.dob_year.to_i, self.dob_month.to_i, self.dob_day.to_i).past?
+      dob_provided = Date.new(self.dob_year.to_i, self.dob_month.to_i, self.dob_day.to_i)
+      unless dob_provided.past?  
         errors.add(:date_of_birth, 'Date of birth must be in the past')
+      end
+      unless dob_provided > Date.new(1910,1,1)
+        errors.add(:date_of_birth, 'Date of birth cannot be earlier than 1 January 1910')
       end
     end
   end
