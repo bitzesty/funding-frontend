@@ -16,3 +16,4 @@ en-GB:
     fair_processing_2_html: "Further details of how your information will be used by us and these fraud prevention agencies, and your data protection rights, can be found by contacting %{href}."
     fair_processing_2_href: "fair.processing@heritagefund.org.uk"
     error: "Error:"
+    dob_error: "Date of birth cannot be earlier than 1 January 1910"

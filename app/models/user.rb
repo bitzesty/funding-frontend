@@ -65,8 +65,8 @@ class User < ApplicationRecord
       unless dob_provided.past?  
         errors.add(:date_of_birth, 'Date of birth must be in the past')
       end
-      unless dob_provided > Date.new(1910,1,1)
-        errors.add(:date_of_birth, 'Date of birth cannot be earlier than 1 January 1910')
+      unless dob_provided >= Date.new(1910,1,1)
+        errors.add(:date_of_birth,  I18n.t("details.dob_error"))
       end
     end
   end
