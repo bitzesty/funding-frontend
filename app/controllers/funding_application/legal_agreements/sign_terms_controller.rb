@@ -147,7 +147,7 @@ class FundingApplication::LegalAgreements::SignTermsController < ApplicationCont
 
     funding_application.funding_applications_legal_sigs.each do |fals|
 
-      if applicant.email == fals.legal_signatory.email_address
+      if applicant.email&.strip&.upcase == fals.legal_signatory.email_address&.strip&.upcase
 
         @model_object = fals
         break
