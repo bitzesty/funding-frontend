@@ -1,6 +1,7 @@
 # Controller responsible for orchestrating the journey for a user
 # who has selected to create a new application
 class NewApplicationController < ApplicationController
+  before_action :authenticate_user!
   include ObjectErrorsLogger
 
   # If the current_user has no linked organisation, or if their linked organisation
