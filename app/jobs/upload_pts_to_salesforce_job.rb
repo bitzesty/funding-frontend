@@ -53,17 +53,18 @@ class UploadPtsToSalesforceJob < ApplicationJob
             "Finished upserting ContentVersion file for #{type} in Salesforce"
           )
         else
-          Rails.logger.debug(
-            "Cannot uplaod empty file #{file.blob.filename} in Salesforce - file is of size 0 bytes"
+          Rails.logger.error(
+            "Cannot upload empty file #{file.blob.filename} in Salesforce - file is of size 0 bytes"
           )
+          raise Exception.new "Cannot upload empty file #{file.blob.filename} in Salesforce - file is of size 0 bytes"
         end
       end
     rescue Exception => e
-      raise SalesforceFileUploadError.new("File upload failed for file #{file.blob.filename} on Salesforce Case ID / 
-          #{salesforce_reference} with error #{@e.message}")
+      Rails.logger.error("File upload failed for file #{file.blob.filename} on Salesforce Case ID / 
+        #{salesforce_reference} with error #{e.message}")
       
-      Rails.logger.debug("File upload failed for file #{file.blob.filename} on Salesforce Case ID / 
-        #{salesforce_reference} with error #{@e.message}")
+      raise SalesforceFileUploadError.new("File upload failed for file #{file.blob.filename} on Salesforce Case ID / 
+          #{salesforce_reference} with error #{e.message}")
     end
   end
 

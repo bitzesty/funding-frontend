@@ -1,3 +1,4 @@
+class SalesforceFileUploadError < StandardError; end
 # Module to contain all the common saleforce utilities used by PtsSalesforceApi and SalesforceApi
 module SalesforceApiHelper
 
@@ -52,35 +53,50 @@ module SalesforceApiHelper
     description
   )
 
-    file.open do |f|
+    begin
+      file.open do |f|
 
-      Rails.logger.debug(
-        "Creating Restforce::UploadIO object for #{type} file"
-      )
+        Rails.logger.debug(
+          "Creating Restforce::UploadIO object for #{type} file"
+        )
 
-      file_upload = Restforce::UploadIO.new(f.path, file.content_type)
+        file_upload = Restforce::UploadIO.new(f.path, file.content_type)
 
-      Rails.logger.debug(
-        "Finished creating Restforce::UploadIO object for #{type} file"
-      )
+        Rails.logger.debug(
+          "Finished creating Restforce::UploadIO object for #{type} file"
+        )
 
-      Rails.logger.debug(
-        "Upserting ContentVersion file for #{type} in Salesforce"
-      )
+        Rails.logger.debug(
+          "Upserting ContentVersion file for #{type} in Salesforce"
+        )
 
-      client.insert!(
-        'ContentVersion',
-        title: "#{type} File",
-        description: description,
-        pathOnClient: file.blob.filename,
-        versionData: file_upload,
-        FirstPublishLocationId: salesforce_reference
-      )
+        if file.blob.byte_size > 0 
+          client.insert!(
+            'ContentVersion',
+            title: "#{type} File",
+            description: description,
+            pathOnClient: file.blob.filename,
+            versionData: file_upload,
+            FirstPublishLocationId: salesforce_reference
+          )
 
-      Rails.logger.debug(
-        "Finished upserting ContentVersion file for #{type} in Salesforce"
-      )
+          Rails.logger.debug(
+            "Finished upserting ContentVersion file for #{type} in Salesforce"
+          )
+        else
+          Rails.logger.error(
+            "Cannot upload empty file #{file.blob.filename} in Salesforce - file is of size 0 bytes"
+          )
+          raise Exception.new "Cannot upload empty file #{file.blob.filename} in Salesforce - file is of size 0 bytes"
+        end
 
+      end
+    rescue Exception => e
+      Rails.logger.error("File upload failed for file #{file.blob.filename} on Salesforce Case ID / 
+        #{salesforce_reference} with error #{e.message}")
+        
+      raise SalesforceFileUploadError.new("File upload failed for file #{file.blob.filename} on Salesforce Case ID / 
+          #{salesforce_reference} with error #{e.message}")
     end
 
   end
