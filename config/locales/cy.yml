@@ -208,7 +208,7 @@ cy:
                   too_long: "Rhaid i ddisgrifiad o brif ddiben neu weithgareddau eich sefydliad fod yn %{word_count} gair neu lai" 
                 board_members_or_trustees:
                   not_a_number: "Mae'n rhaid i nifer aelodau'r bwrdd neu ymddiriedolwyr fod yn rif" 
-                  greater_than: "Rhowch swm sy'n fwy na 0" 
+                  greater_than: "Rhowch swm sy'n fwy na -1" 
                   less_than: "Nodwch swm sy'n llai na 2147483648" 
                 vat_registered:
                   inclusion: "Dewiswch opsiwn i ddweud wrthym a yw eich sefydliad wedi'i gofrestru ar gyfer TAW" 

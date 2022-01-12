@@ -48,7 +48,7 @@ class Organisation < ApplicationRecord
   validates :postcode, presence: true, if: :validate_address?
   validates :main_purpose_and_activities, presence: true, if: :validate_main_purpose_and_activities?
   validates :board_members_or_trustees, numericality: {
-    greater_than: 0,
+    greater_than: -1,
     less_than: 2147483648,
     allow_nil: true
   }, if: :validate_board_members_or_trustees?
