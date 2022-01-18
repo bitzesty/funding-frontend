@@ -57,7 +57,8 @@ Rails.application.configure do
   config.x.payment_encryption_salt = "test"
 
   config.x.support_email_address = "test@test.com"
-  config.x.reply_email_guid = "test@test.com"
+  config.x.reply_email_guid = "reply@test.com"
+  config.x.no_reply_email_address = "no_reply@test.com"
   config.x.ideal_postcodes.api_key = "test"
   config.x.consumer.username = 'test'
   config.x.consumer.password = 'test'

@@ -11,17 +11,26 @@ class User::RegistrationsController < Devise::RegistrationsController
       # Organisation or an empty Person if validation fails
       if resource.valid?
 
-        person = Person.create(email: resource.email)
-
-        resource.organisations.create
-
-        resource.person_id = person.id
+        create_person(resource)
 
       end
 
       resource.save
 
     end
+
+  end
+
+  def create_person(resource) 
+
+    person = Person.create(email: resource.email)
+
+    resource.organisations.create
+
+    resource.person_id = person.id
+
+    # send a copy of the confirmation instructions to support team
+    NotifyMailer.confirmation_instructions_copy(resource).deliver_later
 
   end
 

@@ -1,18 +1,54 @@
+# Sends emails via GOV.UK Notify
 class NotifyMailer < Mail::Notify::Mailer
 
   before_action { @reply_to_id = Rails.configuration.x.reply_email_guid }
 
   include Devise::Controllers::UrlHelpers
 
-
+  # Sends a confirmation email when an applicant registers a account for the
+  # first time.
+  # This method is not called explicitly from within our code, Devise is a
+  # gem we use to manage accounts, and its Devise that calls 
+  # confirmation_instructions when the account is created.
+  # Devise is directly to use NotifyMailer within its config at devise.rb
+  #
+  # @param record [User] An instance of User, created by the Devise gem.
+  # @param token [string] A confirmation token linking a confirmation email.
+  # back to a user.
+  # @param opts [{}}] optional arguments provided by the Devise call.
   def confirmation_instructions(record, token, opts = {})
-    template_mail('a44293b7-7263-42b4-8905-44bbedaf1dfa',
+
+    template_mail('3eed6cd0-780a-4805-b5ef-79f170a1eb73',
                   to: record.email,
                   reply_to_id: @reply_to_id,
                   personalisation: {
-                      confirmation_url: confirmation_url(record, confirmation_token: token)
+                      confirmation_url: confirmation_url(record, confirmation_token: token),
+                      fao_email: "."
                   }
     )
+  end
+  
+  # Sends an identical email to one sent from the confirmation_instructions
+  # above.  Goes to a support mailbox with very limited access.
+  # Helps support when spam filters and organisation mail settings prevent
+  # applicants from getting their initial registration emails.
+  #
+  # @param record [User] An instance of User, created by the Devise gem.
+  def confirmation_instructions_copy(record) 
+    template_mail('3eed6cd0-780a-4805-b5ef-79f170a1eb73',
+      to: Rails.configuration.x.no_reply_email_address,
+      reply_to_id: Rails.configuration.x.reply_email_guid,
+      personalisation: {
+          confirmation_url: devise_confirmation_url(record, confirmation_token: record.confirmation_token),
+          fao_email: " FAO - #{record.email}"
+      }
+    )  
+  end
+
+  # Wraps Devise's confirmation_url as it was tricky to mock in
+  # notify_mailer_spec.rb
+  def devise_confirmation_url(record, confirmation_token)
+    confirmation_url(record, confirmation_token)
   end
 
   # Use ERB template as Notify does not support required templating logic.
@@ -134,19 +170,21 @@ class NotifyMailer < Mail::Notify::Mailer
     agreement_link,
     project_title,
     project_reference_number,
-    organisation_name
+    organisation_name, 
+    fao_email
   )
 
     template_mail(
-      'a990844f-700a-4185-9b77-6c1f33cf938e',
+      '9ba83d4a-e445-4c12-9f03-545bcbca4878',
       to: recipient_email_address,
-      reply_to_id: @reply_to_id,
+      reply_to_id: Rails.configuration.x.reply_email_guid,
       personalisation: {
         funding_application_id: funding_application_id,
         agreement_link: agreement_link,
         project_title: project_title,
         project_reference_number: project_reference_number,
-        organisation_name: organisation_name
+        organisation_name: organisation_name,
+        fao_email: fao_email
       }
     )
 

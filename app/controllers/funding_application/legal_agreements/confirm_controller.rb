@@ -28,25 +28,7 @@ class FundingApplication::LegalAgreements::ConfirmController < ApplicationContro
 
   end
 
-  private
-
-  # Method responsible for creating new FundingApplicationsLegalSigs objects
-  #
-  # @param [FundingApplication] funding_application An instance of
-  #                                                 FundingApplication
-  def create_legal_signatory_agreements(funding_application)
-
-    funding_application.organisation.legal_signatories.each do |ls|
-
-      funding_application.funding_applications_legal_sigs.create(
-        legal_signatory_id: ls.id
-      )
-
-    end
-
-  end
-
-  # Method responsible for orchestrating sending emails to Legal Signatories
+    # Method responsible for orchestrating sending emails to Legal Signatories
   #
   # @param [FundingApplication] funding_application An instance of
   #                             FundingApplication
@@ -79,18 +61,10 @@ class FundingApplication::LegalAgreements::ConfirmController < ApplicationContro
           funding_application.id,
           encoded_signatory_id
         )
+        
+        send_both_signatory_link_emails(recipient.email_address, funding_application,
+          agreement_link)
 
-        NotifyMailer.legal_signatory_agreement_link(
-          recipient.email_address,
-          funding_application.id,
-          agreement_link,
-          funding_application.project.present? ?
-            funding_application.project.project_title :
-            funding_application.open_medium.project_title,
-          funding_application.project_reference_number,
-          funding_application.organisation.name
-        ).deliver_later()
-      
       end
 
     else
@@ -104,18 +78,28 @@ class FundingApplication::LegalAgreements::ConfirmController < ApplicationContro
           encoded_signatory_id
         )
 
-        NotifyMailer.legal_signatory_agreement_link(
-          ls.email_address,
-          funding_application.id,
-          agreement_link,
-          funding_application.project.present? ?
-            funding_application.project.project_title :
-            funding_application.open_medium.project_title,
-          funding_application.project_reference_number,
-          funding_application.organisation.name
-        ).deliver_later()
+        send_both_signatory_link_emails(ls.email_address, funding_application,
+          agreement_link)
 
       end
+
+    end
+
+  end
+
+  private
+
+  # Method responsible for creating new FundingApplicationsLegalSigs objects
+  #
+  # @param [FundingApplication] funding_application An instance of
+  #                                                 FundingApplication
+  def create_legal_signatory_agreements(funding_application)
+
+    funding_application.organisation.legal_signatories.each do |ls|
+
+      funding_application.funding_applications_legal_sigs.create(
+        legal_signatory_id: ls.id
+      )
 
     end
 
@@ -136,6 +120,50 @@ class FundingApplication::LegalAgreements::ConfirmController < ApplicationContro
       action: 'show',
     )
 
+  end
+
+  # Method responsible for orchestrating sig email to  
+  # signatory and support for auditing/record.
+  #
+  # @param [String] email_address Email address of signatory. 
+  # @param [FundingApplication] funding_application FundingApplication that requires legal signatures
+  # @param [String] agreement_link URL encoded agreement link to be emailed
+  #
+  # @return [String] The URL to the 'Check project details' page
+  def send_both_signatory_link_emails(email_address, funding_application,
+    agreement_link)
+    
+    # send to applicant
+    send_legal_signatory_email(email_address, funding_application,
+      agreement_link, ".")
+
+    # copy to support
+    send_legal_signatory_email(Rails.configuration.x.no_reply_email_address,
+      funding_application, agreement_link, " FAO - #{email_address}")
+
+  end
+
+  # Abstracted method that implements notfiy mailer to send 
+  # signatory emails containing magic link
+  #
+  # @param [String] email_address Email address of signatory. 
+  # @param [FundingApplication] funding_application FundingApplication that requires legal signatures
+  # @param [String] agreement_link URL encoded agreement link to be emailed
+  # @param [String] fao_email email to attach to subject if sent to support. 
+  #
+  # @return [String] The URL to the 'Check project details' page
+  def send_legal_signatory_email(email_address, funding_application, agreement_link, fao_email)
+    NotifyMailer.legal_signatory_agreement_link(
+      email_address,
+      funding_application.id,
+      agreement_link,
+      funding_application.project.present? ?
+        funding_application.project.project_title :
+        funding_application.open_medium.project_title,
+      funding_application.project_reference_number,
+      funding_application.organisation.name,
+      fao_email
+    ).deliver_later()
   end
 
 end

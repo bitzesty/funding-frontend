@@ -144,6 +144,7 @@ Rails.application.configure do
 
   config.x.support_email_address = ENV.fetch("SUPPORT_EMAIL_ADDRESS")
   config.x.reply_email_guid = ENV.fetch("REPLY_EMAIL_GUID")
+  config.x.no_reply_email_address = ENV.fetch("NO_REPLY_EMAIL_ADDRESS")
 
   config.x.delayed_job_web.username = ENV.fetch("DELAYED_JOB_WEB_USERNAME")
   config.x.delayed_job_web.password = ENV.fetch("DELAYED_JOB_WEB_PASSWORD")
