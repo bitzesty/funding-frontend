@@ -1,0 +1,22 @@
+<%=
+  render(
+    partial: "partials/funding_application/legal_agreements/agree/agree"
+  )
+%>
+
+<%=
+  form_for :agree_to_grant,
+  url: :funding_application_agree_to_grant,
+  method: :put,
+  local: true do |f|
+%>
+
+  <%=
+    render(
+      ButtonComponent.new(
+        text: t('buttons.labels.continue')
+      )
+    )
+  %>
+
+<% end %>

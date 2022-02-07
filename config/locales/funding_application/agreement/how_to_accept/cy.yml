@@ -8,6 +8,7 @@ cy:
         item_1: "dywedwch wrthym a oes unrhyw newidiadau i'ch Prosiect, er enghraifft newidiadau i'ch partneriaid neu gyfraniadau arian parod,"
         item_2: "gwiriwch fod manylion eich Prosiect yn gywir,"
         item_3: "anfonwch unrhyw dystiolaeth newydd atom ar gyfer eich Prosiect, er enghraifft cyfraniadau arian parod, caniatâd neu drwyddedau,"
+        tell_us_2_sigs: "tell us details of 2 legal signatories for your organisation,"
         item_4: "darllenwch telerau ac amodau'r Grant,"
         item_5_html: "darllenwch y %{href},"
         item_5_href: "Telerau Safonol y Grant"

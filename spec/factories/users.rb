@@ -2,10 +2,7 @@ FactoryBot.define do
 
   factory :user do |f|
     users_organisations { [FactoryBot.build(:users_organisation)] }
-    # association :organisation,
-    #             factory: :organisation,
-    #             strategy: :create
-    
+
     association :person,
                 factory: :person,
                 strategy: :create

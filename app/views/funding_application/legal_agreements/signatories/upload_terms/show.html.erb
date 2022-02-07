@@ -1,0 +1,59 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @model_object,
+      page_title: t('agreement.upload_terms.page_title')
+    }
+  )
+%>
+
+<noscript><% no_js = true %></noscript>
+
+<div id="summary-errors"></div>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @model_object,
+      first_form_element: :funding_application_signed_terms_and_conditions
+    }
+  ) if @model_object.errors.any?
+%>
+
+<%=
+  form_with model: @model_object,
+  url: :funding_application_signatories_upload_terms_and_conditions,
+  method: :put,
+  remote: no_js ? false : true do |f|
+%>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/legal_agreements/upload_terms',
+      locals: {
+        form_object: f,
+        model_object: @model_object
+      }
+    )
+  %>
+
+<% end %>
+
+<%=
+  form_with model: @model_object,
+  url: :funding_application_signatories_submit_uploaded_terms_and_conditions,
+  method: :put,
+  remote: false do |f|
+%>
+
+  <%=
+    render(
+      ButtonComponent.new(
+        text: t('generic.buttons.submit')
+      )
+    )
+  %>
+
+<% end %>

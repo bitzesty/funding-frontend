@@ -27,31 +27,6 @@ RSpec.describe OrganisationHelper do
         org_type: 1
       )
     }
-  
-    it 'should return true if all mandatory organisation details are present' do
-    
-      organisation.legal_signatories.append(legal_signatory)  
-  
-      expect(complete_organisation_details?(organisation)).to eq(true) 
-            
-    end
-
-    it 'should return false if a mandatory organisation detail is not present' do
-      
-      organisation.legal_signatories.append(legal_signatory)  
-
-      organisation.name = nil
-  
-      expect(complete_organisation_details?(organisation)).to eq(false) 
-              
-    end
-
-    it 'should return false if no legal signatories are present' do
-       
-      expect(complete_organisation_details?(organisation)).to eq(false)  
-      
-    end
-
   end
 
 end

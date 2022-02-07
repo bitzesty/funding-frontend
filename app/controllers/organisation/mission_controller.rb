@@ -18,7 +18,7 @@ class Organisation::MissionController < ApplicationController
 
       logger.info "Finished updating mission for organisation ID: #{@organisation.id}"
 
-      redirect_to :organisation_signatories
+      redirect_to :organisation_summary
 
     else
 

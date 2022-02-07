@@ -1,6 +1,9 @@
 module FundingApplicationHelper
   include SalesforceApi
 
+  DELETED_TEXT = 'deleted by system'
+  DELETED_EMAIL = 'deleted@deleted.com'
+
   # Method responsible for orchestrating the submission of a funding
   # application to Salesforce
   #
@@ -147,12 +150,6 @@ module FundingApplicationHelper
 
   end
 
-
-  # TODO: Noticed that salesforce_api.rb also has its own 
-  # is_applicant_legal_signatory function.  Would be a quick 
-  # change to have one function in application_helper.rb
-  # however, requires a fair bit of testing.
-  #
   # Method used to determine whether or not the applicant
   # is also a legal signatory for a given funding application
   #
@@ -164,21 +161,37 @@ module FundingApplicationHelper
   #         is also a legal signatory for the given funding application
   def is_applicant_legal_signatory?(funding_application, applicant)
 
-    applicant_is_also_legal_signatory = false
+    get_when_signatory_is_applicant(funding_application, applicant).present?
 
-    funding_application.organisation.legal_signatories.each do |ls|
+  end
 
-      if ls.email_address&.strip&.upcase == applicant.email&.strip&.upcase
+  # Method to find a row on funding_application_legal_signatories
+  # Where signatory is also the applicant.
+  #
+  # @param funding_application [FundingApplication] An instance of
+  #                                                 FundingApplication
+  # @param applicant [User] An instance of User
+  #
+  # @return [FundingApplicationsLegalSig] signatory_is_applicant_join_row. 
+  #                                       Or nil if not found
+  #
+  def get_when_signatory_is_applicant(funding_application, applicant)
 
-        applicant_is_also_legal_signatory = true
+    signatory_is_applicant_join_row = nil
 
+    funding_application.funding_applications_legal_sigs.each do |join_row|
+
+      if applicant.email&.strip&.upcase == 
+        join_row.legal_signatory.email_address&.strip&.upcase
+
+        signatory_is_applicant_join_row = join_row
         break
 
       end
 
     end
 
-    applicant_is_also_legal_signatory
+    signatory_is_applicant_join_row
 
   end
 
@@ -251,6 +264,43 @@ module FundingApplicationHelper
   
     end
 
+  end
+
+  # Uploads any additional evidence provided by a signatory during the
+  # Agreements process.  Then uploads the sigs themselves.
+  #
+  # @param grant award [FundingApplication] an instance of this class
+  def upload_signatories_and_evidence_to_sf(funding_application)
+
+    if @funding_application.additional_evidence_files.any?
+
+      logger.info "Uploading additional evidence files for " \
+        "funding_application ID: #{@funding_application.id}"
+      upload_additional_evidence_files(@funding_application)
+
+    end
+
+    logger.info "Uploading signatories for " \
+      "funding_application ID: #{@funding_application.id}"
+    upload_signatories_to_salesforce(@funding_application)
+   
+    logger.info "signatories and evidence submitted to salesforce for " \
+      "funding_application ID: #{@funding_application.id}"
+
+  end
+
+  # deletes
+  #
+  # @param grant award [FundingApplication] an instance of this class
+  def remove_personal_data_from_signatories(funding_application)
+    funding_application.legal_signatories.each do |ls|
+      ls.name = DELETED_TEXT
+      ls.email_address = DELETED_EMAIL
+      ls.phone_number = DELETED_TEXT
+      ls.role = DELETED_TEXT
+      ls.save!
+      logger.info "Personal data removed for legal_signatory ID: #{ls.id} "
+    end
   end
 
 end

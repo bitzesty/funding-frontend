@@ -1,0 +1,85 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @funding_application,
+      page_title: t('agreement.both_signatories.page_title')
+    }
+  )
+%>
+
+<% if @funding_application.errors.any? %>
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+       role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      <%= t('generic.there_is_a_problem') %>
+    </h2>
+
+    <div class="govuk-error-summary__body">
+
+      <ul class="govuk-list govuk-error-summary__list">
+
+        <% @funding_application.legal_signatories.each_with_index do |ls, index| %>
+          <% ls.errors.each do |error| %>
+            <li>
+              <a href='#funding_application_legal_signatories_attributes_<%= index %>_<%= error.attribute %>'>
+                <%= error.message %>
+              </a>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% @funding_application.errors[:signatory_emails_unique].each do |message|%>
+          <li>
+            <a href='#funding_application_legal_signatories_attributes_0_email_address'>
+              <%= message %>
+            </a>
+          </li>
+        <% end %>
+
+      </ul>
+
+    </div>
+
+  </div>
+<% end %>
+
+
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-5">
+  <%= t('agreement.both_signatories.page_title') %>
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-7">
+  <%= t('agreement.both_signatories.page_description') %>
+</p>
+
+<%=
+  form_for @funding_application,
+  url: :funding_application_both_signatories,
+  method: :put,
+  local: true do |f|
+%>
+
+  <%=
+    render(
+      partial: 'partials/funding_application/legal_agreements/signatories_question',
+      locals: {
+        model_object: @funding_application,
+        form_object: f
+      }
+    )
+  %>
+
+  <%=
+    render(
+      ButtonComponent.new(
+        element: 'input',
+        is_start_button: false,
+        text: t('buttons.labels.submit'),
+        data_disable: true
+      )
+    )
+  %>
+
+<% end %>

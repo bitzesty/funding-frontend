@@ -38,6 +38,7 @@ module LegalAgreementsContext
     path.exclude?('check-project-details') &&
       path.exclude?('terms-and-conditions') &&
       path.exclude?('sign-terms-and-conditions') &&
+      path.exclude?('agree-to-grant') &&
       path.exclude?('submitted')
     
   end

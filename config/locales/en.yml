@@ -230,6 +230,10 @@ en-GB:
               greater_than: "Enter an amount greater than 0"
         legal_signatory:
           attributes:
+            role:
+              blank: "Enter the role of a legal signatory"
+              too_short: "Enter the role of a legal signatory"
+              too_long: "The role of the legal signatory must be fewer than %{count} characters"
             name:
               blank: "Enter the name of a legal signatory"
               too_short: "Enter the name of a legal signatory"
@@ -240,6 +244,8 @@ en-GB:
               blank: "Enter the phone number of a legal signatory"
         funding_application:
           attributes:
+            details_correct:
+              blank: "Select if your project details are correct"
             project_costs:
               blank: "Enter at least one project cost"
             cash_contributions_question:
@@ -252,6 +258,10 @@ en-GB:
               inclusion: "Add evidence of your signed terms and conditions"
             new_evidence:
               inclusion: "Select whether you have any new evidence for your project since submitting your application"
+            applicant_is_legal_sig:
+              blank: "Please select an option"
+            applicant_role:
+              blank: "Please add your role in the organisation"
         project:
           attributes:
             project_costs:
@@ -708,5 +718,3 @@ en-GB:
               less_than: "Enter a year of less than 4000"
             licence_date: 
               invalid: "Enter a valid statutory permission or licence date"
-
-

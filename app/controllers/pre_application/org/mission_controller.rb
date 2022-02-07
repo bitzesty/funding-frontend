@@ -5,7 +5,7 @@ class PreApplication::Org::MissionController < ApplicationController
     include PreApplicationContext
   
     # This method updates the mission attribute of an organisation,
-    # redirecting to :organisation_signatories if successful and re-rendering
+    # redirecting to if successful and re-rendering
     # :show method if unsuccessful
     def update
   

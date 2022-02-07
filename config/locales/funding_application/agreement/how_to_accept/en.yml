@@ -8,6 +8,7 @@ en-GB:
         item_1: "tell us if there are any changes to your Project, for example changes to your partners or cash contributions,"
         item_2: "check the details of your Project are correct,"
         item_3: "send us any new evidence for your Project, for example cash contributions, permission or licenses,"
+        tell_us_2_sigs: "tell us details of 2 legal signatories for your organisation,"
         item_4: "read the terms and conditions of the Grant,"
         item_5_html: "read the %{href},"
         item_5_href: "Standard Terms of Grant"
@@ -26,4 +27,3 @@ en-GB:
       behalf_of_partnership: 
         sub_heading: "Tell us if you are applying on behalf of a partnership"
         text: "If you are, please tell us the name, position and organisation details of your partner, or partners. You can do this when you send the email with your answers to the questions above to your Investment Manager."
-

@@ -4,9 +4,12 @@ FactoryBot.define do
       association :organisation,
                   factory: :organisation,
                   strategy: :build
-      association :project,
+      association :project,  
                   factory: :project,
                   strategy: :build
+      # association :funding_applications_legal_sigs,
+      #             factory: :funding_applications_legal_sig,
+      #             strategy: :build
     end
   
   end

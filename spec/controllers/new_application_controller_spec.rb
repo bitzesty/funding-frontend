@@ -30,14 +30,6 @@ RSpec.describe NewApplicationController do
 
         it 'should create a NewApplication object and render the view if the ' \
            'user\'s organisations details are complete' do
-               
-            legal_signatory = create(
-              :legal_signatory,
-              id: '1',
-              name: 'Joe Bloggs',
-              email_address: 'joe@bloggs.com',
-              phone_number: '07000000000'
-            )
 
             subject.current_user.organisations.first.update(
               name: 'Test Organisation',
@@ -48,8 +40,6 @@ RSpec.describe NewApplicationController do
               postcode: 'SW1A 2AA',
               org_type: 1
             )
-
-            subject.current_user.organisations.first.legal_signatories.append(legal_signatory)
 
             get :show
 

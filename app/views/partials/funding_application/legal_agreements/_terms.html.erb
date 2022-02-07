@@ -9,6 +9,23 @@
     <%= t('agreement.terms.page_heading') %>
   </h1>
 
+  <p class="no-print">
+    <script>
+      var txt = '<%=t('agreement.terms.download_terms_and_conditions')%>';
+      document.write(txt.link('javascript:if(window.print)window.print()'));
+    </script>
+  </p>
+
+  <noscript>
+    <div class="govuk-warning-text no-print">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-warning-text__assistive">Warning</span>
+        <%= t('generic.javascript_off') %>
+    </strong> 
+  </div>
+  </noscript>
+
   <p class="govuk-body">
     <%=
       t(

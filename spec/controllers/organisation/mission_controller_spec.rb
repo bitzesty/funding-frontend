@@ -27,7 +27,7 @@ RSpec.describe Organisation::MissionController do
       put :update,
           params: { organisation_id: subject.current_user.organisations.first.id }
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(:organisation_signatories)
+      expect(response).to redirect_to(:organisation_summary)
     end
 
     it "should re-render the page if a single invalid param is passed" do
@@ -85,7 +85,7 @@ RSpec.describe Organisation::MissionController do
       }
 
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(:organisation_signatories)
+      expect(response).to redirect_to(:organisation_summary)
 
       expect(assigns(:organisation).errors.empty?).to eq(true)
       expect(assigns(:organisation).mission).to eq(["female_led"])
@@ -102,7 +102,7 @@ RSpec.describe Organisation::MissionController do
       }
 
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(:organisation_signatories)
+      expect(response).to redirect_to(:organisation_summary)
 
       expect(assigns(:organisation).errors.empty?).to eq(true)
       expect(assigns(:organisation)

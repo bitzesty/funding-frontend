@@ -1,0 +1,6 @@
+cy:
+  agreement:
+      upload_terms:
+        page_title: "Upload your signed Terms and Conditions"
+        page_heading: "Upload your signed Terms and Conditions"
+        description: "Make sure you've included all of the pages of the document."

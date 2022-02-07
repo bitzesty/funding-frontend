@@ -342,12 +342,6 @@
 
         salesforce_account_id = create_organisation_in_salesforce(organisation)
 
-        create_legal_signatories_in_salesforce(
-          organisation.legal_signatories,
-          user,
-          salesforce_account_id
-        )
-
         salesforce_contact_id = upsert_contact_in_salesforce(
           user,
           organisation,
@@ -2105,59 +2099,6 @@
 
     end
 
-    # Method to create Contact records in Salesforce for an organisation's
-    # legal signatories
-    #
-    # @param [ActiveRecord::Associations] legal_signatories
-    # @param [User] The user related to a funding application
-    # @param [String] salesforce_account_id A Salesforce id for the Account
-    #                                       (Organisation is an alias of
-    #                                       Account)
-    def create_legal_signatories_in_salesforce(
-      legal_signatories,
-      user,
-      salesforce_account_id
-    )
-
-      legal_signatories.each do |ls|
-
-        unless contact_is_legal_signatory?(user, ls)
-
-          sig_id = @client.upsert!(
-            'Contact',
-            'Contact_External_ID__c',
-            Contact_External_ID__c: ls.id,
-            LastName: ls.name,
-            Email__c: ls.email_address,
-            Email: ls.email_address,
-            Phone: ls.phone_number,
-            Is_Authorised_Signatory__c: true,
-            AccountID: salesforce_account_id
-          )
-
-          Rails.logger.info("Created legal sig contact #{sig_id} in Salesforce")
-
-        end
-
-      end
-
-    end
-
-    # Method to determine whether a user is also the legal signatory for a
-    # funding application
-    #
-    # @param [User] user The user related to a funding_application
-    # @param [LegalSignatory] legal_signatory A legal signatory related to
-    #                                         a funding_application
-    #
-    # @return [Boolean] A Boolean flag to indicate whether or not the user
-    #                   is also a legal signatory
-    def contact_is_legal_signatory?(user, legal_signatory)
-
-      user.email == legal_signatory.email_address
-
-    end
-
     # Method to upsert a Salesforce Organisation record. Calling function
     # should handle exceptions/retries.
     #
@@ -2264,14 +2205,12 @@
       
       salesforce_contact_id = find_matching_contact_for_user(user)
 
-      applicant_is_signatory = is_applicant_legal_signatory(user, organisation)
-
       if salesforce_contact_id.nil?
         salesforce_contact_id = upsert_contact_by_user_id(user, 
-          salesforce_account_id, applicant_is_signatory)       
+          salesforce_account_id)       
       else
         upsert_contact_by_salesforce_id(user, salesforce_contact_id, 
-          salesforce_account_id, applicant_is_signatory)    
+          salesforce_account_id)    
       end
 
       Rails.logger.info( "Upserted a Contact record in Salesforce with id #{salesforce_contact_id}" )
@@ -2289,9 +2228,8 @@
     # @param [String] salesforce_contact_id The Contact record's Id
     # @param [String] salesforce_account_id A salesforce organisation 
     #                                                   reference for the User's organisation
-    # @param [boolean] applicant_is_signatory True if the applicant is a signatory
     # @return [String] salesforce_contact_id A Salesforce contact Id for the Contact/User
-    def upsert_contact_by_salesforce_id(user, salesforce_contact_id, salesforce_account_id, applicant_is_signatory) 
+    def upsert_contact_by_salesforce_id(user, salesforce_contact_id, salesforce_account_id) 
       salesforce_contact_id = @client.upsert!(
         'Contact',
         'Id',
@@ -2314,9 +2252,8 @@
         # Ensure we use a type of language preference known to Salesforce. If a different type, cover ourselves with both
         Language_Preference__c: (['english', 'welsh', 'both'].include? user.language_preference) ? user.language_preference : 'both',
         Agrees_To_User_Research__c: (user.agrees_to_user_research.present?) ? user.agrees_to_user_research : false,
-        AccountId: salesforce_account_id,
-        Is_Authorised_Signatory__c: applicant_is_signatory
-       ) 
+        AccountId: salesforce_account_id
+      ) 
     end 
 
     # Upserts to a Contact record in Salesforce using the User instance's id
@@ -2327,9 +2264,8 @@
     # @param [User] user An instance of a User object
     # @param [String] salesforce_account_id A salesforce organisation 
     #                                                   reference for the User's organisation
-    # @param [boolean] applicant_is_signatory True if the applicant is a signatory
     # @return [String] salesforce_contact_id A Salesforce contact Id for the Contact/User
-    def upsert_contact_by_user_id(user, salesforce_account_id, applicant_is_signatory) 
+    def upsert_contact_by_user_id(user, salesforce_account_id) 
       salesforce_contact_id = @client.upsert!(
         'Contact',
         'Contact_External_ID__c',
@@ -2351,8 +2287,7 @@
         # Ensure we use a type of language preference known to Salesforce. If a different type, cover ourselves with both
         Language_Preference__c: (['english', 'welsh', 'both'].include? user.language_preference) ? user.language_preference : 'both',
         Agrees_To_User_Research__c: (user.agrees_to_user_research.present?) ? user.agrees_to_user_research : false,
-        AccountId: salesforce_account_id,
-        Is_Authorised_Signatory__c: applicant_is_signatory
+        AccountId: salesforce_account_id
        ) 
     end 
 
@@ -3117,11 +3052,7 @@
       end
 
     end
-
-    def is_applicant_legal_signatory(user, organisation)
-      applicant_is_sig  = organisation.legal_signatories.any? { |sig| 
-        sig.email_address&.strip&.upcase == user.email&.strip&.upcase }
-    end
+    
   end
 
 end

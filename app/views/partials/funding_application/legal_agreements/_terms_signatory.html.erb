@@ -3,44 +3,6 @@
   <%= raw @section_end_html %>
 <% end %>
 
-  <h2 class="govuk-heading-l no-print">
-    <%= t('agreement.sign_terms.sub_headings.download_terms') %>
-  </h2>
-
- <p class="no-print">
-     <%= t('agreement.before_you_agree_html') %>
-    <% if I18n.locale.to_s == 'en-GB' %>
-      <script>
-        var txt = "download the terms and conditions";
-        document.write(txt.link('javascript:if(window.print)window.print()'));
-      </script>
-    <% end %>
-    <% if I18n.locale.to_s == 'cy' %>
-      <script>
-        var txt = "lawrlwytho'r telerau ac amodau";
-        document.write(txt.link('javascript:if(window.print)window.print()'));
-      </script>
-    <% end %>
-  </p>
-
-  <noscript>
-    <div class="govuk-warning-text no-print">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning</span>
-          <%= t('generic.javascript_off') %>
-      </strong>
-    </div>
-  </noscript>
-
-  <p class="govuk-body">
-    <%= t('agreement.two_signatories') %>
-  </p>
-
-  <p class="govuk-body">
-    <%= t('agreement.names_should_match') %>
-  </p>
-
   <p class="govuk-body">
     <%= t('agreement.confirmation') %>
   </p>

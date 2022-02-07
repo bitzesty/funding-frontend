@@ -1,0 +1,37 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      page_title: t('agreement.agree.page_title')
+    }
+  )
+%>
+
+<h1 class="govuk-heading-xl">
+  <%= t('agreement.agree.page_heading') %>
+</h1>
+
+<h2 class="govuk-heading-l">
+  <%= t('agreement.agree.sub_heading.need') %>
+</h2>
+
+<ol class="govuk-list govuk-list--number govuk-!-margin-bottom-9">
+  <li>
+     <%= t('agreement.agree.list_items.download') %>
+  </li>
+  <li>
+     <%= t('agreement.agree.list_items.sign.sign_item') %>
+  </li>
+    <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+      <li>
+        <%= t('agreement.agree.list_items.sign.sign_sub') %>
+      </li>
+    </ul>
+   <li>
+     <%= t('agreement.agree.list_items.upload') %>
+  </li>
+</ol>
+
+<p class="govuk-body govuk-!-margin-bottom-9">
+  <%= t('agreement.agree.new_sigs') %>
+</p>

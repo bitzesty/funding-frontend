@@ -3,7 +3,6 @@ class Organisation < ApplicationRecord
 
   self.implicit_order_column = "created_at"
 
-  has_many :legal_signatories
   has_many :pre_applications
   has_many :funding_applications
 
@@ -13,7 +12,6 @@ class Organisation < ApplicationRecord
   has_many :users_organisations, inverse_of: :organisation
   has_many :users, through: :users_organisations
 
-  accepts_nested_attributes_for :legal_signatories
   accepts_nested_attributes_for :organisations_org_types, allow_destroy: true
 
   attr_accessor :has_custom_org_type
@@ -23,7 +21,6 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_custom_org_type
   attr_accessor :validate_address
   attr_accessor :validate_mission
-  attr_accessor :validate_legal_signatories
   attr_accessor :validate_main_purpose_and_activities
   attr_accessor :validate_board_members_or_trustees
   attr_accessor :validate_vat_registered
@@ -33,9 +30,6 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_social_media_info
   attr_accessor :validate_spend_in_last_financial_year
   attr_accessor :validate_unrestricted_funds
-
-  validates_associated :legal_signatories,
-                       if: :validate_legal_signatories?
 
   validates :org_type, presence: true, if: :validate_org_type?
   validates :custom_org_type, presence: true, if: :validate_custom_org_type?
@@ -94,10 +88,6 @@ class Organisation < ApplicationRecord
 
   def validate_mission?
     validate_mission == true
-  end
-
-  def validate_legal_signatories?
-    validate_legal_signatories == true
   end
 
   def validate_main_purpose_and_activities?

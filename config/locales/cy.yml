@@ -76,6 +76,7 @@ cy:
     cannot_start: "Does dim modd dechrau eto"
     back: "< Yn ôl"
     print_this_page: "Argraffu'r dudalen hon"
+    javascript_off: "Javascript is disabled on your device. Please download this form using your browser's print functionality."
   views:
     organisation:
       common:
@@ -140,6 +141,10 @@ cy:
   activerecord:
     attributes:
       legal_signatory:
+        role:
+            blank: "Enter the role of a legal signatory"
+            too_short: "Enter the role of a legal signatory"
+            too_long: "The role of the legal signatory must be fewer than %{count} characters"
         name: "Enw"
         email_addres: "Cyfeiriad e-bost"
         phone_number: "Rhif ffôn"
@@ -239,6 +244,8 @@ cy:
               blank: "Rhowch rif ffôn llofnodwr cyfreithiol"
         funding_application:
           attributes:
+            details_correct:
+              blank: "Select if your project details are correct"
             project_costs:
               blank: "Nodwch o leiaf un gost prosiect" 
             cash_contributions_question:
@@ -251,6 +258,10 @@ cy:
               inclusion: "Ychwanegwch dystiolaeth o'ch telerau ac amodau wedi'u llofnodi"
             new_evidence:
               inclusion: "Dewiswch a oes gennych unrhyw dystiolaeth newydd ar gyfer eich prosiect ers cyflwyno eich cais"
+            applicant_is_legal_sig:
+              blank: "Please select an option"
+            applicant_role:
+              blank: "Please add your role in the organisation"
         project:
           attributes:
             project_costs:

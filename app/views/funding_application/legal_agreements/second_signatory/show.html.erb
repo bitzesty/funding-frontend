@@ -1,0 +1,171 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @funding_application,
+      page_title: t('agreement.second_signatory.page_title') 
+    }
+  )
+%>
+
+<% if @funding_application.errors.any? || @second_sig.errors.any? %>
+
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+      role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      <%= t('generic.there_is_a_problem') %>
+    </h2>
+
+    <div class="govuk-error-summary__body">
+
+      <ul class="govuk-list govuk-error-summary__list">
+
+        <% @funding_application.errors.each do |error| %>
+          <li>
+            <% case error.attribute.to_s%>
+            <% when "signatory_emails_unique" %>
+                <a href='#legal_signatory_email_address'>
+                  <%= error.message %>
+                </a>
+            <% end %>
+          </li>
+        <% end %>
+
+        <% @second_sig.errors.each do |error| %>
+          <li>
+            <a href= "#legal_signatory_<%=error.attribute.to_s%>" >
+              <%= error.message %>
+            </a>
+          </li>
+        <% end %>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+<% end %>
+
+<fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+    <h1 class="govuk-heading-l">
+      <%= t('agreement.second_signatory.page_heading') %>
+    </h1>
+
+    <p class="govuk-body-m">
+      <%= t('agreement.second_signatory.page_desc') %>
+    </p>
+
+  </legend>
+
+  <%=
+    form_for @second_sig,
+    url: :funding_application_second_signatory,
+    method: :put,
+    local: true do |f|
+  %>
+
+    <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @second_sig.errors[:name].any?}" %>">
+
+      <%=
+        render(
+          partial: "partials/form_input_errors",
+          locals: {
+            form_object: @second_sig,
+            input_field_id: :name
+          }
+        ) if @second_sig.errors[:name].any?
+      %>
+
+      <%=
+        f.label :name,
+        t('organisation.signatories.labels.full_name'),
+        class: "govuk-label"
+      %>
+
+      <%=
+        f.text_field :name,
+        class: "govuk-input govuk-input--width-20 #{'govuk-input--error' if
+          @second_sig.errors[:name].any?}"
+      %>
+    </div>
+
+    <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @second_sig.errors[:email_address].any?}" %>">
+
+      <%=
+        render(
+          partial: "partials/form_input_errors",
+          locals: {
+            form_object: @second_sig,
+            input_field_id: :email_address
+          }
+        ) if @second_sig&.errors[:email_address].any?
+      %>
+
+      <%=
+        f.label :email_address,
+        t('organisation.signatories.labels.email_address'),
+        class: "govuk-label"
+      %>
+
+      <%=
+        f.text_field :email_address,
+        class: "govuk-input govuk-input--width-20 #{'govuk-input--error' if
+          @second_sig&.errors[:email_address].any?}"
+      %>
+    </div>
+
+    <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @second_sig&.errors[:role].any?}" %>">
+
+      <%=
+        render(
+          partial: "partials/form_input_errors",
+          locals: {
+            form_object: @second_sig,
+            input_field_id: :role
+          }
+        ) if @second_sig&.errors[:role]&.any?
+      %>
+
+      <%=
+        f.label :role,
+        t('organisation.signatories.labels.role'),
+        class: "govuk-label"
+      %>
+
+      <%=
+        f.text_field :role,
+        class: "govuk-input govuk-input--width-20 #{'govuk-input--error' if
+          @second_sig&.errors[:role].any?}"
+      %>
+
+    </div>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        <%= t('agreement.second_signatory.warning') %>
+      </strong>
+    </div>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'input',
+          is_start_button: false,
+          data_disable: true
+        )
+      )
+    %>
+
+  <% end %>
+
+</fieldset>

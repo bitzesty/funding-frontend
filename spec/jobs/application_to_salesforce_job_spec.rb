@@ -19,14 +19,7 @@ RSpec.describe ApplicationToSalesforceJob, type: :job do
     )
 
     @project = funding_application.project
-
-    legal_signatory = build(:legal_signatory)
-    legal_signatory.name = "Joe Bloggs"
-    legal_signatory.email_address = "joe@bloggs.com"
-    legal_signatory.phone_number = "07123456789"
-
-    user.organisations.first.legal_signatories.append(legal_signatory)
-
+    
     @project.user = user
 
   end

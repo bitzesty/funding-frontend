@@ -35,6 +35,7 @@ class FundingApplication < ApplicationRecord
   has_many :payment_requests, through: :funding_applications_pay_reqs
 
   has_many :funding_applications_legal_sigs, inverse_of: :funding_application
+  has_many :legal_signatories, through: :funding_applications_legal_sigs
 
   has_many_attached :additional_evidence_files
 
@@ -46,7 +47,8 @@ class FundingApplication < ApplicationRecord
     :project_costs,
     :cash_contributions,
     :evidence_of_support,
-    :non_cash_contributions
+    :non_cash_contributions,
+    :legal_signatories
   )
 
   attr_accessor :validate_people
@@ -60,11 +62,20 @@ class FundingApplication < ApplicationRecord
   attr_accessor :validate_non_cash_contributions_question
   attr_accessor :validate_new_evidence
   attr_accessor :validate_additional_evidence_files
+  attr_accessor :validate_legal_signatories
+  attr_accessor :validate_applicant_is_legal_sig
+  attr_accessor :validate_applicant_role
+  attr_accessor :validate_details_correct
+  attr_accessor :validate_legal_signatories_email_uniqueness
 
   attr_accessor :cash_contributions_question
   attr_accessor :non_cash_contributions_question
   attr_accessor :payment_still_details_question
   attr_accessor :new_evidence
+  attr_accessor :applicant_is_legal_sig
+  attr_accessor :applicant_role
+  attr_accessor :details_correct
+
 
   validates_associated :organisation
   validates_associated :people if :validate_people
@@ -73,8 +84,12 @@ class FundingApplication < ApplicationRecord
   validates_associated :cash_contributions, if: :validate_cash_contributions?
   validates_associated :evidence_of_support, if: :validate_evidence_of_support?
   validates_associated :non_cash_contributions, if: :validate_non_cash_contributions?
+  validates_associated :legal_signatories, if: :validate_legal_signatories?
 
+  validates :details_correct, presence: true, if: :validate_details_correct?
   validates :project_costs, presence: true, if: :validate_has_associated_project_costs?
+  validates :applicant_is_legal_sig, presence: true, if: :validate_applicant_is_legal_sig?
+  validates :applicant_role, presence: true, if: :validate_applicant_role?
   validates_inclusion_of :cash_contributions_question,
     in: ["true", "false"],
     if: :validate_cash_contributions_question?
@@ -82,6 +97,20 @@ class FundingApplication < ApplicationRecord
     in: ["true", "false"],
     if: :validate_non_cash_contributions_question?
   validates_inclusion_of :new_evidence, in: ["true", "false"], if: :validate_new_evidence?
+
+  validates_with SignatoryEmailValidator, if: :validate_legal_signatories_email_uniqueness?
+
+  def validate_details_correct?
+    validate_details_correct
+  end
+
+  def validate_applicant_is_legal_sig?
+    validate_applicant_is_legal_sig == true
+  end
+
+  def validate_applicant_role?
+    validate_applicant_role == true
+  end
 
   def validate_people?
     validate_people == true
@@ -125,6 +154,14 @@ class FundingApplication < ApplicationRecord
 
   def validate_additional_evidence_files?
     validate_additional_evidence_files == true
+  end
+
+  def validate_legal_signatories?
+    validate_legal_signatories == true
+  end
+
+  def validate_legal_signatories_email_uniqueness?
+    validate_legal_signatories_email_uniqueness == true
   end
 
   validate do

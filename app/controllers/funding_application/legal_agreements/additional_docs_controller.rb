@@ -34,7 +34,7 @@ class FundingApplication::LegalAgreements::AdditionalDocsController < Applicatio
         .fetch(:additional_evidence_files, false) == "true"
         redirect_to :funding_application_additional_documents
       else
-        redirect_to :funding_application_confirm
+        redirect_to :funding_application_project_details_correct
       end
 
     else

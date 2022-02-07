@@ -93,14 +93,6 @@ RSpec.describe DashboardController do
 
     it 'should find the organisation is present and redirect to :start_an_application' do
 
-      legal_signatory = create(
-        :legal_signatory,
-        id: '1',
-        name: 'Joe Bloggs',
-        email_address: 'joe@bloggs.com',
-        phone_number: '07000000000'
-      )
-
       subject.current_user.organisations.first.update(
         name: 'Test Organisation',
         line1: '10 Downing Street',
@@ -110,8 +102,6 @@ RSpec.describe DashboardController do
         postcode: 'SW1A 2AA',
         org_type: 1
       )
-
-      subject.current_user.organisations.first.legal_signatories.append(legal_signatory)
 
       expect(subject).not_to receive(:create_organisation)
 

@@ -13,8 +13,7 @@ module OrganisationHelper
         organisation.townCity.present?,
         organisation.county.present?,
         organisation.postcode.present?,
-        organisation.org_type.present?,
-        organisation.legal_signatories.exists?
+        organisation.org_type.present?
     ].all?
 
   end
@@ -27,7 +26,7 @@ module OrganisationHelper
         organisation.townCity.present?,
         organisation.county.present?,
         organisation.postcode.present?,
-        organisation.org_type.present?,
+        organisation.org_type.present?
     ].all?
 
   end

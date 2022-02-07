@@ -434,24 +434,6 @@ class Project < ApplicationRecord
                     json.townCity self.user.organisations.first.townCity
                     json.postcode self.user.organisations.first.postcode
                 end
-                set_legal_signatory_fields = ->(ls) {
-                    json.set!("name", ls.name)
-                    json.set!("email", ls.email_address)
-                    json.set!("phone", ls.phone_number)
-                    # Salesforce uses this flag to determine whether or not to create a single Contact object
-                    json.set!("isAlsoApplicant", self.user.email&.strip&.upcase == ls.email_address&.strip&.upcase)
-                    json.set!("role", "")
-                }
-                @ls_one = self.user.organisations.first.legal_signatories.first
-                json.authorisedSignatoryOneDetails do
-                    set_legal_signatory_fields.call(@ls_one)
-                end
-                @ls_two = self.user.organisations.first.legal_signatories.second
-                if @ls_two.present?
-                    json.authorisedSignatoryTwoDetails do
-                        set_legal_signatory_fields.call(@ls_two)
-                    end
-                end
             end
         end
     end

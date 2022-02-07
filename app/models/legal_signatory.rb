@@ -1,30 +1,25 @@
-class DoesNotMatchOtherSignatoryValidator < ActiveModel::EachValidator
-  def validate_each(record, attribute, value)
-    if record == record.organisation.legal_signatories.second && value == record.organisation.legal_signatories.first.email_address
-      record.errors.add(attribute, (options[:message] || "must be different to first signatory email address"))
-    end
-  end
-end
-
 class LegalSignatory < ApplicationRecord
 
   has_many :funding_applications_legal_sigs, inverse_of: :legal_signatory
+  has_one :funding_applications, through: :funding_applications_legal_sigs
 
-  belongs_to :organisation
   self.implicit_order_column = "created_at"
 
+  attr_accessor :validate_role
   attr_accessor :validate_name
   attr_accessor :validate_email_address
   attr_accessor :validate_phone_number
 
+  validates :role, length: { minimum: 1, maximum: 80 }
+
   validates :name, length: { minimum: 1, maximum: 80 }
 
   validates :email_address,
-            format: { with: URI::MailTo::EMAIL_REGEXP },
-            does_not_match_other_signatory: true
+            format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  validates :phone_number,
-            presence: true
+  def validate_role?
+    validate_role == true
+  end
 
   def validate_name?
     validate_name == true

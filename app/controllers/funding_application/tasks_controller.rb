@@ -13,6 +13,28 @@ class FundingApplication::TasksController < ApplicationController
 
   end
 
+  # Used to determine if the agree to terms and conditions
+  # link should be shown at all.
+  # Do not show when two signatories shown that are not the applicant.
+  #
+  # Returns true if first applicant not completed yet
+  # Returns true if the applicant is a signatory
+  #
+  # @param funding_application [FundingApplication] An instance of
+  #                                                 FundingApplication
+  # @param applicant [User] An instance of User
+  # @return [Boolean] false if two sigs submitted who weren't applicant
+  def show_agree_terms_conditions_link?(funding_application, applicant)
+    
+    (
+      funding_application.legal_signatories.first.nil? || \
+        is_applicant_legal_signatory?(
+          funding_application,
+          applicant)
+    )
+      
+  end
+
   private
 
   # Method used to orchestrate setting instance variables which are
@@ -28,8 +50,14 @@ class FundingApplication::TasksController < ApplicationController
 
     @has_agreed_to_grant =
       funding_application.agreement&.grant_agreed_at.present?
+
     @has_not_agreed_to_terms =
       funding_application.agreement&.terms_agreed_at.nil?
+
+    @show_agree_terms_conditions_link = show_agree_terms_conditions_link?(
+      @funding_application,
+      current_user
+    )
 
     # Todo: legal_agreement_in_place? temporarily return false if
     # the award is >100k.  To prevent this journey starting.

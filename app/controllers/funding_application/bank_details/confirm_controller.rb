@@ -1,3 +1,5 @@
+
+# todo - remove this
 class FundingApplication::BankDetails::ConfirmController < ApplicationController
     include FundingApplicationContext
     include ObjectErrorsLogger

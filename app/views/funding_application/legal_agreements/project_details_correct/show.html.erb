@@ -1,0 +1,110 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @funding_application,
+      page_title: t('agreements.project_details_correct.page_title')
+    }
+  )
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application,
+      first_form_element: :funding_application_details_correct_true
+    }
+  ) if @funding_application.errors.any?
+%>
+
+
+<fieldset class="govuk-fieldset">
+
+ <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+    <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+      <%=t('agreements.project_details_correct.page_heading')%>
+    </h1>
+
+  </legend>
+
+  <%=
+    form_for @funding_application,
+    url: :funding_application_project_details_correct,
+    method: :put,
+    local: true do |f|
+  %>
+
+    <div class="govuk-form-group">
+      <%=
+        render(
+          partial: 'partials/form_group_errors',
+          locals: {
+            form_object: @funding_application,
+            first_form_element: :funding_application_applicant_is_legal_sig_true
+          }
+        ) if @funding_application.errors.any?
+      %>
+
+      <div class="govuk-form-group govuk-!-margin-bottom-3 <%= "govuk-form-group--error" if
+      @funding_application.errors[:details_correct].any? %>">
+
+        <div class="govuk-radios govuk-radios--conditional govuk-!-margin-bottom-8" data-module="govuk-radios">
+
+          <div class="govuk-radios__item govuk-!-margin-bottom-3">
+
+            <%=
+              f.radio_button :details_correct,
+              true,
+              class: "govuk-radios__input"
+            %>
+
+            <%= 
+              f.label :details_correct_true, 
+              t('agreements.project_details_correct.details_correct'),
+              class: "govuk-label govuk-radios__label" 
+            %>
+
+          </div>
+
+          <div class="govuk-radios__item">
+
+            <%=
+              f.radio_button :details_correct,
+              false,
+              class: "govuk-radios__input",
+              "data-aria-controls" => "conditional-details_correct"
+            %>
+
+            <%= 
+              f.label :details_correct_false, 
+              t('agreements.project_details_correct.details_not_correct'),
+              class: "govuk-label govuk-radios__label" 
+            %>
+
+          </div>
+
+          <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+              id="conditional-details_correct">
+
+            <p class="govuk-body">
+              <%= t('agreements.project_details_correct.incorrect_caption') %>
+            </p>
+            
+          </div>
+        </div>
+      </div>
+
+      <%= render(
+        ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: t('buttons.labels.default')
+        )
+      )%>
+
+    </div>
+
+  <% end %>
+</fieldset>

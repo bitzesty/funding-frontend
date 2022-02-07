@@ -3,6 +3,7 @@ cy:
     terms:
       page_title: "Telerau ac amodau eich Grant"
       page_heading: "Telerau ac amodau eich Grant"
+      download_terms_and_conditions: "Lawrlwytho'r telerau ac amodau"
       sub_headings:
         timings: "Amseriadau"
         get_grant_payment: "Cael eich taliad Grant"
@@ -194,8 +195,6 @@ cy:
       item_4: "Rwy'n cadarnhau, hyd y gwn i, fod y wybodaeth rwyf wedi'i darparu yn wir ac yn gywir ac y bydd unrhyw beth rwy'n ei gyflenwi yn y dyfodol yn wir ac yn gywir."
       item_5: "Rwy'n deall y gallai unrhyw wybodaeth rwyf wedi'i chyflwyno i Gronfa Treftadaeth y Loteri Genedlaethol gael ei rhannu'n gyhoeddus os yw'n destun cais o dan Ddeddf Rhyddid Gwybodaeth 2000 neu Reoliadau Gwybodaeth Amgylcheddol 2004."
       item_6: "Rwy'n cymryd cyfrifoldeb llawn am sicrhau bod y manylion banc a ddarperir gan fy sefydliad yn gywir. Cadarnhaf hefyd fod mwy nag 1 unigolyn wedi gwirio manylion y cyfrif banc a ddarparwyd gan ein sefydliad er mwyn sicrhau cywirdeb."
-    two_signatories: "Dylai dau lofnodwr awdurdodedig ar gyfer eich sefydliad lawrlwytho a llofnodi'r ddogfen hon."
-    names_should_match: "Dylai'r enwau a'r llofnodwyr isod gyfateb i'r llofnodwyr awdurdodedig yn eich Cais oni bai ein bod yn cael gwybod am newid."
     confirmation: "Rwy'n cadarnhau fy mod wedi darllen y Contract Grant gydag Ymddiriedolwyr Cronfa Goffa'r Dreftadaeth Genedlaethol sy'n gweinyddu cyllid drwy Gronfa Treftadaeth y Loteri Genedlaethol. Rwy'n cytuno, ar ran y Sefydliad, i ymrwymo i'r contract."
     before_you_agree_html: "Cyn i chi gytuno, gallwch"
     before_you_agree_href: "lawrlwytho'r telerau ac amodau"

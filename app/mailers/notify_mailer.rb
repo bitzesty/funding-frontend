@@ -5,7 +5,8 @@ class NotifyMailer < Mail::Notify::Mailer
 
   include Devise::Controllers::UrlHelpers
 
-  # Sends a confirmation email when an applicant registers a account for the
+
+  # Sends a confirmation email when an applicant registers an account for the
   # first time.
   # This method is not called explicitly from within our code, Devise is a
   # gem we use to manage accounts, and its Devise that calls 
@@ -50,6 +51,7 @@ class NotifyMailer < Mail::Notify::Mailer
   def devise_confirmation_url(record, confirmation_token)
     confirmation_url(record, confirmation_token)
   end
+  
 
   # Use ERB template as Notify does not support required templating logic.
   def email_changed(record, opts = {})

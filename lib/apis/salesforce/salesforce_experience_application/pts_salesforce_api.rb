@@ -7,7 +7,7 @@ module PtsSalesforceApi
     MAX_RETRIES = 3
 
     # Overrides the .new() method, allowing us to initialise a Restforce client
-    # when the SalesforceApiClient class is instantiated
+    # when the AgreementSalesforceApi class is instantiated
     def initialize
 
       initialise_client

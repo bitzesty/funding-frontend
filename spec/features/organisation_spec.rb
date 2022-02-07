@@ -59,21 +59,6 @@ RSpec.feature 'Organisation', type: :feature do
 
       click_link_or_button 'Save and continue'
 
-      expect(page.title).to include(I18n.t('organisation.signatories.page_title'))
-
-      expect(page).to have_text I18n.t('organisation.signatories.page_heading')
-
-      fill_in I18n.t('organisation.signatories.labels.full_name'), match: :first, with: 'Jane Doe'
-      fill_in I18n.t('organisation.signatories.labels.email_address'), match: :first, with: 'test@example.com'
-      fill_in I18n.t('organisation.signatories.labels.phone_number'), match: :first, with: '123'
-
-      # I18n labels reused for first and second signatory.  So here, refer by id of the element directly. 
-      fill_in "organisation_legal_signatories_attributes_1_name", with: 'John Doe'
-      fill_in "organisation_legal_signatories_attributes_1_email_address",  with: 'test2@example.com'
-      fill_in "organisation_legal_signatories_attributes_1_phone_number",  with: '321'
-
-      click_link_or_button 'Save and continue'
-
       expect(page.title).to include(I18n.t('organisation.summary.page_title'))
       expect(page).to have_text(I18n.t('organisation.summary.page_heading'))
       expect(page).to have_text(
@@ -85,7 +70,6 @@ RSpec.feature 'Organisation', type: :feature do
       expect(page).to have_text('London')
       expect(page).to have_text('W14 9DT')
       expect(page).to have_text('Female led')
-      expect(page).to have_text('Jane Doe')
 
       organisation = User.find(user.id).organisations.first
       expect(organisation.org_type).to eq('registered_charity')
@@ -96,9 +80,6 @@ RSpec.feature 'Organisation', type: :feature do
       expect(organisation.county).to eq('London')
       expect(organisation.postcode).to eq('W14 9DT')
       expect(organisation.mission).to include('female_led')
-      expect(organisation.legal_signatories.first.name).to eq('Jane Doe')
-      expect(organisation.legal_signatories.first.email_address).to eq('test@example.com')
-      expect(organisation.legal_signatories.first.phone_number).to eq('123')
 
     ensure
 

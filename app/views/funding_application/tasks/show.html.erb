@@ -70,41 +70,45 @@
 
   </li>
 
-  <li class="nlhf-list__item nlhf-task__item">
+  <% if @show_agree_terms_conditions_link %>
 
-    <span class="nlhf-tag-name">
+    <li class="nlhf-list__item nlhf-task__item">
 
-      <% if @has_agreed_to_grant && @has_not_agreed_to_terms %>
-      
-        <%=
-          link_to(
-            t('tasks.agree_terms_conditions'),
-            funding_application_terms_and_conditions_path,
-            class: 'govuk-link govuk-link--no-visited-state',
-            aria: { describedby: 'agreed-to-terms' }
-          )
-        %>
+      <span class="nlhf-tag-name">
 
-      <% else %>
+        <% if @has_agreed_to_grant && @has_not_agreed_to_terms %>
+        
+          <%=
+            link_to(
+              t('tasks.agree_terms_conditions'),
+              funding_application_applicant_is_signatory_path,
+              class: 'govuk-link govuk-link--no-visited-state',
+              aria: { describedby: 'agreed-to-terms' }
+            )
+          %>
 
-        <%= t('tasks.agree_terms_conditions') %>
+        <% else %>
 
-      <% end %>
+          <%= t('tasks.agree_terms_conditions') %>
 
-    </span>
+        <% end %>
 
-    <%=
-      render(
-        partial: 'partials/tag_component',
-        locals: {
-          colour: @terms_status_tag_colour,
-          tag_text: @terms_status_tag_label,
-          tag_id: 'agreed-to-terms'
-        }
-      )
-    %>
+      </span>
 
-  </li>
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour: @terms_status_tag_colour,
+            tag_text: @terms_status_tag_label,
+            tag_id: 'agreed-to-terms'
+          }
+        )
+      %>
+
+    </li>
+
+  <% end %>
 
   <% if @view_signed_agreement %>
 

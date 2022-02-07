@@ -196,37 +196,6 @@
 
   </div>
 
-  <div class="govuk-summary-list__row">
-
-    <dt class="govuk-summary-list__key">
-      <%= t('organisation.summary.list_keys.legal_signatories') %>
-    </dt>
-
-    <dd class="govuk-summary-list__value">
-      <ul class="govuk-list">
-        <% unless @organisation.legal_signatories.present? %>
-          <%= t('generic.not_answered') %>
-        <% else %>
-          <% @organisation.legal_signatories.each do |legal_signatory| %>
-            <li>
-              <%= legal_signatory.name %>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    </dd>
-
-    <dd class="govuk-summary-list__actions">
-      <%=
-        link_to "#{t('generic.change')}<span class='govuk-visually-hidden'>
-        #{t('organisation.summary.change_links.legal_signatories')}</span>".html_safe,
-                :organisation_signatories,
-                organisation_id: @organisation.id,
-                class: "govuk-link govuk-link--no-visited-state"
-      %>
-    </dd>
-
-  </div>
 </dl>
 
 <div class="govuk-warning-text">

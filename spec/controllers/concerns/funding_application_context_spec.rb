@@ -77,16 +77,6 @@ RSpec.describe FundingApplicationContext do
   describe "set_funding_application failure scenario - submitted funding application" do
     login_user
 
-    let(:legal_signatory) {
-      create(
-        :legal_signatory,
-        id: '1',
-        name: 'Joe Bloggs',
-        email_address: 'joe@bloggs.com',
-        phone_number: '07000000000'
-      )
-    }
-
     before do
 
       subject.current_user.organisations.first.update(
@@ -98,8 +88,6 @@ RSpec.describe FundingApplicationContext do
         postcode: 'SW1A 2AA',
         org_type: 1
       )
-
-      subject.current_user.organisations.first.legal_signatories.append(legal_signatory)
       
     end
 
@@ -153,8 +141,6 @@ RSpec.describe FundingApplicationContext do
         postcode: 'SW1A 2AA',
         org_type: 1
       )
-
-      subject.current_user.organisations.first.legal_signatories.append(legal_signatory)
       
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_071741) do
+ActiveRecord::Schema.define(version: 2022_01_27_102305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_071741) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "submitted_payload"
+    t.datetime "agreement_submitted_on"
     t.index ["organisation_id"], name: "index_funding_applications_on_organisation_id"
   end
 
@@ -345,6 +346,8 @@ ActiveRecord::Schema.define(version: 2021_11_10_071741) do
     t.uuid "organisation_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "role"
+    t.string "salesforce_legal_signatory_id"
     t.index ["organisation_id"], name: "index_legal_signatories_on_organisation_id"
   end
 

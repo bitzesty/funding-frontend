@@ -2,6 +2,7 @@ require 'bcrypt'
 
 module LegalAgreementsHelper
   include SalesforceApi
+  include AgreementSalesforceApi
 
   # Method to determine whether or not an encoded_signatory_id matches an
   # existing LegalSignatory UUID for a given FundingApplication
@@ -38,7 +39,7 @@ module LegalAgreementsHelper
     # After URI decoding, we are left with a Base64 encoded string
     encrypted_signatory_id = Base64.decode64(base64_encoded_signatory_id)
 
-    funding_application.organisation.legal_signatories.each do |signatory|
+    funding_application.legal_signatories.each do |signatory|
         
       if verified_signatory_id?(encrypted_signatory_id, signatory)
 
@@ -229,6 +230,105 @@ module LegalAgreementsHelper
     project_details =
       client.project_details \
         (funding_application.salesforce_case_id)
+
+  end
+
+  # Method responsible for orchestrating emails with a Legal Signatories link
+  # which when clicked, allows a sig to upload signed terms and conditions.
+  #
+  # Begins by creating a signatory link.
+  # Then an email is sent to a signatory and a copy is sent to support.
+  #
+  # @param [FundingApplication] funding_application An instance of
+  #                             FundingApplication
+  # @param [LegalSignatory] legal_signatory An instance of LegalSignatory
+  def send_legal_signatory_link_emails(funding_application, legal_signatory)
+
+    encoded_signatory_id = encode_legal_signatory_id(legal_signatory.id)
+
+    agreement_link = build_agreement_link(
+      funding_application.id,
+      encoded_signatory_id
+    )
+
+    # send to applicant
+    send_legal_signatory_email(legal_signatory.email_address, 
+        funding_application, agreement_link, ".")
+
+    
+    logger.info "Sig link mail sent to #{legal_signatory.email_address} " \
+      "for legal_signatory.id #{legal_signatory.id} and "
+        "for funding_application ID: #{@funding_application.id}"
+
+    # copy to support
+    send_legal_signatory_email(
+      Rails.configuration.x.no_reply_email_address,
+      funding_application, agreement_link, 
+      " FAO - #{legal_signatory.email_address}"
+    )
+
+    logger.info "Support link mail sent to "
+      "#{Rails.configuration.x.no_reply_email_address} " \
+        "for legal_signatory.id #{legal_signatory.id} and "
+          "for funding_application ID: #{@funding_application.id}"
+
+  end
+
+  # Method that implements notify mailer to send 
+  # signatory emails containing magic link
+  #
+  # @param [String] email_address Email address of signatory. 
+  # @param [FundingApplication] funding_application FundingApplication 
+  # that requires legal signatures
+  # @param [String] agreement_link URL encoded agreement link to be emailed
+  # @param [String] fao_email email to attach to subject if sent to support.
+  #
+  # @return [String] The URL to the 'Check project details' page
+  def send_legal_signatory_email(email_address, funding_application, 
+    agreement_link, fao_email)
+
+    NotifyMailer.legal_signatory_agreement_link(
+      email_address,
+      funding_application.id,
+      agreement_link,
+      funding_application.project.present? ?
+        funding_application.project.project_title :
+        funding_application.open_medium.project_title,
+      funding_application.project_reference_number,
+      funding_application.organisation.name,
+      fao_email
+    ).deliver_later()
+  end
+
+
+  # Method responsible for building a URL to 'Check project details' page
+  # of the legal agreement journey for a Legal Signatory
+  #
+  # @param [String] funding_application_id UUID for a FundingApplication
+  # @param [String] encoded_signatory_id An encoded UUID for a LegalSignatory
+  #
+  # @return [String] The URL to the 'Check project details' page
+  def build_agreement_link(funding_application_id, encoded_signatory_id)
+
+    url_for(
+      controller: 
+        '/funding_application/legal_agreements/signatories/check_details',
+      encoded_signatory_id: encoded_signatory_id,
+      action: 'show',
+    )
+
+  end
+
+
+  def upload_signatories_to_salesforce(funding_application)
+
+    client = AgreementSalesforceApiClient.new
+    
+    @funding_application.legal_signatories.each do |ls|
+      ls.salesforce_legal_signatory_id = 
+        client.upsert_signatory_to_salesforce(ls, funding_application)
+      ls.save!
+    end
 
   end
 

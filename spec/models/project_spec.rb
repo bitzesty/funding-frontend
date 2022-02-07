@@ -50,26 +50,6 @@ RSpec.describe Project, type: :model do
 
       @project.user.organisations.append(organisation)
 
-      # Upcase the email, to check that isAlsoApplicant check handles differing cases
-      legal_signatory_one = build(
-          :legal_signatory,
-          name: "Joe Bloggs",
-          email_address: @project.user.email.upcase,
-          phone_number: "07123456789"
-      )
-
-      legal_signatory_two = build(
-          :legal_signatory,
-          name: "Jane Bloggs",
-          email_address: "jane@bloggs.com",
-          phone_number: "07987654321"
-      )
-
-      organisation.legal_signatories.append(
-          legal_signatory_one,
-          legal_signatory_two
-      )
-
       project_salesforce_json = JSON.parse(@project.to_salesforce_json)
 
       # Assert metadata parameters
@@ -115,24 +95,6 @@ RSpec.describe Project, type: :model do
           .to eq("LONDON")
       expect(project_salesforce_json['application']['organisationAddress']['postcode'])
           .to eq("SW1A 2AA")
-
-      # Assert legal signatory parameters
-      expect(project_salesforce_json['application']['authorisedSignatoryOneDetails']['name'])
-          .to eq("Joe Bloggs")
-      expect(project_salesforce_json['application']['authorisedSignatoryOneDetails']['email'])
-          .to eq(@project.user.email.upcase)
-      expect(project_salesforce_json['application']['authorisedSignatoryOneDetails']['isAlsoApplicant'])
-          .to eq(true)
-      expect(project_salesforce_json['application']['authorisedSignatoryOneDetails']['phone'])
-          .to eq("07123456789")
-      expect(project_salesforce_json['application']['authorisedSignatoryTwoDetails']['name'])
-          .to eq("Jane Bloggs")
-      expect(project_salesforce_json['application']['authorisedSignatoryTwoDetails']['email'])
-          .to eq("jane@bloggs.com")
-      expect(project_salesforce_json['application']['authorisedSignatoryTwoDetails']['isAlsoApplicant'])
-          .to eq(false)
-      expect(project_salesforce_json['application']['authorisedSignatoryTwoDetails']['phone'])
-          .to eq("07987654321")
 
       # Assert project parameters
       expect(project_salesforce_json['application']['projectName'])

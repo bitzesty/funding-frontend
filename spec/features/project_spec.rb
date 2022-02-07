@@ -30,13 +30,6 @@ RSpec.feature 'Project', type: :feature do
           postcode: "SW1A 2AA"
       )
 
-      legal_signatory = build(:legal_signatory)
-      legal_signatory.name = "Joe Bloggs"
-      legal_signatory.email_address = "joe@bloggs.com"
-      legal_signatory.phone_number = "07123456789"
-
-      user.organisations.first.legal_signatories.append(legal_signatory)
-
       login_as(user, scope: :user)
 
       visit '/'
@@ -642,14 +635,6 @@ RSpec.feature 'Project', type: :feature do
   # Abstracted method for clicking the 'Save and continue' form button
   def click_save_and_continue_button
     click_link_or_button "Save and continue"
-  end
-
-  # As we are using WebMock to disable outbound connections, we will receive
-  # a warning log at the point that this test tries to connect to Salesforce
-  # unless we stub the request, which this method does
-  def salesforce_stub
-    stub_request(:post, "https://test.salesforce.com/services/oauth2/token").
-        to_return(status: 200, body: "", headers: {})
   end
 
 end

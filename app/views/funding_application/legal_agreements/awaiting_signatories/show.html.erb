@@ -1,0 +1,67 @@
+<%=
+  render(
+    partial: "partials/page_title",
+    locals: {
+      model_object: @funding_application,
+      page_title: t('agreement.submitted.awaiting.page_title')
+    }
+  )
+%>
+
+<div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
+  <h1 class="govuk-panel__title">
+    <%= t('agreement.submitted.awaiting.page_heading') %>
+  </h1>
+</div>
+
+<p class="govuk-body">
+    <%= t('agreement.submitted.awaiting.sent_email') %>
+</p>
+
+<p class="govuk-body">
+  <%= @funding_application.legal_signatories.first&.email_address %>
+</p>
+
+<p class="govuk-body">
+  <%= @funding_application.legal_signatories.last&.email_address %>
+</p>
+
+<p class="govuk-body">
+    <%= t('agreement.submitted.awaiting.follow_link') %>
+</p>
+
+<p class="govuk-body">
+    <%= t('agreement.submitted.agreed.check_spam') %>
+</p>
+
+<h2 class="govuk-heading-l">
+  <%= t('agreement.submitted.sub_headings.what_happens_next') %>
+</h2>
+
+
+<p class="govuk-body">
+     <%= t('agreement.submitted.agreed.after_received') %>
+</p>
+
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive">Warning</span>
+      <%= t('agreement.submitted.signed.warning.message') %>
+  </strong>
+</div>
+
+<p class="govuk-body govuk-!-padding-bottom-6">
+  <%= t('agreement.submitted.signed.any_questions') %>
+</p>
+
+<%=
+  render(
+    ButtonComponent.new(
+        element: "a",
+        href: destroy_user_session_path,
+        text: t('buttons.labels.sign_out'),
+        data_method: 'delete'
+    )
+  )
+%>

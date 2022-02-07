@@ -12,11 +12,6 @@ class FundingApplication::LegalAgreements::TermsController < ApplicationControll
 
   def show
 
-    @applicant_is_legal_signatory = is_applicant_legal_signatory?(
-      @funding_application,
-      current_user
-    )
-
     set_award_type(@funding_application)
 
     @award_more_than_10k = @funding_application.open_medium.present?
@@ -64,21 +59,7 @@ class FundingApplication::LegalAgreements::TermsController < ApplicationControll
 
   def update
 
-    logger.info(
-      'Updating terms_agreed_at attribute for funding_application ID: ' \
-      "#{@funding_application.id}"
-    )
-
-    @funding_application.agreement.update(
-      terms_agreed_at: DateTime.now
-    )
-
-    logger.info(
-      'Finished Updating terms_agreed_at attribute for ' \
-      "funding_application ID: #{@funding_application.id}"
-    )
-
-    redirect_to(:funding_application_agreed)
+    # button on view links to agreed
 
   end
 
@@ -132,6 +113,13 @@ class FundingApplication::LegalAgreements::TermsController < ApplicationControll
           t('agreement.to_release_payment'), 
           ""
         )
+
+      # Remove Download terms and conditions link
+      @funding_application.agreement.terms_html =     
+      @funding_application.agreement.terms_html.gsub(
+        t('agreement.terms.download_terms_and_conditions'), 
+        ""
+      )
 
       @funding_application.agreement.save
 
