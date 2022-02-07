@@ -51,7 +51,10 @@
   <%=
     render(
       ButtonComponent.new(
-        text: t('generic.buttons.submit')
+        element: 'input',
+        is_start_button: false,
+        text: t('buttons.labels.submit'),
+        data_disable: true
       )
     )
   %>
