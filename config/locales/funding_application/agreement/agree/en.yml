@@ -12,3 +12,4 @@ en-GB:
           sign_sub: "You can either digitally sign the document or print, sign and scan."
         upload: "Upload the signed terms and conditions."
       new_sigs: "All signatures must be new. They cannot be copies."
+      

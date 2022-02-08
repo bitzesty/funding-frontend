@@ -1,6 +1,7 @@
 cy:
   agreement:
       upload_terms:
-        page_title: "Upload your signed Terms and Conditions"
-        page_heading: "Upload your signed Terms and Conditions"
-        description: "Make sure you've included all of the pages of the document."
+        page_title: "Lanlwytho eich Telerau ac Amodau wedi'u llofnodi"
+        page_heading: "Lanlwytho eich Telerau ac Amodau wedi'u llofnodi"
+        description: "Sicrhewch eich bod wedi cynnwys holl dudalennau'r ddogfen."
+        

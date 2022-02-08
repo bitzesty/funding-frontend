@@ -1,10 +1,11 @@
 cy:
   agreement:
     applicant_is_signatory:
-        page_title: "Are you a legal signatory for your organisation?"
-        page_heading: "Are you a legal signatory for your organisation?"
-        ask_sigs: "We will ask 2 legal signatories to agree to and sign the terms and conditions."
-        sig_description: "A legal signatory is a person who has authority to enter into legal contracts on behalf of your organisation. For example, a Trustee or Director."
-        is_sig: "Yes, I am a legal signatory for my organisation"
-        is_not_sig: "No, I am not a legal signatory for my organisation"
-        org_role: "What is your role at the organisation?"
+        page_title: "Ydych chi'n llofnodwr cyfreithiol ar gyfer eich sefydliad?"
+        page_heading: "Ydych chi'n llofnodwr cyfreithiol ar gyfer eich sefydliad?"
+        ask_sigs: "Byddwn yn gofyn i 2 lofnodwr cyfreithiol gytuno i'r telerau ac amodau a'u llofnodi."
+        sig_description: "Llofnodwr cyfreithiol yw person sydd â'r awdurdod i ymrwymo i gontractau cyfreithiol ar gyfer eich sefydliad. Er enghraifft, Ymddiriedolwr neu Gyfarwyddwr."
+        is_sig: "Rwy'n llofnodwr cyfreithiol i'm sefydliad"
+        is_not_sig: "Na, nid wyf yn llofnodwr cyfreithiol i'm sefydliad"
+        org_role: "Beth yw eich rôl yn y sefydliad?"
+        

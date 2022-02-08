@@ -1,7 +1,8 @@
 cy:
   agreement:
     both_signatories:
-      page_title: "Tell us details of 2 legal signatories for your organisation"
-      page_heading: "Tell us details of 2 legal signatories for your organisation"
-      page_description: "We will email the legal signatories a link to the terms and conditions of the grant. They will need to read and agree to the terms and conditions before uploading a signed copy. Each legal signatory can sign their own copy and upload it."
+      page_title: "Dywedwch wrthym fanylion 2 lofnodwr cyfreithiol ar gyfer eich sefydliad"
+      page_heading: "Dywedwch wrthym fanylion 2 lofnodwr cyfreithiol ar gyfer eich sefydliad"
+      page_description: "Byddwn yn e-bostio'r llofnodwyr cyfreithiol ddolen i delerau ac amodau'r grant. Bydd angen iddynt ddarllen a chytuno i'r telerau ac amodau cyn lanlwytho copi wedi'i lofnodi. Gall pob llofnodwr cyfreithiol lofnodi ei gopi ei hun a'i lanlwytho."
       signatory_emails_unique_error: "Email address should be different for each signatory and should be different to the applicant's"
+      

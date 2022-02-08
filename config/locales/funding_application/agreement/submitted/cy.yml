@@ -2,25 +2,26 @@ cy:
   agreement:
     submitted:
       sub_headings:
-        what_happens_next: "What happens next"
+        what_happens_next: "Beth sy'n digwydd nesaf"
       signed:
-        page_title: "Signed terms and conditions submitted"
-        page_heading: "Signed terms and conditions submitted"
-        after_received: "After we have received signed copies from both legal signatories, we will check they are right."
-        what_next_signatory: "We will then be in touch with the person who submitted the application within 3 working days to confirm they can start the project and to ask for your organisation’s bank details"
+        page_title: "Telerau ac amodau wedi'u llofnodi"
+        page_heading: "Telerau ac amodau wedi'u llofnodi"
+        after_received: "Ar ôl i ni dderbyn copïau wedi'u llofnodi gan y ddau lofnodwr cyfreithiol, byddwn yn gwirio eu bod yn iawn."
+        what_next_signatory: "Byddwn wedyn yn cysylltu â'r person a gyflwynodd y cais o fewn 3 diwrnod gwaith i gadarnhau y gallant ddechrau'r prosiect ac i ofyn am fanylion banc eich sefydliad"
         warning:
-          message: "It is important that you do not start your project until you hear from us."
-        any_questions: "If you have any questions, contact your Investment Manager."
+          message: "Mae'n bwysig nad ydych yn dechrau eich prosiect hyd nes y clywch gennym."
+        any_questions: "Os oes gennych unrhyw gwestiynau, cysylltwch â'ch Rheolwr Buddsoddi."
       agreed:
-        page_title: "Terms and conditions agreed"
-        page_heading: "Terms and conditions agreed"
-        check_spam: "They should check the spam or junk folder if they cannot find the email in their inbox."
-        other_sig: "The other legal signatory will need to follow the link sent in the email to sign and upload the document. They will be given guidance on how to do this."
-        sent_links: "We've sent the unique links to the 2 legal signatories for the project. They need to read the project details and the terms and conditions for the project before signing and returning a copy."
-        after_received: "After we have received signed copies from both legal signatories, we will then be in touch within 3 working days to confirm you can start your project and to ask for your organisation’s bank details."
-        what_next: "We will then be in touch with the person who submitted the application within 3 working days to confirm they can start the project and to ask for your organisation’s bank details."
+        page_title: "Telerau ac amodau y cytunwyd arnynt"
+        page_heading: "Telerau ac amodau y cytunwyd arnynt"
+        check_spam: "Dylent wirio'r ffolder sbam neu sothach os na allant ddod o hyd i'r e-bost yn eu mewnflwch."
+        other_sig: "Bydd angen i'r llofnodwr cyfreithiol arall ddilyn y ddolen a anfonir yn yr e-bost i lofnodi a lanlwytho'r ddogfen. Byddant yn cael arweiniad ar sut i wneud hyn."
+        sent_links: "Rydym wedi anfon y dolenni unigryw i'r 2 lofnodwr cyfreithiol ar gyfer y prosiect. Mae angen iddynt ddarllen manylion y prosiect a thelerau ac amodau'r prosiect cyn llofnodi a dychwelyd copi."
+        after_received: "Ar ôl i ni dderbyn copïau wedi'u llofnodi gan y ddau lofnodwr cyfreithiol, byddwn wedyn yn cysylltu o fewn 3 diwrnod gwaith i gadarnhau y gallwch ddechrau eich prosiect ac i ofyn am fanylion banc eich sefydliad."
+        what_next: "Byddwn wedyn yn cysylltu â'r person a gyflwynodd y cais o fewn 3 diwrnod gwaith i gadarnhau y gallant ddechrau'r prosiect ac i ofyn am fanylion banc eich sefydliad."
       awaiting:
-        page_title: "Awaiting signed Terms and Conditions"
-        page_heading: "Awaiting signed Terms and Conditions"
-        sent_email: "We have sent an email with a link to terms and condition to:"
-        follow_link:  "They will need to follow the link in the email to sign and upload the document. They will be given guidance on how to do this."
+        page_title: "Aros am Delerau ac Amodau wedi'u llofnodi"
+        page_heading: "Aros am Delerau ac Amodau wedi'u llofnodi"
+        sent_email: "Rydym wedi anfon e-bost gyda dolen i delerau ac amodau i:"
+        follow_link: "Bydd angen iddyn nhw ddilyn y ddolen yn yr e-bost i lofnodi ac lanlwytho'r ddogfen. Byddant yn cael arweiniad ar sut i wneud hyn."
+        

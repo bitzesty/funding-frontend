@@ -1,14 +1,15 @@
 cy:
   agreement:
     agree:
-      page_title: "Agree to the Grant"
-      page_heading: "Agree to the Grant"
+      page_title: "Cytuno i'r Grant"
+      page_heading: "Cytuno i'r Grant"
       sub_heading:
-        need: "You will need"
+        need: "Fe fyddwch chi angen"
       list_items:
-        download: "Download and read the terms and conditions,"
+        download: "Lawrlwytho a darllen y telerau ac amodau,"
         sign:
-          sign_item: "Sign the document,"
-          sign_sub: "You can either digitally sign the document or print, sign and scan."
-        upload: "Upload the signed terms and conditions."
-      new_sigs: "All signatures must be new. They cannot be copies."
+          sig_item: "Llofnodwch y ddogfen,"
+          sign_sub: "Gallwch naill ai lofnodi'r ddogfen yn ddigidol neu argraffu, llofnodi a sganio"
+        upload: "Lanlwytho'r telerau ac amodau sydd wedi'u llofnodi."
+      new_sigs: "Mae'n rhaid i bob llofnod fod yn newydd. Ni allant fod yn gopïau."
+      

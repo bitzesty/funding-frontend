@@ -1,7 +1,8 @@
 cy:
   agreement:
     second_signatory:
-      page_title: "Tell us details of another legal signatory for your organisation"
-      page_heading: "Tell us details of another legal signatory for your organisation"
-      page_desc: "We will email the legal signatories a link to the terms and conditions of the grant. They will need to read and agree to the terms and conditions before uploading a signed copy. Each legal signatory can sign their own copy and upload it."
-      warning: "Make sure the details are correct before you submit."
+      page_title: "Dywedwch wrthym fanylion llofnodwr cyfreithiol arall ar gyfer eich sefydliad"
+      page_heading: "Dywedwch fanylion llofnodwr cyfreithiol arall ar gyfer eich sefydliad"
+      page_desc: "Byddwn yn e-bostio'r llofnodwyr cyfreithiol ddolen i delerau ac amodau'r grant. Bydd angen iddynt ddarllen a chytuno i'r telerau ac amodau cyn lanlwytho copi wedi'i lofnodi. Gall pob llofnodwr cyfreithiol lofnodi ei gopi ei hun a'i lanlwytho."
+      warning: "Sicrhewch fod y manylion yn gywir cyn i chi gyflwyno."
+      

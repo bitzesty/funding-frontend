@@ -76,7 +76,7 @@ cy:
     cannot_start: "Does dim modd dechrau eto"
     back: "< Yn ôl"
     print_this_page: "Argraffu'r dudalen hon"
-    javascript_off: "Javascript is disabled on your device. Please download this form using your browser's print functionality."
+    javascript_off: "Mae Javascript wedi'i analluogi ar eich dyfais. Lawrlwythwch y ffurflen hon gan ddefnyddio swyddogaeth argraffu eich porwr."
   views:
     organisation:
       common:
@@ -141,10 +141,6 @@ cy:
   activerecord:
     attributes:
       legal_signatory:
-        role:
-            blank: "Enter the role of a legal signatory"
-            too_short: "Enter the role of a legal signatory"
-            too_long: "The role of the legal signatory must be fewer than %{count} characters"
         name: "Enw"
         email_addres: "Cyfeiriad e-bost"
         phone_number: "Rhif ffôn"
@@ -234,6 +230,10 @@ cy:
                   greater_than: "Rhowch swm sy'n fwy na 0" 
         legal_signatory:
           attributes:
+            role:
+              blank: "Enter the role of a legal signatory"
+              too_short: "Enter the role of a legal signatory"
+              too_long: "The role of the legal signatory must be fewer than %{count} characters"
             name:
               blank: "Rhowch enw llofnodwr cyfreithiol"
               too_short: "Rhowch enw llofnodwr cyfreithiol"
@@ -718,3 +718,4 @@ cy:
               less_than: "Rhowch flwyddyn o lai na 4000"
             licence_date: 
               invalid: "Rhowch ganiatâd statudol dilys neu ddyddiad trwydded"
+              
