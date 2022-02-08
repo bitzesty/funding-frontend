@@ -17,4 +17,4 @@ cy:
       buttons:
         send_preferences: "Anfon dewisiadau"
       notifications:
-        success: "Dewisiadau a gyflwynwyd yn llwyddiannus."
+        success: "Dewisiadau wedi’u cyflwyno’n llwyddiannus."

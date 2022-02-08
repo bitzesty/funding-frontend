@@ -6,8 +6,8 @@ cy:
       radio_buttons:
         organisation: "Eich sefydliad"
         project_partner: "Partner Prosiect"
-        x_neither: "Dim"
-        x_na: "Amh."
+        x_neither: "Neb"
+        x_na: "Amherthnasol"
       tell_us: "Dywedwch wrthym:"
       ownership_document: "Os oes gennych un, lanlwythwch ddogfennau perchnogaeth."
       x_neither: "Os nad ydych yn bodloni ein gofynion perchnogaeth ar hyn o bryd, dywedwch wrthym y dyddiad pan fyddwch yn disgwyl gwneud hynny."

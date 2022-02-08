@@ -1,7 +1,7 @@
 cy:
   covid_banner:
     heading: "Cyhoeddiad pwysig"
-    use_this_form_to: "Defnyddiwch y gwasanaeth hwn i greu cyfrif gyda Chronfa Dreftadaeth y Loteri Genedlaethol i:"
+    use_this_form_to: "Defnyddiwch y gwasanaeth hwn i greu cyfrif gyda Cronfa Treftadaeth y Loteri Genedlaethol i:"
     use_old_portal: "Os oes gennych brosiect sydd eisoes â chyllid, %{href}."
     list_items:
       grants: "wneud cais am grant rhwng £3,000 a £250,000"

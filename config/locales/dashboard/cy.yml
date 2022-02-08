@@ -12,7 +12,7 @@ cy:
       untitled: "Cais di-deitl"
       none:
         sub_heading: "Dim ceisiadau"
-        sub_content: "Ar hyn o bryd nid oes gan y cyfrif hwn unrhyw geisiadau am gyllid gweithredol gyda Chronfa Dreftadaeth y Loteri Genedlaethol"
+        sub_content: "Ar hyn o bryd nid oes gan y cyfrif hwn unrhyw geisiadau am gyllid gweithredol gyda Cronfa Treftadaeth y Loteri Genedlaethol"
       existing:
         sub_content: "Mae'r ceisiadau canlynol yn eich cyfrif:"
       no_3k_to_10k_applications: "Heb ganfod ceisiadau £3,000 - £10,000."
@@ -43,7 +43,7 @@ cy:
       sub_content: "Dyfarnwyd grant i'r prosiectau canlynol"
       none:
         sub_heading: "Dim prosiectau na ddyfarnwyd grant i chi"
-        sub_content: "r hyn o bryd, nid oes gan y cyfrif yma unrhyw brosiectau sydd wedi derbyn grant gan Gronfa Treftadaeth y Loteri Genedlaethol"
+        sub_content: "r hyn o bryd, nid oes gan y cyfrif yma unrhyw brosiectau sydd wedi derbyn grant gan Chronfa Treftadaeth y Loteri Genedlaethol"
       awarded:
         sub_content: "Dyfarnwyd grant i'r prosiectau canlynol:"
       no_3k_to_10k_projects: "Heb ganfod prosiectau gwerth £3,000 i £10,000."
