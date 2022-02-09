@@ -86,7 +86,7 @@ cy:
       page_heading: "Gweld cwestiynau ac atebion"
       related_link_heading: "Dolen gysylltiedig"
       related_link_text: "Gweld yr holl gwestiynau a'ch atebion"
-      page_hint: "Bydd y dudalen hon yn diweddaru bob tro y byddwch yn ychwanegu ateb newydd. Cewch gyfle i olygu eich atebion cyn i chi gyflwyno."
+      page_hint: "Bydd y dudalen hon yn diweddaru bob tro y byddwch yn ychwanegu ateb newydd. Cewch gyfle i olygu eich atebion cyn i chi gyflwyno"
       button: "Dychwelyd i'r cwestiwn"
     funding_application:
       common:
