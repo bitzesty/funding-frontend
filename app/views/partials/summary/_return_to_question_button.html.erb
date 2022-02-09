@@ -15,7 +15,7 @@
 <script>
 
   var return_button = document.createElement("button");
-  return_button.textContent = "<%= t('views.summary.button') %>";
+  return_button.textContent = "<%= t('views.summary.button').html_safe %>";
 
   var body = document.getElementsByTagName("main")[0];
   
