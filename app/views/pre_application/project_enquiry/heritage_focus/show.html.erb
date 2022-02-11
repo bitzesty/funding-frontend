@@ -55,7 +55,7 @@
       f.text_area :heritage_focus,
                   rows: 10,
                   id: "pa_project_enquiry_heritage_focus",
-                  class: "govuk-textarea govuk-js-character-count" \
+                  class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                           "#{' govuk-textarea--error' if
                       @pre_application.pa_project_enquiry.errors[:heritage_focus].any?}",
                   "aria-describedby" => "heritage_focus-hint pa_project_enquiry_heritage_focus-info"     

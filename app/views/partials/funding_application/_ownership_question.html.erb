@@ -107,7 +107,7 @@
             <%=
               form_object.text_area :ownership_type_org_description,
               rows: 10,
-              class: 'govuk-textarea govuk-js-character-count ' \
+              class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                 "#{'govuk-input--error' if model_object.errors[:ownership_type_org_description].any?}",
               'aria-describedby' => "#{ model_object_name }_ownership_type_org_description-info"
             %>
@@ -304,7 +304,7 @@
             <%=
               form_object.text_area :ownership_type_pp_description,
               rows: 10,
-              class: 'govuk-textarea govuk-js-character-count ' \
+              class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                 "#{'govuk-input--error' if model_object.errors[:ownership_type_pp_description].any?}",
               'aria-describedby' => "#{ model_object_name }_ownership_type_pp_description-info"
             %>
@@ -366,7 +366,7 @@
             <%=
               form_object.text_area :ownership_type_neither_description,
               rows: 10,
-              class: 'govuk-textarea govuk-js-character-count ' \
+              class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                 "#{'govuk-input--error' if model_object.errors[:ownership_type_neither_description].any?}",
               'aria-describedby' => "#{ model_object_name }_ownership_type_neither_description-info"
             %>

@@ -35,7 +35,8 @@
     <%=
       form_object.text_area :social_media_info,
       rows: 10,
-      class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+      class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+      "#{'govuk-input--error' if
         model_object.errors[:social_media_info].any?}",
       'aria-describedby' => 'organisation_social_media_info-info ' \
         'organisation_social_media_info-hint'

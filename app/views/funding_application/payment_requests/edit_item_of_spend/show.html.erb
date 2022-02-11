@@ -90,7 +90,7 @@
       <%=
         f.text_area :description,
                     rows: 10,
-                    class: "govuk-textarea govuk-js-character-count" \
+                    class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                             "#{' govuk-textarea--error' if
                         @spend.errors[:description].any?}",
                     "aria-describedby" => "spend_description-info"

@@ -39,7 +39,7 @@
           <%=
             form_object.text_area :description,
             class: "govuk-textarea #{'govuk-textarea--error' if
-              model_object.errors['volunteers.description'].any?} govuk-js-character-count",
+              model_object.errors['volunteers.description'].any?}  #{'govuk-js-character-count' if I18n.locale == :"en-GB"}",
             rows: 5,
             value: "#{flash[:description] if flash[:description].present?}"
           %>

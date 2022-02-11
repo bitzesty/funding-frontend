@@ -81,7 +81,8 @@
           <%=
             form_object.text_area :description,
             value: "#{flash[:description] if flash[:description].present?}",
-            class: "govuk-textarea govuk-js-character-count #{'govuk-textarea--error' if
+            class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+            "#{'govuk-textarea--error' if
               model_object.errors['evidence_of_support.description'].any?}",
             rows: 5
           %>

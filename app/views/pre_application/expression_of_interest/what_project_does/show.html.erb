@@ -56,7 +56,7 @@
       <%=
         f.text_area :what_project_does,
                     rows: 10,
-                    class: "govuk-textarea govuk-js-character-count" \
+                    class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                             "#{' govuk-textarea--error' if
                         @pre_application.pa_expression_of_interest.errors[:what_project_does].any?}",
                     "aria-describedby" => "what_project_does-hint pa_expression_of_interest_what_project_does-info"

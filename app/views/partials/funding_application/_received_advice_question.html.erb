@@ -31,7 +31,8 @@
     <%=
       form_object.text_area :received_advice_description,
       rows: 10,
-      class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+      class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+      "#{'govuk-input--error' if
         model_object.errors[:received_advice_description].any?}",
       'aria-describedby' => 'open_medium_received_advice_description-info'
     %>

@@ -39,7 +39,7 @@
     <%=
       form_object.text_area :matter,
       rows: 10,
-      class: 'govuk-textarea govuk-js-character-count ' \
+      class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
         "#{'govuk-input--error' if model_object.errors[:matter].any?}",
       'aria-describedby' => "#{ model_object_name }_matter-info " \
         "#{ model_object_name }_matter-hint"

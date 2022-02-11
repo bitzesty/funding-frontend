@@ -56,7 +56,7 @@
       <%=
         f.text_area :overall_cost,
                     rows: 10,
-                    class: "govuk-textarea govuk-js-character-count" \
+                    class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                             "#{' govuk-textarea--error' if
                         @pre_application.pa_expression_of_interest.errors[:overall_cost].any?}",
                     "aria-describedby" => "overall_cost-hint pa_expression_of_interest_overall_cost-info"

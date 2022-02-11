@@ -38,7 +38,8 @@
     <%=
       form_object.text_area :management_description,
       rows: 10,
-      class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+      class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+      "#{'govuk-input--error' if
         model_object.errors[:management_description].any?}",
       'aria-describedby' => "#{ model_object_name }_management_" \
         'description-info'

@@ -64,7 +64,7 @@
       f.text_area :programme_outcomes,
                   rows: 10,
                   id: "pa_project_enquiry_programme_outcomes",
-                  class: "govuk-textarea govuk-js-character-count" \
+                  class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                           "#{' govuk-textarea--error' if
                       @pre_application.pa_project_enquiry.errors[:programme_outcomes].any?}",
                   "aria-describedby" => "programme_outcomes-hint pa_project_enquiry_programme_outcomes-info" 

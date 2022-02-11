@@ -122,7 +122,8 @@
             <%=
               form_object.text_area :permission_description_yes,
               rows: 5,
-              class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+              class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+      "#{'govuk-input--error' if
                 model_object.errors[:permission_description_yes].any?}",
               'aria-describedby' => "#{model_object_name}_permission_description_yes-info",
               value: "#{model_object.permission_description if
@@ -174,7 +175,8 @@
             <%=
               form_object.text_area :permission_description_x_not_sure,
               rows: 5,
-              class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+              class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+      "#{'govuk-input--error' if
                 model_object.errors[:permission_description_x_not_sure].any?}",
               'aria-describedby' => "#{model_object_name}_permission_description_x_not_sure-info",
               value: "#{model_object.permission_description if

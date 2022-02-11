@@ -219,7 +219,8 @@
         <%=
           f.text_area :communication_needs,
           rows: 5,
-          class:"govuk-textarea govuk-js-character-count#{' govuk-textarea--error' if
+          class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+          "#{' govuk-textarea--error' if
             current_user.errors[:communication_needs].any?}",
           "aria-describedby" => "user_communication_needs-info"
         %>

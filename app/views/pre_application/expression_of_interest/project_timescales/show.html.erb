@@ -56,7 +56,7 @@
       <%=
         f.text_area :project_timescales,
                     rows: 10,
-                    class: "govuk-textarea govuk-js-character-count" \
+                    class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                             "#{' govuk-textarea--error' if
                         @pre_application.pa_expression_of_interest.errors[:project_timescales].any?}",
                     "aria-describedby" => "project_timescales-hint pa_expression_of_interest_project_timescales-info"

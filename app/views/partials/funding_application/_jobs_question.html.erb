@@ -39,7 +39,8 @@
     <%=
       form_object.text_area :jobs_or_apprenticeships_description,
       rows: 10,
-      class: "govuk-textarea govuk-js-character-count #{'govuk-input--error' if
+      class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+      "#{'govuk-input--error' if
         model_object.errors[:jobs_or_apprenticeships_description].any?}",
       'aria-describedby' => "#{ model_object_name }_jobs_or_apprenticeships_" \
         "description-info #{ model_object_name }_jobs_or_apprenticeships_" \

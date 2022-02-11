@@ -35,7 +35,7 @@
     <%=
       form_object.text_area :description,
       rows: 10,
-      class: "govuk-textarea govuk-js-character-count " \
+      class: "govuk-textarea #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
         "#{'govuk-input--error' if model_object.errors[:description].any?}",
       "aria-describedby" => "#{ model_object_name }_description-info " \
         "#{ model_object_name }_description-hint"

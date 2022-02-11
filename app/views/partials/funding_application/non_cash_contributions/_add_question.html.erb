@@ -58,7 +58,7 @@
             form_object.text_area :description,
             rows: 5,
             class: "govuk-textarea #{'govuk-textarea--error' if
-              model_object.errors['non_cash_contributions.description'].any?} govuk-js-character-count",
+              model_object.errors['non_cash_contributions.description'].any?}  #{'govuk-js-character-count' if I18n.locale == :"en-GB"}",
             'aria-describedby' => "#{ model_object_name }_non_cash_contributions_attributes_0_description-info",
             value: "#{flash[:description] if flash[:description].present?}"
           %>
