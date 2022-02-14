@@ -38,15 +38,15 @@
 
           <%=
             form_object.text_area :description,
-            class: "govuk-textarea #{'govuk-textarea--error' if
-              model_object.errors['volunteers.description'].any?}  #{'govuk-js-character-count' if I18n.locale == :"en-GB"}",
             rows: 5,
+            class: "govuk-textarea #{'govuk-textarea--error' if
+              model_object.errors['volunteers.description'].any?} #{'govuk-js-character-count' if I18n.locale == :"en-GB"}",
             value: "#{flash[:description] if flash[:description].present?}"
           %>
 
           <span id="<%= form_object.object_name.gsub(/[\[\]]+/, '_').chop + '_description-info' %>"
             class="govuk-hint govuk-character-count__message" aria-live="polite">
-            <%= t('volunteers.words_remaining') %>
+            <%= t('generic.word_count', max_words: 50) %>
           </span>
 
         </div>

@@ -101,10 +101,12 @@
             value: "#{flash[:description] if flash[:description].present?}"
           %>
 
-          <span class="govuk-hint govuk-character-count__message"
-            id="<%= model_object_name %>_cash_contributions_attributes_0_description-info"></span>
-
         </div>
+
+        <span class="govuk-hint govuk-character-count__message"
+          id="<%= model_object_name %>_cash_contributions_attributes_0_description-info">
+          <%= t('generic.word_count', max_words: 50) %>
+        </span>
 
       </div>
 
