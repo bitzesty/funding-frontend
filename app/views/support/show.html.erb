@@ -74,17 +74,17 @@
 
     <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
       <li>
-        <a href="https://www.heritagefund.org.uk/funding/check-what-we-fund">
+        <a href= "<%= I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110955' : 'https://www.heritagefund.org.uk/funding/what-we-fund' %>">
           <%= t('support.links.1') %>
         </a>
       </li>
       <li>
-        <a href="https://www.heritagefund.org.uk/funding/outcomes">
+        <a href= "<%= I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110862' : 'https://www.heritagefund.org.uk/funding/outcomes' %>">
           <%= t('support.links.2') %>
         </a>
       </li>
       <li>
-        <a href="https://www.heritagefund.org.uk/funding">
+        <a href= "<%= I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110838' : 'https://www.heritagefund.org.uk/funding' %>">
           <%= t('support.links.3') %>
         </a>
       </li>

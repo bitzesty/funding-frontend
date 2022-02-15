@@ -196,7 +196,7 @@
           'agreement.organisations_must_list.item_2_html',
           href: link_to(
             t('agreement.organisations_must_list.item_2_href'),
-            'https://www.gov.uk/government/publications/the-7-principles-of-public-life/the-7-principles-of-public-life--2',
+            "#{I18n.locale == :cy ? 'https://gov.wales/sites/default/files/publications/2020-12/ATISN%2014529%20Doc%2003d.pdf' : 'https://www.gov.uk/government/publications/the-7-principles-of-public-life/the-7-principles-of-public-life--2'}",
             class: "printable-link"
             )
         )

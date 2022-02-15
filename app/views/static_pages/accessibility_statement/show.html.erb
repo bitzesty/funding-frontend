@@ -111,7 +111,7 @@
           "accessibility_statement.cannot_view_map_html",
           contact_us: link_to(
               t("accessibility_statement.cannot_view_map_contact_us_text"),
-              "https://www.heritagefund.org.uk/about/contact-us",
+              "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/article/cysylltwch-ni' : 'https://www.heritagefund.org.uk/about/contact-us' }",
               class: "govuk-link"
           ),
           email_us: link_to(
@@ -163,7 +163,7 @@
   <%=
     link_to(
         t("accessibility_statement.find_out_how"),
-        "https://www.heritagefund.org.uk/about/contact-us",
+        "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/article/cysylltwch-ni' : 'https://www.heritagefund.org.uk/about/contact-us' }",
         class: "govuk-link"
     )
   %>

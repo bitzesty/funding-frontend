@@ -47,7 +47,7 @@
             'pa_expression_of_interest.programme_outcomes.page_hint_html',
             href: link_to(
               t('pa_expression_of_interest.programme_outcomes.page_hint_href'),
-              'https://www.heritagefund.org.uk/funding/outcomes'
+              "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110862' : 'https://www.heritagefund.org.uk/funding/outcomes'}"
             )
           )
         %>

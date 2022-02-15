@@ -87,7 +87,7 @@
           'gp_open_medium.start.read_about_what_we_fund_html',
           href: link_to(
                   t('gp_open_medium.start.read_about_what_we_fund_text'),
-                  'https://www.heritagefund.org.uk/funding/check-what-we-fund',
+                  "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110955' : 'https://www.heritagefund.org.uk/funding/what-we-fund' }",
                   target: '_blank',
                   class: 'govuk-link'
           )
@@ -100,7 +100,7 @@
           'gp_open_medium.start.project_outcomes_html',
           href: link_to(
                   t('gp_open_medium.start.project_outcomes_text'),
-                  'https://www.heritagefund.org.uk/funding/outcomes',
+                  "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110862' : 'https://www.heritagefund.org.uk/funding/outcomes' }",
                   target: '_blank',
                   class: 'govuk-link'
           )
@@ -113,7 +113,7 @@
           'gp_open_medium.start.application_guidance_html',
           href: link_to(
           t('gp_open_medium.start.application_guidance_text'),
-          'https://www.heritagefund.org.uk/funding/national-lottery-grants-heritage-2021/10-250k',
+         "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/111087' : 'https://www.heritagefund.org.uk/funding/national-lottery-grants-heritage-2021/10-250k'}",
           target: '_blank',
           class: 'govuk-link'
           )

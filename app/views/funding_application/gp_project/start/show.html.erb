@@ -85,7 +85,7 @@
           "start.read_about_what_we_fund_html",
           href: link_to(
                   t("start.read_about_what_we_fund_text"),
-                  "https://www.heritagefund.org.uk/funding/check-what-we-fund",
+                  "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110955' : 'https://www.heritagefund.org.uk/funding/what-we-fund' }",
                   target: "_blank",
                   class: "govuk-link"
           )
@@ -98,7 +98,7 @@
           "start.project_outcomes_html",
           href: link_to(
                   t("start.project_outcomes_text"),
-                  "https://www.heritagefund.org.uk/funding/outcomes",
+                  "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110862' : 'https://www.heritagefund.org.uk/funding/outcomes' }",
                   target: "_blank",
                   class: "govuk-link"
           )
@@ -111,7 +111,7 @@
           "start.application_guidance_html",
           href: link_to(
                   t("start.application_guidance_text"),
-                  "https://www.heritagefund.org.uk/publications/application-guidance-ps3000-ps10000",
+                  "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/111086' : 'https://www.heritagefund.org.uk/publications/application-guidance-ps3000-ps10000' }",
                   target: "_blank",
                   class: "govuk-link"
           )

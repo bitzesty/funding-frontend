@@ -6,7 +6,7 @@ cy:
       your_message_was_sent_successfully: "Anfonwyd eich neges yn llwyddiannus"
       service_status:
         html: "%{href} i weld a oes unrhyw broblemau hysbys."
-        testun: "Edrychwch ar ein tudalen statws gwasanaeth"
+        text: "Edrychwch ar ein tudalen statws gwasanaeth"
     form:
       your_name: "Eich enw"
       your_message: "Eich neges"

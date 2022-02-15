@@ -38,7 +38,7 @@
             "report_a_problem.text.service_status.html",
             href: link_to(
                     t("report_a_problem.text.service_status.text"),
-                    "https://www.heritagefund.org.uk/service-status",
+                    "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/service-status' : 'https://www.heritagefund.org.uk/service-status' }",
                     target: "_blank",
                     class: "govuk-link"
             )

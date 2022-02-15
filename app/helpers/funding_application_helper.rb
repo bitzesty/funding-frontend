@@ -55,17 +55,31 @@ module FundingApplicationHelper
 
     set_award_type(funding_application) if funding_application.award_type_unknown?
 
-    standard_terms_link =
-      'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
-        '-3k-10k' if funding_application.is_3_to_10k?
+    if I18n.locale == :cy 
+      standard_terms_link =
+        'https://www.heritagefund.org.uk/cy/publications/standard-terms-grants' \
+          '-3k-10k' if funding_application.is_3_to_10k?
 
-    standard_terms_link =
-      'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
-        '-10k-100k' if funding_application.is_10_to_100k?
+      standard_terms_link =
+        'https://www.heritagefund.org.uk/cy/publications/standard-terms-grants' \
+          '-10k-100k' if funding_application.is_10_to_100k?
 
-    standard_terms_link =
-      'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
-        '-100k-250k' if funding_application.is_100_to_250k?
+      standard_terms_link =
+        'https://www.heritagefund.org.uk/cy/publications/standard-terms-grants' \
+          '-100k-250k' if funding_application.is_100_to_250k?
+    else
+      standard_terms_link =
+        'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
+          '-3k-10k' if funding_application.is_3_to_10k?
+
+      standard_terms_link =
+        'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
+          '-10k-100k' if funding_application.is_10_to_100k?
+
+      standard_terms_link =
+        'https://www.heritagefund.org.uk/publications/standard-terms-grants' \
+          '-100k-250k' if funding_application.is_100_to_250k?
+    end
 
     standard_terms_link
 
@@ -82,17 +96,32 @@ module FundingApplicationHelper
 
     set_award_type(funding_application) if funding_application.award_type_unknown?
 
-    receiving_a_grant_guidance_link =
-      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-      '-ps3000-ps10000' if funding_application.is_3_to_10k?
+    if I18n.locale == :cy 
+      receiving_a_grant_guidance_link =
+        'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance' \
+          '-ps3000-ps10000' if funding_application.is_3_to_10k?
 
-    receiving_a_grant_guidance_link =
-      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-        '-ps10000-ps100000' if funding_application.is_10_to_100k?
+      receiving_a_grant_guidance_link =
+        'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance' \
+          '-ps10000-ps100000' if funding_application.is_10_to_100k?
 
-    receiving_a_grant_guidance_link =
-      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-      '-ps100000-ps250000' if funding_application.is_100_to_250k?
+      receiving_a_grant_guidance_link =
+        'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance' \
+          '-ps100000-ps250000' if funding_application.is_100_to_250k?
+
+    else
+      receiving_a_grant_guidance_link =
+        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+          '-ps3000-ps10000' if funding_application.is_3_to_10k?
+
+      receiving_a_grant_guidance_link =
+        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+          '-ps10000-ps100000' if funding_application.is_10_to_100k?
+
+      receiving_a_grant_guidance_link =
+        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+          '-ps100000-ps250000' if funding_application.is_100_to_250k?
+    end
 
     receiving_a_grant_guidance_link
 
@@ -109,18 +138,32 @@ module FundingApplicationHelper
 
     set_award_type(funding_application) if funding_application.award_type_unknown?
 
-    link =
-      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-      '-ps3000-ps10000#heading-8' if funding_application.is_3_to_10k?
+    if I18n.locale == :cy 
+      link =
+      'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance' \
+        '-ps3000-ps10000#heading-8' if funding_application.is_3_to_10k?
 
-    link =
-      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-        '-ps10000-ps100000#heading-10' if funding_application.is_10_to_100k?
+      link =
+        'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance' \
+          '-ps10000-ps100000#heading-10' if funding_application.is_10_to_100k?
 
-    link =
-      'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
-      '-ps100000-ps250000#heading-10' if funding_application.is_100_to_250k?
+      link =
+        'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance' \
+          '-ps100000-ps250000#heading-10' if funding_application.is_100_to_250k?
+    else
+      link =
+        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+          '-ps3000-ps10000#heading-8' if funding_application.is_3_to_10k?
 
+      link =
+        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+          '-ps10000-ps100000#heading-10' if funding_application.is_10_to_100k?
+
+      link =
+        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance' \
+          '-ps100000-ps250000#heading-10' if funding_application.is_100_to_250k?
+    end
+ 
     link
 
   end
@@ -137,14 +180,24 @@ module FundingApplicationHelper
 
     set_award_type(funding_application) if funding_application.award_type_unknown?
 
-    link =
-      'https://www.heritagefund.org.uk/funding/' \
-        'national-lottery-grants-heritage-10k-250k' 
+    if I18n.locale == :cy 
+      link =
+      'https://www.heritagefund.org.uk/cy/node/111087' 
       
-    link =
-      'https://www.heritagefund.org.uk/funding/' \
-        'national-lottery-grants-heritage-2021/3-10k' \
-          if funding_application.is_3_to_10k?
+      link =
+        'https://www.heritagefund.org.uk/cy/node/111086' \
+            if funding_application.is_3_to_10k?
+      
+    else
+      link =
+        'https://www.heritagefund.org.uk/funding/' \
+          'national-lottery-grants-heritage-10k-250k' 
+        
+      link =
+        'https://www.heritagefund.org.uk/funding/' \
+          'national-lottery-grants-heritage-2021/3-10k' \
+            if funding_application.is_3_to_10k?
+    end
 
     link
 
