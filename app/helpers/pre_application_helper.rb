@@ -1,5 +1,7 @@
 module PreApplicationHelper
   include SalesforceApi
+  include Mailers::PefMailerHelper
+  include Mailers::EoiMailerHelper
   
   # Method to determine which redirect path to take based on whether the
   # Organsiation object passed into the method is complete for this journey
@@ -135,11 +137,15 @@ module PreApplicationHelper
 
     logger.info('Queuing pre-application submission confirmation email...')
 
-    NotifyMailer.project_enquiry_submission_confirmation(pre_application).deliver_later() if 
-      pre_application.pa_project_enquiry.present?
+    project_enquiry_submission_confirmation(
+      pre_application.user.email,
+      pre_application.pa_project_enquiry.salesforce_pef_reference
+    ) if pre_application.pa_project_enquiry.present?
 
-    NotifyMailer.expression_of_interest_submission_confirmation(pre_application).deliver_later() if
-      pre_application.pa_expression_of_interest.present?
+    expression_of_interest_submission_confirmation(
+      pre_application.user.email,
+      pre_application.pa_expression_of_interest.salesforce_eoi_reference
+    ) if pre_application.pa_expression_of_interest.present?
 
     logger.info('Completed queuing of pre-application submission confirmation email')
 

@@ -19,7 +19,7 @@ class NotifyMailer < Mail::Notify::Mailer
   # @param opts [{}}] optional arguments provided by the Devise call.
   def confirmation_instructions(record, token, opts = {})
 
-    template_mail('3eed6cd0-780a-4805-b5ef-79f170a1eb73',
+    template_mail('cccbf9f4-a633-453e-9b32-24f1c86879ec',
                   to: record.email,
                   reply_to_id: @reply_to_id,
                   personalisation: {
@@ -36,7 +36,7 @@ class NotifyMailer < Mail::Notify::Mailer
   #
   # @param record [User] An instance of User, created by the Devise gem.
   def confirmation_instructions_copy(record) 
-    template_mail('3eed6cd0-780a-4805-b5ef-79f170a1eb73',
+    template_mail('cccbf9f4-a633-453e-9b32-24f1c86879ec',
       to: Rails.configuration.x.no_reply_email_address,
       reply_to_id: Rails.configuration.x.reply_email_guid,
       personalisation: {
@@ -65,7 +65,7 @@ class NotifyMailer < Mail::Notify::Mailer
 
 
   def password_change(record, opts = {})
-    template_mail('32bc1da4-99aa-4fde-9124-6c423cfcab15',
+    template_mail('264362fc-cb45-4ec1-8e57-96f0212cc3bb',
                   reply_to_id: @reply_to_id,
                   to: record.email
     )
@@ -73,7 +73,7 @@ class NotifyMailer < Mail::Notify::Mailer
 
 
   def reset_password_instructions(record, token, opts = {})
-    template_mail('343c89d0-0825-4363-a2eb-6a6bbc20a50f',
+    template_mail('62886d47-0c06-4019-b09a-1ff1df9101fe',
                   reply_to_id: @reply_to_id,
                   to: record.email,
                   personalisation: {
@@ -83,7 +83,7 @@ class NotifyMailer < Mail::Notify::Mailer
   end
 
   def unlock_instructions(record, token, opts = {})
-    template_mail('8c03a7c0-e23f-484e-9543-bbde9263bd47',
+    template_mail('cd9ae6dc-14d7-43d3-b019-90c1ab9fdad0',
                   reply_to_id: @reply_to_id,
                   to: record.email,
                   personalisation: {
@@ -92,21 +92,23 @@ class NotifyMailer < Mail::Notify::Mailer
     )
   end
 
-  #  @param [Project] project
-  def project_submission_confirmation(project)
-    template_mail('071cfcda-ebd4-4eba-8602-338b12edc4f9',
-                  to: project.user.email,
+  #  @param [string] email Email of the applicant
+  #  @param [string] reference Reference of the the gp_project
+  #  @param [string] template_id ID of the template to br used
+  def project_submission_confirmation(email, reference, template_id)
+    template_mail(template_id,
+                  to: email,
                   reply_to_id: @reply_to_id,
                   personalisation: {
-                      project_reference_number: project.funding_application.project_reference_number
+                      project_reference_number: reference
                   }
     )
   end
 
-  def pts_submission_confirmation(email, project_reference_number)
+  def pts_submission_confirmation(email, project_reference_number, template_id)
     logger.info "Sent confirmation email to: " \
 			"email #{email}"
-    template_mail('24833676-a335-4e88-9fff-2470b4fe0b95',
+    template_mail(template_id,
                   to: email,
                   reply_to_id: @reply_to_id,
                   personalisation: {
@@ -115,38 +117,46 @@ class NotifyMailer < Mail::Notify::Mailer
       )
   end
 
-  #  @param [PreApplication] pre_application
-  def project_enquiry_submission_confirmation(pre_application)
-    template_mail('34ec207b-e8d1-46be-87ee-2eca4b665cbc',
-                  to: pre_application.user.email,
+  # @param [string] email email address of applicant
+  # @param [string] reference reference for the pef
+  # @param [string] template_id Notify template id
+  def project_enquiry_submission_confirmation(email, reference, template_id)
+    template_mail(template_id,
+                  to: email,
                   reply_to_id: @reply_to_id,
                   personalisation: {
-                      pa_project_enquiry_reference: pre_application.pa_project_enquiry.salesforce_pef_reference
+                      pa_project_enquiry_reference: reference
                   }
     )
   end
 
-  #  @param [PreApplication] pre_application
-  def expression_of_interest_submission_confirmation(pre_application)
-    template_mail('76cba30c-e91b-4fae-bffc-78ee13179b9c',
-                  to: pre_application.user.email,
+  # @param [string] email email address of applicant
+  # @param [string] reference reference for the pef
+  # @param [string] template_id Notify template id
+  def expression_of_interest_submission_confirmation(email, reference, template_id)
+    template_mail(template_id,
+                  to: email,
                   reply_to_id: @reply_to_id,
                   personalisation: {
-                      pa_expression_of_interest_reference: pre_application.pa_expression_of_interest.salesforce_eoi_reference
+                      pa_expression_of_interest_reference: reference
                   }
     )
   end
 
   # @param [FundingApplication] funding_application
   def payment_request_submission_confirmation(
-    funding_application, investment_manager_name, investment_manager_email
+    email,
+    project_reference_number,
+    investment_manager_name,
+    investment_manager_email,
+    template_id
   )
     template_mail(
-      'e35a0532-8b51-4447-bc6d-d39f705bd24c',
-      to: funding_application.organisation.users.first.email,
+      template_id,
+      to: email,
       reply_to_id: @reply_to_id,
       personalisation: {
-        project_reference_number: funding_application.project_reference_number,
+        project_reference_number: project_reference_number,
         investment_manager_name: investment_manager_name,
         investment_manager_email: investment_manager_email
       }
@@ -166,18 +176,19 @@ class NotifyMailer < Mail::Notify::Mailer
   # @param [String] project_reference_number A unique NLHF-assigned reference
   #                                          number for a project
   # @param [String] organisation_name The name of an organisation
-  def legal_signatory_agreement_link(
+  def email_with_signatory_link(
     recipient_email_address,
     funding_application_id,
     agreement_link,
     project_title,
     project_reference_number,
     organisation_name, 
-    fao_email
+    fao_email,
+    template_id
   )
 
     template_mail(
-      '9ba83d4a-e445-4c12-9f03-545bcbca4878',
+      template_id,
       to: recipient_email_address,
       reply_to_id: Rails.configuration.x.reply_email_guid,
       personalisation: {
@@ -192,25 +203,26 @@ class NotifyMailer < Mail::Notify::Mailer
 
   end
 
-  def report_a_problem(message, name, email)
-    template_mail("4d789cc6-bd6a-499f-bae2-502b633c098b",
+  def report_a_problem(message, name, email, template_id)
+    template_mail(template_id,
                   to: Rails.configuration.x.support_email_address,
                   reply_to_id: @reply_to_id,
                   personalisation: {
                       message_body: message,
                       name: name,
-                      email_address: email
+                      user_email_address: email
                   })
   end
 
-  def question_or_feedback(message, name, email)
-    template_mail("af4e775b-5a0e-4da2-81a1-3c51dd88a07c",
+  def question_or_feedback(message, name, email, template_id)
+    
+    template_mail(template_id,
                   to: Rails.configuration.x.support_email_address,
                   reply_to_id: @reply_to_id,
                   personalisation: {
                       message_body: message,
                       name: name.present? ? name : "Name not provided",
-                      email_address: email.present? ? email : "Email address not provided"
+                      user_email_address: email.present? ? email : "Email address not provided"
                   })
   end
 

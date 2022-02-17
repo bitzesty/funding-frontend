@@ -1,5 +1,6 @@
 module PaymentDetailsAndRequestHelper
   include SalesforceApi
+  include Mailers::PaymentMailerHelper
 
   # Helper method to redirect a user to the 'are these your bank details' route
   #
@@ -220,11 +221,12 @@ module PaymentDetailsAndRequestHelper
     im_email = investment_manager_details.Owner&.Email ? 
       investment_manager_details.Owner&.Email : 'email not known' 
 
-    NotifyMailer.payment_request_submission_confirmation(
-      funding_application,
+    payment_request_submission_confirmation(
+      funding_application.organisation.users.first.email,
+      funding_application.project_reference_number,
       im_name,
       im_email 
-    ).deliver_later
+    )
 
     logger.info("Payment request email sent for: #{funding_application.id}. " \
       "Redirecting to payment request submitted")

@@ -3,6 +3,7 @@ require 'bcrypt'
 module LegalAgreementsHelper
   include SalesforceApi
   include AgreementSalesforceApi
+  include Mailers::SigMailerHelper
 
   # Method to determine whether or not an encoded_signatory_id matches an
   # existing LegalSignatory UUID for a given FundingApplication
@@ -287,7 +288,7 @@ module LegalAgreementsHelper
   def send_legal_signatory_email(email_address, funding_application, 
     agreement_link, fao_email)
 
-    NotifyMailer.legal_signatory_agreement_link(
+    send_mail_with_signatory_link(
       email_address,
       funding_application.id,
       agreement_link,
@@ -297,7 +298,8 @@ module LegalAgreementsHelper
       funding_application.project_reference_number,
       funding_application.organisation.name,
       fao_email
-    ).deliver_later()
+    )
+
   end
 
 

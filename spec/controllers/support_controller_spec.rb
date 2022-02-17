@@ -137,7 +137,7 @@ RSpec.describe SupportController do
     it 'should re-render the report_a_problem template with no errors ' \
        'when a valid form is submitted' do
       expect(subject).to receive(:clear_flash).with('problem').twice
-      expect(NotifyMailer).to receive_message_chain(:report_a_problem, :deliver_later)
+      expect(subject).to receive(:mail_report_a_problem).once.with('test', 'test', 'test')
       post :process_problem,
         params: {
           support_problem_message: 'test',
@@ -203,7 +203,7 @@ RSpec.describe SupportController do
     it 'should re-render the report_a_question template with no errors ' \
        'when a valid form is submitted' do
       expect(subject).to receive(:clear_flash).with('question_or_feedback').twice
-      expect(NotifyMailer).to receive_message_chain(:question_or_feedback, :deliver_later)
+      expect(subject).to receive(:mail_question_or_feedback).once.with('test', 'test', 'test')
       post :process_question,
            params: {
              support_question_or_feedback_message: 'test',

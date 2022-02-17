@@ -1,6 +1,9 @@
 require 'restforce'
 
 class ApplicationToSalesforceJob < ApplicationJob
+
+  include Mailers::GpProjectMailerHelper
+
   class SalesforceApexError < StandardError; end
   queue_as :default
 
@@ -48,7 +51,11 @@ class ApplicationToSalesforceJob < ApplicationJob
         salesforce_account_id: @response_body_obj.dig('accountId')
       )
 
-      NotifyMailer.project_submission_confirmation(project).deliver_later
+      send_project_submission_confirmation(
+        project.user.id,
+        project.user.email,
+        project.funding_application.project_reference_number
+      )
 
       salesforce_case_id = project.funding_application.salesforce_case_id
 

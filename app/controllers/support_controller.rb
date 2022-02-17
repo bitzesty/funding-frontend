@@ -1,6 +1,8 @@
 # Controller responsible for processing support page requests
 class SupportController < ApplicationController
 
+  include Mailers::SupportMailerHelper
+
   # Method responsible for rendering the root Support page
   def show
     flash[:errors] = nil
@@ -44,15 +46,15 @@ class SupportController < ApplicationController
 
       logger.debug 'Validation succeeded for POST /report-a-problem form'
 
-      logger.debug 'Calling NotifyMailer.report_a_problem_email'
+      logger.debug 'Calling mail_report_a_problem'
 
-      NotifyMailer.report_a_problem(
+      mail_report_a_problem(
         params[:support_problem_message],
         params[:support_problem_name],
         params[:support_problem_email]
-      ).deliver_later
+      )
 
-      logger.debug 'Finished calling NotifyMailer.report_a_problem_email'
+      logger.debug 'Finished calling mail_report_a_problem'
 
       # Flash Hash contains populated fields
       clear_flash('problem')
@@ -94,11 +96,11 @@ class SupportController < ApplicationController
 
       logger.debug 'Calling SupportMailer.question_or_feedback_email'
 
-      NotifyMailer.question_or_feedback(
+      mail_question_or_feedback(
         params[:support_question_or_feedback_message],
         params[:support_question_or_feedback_name],
         params[:support_question_or_feedback_email]
-      ).deliver_later
+      )
 
       logger.debug 'Finished calling SupportMailer.question_or_feedback_email'
 

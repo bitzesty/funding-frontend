@@ -61,6 +61,12 @@ RSpec.describe ApplicationToSalesforceJob, type: :job do
         }.to_json
     )
 
+    # User factory doesn't meet the needs of GpProjectMailerHelper.  So stub to return happy path values.
+    allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:set_user_instance).and_return(@project.user)
+    allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_english_mails?).and_return(true)
+    allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_welsh_mails?).and_return(false)
+    allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_bilingual_mails?).and_return(false)
+
     ApplicationToSalesforceJob.perform_now(@project)
 
     expect(@project.funding_application.project_reference_number).to eq("NS-19-01498")

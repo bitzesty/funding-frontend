@@ -75,4 +75,18 @@ class User < ApplicationRecord
       @user = User.find_by(uid: user_id)
   end
 
+  # If it isn't 'welsh' or 'both' then default is english, 
+  # whether another language or nil
+  def send_english_mails?
+    ['WELSH', 'BOTH'].exclude? language_preference&.strip&.upcase
+  end
+
+  def send_welsh_mails?
+    language_preference&.strip&.upcase == 'WELSH'
+  end
+
+  def send_bilingual_mails?
+    language_preference&.strip&.upcase == 'BOTH'
+  end
+
 end

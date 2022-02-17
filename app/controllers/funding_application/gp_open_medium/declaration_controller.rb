@@ -2,6 +2,7 @@ class FundingApplication::GpOpenMedium::DeclarationController < ApplicationContr
   include FundingApplicationContext
   include FundingApplicationHelper
   include ObjectErrorsLogger
+  include Mailers::GpProjectMailerHelper
 
   # This method is used to set the @standard_terms_link instance variable,
   # which is then used on the declaration partial
@@ -40,6 +41,12 @@ class FundingApplication::GpOpenMedium::DeclarationController < ApplicationContr
           @funding_application,
           current_user,
           current_user.organisations.first
+        )
+        
+        send_project_submission_confirmation(
+          current_user.id,
+          current_user.email,
+          @funding_application.project_reference_number
         )
 
         redirect_to :funding_application_gp_open_medium_application_submitted
