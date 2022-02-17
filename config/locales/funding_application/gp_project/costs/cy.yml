@@ -46,10 +46,10 @@ cy:
         publicity_and_promotion: "Cyhoeddusrwydd a dyrchafiad"
         evaluation: "Gwerthuso"
         contingency: "Arian wrth gefn"
-        new_build_work: "New build work"
-        community_grants: "Community grants"
-        full_cost_recovery: "Full Cost Recovery"
-        inflation: "Inflation"
+        new_build_work: "Gwaith adeiladu newydd"
+        community_grants: "Grantiau cymunedol"
+        full_cost_recovery: "Adennill Costau Llawn"
+        inflation: "Chwyddiant"
       cost_types:
         1:
           heading: "Costau staff newydd"
