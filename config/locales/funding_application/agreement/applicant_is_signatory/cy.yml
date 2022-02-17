@@ -3,8 +3,8 @@ cy:
     applicant_is_signatory:
         page_title: "Ydych chi'n llofnodwr cyfreithiol ar gyfer eich sefydliad?"
         page_heading: "Ydych chi'n llofnodwr cyfreithiol ar gyfer eich sefydliad?"
-        ask_sigs: "Byddwn yn gofyn i 2 lofnodwr cyfreithiol gytuno i'r telerau ac amodau a'u llofnodi."
-        sig_description: "Llofnodwr cyfreithiol yw person sydd â'r awdurdod i ymrwymo i gontractau cyfreithiol ar gyfer eich sefydliad. Er enghraifft, Ymddiriedolwr neu Gyfarwyddwr."
+        ask_sigs: "Byddwn yn gofyn i 2 lofnodwr cyfreithiol lofnodi'r telerau ac amodau. Os ydych yn un o'r llofnodwyr cyfreithiol, gallwch wneud hyn ar unwaith. Os nad ydych yn un o'r llofnodwyr cyfreithiol, byddant yn derbyn dolen uniongyrchol."
+        sig_description: "Llofnodwr cyfreithiol yw person sydd ag awdurdod i ymrwymo i gontractau cyfreithiol ar ran eich sefydliad. Er enghraifft, Ymddiriedolwr neu Gyfarwyddwr."
         is_sig: "Rwy'n llofnodwr cyfreithiol i'm sefydliad"
         is_not_sig: "Na, nid wyf yn llofnodwr cyfreithiol i'm sefydliad"
         org_role: "Beth yw eich rôl yn y sefydliad?"

@@ -17,6 +17,8 @@ cy:
       submit: "Cyflwyno"
       i_agree: "Rwy'n cytuno"
       sign_out: "Allgofnodi"
+      sign_in: "Mewngofnodi"
+      your_account: "Eich cyfrif"
   generic:
     countries:
       scotland: "Yr Alban"
@@ -231,9 +233,9 @@ cy:
         legal_signatory:
           attributes:
             role:
-              blank: "Enter the role of a legal signatory"
-              too_short: "Enter the role of a legal signatory"
-              too_long: "The role of the legal signatory must be fewer than %{count} characters"
+              blank: "Nodwch rôl llofnodwr cyfreithiol"
+              too_short: "Nodwch rôl llofnodwr cyfreithiol"
+              too_long: "Mae’n rhaid i rôl y llofnodwr cyfreithiol fod yn llai na %{count} o gymeriadau"
             name:
               blank: "Rhowch enw llofnodwr cyfreithiol"
               too_short: "Rhowch enw llofnodwr cyfreithiol"
@@ -245,7 +247,7 @@ cy:
         funding_application:
           attributes:
             details_correct:
-              blank: "Select if your project details are correct"
+              blank: "Dewiswch a yw manylion eich prosiect yn gywir"
             project_costs:
               blank: "Nodwch o leiaf un gost prosiect" 
             cash_contributions_question:
@@ -259,7 +261,7 @@ cy:
             new_evidence:
               inclusion: "Dewiswch a oes gennych unrhyw dystiolaeth newydd ar gyfer eich prosiect ers cyflwyno eich cais"
             applicant_is_legal_sig:
-              blank: "Please select an option"
+              blank: "Dewiswch opsiwn"
             applicant_role:
               blank: "Please add your role in the organisation"
         project:

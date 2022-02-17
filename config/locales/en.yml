@@ -17,6 +17,8 @@ en-GB:
       submit: "Submit"
       i_agree: "I agree"
       sign_out: "Sign out"
+      sign_in: "Sign in"
+      your_account: "Your account"
   generic:
     countries:
       scotland: "Scotland"

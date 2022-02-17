@@ -4,5 +4,5 @@ cy:
       page_title: "Dywedwch wrthym fanylion 2 lofnodwr cyfreithiol ar gyfer eich sefydliad"
       page_heading: "Dywedwch wrthym fanylion 2 lofnodwr cyfreithiol ar gyfer eich sefydliad"
       page_description: "Byddwn yn e-bostio'r llofnodwyr cyfreithiol ddolen i delerau ac amodau'r grant. Bydd angen iddynt ddarllen a chytuno i'r telerau ac amodau cyn lanlwytho copi wedi'i lofnodi. Gall pob llofnodwr cyfreithiol lofnodi ei gopi ei hun a'i lanlwytho."
-      signatory_emails_unique_error: "Email address should be different for each signatory and should be different to the applicant's"
+      signatory_emails_unique_error: "Dylai cyfeiriad e-bost fod yn wahanol i bob llofnodwr a dylai fod yn wahanol i'r ymgeiswyr"
       
