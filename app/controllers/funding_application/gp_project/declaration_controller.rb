@@ -6,8 +6,13 @@ class FundingApplication::GpProject::DeclarationController < ApplicationControll
   # which is then used on the declaration partial
   def show_declaration
 
-    @standard_terms_link = 'https://www.heritagefund.org.uk/publications/' \
+    if I18n.locale == :cy 
+      @standard_terms_link = 'https://www.heritagefund.org.uk/cy/publications/' \
       'standard-terms-grants-3k-10k'
+    else
+      @standard_terms_link = 'https://www.heritagefund.org.uk/publications/' \
+      'standard-terms-grants-3k-10k'
+    end
 
   end
 

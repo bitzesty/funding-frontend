@@ -13,8 +13,12 @@ cy:
     examples_item_2: "atgyweiriadau i gofeb ryfel"
     examples_item_3: "digideiddio archif ffotograffig"
     examples_physical_work_html: "Ar gyfer prosiectau sy'n ymwneud â gwaith corfforol, er enghraifft cadwraeth i adeilad hanesyddol neu waith adeiladu newydd, darllenwch yr adran gofynion perchnogaeth o %{examples_gp_os_guidance} ac edrychwch ar %{examples_receiving_a_grant_guidance}."
+    examples_physical_work_medium_html: "For projects involving physical works, for example conservation to a historic building or new building work, please read the ownership requirements section of either the %{examples_gp_om_1_guidance} or the %{examples_gp_om_2_guidance}. </br> You may also wish to look at the full %{examples_receiving_a_grant_guidance_medium_1} or %{examples_receiving_a_grant_guidance_medium_2}."
     examples_gp_project_guidance: "canllawiau'r rhaglen grant o £3,000 i £10,000"
-    examples_gp_open_medium_guidance: "canllawiau'r rhaglen grant o £10,000 i £250,000"
+    examples_gp_open_medium_1_guidance: "£10,000 to £100,000 grant programme guidance"
+    examples_gp_open_medium_2_guidance: "£100,000 to £250,000 grant programme guidance"
     examples_receiving_a_grant_guidance: "canllawiau derbyn grant"
+    examples_receiving_a_grant_guidance_medium_1: "receiving a grant guidance for projects of £10,000 to £100,000"
+    examples_receiving_a_grant_guidance_medium_2: "receiving a grant guidance for projects of £100,000 to £250,000"
     buttons:
       add_condition_survey: "Ychwanegu arolwg cyflwr"

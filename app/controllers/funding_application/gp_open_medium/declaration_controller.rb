@@ -146,11 +146,23 @@ class FundingApplication::GpOpenMedium::DeclarationController < ApplicationContr
 
     if grant_request >= 10000 && grant_request < 100000
 
-      @standard_terms_link = 'https://www.heritagefund.org.uk/publications/standard-terms-grants-10k-100k'
+      if I18n.locale == :cy 
+        @standard_terms_link = 'https://www.heritagefund.org.uk/cy/publications/' \
+        'standard-terms-grants-10k-100k'
+      else
+        @standard_terms_link = 'https://www.heritagefund.org.uk/publications/' \
+        'standard-terms-grants-10k-100k'
+      end
 
     elsif grant_request >= 100000 && grant_request <= 250000
 
-      @standard_terms_link = 'https://www.heritagefund.org.uk/publications/standard-terms-grants-100k-250k'
+      if I18n.locale == :cy 
+        @standard_terms_link = 'https://www.heritagefund.org.uk/cy/publications/' \
+        'standard-terms-grants-100k-250k'
+      else
+        @standard_terms_link = 'https://www.heritagefund.org.uk/publications/' \
+        'standard-terms-grants-100k-250k'
+      end
 
     end
 

@@ -83,10 +83,15 @@
 
 <% end %>
 
-<form action="<%= funding_application_gp_project_evidence_of_support_path %>"
-  method="get">
-  <p class="govuk-body">
-    <%= t('volunteers.input_btn_hint') %>
-  </p>
-  <%= render(ButtonComponent.new(element: 'input')) %>
-</form>
+<p class="govuk-body">
+  <%= t('volunteers.input_btn_hint') %>
+</p>
+
+<%=
+  render(
+    ButtonComponent.new(
+      element: 'a',
+      href: funding_application_gp_project_evidence_of_support_path
+    )
+  )
+%>  

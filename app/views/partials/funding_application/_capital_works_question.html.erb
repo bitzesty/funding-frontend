@@ -62,27 +62,80 @@
           </ul>
 
           <p class="govuk-body">
-            <%= 
-              t(
-                'capital_works.examples_physical_work_html',
-                examples_gp_os_guidance: link_to(
-                  t("capital_works.examples_gp_#{ model_object_name }_guidance"),
-                  grant_programme_guidance_link,
-                  {
-                    class: 'govuk-link',
-                    target: '_blank'
-                  }
-                ),
-                examples_receiving_a_grant_guidance: link_to(
-                  t('capital_works.examples_receiving_a_grant_guidance'),
-                  receiving_grant_guidance_link,
-                  {
-                    class: 'govuk-link',
-                    target: '_blank'
-                  }
+            <% if model_object_name == "project" %>
+              <%= 
+                t(
+                  'capital_works.examples_physical_work_html',
+                  examples_gp_os_guidance: link_to(
+                    t("capital_works.examples_gp_#{ model_object_name }_guidance"),
+                    "#{I18n.locale == :cy ? 
+                      'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance-ps3000-ps10000#heading-7' : 
+                        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance-ps3000-ps10000#heading-8'}",
+                    {
+                      class: 'govuk-link',
+                      target: '_blank'
+                    }
+                  ),
+                  examples_receiving_a_grant_guidance: link_to(
+                    t('capital_works.examples_receiving_a_grant_guidance'),
+                    "#{I18n.locale == :cy ? 
+                      'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance-ps3000-ps10000' : 
+                        'https://www.heritagefund.org.uk/funding/receiving-grant-guidance-ps3000-ps10000'}",
+                    {
+                      class: 'govuk-link',
+                      target: '_blank'
+                    }
+                  )
                 )
-              )
-            %>
+              %>
+            <% elsif model_object_name == "open_medium"%>
+              <%= 
+                t(
+                  'capital_works.examples_physical_work_medium_html',
+                  examples_gp_om_1_guidance: link_to(
+                    t("capital_works.examples_gp_#{ model_object_name }_1_guidance"),
+                    "#{I18n.locale == :cy ? 
+                      'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance-ps10000-ps100000#heading-10' : 
+                        'https://www.heritagefund.org.uk/funding/national-lottery-grants-heritage-10k-250k/receiving-grant-100k#heading-10'}",
+                    {
+                      class: 'govuk-link',
+                      target: '_blank'
+                    }
+                  ),
+                  examples_gp_om_2_guidance: link_to(
+                    t("capital_works.examples_gp_#{ model_object_name }_2_guidance"),
+                    "#{I18n.locale == :cy ? 
+                      'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance-ps100000-ps250000#heading-10' : 
+                        'https://www.heritagefund.org.uk/funding/national-lottery-grants-heritage-10k-250k/receiving-grant-250k#heading-10'}",
+                    {
+                      class: 'govuk-link',
+                      target: '_blank'
+                    }
+                  ),
+                  examples_receiving_a_grant_guidance_medium_1: link_to(
+                    t('capital_works.examples_receiving_a_grant_guidance_medium_1'),
+                    "#{I18n.locale == :cy ? 
+                      'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance-ps10000-ps100000' : 
+                        'https://www.heritagefund.org.uk/funding/national-lottery-grants-heritage-10k-250k/receiving-grant-100k'}",
+                    {
+                      class: 'govuk-link',
+                      target: '_blank'
+                    }
+                  ),
+                  examples_receiving_a_grant_guidance_medium_2: link_to(
+                    t('capital_works.examples_receiving_a_grant_guidance_medium_2'),
+                    "#{I18n.locale == :cy ? 
+                      'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance-ps100000-ps250000' : 
+                        'https://www.heritagefund.org.uk/funding/national-lottery-grants-heritage-10k-250k/receiving-grant-250k'}",
+                    {
+                      class: 'govuk-link',
+                      target: '_blank'
+                    }
+                  )
+                )
+              %>
+            <% end %>
+            
           </p>
 
         </div>
