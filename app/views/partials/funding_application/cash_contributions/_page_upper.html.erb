@@ -64,7 +64,7 @@
 
               <td class="govuk-table__cell">
 
-                <%= cc.secured&.gsub('x_', '')&.humanize&.gsub('Yes ', 'Yes, ') %>
+                <%= t("application.cash_contributions.labels.#{cc.secured}")%>
 
                 <% if cc.cash_contribution_evidence_files.present? %>
 

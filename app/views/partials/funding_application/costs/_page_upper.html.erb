@@ -75,7 +75,7 @@
           <tr class="govuk-table__row">
 
             <td scope="govuk-table__cell" class="govuk-table__cell">
-              <%= pc.cost_type&.humanize&.capitalize %>
+              <%= I18n.t("application.costs.cost_types_select.#{pc.cost_type}") %>
             </td>
 
             <td class="govuk-table__cell">

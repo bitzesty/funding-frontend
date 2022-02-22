@@ -7,7 +7,7 @@
   <dd class="govuk-summary-list__value">
     <%=
       model_object.start_date.present? ?
-      model_object.start_date.strftime('%d %b %Y').to_s :
+      model_object.start_date.strftime('%d-%m-%Y').to_s :
       t('generic.not_answered')
     %>
   </dd>

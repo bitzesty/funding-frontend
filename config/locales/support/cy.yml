@@ -19,3 +19,4 @@ cy:
       support_hours:
         1: "Dim ond yn ystod oriau swyddfa rhwng 9:00am a 5:00pm, o ddydd Llun i ddydd Gwener y gallwn ddarparu cymorth."
         2: "Y tu allan i oriau swyddfa, bydd eich ymholiad yn cael ei storio er mwyn i ni ei ddarllen y diwrnod gwaith nesaf."
+      insert_18001_plus: "Rhowch 18001 neu fwy"

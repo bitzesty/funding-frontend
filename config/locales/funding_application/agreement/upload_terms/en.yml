@@ -4,4 +4,8 @@ en-GB:
       page_title: "Upload your signed Terms and Conditions"
       page_heading: "Upload your signed Terms and Conditions"
       description: "Make sure you've included all of the pages of the document."
-      
+      add_your_signed_terms: "Add your signed terms"
+      no_signed_terms_and_conditions: "No signed terms and conditions"
+      signed_terms_and_conditions: "Signed terms and conditions"
+      buttons:
+        add_signed_terms: "Add signed terms"

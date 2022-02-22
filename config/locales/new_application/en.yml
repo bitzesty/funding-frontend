@@ -3,6 +3,7 @@ en-GB:
     page_title: "Which type of application would you like to start?"
     page_heading: "Which type of application would you like to start?"
     page_sub_heading: "We provide different types of funding to heritage of all shapes and sizes. Select the funding programme that you wish to apply for."
+    start_new_application:  "Start a new application"
     types:
       gp_oss_small:
         name: "Grants of £3,000 to £10,000"

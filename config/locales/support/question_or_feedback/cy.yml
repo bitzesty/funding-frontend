@@ -1,0 +1,14 @@
+cy:
+  question_or_feedback:
+    page_title: "Gofyn cwestiwn neu roi adborth"
+    page_heading: "Gofyn cwestiwn neu roi adborth"
+    headings:
+      do_you_want_a_reply: "Ydych chi eisiau ymateb?"
+    text:
+      ask_a_question_or_give_feedback: "Gofyn cwestiwn neu roi adborth"
+      your_message_was_sent_successfully: "Anfonwyd eich neges yn llwyddiannus"
+      leave_your_details_below: "Rhowch eich manylion isod os hoffech ymateb."
+    labels:
+      your_message: "Eich neges"
+      your_name: "Eich enw"
+      your_email_address: "Eich cyfeiriad e-bost"

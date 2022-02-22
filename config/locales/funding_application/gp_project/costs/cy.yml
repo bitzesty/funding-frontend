@@ -12,6 +12,7 @@ cy:
         cost_type: "Math o gost"
         description: "Disgrifiad"
         amount: "Swm"
+        vat_amount: "Cyfanswm TAW"
       text:
         1: "Mae costau prosiect yn ein helpu i ddeall sut rydych chi'n bwriadu rhoi eich prosiect ar waith."
         2: "Bydd pob cost yn cael ei dangos yma gyda chyfanswm cynnal y prosiect"
@@ -25,6 +26,7 @@ cy:
         1: "Math o gost"
         2: "Disgrifiad"
         3: "Swm"
+        vat_amount: "Cyfanswm TAW"
       buttons:
         1: "Ychwanegu'r gost hon"
       cost_types_select:

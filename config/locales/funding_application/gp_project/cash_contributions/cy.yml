@@ -23,10 +23,10 @@ cy:
         1: "Disgrifiad"
         2: "Wedi'i warantu"
       labels:
-        1: "Disgrifiad"
-        2: "Ydw a gallaf ddarparu tystiolaeth"
-        3: "Oes ond does gen i ddim tystiolaeth eto"
-        4: "Na"
-        5: "Ddim yn siŵr"
+        desc_contribution: "Disgrifiad"
+        yes_with_evidence: "Ydw a gallaf ddarparu tystiolaeth"
+        yes_no_evidence_yet: "Oes ond does gen i ddim tystiolaeth eto"
+        no: "Na"
+        x_not_sure: "Ddim yn siŵr"
       buttons:
         1: "Ychwanegu cyfraniad arian parod"

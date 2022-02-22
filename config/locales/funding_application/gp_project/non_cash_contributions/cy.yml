@@ -23,10 +23,10 @@ cy:
         2: "Gwerth"
       labels:
         description: "Disgrifiad"
-        estimated_value: "Estimated value"
+        estimated_value: "Amcangyfrif o'r gwerth"
       generic_question_page:
-        page_title: "Are you getting any non-cash contributions to your project?"
-        page_heading: "Are you getting any non-cash contributions to your project?"
+        page_title: "Ydych chi'n cael unrhyw gyfraniadau nad ydynt yn arian parod i'ch prosiect?"
+        page_heading: "A ydych yn cael unrhyw gyfraniadau nad ydynt yn arian parod i'ch prosiect?"
         labels:
-          x_yes: "Yes, I am getting non-cash contributions"
-          x_no: "No, I am not getting non-cash contributions"
+          x_yes: "Ydw, rwy'n cael cyfraniadau nad ydynt yn arian parod"
+          x_no: "Na, nid wyf yn cael cyfraniadau nad ydynt yn arian parod"

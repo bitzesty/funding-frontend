@@ -31,7 +31,7 @@
 
           <%=
             form_object.label :signed_terms_and_conditions,
-            t('agreement.sign_terms.labels.add_your_signed_terms'),
+            t('agreement.upload_terms.add_your_signed_terms'),
             class: "govuk-heading-m nlhf-content-highlight__title"
           %>
 
@@ -60,7 +60,7 @@
           <%=
             render(
               ButtonComponent.new(
-                text: t('agreement.sign_terms.buttons.add_signed_terms'),
+                text: t('agreement.upload_terms.buttons.add_signed_terms'),
                 classes: 'govuk-button--secondary',
               )
             )
@@ -73,7 +73,7 @@
       <% unless model_object.signed_terms_and_conditions.attached? %>
 
         <p class="govuk-body">
-          <%= t('agreement.sign_terms.no_signed_terms_and_conditions') %>
+          <%= t('agreement.upload_terms.no_signed_terms_and_conditions') %>
         </p>
 
       <% else %>
@@ -85,7 +85,7 @@
             <tr class="govuk-table__row">
 
               <th scope="col" class="govuk-table__header">
-                <%= t('agreement.sign_terms.signed_terms_and_conditions') %>
+                <%= t('agreement.upload_terms.signed_terms_and_conditions') %>
               </th>
 
             </tr>

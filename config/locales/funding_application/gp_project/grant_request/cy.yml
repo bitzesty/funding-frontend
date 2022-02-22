@@ -18,6 +18,7 @@ cy:
         7: "mwy na chyfanswm cost eich prosiect."
         8: "Mae eich cais am grant yn uwch na %{total} a'r uchafswm a ganiateir ar gyfer y rhaglen ariannu hon."
         9: "Adolygwch gostau eich prosiect a'ch cyfraniadau arian parod."
+        grant_request_less_than_min: "Mae eich cais am grant yn is na  %{minimum} sef yr isafswm a ganiateir ar gyfer y rhaglen ariannu hon."
       links:
         1: "Newid costau'r prosiect"
         2: "Newid cyfraniadau arian parod"

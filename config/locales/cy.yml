@@ -105,7 +105,7 @@ cy:
           project_end_date: "Dyddiad cwblhau'r prosiect"
           where_is_your_project_taking_place: "Ble mae eich prosiect yn digwydd?"
           description: "Disgrifiwch eich syniad"
-          captital_work: "A fydd gwaith cyfalaf yn rhan o'ch prosiect?"
+          capital_work: "A fydd gwaith cyfalaf yn rhan o'ch prosiect?"
           permission: "A oes angen caniatâd unrhyw un arall arnoch i gynnal eich prosiect?"
           more_info_about_permission: "Mwy o wybodaeth am ganiatâd"
           difference: "Pa wahaniaeth fydd eich prosiect yn ei wneud?"
@@ -263,7 +263,7 @@ cy:
             applicant_is_legal_sig:
               blank: "Dewiswch opsiwn"
             applicant_role:
-              blank: "Please add your role in the organisation"
+              blank: "Ychwanegwch eich rôl yn y sefydliad"
         project:
           attributes:
             project_costs:

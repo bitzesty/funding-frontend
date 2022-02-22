@@ -41,6 +41,8 @@ cy:
     awarded_projects:
       sub_heading: "Eich prosiectau a ddyfarnwyd  grant i chi"
       sub_content: "Dyfarnwyd grant i'r prosiectau canlynol"
+      development_phase: "Cyfnod Datblygu"
+      delivery_phase: "Cyfnod Cyflawni"
       none:
         sub_heading: "Dim prosiectau na ddyfarnwyd grant i chi"
         sub_content: "r hyn o bryd, nid oes gan y cyfrif yma unrhyw brosiectau sydd wedi derbyn grant gan Chronfa Treftadaeth y Loteri Genedlaethol"

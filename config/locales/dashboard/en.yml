@@ -41,6 +41,8 @@ en-GB:
     awarded_projects:
       sub_heading: "Your awarded projects"
       sub_content: "The following projects have been awarded a grant"
+      development_phase: "Development Phase"
+      delivery_phase: "Delivery Phase"
       none:
         sub_heading: "No awarded projects"
         sub_content: "This account currently has no awarded projects with The National Lottery Heritage Fund"

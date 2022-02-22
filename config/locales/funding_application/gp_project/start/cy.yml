@@ -1,0 +1,23 @@
+cy:
+  start:
+    page_title: "Gwneud cais am £3,000 i £10,000"
+    page_heading_html: "Gwneud cais am grant o <br /> £3,000 i £10,000"
+    use_this_service: "Defnyddiwch y gwasanaeth yma i:"
+    use_this_service_desc: "Gwneud gais am gyllid gan Gronfa Treftadaeth y Loteri Genedlaethol ar gyfer eich prosiect treftadaeth."
+    page_sub_heading_1: "Byddwn yn gofyn"
+    page_sub_heading_2: "Fe fyddwch chi angen"
+    page_sub_heading_3: "Cyn i chi ddechrau"
+    we_will_ask_list:
+      item_1: "Cwestiynau i ddarganfod a yw eich prosiect yn cyd-fynd â'n meini prawf ariannu"
+      item_2: "Beth fydd eich prosiect yn ei wneud"
+      item_3: "Pa rai o'n canlyniadau y bydd eich prosiect yn eu cyflawni"
+      item_4: "Faint fydd eich prosiect yn ei gostio"
+    you_will_need_list:
+      item_1: "Cyfrif banc ar gyfer eich sefydliad"
+      item_2: "Cyfansoddiad, neu ddogfen lywodraethol, ar gyfer eich sefydliad"
+    read_about_what_we_fund_html: "Darllenwch am %{href} yn fanylach"
+    read_about_what_we_fund_text: "yr hyn rydym yn ei ariannu"
+    project_outcomes_html: "Dysgwch beth rydyn ni'n ei olygu wrth %{href}. Canlyniadau yw'r hyn y byddwn yn asesu eich cais yn ei erbyn wrth wneud penderfyniad ariannu"
+    project_outcomes_text: "canlyniadau'r prosiect"
+    application_guidance_html: "Efallai y byddai'n ddefnyddiol i chi gyfeirio at ein %{href} wrth ateb y cwestiynau ar y ffurflen hon"
+    application_guidance_text: "Canllawiau Ymgeisio"

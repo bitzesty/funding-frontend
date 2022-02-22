@@ -26,9 +26,13 @@
   </h1>
 <% end %>
 
-<% if @type == "organisation" || @type == "project" %>
+<% if @type == "organisation" %>
   <h1 class="govuk-heading-xl">
-    <%= t('address_details.enter_your') + ' ' + @type + ' ' + t('address_details.address_details') %>
+    <%= t('address_details.enter_organisation_address') %>
+  </h1>
+<% elsif @type == "project" %>
+  <h1 class="govuk-heading-xl">
+    <%= t('address_details.enter_project_address') %>
   </h1>
 <% elsif @type == 'gp-open-medium' %>
   <h1 class="govuk-heading-xl">

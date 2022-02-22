@@ -11,3 +11,4 @@ en-GB:
         full_name: "Full name"
         email_address: "Email address"
         phone_number: "Phone number"
+        role: "Role"

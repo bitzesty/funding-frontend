@@ -5,7 +5,7 @@
   </dt>
 
   <dd class="govuk-summary-list__value">
-    <%= @funding_application.project.start_date.present? ? @funding_application.project.start_date.strftime('%d %b %Y').to_s : t('views.funding_application.gp_project.check_your_answers.not_answered') %>
+    <%= @funding_application.project.start_date.present? ? @funding_application.project.start_date.strftime('%d-%m-%Y').to_s : t('views.funding_application.gp_project.check_your_answers.not_answered') %>
   </dd>
 
   <%= render partial: 'funding_application/gp_project/check_answers/change_link',

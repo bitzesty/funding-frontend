@@ -24,10 +24,10 @@ en-GB:
         2: "Secured"
         3: "Amount"
       labels:
-        1: "Description of cash contribution"
-        2: "Yes and I can provide evidence"
-        3: "Yes but I do not have evidence yet"
-        4: "No"
-        5: "Not sure"
+        desc_contribution: "Description of cash contribution"
+        yes_with_evidence: "Yes and I can provide evidence"
+        yes_no_evidence_yet: "Yes but I do not have evidence yet"
+        no: "No"
+        x_not_sure: "Not sure"
       buttons:
         1: "Add cash contribution"

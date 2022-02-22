@@ -48,8 +48,9 @@
             local: true do |f|
 %>
 
-  <%=
-    f.save_and_continue
+  <%= render(
+      ButtonComponent.new()
+    )
   %>
 
 <% end %>

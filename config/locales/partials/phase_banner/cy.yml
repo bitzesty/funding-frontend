@@ -1,0 +1,5 @@
+cy:
+  phase_banner:
+    beta: "beta"
+    content_html: "Dyma wasanaeth newydd, bydd %{href} yn ein helpu i'w wella."
+    content_href: "eich adborth"

@@ -10,3 +10,6 @@ cy:
       confirm_declaration_html: "Rwyf wedi darllen a chytuno â'r %{href}"
       confirm_declaration_href: "datganiad"
       confirm_declaration: "Rwyf wedi darllen a chytuno â'r datganiad"
+    buttons:
+      submit_application: "Cyflwyno cais"
+

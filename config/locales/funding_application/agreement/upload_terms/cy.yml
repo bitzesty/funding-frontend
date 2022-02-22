@@ -1,7 +1,11 @@
 cy:
   agreement:
-      upload_terms:
-        page_title: "Lanlwytho eich Telerau ac Amodau wedi'u llofnodi"
-        page_heading: "Lanlwytho eich Telerau ac Amodau wedi'u llofnodi"
-        description: "Sicrhewch eich bod wedi cynnwys holl dudalennau'r ddogfen."
-        
+    upload_terms:
+      page_title: "Lanlwytho eich Telerau ac Amodau wedi'u llofnodi"
+      page_heading: "Lanlwytho eich Telerau ac Amodau wedi'u llofnodi"
+      description: "Sicrhewch eich bod wedi cynnwys holl dudalennau'r ddogfen."
+      add_your_signed_terms: "Ychwanegwch eich telerau wedi'u llofnodi"
+      no_signed_terms_and_conditions: "Dim telerau ac amodau wedi'u llofnodi"
+      signed_terms_and_conditions: "Telerau ac amodau wedi'u llofnodi"
+      buttons:
+        add_signed_terms: "Ychwanegu telerau wedi'u llofnodi"

@@ -1,0 +1,44 @@
+cy:
+  cookies:
+    cookies_saved_flash:
+      headings:
+        cookies_saved: "Cafodd eich gosodiadau cwcis eu cadw"
+        cookies_not_saved: "Nid yw eich gosodiadau cwcis wedi'u cadw et"
+        error: "Roedd problem wrth gadw eich gosodiadau"
+      content:
+        go_back: "Ewch yn ôl i'r dudalen yr oeddech yn edrych arni."
+        select: "Dewiswch 'Ie' neu 'Na'."
+        sets_cookies: "Mae Gwneud Cais am Gyllid yn gosod cwcis pan fyddwch yn ymweld â'n gwefan. Gallwch ddewis newid y gosodiadau hyn i'ch dewisiadau eich hun. Mae angen i chi gadw'r dudalen hon gyda'ch dewisiadau newydd."
+    title: "Gosodiadau cwcis"
+    headings:
+      change_settings: "Newid eich gosodiadau cwcis"
+    sub_headings:
+      cookie_settings: "Gosodiadau cwci"
+      essential_cookies: "Cwcis hanfodol"
+      measure_website_use: "Cwcis sy'n mesur defnydd o'r wefan (dewisol)"
+    content:
+      cookies_are: "Ffeiliau wedi'u cadw ar eich ffôn, llechen neu gyfrifiadur yw cwcis pan fyddwch yn ymweld â gwefan."
+      we_use_cookies: "Rydym yn defnyddio cwcis i wneud i'r gwasanaeth weithio a chasglu gwybodaeth am sut rydych yn defnyddio ein gwasanaeth"
+      two_cookie_types: "Rydym yn defnyddio 2 fath o gwcis."
+      essential_cookies:
+        desc: "Mae'r cwcis hanfodol hyn yn gwneud pethau fel:"
+        1: "storio sesiynau ar eich cyfrifiadur i helpu i gadw eich gwybodaeth yn ddiogel wrth i chi ddefnyddio'r gwasanaeth"
+        2: "cofio'r hysbysiadau rydych chi wedi'u gweld fel nad ydym yn eu dangos i chi eto"
+      with_permission: "Gyda'ch caniatâd chi, rydym yn defnyddio Hotjar i gasglu data am sut rydych yn defnyddio Gwneud Cais am Gyllid. Mae'r wybodaeth hon yn ein helpu i wella ein gwasanaeth."
+      hotjar_not_allowed: "Ni chaniateir i Hotjar ddefnyddio na rhannu ein data dadansoddeg gydag unrhyw un."
+      hotjar_stores:
+        desc: "Mae Hotjar yn storio gwybodaeth anhysbys am:"
+        1: "y tudalennau rydych chi'n ymweld â nhw ar Gwneud Cais am Gyllid a pha mor hir rydych chi'n ei dreulio ar bob tudalen"
+        2: "sut rydych chi'n llywio o amgylch y tudalennau rydych chi'n edrych arnynt ar Gwneud Cais am Gyllid"
+        3: "beth rydych chi'n clicio arno tra byddwch chi'n defnyddio'r gwasanaeth"
+        4: "sut rydych chi'n llenwi'r ffurflen yn Gwneud Cais am Gyllid"
+        5: "nid yw eich bysellau, ac unrhyw gyfeiriad neu ddata ariannol a wnewch, yn cael eu cofnodi na'u storio."
+      accept_cookies:
+        question: "Ydych chi am dderbyn cwcis dadansoddeg?"
+        error: "Gwall:"
+        error_msg: "Dewiswch 'Ydw' neu 'Na'."
+        yes: "Ydw"
+        no: "Na"
+      btn:
+        link_txt: "Dysgu mwy am gwcis ar Gwneud Cais am Gyllid"
+        desc: "Cadw gosodiadau cwcis"

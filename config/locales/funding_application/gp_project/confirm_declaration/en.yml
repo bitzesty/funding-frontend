@@ -10,3 +10,5 @@ en-GB:
       confirm_declaration_html: "I have read and agreed with the %{href}"
       confirm_declaration_href: "declaration"
       confirm_declaration: "I have read and agreed with the declaration"
+    buttons:
+      submit_application: "Submit application"

@@ -11,3 +11,4 @@ cy:
         full_name: "Enw llawn"
         email_address: "Cyfeiriad e-bost"
         phone_number: "Rhif ffôn"
+        role: "Rôl"

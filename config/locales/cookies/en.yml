@@ -1,0 +1,44 @@
+en-GB:
+  cookies:
+    cookies_saved_flash:
+      headings:
+        cookies_saved: "Your cookie settings were saved"
+        cookies_not_saved: "Your cookie settings have not yet been saved"
+        error: "There was a problem saving your settings"
+      content:
+        go_back: "Go back to the page you were looking at."
+        select: "Please select 'Yes' or 'No'."
+        sets_cookies: "Apply for Funding sets cookies when you visit our website. You can choose to change these settings to your own preferences. You need to save this page with your new choices."
+    title: "Cookie Settings"
+    headings: 
+      change_settings: "Change your cookie settings"
+    sub_headings: 
+      cookie_settings: "Cookie settings"
+      essential_cookies: "Essential cookies"
+      measure_website_use: "Cookies that measure website use (optional)"
+    content:
+      cookies_are: "Cookies are files saved on your phone, tablet or computer when you visit a website."
+      we_use_cookies: "We use cookies to make the service work and collect information about how you use our service"
+      two_cookie_types: "We use 2 types of cookies."
+      essential_cookies: 
+        desc: "These essential cookies do things like to:"
+        1: "store sessions on your computer to help keep your information secure while you use the service"
+        2: "remember the notifications you've seen so we do not show them to you again"
+      with_permission: "With your permission, we use Hotjar to collect data about how you use Apply for Funding. This information helps us to improve our service."
+      hotjar_not_allowed: "Hotjar is not allowed to use or share our analytics data with anyone."
+      hotjar_stores:
+        desc: "Hotjar stores anonymised information about:"
+        1: "the pages you visit on Apply for Funding and how long you spend on each page"
+        2: "how you navigate around the pages you look at on Apply for Funding"
+        3: "what you click on while you’re using the service"
+        4: "how you fill in the form in Apply for Funding"
+        5: "your keystrokes, and any address or financial data you input, are not recorded or stored."
+      accept_cookies:
+        question: "Do you want to accept analytics cookies?"
+        error: "Error:"
+        error_msg: "Please select 'Yes' or 'No'."
+        yes: "Yes"
+        no: "No"
+      btn:
+        link_txt: "Find out more about cookies on Apply for Funding"
+        desc: "Save cookie settings"

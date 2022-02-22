@@ -187,8 +187,8 @@ RSpec.feature 'Project', type: :feature do
 
       expect(page).to have_text "Check your answers"
       expect(page).to have_text "Test project"
-      expect(page).to have_text "31 Jan 2031"
-      expect(page).to have_text "31 Jan 2032"
+      expect(page).to have_text "31-01-2031"
+      expect(page).to have_text "31-01-2032"
       expect(page).to have_text "10 Downing Street"
       expect(page).to have_text "Westminster"
       expect(page).to have_text "London"

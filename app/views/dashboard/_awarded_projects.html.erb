@@ -137,7 +137,7 @@
 
   <% if @large_applications[:delivery].present? %>
     <h2 class="govuk-heading-m">
-          Delivery Phase
+        <%= t('dashboard.awarded_projects.delivery_phase') %>
     </h2>
     <ul class="govuk-list govuk-list--number nlhf-list nlhf-list--links govuk-!-margin-bottom-8">  
       <% @large_applications[:delivery].each do| delivery_hash | %>
@@ -172,7 +172,7 @@
 
   <% if @large_applications[:development].present? %>
     <h2 class="govuk-heading-m">
-          Development Phase
+          <%= t('dashboard.awarded_projects.development_phase') %>
     </h2>
     <ul class="govuk-list govuk-list--number nlhf-list nlhf-list--links govuk-!-margin-bottom-8">  
       <% @large_applications[:development].each do| development_hash | %>
