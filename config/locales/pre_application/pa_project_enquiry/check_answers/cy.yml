@@ -28,3 +28,5 @@ cy:
         org_name: "Enw'r sefydliad"
         org_address: "Cyfeiriad y sefydliad"
         org_mission: "Cenhadaeth neu amcanion y sefydliad"
+      hidden:
+        answer_to: "ateb i"

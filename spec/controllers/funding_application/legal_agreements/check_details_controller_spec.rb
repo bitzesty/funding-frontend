@@ -28,8 +28,12 @@ RSpec.describe FundingApplication::LegalAgreements::CheckDetailsController do
     it "should return New staff for key 'new_staff' when local is cy " do
 
       I18n.locale = 'cy'
-      
-      expect(subject.get_translation("New staff")).to eq("Staff newydd")
+
+      begin
+        expect(subject.get_translation("New staff")).to eq("Staff newydd")
+      ensure
+        I18n.locale = 'en-GB'
+      end
       
     end
 
@@ -40,9 +44,7 @@ RSpec.describe FundingApplication::LegalAgreements::CheckDetailsController do
           StandardError, 
           'translation missing for cost heading unknown key'
         )
-      
-      I18n.locale = 'en-GB'
-      
+          
     end
 
 

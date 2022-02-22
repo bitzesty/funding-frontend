@@ -36,3 +36,5 @@ en-GB:
         overall_cost: "description of how much your project is likely to cost"
         potential_funding_amount: "how much funding you are planning to apply to us for"
         likely_submission_description: "description of when you are likely to submit a funding application, if asked to do so"
+      hidden:
+        answer_to: "answer to"

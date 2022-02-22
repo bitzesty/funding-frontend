@@ -28,3 +28,5 @@ en-GB:
         org_name: "Organisation's name"
         org_address: "Organisation's address"
         org_mission: "Organisation's mission or objectives"
+      hidden:
+        answer_to: "answer to"

@@ -36,3 +36,5 @@ cy:
         overall_cost: "disgrifiad o faint mae eich prosiect yn debygol o gostio"
         potential_funding_amount: "faint o gyllid rydych chi'n bwriadu gwneud cais i ni amdano"
         likely_submission_description: "disgrifiad o pryd rydych yn debygol o gyflwyno cais am gyllid, os gofynnir i chi wneud hynny"
+      hidden:
+        answer_to: "ateb i"
