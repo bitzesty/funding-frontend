@@ -33,4 +33,6 @@ class FundingApplication::LegalAgreements::Signatories::CheckDetailsController <
 
   end
 
+  helper_method :get_translation
+
 end

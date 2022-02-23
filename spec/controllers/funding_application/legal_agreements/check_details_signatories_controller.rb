@@ -50,7 +50,6 @@ RSpec.describe FundingApplication::LegalAgreements::CheckDetailsController do
           
     end
 
-
   end
 
 end

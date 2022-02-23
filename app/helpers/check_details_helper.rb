@@ -36,4 +36,22 @@ module CheckDetailsHelper
 
   end
 
+  # Takes a salesforce cost heading and tries to find a translation
+  # If a translation isn't found - raise error so we can identify and fix
+  # @param [String] cost_heading cost heading for translation
+  # @return [String] a translation in either en-GB or cy
+  def get_translation(cost_heading)      
+
+    translation = t(
+      "salesforce_text.project_costs.#{cost_heading.parameterize.underscore}"
+    )
+
+    if translation.include?('translation missing')
+      raise StandardError.new("translation missing for cost heading #{cost_heading}")
+    else
+      return translation
+    end
+
+  end
+
 end
