@@ -131,7 +131,7 @@
 
   <% end %>
 
-  <% # todo: remove when payments possible for medium applications > 100k %>
+  <% # applications > 100k use progress_and_update journey %>
   <% unless @funding_application.is_100_to_250k? %>
 
     <li class="nlhf-list__item nlhf-task__item">

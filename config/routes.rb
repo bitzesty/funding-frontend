@@ -308,6 +308,10 @@ Rails.application.routes.draw do
 
       end
 
+      scope 'progress-and-spend', module: 'progress_and_spend', as: :progress_and_spend do
+        get 'start', to: 'start#show', constraints: lambda { Flipper.enabled?(:progress_and_spend_enabled) }
+      end
+
     end
 
     scope 'gp-open-medium', module: 'gp_open_medium', as: :gp_open_medium do
@@ -630,7 +634,6 @@ Rails.application.routes.draw do
     end
 
   end
-
 
   # Static pages within the service
   get '/accessibility-statement', to: 'static_pages#show_accessibility_statement'

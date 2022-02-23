@@ -1143,7 +1143,6 @@
       retry_number = 0
 
       begin
-
         result = 
           @client.query_all("SELECT Description_for_cash_contributions__c, " \
             "Amount_you_have_received__c, " \
