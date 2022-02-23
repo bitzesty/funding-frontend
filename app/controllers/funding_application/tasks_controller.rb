@@ -13,9 +13,8 @@ class FundingApplication::TasksController < ApplicationController
 
     if @legal_agreement_in_place && @funding_application.is_100_to_250k? && \
       Flipper.enabled?(:progress_and_spend_enabled)
-      
       redirect_to funding_application_progress_and_spend_start_path(
-        params[application_id: @funding_application.id]
+        application_id: @funding_application.id
       )
     end
 
