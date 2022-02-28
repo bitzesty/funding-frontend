@@ -247,9 +247,6 @@ Rails.application.routes.draw do
 
         scope '/:payment_request_id' do
 
-          get 'have-your-bank-details-changed', to: 'have_bank_details_changed#show'
-          put 'have-your-bank-details-changed', to: 'have_bank_details_changed#update'
-
           get 'bank-details', to: 'enter_bank_details#show'
           put 'bank-details', to: 'enter_bank_details#update'
 
@@ -331,10 +328,42 @@ Rails.application.routes.draw do
 
         get 'progress-and-spend-tasks', to: 'tasks#show'
         post 'progress-and-spend-tasks', to: 'tasks#update'
+
+        get 'submit-your-answers', to: 'submit#show'
+        get 'submit-your-answers', to: 'submit#update'
+
+        scope 'progress-update', module: 'progress_update', as: 'progress_update' do
+          scope '/:progress_update_id' do
+            
+            get 'photos', to: 'photos#show'
+            post 'photos', to: 'photos#update'
+
+            get 'approved-purposes', to: 'approved_purposes#show'
+            post 'approved-purposes', to: 'approved_purposes#update'
+          end
+        end
+
+        scope 'payments', module: 'payments', as: 'payments' do
+          scope '/:payment_request_id' do
+
+            get 'what-spend', to: 'what_spend#show'
+            get 'what-spend', to: 'what_spend#update'
+
+            # scope 'spend', module: 'spend', as: 'spend' do
+              # scope spend id etc
+            # end 
+
+            get 'have-your-bank-details-changed', to: 'have_bank_details_changed#show'
+            put 'have-your-bank-details-changed', to: 'have_bank_details_changed#update'
+
+          end
+
+        end
+
       end
 
     end
-
+    
     scope 'gp-open-medium', module: 'gp_open_medium', as: :gp_open_medium do
 
       get 'start', to: 'start#show'

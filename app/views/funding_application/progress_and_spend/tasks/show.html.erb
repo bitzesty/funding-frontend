@@ -8,7 +8,168 @@
 
 <h1 class="govuk-heading-l"> Manage you awarded project </h1>
 
-Task list items
+
+<ul class="govuk-list nlhf-list nlhf-list--links">
+
+  <% if @complete_progress_tasks %>
+
+    <li class="nlhf-list__item nlhf-task__item">
+
+      <span class="nlhf-tag-name">
+        
+        <%=
+          link_to(
+            'Tell us how the project is going',
+            funding_application_progress_and_spend_progress_update_photos_path(
+              progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
+            ),
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'progress-updates_photos' }
+          )
+        %>
+
+      </span>
+
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour: 'blue',
+            tag_text: t('generic.in_progress'),
+            tag_id: 'progress-updates_photos'
+          }
+        )
+      %>
+
+    </li>
+
+    <li class="nlhf-list__item nlhf-task__item">
+
+      <span class="nlhf-tag-name">
+        
+        <%=
+          link_to(
+            'Update on approved purposes and outcomes',
+             funding_application_progress_and_spend_progress_update_approved_purposes_path(
+              progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
+            ),
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'approved-purposes-updates' }
+          )
+        %>
+
+      </span>
+
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour: 'blue',
+            tag_text: t('generic.in_progress'),
+            tag_id: 'approved-purposes-updates'
+          }
+        )
+      %>
+
+    </li>
+
+  <% end %>
+
+ <% if @complete_payment_tasks %>
+
+    <li class="nlhf-list__item nlhf-task__item">
+
+      <span class="nlhf-tag-name">
+        
+        <%=
+          link_to(
+            'Tell us what you have spent',
+            funding_application_progress_and_spend_payments_what_spend_path(
+              payment_request_id: @funding_application.arrears_journey_tracker.payment_request_id
+            ),
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'what-you-have-spent' }
+          )
+        %>
+
+      </span>
+
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour: 'blue',
+            tag_text: t('generic.in_progress'),
+            tag_id: 'what-you-have-spent'
+          }
+        )
+      %>
+
+    </li>
+
+    <li class="nlhf-list__item nlhf-task__item">
+
+      <span class="nlhf-tag-name">
+        
+        <%=
+          link_to(
+            'Bank details',
+            funding_application_progress_and_spend_payments_have_your_bank_details_changed_path(
+              payment_request_id: @funding_application.arrears_journey_tracker.payment_request_id
+            ),
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'bank-details' }
+          )
+        %>
+
+      </span>
+
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour: 'blue',
+            tag_text: t('generic.in_progress'),
+            tag_id: 'bank-details'
+          }
+        )
+      %>
+
+    </li>
+
+    <li class="nlhf-list__item nlhf-task__item">
+
+      <span class="nlhf-tag-name">
+        
+        <%=
+          link_to(
+            'Submit your answers',
+            funding_application_progress_and_spend_submit_your_answers_path(),
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'submit-your-answers' }
+          )
+        %>
+
+      </span>
+
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour: 'blue',
+            tag_text: t('generic.in_progress'),
+            tag_id: 'submit-your-answers'
+          }
+        )
+      %>
+
+    </li>
+
+  <% end %>
+
+
+</ul>
+
 
 <%= form_tag(
     url: :funding_application_payment_request_start,
