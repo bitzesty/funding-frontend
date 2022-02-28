@@ -324,6 +324,13 @@ Rails.application.routes.draw do
 
       scope 'progress-and-spend', module: 'progress_and_spend', as: :progress_and_spend do
         get 'start', to: 'start#show', constraints: lambda { Flipper.enabled?(:progress_and_spend_enabled) }
+        post 'start', to: 'start#update', constraints: lambda { Flipper.enabled?(:progress_and_spend_enabled) }
+
+        get 'select_journey', to: 'select_journey#show'
+        post 'select_journey', to: 'select_journey#update'
+
+        get 'progress-and-spend-tasks', to: 'tasks#show'
+        post 'progress-and-spend-tasks', to: 'tasks#update'
       end
 
     end

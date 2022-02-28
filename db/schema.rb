@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_27_102305) do
+ActiveRecord::Schema.define(version: 2022_02_28_081800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -68,6 +68,17 @@ ActiveRecord::Schema.define(version: 2022_01_27_102305) do
     t.text "project_details_html"
     t.text "terms_html"
     t.index ["funding_application_id"], name: "index_agreements_on_funding_application_id"
+  end
+
+  create_table "arrears_journey_trackers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.uuid "payment_request_id"
+    t.uuid "progress_update_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["funding_application_id"], name: "index_arrears_journey_trackers_on_funding_application_id"
+    t.index ["payment_request_id"], name: "index_arrears_journey_trackers_on_payment_request_id"
+    t.index ["progress_update_id"], name: "index_arrears_journey_trackers_on_progress_update_id"
   end
 
   create_table "cash_contributions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -135,6 +146,15 @@ ActiveRecord::Schema.define(version: 2022_01_27_102305) do
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
+  create_table "fndng_applctns_prgrss_updts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.uuid "progress_update_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["funding_application_id"], name: "index_fndng_applctns_prgrss_updts_on_funding_application_id"
+    t.index ["progress_update_id"], name: "index_fndng_applctns_prgrss_updts_on_progress_update_id"
+  end
+
   create_table "funding_application_addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "address_id", null: false
     t.uuid "funding_application_id", null: false
@@ -158,6 +178,7 @@ ActiveRecord::Schema.define(version: 2022_01_27_102305) do
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "submitted_payload"
     t.datetime "agreement_submitted_on"
+    t.integer "status"
     t.index ["organisation_id"], name: "index_funding_applications_on_organisation_id"
   end
 
@@ -509,6 +530,12 @@ ActiveRecord::Schema.define(version: 2022_01_27_102305) do
     t.index ["user_id"], name: "index_pre_applications_on_user_id"
   end
 
+  create_table "progress_updates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "submitted_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "project_costs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "cost_type"
     t.integer "amount"
@@ -664,8 +691,13 @@ ActiveRecord::Schema.define(version: 2022_01_27_102305) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "id"
   add_foreign_key "agreements", "funding_applications"
+  add_foreign_key "arrears_journey_trackers", "funding_applications"
+  add_foreign_key "arrears_journey_trackers", "payment_requests"
+  add_foreign_key "arrears_journey_trackers", "progress_updates"
   add_foreign_key "cash_contributions", "projects"
   add_foreign_key "evidence_of_support", "projects"
+  add_foreign_key "fndng_applctns_prgrss_updts", "funding_applications"
+  add_foreign_key "fndng_applctns_prgrss_updts", "progress_updates"
   add_foreign_key "funding_application_addresses", "addresses"
   add_foreign_key "funding_application_addresses", "funding_applications"
   add_foreign_key "funding_applications", "organisations"

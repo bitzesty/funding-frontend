@@ -8,6 +8,7 @@ class FundingApplication < ApplicationRecord
   has_one :open_medium
   has_one :payment_details
   has_one :agreement
+  has_one :arrears_journey_tracker
   belongs_to :organisation, optional: true
 
   has_many :funding_applications_people, inverse_of: :funding_application
@@ -33,6 +34,9 @@ class FundingApplication < ApplicationRecord
 
   has_many :funding_applications_pay_reqs, inverse_of: :funding_application
   has_many :payment_requests, through: :funding_applications_pay_reqs
+
+  has_many :funding_applications_progress_updates, inverse_of: :funding_application
+  has_many :progress_updates, through: :funding_applications_progress_updates
 
   has_many :funding_applications_legal_sigs, inverse_of: :funding_application
   has_many :legal_signatories, through: :funding_applications_legal_sigs
@@ -229,6 +233,11 @@ class FundingApplication < ApplicationRecord
     is_100_to_250k: 2,
     award_type_unknown: 3
   }, _default: :award_type_unknown
+
+  enum status: {
+    unknown: 0,
+    payment_can_start: 1
+  }, _default: :unknown
 
 end
 

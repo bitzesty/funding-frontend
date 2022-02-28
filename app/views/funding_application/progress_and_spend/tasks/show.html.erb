@@ -2,11 +2,13 @@
   render partial: "partials/page_title",
          locals: {
              model_object: @funding_application,
-             page_title: 'Get a payment or give a project update' 
+             page_title: 'Manage you awarded project' 
          }
 %>
 
-<h1 class="govuk-heading-l"> Get a payment or give a project update </h1>
+<h1 class="govuk-heading-l"> Manage you awarded project </h1>
+
+Task list items
 
 <%= form_tag(
     url: :funding_application_payment_request_start,
