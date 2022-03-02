@@ -1,1 +1,221 @@
-Hello photos
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: 'Todo'
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.arrears_journey_tracker.progress_update,
+      first_form_element: :sfx_pts_payment_has_agreed_costs_docs_true
+    }
+  ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			Page heading - something about uploading photos
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+			Page heading
+		</h1>
+
+	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+	<%=
+		render(
+			partial: 'partials/form_group_errors',
+			locals: {
+				form_object: @funding_application.arrears_journey_tracker.progress_update
+			}
+		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+	%>
+
+
+	<%= 
+		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		url: funding_application_progress_and_spend_progress_update_photos_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+		<div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+			<%=
+				render(
+					partial: 'partials/form_input_errors',
+					locals: {
+						form_object: @funding_application.arrears_journey_tracker.progress_update,
+						input_field_id: :'progress_update_photo.progress_updates_photo_files'
+					}
+				) if @funding_application.arrears_journey_tracker.progress_update.errors['todo'].any? 
+			%>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+			@funding_application.arrears_journey_tracker.progress_update.errors.any? %>">
+				<% # todo %>
+				<div id="sfx_pts_payments.agreed_costs_files-errors"></div>
+
+				<div id="form-group-errors"></div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :has_upload_photos,
+						true,
+						class: "govuk-radios__input",
+						"data-aria-controls" => "conditional-has_agreed_costs_docs "
+					%>
+								
+					<%=
+						f.label :has_upload_photos_true,
+						t('photo.agreed_costs_documents.upload_radio'),
+						class: "govuk-label govuk-radios__label"
+					%>
+										
+					<div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+						id="conditional-has_agreed_costs_docs">
+						<% # todo %>
+						<div class="govuk-form-group" id="capital-works-form-group-main"
+							data-form-group="file">
+
+							<%=
+								f.label :photos_files,
+								t('photo.agreed_costs_documents.upload_a_cost_breakdown_and_cashflow'),
+								class: "govuk-label govuk-!-font-weight-bold"
+							%>
+
+							<%=
+								f.file_field :progress_updates_photo_files,
+								multiple: true,
+								direct_upload: true,
+								class: "govuk-file-upload",
+								'data-input-identifier': 'file',
+								'data-attribute': :progress_updates_photo_files,
+								'data-model': :prog,
+                'data-parent-model':  @funding_application.arrears_journey_tracker.progress_update,
+								'autocomplete' => 'off'
+							%>
+
+							<div class="govuk-!-padding-top-6">
+								<%=
+									render(
+										ButtonComponent.new(
+											type: "button",
+											text: t('generic.upload_files'),
+											classes: "govuk-button--primary ",
+											name: 'add_file_button'
+										)
+									)
+								%>
+							</div>
+						</div>
+
+						<% if @attachments.present? %>
+							
+							<table class="govuk-table" role="presentation">
+								<tr class="govuk-table__row">
+									<thead class="govuk-table__head">
+											<th class="govuk-table__header">
+													<%= t('generic.uploaded_files') %>
+											</th>
+									</thead>
+								</tr>
+								<tbody>
+									<% @attachments.each do |attachment| %>
+									<tr class="govuk-table__row">
+										<td class="govuk-table__cell ">
+											
+											<div class="govuk-table govuk-!-margin-top-3">
+												<%=
+													link_to(
+														attachment.progress_updates_photo_files_blob.filename,
+														rails_blob_path(
+															attachment.progress_updates_photo_files_blob,
+															disposition: "attachment"
+														),
+														class: 'govuk-link',
+													)
+												%> 
+
+												<p>	
+													<%= t('generic.has_been_uploaded') %>
+												</p>
+											</div>
+							
+
+										</td>
+										<td>
+
+											<%=
+												render(
+													partial: 'partials/delete_attachment_button',
+													locals: {
+														attachment_id: attachment.id
+													}
+												) 
+											%>
+
+										</td>
+				
+									
+									</tr>
+									<% end %>
+
+								</tbody>
+
+								
+							</table>
+
+						<% end %>
+
+					</div>
+
+				</div>
+
+				<div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+					<%=
+						f.radio_button :has_upload_photos,
+						false,
+						class: "govuk-radios__input"
+					%>
+
+					<%=	
+							f.label :has_upload_photos_false,
+							t('photo.agreed_costs_documents.emailed_radio'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+			
+			</div>
+
+			<%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
+				)
+			%>
+
+			<%#
+				See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+				for the reasoning behind this workaround
+			%>
+			<input type="hidden" name="ieworkaround">
+		</div>
+	<% end %>
+</fieldset>
+
+

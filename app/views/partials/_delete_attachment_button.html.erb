@@ -1,0 +1,19 @@
+<div class="govuk-table govuk-!-margin-top-5 govuk-table govuk-!-margin-left-3">
+  <%=
+    render(
+      ButtonComponent.new(
+        type: 'button',
+        text: t('generic.delete'),
+        classes: 'govuk-button govuk-button--warning',
+        name: 'delete_file_button',
+          attributes: [
+          {
+            attribute: ('value'),
+            value: (attachment_id)
+          }
+        ]
+      )
+    )
+  %>
+</div>
+

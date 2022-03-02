@@ -1,5 +1,5 @@
 class ArrearsJourneyTracker < ApplicationRecord
   belongs_to :funding_application
-  has_one :payment_request
-  has_one :progress_update
+  belongs_to :payment_request
+  belongs_to :progress_update
 end
