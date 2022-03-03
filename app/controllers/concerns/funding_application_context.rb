@@ -92,12 +92,14 @@ module FundingApplicationContext
   
   # Returns true if the passed path is NOT allowed for submitted applications.
   # Agreements excluded until there is a flag to confirm agreements can start
+  # Payments route has to be included, as no reliable indicator available to check
+  # that agreements completed.  Card raised to fix.
   def not_an_allowed_paths_for_submitted_projects(path)
-    
     path.exclude?('/application-submitted') && \
       path.exclude?('/tasks') && \
         path.exclude?('/agreement') && \
-          path.exclude?('/summary')
+          path.exclude?('/summary') && \
+            path.exclude?('payments')
   end
 
   # Returns true if the passed path is NOT allowed for submitted agreements.

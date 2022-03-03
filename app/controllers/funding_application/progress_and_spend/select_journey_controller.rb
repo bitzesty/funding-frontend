@@ -9,7 +9,6 @@ include FundingApplicationContext
   # At the point that an applicant clicks update, we create the payment request and progress_update 
   # objects.  And this means they are not shown the select journey page again.
   def update()
-
     if @funding_application.arrears_journey_tracker.payment_request_id.blank?
       payment_request = @funding_application.payment_requests.create  
       @funding_application.arrears_journey_tracker.update(
@@ -22,6 +21,11 @@ include FundingApplicationContext
       @funding_application.arrears_journey_tracker.update(
         progress_update_id:  progress_update.id
       )
+
+      progress_update.answers_json = Hash.new unless
+        progress_update.answers_json.present?
+
+      progress_update.save
     end
     
     redirect_to \

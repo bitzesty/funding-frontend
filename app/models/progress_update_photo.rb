@@ -14,7 +14,7 @@ class ProgressUpdatePhoto < ApplicationRecord
 
     validate_file_attached(
         :progress_updates_photo_files,
-        "Add a a progress update photo"
+        "Add a progress update photo"
     )
 
   end
