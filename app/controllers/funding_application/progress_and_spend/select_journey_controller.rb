@@ -22,10 +22,12 @@ include FundingApplicationContext
         progress_update_id:  progress_update.id
       )
 
-      progress_update.answers_json = Hash.new unless
-        progress_update.answers_json.present?
-
-      progress_update.save
+      if progress_update.answers_json.blank? 
+        progress_update.answers_json = Hash.new 
+        progress_update.answers_json['photos'] = { }
+        progress_update.save
+      end
+     
     end
     
     redirect_to \

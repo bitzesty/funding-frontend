@@ -9,7 +9,6 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < A
     end
   
     def update()  
-
       progress_update.validate_has_upload_photo = true
 
       progress_update.has_upload_photos =
@@ -19,18 +18,19 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < A
       if progress_update.has_upload_photos == "true"
         progress_update.validate_progress_update_photo = true
       end
-    
-      answers_json = progress_update.answers_json
-      answers_json[:has_upload_photos] = progress_update.has_upload_photos
-
-      progress_update.answers_json = answers_json
-      progress_update.save
 
       if params.has_key?(:save_and_continue_button)
+        save_json
         if progress_update.valid?
-          #TODO: FORM VALID NAVIGATE TO NEXT PAGE
+          redirect_to(
+            funding_application_progress_and_spend_progress_update_events_path(
+              progress_update_id:  \
+                @funding_application.arrears_journey_tracker.progress_update.id
+            )
+          )
+        else
+          rerender
         end
-        rerender
       end
 
       # Form submitted to delete a file. 
@@ -40,6 +40,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < A
 
       # Form submitted to add a file.
       if params.has_key?(:add_file_button)
+        save_json
         progress_update.update( get_params )
         rerender
       end
@@ -48,9 +49,9 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < A
     private
 
     def initialize_view()
-      if  progress_update.answers_json["has_upload_photos"] == true.to_s
+      if  progress_update.answers_json['photos']['has_upload_photos'] == true.to_s
         progress_update.has_upload_photos = true.to_s
-      elsif  progress_update.answers_json["has_upload_photos"] == false.to_s
+      elsif  progress_update.answers_json['photos']['has_upload_photos'] == false.to_s
         progress_update.has_upload_photos = false.to_s
       end
     end
@@ -69,7 +70,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < A
       @attachments =  @funding_application.arrears_journey_tracker.progress_update
         .progress_update_photo
     end
-
+  
     def delete(progress_photo_id)
       progress_update_photo =  @funding_application.arrears_journey_tracker
         .progress_update.progress_update_photo.find(progress_photo_id)
@@ -94,6 +95,14 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < A
           :progress_updates_photo_files
         ]
       )
+    end
+
+    def save_json()
+      answers_json = progress_update.answers_json
+      answers_json['photos']['has_upload_photos'] = progress_update.has_upload_photos
+
+      progress_update.answers_json = answers_json
+      progress_update.save
     end
     
   end

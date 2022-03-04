@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
       model_object: nil,
-      page_title:  t("progress_and_spend.progress_update.photos.page_title")
+      page_title: 'Todo'
     }
 %>
 
@@ -11,7 +11,7 @@
     partial: 'partials/summary_errors',
     locals: {
       form_object: @funding_application.arrears_journey_tracker.progress_update,
-      first_form_element: :progress_update_has_upload_photos_true
+      first_form_element: :progress_update_has_upload_events_true
     }
   ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
 %>
@@ -20,16 +20,12 @@
  	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
 		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
-			<%= t("progress_and_spend.progress_update.photos.page_caption") %>
+			Page heading - something about uploading events
 		</span>
 
 		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-			<%= t("progress_and_spend.progress_update.photos.page_heading") %>
+			Page heading
 		</h1>
-
-		<p class="govuk-body govuk-!-padding-bottom-4">
-			<%= t("progress_and_spend.progress_update.photos.description") %>
-		</p>
 
 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
@@ -45,7 +41,7 @@
 
 	<%= 
 		form_with model: @funding_application.arrears_journey_tracker.progress_update,
-		url: funding_application_progress_and_spend_progress_update_photos_path(),
+		url: funding_application_progress_and_spend_progress_update_events_path(),
 		method: :post,
 		local: true do |f|
 	%>
@@ -57,7 +53,7 @@
 					partial: 'partials/form_input_errors',
 					locals: {
 						form_object: @funding_application.arrears_journey_tracker.progress_update,
-						input_field_id: :'progress_update_photo.progress_updates_photo_files'
+						input_field_id: :'progress_update_event.progress_updates_event_files'
 					}
 				) if @funding_application.arrears_journey_tracker.progress_update.errors['todo'].any? 
 			%>
@@ -71,42 +67,43 @@
 				<div class="govuk-radios__item">
 
 					<%=
-						f.radio_button :has_upload_photos,
+						f.radio_button :has_upload_events,
 						true,
 						class: "govuk-radios__input",
-						"data-aria-controls" => "conditional-has_upload_photos "
+						"data-aria-controls" => "conditional-has_upload_events "
 					%>
 								
 					<%=
-						f.label :has_upload_photos_true,
-						"Yes, I have photos to upload",
+						f.label :has_upload_events_true,
+						"Yes, I have events to upload",
 						class: "govuk-label govuk-radios__label"
 					%>
 										
 					<div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-						id="conditional-has_upload_photos">
-						<div class="govuk-form-group" id="has-upload-photos-form-group-main"
+						id="conditional-has_upload_events">
+						<% # todo %>
+						<div class="govuk-form-group" id="has-upload-events-form-group-main"
 							data-form-group="file">
 
 							<%=
-								f.fields_for :progress_update_photo, 
-									@funding_application.arrears_journey_tracker.progress_update.progress_update_photo.build do |photo|
+								f.fields_for :progress_update_event, 
+									@funding_application.arrears_journey_tracker.progress_update.progress_update_event.build do |event|
 							%>
 
 								<%=
-									photo.label :progress_updates_photo_files,
-									t("progress_and_spend.progress_update.photos.upload_heading"),
+									event.label :progress_updates_event_files,
+									"Upload events",
 									class: "govuk-label govuk-!-font-weight-bold"
 								%>
 
 								<%=
-									photo.file_field :progress_updates_photo_files,
+									event.file_field :progress_updates_event_files,
 									multiple: false,
 									direct_upload: true,
 									class: "govuk-file-upload",
 									'data-input-identifier': 'file',
-									'data-attribute': :progress_updates_photo_files,
-									'data-model': :progress_update_photo,
+									'data-attribute': :progress_updates_event_files,
+									'data-model': :progress_update_event,
 									'data-parent-model':  @funding_application.arrears_journey_tracker.progress_update,
 									'autocomplete' => 'off'
 								%>
@@ -143,9 +140,9 @@
 											<div class="govuk-table govuk-!-margin-top-3">
 												<%=
 													link_to(
-														attachment.progress_updates_photo_files_blob.filename,
+														attachment.progress_updates_event_files_blob.filename,
 														rails_blob_path(
-															attachment.progress_updates_photo_files_blob,
+															attachment.progress_updates_event_files_blob,
 															disposition: "attachment"
 														),
 														class: 'govuk-link',
@@ -185,14 +182,14 @@
 				<div class="govuk-radios__item  govuk-!-margin-bottom-9">
 
 					<%=
-						f.radio_button :has_upload_photos,
+						f.radio_button :has_upload_events,
 						false,
 						class: "govuk-radios__input"
 					%>
 
 					<%=	
-							f.label :has_upload_photos_false,
-							"No, I do not have photos yet",
+							f.label :has_upload_events_false,
+							"No, I do not have events yet",
 							class: "govuk-label govuk-radios__label"
 					%>
 

@@ -1,0 +1,10 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      photos:
+        page_title: "Photographic evidence"
+        page_heading: "Do you have any photos to show the stages and events of your project?"
+        page_caption: "Tell us how the project is going"
+        description: "This could include people attending your workshops, progress of building work or screenshots of digital work."
+        upload_heading: "Upload photos"
+        uploaded_files: "Uploaded files"

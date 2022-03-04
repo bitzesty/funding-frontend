@@ -26,16 +26,19 @@ module FundingApplicationContext
           invalid_view_for_progress_and_spend?
 
           logger.error(
-            "User redirected to root, error in funding_application_context.rb. " \
-              "no_valid_funding_application_found?: " \
-                "#{no_valid_funding_application_found?} " \
-                  "invalid_view_for_submitted_application?: " \
-                    "#{invalid_view_for_submitted_application?} " \
-                      "invalid_view_for_submitted_agreement?: " \
-                        "#{invalid_view_for_submitted_agreement?}" \
-                          "invalid_view_for_progress_and_spend?: " \
-                            "#{invalid_view_for_progress_and_spend?}" \
-          )
+            "User redirected to root, error in " \
+              "funding_application_context.rb. " \
+                "no_valid_funding_application_found?: " \
+                  "#{no_valid_funding_application_found?} " \
+                    "invalid_view_for_submitted_application?: " \
+                      "#{invalid_view_for_submitted_application?} " \
+                        "invalid_view_for_submitted_agreement?: " \
+                          "#{invalid_view_for_submitted_agreement?} " \
+                            "invalid_view_for_progress_and_spend?: " \
+                              "#{invalid_view_for_progress_and_spend?} " \
+                                "used funding_application id: " \
+                                  "#{params[:application_id]}"
+            )
 
           redirect_to :authenticated_root
 

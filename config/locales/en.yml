@@ -720,4 +720,9 @@ en-GB:
               less_than: "Enter a year of less than 4000"
             licence_date: 
               invalid: "Enter a valid statutory permission or licence date"
-              
+        progress_update:      
+          attributes:
+            has_upload_photos:
+              blank: "Select if you have photographic evidence"
+            progress_update_photo:
+              blank: "Add a progress update photo"

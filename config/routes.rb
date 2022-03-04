@@ -337,7 +337,8 @@ Rails.application.routes.draw do
             
             get 'photos', to: 'photos#show'
             post 'photos', to: 'photos#update'
-            # delete 'photos/:progress_update_photo_id', to: 'photos#delete', as: :photo_delete
+            get 'events', to: 'events#show'
+            post 'events', to: 'events#update'
 
             get 'approved-purposes', to: 'approved_purposes#show'
             post 'approved-purposes', to: 'approved_purposes#update'
