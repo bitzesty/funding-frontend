@@ -246,9 +246,15 @@
 
 <% end %>
 
-
-
 <div class="govuk-form-group">
+
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-warning-text__assistive"> <%= t('payment_confirm_details.warning') %></span>
+        <%= t('payment_confirm_details.confirm_responsibility_warning') %>
+    </strong>
+  </div>
 
   <%=
     form_with model: @funding_application.payment_details,

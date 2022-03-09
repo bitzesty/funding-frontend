@@ -19,3 +19,5 @@ en-GB:
       submit_bank_details: "Submit bank details"
     change: "Change"
     change_span: "bank details"
+    warning: "warning"
+    confirm_responsibility_warning: "By submitting bank details, you are confirming you take full responsibility for making sure the bank details are correct. You are also confirming, the bank details given by the organisation have been checked by more than 1 person to make sure they are correct."

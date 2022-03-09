@@ -19,3 +19,5 @@ cy:
       submit_bank_details: "Cyflwyno manylion banc"
     change: "Newid"
     change_span: "manylion banc"
+    warning: "Rhybudd"
+    confirm_responsibility_warning: "Drwy gyflwyno manylion banc, rydych yn cadarnhau eich bod yn cymryd cyfrifoldeb llawn am sicrhau bod manylion y banc yn gywir. Rydych hefyd yn cadarnhau bod y manylion banc a roddwyd gan y sefydliad wedi'u gwirio gan fwy nag un person i sicrhau eu bod yn gywir."
