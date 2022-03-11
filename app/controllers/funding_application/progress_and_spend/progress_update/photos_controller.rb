@@ -67,11 +67,14 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < A
     end
 
     def get_attachments
-      @attachments =  @funding_application.arrears_journey_tracker.progress_update
-        .progress_update_photo
+      @attachments_hash = Hash.new
+      @funding_application.arrears_journey_tracker.progress_update
+        .progress_update_photo&.map{|attachment|  @attachments_hash[attachment.id] = attachment.progress_updates_photo_files_blob}
     end
   
     def delete(progress_photo_id)
+      save_json
+
       progress_update_photo =  @funding_application.arrears_journey_tracker
         .progress_update.progress_update_photo.find(progress_photo_id)
       progress_update_photo.destroy

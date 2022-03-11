@@ -1,0 +1,12 @@
+en-GB: 
+  progress_and_spend:
+    select_journey:
+      page_title: "Progress and Spend -Select Journey"
+      page_heading: "What do you want to do?"
+      page_caption: "Get a payment or give a project update"
+      check_boxes:
+        select: "Select all that apply:"
+        get_payment_heading: "Get a payment"
+        get_payment_desc: "Tell us about project spend and your bank details."
+        project_update_heading: "Give a project update"
+        project_update_desc: "Tell us about your project progress, approved purposes and outcomes."

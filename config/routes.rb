@@ -339,6 +339,8 @@ Rails.application.routes.draw do
             post 'photos', to: 'photos#update'
             get 'events', to: 'events#show'
             post 'events', to: 'events#update'
+            get 'new-staff', to: 'new_staff#show'
+            post 'new-staff', to: 'new_staff#update'
 
             get 'approved-purposes', to: 'approved_purposes#show'
             post 'approved-purposes', to: 'approved_purposes#update'

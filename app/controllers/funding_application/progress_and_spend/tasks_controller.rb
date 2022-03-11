@@ -9,7 +9,7 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       
       @complete_payment_tasks = \
         @funding_application.arrears_journey_tracker.\
-          progress_update_id.present?
+          payment_request_id.present?
 
   
     end

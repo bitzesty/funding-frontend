@@ -9,9 +9,6 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::EventsController < A
     end
   
     def update()  
-
-      # Consider whether the Json code only needs to be run an
-      # add file or save scenario.  Is it needed to delete? 
       progress_update.validate_has_upload_event = true
 
       progress_update.has_upload_events =
@@ -21,27 +18,19 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::EventsController < A
       if progress_update.has_upload_events == "true"
         progress_update.validate_progress_update_event = true
       end
-    
-      # Consider adding to the hash to simplify this:
-      # hash = { }
-      # hash[:a] = 'a'
-      # hash[:a]
-      # # => 'a'
-      # so:
-      # progress_update.answers_json[:has_upload_events] = progress_update.has_upload_events
-      # progress_update.save
-      #
-      answers_json = progress_update.answers_json
-      answers_json[:has_upload_events] = progress_update.has_upload_events
-
-      progress_update.answers_json = answers_json
-      progress_update.save
 
       if params.has_key?(:save_and_continue_button)
+        save_json
         if progress_update.valid?
-          #TODO: FORM VALID NAVIGATE TO NEXT PAGE
+          redirect_to(
+            funding_application_progress_and_spend_progress_update_new_staff_path(
+              progress_update_id:  \
+                @funding_application.arrears_journey_tracker.progress_update.id
+            )
+          )
+        else
+          rerender
         end
-        rerender
       end
 
       # Form submitted to delete a file. 
@@ -51,6 +40,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::EventsController < A
 
       # Form submitted to add a file.
       if params.has_key?(:add_file_button)
+        save_json
         progress_update.update( get_params )
         rerender
       end
@@ -59,11 +49,9 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::EventsController < A
     private
 
     def initialize_view()
-      # Consider introducing a subcategory.  So events may be good here.
-      # To provide an easy way to distinguish what lives on each form.
-      if  progress_update.answers_json["has_upload_events"] == true.to_s
+      if  progress_update.answers_json['events']['has_upload_events'] == true.to_s
         progress_update.has_upload_events = true.to_s
-      elsif  progress_update.answers_json["has_upload_events"] == false.to_s
+      elsif  progress_update.answers_json['events']['has_upload_events'] == false.to_s
         progress_update.has_upload_events = false.to_s
       end
     end
@@ -79,11 +67,13 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::EventsController < A
     end
 
     def get_attachments
-      @attachments =  @funding_application.arrears_journey_tracker.progress_update
-        .progress_update_event
+      @attachments_hash = Hash.new
+      @funding_application.arrears_journey_tracker.progress_update
+        .progress_update_event&.map{ |attachment|  @attachments_hash[attachment.id] = attachment.progress_updates_event_files_blob}
     end
   
     def delete(progress_event_id)
+      save_json
       progress_update_event =  @funding_application.arrears_journey_tracker
         .progress_update.progress_update_event.find(progress_event_id)
       progress_update_event.destroy
@@ -108,5 +98,14 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::EventsController < A
         ]
       )
     end
+
+    def save_json()
+      answers_json = progress_update.answers_json
+      answers_json['events']['has_upload_events'] = progress_update.has_upload_events
+
+      progress_update.answers_json = answers_json
+      progress_update.save
+    end 
     
   end
+  

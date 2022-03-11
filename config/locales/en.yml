@@ -726,3 +726,11 @@ en-GB:
               blank: "Select if you have photographic evidence"
             progress_update_photo:
               blank: "Add a progress update photo"
+            has_upload_events:
+              blank: "Select if you have events evidence"
+            progress_update_event:
+              blank: "Add a progress update event"
+            has_upload_new_staff:
+              blank: "Select if you have any evidence of new staff"
+            progress_update_new_staff:
+              blank: "Add evidence of new staff"

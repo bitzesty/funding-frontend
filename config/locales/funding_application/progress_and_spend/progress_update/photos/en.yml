@@ -7,4 +7,5 @@ en-GB:
         page_caption: "Tell us how the project is going"
         description: "This could include people attending your workshops, progress of building work or screenshots of digital work."
         upload_heading: "Upload photos"
-        uploaded_files: "Uploaded files"
+        has_upload_true: "Yes, I have photos to upload"
+        has_upload_false: "No, I do not have photos yet"

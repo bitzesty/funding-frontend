@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
       model_object: nil,
-      page_title: t("progress_and_spend.progress_update.events.page_title")
+      page_title: t("progress_and_spend.progress_update.new_staff.page_title")
     }
 %>
 
@@ -11,7 +11,7 @@
     partial: 'partials/summary_errors',
     locals: {
       form_object: @funding_application.arrears_journey_tracker.progress_update,
-      first_form_element: :progress_update_has_upload_events_true
+      first_form_element: :progress_update_has_upload_new_staff_true
     }
   ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
 %>
@@ -20,12 +20,16 @@
  	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
 		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
-			<%= t("progress_and_spend.progress_update.events.page_caption") %>
+			<%= t("progress_and_spend.progress_update.new_staff.page_caption") %> 
 		</span>
 
 		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-			<%= t("progress_and_spend.progress_update.events.page_heading") %>
+      <%= t("progress_and_spend.progress_update.new_staff.page_heading") %> 
 		</h1>
+
+		<p class="govuk-body govuk-!-padding-bottom-4">
+			<%= t("progress_and_spend.progress_update.new_staff.description") %>
+		</p>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
@@ -38,24 +42,23 @@
 		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
 	%>
 
-	<%=
+	<%= 
 		render(
 			partial: 'partials/funding_application/progress_and_spend/file_upload',
 			locals: {
-				input_field_id:  :'progress_update_event.progress_updates_event_files', 
+				input_field_id:  :'progress_update_new_staff.progress_updates_new_staff_files', 
 				form_object: @funding_application.arrears_journey_tracker.progress_update,
-				file_model: @funding_application.arrears_journey_tracker.progress_update.progress_update_event,
-				file_field: :progress_updates_event_files,
-				file_field_model: :progress_update_event,
-				radio_button: :has_upload_events,
-				radio_true: :has_upload_events_true,
-				radio_false: :has_upload_events_false,
+				file_model: @funding_application.arrears_journey_tracker.progress_update.progress_update_new_staff,
+				file_field: :progress_updates_new_staff_files,
+				file_field_model: :progress_update_new_staff,
+				radio_button: :has_upload_new_staff,
+				radio_true: :has_upload_new_staff_true,
+				radio_false: :has_upload_new_staff_false,
 				attachments: @attachments_hash,
-				translations_local: 'progress_and_spend.progress_update.events',
-				url_path:  funding_application_progress_and_spend_progress_update_events_path()
-
+				translations_local: 'progress_and_spend.progress_update.new_staff',
+				url_path:  funding_application_progress_and_spend_progress_update_new_staff_path()
 			}
 		) 
-	%>
+	%> 
 
 </fieldset>

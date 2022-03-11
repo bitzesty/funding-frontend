@@ -2,11 +2,41 @@
   render partial: "partials/page_title",
          locals: {
              model_object: @funding_application,
-             page_title: 'Get a payment or give a project update' 
+             page_title: t('progress_and_spend.start.page_title')
          }
 %>
 
-<h1 class="govuk-heading-l"> Get a payment or give a project update </h1>
+<h1 class="govuk-heading-l">  <%= t('progress_and_spend.start.page_title') %></h1>
+
+<p class="govuk-body">
+    <%= t('progress_and_spend.start.use_this_service') %>
+</p>
+
+<ul  class="govuk-list govuk-list--bullet">
+  <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.1')%></li>
+  <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.2')%></li>
+  <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.3')%></li>
+</ul>
+
+<p class="govuk-body">
+      <%= t('progress_and_spend.start.your_investment_manager') %>
+</p>
+
+<h2  class="govuk-heading-m"> <%= t('progress_and_spend.start.sub_headings.to_get_payment') %></h2>
+<ul  class="govuk-list govuk-list--bullet">
+  <li><%= t('progress_and_spend.start.bullet_points.you_need.1')%></li>
+  <li><%= t('progress_and_spend.start.bullet_points.you_need.2')%></li>
+</ul>
+
+<h2 class="govuk-heading-m"> <%= t('progress_and_spend.start.sub_headings.how_project_going') %></h2>
+<ul  class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.1')%></li>
+  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.2')%></li>
+  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.3')%></li>
+  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.4')%></li>
+  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.5')%></li>
+  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.6')%></li>
+</ul>
 
 <%= form_tag(
     url: :funding_application_payment_request_start,

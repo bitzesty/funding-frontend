@@ -1,0 +1,11 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      new_staff:
+        page_title: "New staff evidence"
+        page_heading: "Have you hired any new staff since your last update?"
+        page_caption: "Tell us how the project is going"
+        description: "Evidence includes job descriptions, CVs or contracts of employment for staff roles paid for with grant funds."
+        upload_heading: "Upload photos"
+        has_upload_true: "Yes, I have hired new staff"
+        has_upload_false: "No, I have not hired new staff"

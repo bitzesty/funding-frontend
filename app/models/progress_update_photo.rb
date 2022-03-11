@@ -20,4 +20,3 @@ class ProgressUpdatePhoto < ApplicationRecord
   end
 
 end
-

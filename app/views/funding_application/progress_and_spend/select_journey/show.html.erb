@@ -1,28 +1,107 @@
 <%=
   render partial: "partials/page_title",
          locals: {
-             model_object: @funding_application,
-             page_title: 'Get a payment or give a project update' 
+            model_object: @funding_application,
+            page_title: t('progress_and_spend.select_journey.page_title')
          }
 %>
 
-<h1 class="govuk-heading-l">Select Journey</h1>
 
-Controller acts as though both progress update and spend chosen
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
-<%= form_tag(
-    url: :funding_application_payment_request_start,
-    method: :post,
-    local: true
-  ) do |f| 
-%>
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.select_journey.page_caption')%>
+		</span>
 
-  <%= render(
-      ButtonComponent.new(
-        element: "button",
-        text: t("buttons.labels.continue")
-      )
-    ) 
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.select_journey.page_heading')%>
+		</h1>
+
+	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+  <%=
+    render(
+        partial: 'partials/summary_errors',
+        locals: {
+          form_object: @funding_application.arrears_journey_tracker,
+          first_form_element: :select_get_payment
+        }
+      ) if @funding_application.arrears_journey_tracker.errors.any?
   %>
 
-<% end %>
+  <%= 
+    form_with model: @funding_application.arrears_journey_tracker,
+    url: funding_application_progress_and_spend_select_journey_path(),
+    method: :post,
+    local: true do |f|
+  %>
+
+    <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.arrears_journey_tracker.errors.any? %>">
+
+    	<p>
+        <%= t('progress_and_spend.select_journey.check_boxes.select')%>
+      </p>
+
+      <div class="govuk-checkboxes">
+
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+          <%= t('progress_and_spend.check_boxes.get_payment_heading')%>
+        </h3>
+
+        <div class="govuk-checkboxes__item  govuk-!-margin-bottom-4">
+
+          <%=
+            f.check_box :get_payment,
+              {
+                  id: :select_get_payment,
+                  class: "govuk-checkboxes__input"
+              },
+              'true', 'false'
+          %>
+
+          <%=
+            f.label :get_payment,
+                     t('progress_and_spend.select_journey.check_boxes.get_payment_desc'),
+                    class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+    
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+          <%= t('progress_and_spend.check_boxes.project_update_heading')%>
+        </h3>
+
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            f.check_box :give_project_update,
+              {
+                  id: :select_give_project_update,
+                  class: "govuk-checkboxes__input"
+              },
+              'true', 'false'
+          %>
+
+          <%=
+            f.label :give_project_update,
+                  t('progress_and_spend.select_journey.check_boxes.project_update_desc'),
+                    class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <%= render(
+        ButtonComponent.new(
+          element: "button",
+          text: t("buttons.labels.continue")
+        )
+      ) 
+    %>
+  <% end %>
+</fieldset>

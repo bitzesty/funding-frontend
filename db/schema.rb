@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_04_070320) do
+ActiveRecord::Schema.define(version: 2022_03_10_094612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -537,6 +537,13 @@ ActiveRecord::Schema.define(version: 2022_03_04_070320) do
     t.index ["progress_update_id"], name: "index_prgrss_updts_events_on_progress_update_id"
   end
 
+  create_table "prgrss_updts_new_staffs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "progress_update_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["progress_update_id"], name: "index_prgrss_updts_new_staffs_on_progress_update_id"
+  end
+
   create_table "prgrss_updts_photos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "progress_update_id"
     t.datetime "created_at", precision: 6, null: false
@@ -751,6 +758,7 @@ ActiveRecord::Schema.define(version: 2022_03_04_070320) do
   add_foreign_key "pre_applications", "organisations"
   add_foreign_key "pre_applications", "users"
   add_foreign_key "prgrss_updts_events", "progress_updates"
+  add_foreign_key "prgrss_updts_new_staffs", "progress_updates"
   add_foreign_key "prgrss_updts_photos", "progress_updates"
   add_foreign_key "project_costs", "projects"
   add_foreign_key "projects", "funding_applications"
