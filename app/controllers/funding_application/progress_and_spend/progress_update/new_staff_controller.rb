@@ -20,7 +20,12 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::NewStaffController <
     if params.has_key?(:save_and_continue_button)
       save_json
       if progress_update.valid?
-        # TODO: Redirect to next page
+        redirect_to(
+          funding_application_progress_and_spend_progress_update_procurement_procured_goods_path(
+            progress_update_id:  \
+              @funding_application.arrears_journey_tracker.progress_update.id
+          )
+        )
       else
         rerender
       end

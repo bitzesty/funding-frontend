@@ -13,8 +13,10 @@ class ArrearsJourneyTracker < ApplicationRecord
   private
 
   def validate_journey_selection_presence
-    unless get_payment == "true" ||  give_project_update == "true"
-      errors.add(:base, "Please select a journey")
+    if validate_journey_selection
+      unless get_payment == "true" ||  give_project_update == "true"
+        errors.add(:base, "Please select a journey")
+      end
     end
   end
 

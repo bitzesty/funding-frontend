@@ -344,6 +344,21 @@ Rails.application.routes.draw do
 
             get 'approved-purposes', to: 'approved_purposes#show'
             post 'approved-purposes', to: 'approved_purposes#update'
+
+            scope 'procurement', module: 'procurement', as: 'procurement' do
+
+              get 'procured-goods', to: 'procured_goods#show'
+              post 'procured-goods', to: 'procured_goods#update'
+
+              #TODO:
+              #Scope precured goods addition to '/:precurement_id'
+                # get 'tell-us-about prcurement'
+
+            end
+
+            get 'additional-grant-conditions', to: 'additional_grant_conditions#show'
+            post 'additional-grant-conditions', to: 'additional_grant_conditions#update'
+
           end
         end
 
