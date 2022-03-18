@@ -1,1 +1,155 @@
-Hello from additional grant conditions
+<%=
+  render partial: "partials/page_title",
+         locals: {
+            model_object: @funding_application,
+            page_title: t('progress_and_spend.progress_update.additional_grant_conditions.page_title')
+         }
+%>
+
+<% # errors generated on this page do not carry information on where in the page %>
+<% # the affected attribute is rendered.  Thus working href can't be created. %>
+<% # Consider an approach that loops through field for attributes. %>
+<%=
+  render(
+      partial: 'partials/summary_errors',
+      locals: {
+        form_object: 
+          @funding_application.arrears_journey_tracker.progress_update,
+          first_form_element: :entering_update
+      }
+    ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+%>
+
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.additional_grant_conditions.page_caption')%>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.additional_grant_conditions.page_heading')%>
+		</h1>
+
+    <%=
+      render(
+        partial: 'partials/form_group_errors',
+        locals: {
+          form_object: @funding_application.arrears_journey_tracker.progress_update
+        }
+      ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+    %>
+
+	</legend>
+
+  <%= 
+    form_with model: @funding_application.arrears_journey_tracker.progress_update,
+    url: funding_application_progress_and_spend_progress_update_additional_grant_conditions_path(),
+    method: :post,
+    local: true do |form|
+  %>
+
+    <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.arrears_journey_tracker.errors.any? %>">
+
+    	<p>
+        <%= t('generic.select_all_that_apply')%>
+      </p>
+
+      <%=
+        form.fields_for :progress_update_additional_grant_condition, @funding_application.arrears_journey_tracker.progress_update.progress_update_additional_grant_condition do |adc|
+      %>
+
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+          <div class="govuk-checkboxes__item  govuk-!-margin-bottom-4">
+
+            <%=
+              adc.check_box :entering_update,
+              {
+                class: "govuk-checkboxes__input",
+                'data-aria-controls' => 'conditional-description-conditional'
+              },
+              'true', 
+              'false'
+            %>
+
+            <%=
+              adc.label :entering_update,
+              adc.object.description,
+              class: "govuk-label govuk-checkboxes__label"
+            %>
+
+          </div>
+
+          <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"  
+            id="conditional-description-conditional">
+
+            <div class="govuk-character-count" data-module="govuk-character-count"
+              data-maxwords="300">
+
+              <div class="govuk-form-group">
+                <%=
+                  adc.label :progress,
+                  t('progress_and_spend.progress_update.additional_grant_conditions.working_towards_this'),
+                  class: "govuk-label govuk-!-padding-left-2"
+                %>
+
+                <%=
+                  adc.text_area :progress,
+                  rows: 5,
+                  class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+                    "#{'govuk-input--error' if adc.object.errors.any?}",
+                  'aria-describedby' => "#{adc.object_name.parameterize.underscore}_progress-info"
+                %>
+
+                <span id= <%="#{adc.object_name.parameterize.underscore}_progress-info"%>
+                  class="govuk-hint govuk-character-count__message" aria-live="polite">
+                  <%= t('generic.word_count', max_words:300) %>
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+        <div class="govuk-checkboxes__item  govuk-!-margin-bottom-4">
+
+            <%=
+              form.check_box :no_progress_update,
+              {
+                class: "govuk-checkboxes__input"
+              },
+              'true', 
+              'false'
+            %>
+
+            <%=
+              form.label t('progress_and_spend.progress_update.additional_grant_conditions.no_update_yet'),
+              class: "govuk-label govuk-checkboxes__label"
+            %>
+
+        </div>
+      
+      </div>
+
+    </div>
+
+    <%= render(
+        ButtonComponent.new(
+          element: "button",
+          text: t("buttons.labels.save_and_continue")
+        )
+      ) 
+    %>
+
+  <% end %>
+  
+</fieldset>

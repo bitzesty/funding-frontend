@@ -1495,9 +1495,10 @@
       begin
 
         result = 
-          @client.query_all("SELECT Additional_Grant_Condition_Text__c, Summary_of_progress__c " \
-            "FROM Additional_Grant_Condition__c " \
-              "where Project__c = '#{salesforce_case_id}'")  
+          @client.query("SELECT Id, Additional_Grant_Condition_Text__c, " \
+            "Summary_of_progress__c " \
+              "FROM Additional_Grant_Condition__c " \
+                "where Project__c = '#{salesforce_case_id}' ")  
 
         if result.length < 1 
 

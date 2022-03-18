@@ -1,0 +1,9 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      additional_grant_conditions:
+        page_title: "Additional grant conditions"
+        page_heading: "Have you met your additional grant conditions?"
+        page_caption: "Tell us how the project is going"
+        working_towards_this: "How are you working towards this?"
+        no_update_yet: "I do not have an update on this yet"

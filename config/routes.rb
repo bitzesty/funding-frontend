@@ -358,6 +358,8 @@ Rails.application.routes.draw do
 
             get 'additional-grant-conditions', to: 'additional_grant_conditions#show'
             post 'additional-grant-conditions', to: 'additional_grant_conditions#update'
+            get 'completion-date', to: 'completion_date#show'
+            post 'completion-date', to: 'completion_date#update'
 
           end
         end

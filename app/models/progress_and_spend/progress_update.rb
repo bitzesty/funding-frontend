@@ -5,10 +5,12 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_photo
   has_many :progress_update_event
   has_many :progress_update_new_staff
+  has_many :progress_update_additional_grant_condition
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
   accepts_nested_attributes_for :progress_update_new_staff
+  accepts_nested_attributes_for :progress_update_additional_grant_condition
 
   attr_accessor :validate_has_upload_photo
   attr_accessor :validate_progress_update_photo
@@ -25,6 +27,7 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :has_upload_events
   attr_accessor :has_upload_new_staff
   attr_accessor :has_procured_goods
+  attr_accessor :no_progress_update  
 
   validates :has_upload_photos, presence: true, if: :validate_has_upload_photo?
   validates :progress_update_photo, presence: true, if: :validate_progress_update_photo?
@@ -67,5 +70,5 @@ class ProgressUpdate < ApplicationRecord
   def validate_has_procured_goods?
     validate_has_procured_goods == true
   end
-
+  
 end

@@ -203,8 +203,6 @@ module LegalAgreementsHelper
   #
   # @param [FundingApplication] funding_application An instance of
   #                                                 FundingApplication
-  # @param [FundingApplicationsLegalSig] funding_applications_legal_sig
-  #                          An instance of FundingApplicationsLegalSig
   def additional_grant_conditions(funding_application)
 
     client = SalesforceApiClient.new

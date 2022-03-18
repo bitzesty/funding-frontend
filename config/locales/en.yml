@@ -734,3 +734,11 @@ en-GB:
               blank: "Select if you have any evidence of new staff"
             progress_update_new_staff:
               blank: "Add evidence of new staff"
+            progress_update_additional_grant_condition:
+              checkbox_selection: "Select an additional grant condition to update on, or select 'I do not have an update on these yet'"
+        progress_update_additional_grant_condition:
+          attributes:
+            progress:
+              blank: "Enter update for additional grant condition"
+              too_long: " Description must be 300 words or fewer"
+              
