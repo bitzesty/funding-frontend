@@ -42,6 +42,7 @@ include FundingApplicationContext
           progress_update.answers_json['photos'] = { }
           progress_update.answers_json['events'] = { }
           progress_update.answers_json['new_staff'] = { }
+          progress_update.answers_json['new_expiry_date'] = { }
           progress_update.save
         end
        

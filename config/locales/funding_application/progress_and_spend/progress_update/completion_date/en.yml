@@ -1,0 +1,16 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      completion_date:
+        page_title: "Completion date"
+        page_heading: "Do you still expect to complete your project by %{date}?"
+        page_caption: "Tell us how the project is going"
+        tasks:
+          text: "By this date, you need to:"
+          list:
+            finish: "finish your project activities"
+            evaluate: "evaluate your project"
+            request: "request your last payment"
+        radio_yes: "Yes, I expect to complete the project by %{date}"
+        radio_no: "No, I need more time to complete the project"
+        changes: "Changes to grant expiry dates must be approved by your Investment Manager. When you continue, we will ask you to tell us about your request."

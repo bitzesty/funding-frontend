@@ -360,6 +360,11 @@ Rails.application.routes.draw do
             post 'additional-grant-conditions', to: 'additional_grant_conditions#update'
             get 'completion-date', to: 'completion_date#show'
             post 'completion-date', to: 'completion_date#update'
+            get 'change-completion-date', to: 'new_expiry_date#show'
+            post 'change-completion-date', to: 'new_expiry_date#update'
+            get 'permissions-or-licences', to: 'statutory_permission_licence#show'
+            post 'permissions-or-licences', to: 'statutory_permission_licence#update'
+
 
           end
         end

@@ -736,6 +736,8 @@ en-GB:
               blank: "Add evidence of new staff"
             progress_update_additional_grant_condition:
               checkbox_selection: "Select an additional grant condition to update on, or select 'I do not have an update on these yet'"
+            date_correct:
+              blank: "Select if you expect to complete the project by the date specified"
         progress_update_additional_grant_condition:
           attributes:
             progress:

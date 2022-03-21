@@ -23,11 +23,14 @@ class ProgressUpdate < ApplicationRecord
 
   attr_accessor :validate_has_procured_goods
 
+  attr_accessor :validate_date_correct
+
   attr_accessor :has_upload_photos
   attr_accessor :has_upload_events
   attr_accessor :has_upload_new_staff
   attr_accessor :has_procured_goods
-  attr_accessor :no_progress_update  
+  attr_accessor :no_progress_update
+  attr_accessor :date_correct
 
   validates :has_upload_photos, presence: true, if: :validate_has_upload_photo?
   validates :progress_update_photo, presence: true, if: :validate_progress_update_photo?
@@ -41,7 +44,9 @@ class ProgressUpdate < ApplicationRecord
   validates :progress_update_new_staff, presence: true, if: :validate_progress_update_new_staff?
   validates_associated :progress_update_new_staff, if: :validate_progress_update_new_staff?
 
-  validates :has_procured_goods, presence: true, if: :validate_has_procured_goods? 
+  validates :has_procured_goods, presence: true, if: :validate_has_procured_goods?  
+  
+  validates :date_correct, presence: true, if: :validate_date_correct? 
 
   def validate_has_upload_photo?
     validate_has_upload_photo == true
@@ -69,6 +74,10 @@ class ProgressUpdate < ApplicationRecord
 
   def validate_has_procured_goods?
     validate_has_procured_goods == true
+  end
+
+  def validate_date_correct?
+    validate_date_correct == true
   end
   
 end

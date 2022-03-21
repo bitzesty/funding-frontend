@@ -1,1 +1,151 @@
-Hello from completion date question
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.completion_date.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.arrears_journey_tracker.progress_update,
+      first_form_element: :progress_update_date_correct_true
+    }
+  ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.completion_date.page_caption') %>
+		</span>
+
+		<h1 class="govuk-heading-l">
+      <%=
+        t(
+          'progress_and_spend.progress_update.completion_date.page_heading',
+          date: @completion_date
+        )
+      %>
+		</h1>
+
+	</legend>
+
+  <p class="govuk-body">
+    <%= t('progress_and_spend.progress_update.completion_date.tasks.text') %>
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet">
+
+    <li>
+      <%= t('progress_and_spend.progress_update.completion_date.tasks.list.finish') %>
+    </li>
+
+    <li>
+      <%= t('progress_and_spend.progress_update.completion_date.tasks.list.evaluate') %>
+    </li>
+
+    <li>
+      <%= t('progress_and_spend.progress_update.completion_date.tasks.list.request') %>
+    </li>
+
+  </ul>
+
+  <%=
+		render(
+			partial: 'partials/form_group_errors',
+			locals: {
+				form_object: @funding_application.arrears_journey_tracker.progress_update
+			}
+		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+	%>
+
+  <%=
+		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		url: funding_application_progress_and_spend_progress_update_completion_date_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+
+		<div class="govuk-radios" data-module="govuk-radios">
+
+			<%=
+				render(
+					partial: 'partials/form_input_errors',
+					locals: {
+						form_object:  @funding_application.arrears_journey_tracker.progress_update,
+						input_field_id:  :'progress_update_photo.has_procured_goods'
+					}
+				) if  @funding_application.arrears_journey_tracker.progress_update.errors.any? 
+			%>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		     @funding_application.arrears_journey_tracker.progress_update.errors.any? %>">
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :date_correct,
+						true,
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+						f.label :yes_true,
+						t(
+              'progress_and_spend.progress_update.completion_date.radio_yes',
+              date: @completion_date
+            ),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :date_correct,
+						false,
+						class: "govuk-radios__input",
+            "data-aria-controls" => "conditional-false"
+					%>
+
+					<%=
+							f.label :has_procured_goods_false,
+              t('progress_and_spend.progress_update.completion_date.radio_no'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+			</div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="conditional-false">
+
+        <p class="govuk-body govuk-!-margin-bottom-9">
+          <%= t('progress_and_spend.progress_update.completion_date.changes') %>
+        </p>
+
+      </div>
+
+		</div>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+    %>
+
+	<% end %>
+
+</fieldset>

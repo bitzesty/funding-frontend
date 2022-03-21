@@ -12,11 +12,25 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
     progress_update.update(get_params)
 
     are_checkbox_selections_correct?(get_params)
-    
-    populate_check_boxes
-    render :show
+
+    if progress_update.errors.any?
+
+      populate_check_boxes
+      render :show
+
+    else
+      
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_completion_date_path(
+            progress_update_id:
+              @funding_application.arrears_journey_tracker.progress_update.id
+        )
+      )
+
+    end
 
   end
+
 
   private
 
@@ -97,6 +111,9 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
   # selected or an update is chosen.
   # Method returns false if an update and "I don't have an update" are
   # chosen.  Or if nothing is chosen.
+  #
+  # @params [String] params Params from posted form
+  # @return [Boolean] result True or False
   def are_checkbox_selections_correct?(params)
     
     result = false
@@ -119,6 +136,8 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
           "progress_update_additional_grant_condition.checkbox_selection")
       )
     end
+
+    result
 
   end
     
