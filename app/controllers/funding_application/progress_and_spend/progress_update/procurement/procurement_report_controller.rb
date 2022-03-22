@@ -1,5 +1,6 @@
 class FundingApplication::ProgressAndSpend::ProgressUpdate::Procurement::ProcurementReportController < ApplicationController
   include FundingApplicationContext
+  include ProgressAndSpendHelper
 
   def show()
     get_attachments
@@ -20,18 +21,25 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::Procurement::Procure
     if params.has_key?(:save_and_continue_button)
       save_json
       if progress_update.valid?
-        if progress_update.has_procurement_report_evidence == "true"
+        if progress_update.has_procurement_report_evidence == "true" && has_additional_grant_conditions?
           redirect_to(
             funding_application_progress_and_spend_progress_update_additional_grant_conditions_path(
               progress_update_id:  \
                 @funding_application.arrears_journey_tracker.progress_update.id
             )
           )
-        else
+        elsif progress_update.has_procurement_report_evidence == "false" 
           redirect_to(
             funding_application_progress_and_spend_progress_update_procurement_add_procurement_path(
               progress_update_id:  \
                 @funding_application.arrears_journey_tracker.progress_update.id
+            )
+          )
+        else
+          redirect_to(
+            funding_application_progress_and_spend_progress_update_completion_date_path(
+                progress_update_id:
+                  @funding_application.arrears_journey_tracker.progress_update.id
             )
           )
         end
@@ -114,4 +122,9 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::Procurement::Procure
     progress_update.answers_json = answers_json
     progress_update.save
   end 
+
+  def has_additional_grant_conditions?
+    salesforce_additional_grant_conditions(@funding_application).any?
+  end
+
 end
