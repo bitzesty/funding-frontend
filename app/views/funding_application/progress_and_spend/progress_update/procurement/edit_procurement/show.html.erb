@@ -1,0 +1,17 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title:  t('progress_and_spend.progress_update.procurement.add_procurement.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/funding_application/progress_and_spend/add_procurement',
+    locals: {
+      procurement: @procurement,
+      path: funding_application_progress_and_spend_progress_update_procurement_edit_procurement_path()
+    }
+  ) 
+%>

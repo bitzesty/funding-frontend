@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
       model_object: nil,
-      page_title: 'TODO: Procurment title'
+      page_title: t('progress_and_spend.progress_update.procurement.procured_goods.page_title')
     }
 %>
 
@@ -20,15 +20,15 @@
  	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
 		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
-			Tell us how your project is going
+			<%= t('progress_and_spend.progress_update.procurement.procured_goods.page_caption')%>
 		</span>
 
 		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-      Have you procured any goods, work or service woth £10,000 or more since your last update? 
+      <%= t('progress_and_spend.progress_update.procurement.procured_goods.page_heading')%> 
 		</h1>
 
 		<p class="govuk-body govuk-!-padding-bottom-4">
-			This includes work with suppliers or contractors.
+			<%= t('progress_and_spend.progress_update.procurement.procured_goods.desc')%> 
 		</p>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -77,7 +77,7 @@
 								
 					<%=
 						f.label :has_procured_goods_true,
-						'Yes, I have procured for £10,000 or more',
+						t('progress_and_spend.progress_update.procurement.procured_goods.has_procured_goods_true'),
 						class: "govuk-label govuk-radios__label"
 					%>
 
@@ -93,7 +93,7 @@
 
 					<%=	
 							f.label :has_procured_goods_false,
-              'No, I have not procured for £10,000 or more',
+              t('progress_and_spend.progress_update.procurement.procured_goods.has_procured_goods_false'),
 							class: "govuk-label govuk-radios__label"
 					%>
 

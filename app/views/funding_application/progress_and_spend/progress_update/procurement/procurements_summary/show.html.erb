@@ -1,0 +1,147 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.procurement.procurements_summary.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.arrears_journey_tracker.progress_update,
+      first_form_element: :progress_update_add_another_procurement_true
+    }
+  ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.procurement.procurements_summary.page_caption') %>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.procurement.procurements_summary.page_heading', procurement_num: @procurements.length) %>
+		</h1>
+
+		<table class="govuk-table">
+			<tbody class="govuk-table__body ">
+			<% @procurements.each do | procurement | %>
+					<tr class="govuk-table__row">
+						<th scope="row" class="govuk-table__header govuk-!-width-two-thirds">
+							<%= procurement.name %>
+						</th>
+						<td class="govuk-table__cell ">
+								<%=
+									link_to(
+										t('progress_and_spend.progress_update.procurement.procurements_summary.change_button'),
+										funding_application_progress_and_spend_progress_update_procurement_edit_procurement_path(procurement_id: procurement.id),
+										class: 'govuk-link',
+									)
+								%> 
+						</td>
+						<td class="govuk-table__cell ">
+							<%=
+								link_to(
+									t('progress_and_spend.progress_update.procurement.procurements_summary.delete_button'),
+									funding_application_progress_and_spend_progress_update_procurement_procurement_delete_path(procurement_id: procurement.id),
+									method: :delete,
+									class: 'govuk-link',
+								)
+							%> 
+						</td>
+				</tr>
+			<%end%>
+			</tbody>
+		</table>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
+       <%= t('progress_and_spend.progress_update.procurement.procurements_summary.add_another_procurement_heading') %>
+		</h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+	<%=
+		render(
+			partial: 'partials/form_group_errors',
+			locals: {
+				form_object: @funding_application.arrears_journey_tracker.progress_update
+			}
+		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+	%>
+
+  <%= 
+		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		url: funding_application_progress_and_spend_progress_update_procurement_procurements_summary_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+			<div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+			<%=
+				render(
+					partial: 'partials/form_input_errors',
+					locals: {
+						form_object: @funding_application.arrears_journey_tracker.progress_update,
+						input_field_id: :progress_update_add_another_procurement_true
+					}
+				) if @funding_application.arrears_journey_tracker.progress_update.errors['add_another_procurement'].any? 
+			%>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		    @funding_application.arrears_journey_tracker.progress_update.errors.any?  %>">
+
+				<div id="form-group-errors"></div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :add_another_procurement,
+						true,
+						class: "govuk-radios__input"
+					%>
+								
+					<%=
+						f.label :add_another_procurement_true,
+						t('progress_and_spend.progress_update.procurement.procurements_summary.add_another_true'),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+					<%=
+						f.radio_button :add_another_procurement,
+						false,
+						class: "govuk-radios__input"
+					%>
+
+					<%=	
+							f.label :add_another_procurement_false,
+              t('progress_and_spend.progress_update.procurement.procurements_summary.add_another_false'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+			
+			</div>
+
+			<%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
+				)
+			%>
+		</div>
+
+	<% end %>
+</fieldset>

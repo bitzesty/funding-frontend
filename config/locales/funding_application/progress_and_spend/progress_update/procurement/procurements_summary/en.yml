@@ -1,0 +1,14 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      procurement:
+        procurements_summary:
+          page_title: "Procurements summary"
+          page_heading: "You have added %{procurement_num} procurements"
+          page_caption: "Tell us how the project is going"
+          change_button: "change"
+          delete_button: "delete"
+          add_another_procurement_heading: "Do you need to add another procurement of £10,000 or more?"
+          add_another_true: "Yes, I need to add another procurement"
+          add_another_false: "No, I have added all my procurements for now"
+          

@@ -9,12 +9,12 @@ class ProgressUpdateProcurementEvidence < ApplicationRecord
 
   belongs_to :progress_update, optional: true
 
-  has_one_attached :progress_updates_procurement_evidence_file
+  has_one_attached :progress_update_procurement_evidence_file
 
   validate do
 
     validate_file_attached(
-        :progress_updates_procurement_evidence_file,
+        :progress_update_procurement_evidence_file,
         "Add a procuments evidence file"
     )
 

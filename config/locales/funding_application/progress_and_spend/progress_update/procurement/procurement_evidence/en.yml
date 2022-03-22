@@ -1,0 +1,14 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      procurement:
+        procurement_evidence:
+          page_title: "Procurement details"
+          page_heading: "How do you want to tell us about your procurement of £10,000 or more?"
+          page_caption: "Tell us how the project is going"
+          description: "Procurement can include comparing prices, openly advertising contracts or fairly appointing consultants. This helps us know projects are getting best value for money."
+          should_include: "This should include a detailed description of the procurement process for each item including briefs and cost comparisons where relevant."
+          upload_heading: "Upload your documents"
+          has_upload_true: "I want to upload a report"
+          has_upload_false: "I want to add details"
+          

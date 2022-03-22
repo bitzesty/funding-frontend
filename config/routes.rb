@@ -350,10 +350,24 @@ Rails.application.routes.draw do
               get 'procured-goods', to: 'procured_goods#show'
               post 'procured-goods', to: 'procured_goods#update'
 
-              #TODO:
-              #Scope precured goods addition to '/:precurement_id'
-                # get 'tell-us-about prcurement'
+              get 'procurement-report', to: 'procurement_report#show'
+              post 'procurement-report', to: 'procurement_report#update'
 
+              get 'add-procurement', to: 'add_procurement#show'
+              post 'add-procurement', to: 'add_procurement#update'
+
+              get 'procurements-summary', to: 'procurements_summary#show'
+              post 'procurements-summary', to: 'procurements_summary#update'
+              delete 'procurements-summary/:procurement_id',
+                to: 'procurements_summary#delete',
+                as: :procurement_delete
+
+                scope '/:procurement_id' do
+                  get 'edit-procurement', to: 'edit_procurement#show'
+                  post 'edit-procurement', to: 'edit_procurement#update'
+                end
+
+          
             end
 
             get 'additional-grant-conditions', to: 'additional_grant_conditions#show'

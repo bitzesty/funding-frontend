@@ -3,7 +3,6 @@ include FundingApplicationContext
 
   def show()
   
-
   end
 
   # At the point that an applicant clicks update, we create the payment request and progress_update 
@@ -42,6 +41,7 @@ include FundingApplicationContext
           progress_update.answers_json['photos'] = { }
           progress_update.answers_json['events'] = { }
           progress_update.answers_json['new_staff'] = { }
+          progress_update.answers_json['procurements'] = { }
           progress_update.answers_json['new_expiry_date'] = { }
           progress_update.save
         end

@@ -1,0 +1,350 @@
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: procurement,
+      first_form_element: :'progress_update_procurement_name'
+    }
+  ) if procurement.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.procurement.add_procurement.page_caption')%>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+		  	<%= t('progress_and_spend.progress_update.procurement.add_procurement.page_heading')%>
+		</h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+  <%= 
+		form_with model: procurement,
+		url: path,
+		method: :post,
+		local: true do |f|
+	%>
+
+
+      <div class="govuk-form-group <%= "#{'govuk-form-group--error' if 
+          procurement.errors['name'].any?}" %>">
+
+       
+        <%=
+          f.label :name,
+           t('progress_and_spend.progress_update.procurement.add_procurement.name'),
+          class: "govuk-label"
+        %>
+
+         <%=
+          render partial: "partials/form_input_errors",
+          locals: {
+            form_object: procurement,
+            input_field_id: :name
+          } if procurement.errors['name'].any? 
+        %>
+
+        <%= 
+          f.text_field :name,
+          class:"govuk-input #{'govuk-input--error' if
+            procurement.errors['name'].any?}",
+          "autocomplete" => "name",
+          "spellcheck" => "false"
+        %>
+
+      </div>
+
+      <div class="govuk-character-count" data-module="govuk-character-count"
+          data-maxwords="500">
+
+        <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+         procurement.errors['description'].any?}" %>">
+
+          <%=
+            f.label :description,
+            t('progress_and_spend.progress_update.procurement.add_procurement.desc'),
+            class: "govuk-label"
+          %>
+
+          <%=
+            render partial: "partials/form_input_errors",
+            locals: {
+              form_object: procurement,
+              input_field_id: :description
+              } if procurement.errors['description'].any?
+          %>
+          
+          <%=
+            f.text_area :description,
+            rows: 5,
+            class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+            "#{' govuk-textarea--error' if
+               procurement.errors['description'].any?}",
+            "aria-describedby" => "progress_update_procurement_description-info"
+          %>
+
+          <div id="progress_update_procurement_description-info"
+                class="govuk-hint govuk-character-count__message"
+                aria-live="polite">
+            <%= t('generic.word_count', max_words: 500) %>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="govuk-date-input <%= "#{'govuk-form-group--error' if
+         procurement.errors.any? { | er | [:date_day, :date_month, :date_year, :date].include? er.attribute } }" %>" id="procurement-date">
+
+         <%=
+          f.label :date,
+           t('progress_and_spend.progress_update.procurement.add_procurement.purchase_date'),
+          class: "govuk-label  govuk-!-padding-bottom-4"
+        %>
+
+        <% procurement.errors.each do |error| %>
+          <% if "date".in? error.attribute.to_s  %>
+
+            <span id="user[<%= error.attribute %>]-error" class="govuk-error-message">
+
+              <span class="govuk-visually-hidden">
+                <%= t('details.error') %>
+              </span> <%= error.message %>
+              
+            </span>
+          <% end %>
+        <% end %>
+
+        <% date_css = "govuk-input govuk-date-input__input govuk-input--width-2" %>
+        <% date_year_css = "govuk-input govuk-date-input__input govuk-input--width-4" %>
+        <% date_error_css = "govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" %>
+        <% date_year_error_css = "govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error" %>
+
+        <div class="govuk-date-input" id="procurement-date">
+
+          <div class="govuk-date-input__item">
+
+            <div class="govuk-form-group">
+
+              <%=
+                f.label :date_day,
+                t('dates.day'),
+                class: 'govuk-label govuk-date-input__label'
+              %>
+
+              <%=
+                f.number_field :date_day,
+                class: procurement.errors[:date_day].any? || 
+                  procurement.errors.first&.attribute.to_s.include?('date') ?  
+                    date_error_css : date_css
+              %> 
+
+            </div>
+
+          </div>
+
+          <div class="govuk-date-input__item">
+
+            <div class="govuk-form-group">
+
+              <%=
+                f.label :date_month,
+                t('dates.month'),
+                class: 'govuk-label govuk-date-input__label'
+              %>ß
+
+              <%=
+                f.number_field :date_month,
+                class: procurement.errors[:date_month].any? || 
+                  procurement.errors.first&.attribute.to_s.include?('date') ?    
+                    date_error_css : date_css
+              %> 
+
+            </div>
+
+          </div>
+
+          <div class="govuk-date-input__item">
+
+            <div class="govuk-form-group">
+
+              <%=
+                f.label :date_year,
+                t('dates.year'),
+                class: 'govuk-label govuk-date-input__label'
+              %>
+
+              <%=
+                f.number_field :date_year,
+                class: procurement.errors[:date_year].any? ||
+                  procurement.errors.first&.attribute.to_s.include?('date') ?  
+                    date_year_error_css : date_year_css
+              %> 
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="govuk-form-group govuk-!-margin-top-4 <%= "govuk-form-group--error" if
+        procurement.errors['amount'].any? %>">
+
+        <%=
+          f.label :amount,
+           t('progress_and_spend.progress_update.procurement.add_procurement.amount'),
+          class: "govuk-label"
+        %>
+
+        <%=
+          render partial: "partials/form_input_errors",
+          locals: {
+              form_object: procurement,
+              input_field_id: :amount
+              } if procurement.errors['amount'].any?
+        %>
+
+        <div class="nlhf-currency-denote">
+
+          <div class="nlhf-currency-denote__symbol">
+            &pound;
+          </div>
+
+          <div class="nlhf-currency-denote__capture">
+
+            <%=
+              f.text_field :amount,
+              "autocomplete" => "off",
+              class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
+                procurement.errors['amount'].any?}"
+            %>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		      procurement.errors['lowest_tender'].any? %>">
+
+          <%=	
+            f.label :lowest_tender,
+             t('progress_and_spend.progress_update.procurement.add_procurement.lowest_tender'),
+            class: "govuk-label govuk-!-margin-bottom-4"
+					%>
+
+          <%=
+            render(
+              partial: 'partials/form_input_errors',
+              locals: {
+                form_object: procurement,
+                input_field_id: :lowest_tender
+              }
+            ) if procurement.errors['lowest_tender'].any?
+          %>
+
+				<div id="form-group-errors"></div>
+
+        <div class="govuk-radios__item ">
+
+					<%=
+						f.radio_button :lowest_tender,
+						true,
+						class: "govuk-radios__input"
+					%>
+
+					<%=	
+            f.label :lowest_tender_true,
+             t('progress_and_spend.progress_update.procurement.add_procurement.is_lowest_tender'),
+            class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :lowest_tender,
+						false,
+						class: "govuk-radios__input",
+						"data-aria-controls" => "conditional-is_lowest_tender"
+					%>
+								
+					<%=
+						f.label :lowest_tender_false,
+					 t('progress_and_spend.progress_update.procurement.add_procurement.is_not_lowest_tender'),
+						class: "govuk-label govuk-radios__label"
+					%>
+										
+					<div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+						id="conditional-is_lowest_tender">
+						<div class="govuk-form-group" id="is-lowest-tender-form-group-main">
+
+              <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+                procurement.errors['supplier_justification'].any?}" %>">
+
+                <div class="govuk-character-count" data-module="govuk-character-count"
+                    data-maxwords="300">
+
+                  <%=
+                    f.label :supplier_justification,
+                    t('progress_and_spend.progress_update.procurement.add_procurement.supplier_justification'),
+                    class: "govuk-label govuk-!-margin-top-4"
+                  %>
+
+                  <%=
+                    render partial: "partials/form_input_errors",
+                    locals: {
+                      form_object: procurement,
+                      input_field_id: :supplier_justification
+                      } if procurement.errors['supplier_justification'].any?
+                  %>
+            
+                  <%=
+                    f.text_area :supplier_justification,
+                    rows: 5,
+                    class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+                    "#{' govuk-textarea--error' if
+                      procurement.errors['supplier_justification'].any?}",
+                    "aria-describedby" => "progress_update_procurement_supplier_justification-info"
+                  %>
+
+                  <div id="progress_update_procurement_supplier_justification-info"
+                      class="govuk-hint govuk-character-count__message"
+                      aria-live="polite">
+                    <%= t('generic.word_count', max_words: 300) %>
+                  </div>
+
+                </div>
+
+              </div>
+
+						</div>
+
+					</div>
+
+				</div>
+			
+			</div>
+
+      <%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
+				)
+			%>
+
+  <%end%>
+
+</fieldset>

@@ -1,0 +1,18 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      procurement:
+        add_procurement:
+          page_title: "Add Procurement"
+          page_heading: "How do you want to tell us about your procurement of £10,000 or more?"
+          page_caption: "Tell us how the project is going"
+          name: "Name of supplier, contractor or consultant"
+          desc: "Brief description of item or service"
+          purchase_date: "Date of purchase or date you awarded the contract "
+          amount: "Amount"
+          lowest_tender: "Was this the lowest tender?"
+          is_lowest_tender: "Yes, this was the lowest tender"
+          is_not_lowest_tender: "No, this was not the lowest tender"
+          supplier_justification: "Describe how the winning supplier was value for money"
+          invalid_date: "Enter a valid date"
+          

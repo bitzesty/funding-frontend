@@ -43,5 +43,32 @@ module ProgressAndSpendHelper
     result = grant_expiry_date.strftime("%d/%m/%Y")
 
   end
+
+  # Validates and updates procurement model passed in - 
+  # parsing date to correct modelformat, checks model valid
+  # and calls update. Retruns the passed procurement model. 
+  #
+  # @param [ProgressUpdateProcurement] procurement An instance of
+  #                                                                 ProgressUpdateProcurement
+  # @return [ProgressUpdateProcurement] validated and updated procurement
+  def validate_and_update_procurement(procurement)
+    procurement.date_day = params[:progress_update_procurement][:date_day].to_i
+    procurement.date_month = params[:progress_update_procurement][:date_month].to_i
+    procurement.date_year = params[:progress_update_procurement][:date_year].to_i
+
+    procurement.validate_date = true
+
+    if procurement.valid?
+      params[:progress_update_procurement][:date] = DateTime.new(
+        procurement.date_year, 
+        procurement.date_month, 
+        procurement.date_day 
+      )
+    end
+
+    procurement.validate_details = true
+
+    procurement.update(get_params)
+  end
   
 end

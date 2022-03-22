@@ -1,0 +1,68 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title:  t("progress_and_spend.progress_update.procurement.procurement_evidence.page_title")
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.arrears_journey_tracker.progress_update,
+      first_form_element: :progress_update_has_procurement_report_evidence_true
+    }
+  ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t("progress_and_spend.progress_update.procurement.procurement_evidence.page_caption") %>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+			<%= t("progress_and_spend.progress_update.procurement.procurement_evidence.page_heading") %>
+		</h1>
+
+		<p class="govuk-body govuk-!-padding-bottom-2">
+      <%= t("progress_and_spend.progress_update.procurement.procurement_evidence.description") %>
+		</p>
+
+    <p class="govuk-body govuk-!-padding-bottom-4">
+      <%= t("progress_and_spend.progress_update.procurement.procurement_evidence.should_include") %>
+		</p>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+	<%=
+		render(
+			partial: 'partials/form_group_errors',
+			locals: {
+				form_object: @funding_application.arrears_journey_tracker.progress_update
+			}
+		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+	%>
+
+	<%=
+		render(
+			partial: 'partials/funding_application/progress_and_spend/file_upload',
+			locals: {
+				input_field_id:  :'progress_update_procurement_evidence.progress_update_procurement_evidence_file', 
+				form_object: @funding_application.arrears_journey_tracker.progress_update,
+				file_model: @funding_application.arrears_journey_tracker.progress_update.progress_update_photo,
+				file_field: :progress_update_procurement_evidence_file,
+				file_field_model: :progress_update_procurement_evidence,
+				radio_button: :has_procurement_report_evidence,
+				radio_true: :has_procurement_report_evidence_true,
+				radio_false: :has_procurement_report_evidence_false,
+				attachments: @attachments_hash,
+				translations_local: 'progress_and_spend.progress_update.procurement.procurement_evidence',
+				url_path: funding_application_progress_and_spend_progress_update_procurement_procurement_report_path()
+			}
+		) 
+	%>
+
+</fieldset>
