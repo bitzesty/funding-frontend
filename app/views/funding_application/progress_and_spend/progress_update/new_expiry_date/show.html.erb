@@ -1,1 +1,191 @@
-Todo
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.new_expiry_date.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @new_expiry_date,
+      first_form_element: :progress_update_date_correct_true
+    }
+  ) if @new_expiry_date.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.new_expiry_date.page_caption')%>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+		  <%= t('progress_and_spend.progress_update.new_expiry_date.page_heading')%>
+		</h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+  <%=
+		form_with model: @new_expiry_date,
+		url: funding_application_progress_and_spend_progress_update_change_completion_date_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+    <div class="govuk-date-input <%= "#{'govuk-form-group--error' if
+        @new_expiry_date.errors.any? { | er | [:date_day, :date_month, :date_year].include? er.attribute } }" %>" id="procurement-date">
+
+      <h3 class="govuk-heading-s"> 
+        <%= t('progress_and_spend.progress_update.new_expiry_date.new_date_proposed')%> 
+      </h3>
+
+      <p class="govuk-hint" id="date_hint">
+        <%= t('progress_and_spend.progress_update.new_expiry_date.for_example') %>
+      </p>
+
+      <% @new_expiry_date.errors.each do |error| %>
+        <% if "date".in? error.attribute.to_s  %>
+
+          <span id="user[<%= error.attribute %>]-error" class="govuk-error-message">
+
+            <span class="govuk-visually-hidden">
+              <%= t('details.error') %>
+            </span> <%= error.message %>
+
+          </span>
+        <% end %>
+      <% end %>
+      <% date_css = "govuk-input govuk-date-input__input govuk-input--width-2" %>
+      <% date_year_css = "govuk-input govuk-date-input__input govuk-input--width-4" %>
+      <% date_error_css = "govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" %>
+      <% date_year_error_css = "govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error" %>
+
+      <div class="govuk-date-input" id="procurement-date">
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              f.label :date_day,
+              t('dates.day'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+            <%=
+              f.number_field :date_day,
+              class: @new_expiry_date.errors[:date_day].any? ||
+                @new_expiry_date.errors.first&.attribute.to_s.include?('licence_date') ?
+                  date_error_css : date_css,
+              'aria-describedby' => 'date_hint'
+            %>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              f.label :date_month,
+              t('dates.month'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              f.number_field :date_month,
+              class: @new_expiry_date.errors[:date_month].any? ||
+                @new_expiry_date.errors.first&.attribute.to_s.include?('licence_date') ?
+                  date_error_css : date_css,
+              'aria-describedby' => 'date_hint'
+            %>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              f.label :date_year,
+              t('dates.year'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+            <%=
+              f.number_field :date_year,
+              class: @new_expiry_date.errors[:date_year].any? ||
+                @new_expiry_date.errors.first&.attribute.to_s.include?('licence_date') ? 
+                  date_year_error_css : date_year_css,
+              'aria-describedby' => 'date_hint'
+            %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+        <div class="govuk-character-count" data-module="govuk-character-count"
+        data-maxwords="50">
+
+      <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @new_expiry_date.errors['description'].any?}" %>">
+
+        <h3 class="govuk-heading-s"> 
+          <%= t('progress_and_spend.progress_update.new_expiry_date.briefly_explain') %> 
+        </h3>
+
+        <%=
+          render partial: "partials/form_input_errors",
+          locals: {
+            form_object: @new_expiry_date,
+            input_field_id: :description
+            } if @new_expiry_date.errors['description'].any?
+        %>
+
+        <%=
+          f.text_area :description,
+          rows: 5,
+          class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+          "#{' govuk-textarea--error' if
+              @new_expiry_date.errors['description'].any?}",
+          "aria-describedby" => "progress_update_new_expiry_date_description-info"
+        %>
+
+        <div id="progress_update_new_expiry_date_description-info"
+              class="govuk-hint govuk-character-count__message"
+              aria-live="polite">
+          <%= t('generic.word_count', max_words: 500) %>
+        </div>
+
+      </div>
+
+    </div>
+
+    <p class="govuk-body govuk-!-padding-bottom-4">
+      <%= t('progress_and_spend.progress_update.new_expiry_date.after_you_submit') %>
+    </p>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+			%>
+
+  <%end%>
+
+</fieldset>

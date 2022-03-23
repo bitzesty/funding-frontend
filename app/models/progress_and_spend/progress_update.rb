@@ -8,6 +8,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_procurement_evidence
   has_many :progress_update_procurement
   has_many :progress_update_additional_grant_condition
+  has_many :progress_update_new_expiry_date
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
