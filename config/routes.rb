@@ -367,7 +367,6 @@ Rails.application.routes.draw do
                   post 'edit-procurement', to: 'edit_procurement#update'
                 end
 
-          
             end
 
             get 'additional-grant-conditions', to: 'additional_grant_conditions#show'
@@ -379,8 +378,22 @@ Rails.application.routes.draw do
             get 'permissions-or-licences', to: 'statutory_permission_licence#show'
             post 'permissions-or-licences', to: 'statutory_permission_licence#update'
 
+            scope 'risk', module: 'risk', as: 'risk' do
+
+              get 'risk-question', to: 'risk_question#show'
+              post 'risk-question', to: 'risk_question#update'
+
+            end
+
+            scope 'cash-contribution', module: 'cash_contribution', as: 'cash_contribution' do
+
+              get 'cash-contribution-question', to: 'cash_contribution_question#show'
+              post 'cash-contribution-question', to: 'cash_contribution_question#update'
+
+            end
 
           end
+
         end
 
         scope 'payments', module: 'payments', as: 'payments' do
