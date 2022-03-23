@@ -43,6 +43,7 @@ include FundingApplicationContext
           progress_update.answers_json['new_staff'] = { }
           progress_update.answers_json['procurements'] = { }
           progress_update.answers_json['new_expiry_date'] = { }
+          progress_update.answers_json['statutory_permissions_licences'] = { }
           progress_update.save
         end
        

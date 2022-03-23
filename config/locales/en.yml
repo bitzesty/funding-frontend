@@ -746,6 +746,10 @@ en-GB:
               checkbox_selection: "Select an additional grant condition to update on, or select 'I do not have an update on these yet'"
             date_correct:
               blank: "Select if you expect to complete the project by the date specified"
+            has_statutory_permissions_licence:
+              blank: "Select if you have received new statutory permissions or licences"
+            progress_update_statutory_permissions_licence:
+              blank: "Add evidence of statutory permission or licence"
         progress_update_procurement:
           attributes:
             name:

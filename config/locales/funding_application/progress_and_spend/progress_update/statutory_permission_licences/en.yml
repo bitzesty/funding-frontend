@@ -1,0 +1,10 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      statutory_permission_licences:
+        page_title: "Statutory permission licences evidence"
+        page_heading: "Have you received any new permissions or statutory licences since your last update?"
+        page_caption: "Tell us how the project is going"
+        upload_heading: "Upload new permissions or statutory licences"
+        has_upload_true: "Yes, I have received new permissions or statutory licences"
+        has_upload_false: "No, I have not received any new permissions or statutory licences"
