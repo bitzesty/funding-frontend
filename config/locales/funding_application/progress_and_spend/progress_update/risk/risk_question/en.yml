@@ -1,0 +1,12 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      risk:
+        risk_question:
+          page_title: "Risk "
+          page_heading: "Are there any risk updates?"
+          page_caption: "Tell us how the project is going"
+          page_hint: "This could be new risks or updates to risks you have already told us about."
+          radio_yes: "Yes, I have risk updates"
+          radio_no: "No, I do not have risk updates"
+          

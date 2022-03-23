@@ -2,14 +2,14 @@ class ProgressUpdate < ApplicationRecord
   has_one :funding_applications_progess_update, inverse_of: :progress_update
   has_one :funding_applications, through: :funding_applications_progess_update
 
-  has_many :progress_update_photo
-  has_many :progress_update_event
-  has_many :progress_update_new_staff
-  has_many :progress_update_procurement_evidence
-  has_many :progress_update_procurement
-  has_many :progress_update_additional_grant_condition
-  has_many :progress_update_statutory_permissions_licence
-  has_many :progress_update_new_expiry_date
+  has_many :progress_update_photo, dependent: :destroy
+  has_many :progress_update_event, dependent: :destroy
+  has_many :progress_update_new_staff, dependent: :destroy
+  has_many :progress_update_procurement_evidence, dependent: :destroy
+  has_many :progress_update_procurement, dependent: :destroy
+  has_many :progress_update_additional_grant_condition, dependent: :destroy
+  has_many :progress_update_statutory_permissions_licence, dependent: :destroy
+  has_many :progress_update_new_expiry_date, dependent: :destroy
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
@@ -40,6 +40,7 @@ class ProgressUpdate < ApplicationRecord
 
   attr_accessor :validate_has_statutory_permissions_licence
   attr_accessor :validate_progress_update_statutory_permissions_licence
+  attr_accessor :validate_has_risk_update
 
   attr_accessor :has_upload_photos
   attr_accessor :has_upload_events
@@ -50,6 +51,7 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :no_progress_update
   attr_accessor :date_correct
   attr_accessor :has_statutory_permissions_licence
+  attr_accessor :has_risk_update
 
   validates :has_upload_photos, presence: true, if: :validate_has_upload_photo?
   validates :progress_update_photo, presence: true, if: :validate_progress_update_photo?
@@ -78,6 +80,8 @@ class ProgressUpdate < ApplicationRecord
   validates :has_statutory_permissions_licence, presence: true, if: :validate_has_statutory_permissions_licence?
   validates :progress_update_statutory_permissions_licence, presence: true, if: :validate_progress_update_statutory_permissions_licence?
   validates_associated :progress_update_statutory_permissions_licence, if: :validate_progress_update_statutory_permissions_licence?
+
+  validates :has_risk_update, presence: true, if: :validate_has_risk_update?
 
   def validate_has_upload_photo?
     validate_has_upload_photo == true
@@ -133,6 +137,10 @@ class ProgressUpdate < ApplicationRecord
 
   def validate_progress_update_statutory_permissions_licence?
     validate_progress_update_statutory_permissions_licence == true
+  end
+
+  def validate_has_risk_update?
+    validate_has_risk_update == true
   end
   
 end

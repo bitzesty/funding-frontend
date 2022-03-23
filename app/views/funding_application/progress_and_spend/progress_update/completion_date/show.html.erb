@@ -78,7 +78,7 @@
 					partial: 'partials/form_input_errors',
 					locals: {
 						form_object:  @funding_application.arrears_journey_tracker.progress_update,
-						input_field_id:  :'progress_update_photo.has_procured_goods'
+						input_field_id: :progress_update_date_correct
 					}
 				) if  @funding_application.arrears_journey_tracker.progress_update.errors.any? 
 			%>
@@ -115,7 +115,7 @@
 					%>
 
 					<%=
-							f.label :has_procured_goods_false,
+							f.label :no_false,
               t('progress_and_spend.progress_update.completion_date.radio_no'),
 							class: "govuk-label govuk-radios__label"
 					%>

@@ -379,9 +379,11 @@ Rails.application.routes.draw do
             post 'permissions-or-licences', to: 'statutory_permission_licence#update'
 
             scope 'risk', module: 'risk', as: 'risk' do
-
               get 'risk-question', to: 'risk_question#show'
               post 'risk-question', to: 'risk_question#update'
+              get 'risk-register', to: 'risk_register#show'
+              post 'risk-register', to: 'risk_register#update'
+
 
             end
 

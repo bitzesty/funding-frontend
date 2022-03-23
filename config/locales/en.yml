@@ -750,6 +750,8 @@ en-GB:
               blank: "Select if you have received new statutory permissions or licences"
             progress_update_statutory_permissions_licence:
               blank: "Add evidence of statutory permission or licence"
+            has_risk_update:
+              blank: 'Select if there are any risk updates'
         progress_update_procurement:
           attributes:
             name:
