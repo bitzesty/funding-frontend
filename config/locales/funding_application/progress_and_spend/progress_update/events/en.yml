@@ -9,3 +9,4 @@ en-GB:
         upload_heading: "Upload your evidence"
         has_upload_true: "Yes, I have records of events"
         has_upload_false: "No, I do not have records of events yet"
+        upload_button: "Upload files"

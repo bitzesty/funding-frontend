@@ -752,6 +752,10 @@ en-GB:
               blank: "Add evidence of statutory permission or licence"
             has_risk_update:
               blank: 'Select if there are any risk updates'
+            has_risk_register:
+              blank: "Select if you will upload a risk register"
+            progress_update_risk_register:
+              blank: "Select risk register" 
         progress_update_procurement:
           attributes:
             name:

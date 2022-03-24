@@ -10,6 +10,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_additional_grant_condition, dependent: :destroy
   has_many :progress_update_statutory_permissions_licence, dependent: :destroy
   has_many :progress_update_new_expiry_date, dependent: :destroy
+  has_many :progress_update_risk_register, dependent: :destroy
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
@@ -18,6 +19,8 @@ class ProgressUpdate < ApplicationRecord
   accepts_nested_attributes_for :progress_update_procurement
   accepts_nested_attributes_for :progress_update_additional_grant_condition
   accepts_nested_attributes_for :progress_update_statutory_permissions_licence
+  accepts_nested_attributes_for :progress_update_risk_register
+
 
   attr_accessor :validate_has_upload_photo
   attr_accessor :validate_progress_update_photo
@@ -41,6 +44,8 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :validate_has_statutory_permissions_licence
   attr_accessor :validate_progress_update_statutory_permissions_licence
   attr_accessor :validate_has_risk_update
+  attr_accessor :validate_has_risk_register
+  attr_accessor :validate_progress_update_risk_register
 
   attr_accessor :has_upload_photos
   attr_accessor :has_upload_events
@@ -52,6 +57,7 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :date_correct
   attr_accessor :has_statutory_permissions_licence
   attr_accessor :has_risk_update
+  attr_accessor :has_risk_register
 
   validates :has_upload_photos, presence: true, if: :validate_has_upload_photo?
   validates :progress_update_photo, presence: true, if: :validate_progress_update_photo?
@@ -82,6 +88,8 @@ class ProgressUpdate < ApplicationRecord
   validates_associated :progress_update_statutory_permissions_licence, if: :validate_progress_update_statutory_permissions_licence?
 
   validates :has_risk_update, presence: true, if: :validate_has_risk_update?
+  validates :has_risk_register, presence: true, if: :validate_has_risk_register?
+  validates :progress_update_risk_register, presence: true, if: :validate_progress_update_risk_register?
 
   def validate_has_upload_photo?
     validate_has_upload_photo == true
@@ -143,4 +151,12 @@ class ProgressUpdate < ApplicationRecord
     validate_has_risk_update == true
   end
   
+  def validate_has_risk_register?
+    validate_has_risk_register == true
+  end
+
+  def validate_progress_update_risk_register?
+    validate_progress_update_risk_register == true
+  end
+
 end

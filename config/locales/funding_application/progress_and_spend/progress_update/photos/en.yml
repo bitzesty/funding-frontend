@@ -9,3 +9,4 @@ en-GB:
         upload_heading: "Upload photos"
         has_upload_true: "Yes, I have photos to upload"
         has_upload_false: "No, I do not have photos yet"
+        upload_button: "Upload files"

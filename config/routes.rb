@@ -383,8 +383,8 @@ Rails.application.routes.draw do
               post 'risk-question', to: 'risk_question#update'
               get 'risk-register', to: 'risk_register#show'
               post 'risk-register', to: 'risk_register#update'
-
-
+              get 'risk-add', to: 'risk_add#show'
+              post 'risk-add', to: 'risk_add#update'
             end
 
             scope 'cash-contribution', module: 'cash_contribution', as: 'cash_contribution' do

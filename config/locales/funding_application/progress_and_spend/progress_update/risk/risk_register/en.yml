@@ -1,2 +1,15 @@
 en-GB:
-  todo:
+  progress_and_spend:
+    progress_update:
+      risk:
+        risk_register:
+          page_title: "Risk Register"
+          page_heading: "Do you have a risk register?"
+          page_caption: "Tell us how the project is going"
+          a_risk_register_is: "A risk register is a document that lists all the risks identified and prioritised in order of importance."
+          upload_heading: "Upload risk register"
+          has_upload_true: "Yes, I have a risk register"
+          has_upload_false: "No, I do not have a risk register"
+          upload_button: "Upload risk register"
+          radio_no_hint: "If you do not have a risk register, you can tell us about your risks on the next page."
+

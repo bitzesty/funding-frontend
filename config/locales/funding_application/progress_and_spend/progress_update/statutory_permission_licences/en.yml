@@ -8,3 +8,4 @@ en-GB:
         upload_heading: "Upload new permissions or statutory licences"
         has_upload_true: "Yes, I have received new permissions or statutory licences"
         has_upload_false: "No, I have not received any new permissions or statutory licences"
+        upload_button: "Upload evidence"

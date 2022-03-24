@@ -11,4 +11,6 @@ en-GB:
           upload_heading: "Upload your documents"
           has_upload_true: "I want to upload a report"
           has_upload_false: "I want to add details"
+          upload_button: "Upload documents"
+
           
