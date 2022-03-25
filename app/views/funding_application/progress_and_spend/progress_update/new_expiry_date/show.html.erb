@@ -134,8 +134,8 @@
 
     </div>
 
-        <div class="govuk-character-count" data-module="govuk-character-count"
-        data-maxwords="50">
+    <div class="govuk-character-count" data-module="govuk-character-count"
+      data-maxwords="50">
 
       <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
         @new_expiry_date.errors['description'].any?}" %>">
@@ -164,7 +164,7 @@
         <div id="progress_update_new_expiry_date_description-info"
               class="govuk-hint govuk-character-count__message"
               aria-live="polite">
-          <%= t('generic.word_count', max_words: 500) %>
+          <%= t('generic.word_count', max_words: 50) %>
         </div>
 
       </div>

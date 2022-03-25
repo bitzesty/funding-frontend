@@ -810,4 +810,20 @@ en-GB:
               less_than: "Enter a year of less than 4000"
             full_date:
               invalid: "Enter a valid project completion date"
-
+        progress_update_risk:
+          attributes:
+            description:
+              blank: "Enter the risk identified"
+              too_long: "Risk identified must be 50 words or fewer"
+            likelihood:
+              blank: "Select a likelihood for this risk"
+            impact:
+              blank: "Select impact of this risk"
+            is_still_risk:
+              inclusion: "Select if this is still a risk"
+            yes_still_a_risk_description:
+              blank: "Enter actions you will take to mitigate this risk"
+              too_long: "Enter your actions in 50 words or fewer"
+            no_still_a_risk_description:
+              blank: "Enter actions you took to mitigate this risk"
+              too_long: "Enter your actions in 50 words or fewer"

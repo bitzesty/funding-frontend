@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_24_091942) do
+ActiveRecord::Schema.define(version: 2022_03_24_143822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -597,6 +597,18 @@ ActiveRecord::Schema.define(version: 2022_03_24_091942) do
     t.index ["progress_update_id"], name: "index_prgrss_updts_risk_registers_on_progress_update_id"
   end
 
+  create_table "prgrss_updts_risks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "progress_update_id"
+    t.string "description"
+    t.integer "likelihood"
+    t.integer "impact"
+    t.boolean "is_still_risk"
+    t.string "is_still_risk_description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["progress_update_id"], name: "index_prgrss_updts_risks_on_progress_update_id"
+  end
+
   create_table "prgrss_updts_stttry_prmssns_lcncs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "progress_update_id"
     t.datetime "created_at", precision: 6, null: false
@@ -818,6 +830,7 @@ ActiveRecord::Schema.define(version: 2022_03_24_091942) do
   add_foreign_key "prgrss_updts_prcrmnt_evidences", "progress_updates"
   add_foreign_key "prgrss_updts_procurements", "progress_updates"
   add_foreign_key "prgrss_updts_risk_registers", "progress_updates"
+  add_foreign_key "prgrss_updts_risks", "progress_updates"
   add_foreign_key "prgrss_updts_stttry_prmssns_lcncs", "progress_updates"
   add_foreign_key "project_costs", "projects"
   add_foreign_key "projects", "funding_applications"

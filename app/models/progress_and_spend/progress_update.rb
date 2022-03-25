@@ -11,6 +11,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_statutory_permissions_licence, dependent: :destroy
   has_many :progress_update_new_expiry_date, dependent: :destroy
   has_many :progress_update_risk_register, dependent: :destroy
+  has_many :progress_update_risk, dependent: :destroy
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
@@ -20,6 +21,7 @@ class ProgressUpdate < ApplicationRecord
   accepts_nested_attributes_for :progress_update_additional_grant_condition
   accepts_nested_attributes_for :progress_update_statutory_permissions_licence
   accepts_nested_attributes_for :progress_update_risk_register
+  accepts_nested_attributes_for :progress_update_risk
 
 
   attr_accessor :validate_has_upload_photo

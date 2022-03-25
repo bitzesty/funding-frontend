@@ -1,0 +1,19 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      risk:
+        risk_add_edit:
+          page_title: "Add a Risk"
+          page_heading: "Add or update a risk?"
+          page_caption: "Tell us how the project is going"
+          page_hint: "In your own records, all risks should have an owner."
+          explain_risk: "Explain the risk identified"
+          likelihood: "Likelihood"
+          impact: "Impact"
+          radio_low: "Low"
+          radio_medium: "Medium"
+          radio_high: "High"
+          is_this_still_a_risk: "Is this still a risk?"
+          will_action: "What actions will you take to mitigate this risk?"
+          did_action: "What actions did you take to mitigate this risk?"
+          add_risk: "Add risk"
