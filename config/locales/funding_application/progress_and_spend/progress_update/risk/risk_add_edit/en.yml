@@ -3,7 +3,7 @@ en-GB:
     progress_update:
       risk:
         risk_add_edit:
-          page_title: "Add a Risk"
+          page_title: "Add or update a Risk"
           page_heading: "Add or update a risk?"
           page_caption: "Tell us how the project is going"
           page_hint: "In your own records, all risks should have an owner."

@@ -48,6 +48,7 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :validate_has_risk_update
   attr_accessor :validate_has_risk_register
   attr_accessor :validate_progress_update_risk_register
+  attr_accessor :validate_add_another_risk
 
   attr_accessor :has_upload_photos
   attr_accessor :has_upload_events
@@ -60,6 +61,7 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :has_statutory_permissions_licence
   attr_accessor :has_risk_update
   attr_accessor :has_risk_register
+  attr_accessor :add_another_risk
 
   validates :has_upload_photos, presence: true, if: :validate_has_upload_photo?
   validates :progress_update_photo, presence: true, if: :validate_progress_update_photo?
@@ -92,6 +94,7 @@ class ProgressUpdate < ApplicationRecord
   validates :has_risk_update, presence: true, if: :validate_has_risk_update?
   validates :has_risk_register, presence: true, if: :validate_has_risk_register?
   validates :progress_update_risk_register, presence: true, if: :validate_progress_update_risk_register?
+  validates :add_another_risk, presence: true, if: :validate_add_another_risk?
 
   def validate_has_upload_photo?
     validate_has_upload_photo == true
@@ -159,6 +162,10 @@ class ProgressUpdate < ApplicationRecord
 
   def validate_progress_update_risk_register?
     validate_progress_update_risk_register == true
+  end
+
+  def validate_add_another_risk?
+    validate_add_another_risk == true
   end
 
 end

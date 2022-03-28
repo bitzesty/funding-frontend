@@ -57,7 +57,13 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::Procurement::Procure
     procurement.destroy
 
     get_procurements
-    render :show
+    
+    redirect_to(
+      funding_application_progress_and_spend_progress_update_procurement_procurements_summary_path(
+          progress_update_id:
+            @funding_application.arrears_journey_tracker.progress_update.id
+      )
+    )
 
   end
 

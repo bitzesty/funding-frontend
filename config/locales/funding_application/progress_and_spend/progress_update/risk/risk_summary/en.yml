@@ -1,0 +1,15 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      risk:
+        risk_summary:
+          page_title: "Risk summary"
+          page_heading_one_risk: "You have added 1 risk update"
+          page_heading: "You have added %{risk_num} risk updates"
+          page_caption: "Tell us how the project is going"
+          change_button: "change"
+          remove_button: "remove"
+          add_another_risk_heading: "Do you need to add another risk update?"
+          yes_radio: "Yes, I need to add another risk update"
+          no_radio: "No, I have added all risk updates for now"
+

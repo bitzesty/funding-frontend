@@ -1,0 +1,327 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.risk.risk_add_edit.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @risk,
+      first_form_element: :progress_update_risk_description
+    }
+  ) if @risk.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.risk.risk_add_edit.page_caption') %>
+		</span>
+
+		<h1 class="govuk-heading-l">
+      <%=
+        t(
+          'progress_and_spend.progress_update.risk.risk_add_edit.page_heading'
+        )
+      %>
+		</h1>
+
+	</legend>
+
+  <p class="govuk-hint" id="risk_hint">
+    <%= t('progress_and_spend.progress_update.risk.risk_add_edit.page_hint') %>
+  </p>
+
+  <%=
+		form_with model: @risk,
+		url: path,
+		method: :post,
+		local: true do |f|
+	%>
+
+    <%# description textbox start%>
+    <div class="govuk-character-count" data-module="govuk-character-count"
+      data-maxwords="50">
+
+      <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @risk.errors['description'].any?}" %>">
+
+        <h3 class="govuk-heading-s"> 
+          <%= t('progress_and_spend.progress_update.risk.risk_add_edit.explain_risk') %> 
+        </h3>
+
+        <%=
+          render partial: "partials/form_input_errors",
+          locals: {
+            form_object: @risk,
+            input_field_id: :description
+            } if @risk.errors['description'].any?
+        %>
+
+        <%=
+          f.text_area :description,
+          rows: 5,
+          class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+          "#{' govuk-textarea--error' if
+              @risk.errors['description'].any?}",
+          "aria-describedby" => "progress_update_risk_description-info"
+        %>
+
+        <div id="progress_update_risk_description-info"
+          class="govuk-hint govuk-character-count__message"
+          aria-live="polite">
+          <%= t('generic.word_count', max_words: 50) %>
+        </div>
+
+      </div>
+
+    </div>
+    <%# description textbox end%>
+
+    <h3 class="govuk-heading-s"> 
+      <%= t('progress_and_spend.progress_update.risk.risk_add_edit.likelihood') %> 
+    </h3>
+
+    <%# likelihood radios start %>
+    <div class="govuk-radios" data-module="govuk-radios">
+
+      <%=
+        render partial: "partials/form_input_errors",
+        locals: {
+          form_object: @risk,
+          input_field_id: :likelihood
+          } if @risk.errors['likelihood'].any?
+      %>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		     @risk.errors['likelihood'].any? %>">
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :likelihood,
+						3,
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+						f.label :low_3,
+						t('progress_and_spend.progress_update.risk.risk_add_edit.radio_low'),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :likelihood,
+						2,
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+							f.label :medium_2,
+              t('progress_and_spend.progress_update.risk.risk_add_edit.radio_medium'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+        <div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :likelihood,
+						1,
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+							f.label :high_1,
+              t('progress_and_spend.progress_update.risk.risk_add_edit.radio_high'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+			</div>
+
+		</div>
+    <%# likelihood radios end %>
+
+    <h3 class="govuk-heading-s"> 
+      <%= t('progress_and_spend.progress_update.risk.risk_add_edit.impact') %> 
+    </h3>
+
+    <%# impact radios start %>
+    <div class="govuk-radios" data-module="govuk-radios">
+
+      <%=
+        render partial: "partials/form_input_errors",
+        locals: {
+          form_object: @risk,
+          input_field_id: :impact
+          } if @risk.errors['impact'].any?
+      %>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		     @risk.errors['impact'].any? %>">
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :impact,
+						3,
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+						f.label :low_3,
+						t('progress_and_spend.progress_update.risk.risk_add_edit.radio_low'),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :impact,
+						2,
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+							f.label :medium_2,
+              t('progress_and_spend.progress_update.risk.risk_add_edit.radio_medium'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+        <div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :impact,
+						1,
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+							f.label :high_1,
+              t('progress_and_spend.progress_update.risk.risk_add_edit.radio_high'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+			</div>
+
+		</div>
+    <%# impact radios end %>
+
+    <h3 class="govuk-heading-s"> 
+      <%= t('progress_and_spend.progress_update.risk.risk_add_edit.is_this_still_a_risk') %> 
+    </h3>
+
+    <%# is_still_risk radios start %>
+    <div class="govuk-radios" data-module="govuk-radios">
+
+      <%=
+        render partial: "partials/form_input_errors",
+        locals: {
+          form_object: @risk,
+          input_field_id: :is_still_risk
+          } if @risk.errors['is_still_risk'].any?
+      %>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		     @risk.errors['is_still_risk'].any? %>">
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :is_still_risk,
+						true,
+						class: "govuk-radios__input",
+            "data-aria-controls" => "conditional-is_still_risk-true"
+					%>
+
+					<%=
+						f.label :yes_true,
+						t('generic.x_yes'),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+          <div class="govuk-radios__conditional govuk-radios__conditional--hidden"  
+            id="conditional-is_still_risk-true">
+
+            <%=
+              render partial: "partials/funding_application/progress_and_spend/risk/is_still_risk_description_text_area",
+              locals: {
+                form: f,
+                model_attribute: :yes_still_a_risk_description,
+                heading: t('progress_and_spend.progress_update.risk.risk_add_edit.will_action')
+                }
+            %>
+
+          </div>
+
+				</div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :is_still_risk,
+						false,
+						class: "govuk-radios__input",
+            "data-aria-controls" => "conditional-is_still_risk-false"
+					%>
+
+					<%=
+							f.label :no_false,
+              t('generic.x_no'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+          <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+            id="conditional-is_still_risk-false">
+
+            <%=
+              render partial: "partials/funding_application/progress_and_spend/risk/is_still_risk_description_text_area",
+              locals: {
+                form: f,
+                model_attribute: :no_still_a_risk_description,
+                heading: t('progress_and_spend.progress_update.risk.risk_add_edit.did_action')
+                }
+            %>
+
+          </div>
+
+				</div>
+
+			</div>
+
+		</div>
+    <%# is_still_risk radios end %>
+
+
+    <%=
+    render(
+      ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: t('progress_and_spend.progress_update.risk.risk_add_edit.add_risk'),
+        name: "add_risk_button"
+      )
+    )
+    %>
+
+  <%end%>
+
+</fieldset>

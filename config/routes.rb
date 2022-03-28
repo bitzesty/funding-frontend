@@ -385,6 +385,17 @@ Rails.application.routes.draw do
               post 'risk-register', to: 'risk_register#update'
               get 'risk-add', to: 'risk_add#show'
               post 'risk-add', to: 'risk_add#update'
+              get 'risk-summary', to: 'risk_summary#show'
+              post 'risk-summary', to: 'risk_summary#update'
+              delete 'risk-summary/:risk_id',
+                to: 'risk_summary#delete',
+                as: :risk_delete
+
+                scope '/:risk_id' do
+                  get 'risk-edit', to: 'risk_edit#show'
+                  post 'risk-edit', to: 'risk_edit#update'
+                end
+
             end
 
             scope 'cash-contribution', module: 'cash_contribution', as: 'cash_contribution' do
