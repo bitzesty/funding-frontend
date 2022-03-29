@@ -1,0 +1,10 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      cash_contribution:
+        cash_contribution_question:
+          page_title: "Cash contribution "
+          page_heading: "Are there any cash contribution updates?"
+          page_caption: "Tell us how the project is going"
+          radio_yes: "Yes, I have cash contribution updates"
+          radio_no: "No, I do not have cash contribution updates"

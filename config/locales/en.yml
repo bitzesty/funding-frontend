@@ -755,7 +755,10 @@ en-GB:
             has_risk_register:
               blank: "Select if you will upload a risk register"
             progress_update_risk_register:
-              blank: "Select risk register" 
+              blank: "Select risk register"
+            has_cash_contribution_update:
+              blank: "Select if there are any cash contribution updates"
+
         progress_update_procurement:
           attributes:
             name:

@@ -402,6 +402,15 @@ Rails.application.routes.draw do
 
               get 'cash-contribution-question', to: 'cash_contribution_question#show'
               post 'cash-contribution-question', to: 'cash_contribution_question#update'
+              get 'cash-contribution-select', to: 'cash_contribution_select#show'
+              post 'cash-contribution-select', to: 'cash_contribution_select#update'
+
+            end
+
+            scope 'volunteer', module: 'volunteer', as: 'volunteer' do
+
+              get 'volunteer-question', to: 'volunteer_question#show'
+              post 'volunteer-question', to: 'volunteer_question#update'
 
             end
 
