@@ -412,6 +412,27 @@ Rails.application.routes.draw do
               get 'volunteer-question', to: 'volunteer_question#show'
               post 'volunteer-question', to: 'volunteer_question#update'
 
+              get 'volunteer-add', to: 'volunteer_add#show'
+              post 'volunteer-add', to: 'volunteer_add#update'
+
+              get 'volunteer-summary', to: 'volunteer_summary#show'
+              post 'volunteer-summary', to: 'volunteer_summary#update'
+              delete 'volunteer-summary/:volunteer_id',
+                to: 'volunteer_summary#delete',
+                as: :volunteer_delete
+
+                scope '/:volunteer_id' do
+                  get 'volunteer-edit', to: 'volunteer_edit#show'
+                  post 'volunteer-edit', to: 'volunteer_edit#update'
+                end
+
+            end
+
+            scope 'non-cash-contribution', module: 'non_cash_contribution', as: 'non_cash_contribution' do
+
+              get 'non-cash-contribution-question', to: 'non_cash_contribution_question#show'
+              post 'non-cash-contribution-question', to: 'non_cash_contribution_question#update'
+
             end
 
           end

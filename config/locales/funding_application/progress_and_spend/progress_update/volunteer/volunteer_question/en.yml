@@ -1,0 +1,10 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      volunteer:
+        volunteer_question:
+          page_title: "Add volunteer contribution"
+          page_heading: "Are there any volunteer contribution updates? "
+          page_caption: "Tell us how the project is going"
+          radio_yes: "Yes, I have volunteer contribution updates"
+          radio_no: "No, I do not have volunteer contribution updates"

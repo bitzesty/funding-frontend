@@ -1,0 +1,154 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.volunteer.volunteers_summary.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.arrears_journey_tracker.progress_update,
+      first_form_element: :progress_update_add_another_volunteer_true
+    }
+  ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.volunteer.volunteers_summary.page_caption') %> 
+		</span>
+
+		<% if @volunteers.length == 1 %>
+			<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+				<%= t('progress_and_spend.progress_update.volunteer.volunteers_summary.page_heading_one_volunteer') %> 
+			</h1>
+		<% else %>
+			<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+				<%= t('progress_and_spend.progress_update.volunteer.volunteers_summary.page_heading',volunteer_num: @volunteers.length) %> 
+			</h1>
+		<% end %>
+
+
+		<table class="govuk-table">
+			<tbody class="govuk-table__body ">
+			<% @volunteers.each do | volunteer | %>
+					<tr class="govuk-table__row">
+						<th scope="row" class="govuk-table__header govuk-!-width-two-thirds">
+							<%= volunteer.description%>
+						</th>
+						<td class="govuk-table__cell ">
+								<%=
+									link_to(
+                     t('progress_and_spend.progress_update.volunteer.volunteers_summary.change_button'),
+										  funding_application_progress_and_spend_progress_update_volunteer_volunteer_edit_path(volunteer_id: volunteer.id),
+										class: 'govuk-link',
+									)
+								%> 
+						</td>
+						<td class="govuk-table__cell ">
+							<%=
+								link_to(
+									t('progress_and_spend.progress_update.volunteer.volunteers_summary.remove_button'),
+									funding_application_progress_and_spend_progress_update_volunteer_volunteer_delete_path(volunteer_id: volunteer.id),
+									method: :delete,
+									class: 'govuk-link',
+								)
+							%> 
+						</td>
+				</tr>
+			<%end%>
+			</tbody>
+		</table>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
+			<%= t('progress_and_spend.progress_update.volunteer.volunteers_summary.add_another_volunteer_heading') %> 
+		</h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+	<%=
+		render(
+			partial: 'partials/form_group_errors',
+			locals: {
+				form_object: @funding_application.arrears_journey_tracker.progress_update
+			}
+		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+	%>
+
+  <%= 
+		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		url: funding_application_progress_and_spend_progress_update_volunteer_volunteer_summary_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+			<div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+			<%=
+				render(
+					partial: 'partials/form_input_errors',
+					locals: {
+						form_object: @funding_application.arrears_journey_tracker.progress_update,
+						input_field_id: :progress_update_add_another_volunteer_true
+					}
+				) if @funding_application.arrears_journey_tracker.progress_update.errors['add_another_volunteer'].any? 
+			%>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		    @funding_application.arrears_journey_tracker.progress_update.errors.any?  %>">
+
+				<div id="form-group-errors"></div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :add_another_volunteer,
+						true,
+						class: "govuk-radios__input"
+					%>
+								
+					<%=
+						f.label :add_another_volunteer_true,
+						t('progress_and_spend.progress_update.volunteer.volunteers_summary.yes_radio'),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+					<%=
+						f.radio_button :add_another_volunteer,
+						false,
+						class: "govuk-radios__input"
+					%>
+
+					<%=	
+							f.label :add_another_volunteer_false,
+            	t('progress_and_spend.progress_update.volunteer.volunteers_summary.no_radio'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+			
+			</div>
+
+			<%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
+				)
+			%>
+		</div>
+
+	<% end %>
+</fieldset>

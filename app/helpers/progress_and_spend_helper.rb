@@ -125,5 +125,31 @@ module ProgressAndSpendHelper
          risk.validate_no_still_a_risk_description = true
 
   end
+
+  # updates a given volunteer, afirms validation
+  # and redirects to summary page if valid
+  # or re-renders page to show validation errors
+  #
+  # @params [ProgressUpdateVolunteer] volunteer
+  # @params [FundingAppplication] funding_app
+  def update_validate_redirect_volunteer(volunteer, funding_app)
+    volunteer.update(params.require(:progress_update_volunteer).permit(
+        :id,
+        :description,
+        :hours
+      )
+    )
+
+    if @volunteer.valid?
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_volunteer_volunteer_summary_path(
+            progress_update_id:
+              funding_app.arrears_journey_tracker.progress_update.id
+        )
+      )
+    else
+      render :show
+    end
+  end
   
 end

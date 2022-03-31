@@ -46,6 +46,7 @@ include FundingApplicationContext
           progress_update.answers_json['statutory_permissions_licences'] = { }
           progress_update.answers_json['risk'] = { }
           progress_update.answers_json['cash_contribution'] = { }
+          progress_update.answers_json['volunteer'] = { }
           progress_update.save
         end
        

@@ -1,0 +1,12 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      volunteer:
+        volunteer_add_edit:
+          add_page_title: "Add volunteer contribution"
+          edit_page_title: "Edit volunteer contribution"
+          page_heading: "Add a volunteer contribution "
+          page_caption: "Tell us how the project is going"
+          description: "Description of volunteer task"
+          amount: "Total hours spent on this task"
+          amount_hint: "Round to nearest hour"

@@ -758,7 +758,10 @@ en-GB:
               blank: "Select risk register"
             has_cash_contribution_update:
               blank: "Select if there are any cash contribution updates"
-
+            has_volunteer_update: 
+              blank: "Select if there are any volunteer contribution updates"
+            add_another_volunteer:
+              blank: "Select if you would like to add another volunteer contribution"
         progress_update_procurement:
           attributes:
             name:
@@ -830,3 +833,13 @@ en-GB:
             no_still_a_risk_description:
               blank: "Enter actions you took to mitigate this risk"
               too_long: "Enter your actions in 50 words or fewer"
+        progress_update_volunteer:
+          attributes:
+            description:
+              blank: "Enter description of volunteer task"
+              too_long: "Description must be 50 words or fewer"
+            hours:
+              less_than: "Hours spent on task must be a number, like 4"
+              greater_than: "Hours spent on task must be a number, like 4"
+              not_a_number: "Hours spent on task must be a number, like 4"
+              blank: "Hours spent on task must be a number, like 4"

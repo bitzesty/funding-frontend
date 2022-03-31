@@ -12,6 +12,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_new_expiry_date, dependent: :destroy
   has_many :progress_update_risk_register, dependent: :destroy
   has_many :progress_update_risk, dependent: :destroy
+  has_many :progress_update_volunteer, dependent: :destroy
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
@@ -22,7 +23,7 @@ class ProgressUpdate < ApplicationRecord
   accepts_nested_attributes_for :progress_update_statutory_permissions_licence
   accepts_nested_attributes_for :progress_update_risk_register
   accepts_nested_attributes_for :progress_update_risk
-
+  accepts_nested_attributes_for :progress_update_volunteer
 
   attr_accessor :validate_has_upload_photo
   attr_accessor :validate_progress_update_photo
@@ -50,6 +51,9 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :validate_progress_update_risk_register
   attr_accessor :validate_add_another_risk
   attr_accessor :validate_has_cash_contribution_update
+  attr_accessor :validate_has_volunteer_update
+  attr_accessor :validate_progress_update_volunteer
+  attr_accessor :validate_add_another_volunteer
 
   attr_accessor :has_upload_photos
   attr_accessor :has_upload_events
@@ -64,6 +68,8 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :has_risk_register
   attr_accessor :add_another_risk
   attr_accessor :has_cash_contribution_update
+  attr_accessor :has_volunteer_update
+  attr_accessor :add_another_volunteer
 
   validates :has_upload_photos, presence: true, if: :validate_has_upload_photo?
   validates :progress_update_photo, presence: true, if: :validate_progress_update_photo?
@@ -98,6 +104,11 @@ class ProgressUpdate < ApplicationRecord
   validates :progress_update_risk_register, presence: true, if: :validate_progress_update_risk_register?
   validates :add_another_risk, presence: true, if: :validate_add_another_risk?
   validates :has_cash_contribution_update, presence: true, if: :validate_has_cash_contribution_update?
+  
+  validates :has_volunteer_update, presence: true,  if: :validate_has_volunteer_update
+  validates :progress_update_volunteer, presence: true, if: :validate_progress_update_volunteer?
+  validates_associated :progress_update_volunteer, if: :validate_progress_update_volunteer?
+  validates :add_another_volunteer, presence: true, if: :validate_add_another_volunteer?
 
   def validate_has_upload_photo?
     validate_has_upload_photo == true
@@ -173,6 +184,14 @@ class ProgressUpdate < ApplicationRecord
 
   def validate_has_cash_contribution_update?
     validate_has_cash_contribution_update == true
+  end
+
+  def validate_progress_update_volunteer?
+    validate_progress_update_volunteer == true
+  end
+
+  def validate_add_another_volunteer?
+    validate_add_another_volunteer == true
   end
 
 end
