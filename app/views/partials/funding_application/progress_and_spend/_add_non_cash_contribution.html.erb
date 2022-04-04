@@ -1,0 +1,122 @@
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: non_cash_contribution,
+      first_form_element: :description
+    }
+  ) if non_cash_contribution.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_add_edit.page_caption') %>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+      <%= t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_add_edit.page_heading') %>
+		</h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+  <%= 
+		form_with model: non_cash_contribution,
+		url: path,
+		method: :post,
+		local: true do |f|
+	%>
+
+    <div class="govuk-character-count" data-module="govuk-character-count"
+        data-maxwords="50">
+
+      <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        non_cash_contribution.errors['description'].any?}" %>">
+
+        <%=
+          f.label :description,
+          t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_add_edit.description'),
+          class: "govuk-heading-s"
+        %>
+
+        <%=
+          render partial: "partials/form_input_errors",
+          locals: {
+            form_object: non_cash_contribution,
+            input_field_id: :description
+            } if non_cash_contribution.errors['description'].any?
+        %>
+        
+        <%=
+          f.text_area :description,
+          rows: 5,
+          class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+          "#{' govuk-textarea--error' if
+              non_cash_contribution.errors['description'].any?}",
+          "aria-describedby" => "progress_update_non_cash_contribution_description-info"
+        %>
+
+        <div id="progress_update_non_cash_contribution_description-info"
+              class="govuk-hint govuk-character-count__message"
+              aria-live="polite">
+          <%= t('generic.word_count', max_words: 50) %>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="govuk-form-group govuk-!-margin-top-4  govuk-!-padding-bottom-6 <%= "govuk-form-group--error" if
+      non_cash_contribution.errors['value'].any? %>">
+
+      <%=
+        f.label :value,
+        t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_add_edit.amount'),
+        class: "govuk-heading-s"
+      %>
+
+      <div id="event-name-hint" class="govuk-hint">
+       <%= t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_add_edit.amount_hint') %>
+      </div>
+
+      <%=
+        render partial: "partials/form_input_errors",
+        locals: {
+            form_object: non_cash_contribution,
+            input_field_id: :value
+            } if non_cash_contribution.errors['value'].any?
+      %>
+
+        <div class="nlhf-currency-denote">
+
+          <div class="nlhf-currency-denote__symbol">
+            &pound;
+          </div>
+
+          <div class="nlhf-currency-denote__capture">
+             <%=
+              f.text_field :value,
+              "autocomplete" => "off",
+              class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
+                non_cash_contribution.errors['value'].any?}"
+            %>
+          </div>
+        </div>
+
+    </div>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_add_edit.save_btn'),
+          name: "save_and_continue_button"
+        )
+      )
+    %>
+
+  <%end%>
+
+</fieldset>

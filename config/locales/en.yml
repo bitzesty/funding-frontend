@@ -762,6 +762,10 @@ en-GB:
               blank: "Select if there are any volunteer contribution updates"
             add_another_volunteer:
               blank: "Select if you would like to add another volunteer contribution"
+            has_non_cash_contribution:
+              blank: "Select if there are any secured non-cash contribution updates"
+            add_another_non_cash_contribution:
+              blank: "Select if you need to add another another secured non-cash contribution"
         progress_update_procurement:
           attributes:
             name:
@@ -843,3 +847,13 @@ en-GB:
               greater_than: "Hours spent on task must be a number, like 4"
               not_a_number: "Hours spent on task must be a number, like 4"
               blank: "Hours spent on task must be a number, like 4"
+        progress_update_non_cash_contribution:
+          attributes:
+            description:
+              blank: "Enter description of non cash contribution"
+              too_long: "Description must be 50 words or fewer"
+            value:
+              less_than: "Amount entered is too large"
+              greater_than: "Hours spent on task must be a number, like 100"
+              not_a_number: "Hours spent on task must be a number, like 100"
+              blank: "Hours spent on task must be a number, like 100"

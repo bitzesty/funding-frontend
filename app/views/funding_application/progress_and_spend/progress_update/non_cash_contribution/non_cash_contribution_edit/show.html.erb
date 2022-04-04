@@ -1,0 +1,17 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_add_edit.edit_page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/funding_application/progress_and_spend/add_non_cash_contribution',
+    locals: {
+      non_cash_contribution: @non_cash_contribution,
+      path: funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_edit_path()
+    }
+  ) 
+%>

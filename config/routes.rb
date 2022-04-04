@@ -432,8 +432,23 @@ Rails.application.routes.draw do
 
               get 'non-cash-contribution-question', to: 'non_cash_contribution_question#show'
               post 'non-cash-contribution-question', to: 'non_cash_contribution_question#update'
+              get 'non-cash-contribution-add', to: 'non_cash_contribution_add#show'
+              post 'non-cash-contribution-add', to: 'non_cash_contribution_add#update'
+              get 'non-cash-contribution-summary', to: 'non_cash_contribution_summary#show'
+              post 'non-cash-contribution-summary', to: 'non_cash_contribution_summary#update'
+              delete 'non-cash-contribution-summary/:non_cash_contribution_id',
+                to: 'non_cash_contribution_summary#delete',
+                as: :non_cash_contribution_delete
+
+              scope '/:non_cash_contribution_id' do
+                get 'non-cash-contribution-edit', to: 'non_cash_contribution_edit#show'
+                post 'non-cash-contribution-edit', to: 'non_cash_contribution_edit#update'
+              end
 
             end
+
+            get 'check-your-answers', to: 'check_your_answers#show'
+            post 'check-your-answers', to: 'check_your_answers#update'
 
           end
 

@@ -1,0 +1,14 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      non_cash_contribution:
+        non_cash_contribution_add_edit:
+          add_page_title: "Add non cash contribution contribution"
+          edit_page_title: "Edit non cash contribution contribution"
+          page_heading: "Add a secured non-cash contribution"
+          page_caption: "Tell us how the project is going"
+          description: "Description of secured non-cash contribution"
+          amount: "Value of secured non-cash contribution"
+          amount_hint: "Round to nearest pound"
+          save_btn: "Add non-cash contribution"
+          

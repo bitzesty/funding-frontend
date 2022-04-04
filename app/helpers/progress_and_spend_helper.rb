@@ -151,5 +151,32 @@ module ProgressAndSpendHelper
       render :show
     end
   end
+
+
+  # updates a given non_cash_contribution, afirms validation
+  # and redirects to summary page if valid
+  # or re-renders page to show validation errors
+  #
+  # @params [ProgressUpdateNonCashContribution] non_cash_contribution
+  # @params [FundingAppplication] funding_app
+  def update_validate_redirect_non_cash_contribution(non_cash_contribution, funding_app)
+    non_cash_contribution.update(params.require(:progress_update_non_cash_contribution).permit(
+        :id,
+        :description,
+        :value
+      )
+    )
+
+    if non_cash_contribution.valid?
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_summary_path(
+            progress_update_id:
+              funding_app.arrears_journey_tracker.progress_update.id
+        )
+      )
+    else
+      render :show
+    end
+  end
   
 end

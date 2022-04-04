@@ -1,0 +1,14 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      non_cash_contribution:
+        non_cash_contributions_summary:
+          page_title: "Non cash contribution summary"
+          page_heading_one_non_cash_contribution: "You have added 1 non cash contribution"
+          page_heading: "You have added %{non_cash_contribution_num} non cash contributions"
+          page_caption: "Tell us how the project is going"
+          change_button: "Change"
+          remove_button: "Remove"
+          add_another_non_cash_contribution_heading: "Do you need to add another secured non-cash contribution?"
+          yes_radio: "Yes, I need to add another secured non-cash contribution"
+          no_radio: "No, I do not need to add another secured non-cash contribution"

@@ -13,6 +13,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_risk_register, dependent: :destroy
   has_many :progress_update_risk, dependent: :destroy
   has_many :progress_update_volunteer, dependent: :destroy
+  has_many :progress_update_non_cash_contribution, dependent: :destroy
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
@@ -24,6 +25,7 @@ class ProgressUpdate < ApplicationRecord
   accepts_nested_attributes_for :progress_update_risk_register
   accepts_nested_attributes_for :progress_update_risk
   accepts_nested_attributes_for :progress_update_volunteer
+  accepts_nested_attributes_for :progress_update_non_cash_contribution
 
   attr_accessor :validate_has_upload_photo
   attr_accessor :validate_progress_update_photo
@@ -54,6 +56,10 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :validate_has_volunteer_update
   attr_accessor :validate_progress_update_volunteer
   attr_accessor :validate_add_another_volunteer
+  attr_accessor :validate_has_non_cash_contribution
+  attr_accessor :validate_add_another_non_cash_contribution
+  attr_accessor :validate_add_another_non_cash_contribution
+
 
   attr_accessor :has_upload_photos
   attr_accessor :has_upload_events
@@ -70,6 +76,8 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :has_cash_contribution_update
   attr_accessor :has_volunteer_update
   attr_accessor :add_another_volunteer
+  attr_accessor :has_non_cash_contribution
+  attr_accessor :add_another_non_cash_contribution
 
   validates :has_upload_photos, presence: true, if: :validate_has_upload_photo?
   validates :progress_update_photo, presence: true, if: :validate_progress_update_photo?
@@ -109,6 +117,11 @@ class ProgressUpdate < ApplicationRecord
   validates :progress_update_volunteer, presence: true, if: :validate_progress_update_volunteer?
   validates_associated :progress_update_volunteer, if: :validate_progress_update_volunteer?
   validates :add_another_volunteer, presence: true, if: :validate_add_another_volunteer?
+
+  validates :has_non_cash_contribution, presence: true, if: :validate_has_non_cash_contribution?
+  validates :progress_update_non_cash_contribution, presence: true, if: :validate_add_another_non_cash_contribution?
+  validates_associated :progress_update_non_cash_contribution, if: :validate_add_another_non_cash_contribution?
+  validates :add_another_non_cash_contribution, presence: true, if: :validate_add_another_non_cash_contribution?
 
   def validate_has_upload_photo?
     validate_has_upload_photo == true
@@ -194,4 +207,11 @@ class ProgressUpdate < ApplicationRecord
     validate_add_another_volunteer == true
   end
 
+  def validate_has_non_cash_contribution?
+    validate_has_non_cash_contribution == true
+  end
+
+  def validate_add_another_non_cash_contribution?
+    validate_add_another_non_cash_contribution == true
+  end
 end
