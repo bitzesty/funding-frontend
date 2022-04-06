@@ -758,10 +758,14 @@ en-GB:
               blank: "Select risk register"
             has_cash_contribution_update:
               blank: "Select if there are any cash contribution updates"
+            add_another_risk:
+              blank: "Select if you need to add another risk update"
             has_volunteer_update: 
               blank: "Select if there are any volunteer contribution updates"
             add_another_volunteer:
               blank: "Select if you would like to add another volunteer contribution"
+            cash_contribution_selected:
+              blank: "Select the cash contribution you want to update"
             has_non_cash_contribution:
               blank: "Select if there are any secured non-cash contribution updates"
             add_another_non_cash_contribution:
@@ -847,6 +851,34 @@ en-GB:
               greater_than: "Hours spent on task must be a number, like 4"
               not_a_number: "Hours spent on task must be a number, like 4"
               blank: "Hours spent on task must be a number, like 4"
+        progress_update_cash_contribution:
+          attributes:
+            received_amount_expected:
+              inclusion: "Select if you have received the total amount expected"
+            will_receive_amount_expected:
+              inclusion: "Select if you will receive the total amount expected"
+            amount_received_so_far:
+              blank: "Enter amount received so far"
+              greater_than: "Enter an amount of zero or greater"
+              less_than: "Enter an amount less than 2147483648"
+              not_a_number: "Amount must be a number, like 1000"
+            date_day:
+              not_a_number: "Enter the day"
+              greater_than: "A day value cannot be less than 1"
+              less_than: "A day value cannot exceed 31"
+            date_month:
+              not_a_number: "Enter the month"
+              greater_than: "A month value cannot be less than 1"
+              less_than: "A month value cannot exceed 12"
+            date_year:
+              not_a_number: "Enter the year"
+              greater_than: "Enter a year of 1700 or more"
+              less_than: "Enter a year of less than 4000"
+            date_amount_received:
+              invalid: "Enter a valid date for when you expect to receive the total amount"
+            reason_amount_expected_not_received:
+              blank: "Enter details why you will not receive the total amount expected"
+              too_long: "Explanation must be 50 words or fewer"
         progress_update_non_cash_contribution:
           attributes:
             description:

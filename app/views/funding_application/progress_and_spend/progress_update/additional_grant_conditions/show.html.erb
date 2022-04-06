@@ -32,15 +32,6 @@
 			<%= t('progress_and_spend.progress_update.additional_grant_conditions.page_heading')%>
 		</h1>
 
-    <%=
-      render(
-        partial: 'partials/form_group_errors',
-        locals: {
-          form_object: @funding_application.arrears_journey_tracker.progress_update
-        }
-      ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
-    %>
-
 	</legend>
 
   <%= 
@@ -55,6 +46,16 @@
     	<p>
         <%= t('generic.select_all_that_apply')%>
       </p>
+
+      <%=
+        render(
+          partial: 'partials/form_group_errors',
+          locals: {
+            form_object: @funding_application.arrears_journey_tracker.progress_update
+          }
+        ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+      %>
+
 
       <%=
         form.fields_for :progress_update_additional_grant_condition, @funding_application.arrears_journey_tracker.progress_update.progress_update_additional_grant_condition do |adc|

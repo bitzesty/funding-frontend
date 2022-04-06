@@ -1,0 +1,271 @@
+<fieldset class="govuk-fieldset">
+
+  <%=
+    render partial: "partials/page_title",
+          locals: {
+              model_object: @cash_contribution,
+              page_title: t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.page_title')
+          }
+  %>
+
+  <%=
+    render(
+        partial: 'partials/summary_errors',
+        locals: {
+          form_object:
+            @cash_contribution,
+            first_form_element: :progress_update_cash_contribution_will_receive_amount_expected_true
+        }
+      ) if @cash_contribution.errors.any?
+  %>
+
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_future.page_caption') %>
+		</span>
+
+		<h1 class="govuk-heading-l">
+      <%=
+        t('progress_and_spend.progress_update.cash_contribution.cash_contribution_future.page_heading')
+      %>
+		</h1>
+
+    <h3 class="govuk-heading-s">
+      <%= @cash_contribution.display_text %>
+    </h3>
+
+	</legend>
+
+  <%=
+    form_with model: @cash_contribution,
+    url: funding_application_progress_and_spend_progress_update_cash_contribution_cash_contribution_future_path,
+    method: :post,
+    local: true do |f|
+  %>
+
+    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+      <div class="govuk-form-group <%= "govuk-form-group--error" if
+        @cash_contribution.errors.any? %>">
+
+        <h3 class="govuk-heading-s">
+          <%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_future.will_you_receive') %>
+        </h3>
+
+        <%=
+          render(
+            partial: 'partials/form_input_errors',
+            locals: {
+              form_object: @cash_contribution,
+              input_field_id: :will_receive_amount_expected
+            }
+          ) if @cash_contribution.errors.any?
+        %>
+
+      <div id="form-group-errors"></div>
+
+      <div class="govuk-radios__item ">
+
+        <%=
+          f.radio_button :will_receive_amount_expected,
+          true,
+          class: "govuk-radios__input",
+          "data-aria-controls" => "conditional-will_receive_amount_expected"
+        %>
+
+        <%=
+          f.label :will_receive_amount_expected_true,
+          t('progress_and_spend.progress_update.cash_contribution.cash_contribution_future.radio_yes'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+        <%# date fields start %>
+        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+          id="conditional-will_receive_amount_expected">
+
+          <div class="govuk-date-input <%= "#{'govuk-form-group--error' if
+              @cash_contribution.errors.any? { | er | [:date_day, :date_month, :date_year].include? er.attribute } }" %>" id="date-amount-received">
+
+            <p class="govuk-body govuk-!-padding-top-4">
+              <%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_future.when_do_you_expect')%>
+            </p>
+
+            <% @cash_contribution.errors.each do |error| %>
+              <% if "date".in? error.attribute.to_s  %>
+
+                <span id="user[<%= error.attribute %>]-error" class="govuk-error-message">
+
+                  <span class="govuk-visually-hidden">
+                    <%= t('details.error') %>
+                  </span> <%= error.message %>
+
+                </span>
+              <% end %>
+
+            <% end %>
+
+            <% date_css = "govuk-input govuk-date-input__input govuk-input--width-2" %>
+            <% date_year_css = "govuk-input govuk-date-input__input govuk-input--width-4" %>
+            <% date_error_css = "govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" %>
+            <% date_year_error_css = "govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error" %>
+
+            <div class="govuk-date-input" id="date-amount-received">
+
+              <div class="govuk-date-input__item">
+
+                <div class="govuk-form-group">
+
+                  <%=
+                    f.label :date_day,
+                    t('dates.day'),
+                    class: 'govuk-label govuk-date-input__label'
+                  %>
+                  <%=
+                    f.number_field :date_day,
+                    class: @cash_contribution.errors[:date_day].any? ||
+                      @cash_contribution.errors.first&.attribute.to_s.include?('date_amount_received') ?
+                        date_error_css : date_css,
+                    'aria-describedby' => 'date_hint'
+                  %>
+
+                </div>
+
+              </div>
+
+              <div class="govuk-date-input__item">
+
+                <div class="govuk-form-group">
+
+                  <%=
+                    f.label :date_month,
+                    t('dates.month'),
+                    class: 'govuk-label govuk-date-input__label'
+                  %>
+
+                  <%=
+                    f.number_field :date_month,
+                    class: @cash_contribution.errors[:date_month].any? ||
+                      @cash_contribution.errors.first&.attribute.to_s.include?('date_amount_received') ?
+                        date_error_css : date_css,
+                    'aria-describedby' => 'date_hint'
+                  %>
+
+                </div>
+
+              </div>
+
+              <div class="govuk-date-input__item">
+
+                <div class="govuk-form-group">
+
+                  <%=
+                    f.label :date_year,
+                    t('dates.year'),
+                    class: 'govuk-label govuk-date-input__label'
+                  %>
+                  <%=
+                    f.number_field :date_year,
+                    class: @cash_contribution.errors[:date_year].any? ||
+                      @cash_contribution.errors.first&.attribute.to_s.include?('date_amount_received') ?
+                        date_year_error_css : date_year_css,
+                    'aria-describedby' => 'date_hint'
+                  %>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <%# date fields end %>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          f.radio_button :will_receive_amount_expected,
+          false,
+          class: "govuk-radios__input",
+          "data-aria-controls" => "conditional-not_will_receive_amount_expected"
+        %>
+
+        <%=
+          f.label :will_receive_amount_expected_false,
+          t('progress_and_spend.progress_update.cash_contribution.cash_contribution_future.radio_no'),
+          class: "govuk-label govuk-radios__label govuk-!-padding-bottom-4"
+        %>
+
+        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+          id="conditional-not_will_receive_amount_expected">
+          <div class="govuk-form-group" id="not-will_receive_amount_expected-form-group-main">
+
+            <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+              @cash_contribution.errors['will_receive_amount_expected'].any?}" %>">
+
+              <div class="govuk-character-count" data-module="govuk-character-count"
+                  data-maxwords="50">
+
+                <%=
+                  render partial: "partials/form_input_errors",
+                  locals: {
+                    form_object: @cash_contribution,
+                    input_field_id: :reason_amount_expected_not_received
+                    } if @cash_contribution.errors['reason_amount_expected_not_received'].any?
+                %>
+
+                <p class="govuk-body">
+                  <%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_future.explain_briefly') %>
+                </p>
+
+                <p class="govuk-body">
+                  <%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_future.for_example') %>
+                </p>
+
+                <%=
+                  f.text_area :reason_amount_expected_not_received,
+                  rows: 5,
+                  class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+                  "#{' govuk-textarea--error' if
+                    @cash_contribution.errors['reason_amount_expected_not_received'].any?}",
+                  "aria-describedby" => "progress_update_cash_contribution_reason_amount_expected_not_received-info"
+                %>
+
+                <div id="progress_update_cash_contribution_reason_amount_expected_not_received-info"
+                    class="govuk-hint govuk-character-count__message"
+                    aria-live="polite">
+                  <%= t('generic.word_count', max_words: 50) %>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+    %>
+
+  <%end%>
+
+</fieldset>

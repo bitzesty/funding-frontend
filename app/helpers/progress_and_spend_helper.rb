@@ -1,5 +1,6 @@
 module ProgressAndSpendHelper
   include SalesforceApi
+  include ProgressUpdateSalesforceApi
 
   # Method responsible for orchestrating the retrieval of
   # additional grant conditions from Salesforce
@@ -126,7 +127,141 @@ module ProgressAndSpendHelper
 
   end
 
-  # updates a given volunteer, afirms validation
+  # Retrieves medium cash contributions from Salesforce
+  # Only suited for for medium application < 250001 at the moment and
+  # returns Description_for_cash_contributions__c for display.
+  # 
+  # Large applications will require a new function that
+  # returns 'source of funding' for display to the applicant
+  #
+  # @param [FundingApplication] funding_application
+  # @return [<Restforce::SObject] restforce_cash_contributions
+  def salesforce_medium_cash_contributions(funding_application)
+
+    client = SalesforceApiClient.new
+
+    case_id = funding_application.salesforce_case_id
+
+    restforce_cash_contributions =
+      client.cash_contributions \
+        (funding_application.salesforce_case_id)
+
+  end
+
+  # Used by cash_contribution controllers to direct the journey
+  # based on values in answers_json
+  #
+  # Loops through cash_contributions stored in answers_json to see what
+  # to update. If it finds an unfinished cash contribution it finds/creates
+  # the cash contribution object, then redirects to a page
+  # to enter updates for that cash contribution.
+  # When all the cash contributions are marked as finished, redirects to
+  # to the path for volunteers.
+  #
+  # 'record' in the iterator is an array containing the salesforce id
+  # of the cash contribution at [0] and a hash at [1]
+  #
+  # @param [String] answers_json JSON string containing journey state
+  def medium_cash_contribution_redirector(answers_json)
+
+    client = ProgressUpdateSalesforceApiClient.new
+
+    next_cash_contribution_id = nil
+
+    answers_json['cash_contribution']['records']. each do |record|
+
+      # record is an array containing a salesforce id at [0] nested hash.  
+      # and a hash of data about the record at [1]
+      if (record[1]['selected_for_update'] == 'true') && \
+        (record[1]['update_finished'] == false)
+
+        salesforce_income =
+          client.get_medium_cash_contribution(record[0]).first
+
+        cash_contribution = get_cash_contribution(record[0])
+
+        # Not a bug. Salesforce stores amount expected in
+        # Amount_you_have_received__c
+        cash_contribution.amount_expected =
+          salesforce_income.Amount_you_have_received__c
+
+        cash_contribution.display_text =
+          salesforce_income.Description_for_cash_contributions__c
+
+        cash_contribution.save!
+
+        # update this cash_contribution next, unless one chosen
+        next_cash_contribution_id = cash_contribution.id unless \
+          next_cash_contribution_id.present?
+
+      end
+
+    end
+
+    # if we have found/built something redirect to that cc page
+    if next_cash_contribution_id.present?
+
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_cash_contribution_cash_contribution_now_path(
+            progress_update_id:
+              @funding_application.arrears_journey_tracker.progress_update.id,
+            cash_contribution_id: next_cash_contribution_id
+
+        )
+      )
+
+    else
+      # All selected cash contributions have been addressed, go to volunteers page
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_volunteer_volunteer_question_path(
+            progress_update_id:
+              @funding_application.arrears_journey_tracker.progress_update.id
+        )
+      )
+    end
+
+  end
+
+  # Uses salesforce_project_income_id to retrieve an existing
+  # CashContribution instance, if found.  Otherwise
+  # Creates a new CashContribution instance.
+  #
+  # @param [String] salesforce_project_income_id Ref for a project_income
+  #                                               record on salesforce
+  # @return [ProjectUpdateCashContribution] 
+  def get_cash_contribution(salesforce_project_income_id)
+
+    cash_contribution = @funding_application.arrears_journey_tracker.\
+      progress_update.progress_update_cash_contribution.find_by(
+        salesforce_project_income_id: salesforce_project_income_id
+      )
+
+    if cash_contribution.nil?
+      cash_contribution =
+        @funding_application.arrears_journey_tracker.progress_update.\
+          progress_update_cash_contribution.build
+
+      cash_contribution.salesforce_project_income_id = \
+        salesforce_project_income_id
+    end
+
+    cash_contribution
+
+  end
+
+  # Updates answers_json to indicate that a cash contribution
+  # update has been completed.
+  # 
+  # @params [progress_update] answers_json Json containing journey answers
+  # @params [String] salesforce_id Used to match against the jsonb key
+  def set_cash_contribution_update_as_finished(progress_update, salesforce_id)
+
+    progress_update.answers_json['cash_contribution']['records'][salesforce_id]['update_finished'] = true
+    progress_update.save
+
+  end
+
+  # updates a given volunteer, affirms validation
   # and redirects to summary page if valid
   # or re-renders page to show validation errors
   #
@@ -150,6 +285,18 @@ module ProgressAndSpendHelper
     else
       render :show
     end
+  end
+
+  # Method to find the number of cash contributions for a project.
+  #
+  # @param [String] id A Project Id reference known to Salesforce
+  # @return [Integer] count.  Number of cash contributions found
+  def get_cash_contribution_count(salesforce_case_id)
+
+    client = ProgressUpdateSalesforceApiClient.new
+
+    count = client.cash_contribution_count(salesforce_case_id)
+
   end
 
 

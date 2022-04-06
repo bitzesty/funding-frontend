@@ -405,6 +405,13 @@ Rails.application.routes.draw do
               get 'cash-contribution-select', to: 'cash_contribution_select#show'
               post 'cash-contribution-select', to: 'cash_contribution_select#update'
 
+              scope '/:cash_contribution_id' do
+                get 'cash-contribution-now', to: 'cash_contribution_now#show'
+                post 'cash-contribution-now', to: 'cash_contribution_now#update'
+                get 'cash-contribution-future', to: 'cash_contribution_future#show'
+                post 'cash-contribution-future', to: 'cash_contribution_future#update'
+              end
+
             end
 
             scope 'volunteer', module: 'volunteer', as: 'volunteer' do

@@ -1144,7 +1144,7 @@
 
       begin
         result = 
-          @client.query_all("SELECT Description_for_cash_contributions__c, " \
+          @client.query("SELECT Id, Description_for_cash_contributions__c, " \
             "Amount_you_have_received__c, " \
               "Secured_non_cash_contributions__c, Secured__c " \
                 "FROM Project_Income__c " \

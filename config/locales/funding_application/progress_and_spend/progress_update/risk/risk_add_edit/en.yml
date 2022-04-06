@@ -14,6 +14,8 @@ en-GB:
           radio_medium: "Medium"
           radio_high: "High"
           is_this_still_a_risk: "Is this still a risk?"
+          radio_yes: "Yes, this is still a risk"
+          radio_no: "No, this is not a risk anymore"
           will_action: "What actions will you take to mitigate this risk?"
           did_action: "What actions did you take to mitigate this risk?"
           add_risk: "Add risk"

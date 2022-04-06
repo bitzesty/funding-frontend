@@ -1,9 +1,34 @@
 class FundingApplication::ProgressAndSpend::ProgressUpdate::\
   CashContribution::CashContributionQuestionController < ApplicationController
   include FundingApplicationContext
+  include ProgressAndSpendHelper
 
   def show()
-    initialise_form_vars
+
+    # Runs a quick salesforce query to check for cash contributions
+    if get_cash_contribution_count(@funding_application.salesforce_case_id) > 0
+
+      initialise_form_vars
+
+    else
+
+      # No cash contributions found.  Choose a 'No' answer and skip section
+      logger.info(
+        "No cash contributions found for funding application id " \
+          " #{@funding_application.id}"
+      )
+
+      update_json(progress_update.answers_json, false)
+
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_volunteer_volunteer_question_path(
+            progress_update_id:
+              @funding_application.arrears_journey_tracker.progress_update.id
+        )
+      )
+
+    end
+    
   end
 
   def update()

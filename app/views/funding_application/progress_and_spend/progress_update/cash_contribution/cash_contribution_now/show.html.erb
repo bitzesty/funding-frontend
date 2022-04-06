@@ -1,0 +1,173 @@
+<fieldset class="govuk-fieldset">
+
+<%=
+  render partial: "partials/page_title",
+         locals: {
+            model_object: @cash_contribution,
+            page_title: t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.page_title')
+         }
+%>
+
+<%=
+  render(
+      partial: 'partials/summary_errors',
+      locals: {
+        form_object:
+          @cash_contribution,
+          first_form_element: :progress_update_cash_contribution_received_amount_expected_true
+      }
+    ) if @cash_contribution.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.page_caption') %>
+		</span>
+
+		<h1 class="govuk-heading-l">
+      <%=
+        t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.page_heading')
+      %>
+		</h1>
+
+    <h3 class="govuk-heading-s">
+      <%= @cash_contribution.display_text %>
+    </h3>
+
+    <h3 class="govuk-heading-s">
+      <%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.amount_expected') %>
+      £<%= @cash_contribution.amount_expected %>
+    </h3>
+
+	</legend>
+
+  <%=
+    form_with model: @cash_contribution,
+    url: funding_application_progress_and_spend_progress_update_cash_contribution_cash_contribution_now_path,
+    method: :post,
+    local: true do |f|
+  %>
+
+    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+      <div class="govuk-form-group <%= "govuk-form-group--error" if
+        @cash_contribution.errors.any? %>">
+
+        <h3 class="govuk-heading-s">
+          <%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.have_you_received') %>
+        </h3>
+
+        <%=
+          render(
+            partial: 'partials/form_input_errors',
+            locals: {
+              form_object: @cash_contribution,
+              input_field_id: :received_amount_expected
+            }
+          ) if @cash_contribution.errors.any?
+        %>
+
+      <div id="form-group-errors"></div>
+
+      <div class="govuk-radios__item ">
+
+        <%=
+          f.radio_button :received_amount_expected,
+          true,
+          class: "govuk-radios__input"
+        %>
+
+        <%=
+          f.label :received_amount_expected_true,
+          t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.radio_yes'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          f.radio_button :received_amount_expected,
+          false,
+          class: "govuk-radios__input",
+          "data-aria-controls" => "conditional-not_received_amount_expected"
+        %>
+
+        <%=
+          f.label :received_amount_expected_false,
+          t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.radio_no'),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+          id="conditional-not_received_amount_expected">
+          <div class="govuk-form-group" id="not=received_amount_expected-form-group-main">
+
+            <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+              @cash_contribution.errors['received_amount_expected'].any?}" %>">
+
+              <div class="govuk-character-count" data-module="govuk-character-count"
+                  data-maxwords="300">
+
+                <%=
+                  render partial: "partials/form_input_errors",
+                  locals: {
+                    form_object: @cash_contribution,
+                    input_field_id: :amount_received_so_far
+                    } if @cash_contribution.errors['amount_received_so_far'].any?
+                %>
+
+                <%=
+                  f.label :amount_received_so_far,
+                  t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.amount_so_far'),
+                  class: "govuk-label govuk-!-margin-top-4"
+                %>
+
+                <div class="nlhf-currency-denote">
+
+                  <div class="nlhf-currency-denote__symbol">
+                    &pound;
+                  </div>
+
+                  <div class="nlhf-currency-denote__capture">
+
+                    <%=
+                      f.text_field :amount_received_so_far,
+                      "autocomplete" => "off",
+                      class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
+                        @cash_contribution.errors['amount_received_so_far'].any?}"
+                    %>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+    %>
+
+  <%end%>
+
+</fieldset>

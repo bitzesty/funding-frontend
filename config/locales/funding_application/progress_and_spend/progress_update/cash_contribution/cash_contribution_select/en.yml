@@ -1,0 +1,8 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      cash_contribution:
+        cash_contribution_select:
+          page_title: "Cash contribution "
+          page_heading: "Select the cash contribution that you want to update"
+          page_caption: "Tell us how the project is going"

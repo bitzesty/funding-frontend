@@ -63,7 +63,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
     # If supplied info valid, create a date object from it
     # then include that date in the supplied params for later update.
     #
-    # @params [NewExpiryDate] expiry_date 
+    # @params [ProgressUpdateNewExpiryDate] expiry_date
     # @params [ActionController::Parameters] params Unfiltered params
     def assign_complete_date_param(expiry_date, params)
 
@@ -92,9 +92,9 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
       full_date = new_expiry_date&.full_date
 
       if full_date.present?
-        @new_expiry_date.date_day = full_date.day
-        @new_expiry_date.date_month = full_date.month
-        @new_expiry_date.date_year = full_date.year
+        new_expiry_date.date_day = full_date.day
+        new_expiry_date.date_month = full_date.month
+        new_expiry_date.date_year = full_date.year
       end
 
     end

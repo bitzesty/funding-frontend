@@ -1,1 +1,100 @@
-ccs
+<%=
+  render partial: "partials/page_title",
+         locals: {
+            model_object: @funding_application,
+            page_title: t('progress_and_spend.progress_update.cash_contribution.cash_contribution_select.page_title')
+         }
+%>
+
+<%=
+  render(
+      partial: 'partials/summary_errors',
+      locals: {
+        form_object: 
+          @funding_application.arrears_journey_tracker.progress_update,
+          first_form_element: @first_form_element
+      }
+    ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_select.page_caption') %>
+		</span>
+
+		<h1 class="govuk-heading-l">
+      <%=
+        t(
+          'progress_and_spend.progress_update.cash_contribution.cash_contribution_select.page_heading'
+        )
+      %>
+		</h1>
+
+	</legend>
+
+  <%= 
+    form_with model: @funding_application.arrears_journey_tracker.progress_update,
+    url: funding_application_progress_and_spend_progress_update_cash_contribution_cash_contribution_select_path(),
+    method: :post,
+    local: true do |f|
+  %>
+
+    <div class="govuk-form-group <%= "govuk-form-group--error" if 
+      @funding_application.arrears_journey_tracker.progress_update.errors.any? %>">
+
+      <p>
+        <%= t('generic.select_all_that_apply')%>
+      </p>
+
+      <%=
+        render(
+          partial: 'partials/form_group_errors',
+          locals: {
+            form_object: @funding_application.arrears_journey_tracker.progress_update
+          }
+        ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+      %>
+
+      <%
+        @cc_desc.each do |description|
+      %>
+
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+          <div class="govuk-checkboxes__item  govuk-!-margin-bottom-4">
+
+            <%=
+              f.check_box description[:id],
+              {
+                class: "govuk-checkboxes__input",
+              },
+              'true', 
+              'false'
+            %>
+
+            <%=
+              f.label description[:id],
+              description[:description],
+              class: "govuk-label govuk-checkboxes__label"
+            %>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+    <%= render(
+        ButtonComponent.new(
+          element: "button",
+          text: t("buttons.labels.save_and_continue")
+        )
+      ) 
+    %>
+
+  <% end %>
+</fieldset>

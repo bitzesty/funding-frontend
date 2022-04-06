@@ -1,0 +1,14 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      cash_contribution:
+        cash_contribution_future:
+          page_title: "Cash contribution update"
+          page_heading: "Cash contribution update"
+          page_caption: "Tell us how the project is going"
+          will_you_receive: "Will you receive the total amount expected?"
+          radio_yes: "Yes, I will receive the total amount"
+          radio_no: "No, I will not receive the total amount yet"
+          when_do_you_expect: "When do you expect to receive the total amount?"
+          explain_briefly: "Explain briefly why you will not be receiving the total amount."
+          for_example: "For example, if the funder has decided to reduce the amount that they can contribute."

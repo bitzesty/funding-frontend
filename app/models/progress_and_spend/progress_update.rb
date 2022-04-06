@@ -13,6 +13,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_risk_register, dependent: :destroy
   has_many :progress_update_risk, dependent: :destroy
   has_many :progress_update_volunteer, dependent: :destroy
+  has_many :progress_update_cash_contribution, dependent: :destroy
   has_many :progress_update_non_cash_contribution, dependent: :destroy
 
   accepts_nested_attributes_for :progress_update_photo
@@ -56,6 +57,7 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :validate_has_volunteer_update
   attr_accessor :validate_progress_update_volunteer
   attr_accessor :validate_add_another_volunteer
+  attr_accessor :validate_cash_contribution_selected
   attr_accessor :validate_has_non_cash_contribution
   attr_accessor :validate_add_another_non_cash_contribution
   attr_accessor :validate_add_another_non_cash_contribution
@@ -76,6 +78,7 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :has_cash_contribution_update
   attr_accessor :has_volunteer_update
   attr_accessor :add_another_volunteer
+  attr_accessor :cash_contribution_selected
   attr_accessor :has_non_cash_contribution
   attr_accessor :add_another_non_cash_contribution
 
@@ -117,6 +120,7 @@ class ProgressUpdate < ApplicationRecord
   validates :progress_update_volunteer, presence: true, if: :validate_progress_update_volunteer?
   validates_associated :progress_update_volunteer, if: :validate_progress_update_volunteer?
   validates :add_another_volunteer, presence: true, if: :validate_add_another_volunteer?
+  validates :cash_contribution_selected, presence: true, if: :validate_cash_contribution_selected?
 
   validates :has_non_cash_contribution, presence: true, if: :validate_has_non_cash_contribution?
   validates :progress_update_non_cash_contribution, presence: true, if: :validate_add_another_non_cash_contribution?
@@ -206,6 +210,11 @@ class ProgressUpdate < ApplicationRecord
   def validate_add_another_volunteer?
     validate_add_another_volunteer == true
   end
+
+  def validate_cash_contribution_selected?
+    validate_cash_contribution_selected == true
+  end
+
 
   def validate_has_non_cash_contribution?
     validate_has_non_cash_contribution == true
