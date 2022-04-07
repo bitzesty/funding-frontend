@@ -810,9 +810,9 @@
 
     end
 
-    # Method to orchestrate creating the salesforce records needed when 
+    # Method to orchestrate creating the salesforce records needed when
     # an applicant requests a payment.
-    # creates a record for bank account, then payment request, then 
+    # Finds or creates a record for bank account, then payment request, then
     # joins the two with a junction object.
     # Finally uploads evidence of the bank account against the bank
     # account record.
@@ -826,9 +826,10 @@
       retry_number = 0
 
       begin
-        
-        salesforce_bank_account_id = \
-          upsert_bank_account_details(funding_application)
+
+        salesforce_bank_account_id = find_or_create_bank_account_details(
+          funding_application
+        )
         
         salesforce_payment_request_id = \
           upsert_payment_request_details(funding_application, payment_request)
@@ -2909,6 +2910,91 @@
         "organisation id #{organisation.id}") if account_salesforce_id.nil?
       
       account_salesforce_id
+
+    end
+
+    # Orchestrates getting a Bank Account record Id from Salesforce
+    #
+    # 1. Checks for an existing account for the organisation, by matching
+    # account/sort-code, and also returns whether verified.
+    #
+    # 2. If a verified bank account is returned - return that Bank Account Id.
+    #
+    # 3. If an unverified account is found, or no account found, upsert
+    # and return Bank Account Id.
+    #
+    # @param [FundingApplication] funding_application
+    #                                   A FundingApplication instance
+    #
+    # @return [String] salesforce_bank_account_id The Salesforce
+    #                                   reference for the record
+    def find_or_create_bank_account_details(funding_application)
+
+      sf_bank_account = find_matching_bank_account(funding_application)
+
+      if sf_bank_account&.Verified__c
+
+        sf_bank_account_id = sf_bank_account.Id
+
+        Rails.logger.info("Bank account with Id: " \
+          "#{sf_bank_account_id} is verified for " \
+            "Organisation Id: " \
+              "#{funding_application.organisation.salesforce_account_id}"
+        )
+
+      else
+
+        sf_bank_account_id = upsert_bank_account_details(funding_application)
+
+      end
+
+      sf_bank_account_id
+
+    end
+
+    # Returns a Restforce Object if it finds a matching Bank Account
+    # If it finds no bank account, handles any error and returns nil.
+    # Returned object has an Id and Verified__c attribute.
+    #
+    # @param [FundingApplication] funding_application
+    #                                 A FundingApplication instance
+    # @return [Restforce::SObject] sf_bank_account
+    #                                 With attributes 'Id' and 'Verified__c'
+    #
+    def find_matching_bank_account(funding_application)
+
+      sf_bank_account = nil
+
+      acc_no_sort_code = \
+        funding_application.payment_details.decrypt_account_number + \
+          funding_application.payment_details.decrypt_sort_code
+
+      salesforce_account_id = \
+        funding_application.organisation.salesforce_account_id
+
+      begin
+
+        bank_account_collection_from_salesforce = \
+          @client.query("SELECT Id, Verified__c FROM Bank_Account__c " \
+            "where Account_Number_Sort_Code__c = '#{acc_no_sort_code}' " \
+              "and Organisation__c = '#{salesforce_account_id}'")
+
+        sf_bank_account = bank_account_collection_from_salesforce&.first
+
+      rescue Restforce::NotFoundError # not always thrown
+
+        Rails.logger.info("Unable to find bank account for " \
+          "Organisation: #{salesforce_account_id}"
+        )
+
+      end
+
+      Rails.logger.info("Located bank account with Id: " \
+        "#{sf_bank_account&.Id}, for Organisation: " \
+          "#{salesforce_account_id}"
+      )
+
+      sf_bank_account
 
     end
 
