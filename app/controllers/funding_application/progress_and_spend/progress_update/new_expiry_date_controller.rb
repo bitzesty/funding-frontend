@@ -13,6 +13,8 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
 
       assign_complete_date_param(@new_expiry_date, params)
 
+      @new_expiry_date.validate_description = true
+
       @new_expiry_date.update(permitted_params(params))
 
       unless @new_expiry_date.errors.any?

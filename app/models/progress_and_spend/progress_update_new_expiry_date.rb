@@ -11,7 +11,9 @@ class ProgressUpdateNewExpiryDate < ApplicationRecord
   attr_accessor :date_month
   attr_accessor :date_year
 
-  validates :description, presence: true
+  attr_accessor :validate_description
+
+  validates :description, presence: true, if: :validate_description?
 
   validates :date_day, numericality: {
     greater_than: 0,
@@ -64,6 +66,10 @@ class ProgressUpdateNewExpiryDate < ApplicationRecord
       )
     end
 
+  end
+
+  def validate_description?
+    validate_description == true
   end
 
 end
