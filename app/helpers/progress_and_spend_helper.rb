@@ -7,6 +7,8 @@ module ProgressAndSpendHelper
   #
   # @param [FundingApplication] funding_application An instance of
   #                                                 FundingApplication
+  # @return [<Restforce::SObject] additional_grant_conditions.
+  #                      A Restforce collection with query results
   def salesforce_additional_grant_conditions(funding_application)
 
     client = SalesforceApiClient.new
@@ -324,6 +326,25 @@ module ProgressAndSpendHelper
     else
       render :show
     end
+  end
+
+  # Method responsible for orchestrating the retrieval of
+  # approved purposes from Salesforce
+  #
+  # @param [FundingApplication] funding_application An instance of
+  #                                                 FundingApplication
+  # @return [<Restforce::SObject] approved_purposes.
+  #                      A Restforce collection with query results
+  def salesforce_approved_purposes(funding_application)
+
+    client = SalesforceApiClient.new
+
+    case_id = funding_application.salesforce_case_id
+
+    approved_purposes =
+      client.project_approved_purposes \
+        (funding_application.salesforce_case_id)
+
   end
   
 end

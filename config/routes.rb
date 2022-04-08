@@ -342,9 +342,6 @@ Rails.application.routes.draw do
             get 'new-staff', to: 'new_staff#show'
             post 'new-staff', to: 'new_staff#update'
 
-            get 'approved-purposes', to: 'approved_purposes#show'
-            post 'approved-purposes', to: 'approved_purposes#update'
-
             scope 'procurement', module: 'procurement', as: 'procurement' do
 
               get 'procured-goods', to: 'procured_goods#show'
@@ -456,6 +453,12 @@ Rails.application.routes.draw do
 
             get 'check-your-answers', to: 'check_your_answers#show'
             post 'check-your-answers', to: 'check_your_answers#update'
+
+            get 'approved-purposes', to: 'approved_purposes#show'
+            post 'approved-purposes', to: 'approved_purposes#update'
+
+            get 'demographic', to: 'demographic#show'
+            post 'demographic', to: 'demographic#update'
 
           end
 

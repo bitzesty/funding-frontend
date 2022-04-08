@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_01_063005) do
+ActiveRecord::Schema.define(version: 2022_04_08_071754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -540,6 +540,16 @@ ActiveRecord::Schema.define(version: 2022_04_01_063005) do
     t.index ["progress_update_id"], name: "index_prgrss_updts_addtnl_grnt_cndtns_on_progress_update_id"
   end
 
+  create_table "prgrss_updts_apprvd_prpss", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "progress_update_id"
+    t.string "progress"
+    t.string "description"
+    t.string "salesforce_approved_purpose_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["progress_update_id"], name: "index_prgrss_updts_apprvd_prpss_on_progress_update_id"
+  end
+
   create_table "prgrss_updts_csh_cntrbtns", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "progress_update_id"
     t.string "salesforce_project_income_id"
@@ -856,6 +866,7 @@ ActiveRecord::Schema.define(version: 2022_04_01_063005) do
   add_foreign_key "pre_applications", "organisations"
   add_foreign_key "pre_applications", "users"
   add_foreign_key "prgrss_updts_addtnl_grnt_cndtns", "progress_updates"
+  add_foreign_key "prgrss_updts_apprvd_prpss", "progress_updates"
   add_foreign_key "prgrss_updts_csh_cntrbtns", "progress_updates"
   add_foreign_key "prgrss_updts_events", "progress_updates"
   add_foreign_key "prgrss_updts_new_expiry_date", "progress_updates"

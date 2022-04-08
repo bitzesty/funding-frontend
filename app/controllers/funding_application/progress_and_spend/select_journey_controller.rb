@@ -49,6 +49,7 @@ include FundingApplicationContext
           progress_update.answers_json['cash_contribution'] = { 'records': {} }
           progress_update.answers_json['volunteer'] = { }
           progress_update.answers_json['non_cash_contribution'] = { }
+          progress_update.answers_json['approved_purpose'] = { }
           progress_update.save
         end
        

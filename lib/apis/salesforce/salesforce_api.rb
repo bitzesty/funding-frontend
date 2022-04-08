@@ -1213,7 +1213,7 @@
       begin
 
         result = 
-          @client.query_all("SELECT Approved_Purposes__c, Final_summery_of_achievements__c " \
+          @client.query("SELECT Id, Approved_Purposes__c, Final_summery_of_achievements__c " \
             "FROM Approved__c " \
               "where Project__c = '#{salesforce_case_id}'")  
 

@@ -59,7 +59,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
     )
   end
 
-  # Calls additional_grant_conditions() - to get each additional grant
+  # Calls salesforce_additional_grant_conditions - to get each additional grant
   # condition (aka - adc) from Salesforce.
   # It checks to see if a row for that adc has been entered on Postgres
   # already.  And if not, inserts a row for that adc, writing information

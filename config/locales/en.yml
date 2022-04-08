@@ -19,6 +19,7 @@ en-GB:
       sign_out: "Sign out"
       sign_in: "Sign in"
       your_account: "Your account"
+      update: "Update"
   generic:
     countries:
       scotland: "Scotland"
@@ -743,7 +744,7 @@ en-GB:
             add_another_procurement:
               blank: "Select if you would like to add another procurement"
             progress_update_additional_grant_condition:
-              checkbox_selection: "Select an additional grant condition to update on, or select 'I do not have an update on these yet'"
+              checkbox_selection: "Select an additional grant condition to update on, or select 'I do not have an update on this yet'"
             date_correct:
               blank: "Select if you expect to complete the project by the date specified"
             has_statutory_permissions_licence:
@@ -770,6 +771,8 @@ en-GB:
               blank: "Select if there are any secured non-cash contribution updates"
             add_another_non_cash_contribution:
               blank: "Select if you need to add another another secured non-cash contribution"
+            progress_update_approved_purpose:
+              checkbox_selection: "Select an Approved Purpose to update on, or select 'I do not have an update on these yet'"
         progress_update_procurement:
           attributes:
             name:
@@ -889,3 +892,8 @@ en-GB:
               greater_than: "Hours spent on task must be a number, like 100"
               not_a_number: "Hours spent on task must be a number, like 100"
               blank: "Hours spent on task must be a number, like 100"
+        progress_update_approved_purpose:
+          attributes:
+            progress:
+              blank: "Enter update for Approved Purpose"
+              too_long: " Description must be 300 words or fewer"

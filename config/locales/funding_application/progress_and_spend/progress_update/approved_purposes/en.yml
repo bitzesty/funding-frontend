@@ -1,0 +1,9 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      approved_purposes:
+        page_title: "Approved Purposes"
+        page_heading: "Tell us how your are achieving your Approved Purposes"
+        page_caption: "Approved Purposes and outcomes"
+        page_hint: "Approved Purposes are what we agreed to give you a grant for. Tell us about the work you have been doing so far to achieve these. This helps us to understand if, and how, the goals of the project are being met."
+        no_update_yet: "I do not have an update on these yet"
