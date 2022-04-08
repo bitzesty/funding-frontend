@@ -15,7 +15,19 @@
     <li class="nlhf-list__item nlhf-task__item">
 
       <span class="nlhf-tag-name">
-        
+
+      <% if @how_project_going_status == :completed %>
+       <%=
+          link_to(
+            'Tell us how the project is going',
+            funding_application_progress_and_spend_progress_update_check_your_answers_path(
+              progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
+            ),
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'progress-updates_check_your_answers' }
+          )
+        %>
+      <%else%> 
         <%=
           link_to(
             'Tell us how the project is going',
@@ -26,6 +38,7 @@
             aria: { describedby: 'progress-updates_photos' }
           )
         %>
+      <%end%>
 
       </span>
 
@@ -33,8 +46,8 @@
         render(
           partial: 'partials/tag_component',
           locals: {
-            colour: 'blue',
-            tag_text: t('generic.in_progress'),
+            colour:  get_tag_colour(@how_project_going_status),
+            tag_text: t("generic.#{@how_project_going_status}"),
             tag_id: 'progress-updates_photos'
           }
         )
@@ -63,8 +76,8 @@
         render(
           partial: 'partials/tag_component',
           locals: {
-            colour: 'blue',
-            tag_text: t('generic.in_progress'),
+            colour: get_tag_colour(@approved_purposes_status),
+            tag_text: t("generic.#{@approved_purposes_status}"),
             tag_id: 'approved-purposes-updates'
           }
         )
@@ -168,21 +181,3 @@
 
 
 </ul>
-
-
-<%= form_tag(
-    url: :funding_application_payment_request_start,
-    method: :post,
-    local: true
-  ) do |f| 
-%>
-
-  <%= render(
-      ButtonComponent.new(
-        element: "button",
-        text: t("buttons.labels.continue")
-      )
-    ) 
-  %>
-
-<% end %>

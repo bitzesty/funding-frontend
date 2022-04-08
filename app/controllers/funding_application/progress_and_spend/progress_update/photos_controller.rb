@@ -1,5 +1,6 @@
 class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < ApplicationController
   include FundingApplicationContext
+  include Enums::ArrearsJourneyStatus
   
     def show()
 
@@ -103,6 +104,10 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::PhotosController < A
     def save_json()
       answers_json = progress_update.answers_json
       answers_json['photos']['has_upload_photos'] = progress_update.has_upload_photos
+
+      if answers_json['journey_status']['how_project_going'] == JOURNEY_STATUS[:not_started]
+        answers_json['journey_status']['how_project_going'] = JOURNEY_STATUS[:in_progress]
+      end
 
       progress_update.answers_json = answers_json
       progress_update.save

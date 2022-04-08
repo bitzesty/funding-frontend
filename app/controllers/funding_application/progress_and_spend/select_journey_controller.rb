@@ -1,5 +1,6 @@
 class FundingApplication::ProgressAndSpend::SelectJourneyController < ApplicationController
 include FundingApplicationContext
+include Enums::ArrearsJourneyStatus
 
   def show()
   
@@ -38,6 +39,13 @@ include FundingApplicationContext
   
         if progress_update.answers_json.blank? 
           progress_update.answers_json = Hash.new 
+
+          progress_update.answers_json['journey_status'] = {}
+          progress_update.answers_json['journey_status']['approved_purposes'] \
+            = JOURNEY_STATUS[:not_started]
+          progress_update.answers_json['journey_status']['how_project_going'] \
+            = JOURNEY_STATUS[:not_started]
+
           progress_update.answers_json['photos'] = { }
           progress_update.answers_json['events'] = { }
           progress_update.answers_json['additional_grant_condition'] = { }

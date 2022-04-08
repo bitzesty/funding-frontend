@@ -1,0 +1,28 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      check_your_answers:
+        page_title: "Check your answers"
+        page_heading: "Check your answers"
+        page_caption: "Tell us how the project is going"
+        photos: "Photos"
+        activities: "Records of activities"
+        new_staff: "New Staff"
+        procured_goods:  "Goods, works or services worth £10,000 or more"
+        procured_good_evidence: "How do you want to tell us about your procurement of £10,000 or more"
+        procurements: "About procurement of £10,000 or more"
+        additional_conditions: "Additional conditions"
+        completion_date: "Complete project by %{completion_date}"
+        new_completion_date: "No, the new date is %{completion_date}"
+        new_evidence: "Any new evidence"
+        risk_update: "Update risk?"
+        risk_register: "Risk Register?"
+        about_risks: "About risk"
+        cash_contributions: "Cash contribution?"
+        about_cash_contributions: "About cash contribution?"
+        volunteer_update: "Volunteer update?"
+        about_volunteers: "About volunteers"
+        non_cash_cont: "Secured non-cash contribution update"
+        about_non_cash_cont: "About About secured non-cash contribution"
+
+     
