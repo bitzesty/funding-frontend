@@ -40,6 +40,7 @@ include FundingApplicationContext
           progress_update.answers_json = Hash.new 
           progress_update.answers_json['photos'] = { }
           progress_update.answers_json['events'] = { }
+          progress_update.answers_json['additional_grant_condition'] = { }
           progress_update.answers_json['new_staff'] = { }
           progress_update.answers_json['procurements'] = { }
           progress_update.answers_json['new_expiry_date'] = { }
@@ -62,5 +63,5 @@ include FundingApplicationContext
     end
    
   end
-
+  
 end

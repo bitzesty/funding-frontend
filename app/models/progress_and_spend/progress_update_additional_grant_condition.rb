@@ -4,7 +4,7 @@ class ProgressUpdateAdditionalGrantCondition < ApplicationRecord
   # This overrides Rails attempting to pluralise the model name
   self.table_name = 'prgrss_updts_addtnl_grnt_cndtns'
 
-  self.implicit_order_column = 'created_at'
+  self.implicit_order_column = 'description'
 
   belongs_to :progress_update, optional: true
 

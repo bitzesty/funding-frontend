@@ -7,7 +7,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_new_staff, dependent: :destroy
   has_many :progress_update_procurement_evidence, dependent: :destroy
   has_many :progress_update_procurement, dependent: :destroy
-  has_many :progress_update_additional_grant_condition, dependent: :destroy
+  has_many :progress_update_additional_grant_condition, -> { order "description" }, dependent: :destroy
   has_many :progress_update_statutory_permissions_licence, dependent: :destroy
   has_many :progress_update_new_expiry_date, dependent: :destroy
   has_many :progress_update_risk_register, dependent: :destroy

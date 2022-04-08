@@ -8,7 +8,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
   end
 
   def update()
-  
+
     progress_update.update(get_params)
 
     are_checkbox_selections_correct?(get_params)
@@ -19,6 +19,13 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
       render :show
 
     else
+
+      remove_conditions_not_selected_for_update
+
+      update_json(
+        progress_update.answers_json,
+        progress_update.no_progress_update == 'true'
+      )
       
       redirect_to(
         funding_application_progress_and_spend_progress_update_completion_date_path(
@@ -47,8 +54,6 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
       progress_update_additional_grant_condition_attributes:[
         :id,
         :progress,
-        :salesforce_additional_grant_condition_id,
-        :description,
         :entering_update
       ]
     )
@@ -94,20 +99,32 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
          )
    end
   
-  # Should be caklled prior to show
-  # Simply checks boxes when progress updates given
+  # Should be called prior to show
+  # Simply checks boxes when progress updates provided by the applicant
   # Does this by setting attr_accessor :entering_update
   def populate_check_boxes
+
     progress_update.progress_update_additional_grant_condition.each do |adc|
       adc.entering_update = adc.progress.present? || adc.entering_update == 'true'
     end
+
+    if progress_update.answers_json['additional_grant_condition'].has_key?(
+      'no_progress_update'
+    )
+
+      progress_update.no_progress_update = \
+        progress_update.answers_json['additional_grant_condition']\
+          ['no_progress_update'] if progress_update.no_progress_update.nil?
+
+    end
+
   end
 
   # Validation depends on form params and whichever
-  # checkbox is selected. Given this, validation is more straighforward 
+  # checkbox is selected. Given this, validation is more straightforward
   # to implement in this controller.
   #
-  # Method returns true if either the "I don't have an update" is 
+  # Method returns true if either the "I don't have an update" is
   # selected or an update is chosen.
   # Method returns false if an update and "I don't have an update" are
   # chosen.  Or if nothing is chosen.
@@ -140,6 +157,26 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::AdditionalGrantCondi
     result
 
   end
-    
+
+  # Called at the end of update.
+  # Removes any ProgressUpdateAdditionalGrantCondition
+  # instances that have no progress updates against them.
+  def remove_conditions_not_selected_for_update
+
+    progress_update.progress_update_additional_grant_condition.each do |adc|
+      adc.destroy if adc.entering_update == 'false'
+    end
+
+  end
+
+  # updates json with a new key value pair
+  # In this case, whether the grant expiry date is correct.
+  # @params [jsonb] answers_json Json containing journey answers
+  # @params [Boolean] answer Either true or false
+  def update_json(answers_json, answer)
+    answers_json['additional_grant_condition']['no_progress_update'] = answer
+    progress_update.answers_json = answers_json
+    progress_update.save
+  end
 
 end

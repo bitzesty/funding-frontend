@@ -59,7 +59,8 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
   # Uses Description_for_cash_contributions__c for the array.
   # 
   # Large applications will require a new function that
-  # returns 'source of funding' for display to the applicant
+  # also returns 'source of funding' for display to the applicant
+  # in addition to the description.
   #
   # @param [<Restforce::SObject] sf_cash_contributions Collection from SF
   # @return [Array] cash_contributions_descs Array of hashes
