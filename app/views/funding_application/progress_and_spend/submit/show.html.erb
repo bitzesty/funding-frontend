@@ -1,1 +1,131 @@
-This will allow an applicant to begin the process of submitting their answers
+<%=
+  render partial: "partials/page_title",
+  locals: {
+      model_object: @funding_application,
+      page_title:  t('progress_and_spend.submit.page_title')
+  }
+%>
+
+<div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
+  <h1 class="govuk-panel__title govuk-!-margin-bottom-0">
+    <%if @submitted_payment_request && !@submitting_progress_update%>
+      <%= t('progress_and_spend.submit.page_headings.spend_submitted')%>
+    <%elsif @submitting_progress_update && !@submitted_payment_request %>
+      <%= 
+        t('progress_and_spend.submit.page_headings.progress_update_submitted')
+      %>
+    <%elsif @submitted_bank_details && !@submitted_payment_request &&  
+      !@submitting_progress_update%>
+      <%= 
+        t('progress_and_spend.submit.page_headings.bank_details_submitted')
+      %>
+    <%elsif @submitted_payment_request && @submitted_bank_details && 
+      !@submitting_progress_update %>
+      <%= 
+        t('progress_and_spend.submit.page_headings.spend_and_bank_submitted')
+      %>
+    <%elsif @submitted_payment_request && @submitting_progress_update %>
+      <%= 
+        t('progress_and_spend.submit.page_headings.spend_and_progress_submitted')
+        %>
+    <%end%>
+  </h1>
+</div>
+
+<p class="govuk-body">
+  <%= 
+    t('progress_and_spend.submit.confirmation_email', user_email: @user_email )
+  %>
+</p>
+
+<h2 class="govuk-heading-l">
+  <%= t('progress_and_spend.submit.what_next.sub_heading')%>
+</h2>
+
+<%if @submitted_payment_request && !@submitting_progress_update %>
+
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.we_will_check')%>
+  </p>
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.aim_to_pay')%>
+  </p>
+  <p class="govuk-body">
+    <%= 
+      t('progress_and_spend.submit.what_next.you_will_be_paid',
+       payment_amount: @payment_amount, 
+       payment_percentage: @payment_percentage)
+      %>
+  </p>
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.send_email')%>
+  </p>
+
+<%elsif @submitting_progress_update && !@submitted_payment_request %>
+
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.im_will_contact')%>
+  </p>
+
+<%elsif @submitted_bank_details && !@submitted_payment_request &&  
+  !@submitting_progress_update%>
+  <p class="govuk-body">
+    TODO: Bank details content TBC
+  </p>
+
+<%elsif @submitted_payment_request && @submitted_bank_details &&  
+   !@submitting_progress_update %>
+
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.after_our_checks')%>
+  </p>
+  <p class="govuk-body">
+    <%= 
+      t('progress_and_spend.submit.what_next.you_will_be_paid',
+      payment_amount: @payment_amount, 
+      payment_percentage: @payment_percentage)
+    %>
+  </p>
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.send_email')%>
+  </p>
+
+<%elsif @submitted_payment_request && @submitting_progress_update %>
+
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.we_will_check')%>
+  </p>
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.aim_to_pay')%>
+  </p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>
+      <%= 
+        t('progress_and_spend.submit.what_next.you_will_be_paid',
+        payment_amount: @payment_amount, 
+        payment_percentage: @payment_percentage)
+      %>
+    </li>
+  </ul>
+  <p class="govuk-body">
+    <%= t('progress_and_spend.submit.what_next.send_email')%>
+  </p>
+
+<%end%>
+
+<p class="govuk-body govuk-!-margin-bottom-9">
+  <%= t('progress_and_spend.submit.what_next.any_questions')%>
+</p>
+
+<%=
+  render(
+    ButtonComponent.new(
+        element: "a",
+        href: destroy_user_session_path,
+        text: t('buttons.labels.sign_out'),
+        data_method: 'delete'
+    )
+  )
+%>
+
