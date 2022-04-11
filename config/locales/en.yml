@@ -897,3 +897,8 @@ en-GB:
             progress:
               blank: "Enter update for Approved Purpose"
               too_long: " Description must be 300 words or fewer"
+        progress_update_demographic:
+          attributes:
+            explanation:
+              blank: "Enter update for how a wider range of people are involved in the project"
+              too_long: " Description must be 300 words or fewer"

@@ -460,6 +460,9 @@ Rails.application.routes.draw do
             get 'demographic', to: 'demographic#show'
             post 'demographic', to: 'demographic#update'
 
+            get 'outcome', to: 'outcome#show'
+            post 'outcome', to: 'outcome#update'
+
           end
 
         end

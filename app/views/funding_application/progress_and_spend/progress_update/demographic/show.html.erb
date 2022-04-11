@@ -1,1 +1,89 @@
-wider range of people
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.demographic.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @demographic,
+      first_form_element: :progress_update_demographic_explanation
+    }
+  ) if @demographic.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.demographic.page_caption')%>
+		</span>
+
+		<h1 class="govuk-heading-l">
+		  <%= t('progress_and_spend.progress_update.demographic.page_heading')%>
+		</h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+  <%=
+		form_with model: @demographic,
+		url: funding_application_progress_and_spend_progress_update_demographic_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+    <div class="govuk-character-count" data-module="govuk-character-count"
+      data-maxwords="300">
+
+      <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @demographic.errors['explanation'].any?}" %>">
+
+        <p class="govuk-body govuk-!-padding-bottom-4" >
+          <%= t('progress_and_spend.progress_update.demographic.your_answer_should') %>
+        </p>
+
+        <%=
+          render partial: "partials/form_input_errors",
+          locals: {
+            form_object: @demographic,
+            input_field_id: :explanation
+            } if @demographic.errors['explanation'].any?
+        %>
+
+        <%=
+          f.text_area :explanation,
+          rows: 12,
+          class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+          "#{' govuk-textarea--error' if
+              @demographic.errors['explanation'].any?}",
+          "aria-describedby" => "progress_update_demographic_explanation-info"
+        %>
+
+        <div id="progress_update_demographic_explanation-info"
+              class="govuk-hint govuk-character-count__message"
+              aria-live="polite">
+          <%= t('generic.word_count', max_words: 300) %>
+        </div>
+
+      </div>
+
+    </div>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+			%>
+
+  <%end%>
+
+</fieldset>
