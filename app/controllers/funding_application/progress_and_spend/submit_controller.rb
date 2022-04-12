@@ -1,9 +1,11 @@
 class FundingApplication::ProgressAndSpend::SubmitController < ApplicationController
   include FundingApplicationContext
+  include ProgressAndSpendHelper
   before_action :authenticate_user!
   
     def show()
       initialise_view
+      submit_to_salesforce
     end
   
     def update()
@@ -30,6 +32,14 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
       # TODO: Pull down payment percentage
       @payment_percentage = 85
 
+    end
+
+    def submit_to_salesforce()
+      if @submitting_progress_update 
+        upload_progress_update(
+          @funding_application.arrears_journey_tracker.progress_update
+        )
+      end
     end
   
   end

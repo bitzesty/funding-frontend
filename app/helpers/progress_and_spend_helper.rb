@@ -346,5 +346,93 @@ module ProgressAndSpendHelper
         (funding_application.salesforce_case_id)
 
   end
+
+  # Method responsible for orchestrating upload
+  # of progress update data to Salesforce
+  #
+  # @param [ProgressUpdate] progress_update An instance of
+  #                                                 ProgressUpdate
+  def upload_progress_update(progress_update)
+
+    # TODO: Upload details to salesforce with client
+
+    progress_update.answers_json.each do | field, flags |
+      clear_unused_progress_update_data_items(
+        field, 
+        flags, 
+        progress_update
+      )
+    end
+
+  end
   
+  private
+
+  # Method responsible for deleting unused 
+  # prpogress update data.
+  #
+  # @param [field] field String value denoting field in answers JSON
+  # 
+  # @param [flags] flags String Hash of flags denoting user answers to feild
+  #                                                 
+  # @param [ProgressUpdate] progress_update An instance of
+  #                                                 ProgressUpdate
+  def clear_unused_progress_update_data_items(field, flags, progress_update)
+    
+    logger.info "Removing unused data from progress_update with id:" \
+      "#{progress_update.id}"
+
+    case field
+    when 'risk'
+      if flags['has_risk_update'] == true
+        if flags['has_risk_register'] == 'true' 
+         progress_update.progress_update_risk.destroy_all 
+        elsif flags['has_risk_register'] == 'false' 
+          progress_update.progress_update_risk_register.destroy_all
+        end
+      elsif flags['has_risk_update'] == false
+        progress_update.progress_update_risk.destroy_all
+        progress_update.progress_update_risk_register.destroy_all
+      end
+    when 'procurements'
+      if flags['has_procured_goods'] == "true"
+        if flags['has_procurement_report_evidence'] == 'true' 
+          progress_update.progress_update_procurement.destroy_all 
+        elsif flags['has_procurement_report_evidence'] == 'false' 
+          progress_update.progress_update_procurement_evidence.destroy_all
+        end
+      elsif flags['has_procured_goods'] == "false"
+        progress_update.progress_update_procurement.destroy_all  
+        progress_update.progress_update_procurement_evidence.destroy_all
+      end
+    when 'events'
+      progress_update.progress_update_event.destroy_all \
+        if flags['has_upload_events'] == 'false'
+    when 'photos'
+      progress_update.progress_update_photo.destroy_all \
+        if flags['has_upload_photos'] == 'false'
+    when 'new_staff'
+      progress_update.progress_update_new_staff.destroy_all \
+        if flags['has_new_staff'] == 'false'
+    when 'volunteer'
+      progress_update.progress_update_volunteer.destroy_all \
+        if flags['has_volunteer_update'] == false
+    when 'new_expiry_date'
+      progress_update.progress_update_new_expiry_date.destroy_all \
+        if flags['date_correct'] == true
+    when 'cash_contribution'
+      progress_update.progress_update_cash_contribution.destroy_all \
+        if flags['has_cash_contribution_update'] == false
+    when 'non_cash_contribution'
+      progress_update.progress_update_non_cash_contribution.destroy_all \
+        if flags['has_non_cash_contribution'] == false
+    when 'additional_grant_condition'
+      progress_update.progress_update_additional_grant_condition.destroy_all \
+        if flags['no_progress_update'] == true
+    when 'statutory_permissions_licences'
+      progress_update.progress_update_statutory_permissions_licence.destroy_all \
+        if flags['has_statutory_permissions_licence'] == "false"
+    end
+
+  end
 end

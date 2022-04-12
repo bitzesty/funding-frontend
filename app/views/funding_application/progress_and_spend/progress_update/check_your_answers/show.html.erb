@@ -188,7 +188,8 @@
     <%end%>
 
     <%if @progress_update.progress_update_procurement.present? && 
-      @answers_json ["procurements"]['has_procurement_report_evidence'] == "false"%>
+       @answers_json ["procurements"]['has_procured_goods'] == "true" &&
+         @answers_json ["procurements"]['has_procurement_report_evidence'] == "false" %>
       <tr class="govuk-table__row">
         <th scope="row" class="govuk-table__header govuk-!-width-one-third">
           <%= t('progress_and_spend.progress_update.check_your_answers.procurements') %> 
@@ -379,7 +380,8 @@
       <%end%>
 
       <%if @progress_update.progress_update_risk.present? && 
-         @answers_json["risk"]['has_risk_register'] == "false"%>
+         @answers_json["risk"]['has_risk_register'] == "false" && 
+          @answers_json['risk']['has_risk_update'] == true %>
         <tr class="govuk-table__row">
           <th scope="row" class="govuk-table__header govuk-!-width-one-third">
             <%= t('progress_and_spend.progress_update.check_your_answers.about_risks')%>
