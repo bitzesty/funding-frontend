@@ -463,6 +463,9 @@ Rails.application.routes.draw do
             get 'outcome', to: 'outcome#show'
             post 'outcome', to: 'outcome#update'
 
+            get 'check-outcome-answers', to: 'check_outcome_answers#show'
+            put 'check-outcome-answers', to: 'check_outcome_answers#update'
+
           end
 
         end

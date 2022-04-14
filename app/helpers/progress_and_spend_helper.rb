@@ -347,6 +347,97 @@ module ProgressAndSpendHelper
 
   end
 
+  # Gets a hash of the outcome information from Salesforce
+  #
+  # The hash key forms the last part of the translation used,
+  # So consider this if making a change.
+  # For example, a key called 'improving_condition' will use
+  # the translation at:
+  # progress_and_spend.progress_update.outcome_type.improving_condition
+  # on outcomes/show.html.erb
+  #
+  # @param [String] salesforce_case_id Salesforce ref for a Project
+  # @return [Hash] outcomes_hash A hash populated with outcome information
+  #                              that a user needs to complete.
+  def get_outcomes_hash_from_salesforce(salesforce_case_id)
+
+    outcomes_hash = {}
+
+    client = ProgressUpdateSalesforceApiClient.new
+
+    outcome_details = client.get_project_outcome_targets(salesforce_case_id)
+
+    outcomes_hash[
+      'improving_condition'
+    ] = "" if outcome_details.Heritage_will_be_in_better_condition__c
+
+    outcomes_hash[
+      'explaining_heritage'
+    ] = "" if outcome_details.Identified_and_better_explained__c
+
+    outcomes_hash[
+      'developing_skills'
+    ] = "" if outcome_details.People_will_have_developed_skills__c
+
+    outcomes_hash[
+      'learning_heritage'
+    ] = "" if outcome_details.People_will_have_learned_about_heritage__c
+
+    outcomes_hash[
+      'greater_wellbeing'
+    ] = "" if outcome_details.People_will_have_greater_wellbeing__c
+
+    outcomes_hash[
+      'improving_resilience'
+    ] = "" if outcome_details.The_organisation_will_be_more_resilient__c
+
+    outcomes_hash[
+      'making_better_place'
+    ] = "" if outcome_details.A_better_place_to_live_work_or_visit__c
+
+    outcomes_hash[
+      'boosting_economy'
+    ] = "" if outcome_details.The_local_economy_will_be_boosted__c
+
+    outcomes_hash
+
+  end
+
+  # Builds a hash from the passed params.
+  # Called from outcome/show.html.erb
+  # Loops over recognised outcomes, looks for a matching param,
+  # and adds a key value pair if found.
+  # Hash then used to either store as JSON or re-render the form,
+  # whichever is approriate.
+  #
+  # @param [String] salesforce_case_id Salesforce ref for a Project
+  # @return [Hash] outcomes_hash A hash populated with outcome information
+  #                              that a user needs to complete.
+  def build_outcomes_hash_from_params(form_params)
+
+    optional_outcome_types = [
+      'improving_condition',
+      'explaining_heritage',
+      'developing_skills',
+      'learning_heritage',
+      'greater_wellbeing',
+      'improving_resilience',
+      'making_better_place',
+      'boosting_economy'
+    ]
+
+    outcomes_hash = {}
+
+    optional_outcome_types.each do |ot|
+
+      outcomes_hash[ot] = form_params.fetch(ot) if form_params.has_key?(ot)
+
+    end
+
+    outcomes_hash
+
+  end
+
   # Method responsible for orchestrating upload
   # of progress update data to Salesforce
   #

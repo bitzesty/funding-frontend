@@ -1,0 +1,16 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      outcome:
+        page_title: "Project outcomes"
+        page_heading: "Describe how you are achieving your project outcomes?"
+        page_caption: "Approved Purposes and outcomes"
+      outcome_type:
+        improving_condition: "Heritage will be in a better condition"
+        explaining_heritage: "Heritage will be identified and better explained"
+        developing_skills: "People will have developed skills"
+        learning_heritage: "People will have learned about heritage, leading to change in ideas and actions"  
+        greater_wellbeing: "People will have a greater wellbeing"
+        improving_resilience: "The funded organisation will be more resilient"
+        making_better_place: "The local area will be a better place to live, work or visit"
+        boosting_economy: "The local economy will be boosted"

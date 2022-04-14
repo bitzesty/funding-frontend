@@ -902,3 +902,8 @@ en-GB:
             explanation:
               blank: "Enter update for how a wider range of people are involved in the project"
               too_long: " Description must be 300 words or fewer"
+        progress_update_outcome:
+          attributes:
+            all:
+              blank: "Enter update for your project outcome"
+              too_long: "Description must be 300 words or fewer"

@@ -60,6 +60,38 @@ module ProgressUpdateSalesforceApi
 
     end
 
+    # Gets the outcomes that an applicant indicated their project would
+    # address when they applied.
+    #
+    # @param [String] id A Project Id reference known to Salesforce
+    # @return [<Restforce::SObject>] restforce_response&first.
+    #                   First row in response containing query results needed
+    def get_project_outcome_targets(salesforce_case_id)
+      Rails.logger.info("Retrieving outcome details for" \
+        "for Case Id: #{salesforce_case_id}")
+
+      restforce_response = []
+
+      query_string = "SELECT " \
+        "Heritage_will_be_in_better_condition__c, " \
+        "Identified_and_better_explained__c, " \
+        "People_will_have_developed_skills__c, " \
+        "People_will_have_learned_about_heritage__c, " \
+        "People_will_have_greater_wellbeing__c, " \
+        "The_organisation_will_be_more_resilient__c, " \
+        "A_better_place_to_live_work_or_visit__c, " \
+        "The_local_economy_will_be_boosted__c " \
+        "FROM Case " \
+        "where Id = '#{salesforce_case_id}'"
+
+      restforce_response = run_salesforce_query(query_string,
+        "get_outcome_details", salesforce_case_id) \
+          if query_string.present?
+
+      restforce_response.first
+
+    end
+
     private
 
 

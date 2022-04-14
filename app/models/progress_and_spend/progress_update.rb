@@ -17,6 +17,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_non_cash_contribution, dependent: :destroy
   has_many :progress_update_approved_purpose, -> { order "description" }, dependent: :destroy
   has_many :progress_update_demographic
+  has_many :progress_update_outcome
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
