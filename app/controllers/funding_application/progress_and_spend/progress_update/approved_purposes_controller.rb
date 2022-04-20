@@ -1,10 +1,13 @@
 class FundingApplication::ProgressAndSpend::ProgressUpdate::ApprovedPurposesController < ApplicationController
   include FundingApplicationContext
   include ProgressAndSpendHelper
+  include Enums::ArrearsJourneyStatus
   
     def show()
-      setup_approved_purposes
-      populate_check_boxes
+
+        setup_approved_purposes
+        populate_check_boxes
+
     end
   
     def update()
@@ -172,12 +175,28 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::ApprovedPurposesCont
 
     # updates json with a new key value pair
     # In this case, whether the grant expiry date is correct.
+    #
+    # Then sets the journey status json
+    #
     # @params [jsonb] answers_json Json containing journey answers
     # @params [Boolean] answer Either true or false
     def update_json(answers_json, answer)
+
       answers_json['approved_purpose']['no_progress_update'] = answer
       progress_update.answers_json = answers_json
+
+      unless @funding_application.arrears_journey_tracker.progress_update.\
+        answers_json['journey_status']['approved_purposes'] == \
+          JOURNEY_STATUS[:completed]
+
+        @funding_application.arrears_journey_tracker.progress_update.\
+          answers_json['journey_status']['approved_purposes'] \
+            = JOURNEY_STATUS[:in_progress] 
+      
+      end
+
       progress_update.save
+      
     end
 
   

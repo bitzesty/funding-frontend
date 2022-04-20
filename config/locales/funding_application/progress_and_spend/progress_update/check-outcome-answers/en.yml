@@ -1,0 +1,10 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      check_outcome_answers:
+        page_title: "Check your answers"
+        page_heading: "Check your answers"
+        page_caption: "Approved Purposes and outcomes"
+        approved_purposes: "Approved Purposes"
+        project_outcomes: "Project outcomes"
+        no_update_yet: "I do not have an update on these yet"

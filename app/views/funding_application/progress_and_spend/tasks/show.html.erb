@@ -59,16 +59,29 @@
 
       <span class="nlhf-tag-name">
         
-        <%=
-          link_to(
-            'Update on approved purposes and outcomes',
-             funding_application_progress_and_spend_progress_update_approved_purposes_path(
-              progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
-            ),
-            class: 'govuk-link govuk-link--no-visited-state',
-            aria: { describedby: 'approved-purposes-updates' }
-          )
-        %>
+        <% if @approved_purposes_status == :completed %>
+          <%=
+            link_to(
+              'Update on approved purposes and outcomes',
+              funding_application_progress_and_spend_progress_update_check_outcome_answers_path(
+                progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
+              ),
+              class: 'govuk-link govuk-link--no-visited-state',
+              aria: { describedby: 'check_outcome_answers' }
+            )
+          %>
+        <%else%> 
+          <%=
+            link_to(
+              'Update on approved purposes and outcomes',
+              funding_application_progress_and_spend_progress_update_approved_purposes_path(
+                progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
+              ),
+              class: 'govuk-link govuk-link--no-visited-state',
+              aria: { describedby: 'approved-purposes-updates' }
+            )
+          %>
+        <%end%>
 
       </span>
 

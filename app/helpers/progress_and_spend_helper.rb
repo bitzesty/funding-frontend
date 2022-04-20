@@ -459,13 +459,17 @@ module ProgressAndSpendHelper
   
   private
 
-  # Method responsible for deleting unused 
-  # prpogress update data.
+  # Method responsible for deleting unused progress update data.
+  #
+  # Approved purposes and Outcomes Data types not targeted by this function:
+  # 1. Approved purposes. Unused data is removed upon Save and Continue.
+  # 2. Demographic. Mandatory question - answer always required
+  # 3. Outcomes. Mandatory question - answer always required
   #
   # @param [field] field String value denoting field in answers JSON
-  # 
+  #
   # @param [flags] flags String Hash of flags denoting user answers to feild
-  #                                                 
+  #
   # @param [ProgressUpdate] progress_update An instance of
   #                                                 ProgressUpdate
   def clear_unused_progress_update_data_items(field, flags, progress_update)

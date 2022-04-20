@@ -1,1 +1,148 @@
-cya
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t("progress_and_spend.progress_update.check_outcome_answers.page_title")
+    }
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.check_outcome_answers.page_caption') %>
+		</span>
+
+    <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+      <%= t('progress_and_spend.progress_update.check_outcome_answers.page_heading') %>
+    </h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+  <%# start of approved purposes list %>
+  <dl class="govuk-summary-list">
+
+    <div class="govuk-summary-list__row">
+
+      <dt class="govuk-summary-list__key">
+        <%= t('progress_and_spend.progress_update.check_outcome_answers.approved_purposes') %>
+      </dt>
+
+      <dd class="govuk-summary-list__actions govuk-!-width-two-thirds">
+        <%=
+          link_to(
+            t('generic.change'),
+            funding_application_progress_and_spend_progress_update_approved_purposes_path(
+              progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
+            ),
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'approved-purposes-updates' }
+          )
+        %>
+      </dd>
+
+    </div>
+
+    <% unless @approved_purposes.empty? %>
+
+      <% @approved_purposes.each do | ap | %>
+
+        <div class="govuk-summary-list__row">
+
+          <dd class="govuk-summary-list__value">
+            <%= ap.description %>
+          </dd>
+
+          <dd class="govuk-summary-list__value">
+            <%= ap.progress %>
+          </dd>
+
+        </div>
+
+      <% end %>
+
+    <% else # approved purposes empty %>
+
+      <%= t('progress_and_spend.progress_update.check_outcome_answers.no_update_yet') %>
+
+    <% end%>
+
+  </dl>
+  <%# end of approved purposes list %>
+
+  <%# start of outcomes list %>
+  <dl class="govuk-summary-list">
+
+    <div class="govuk-summary-list__row">
+
+      <dt class="govuk-summary-list__key">
+        <%= t('progress_and_spend.progress_update.check_outcome_answers.project_outcomes') %>
+      </dt>
+
+      <dd class="govuk-summary-list__actions govuk-!-width-two-thirds">
+        <%=
+          link_to(
+            t('generic.change'),
+            funding_application_progress_and_spend_progress_update_demographic_path(
+              progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
+            ),
+            class: 'govuk-link govuk-link--no-visited-state',
+            aria: { describedby: 'project-outcome-updates' }
+          )
+        %>
+      </dd>
+
+    </div>
+
+    <div class="govuk-summary-list__row">
+
+      <dd class="govuk-summary-list__value">
+        <%= t('progress_and_spend.progress_update.demographic.page_heading') %>
+      </dd>
+
+      <dd class="govuk-summary-list__value">
+        <%= @demographic.explanation %>
+      </dd>
+
+    </div>
+
+    <% @optional_outcomes_progress_updates.each do | pu_key, pu_value | %>
+
+     <div class="govuk-summary-list__row">
+
+        <dd class="govuk-summary-list__value">
+          <%= t("progress_and_spend.progress_update.outcome_type.#{pu_key}") %>
+        </dd>
+
+        <dd class="govuk-summary-list__value">
+          <%= pu_value %>
+        </dd>
+
+      </div>
+
+    <% end %>
+
+  </dl>
+  <%# end of outcomes list %>
+
+  <%=
+		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		url: funding_application_progress_and_spend_progress_update_check_outcome_answers_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+			<%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
+				)
+			%>
+
+	<% end %>
+    
+</fieldset>
