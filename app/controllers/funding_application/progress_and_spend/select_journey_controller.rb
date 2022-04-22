@@ -21,15 +21,26 @@ include Enums::ArrearsJourneyStatus
 
     @funding_application.arrears_journey_tracker.validate_journey_selection = true
 
-    if  @funding_application.arrears_journey_tracker.get_payment == "true" 
+    if  @funding_application.arrears_journey_tracker.get_payment == "true"
+
       if @funding_application.arrears_journey_tracker.payment_request_id.blank?
-        payment_request = @funding_application.payment_requests.create  
-        @funding_application.arrears_journey_tracker.update(
-          payment_request_id: payment_request.id
+
+        payment_request = @funding_application.payment_requests.create(
+          answers_json: {
+            arrears_journey: {
+              status: JOURNEY_STATUS[:not_started],
+              spend_journeys_to_do:[]
+            }
+          }
         )
+
+        @funding_application.arrears_journey_tracker.update(
+          payment_request_id: payment_request.id)
+
       end
+
     end
-   
+
     if @funding_application.arrears_journey_tracker.give_project_update == "true"
       if @funding_application.arrears_journey_tracker.progress_update_id.blank?
         progress_update = @funding_application.progress_updates.create  

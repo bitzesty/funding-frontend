@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_11_083159) do
+ActiveRecord::Schema.define(version: 2022_04_21_075814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -486,6 +486,7 @@ ActiveRecord::Schema.define(version: 2022_04_11_083159) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "submitted_on"
+    t.jsonb "answers_json"
   end
 
   create_table "payment_requests_spends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -765,12 +766,12 @@ ActiveRecord::Schema.define(version: 2022_04_11_083159) do
   create_table "spends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "description"
     t.date "date_of_spend"
-    t.decimal "net_amount"
     t.decimal "vat_amount"
-    t.decimal "gross_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "cost_type_id", null: false
+    t.decimal "gross_amount"
+    t.decimal "net_amount"
     t.index ["cost_type_id"], name: "index_spends_on_cost_type_id"
   end
 

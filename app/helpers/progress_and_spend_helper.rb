@@ -1,6 +1,8 @@
 module ProgressAndSpendHelper
   include SalesforceApi
   include ProgressUpdateSalesforceApi
+  include FundingApplicationHelper
+  include Enums::ArrearsJourneyStatus
 
   # Method responsible for orchestrating the retrieval of
   # additional grant conditions from Salesforce
@@ -530,4 +532,70 @@ module ProgressAndSpendHelper
     end
 
   end
+
+  # return the spend amount that results in the need to capture spending evidence.
+  # This value is different for 100-250k applications and those over 250k.
+  # 
+  # @params [FundingApplication] funding_application
+  # @return [Integer] spend_amount The threshold spend amount
+  def get_spend_threshold(funding_application)
+    set_award_type(funding_application)
+    spend_amount = 250 if @funding_application.is_100_to_250k?
+    # Large to follow
+  end
+
+  # Redirects the spend journey depending on the user's answers
+  # Will update with the appropriate journey status when redirecting
+  #
+  # @param [String] answers_json JSON string containing payment details
+  #                              journey state
+  def spend_journey_redirector(answers_json)
+
+    to_do_array = answers_json['arrears_journey']['spend_journeys_to_do']
+
+    if to_do_array.empty?
+
+      set_arrears_payment_status(JOURNEY_STATUS[:completed])
+
+      redirect_to \
+        funding_application_progress_and_spend_progress_and_spend_tasks_path()
+
+    else
+
+      # Check first item in array, and redirect there
+      if to_do_array[0].has_key?("spends_over")
+
+        set_arrears_payment_status(JOURNEY_STATUS[:in_progress])
+        render :show # todo: redirect to big spend
+
+      elsif to_do_array[0].has_key?("spends_under")
+
+        set_arrears_payment_status(JOURNEY_STATUS[:in_progress])
+        render :show # todo: redirect to little spend
+
+      end
+
+    end
+
+  end
+
+  # Updates the status for a payment request when part of the
+  # arrears payment journey.
+  # Find the in progress payment request through the arrears tracker
+  # Then updates its answers_json withe the status param
+  #
+  # @param [Integer] status_integer See Enums::ArrearsJourneyStatus
+  def set_arrears_payment_status(status_integer)
+
+    payment_request = @funding_application.arrears_journey_tracker.payment_request
+
+    logger.info("Setting arrears status to "\
+      "#{journey_status_string(status_integer)} for "\
+        "payment_request.id #{payment_request.id}")
+
+    payment_request.answers_json['arrears_journey']['status'] = status_integer
+    payment_request.save!
+
+  end
+
 end

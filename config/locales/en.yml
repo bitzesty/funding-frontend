@@ -907,3 +907,8 @@ en-GB:
             all:
               blank: "Enter update for your project outcome"
               too_long: "Description must be 300 words or fewer"
+        payment_request:
+          attributes:
+            spend_journeys_to_do:
+              choose: "Select spend to update on, or select 'No spend update'"
+              blank: 'Select what spend you want to tell us about'

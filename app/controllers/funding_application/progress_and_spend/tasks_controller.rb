@@ -16,7 +16,9 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
         @how_project_going_status = journey_status_string(progress_update
           .answers_json['journey_status']['how_project_going'])
         @approved_purposes_status = journey_status_string(progress_update
-          .answers_json['journey_status']['approved_purposes']) 
+          .answers_json['journey_status']['approved_purposes'])
+        @payment_request_status = journey_status_string(payment_request
+          .answers_json['arrears_journey']['status'])
       end
   
     end
@@ -29,6 +31,10 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
 
     def progress_update
       @funding_application.arrears_journey_tracker.progress_update
+    end
+
+    def payment_request
+      @funding_application.arrears_journey_tracker.payment_request
     end
 
     def get_tag_colour(status) 

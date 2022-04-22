@@ -474,7 +474,7 @@ Rails.application.routes.draw do
           scope '/:payment_request_id' do
 
             get 'what-spend', to: 'what_spend#show'
-            get 'what-spend', to: 'what_spend#update'
+            post 'what-spend', to: 'what_spend#update'
 
             # scope 'spend', module: 'spend', as: 'spend' do
               # scope spend id etc
