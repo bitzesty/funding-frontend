@@ -17,10 +17,14 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
           .answers_json['journey_status']['how_project_going'])
         @approved_purposes_status = journey_status_string(progress_update
           .answers_json['journey_status']['approved_purposes'])
+
+      end
+
+      if @complete_payment_tasks
         @payment_request_status = journey_status_string(payment_request
           .answers_json['arrears_journey']['status'])
       end
-  
+
     end
   
     def update()
