@@ -410,30 +410,32 @@
         </tr>
       <% end %>
 
-      <tr class="govuk-table__row">
-        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
-           <%= t('progress_and_spend.progress_update.check_your_answers.cash_contributions')%>
-        </th>
-        <td class="govuk-table__cell govuk-!-width-two-thirds">
-          <%if @answers_json["cash_contribution"]['has_cash_contribution_update'] == true %>
-            <%=t('progress_and_spend.progress_update.cash_contribution.cash_contribution_question.radio_yes')%>
-          <%else%>
-            <%=t('progress_and_spend.progress_update.cash_contribution.cash_contribution_question.radio_no')%>
-          <%end%>
-        </td>
-        <td class="govuk-table__cell ">
-          <%=
-            link_to(
-              t('generic.change'),
-              funding_application_progress_and_spend_progress_update_cash_contribution_cash_contribution_question_path(
-                progress_update_id:  \
-                  @funding_application.arrears_journey_tracker.progress_update.id
-              ),
-              class: 'govuk-link',
-            )
-          %> 
-        </td>
-      </tr>
+      <%if @cash_contribution_count > 0%>
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+            <%= t('progress_and_spend.progress_update.check_your_answers.cash_contributions')%>
+          </th>
+          <td class="govuk-table__cell govuk-!-width-two-thirds">
+            <%if @answers_json["cash_contribution"]['has_cash_contribution_update'] == true %>
+              <%=t('progress_and_spend.progress_update.cash_contribution.cash_contribution_question.radio_yes')%>
+            <%else%>
+              <%=t('progress_and_spend.progress_update.cash_contribution.cash_contribution_question.radio_no')%>
+            <%end%>
+          </td>
+          <td class="govuk-table__cell ">
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_cash_contribution_cash_contribution_question_path(
+                  progress_update_id:  \
+                    @funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          </td>
+        </tr>
+      <%end%>
 
       <%if @progress_update.progress_update_cash_contribution.present? && 
          @answers_json["cash_contribution"]['has_cash_contribution_update'] == true %>

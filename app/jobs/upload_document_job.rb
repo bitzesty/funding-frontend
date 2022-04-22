@@ -1,20 +1,17 @@
 class SalesforceFileUploadError < StandardError; end
 
-# This job has been coppied to UploadDocumentJob as it is used outside of PTS,
-# as such PTS should be refactored to use that at a later date, 
-# or this job should be removed when PTS is retired. 
-class UploadPtsToSalesforceJob < ApplicationJob
+class UploadDocumentJob < ApplicationJob
   queue_as :default
   retry_on SalesforceFileUploadError 
 
-  # Method to insert a Salesforce attachment using Restforce
+  # Method to insert a Salesforce document using Restforce
   #
-  # This is the perform job method that adds tjhe upload files to a queue to 
+  # This is the perform job method that adds the upload files to a queue to 
   # be completed asynchronously . 
   #
   # @param [ActiveStorage::Attachment] file An ActiveStorage Attachment
   # @param [String] type The type of file being inserted
-  # @param [String] salesforce_reference The Salesforce Case reference
+  # @param [String] salesforce_reference The Salesforce Case/Form reference
   #                                              to link this upload to
   # @param [String] description A description of the file being uploaded
   def perform( 

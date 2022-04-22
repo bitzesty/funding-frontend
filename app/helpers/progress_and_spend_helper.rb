@@ -443,11 +443,11 @@ module ProgressAndSpendHelper
   # Method responsible for orchestrating upload
   # of progress update data to Salesforce
   #
-  # @param [ProgressUpdate] progress_update An instance of
-  #                                                 ProgressUpdate
-  def upload_progress_update(progress_update)
+  # @param [FundingApplication] funding_application An instance of
+  #                                                 FundingApplication
+  def upload_progress_update(funding_application)
 
-    # TODO: Upload details to salesforce with client
+    client = ProgressUpdateSalesforceApiClient.new
 
     progress_update.answers_json.each do | field, flags |
       clear_unused_progress_update_data_items(
@@ -455,7 +455,17 @@ module ProgressAndSpendHelper
         flags, 
         progress_update
       )
-    end
+    end 
+
+    progress_update = funding_application
+      .arrears_journey_tracker
+        .progress_update
+
+      salesforce_project_update_id = client.upsert_project_update(
+        funding_application
+      )
+
+    upload_evidence_files(progress_update, salesforce_project_update_id, client)
 
   end
   
@@ -533,6 +543,96 @@ module ProgressAndSpendHelper
 
   end
 
+  # Method responsible for upserting any evidence files attached to 
+  # project update (calls file uploader used in PtsSalesforceAPI
+  # which could later be abstarcted to more generic helper)
+  #
+  # @param [ProgressUpdate] progress_update An instance of
+  #                                                 ProgressUpdate
+  # @param [salesforce_project_update_id] Form Id of progress update
+  #                                                  String
+  def upload_evidence_files(progress_update, salesforce_project_update_id, client)
+    
+
+    unless progress_update.progress_update_photo.empty?
+      progress_update.progress_update_photo.each do | photo |
+        client.upsert_document_to_salesforce(
+          photo.progress_updates_photo_files.attachment, 
+          "Photo evidence - #{photo
+            .progress_updates_photo_files_blob
+              .filename}",
+          salesforce_project_update_id
+        )
+      end
+    end
+
+    unless progress_update.progress_update_event.empty?
+      progress_update.progress_update_event.each do | event |
+        client.upsert_document_to_salesforce(
+          event.progress_updates_event_files.attachment, 
+          "Event evidence - #{event
+            .progress_updates_event_files_blob
+              .filename}",
+          salesforce_project_update_id
+        )
+      end
+    end
+
+    unless progress_update.progress_update_new_staff.empty?
+      progress_update.progress_update_new_staff.each do | new_staff |
+        client.upsert_document_to_salesforce(
+          new_staff.progress_updates_new_staff_files.attachment, 
+          "New staff evidence - #{new_staff
+            .progress_updates_new_staff_files_blob
+              .filename}",
+          salesforce_project_update_id
+        )
+      end
+    end
+
+    unless progress_update.progress_update_procurement_evidence.empty?
+      progress_update.progress_update_procurement_evidence.each do 
+        | procurement_evidence |
+        client.upsert_document_to_salesforce(
+          procurement_evidence
+            .progress_update_procurement_evidence_file
+              .attachment, 
+          "Procurement evidence - #{procurement_evidence
+            .progress_update_procurement_evidence_file_blob
+              .filename}",
+          salesforce_project_update_id
+        )
+      end
+    end
+
+    unless progress_update.progress_update_statutory_permissions_licence.empty?
+      progress_update.progress_update_statutory_permissions_licence.each do 
+        | statutory_permissions_licence |
+        client.upsert_document_to_salesforce(
+          statutory_permissions_licence
+            .progress_update_statutory_permissions_licence_file
+              .attachment, 
+          "Statutory permission & licence evidence - #{statutory_permissions_licence
+            .progress_update_statutory_permissions_licence_file_blob
+              .filename}",
+          salesforce_project_update_id
+        )
+      end
+    end
+
+    unless progress_update.progress_update_risk_register.empty?
+      progress_update.progress_update_risk_register.each do | risk_register |
+        client.upsert_document_to_salesforce(
+          risk_register.progress_update_risk_register_file.attachment, 
+          "Risk register evidence - #{risk_register
+            .progress_update_risk_register_file_blob
+              .filename}",
+          salesforce_project_update_id
+        )
+      end
+    end
+  end
+    
   # return the spend amount that results in the need to capture spending evidence.
   # This value is different for 100-250k applications and those over 250k.
   # 

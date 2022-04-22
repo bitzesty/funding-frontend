@@ -37,7 +37,7 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
     def submit_to_salesforce()
       if @submitting_progress_update 
         upload_progress_update(
-          @funding_application.arrears_journey_tracker.progress_update
+          @funding_application
         )
       end
     end
