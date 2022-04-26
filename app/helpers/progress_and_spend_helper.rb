@@ -449,6 +449,8 @@ module ProgressAndSpendHelper
 
     client = ProgressUpdateSalesforceApiClient.new
 
+    progress_update = funding_application.arrears_journey_tracker.progress_update
+
     progress_update.answers_json.each do | field, flags |
       clear_unused_progress_update_data_items(
         field, 
@@ -466,6 +468,10 @@ module ProgressAndSpendHelper
       )
 
     upload_evidence_files(progress_update, salesforce_project_update_id, client)
+
+    # Upsert approved purposes if attached
+    client.upsert_approved_purposes(progress_update, salesforce_project_update_id)
+    client.upsert_outcomes(funding_application)
 
   end
   

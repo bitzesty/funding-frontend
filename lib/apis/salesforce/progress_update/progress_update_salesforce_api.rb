@@ -131,8 +131,8 @@ module ProgressUpdateSalesforceApi
 
       progress_update = funding_application.arrears_journey_tracker.progress_update
 
-      Rails.logger.info("Upserting progress update data with " \
-        "ID: #{progress_update.id}")
+      Rails.logger.info("Upserting progress update data " \
+        "to progress update with ID: #{progress_update.id}")
 
       begin
 
@@ -284,6 +284,166 @@ module ProgressUpdateSalesforceApi
 
     end
 
+    # Method responsible for upserting any approved purpose models
+    # to SF
+    #
+    # @param [ProgressUpdate] progress_update An instance of
+    #                                                 ProgressUpdate
+    # 
+    # @param [int] form_id Form ID to upsert against
+    #                    
+    def upsert_approved_purposes(progress_update, form_id)
+
+      retry_number = 0
+
+      begin
+
+        Rails.logger.info("Upserting approved purposes to " \
+          "progress update with ID: #{progress_update.id}")
+
+        # Attach approved purposes
+        progress_update.progress_update_approved_purpose.each do
+          | approved_purpose | 
+          @client.upsert!(
+            'Update_approved_purpose__c',
+            'External_Id__c',
+            External_Id__c: approved_purpose.id,
+            Approved_Purpose__c: approved_purpose.description,
+            Form__c: form_id,
+            Update__c: approved_purpose.progress,
+          )
+
+          Rails.logger.info("Successfuly upserted progress update " \
+            "approved purpose with ID: #{approved_purpose.id}")
+
+        end
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.error(
+            "Error upserting appproved purpose to progress update" \
+              "with ID: #{progress_update.id}"
+          )
+
+          sleep(rand(0..max_sleep_seconds))
+
+        else
+          # Raise and allow global exception handler to catch
+          raise
+        end
+
+      end
+
+    end
+
+
+
+    # Method responsible for upserting any outcome models
+    # to SF counterparts
+    #
+    # @param [FundingApplication] funding_application An instance of
+    #                                                 FundingApplication
+    #    
+    def upsert_outcomes(funding_application)
+      retry_number = 0
+
+      begin
+
+        progress_update = funding_application.arrears_journey_tracker.progress_update
+
+        progress_update_id = progress_update.id
+        case_id = funding_application.salesforce_case_id
+
+        Rails.logger.info("Upserting outcomes to " \
+          "progress update with ID: #{progress_update_id}")
+
+        # Upsert new project completion date if provided
+        unless progress_update.progress_update_demographic.empty?
+          @client.upsert!(
+            'Forms__c',
+            'Frontend_External_Id__c',
+            Case__c: funding_application.salesforce_case_id,
+            Frontend_External_Id__c: progress_update_id,
+            A_wider_range_of_people_will_be_involved__c: progress_update
+              .progress_update_demographic.first.explanation
+          )
+        end
+
+        unless progress_update.progress_update_outcome.empty?
+          progress_update.progress_update_outcome.first.progress_updates
+            .each do | outcome, update | 
+            case outcome
+            when 'boosting_economy'
+             upsert_outcomes_field(progress_update_id, 
+              'The_local_economy_will_be_boosted__c', 
+                update, case_id)
+            when 'developing_skills'
+             upsert_outcomes_field(progress_update_id, 
+              'People_will_have_developed_skills__c', 
+                update, case_id)
+            when 'greater_wellbeing'
+             upsert_outcomes_field(progress_update_id, 
+              'People_will_have_greater_wellbeing__c', 
+                update, case_id)
+            when 'learning_heritage'
+             upsert_outcomes_field(progress_update_id, 
+              'People_will_have_learned_about_heritage__c', 
+                update, case_id)
+            when 'explaining_heritage'
+             upsert_outcomes_field(progress_update_id, 
+              'Identified_and_better_explained__c', 
+                update, case_id)
+            when 'improving_condition'
+             upsert_outcomes_field(progress_update_id, 
+              'Heritage_will_be_in_better_condition__c', 
+                update, case_id)
+            when 'making_better_place'
+             upsert_outcomes_field(progress_update_id, 
+              'A_better_place_to_live_work_or_visit__c', 
+                update, case_id)
+            when 'improving_resilience'
+             upsert_outcomes_field(progress_update_id, 
+              'The_organisation_will_be_more_resilient__c', 
+                update, case_id)
+            end
+
+            Rails.logger.info("Successfuly upserted #{outcome} outcome " \
+              "to progress update with ID: #{progress_update_id}")
+
+          end
+        end
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.error(
+            "Error upserting outcomes to progress update " \
+              "with ID: #{progress_update.id}"
+          )
+
+          sleep(rand(0..max_sleep_seconds))
+
+        else
+          # Raise and allow global exception handler to catch
+          raise
+        end
+
+      end
+    end
+
     private
 
     # Method to initialise a new Restforce client, called as part of object instantiation
@@ -389,6 +549,23 @@ module ProgressUpdateSalesforceApi
 
       end
 
+    end
+
+    # Runs upsert with paramatised outcome field to update
+    # 
+    # @param [progress_update_id] Int progress_update_id to upsert against
+    # @param [salesforce_field] String Name of SF feild to update
+    # @param [update] String Value of feild being updated
+    # @param [case_id] Int case id of form being updated
+    # 
+    def upsert_outcomes_field(progress_update_id, salesforce_field, update, case_id)
+      @client.upsert!(
+        'Forms__c',
+        'Frontend_External_Id__c',
+        Case__c: case_id,
+        Frontend_External_Id__c: progress_update_id,
+        salesforce_field.to_sym => update
+      )
     end
 
     def translate_risk_picklist_for_salesforce(selection_index)
