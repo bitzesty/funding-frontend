@@ -1,6 +1,7 @@
 module ProgressAndSpendHelper
   include SalesforceApi
   include ProgressUpdateSalesforceApi
+  include PaymentRequestSalesforceApi
   include FundingApplicationHelper
   include Enums::ArrearsJourneyStatus
 
@@ -668,16 +669,18 @@ module ProgressAndSpendHelper
 
     else
 
-      # Check first item in array, and redirect there
-      if to_do_array[0].has_key?("spends_over")
+      # Lookup first item in array, and redirect there
+      if to_do_array.first.has_key?("spends_over")
 
         set_arrears_payment_status(JOURNEY_STATUS[:in_progress])
-        render :show # todo: redirect to big spend
+        redirect_to \
+          funding_application_progress_and_spend_payments_high_spend_path()
 
-      elsif to_do_array[0].has_key?("spends_under")
+      elsif to_do_array.first.has_key?("spends_under")
 
         set_arrears_payment_status(JOURNEY_STATUS[:in_progress])
-        render :show # todo: redirect to little spend
+        redirect_to \
+          funding_application_progress_and_spend_payments_low_spend_select_path()
 
       end
 
@@ -701,6 +704,44 @@ module ProgressAndSpendHelper
 
     payment_request.answers_json['arrears_journey']['status'] = status_integer
     payment_request.save!
+
+  end
+
+  # Removes first item in to do array, so that it will not be revisited
+  # unless selected by the user again.
+  # 
+  # @param [PaymentRequest] payment_request
+  def remove_spend_journey_from_todo_array(payment_request)
+
+    payment_request.\
+      answers_json['arrears_journey']['spend_journeys_to_do'].shift
+    payment_request.save!
+
+  end
+
+  # Retrieves cost headings from Salesforce
+  # Only suited for for medium application < 250001 at the moment
+  #
+  # @param [FundingApplication] funding_application
+  # @return [<Restforce::SObject] restforce_cash_contributions
+  def get_salesforce_cost_headings(funding_application)
+
+    client = PaymentRequestSalesforceApiClient.new
+
+    set_award_type(funding_application)
+
+    record_type_id = client.record_type_id_medium_grant_cost \
+      if funding_application.is_100_to_250k?
+
+    # large arrears payments will need own function
+
+    case_id = funding_application.salesforce_case_id
+
+    restforce_cash_contributions =
+      client.salesforce_cost_headings(
+        case_id, 
+        record_type_id
+      )
 
   end
 

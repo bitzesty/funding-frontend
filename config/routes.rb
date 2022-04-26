@@ -476,6 +476,15 @@ Rails.application.routes.draw do
             get 'what-spend', to: 'what_spend#show'
             post 'what-spend', to: 'what_spend#update'
 
+            get 'low-spend-select', to: 'low_spend_select#show'
+            post 'low-spend-select', to: 'low_spend_select#update'
+            get 'low-spend-add', to: 'low_spend_add#show'
+            post 'low-spend-add', to: 'low_spend_add#update'
+
+
+            get 'high-spend', to: 'high_spend#show'
+            post 'high-spend', to: 'high_spend#update'
+
             # scope 'spend', module: 'spend', as: 'spend' do
               # scope spend id etc
             # end 

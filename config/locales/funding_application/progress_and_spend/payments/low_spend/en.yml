@@ -1,0 +1,10 @@
+en-GB:
+  progress_and_spend:
+    payments:
+      low_spend:
+        page_title: "Add item of spend"
+        page_heading: "Tell us about spend less than £%{spend_amount}"
+        page_caption: "Add item of spend"
+        page_hint: "Tell us about your spend less than £%{spend_amount} under your different spend types. For example, if you have 3 £200 invoices for publicity and promotion you can tell us you have spent of £600 on publicity and promotion."
+        spend_type: "Spend type"
+        select_spends: "Select any spend types you want to tell us about"

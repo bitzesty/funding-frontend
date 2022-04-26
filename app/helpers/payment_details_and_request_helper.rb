@@ -151,19 +151,6 @@ module PaymentDetailsAndRequestHelper
 
   end
 
-  # Helper method to retrieve agreed project costs for a given funding application
-  #
-  # @param funding_application [FundingApplication] An instance of a FundingApplication
-  #
-  # @return [RestforceCollection] An instance of a RestforceCollection
-  def retrieve_agreed_project_costs(funding_application)
-
-    salesforce_api_client = SalesforceApiClient.new
-
-    salesforce_api_client.get_agreed_project_costs(funding_application.salesforce_case_id)
-
-  end
-
   # Helper method to calculate the total of agreed project costs for a funding application
   #
   # @param agreed_project_costs [AgreedProjectCosts] An instance of a RestforceCollection

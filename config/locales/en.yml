@@ -912,3 +912,5 @@ en-GB:
             spend_journeys_to_do:
               choose: "Select spend to update on, or select 'No spend update'"
               blank: 'Select what spend you want to tell us about'
+            lower_spend_chosen:
+              blank: "Select any spend types you want to tell us about"

@@ -58,11 +58,15 @@ class FundingApplication::ProgressAndSpend::Payments::WhatSpendController < Appl
 
       selected_array.append(
         {spends_over: spend_threshold}
-          ) if payment_request.higher_spend == 'true'
+      ) if payment_request.higher_spend == 'true'
 
       selected_array.append(
-        {spends_under: spend_threshold}
-          ) if payment_request.lower_spend == 'true'
+        {spends_under: {
+          spend_threshold: spend_threshold,
+          spends_to_do: []
+          }
+        }
+      ) if payment_request.lower_spend == 'true'
       
       payment_request.answers_json['arrears_journey']\
         ['spend_journeys_to_do'] = selected_array

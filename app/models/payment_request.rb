@@ -10,6 +10,11 @@ class PaymentRequest < ApplicationRecord
   attr_accessor :lower_spend
   attr_accessor :no_update
   attr_accessor :validate_spend_journeys_to_do
+  
+  attr_accessor :lower_spend_chosen
+  attr_accessor :validate_lower_spend_chosen
+
+  validates :lower_spend_chosen, presence: true, if: :validate_lower_spend_chosen?
 
   validate do
 
@@ -45,6 +50,10 @@ class PaymentRequest < ApplicationRecord
 
     end
 
+  end
+
+  def validate_lower_spend_chosen?
+    validate_lower_spend_chosen == true
   end
 
 end
