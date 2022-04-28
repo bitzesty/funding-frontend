@@ -745,4 +745,18 @@ module ProgressAndSpendHelper
 
   end
 
+  # Uses spend_threshold stored in JSON
+  # Saves repeated calsl to Salesforce
+  # @param [PaymentRequest] payment_request PaymentRequest instance that
+  #                                         the array is recorded against
+  # @return [Integer] spend_threshold The spend level for this spend journey
+  def get_spend_threshold_from_json(payment_request)
+
+    # The first journey in [spend_journeys_to_do],
+    # will always be the journey we are in.
+    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+      first['spends_under']['spend_threshold']
+
+  end
+
 end

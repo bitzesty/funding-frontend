@@ -1,10 +1,9 @@
-class Spend < ApplicationRecord
+class HighSpend < ApplicationRecord
+  # Copied from Spend for reuse - but to be completed during
+  # development of high spend journey
   include ActiveModel::Validations, GenericValidator
 
-  belongs_to :cost_type
-
-  has_many :payment_requests_spends, inverse_of: :spend
-  has_many :payment_requests, through: :payment_requests_spends
+  belongs_to :payment_request, optional: true
 
   attr_accessor :validate_item_of_spend
 

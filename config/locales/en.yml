@@ -914,3 +914,9 @@ en-GB:
               blank: 'Select what spend you want to tell us about'
             lower_spend_chosen:
               blank: "Select any spend types you want to tell us about"
+        low_spend:
+          attributes:
+            total_amount:
+              not_a_number: "Enter total amount of spend"
+            vat_amount:
+              not_a_number: "Enter total VAT amount or enter 0 if there is no VAT"

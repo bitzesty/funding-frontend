@@ -1,7 +1,7 @@
 en-GB:
   progress_and_spend:
     payments:
-      low_spend:
+      low_spend_select:
         page_title: "Add item of spend"
         page_heading: "Tell us about spend less than £%{spend_amount}"
         page_caption: "Add item of spend"

@@ -1,0 +1,12 @@
+en-GB:
+  progress_and_spend:
+    payments:
+      low_spend_add:
+        page_title: "Add item of spend"
+        page_heading: "In total, how much have you spent on %{cost_heading}?"
+        page_caption: "Add item of spend"
+        page_hint: "Add the items of spend less than £%{spend_amount} under this spend type to get one total. Include the total for VAT separately."
+        total_amount: "Total amount"
+        without_vat: "without VAT"
+        vat_amount: "VAT amount"
+        when_you_have_finished: "When you have finished entering spend types, we will show you a table with what you have told us. You can check or change your answers there."

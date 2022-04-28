@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_21_075814) do
+ActiveRecord::Schema.define(version: 2022_04_27_090025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -372,6 +372,17 @@ ActiveRecord::Schema.define(version: 2022_04_21_075814) do
     t.index ["organisation_id"], name: "index_legal_signatories_on_organisation_id"
   end
 
+  create_table "low_spends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_request_id"
+    t.text "cost_heading"
+    t.decimal "vat_amount"
+    t.decimal "total_amount"
+    t.integer "spend_threshold"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["payment_request_id"], name: "index_low_spends_on_payment_request_id"
+  end
+
   create_table "non_cash_contributions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "amount"
     t.string "description"
@@ -487,15 +498,6 @@ ActiveRecord::Schema.define(version: 2022_04_21_075814) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "submitted_on"
     t.jsonb "answers_json"
-  end
-
-  create_table "payment_requests_spends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "payment_request_id", null: false
-    t.uuid "spend_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["payment_request_id"], name: "index_payment_requests_spends_on_payment_request_id"
-    t.index ["spend_id"], name: "index_payment_requests_spends_on_spend_id"
   end
 
   create_table "people", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -763,18 +765,6 @@ ActiveRecord::Schema.define(version: 2022_04_21_075814) do
     t.string "salesforce_pts_form_record_id"
   end
 
-  create_table "spends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "description"
-    t.date "date_of_spend"
-    t.decimal "net_amount"
-    t.decimal "vat_amount"
-    t.decimal "gross_amount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "cost_type_id", null: false
-    t.index ["cost_type_id"], name: "index_spends_on_cost_type_id"
-  end
-
   create_table "statutory_permission_or_licences", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.jsonb "details_json"
     t.uuid "sfx_pts_payment_id", null: false
@@ -870,14 +860,13 @@ ActiveRecord::Schema.define(version: 2022_04_21_075814) do
   add_foreign_key "gp_o_m_heritage_dsgntns", "heritage_designations"
   add_foreign_key "gp_open_medium", "funding_applications"
   add_foreign_key "gp_open_medium", "users"
+  add_foreign_key "low_spends", "payment_requests"
   add_foreign_key "non_cash_contributions", "projects"
   add_foreign_key "organisations_org_types", "org_types"
   add_foreign_key "organisations_org_types", "organisations"
   add_foreign_key "pa_expressions_of_interest", "pre_applications"
   add_foreign_key "pa_project_enquiries", "pre_applications"
   add_foreign_key "payment_details", "funding_applications"
-  add_foreign_key "payment_requests_spends", "payment_requests"
-  add_foreign_key "payment_requests_spends", "spends"
   add_foreign_key "people_addresses", "addresses"
   add_foreign_key "people_addresses", "people"
   add_foreign_key "pre_applications", "organisations"
@@ -901,7 +890,6 @@ ActiveRecord::Schema.define(version: 2022_04_21_075814) do
   add_foreign_key "project_costs", "projects"
   add_foreign_key "projects", "funding_applications"
   add_foreign_key "projects", "users"
-  add_foreign_key "spends", "cost_types"
   add_foreign_key "statutory_permission_or_licences", "sfx_pts_payments"
   add_foreign_key "users", "people"
   add_foreign_key "users_organisations", "organisations"

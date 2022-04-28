@@ -480,7 +480,8 @@ Rails.application.routes.draw do
             post 'low-spend-select', to: 'low_spend_select#update'
             get 'low-spend-add', to: 'low_spend_add#show'
             post 'low-spend-add', to: 'low_spend_add#update'
-
+            get 'low-spend-summary', to: 'low_spend_summary#show'
+            post 'low-spend-summary', to: 'low_spend_summary#update'
 
             get 'high-spend', to: 'high_spend#show'
             post 'high-spend', to: 'high_spend#update'

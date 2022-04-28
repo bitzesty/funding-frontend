@@ -1,0 +1,22 @@
+<p>low spend summary</p>
+<p>Next page uploads a table</p>
+
+  <%=
+		form_with model: @funding_application.arrears_journey_tracker.payment_request,
+		url: funding_application_progress_and_spend_payments_low_spend_summary_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+			<%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
+				)
+			%>
+
+	<% end %>

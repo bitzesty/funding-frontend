@@ -10,6 +10,16 @@
 <fieldset class="govuk-fieldset">
  	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
+    <%=
+      render(
+          partial: 'partials/summary_errors',
+          locals: {
+            form_object: @funding_application.arrears_journey_tracker.payment_request,
+            first_form_element: :select_higher_spend
+          }
+        ) if @funding_application.arrears_journey_tracker.payment_request.errors.any?
+    %>
+
 		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
       <%= t('progress_and_spend.payments.what_spend.page_caption')%>
 		</span>
@@ -19,16 +29,6 @@
 		</h1>
 
 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-
-  <%=
-    render(
-        partial: 'partials/summary_errors',
-        locals: {
-          form_object: @funding_application.arrears_journey_tracker.payment_request,
-          first_form_element: :select_higher_spend
-        }
-      ) if @funding_application.arrears_journey_tracker.payment_request.errors.any?
-  %>
 
   <%= 
     form_with model: @funding_application.arrears_journey_tracker.payment_request,

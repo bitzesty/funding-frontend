@@ -2,39 +2,39 @@
   render partial: "partials/page_title",
     locals: {
       model_object: nil,
-      page_title: t("progress_and_spend.payments.low_spend.page_title")
+      page_title: t("progress_and_spend.payments.low_spend_select.page_title")
     }
 %>
 
 <fieldset class="govuk-fieldset">
 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
+		<%=
+			render(
+					partial: 'partials/summary_errors',
+					locals: {
+						form_object: @funding_application.arrears_journey_tracker.payment_request,
+						first_form_element: @first_form_element
+					}
+				) if @funding_application.arrears_journey_tracker.payment_request.errors.any?
+  	%>
+
 		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
-			<%= t('progress_and_spend.payments.low_spend.page_caption') %>
+			<%= t('progress_and_spend.payments.low_spend_select.page_caption') %>
 		</span>
 
     <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-      <%= t('progress_and_spend.payments.low_spend.page_heading', spend_amount: @spend_amount) %>
+      <%= t('progress_and_spend.payments.low_spend_select.page_heading', spend_amount: @spend_amount) %>
     </h1>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
-	<%=
-    render(
-        partial: 'partials/summary_errors',
-        locals: {
-          form_object: @funding_application.arrears_journey_tracker.payment_request,
-          first_form_element: @first_form_element
-        }
-      ) if @funding_application.arrears_journey_tracker.payment_request.errors.any?
-  %>
-
 	<p class="govuk-body govuk-hint">
-		<%= t('progress_and_spend.payments.low_spend.page_hint', spend_amount: @spend_amount) %>
+		<%= t('progress_and_spend.payments.low_spend_select.page_hint', spend_amount: @spend_amount) %>
 	</p>
 
 	<h3 class="govuk-heading-s">
-		<%= t('progress_and_spend.payments.low_spend.spend_type') %>
+		<%= t('progress_and_spend.payments.low_spend_select.spend_type') %>
 	</h3>
 
 	<%=
@@ -90,8 +90,6 @@
 			<% end %>
 
 		</div>
-
-
 
 		<%=
 			render(
