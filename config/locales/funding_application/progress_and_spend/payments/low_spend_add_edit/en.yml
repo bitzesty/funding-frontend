@@ -1,7 +1,7 @@
 en-GB:
   progress_and_spend:
     payments:
-      low_spend_add:
+      low_spend_add_edit:
         page_title: "Add item of spend"
         page_heading: "In total, how much have you spent on %{cost_heading}?"
         page_caption: "Add item of spend"

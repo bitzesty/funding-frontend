@@ -1,0 +1,171 @@
+<%=
+  render partial: "partials/page_title",
+  locals: {
+      model_object: @payment_request,
+      page_title: t("progress_and_spend.payments.table_of_spend.page_title")
+  }
+%>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+    <%=
+      render partial: "partials/summary_errors",
+          locals: {
+              form_object: @payment_request,
+              first_form_element: :payment_request_table_of_spend_file
+          } if @payment_request.errors.any?
+    %>
+
+    <span class="govuk-caption-xl govuk-!-padding-bottom-2">
+      <%=t("progress_and_spend.payments.table_of_spend.page_caption")%>
+    </span>
+
+    <h1 class="govuk-heading-xl">
+       <%=t("progress_and_spend.payments.table_of_spend.page_heading")%>
+    </h1>
+
+    <p class="govuk-body govuk-hint" id="table_of_spend_file-form-group">
+      <%=t("progress_and_spend.payments.table_of_spend.page_hint.upload_your_table")%>
+    </p>
+
+    <p class="govuk-body govuk-hint" id="table_of_spend_file-form-group">
+      <%=t("progress_and_spend.payments.table_of_spend.page_hint.in_your_table")%>
+      <ul class="govuk-list govuk-list--bullet govuk-hint">
+
+        <li>
+          <%=t("progress_and_spend.payments.table_of_spend.page_hint.date_of_spend")%>
+        </li>
+
+        <li>
+          <%=t("progress_and_spend.payments.table_of_spend.page_hint.name_of_supplier")%>
+        </li>
+
+        <li>
+          <%=t("progress_and_spend.payments.table_of_spend.page_hint.brief_description")%>
+        </li>
+
+        <li>
+          <%=t("progress_and_spend.payments.table_of_spend.page_hint.cost")%>
+        </li>
+
+      </ul>
+    </p>
+
+
+  </legend>
+  
+  <%=
+    form_with model: @payment_request,
+    url: :funding_application_progress_and_spend_payments_table_of_spend,
+    method: :post,
+    local: true do |f|
+  %>
+    
+    <h2 class="govuk-heading-m">
+      <%=t("progress_and_spend.payments.table_of_spend.upload_table")%>
+    </h2>
+
+    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+      <fieldset class="govuk-fieldset">
+
+        <div class="govuk-form-group <%= "govuk-form-group--error" \
+          if @payment_request.errors.any? %>" id="table_of_spend_file-form-group" data-form-group="file">
+
+          <%=
+            render partial: "partials/form_group_errors",
+                    locals: {
+                        form_object: @payment_request
+                    } if @payment_request.errors.any?
+          %>
+
+          <div class="govuk-form-group">
+
+            <div id="table_of_spend_file-errors"></div>
+
+            <%=
+              f.file_field :table_of_spend_file,
+                          multiple: false,
+                          direct_upload: true,
+                          class: "govuk-file-upload #{"govuk-file-upload--error" if @payment_request.errors.any?}",
+                          'data-input-identifier': 'file',
+                          'data-attribute': :table_of_spend_file,
+                          'data-model': :funding_application,
+                          'autocomplete' => 'off'
+            %>
+
+          </div>
+
+          <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+              for the reasoning behind this workaround %>
+          <input type="hidden" name="ieworkaround">
+
+          <div class="govuk-form-group">
+
+            <%=
+              render(ButtonComponent.new(
+                  text: t('progress_and_spend.payments.table_of_spend.upload_button'),
+                  classes: "govuk-button--secondary",
+									name: 'add_file_button'
+                  ))
+            %>
+
+          </div>
+
+        </div>
+
+        <% unless @payment_request.table_of_spend_file.attached? %>
+          <p class="govuk-body">
+            <%= t('progress_and_spend.payments.table_of_spend.no_document_uploaded') %>
+          </p>
+        <% else %>
+          <table class="govuk-table">
+
+            <thead class="govuk-table__head">
+
+              <tr class="govuk-table__row">
+
+                <th scope="col" class="govuk-table__header">
+                  <%= I18n.t("generic.uploaded_file") %>
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody class="govuk-table__body">
+
+              <tr>
+
+                <td>
+                  <%= link_to(@payment_request.table_of_spend_file.blob.filename,
+                              rails_blob_path(@payment_request.table_of_spend_file,
+                                              disposition: "attachment"))
+                  %>
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+        <% end %>
+
+      </fieldset>
+
+    </div>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+					name: "save_and_continue_button"
+        )
+      )
+    %>
+
+  <% end %>
+
+</fieldset>

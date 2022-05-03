@@ -914,6 +914,8 @@ en-GB:
               blank: 'Select what spend you want to tell us about'
             lower_spend_chosen:
               blank: "Select any spend types you want to tell us about"
+            table_of_spend_file:
+              inclusion: "Select table of spend"
         low_spend:
           attributes:
             total_amount:

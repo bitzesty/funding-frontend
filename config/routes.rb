@@ -482,13 +482,19 @@ Rails.application.routes.draw do
             post 'low-spend-add', to: 'low_spend_add#update'
             get 'low-spend-summary', to: 'low_spend_summary#show'
             post 'low-spend-summary', to: 'low_spend_summary#update'
+            delete 'low-spend-summary/:low_spend_id',
+              to: 'low_spend_summary#delete',
+              as: :low_spend_summary_delete
+            scope '/:low_spend_id' do
+              get 'low-spend-edit', to: 'low_spend_edit#show'
+              post 'low-spend-edit', to: 'low_spend_edit#update'
+            end
+
+            get 'table-of-spend', to: 'table_of_spend#show'
+            post 'table-of-spend', to: 'table_of_spend#update'
 
             get 'high-spend', to: 'high_spend#show'
             post 'high-spend', to: 'high_spend#update'
-
-            # scope 'spend', module: 'spend', as: 'spend' do
-              # scope spend id etc
-            # end 
 
             get 'have-your-bank-details-changed', to: 'have_bank_details_changed#show'
             put 'have-your-bank-details-changed', to: 'have_bank_details_changed#update'

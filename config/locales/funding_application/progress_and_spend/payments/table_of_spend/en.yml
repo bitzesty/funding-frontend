@@ -1,0 +1,17 @@
+en-GB:
+  progress_and_spend:
+    payments:
+      table_of_spend:
+        page_title: "Upload table of spend"
+        page_heading: "Upload table of spend"
+        page_caption: "Add item of spend"
+        page_hint:
+          upload_your_table: "Upload your table of spend showing what makes up the totals you have told us about."
+          in_your_table: "In your table, try to include:"
+          date_of_spend: "date of spend,"
+          name_of_supplier: "name of supplier, shop or service,"
+          brief_description: "a brief description,"
+          cost: "cost."
+        upload_table: "Upload table of spend"
+        upload_button: "Upload document"
+        no_document_uploaded: "No document uploaded"

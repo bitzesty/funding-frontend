@@ -12,8 +12,10 @@
 #     ]
 #   }
 # }
-
-class FundingApplication::ProgressAndSpend::Payments::LowSpendSelectController < ApplicationController
+# spends_to_do will be populated and used to track how many times view
+# is shown.
+class FundingApplication::ProgressAndSpend::Payments::\
+    LowSpendSelectController < ApplicationController
   include FundingApplicationContext
   include ProgressAndSpendHelper
 

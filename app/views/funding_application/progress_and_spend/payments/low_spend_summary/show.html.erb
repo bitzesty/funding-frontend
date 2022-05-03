@@ -1,5 +1,130 @@
-<p>low spend summary</p>
-<p>Next page uploads a table</p>
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t("progress_and_spend.payments.low_spend_summary.page_title")
+    }
+%>
+
+<fieldset class="govuk-fieldset">
+
+	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.payments.low_spend_summary.page_caption') %>
+		</span>
+
+    <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+      <%= t('progress_and_spend.payments.low_spend_summary.page_heading', spend_amount: @spend_amount) %>
+    </h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+
+	<%# Spends table start.%>
+	<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
+
+		<header class="nlhf-summary__header">
+
+			<h2 class="govuk-heading-m">
+				<%= t('progress_and_spend.payments.low_spend_summary.your_project_spend') %>
+			</h2>
+
+		</header>
+
+		<div class="nlhf-summary__body">
+
+			<table class="govuk-table">
+
+				<thead class="govuk-table__head">
+
+					<tr class="govuk-table__row">
+
+						<th scope="col" class="govuk-table__header govuk-!-width-one-third">
+							<%= t('progress_and_spend.payments.low_spend_summary.spend_type') %>
+						</th>
+
+						<th scope="col" class="govuk-table__header govuk-!-width-one-third">
+							<%= t('progress_and_spend.payments.low_spend_summary.total_spend') %>
+							<div>
+								<%= t('progress_and_spend.payments.low_spend_summary.including_vat') %>
+							</div>
+						</th>
+
+						<%# Voice over skips these empty headers, that are included for table style. %>
+						<th scope="col" class="govuk-table__header"></th>
+						<th scope="col" class="govuk-table__header"></th>
+
+					</tr>
+
+				</thead>
+
+				<tbody class="govuk-table__body">
+
+					<% @low_spend.each do | ls | %>
+
+						<tr class="govuk-table__row">
+
+							<td class="govuk-table__cell">
+								<%= ls.cost_heading %>
+							</td>
+
+							<td class="govuk-table__cell">
+								<%= ls.total_amount + ls.vat_amount %>
+							</td>
+
+							<td class="govuk-table__cell">
+									<%=
+										link_to(
+											t('generic.change'),
+											funding_application_progress_and_spend_payments_low_spend_edit_path(low_spend_id: ls.id),
+											id: 'change-ls',
+											class: 'govuk-link'
+										)
+									%>
+							</td>
+
+							<td class="govuk-table__cell">
+								<%=
+									link_to(
+										t('generic.remove'),
+										funding_application_progress_and_spend_payments_low_spend_summary_delete_path(low_spend_id: ls.id),
+										class: 'govuk-link',
+										style: 'color: red',
+										id: 'delete-ls',
+										:method => 'delete'
+									)
+								%>
+							</td>
+
+					<%end%>
+
+					</tr>
+
+						<th scope="row" class="govuk-table__header"> 
+							<%= t('progress_and_spend.payments.low_spend_summary.update_total') %>
+						</th>
+
+						<td scope="row" class="govuk-table__header"> 
+							£<%= @update_total %>
+						</td>
+
+						<%# Voice over skips these empty headers, that are included for table style. %>
+
+						<th scope="col" class="govuk-table__header"/>
+						<th scope="col" class="govuk-table__header"/>
+						
+					</tr>
+
+				</tbody>
+
+			</table>
+		
+		</div>
+
+	</section>
+
+	<%# Spends table end.%>
 
   <%=
 		form_with model: @funding_application.arrears_journey_tracker.payment_request,
@@ -20,3 +145,5 @@
 			%>
 
 	<% end %>
+
+<fieldset class="govuk-fieldset">

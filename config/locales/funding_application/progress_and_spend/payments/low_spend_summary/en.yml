@@ -1,0 +1,12 @@
+en-GB:
+  progress_and_spend:
+    payments:
+      low_spend_summary:
+        page_title: "Spend summary"
+        page_heading: "Spend less than £%{spend_amount}"
+        page_caption: "Add item of spend"
+        your_project_spend: "Your project spend"
+        spend_type: "Spend type"
+        total_spend: "Total spend"
+        including_vat: "Including VAT"
+        update_total: "Update total"
