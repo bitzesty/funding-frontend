@@ -1,0 +1,21 @@
+en-GB:
+  payment_bank_account_evidence:
+    page_title: "'Evidence of bank details'"
+    page_heading: "Upload evidence of bank details"
+    caption: "Bank details"
+    description: "The name of the bank account in your evidence you upload should match the name of the organisation from your application."
+    accordion: 
+      heading: "Why do we need evidence of the bank account?"
+      bullet_heading: "We use this to:"
+      bullet_one: "confirm you have a bank account we can pay the money into,"
+      bullet_two: "check we have the right account details for your payments."
+    sub_heading: "What evidence we can accept"
+    evidence_bullet_one: "Evidence can be a recent bank statement, cheque, or paying-in slip."
+    evidence_bullet_two: "Bank statements need to be from within the last 3 months."
+    evidence_bullet_three: "Online bank statements need to show the bank logo, website address, account name, number and sort code."
+    evidence_file_label: "Upload evidence of bank account"
+    no_evidence_uploaded: "You have not added evidence of your bank account"
+    evidence_file: "Evidence of bank account file"
+    buttons:
+      add_evidence:
+        text: "Add evidence of bank account"

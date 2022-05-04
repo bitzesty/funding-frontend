@@ -914,6 +914,8 @@ en-GB:
               blank: 'Select what spend you want to tell us about'
             lower_spend_chosen:
               blank: "Select any spend types you want to tell us about"
+            has_bank_details_update:
+              blank: "Select if your organisation's bank details have changed"
             table_of_spend_file:
               inclusion: "Select table of spend"
         low_spend:

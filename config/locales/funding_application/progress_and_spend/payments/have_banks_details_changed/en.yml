@@ -1,0 +1,9 @@
+en-GB:
+  progress_and_spend:
+    payments:
+     have_bank_details_changed:
+      page_title: "Have your bank details changed"
+      page_heading: "Have your organisation's bank details changed since the last we paid you?"
+      page_caption: "Bank details"
+      radio_yes: "Yes, my organisation's bank details have changed"
+      radio_no: "No, my organisation's bank details have not changed"

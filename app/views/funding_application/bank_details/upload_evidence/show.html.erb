@@ -1,0 +1,188 @@
+<%=
+  render partial: "partials/page_title",
+  locals: {
+      model_object: @funding_application.payment_details,
+      page_title: t("payment_bank_account_evidence.page_title")
+  }
+%>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <span class="govuk-caption-xl govuk-!-padding-bottom-2">
+      <%=t("payment_bank_account_evidence.caption")%>
+    </span>
+
+    <h1 class="govuk-heading-xl">
+      <%=t("payment_bank_account_evidence.page_heading")%>
+    </h1>
+
+    <p class='govuk-body'>
+      <%=t("payment_bank_account_evidence.description")%>
+    </p>
+
+    <details class="govuk-details" data-module="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          <%=t("payment_bank_account_evidence.accordion.heading")%>
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+         <p class='govuk-body'><%=t("payment_bank_account_evidence.accordion.bullet_heading")%></p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li><%=t("payment_bank_account_evidence.accordion.bullet_one")%></li>
+            <li><%=t("payment_bank_account_evidence.accordion.bullet_two")%></li>
+          </ul>
+      </div>
+    </details>
+
+    <h2 class="govuk-heading-s">
+      <%=t("payment_bank_account_evidence.sub_heading")%>
+    </h2>
+
+    <ol class="govuk-list govuk-list--number">
+      <li>
+        <%=t("payment_bank_account_evidence.evidence_bullet_one")%>
+      </li>
+      <li>
+        <%=t("payment_bank_account_evidence.evidence_bullet_two")%>
+      </li>
+      <li>
+        <%=t("payment_bank_account_evidence.evidence_bullet_three")%>
+      </li>
+    </ol>
+
+  </legend>
+
+  <div id="summary-errors"></div>
+
+  <%=
+    render partial: "partials/summary_errors",
+          locals: {
+              form_object: @funding_application.payment_details,
+              first_form_element: :payment_details_evidence_file
+          } if @funding_application.payment_details.errors.any?
+  %>
+
+  <%=
+    form_with model: @funding_application.payment_details,
+      url: :funding_application_bank_details_upload_evidence,
+      method: :post,
+      local: true do |f|
+  %>
+
+    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+      <fieldset class="govuk-fieldset">
+        
+        <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.payment_details.errors.any? %>" id="evidence_file-form-group" data-form-group="file">
+          
+          <%=
+            render partial: "partials/form_group_errors",
+            locals: {
+                form_object: @funding_application.payment_details
+            } if @funding_application.payment_details.errors.any?
+          %>
+
+          <div class="govuk-form-group">
+
+            <h2 class="govuk-label-wrapper">
+              <%=
+                f.label :evidence_file,
+                        t('payment_bank_account_evidence.evidence_file_label'),
+                        class: "govuk-label govuk-label--m nlhf-content-highlight__title"
+              %>
+            </h2>
+
+            <div id="evidence_file-errors"></div>
+
+            <%=
+              f.file_field :evidence_file,
+                          multiple: false,
+                          direct_upload: true,
+                          class: "govuk-file-upload #{"govuk-file-upload--error" if @funding_application.payment_details.errors.any?}",
+                          'data-input-identifier': 'file',
+                          'data-attribute': :evidence_file,
+                          'data-model': :funding_application,
+                          'autocomplete' => 'off'
+            %>
+
+          </div>
+
+          <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+              for the reasoning behind this workaround %>
+          <input type="hidden" name="ieworkaround">
+
+          <div class="govuk-form-group">
+
+            <%=
+              render(
+                ButtonComponent.new(
+                  text: t('payment_bank_account_evidence.buttons.add_evidence.text'),
+                  classes: "govuk-button--secondary",
+									name: 'add_file_button'
+                )
+              )
+            %>
+          
+          </div>
+
+        </div>
+
+        <% unless @funding_application.payment_details.evidence_file.attached? %>
+          <p class="govuk-body">
+            <%= t('payment_bank_account_evidence.no_evidence_uploaded') %>
+          </p>
+        <% else %>
+          <table class="govuk-table">
+
+            <thead class="govuk-table__head">
+
+              <tr class="govuk-table__row">
+
+                <th scope="col" class="govuk-table__header">
+                  <%= I18n.t("payment_bank_account_evidence.evidence_file") %>
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody class="govuk-table__body">
+
+              <tr>
+
+                <td>
+                  <%= link_to(@funding_application.payment_details.evidence_file.blob.filename,
+                              rails_blob_path(@funding_application.payment_details.evidence_file,
+                                              disposition: "attachment"))
+                  %>
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+        <% end %>
+
+      </fieldset>
+
+    </div>
+
+      <%=
+        render(
+          ButtonComponent.new(
+            element: 'button',
+            is_start_button: false,
+            text: t('buttons.labels.default'),
+            name: "save_and_continue_button"
+          )
+        )
+      %>
+
+  <% end %>
+
+</fieldset>
+
+
+
+

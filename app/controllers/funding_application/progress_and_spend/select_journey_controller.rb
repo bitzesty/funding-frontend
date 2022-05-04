@@ -30,6 +30,10 @@ include Enums::ArrearsJourneyStatus
             arrears_journey: {
               status: JOURNEY_STATUS[:not_started],
               spend_journeys_to_do:[]
+            },
+            bank_details_journey: {
+              status: JOURNEY_STATUS[:not_started],
+              has_bank_details_update: nil
             }
           }
         )

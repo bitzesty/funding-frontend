@@ -18,8 +18,14 @@ class PaymentRequest < ApplicationRecord
   attr_accessor :lower_spend_chosen
   attr_accessor :validate_lower_spend_chosen
 
+  attr_accessor :has_bank_details_update
+  attr_accessor :validate_has_bank_details_update
+
   attr_accessor :validate_table_of_spend_file
 
+  validates :lower_spend_chosen, presence: true, if: :validate_lower_spend_chosen?
+  validates :has_bank_details_update, presence: true,  if: :validate_has_bank_details_update?
+ 
   validates :lower_spend_chosen, presence: true,
     if: :validate_lower_spend_chosen?
 
@@ -71,6 +77,10 @@ class PaymentRequest < ApplicationRecord
 
   def validate_lower_spend_chosen?
     validate_lower_spend_chosen == true
+  end
+
+  def validate_has_bank_details_update?
+    validate_has_bank_details_update == true
   end
 
 end

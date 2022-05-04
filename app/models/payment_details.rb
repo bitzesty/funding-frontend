@@ -83,6 +83,7 @@ class PaymentDetails < ApplicationRecord
         :evidence_file,
         I18n.t("activerecord.errors.models.payment_details.attributes.evidence_file.inclusion")
     ) if validate_evidence_file?
+    
   end
 
   # Method to validate that an entered sort code (once stripped of spurious non-numeric characters)

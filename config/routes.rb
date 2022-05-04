@@ -308,14 +308,13 @@ Rails.application.routes.draw do
         get 'start', to: 'start#show'
 
         get 'enter', to: 'enter#show'
-        put 'enter', to: 'enter#update'
+        post 'enter', to: 'enter#update'
 
         get 'confirm', to: 'confirm#show'
-        put 'confirm', to: 'confirm#update'
+        post 'confirm', to: 'confirm#update'
 
-        put 'confirm-submitted', to: 'confirm#save_and_continue'
-
-        get 'submitted', to: 'submitted#show'
+        get 'upload-evidence', to: 'upload_evidence#show'
+        post 'upload-evidence', to: 'upload_evidence#update'
 
       end
 
@@ -497,7 +496,7 @@ Rails.application.routes.draw do
             post 'high-spend', to: 'high_spend#update'
 
             get 'have-your-bank-details-changed', to: 'have_bank_details_changed#show'
-            put 'have-your-bank-details-changed', to: 'have_bank_details_changed#update'
+            post 'have-your-bank-details-changed', to: 'have_bank_details_changed#update'
 
           end
 

@@ -18,7 +18,7 @@
 <%= 
   form_with model: @funding_application.payment_details,
   url: :funding_application_bank_details_enter,
-  method: :put,
+  method: :post,
   local: true do |f|
 %>
 
@@ -159,7 +159,16 @@
 
       <div class="govuk-form-group">
 
-        <%= render(ButtonComponent.new(element: "input", text: t('payment_details.button.text'))) %>
+        <%=
+          render(
+            ButtonComponent.new(
+              element: 'button',
+              is_start_button: false,
+              text: t('buttons.labels.default'),
+              name: "save_and_continue_button"
+            )
+          )
+        %>
 
       </div>
 

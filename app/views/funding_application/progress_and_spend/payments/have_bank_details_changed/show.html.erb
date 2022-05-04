@@ -1,3 +1,109 @@
-Have bank details changed
+<%=
+  render partial: "partials/page_title",
+  locals: {
+    model_object: @funding_application,
+    page_title: t("progress_and_spend.payments.have_bank_details_changed.page_title")
+  }
+%>
 
-(Try to reuse existing bank details change page in payments scope)
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @payment_request,
+      first_form_element: :payment_request_has_bank_details_update_true
+    }
+  ) if @payment_request.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+      <%=t("progress_and_spend.payments.have_bank_details_changed.page_caption")%>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+			<%=t("progress_and_spend.payments.have_bank_details_changed.page_heading")%>
+		</h1>
+
+	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+	<%= 
+		form_with model: @payment_request,
+		url: funding_application_progress_and_spend_payments_have_your_bank_details_changed_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+		<div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+
+			<%=
+				render(
+					partial: 'partials/form_input_errors',
+					locals: {
+						form_object: @payment_request,
+						input_field_id: :has_bank_details_update_true
+					}
+				) if @payment_request.errors.any? 
+			%>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+				@payment_request.errors.any? %>">
+
+				<div id="form-group-errors"></div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :has_bank_details_update,
+						true,
+						class: "govuk-radios__input"
+					%>
+								
+					<%=
+						f.label :has_bank_details_update_true,
+						t("progress_and_spend.payments.have_bank_details_changed.radio_yes"),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+					<%=
+						f.radio_button :has_bank_details_update,
+						false,
+						class: "govuk-radios__input"
+					%>
+
+					<%=	
+							f.label :has_bank_details_update_false,
+							t("progress_and_spend.payments.have_bank_details_changed.radio_no"),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+			
+			</div>
+
+			<%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
+				)
+			%>
+
+			<%#
+				See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+				for the reasoning behind this workaround
+			%>
+			<input type="hidden" name="ieworkaround">
+		</div>
+	<% end %>
+
+</fieldset>

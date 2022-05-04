@@ -45,7 +45,11 @@ class FundingApplication::BankDetails::EnterController < ApplicationController
   def payment_params
 
     params.require(:payment_details).permit(
-      :account_name, :account_number, :sort_code, :building_society_roll_number, :payment_reference
+      :account_name, 
+      :account_number, 
+      :sort_code, 
+      :building_society_roll_number, 
+      :payment_reference
     )
 
   end

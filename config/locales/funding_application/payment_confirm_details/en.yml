@@ -2,21 +2,14 @@ en-GB:
   payment_confirm_details:
     page_title: "Confirm bank details"
     page_heading: "Confirm bank details"
-    confirm_details_are_correct: "Confirm your bank details are correct and upload evidence of your account. Evidence can be a recent bank statement, cheque or paying-in slip."
-    bank_statements: "Bank statements need to be from within the last 3 months. Online bank statements need to show the bank logo, website address, account name, number and sort code."
-    page_sub_heading: "Review bank details"
+    sub_heading: "Bank details"
     name_on_account: "Name on account"
     account_number: "Account number"
     sort_code: "Sort code"
     building_society_roll_number: "Building society roll number"
     payment_reference: "Payment reference"
-    evidence_file_label: "Upload evidence of bank account"
-    no_evidence_uploaded: "You have not added evidence of your bank account"
-    evidence_file: "Evidence of bank account file"
     buttons:
-      add_evidence:
-        text: "Add evidence of bank account"
-      submit_bank_details: "Submit bank details"
+      submit_bank_details: "Confirm bank details"
     change: "Change"
     change_span: "bank details"
     warning: "warning"

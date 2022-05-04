@@ -11,3 +11,4 @@ cy:
     building_society_roll_number_hint: "Gallwch ddod o hyd iddo ar eich cerdyn, datganiad neu lyfr cyfrin"
     payment_reference_label: "Cyfeirnod talu"
     payment_reference_hint: "Ni ddylai'r cyfeirnod talu fod mwy nag 18 nod na chynnwys gofodau"
+    

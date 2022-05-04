@@ -153,8 +153,8 @@
         render(
           partial: 'partials/tag_component',
           locals: {
-            colour: 'blue',
-            tag_text: t('generic.in_progress'),
+            colour: get_tag_colour(@bank_details_status),
+            tag_text: t("generic.#{@bank_details_status}"),
             tag_id: 'bank-details'
           }
         )
