@@ -329,9 +329,36 @@ Rails.application.routes.draw do
         post 'progress-and-spend-tasks', to: 'tasks#update'
 
         get 'submit-your-answers', to: 'submit#show'
-        get 'submit-your-answers', to: 'submit#update'
+        post 'submit-your-answers', to: 'submit#update'
 
-        scope 'progress-update', module: 'progress_update', as: 'progress_update' do
+        scope 'previous-submissions', module: 'previous_submissions', as: :previous_submissions do
+          get 'previous-submission-dates', to: 'previous_submission_dates#show'
+          post 'previous-submission-dates', to: 'previous_submission_dates#update'
+
+          scope '/:completed_arrears_journey_id' do
+            get 'previously-submitted', to: 'previously_submitted#show'
+            post 'previously-submitted', to: 'previously_submitted#update'
+
+            scope 'submission-summary', module: 'submission_summary', as: :submission_summary do
+              scope '/:progress_update_id' do
+                get 'progress-update-submission', to: 'progress_update_submission#show' 
+                post 'progress-update-submission', to: 'progress_update_submission#update' 
+  
+                get 'approved-purposes-submission', to: 'approved_purposes_submission#show'
+                post 'approved-purposes-submission', to: 'approved_purposes_submission#update'
+              end
+              
+              scope '/:payment_request_id' do
+                get 'payments-submission', to: 'payments_submission#show'
+                post 'payments-submission', to: 'payments_submission#update'
+              end
+              
+            end
+
+          end
+        end
+
+        scope 'progress-update', module: 'progress_update', as: 'progress_update' do  
           scope '/:progress_update_id' do
             
             get 'photos', to: 'photos#show'

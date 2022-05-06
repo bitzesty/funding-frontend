@@ -100,8 +100,7 @@
 
   <% end %>
 
- <% if @complete_payment_tasks %>
-
+  <% if @complete_payment_tasks %>
     <li class="nlhf-list__item nlhf-task__item">
 
       <span class="nlhf-tag-name">
@@ -161,7 +160,6 @@
       %>
 
     </li>
-
   <% end %>
 
   <li class="nlhf-list__item nlhf-task__item">
@@ -193,3 +191,35 @@
   </li>
 
 </ul>
+
+<%= content_for :secondarycontent do %>
+  <div class="nlhf-panel" >
+    <h2 class="govuk-heading-m">
+        Project Overview
+    </h2>
+    <ul class="govuk-list nlhf-list nlhf-list--links">
+      <li>
+        <span>
+          <%=
+            link_to(
+              'View Grant Contract',
+              '',
+              class: 'govuk-link govuk-link--no-visited-state'
+            )
+          %>
+        </span>
+      </li>
+      <li>
+        <span>
+          <%=
+            link_to(
+              'Previous payments and project updates',
+              funding_application_progress_and_spend_previous_submissions_previous_submission_dates_path(),
+              class: 'govuk-link govuk-link--no-visited-state'
+            )
+          %>
+        </span>
+      </li>
+    </ul>
+  </div>
+<% end %>

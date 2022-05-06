@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_27_090025) do
+ActiveRecord::Schema.define(version: 2022_05_04_095519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -90,6 +90,18 @@ ActiveRecord::Schema.define(version: 2022_04_27_090025) do
     t.uuid "project_id"
     t.string "salesforce_external_id"
     t.index ["project_id"], name: "index_cash_contributions_on_project_id"
+  end
+
+  create_table "completed_arrears_journeys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "funding_application_id", null: false
+    t.uuid "payment_request_id"
+    t.uuid "progress_update_id"
+    t.datetime "submitted_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["funding_application_id"], name: "index_completed_arrears_journeys_on_funding_application_id"
+    t.index ["payment_request_id"], name: "index_completed_arrears_journeys_on_payment_request_id"
+    t.index ["progress_update_id"], name: "index_completed_arrears_journeys_on_progress_update_id"
   end
 
   create_table "cost_types", id: :serial, force: :cascade do |t|
@@ -832,6 +844,9 @@ ActiveRecord::Schema.define(version: 2022_04_27_090025) do
   add_foreign_key "arrears_journey_trackers", "payment_requests"
   add_foreign_key "arrears_journey_trackers", "progress_updates"
   add_foreign_key "cash_contributions", "projects"
+  add_foreign_key "completed_arrears_journeys", "funding_applications"
+  add_foreign_key "completed_arrears_journeys", "payment_requests"
+  add_foreign_key "completed_arrears_journeys", "progress_updates"
   add_foreign_key "evidence_of_support", "projects"
   add_foreign_key "fndng_applctns_prgrss_updts", "funding_applications"
   add_foreign_key "fndng_applctns_prgrss_updts", "progress_updates"

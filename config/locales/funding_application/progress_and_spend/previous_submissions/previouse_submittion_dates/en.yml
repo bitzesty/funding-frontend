@@ -1,0 +1,9 @@
+en-GB: 
+  progress_and_spend:
+    previous_submissions:
+      previous_submission_dates:
+        page_title: "Previous Updates"
+        page_caption: "Project update or get a payment"
+        page_heading: "Previous updates"
+        page_description: "Select a submission to see what the update included."
+        link_text: "Submitted on %{submission_date}"

@@ -1,0 +1,7 @@
+en-GB: 
+  progress_and_spend:
+    previous_submissions:
+      submission_summary:
+        progress_update_summary:
+          page_title: "Progress update summary'"
+          page_heading: "Tell us how the project going"

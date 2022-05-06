@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
     locals: {
       model_object: nil,
-      page_title: t("progress_and_spend.payments.low_spend_summary.page_title")
+      page_title: t('progress_and_spend.previous_submissions.submission_summary.payments_summary.page_title')
     }
 %>
 
@@ -10,12 +10,8 @@
 
 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
-		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
-			<%= t('progress_and_spend.payments.low_spend_summary.page_caption') %>
-		</span>
-
     <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-      <%= t('progress_and_spend.payments.low_spend_summary.page_heading', spend_amount: @spend_amount) %>
+      <%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.page_heading')%>
     </h1>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -45,10 +41,11 @@
 						</th>
 
 						<th scope="col" class="govuk-table__header govuk-!-width-one-third">
-							<%= t('progress_and_spend.payments.low_spend_summary.total_spend') %>
-							<div>
-								<%= t('progress_and_spend.payments.low_spend_summary.including_vat') %>
-							</div>
+							<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.amount')%>
+						</th>
+
+            <th scope="col" class="govuk-table__header govuk-!-width-one-third">
+              <%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.vat_amount')%>
 						</th>
 
 						<%# Voice over skips these empty headers, that are included for table style. %>
@@ -70,43 +67,24 @@
 							</td>
 
 							<td class="govuk-table__cell">
-								<%= ls.total_amount + ls.vat_amount %>
+								<%= ls.total_amount %>
 							</td>
 
-							<td class="govuk-table__cell">
-									<%=
-										link_to(
-											t('generic.change'),
-											funding_application_progress_and_spend_payments_low_spend_edit_path(low_spend_id: ls.id),
-											id: 'change-ls',
-											class: 'govuk-link'
-										)
-									%>
+              <td class="govuk-table__cell">
+								<%= ls.vat_amount %>
 							</td>
 
-							<td class="govuk-table__cell">
-								<%=
-									link_to(
-										t('generic.remove'),
-										funding_application_progress_and_spend_payments_low_spend_summary_delete_path(low_spend_id: ls.id),
-										class: 'govuk-link',
-										style: 'color: red',
-										id: 'delete-ls',
-										:method => 'delete'
-									)
-								%>
-							</td>
-						</tr>
+            <tr>
 
 					<%end%>
 
-					<tr>
+					<tr class="govuk-table__body">
 
-						<th scope="row" class="govuk-table__header"> 
-							<%= t('progress_and_spend.payments.low_spend_summary.update_total') %>
+						<th scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
+							<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.total_costs')%>
 						</th>
 
-						<td scope="row" class="govuk-table__header"> 
+						<td scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
 							£<%= @update_total %>
 						</td>
 
@@ -127,23 +105,25 @@
 
 	<%# Spends table end.%>
 
+  <%# TODO: High spend table will need adding %>
+
   <%=
 		form_with model: @funding_application.arrears_journey_tracker.payment_request,
-		url: funding_application_progress_and_spend_payments_low_spend_summary_path(),
+		url: funding_application_progress_and_spend_previous_submissions_submission_summary_payments_submission_path(),
 		method: :post,
 		local: true do |f|
 	%>
 
 			<%=
-				render(
-					ButtonComponent.new(
-						element: 'button',
-						is_start_button: false,
-						text: t('buttons.labels.default'),
-						name: "save_and_continue_button"
-					)
-				)
-			%>
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.continue'),
+          name: "continue_button"
+        )
+      )
+    %>
 
 	<% end %>
 

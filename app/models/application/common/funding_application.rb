@@ -9,6 +9,7 @@ class FundingApplication < ApplicationRecord
   has_one :payment_details
   has_one :agreement
   has_one :arrears_journey_tracker
+  has_many :completed_arrears_journeys
   belongs_to :organisation, optional: true
 
   has_many :funding_applications_people, inverse_of: :funding_application

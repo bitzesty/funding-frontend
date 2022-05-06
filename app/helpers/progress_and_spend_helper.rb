@@ -474,6 +474,9 @@ module ProgressAndSpendHelper
     client.upsert_approved_purposes(progress_update, salesforce_project_update_id)
     client.upsert_outcomes(funding_application)
 
+    progress_update.submitted_on = DateTime.now
+    progress_update.save
+
   end
   
   private

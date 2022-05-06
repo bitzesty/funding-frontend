@@ -8,23 +8,25 @@
 
 <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
   <h1 class="govuk-panel__title govuk-!-margin-bottom-0">
-    <%if @submitted_payment_request && !@submitting_progress_update%>
+    <%if @submitting_payment_request && !@submitting_progress_update && 
+      !@submitting_bank_details%>
       <%= t('progress_and_spend.submit.page_headings.spend_submitted')%>
-    <%elsif @submitting_progress_update && !@submitted_payment_request %>
+    <%elsif @submitting_progress_update && !@submitting_payment_request && 
+      !@submitting_bank_details%>
       <%= 
         t('progress_and_spend.submit.page_headings.progress_update_submitted')
       %>
-    <%elsif @submitted_bank_details && !@submitted_payment_request &&  
+    <%elsif @submitting_bank_details && !@submitting_payment_request &&  
       !@submitting_progress_update%>
       <%= 
         t('progress_and_spend.submit.page_headings.bank_details_submitted')
       %>
-    <%elsif @submitted_payment_request && @submitted_bank_details && 
+    <%elsif @submitting_payment_request && @submitting_bank_details && 
       !@submitting_progress_update %>
       <%= 
         t('progress_and_spend.submit.page_headings.spend_and_bank_submitted')
       %>
-    <%elsif @submitted_payment_request && @submitting_progress_update %>
+    <%elsif @submitting_payment_request && @submitting_progress_update %>
       <%= 
         t('progress_and_spend.submit.page_headings.spend_and_progress_submitted')
         %>
@@ -42,7 +44,7 @@
   <%= t('progress_and_spend.submit.what_next.sub_heading')%>
 </h2>
 
-<%if @submitted_payment_request && !@submitting_progress_update %>
+<%if @submitting_payment_request && !@submitting_progress_update %>
 
   <p class="govuk-body">
     <%= t('progress_and_spend.submit.what_next.we_will_check')%>
@@ -61,19 +63,19 @@
     <%= t('progress_and_spend.submit.what_next.send_email')%>
   </p>
 
-<%elsif @submitting_progress_update && !@submitted_payment_request %>
+<%elsif @submitting_progress_update && !@submitting_payment_request %>
 
   <p class="govuk-body">
     <%= t('progress_and_spend.submit.what_next.im_will_contact')%>
   </p>
 
-<%elsif @submitted_bank_details && !@submitted_payment_request &&  
+<%elsif @submitting_bank_details && !@submitting_payment_request &&  
   !@submitting_progress_update%>
   <p class="govuk-body">
     TODO: Bank details content TBC
   </p>
 
-<%elsif @submitted_payment_request && @submitted_bank_details &&  
+<%elsif @submitting_payment_request && @submitting_bank_details &&  
    !@submitting_progress_update %>
 
   <p class="govuk-body">
@@ -90,7 +92,7 @@
     <%= t('progress_and_spend.submit.what_next.send_email')%>
   </p>
 
-<%elsif @submitted_payment_request && @submitting_progress_update %>
+<%elsif @submitting_payment_request && @submitting_progress_update %>
 
   <p class="govuk-body">
     <%= t('progress_and_spend.submit.what_next.we_will_check')%>

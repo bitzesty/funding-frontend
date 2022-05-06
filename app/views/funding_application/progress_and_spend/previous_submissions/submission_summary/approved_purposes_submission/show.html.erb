@@ -1,0 +1,51 @@
+ <%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.previous_submissions.submission_summary.approved_purposes_summary.page_title')
+    }
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+    <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+      <%=t('progress_and_spend.previous_submissions.submission_summary.approved_purposes_summary.page_heading')%>
+    </h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+ 
+  <%=
+    render(
+      partial: 'partials/funding_application/progress_and_spend/check_your_answers/approved_purposes_outcomes_summary',
+      locals: {
+        demographic: @demographic,
+        funding_application: @funding_application,
+        optional_outcomes_progress_updates: @optional_outcomes_progress_updates,
+        approved_purposes: @approved_purposes ,
+        is_check_your_answers: false
+      }
+    ) 
+  %>
+
+  <%=
+		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		url: funding_application_progress_and_spend_previous_submissions_submission_summary_approved_purposes_submission_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+	 <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.continue'),
+          name: "continue_button"
+        )
+      )
+    %>
+
+	<% end %>
+
+</fieldset>

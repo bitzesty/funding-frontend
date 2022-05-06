@@ -1,0 +1,63 @@
+<%=
+  render partial: "partials/page_title",
+  locals: {
+    model_object: @funding_application,
+    page_title: t('progress_and_spend.previous_submissions.previously_submitted.page_title')
+  }
+%>
+
+<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+  <%= t('progress_and_spend.previous_submissions.previously_submitted.page_caption')%>
+</span>
+
+<h1 class="govuk-heading-l">
+  <%= t('progress_and_spend.previous_submissions.previously_submitted.page_heading', 
+  submission_date: @previous_submission.submitted_on.strftime("%d %B %Y") )%>
+</h1>
+
+<p class="govuk-body govuk-hint govuk-!-margin-bottom-8">
+  <%= t('progress_and_spend.previous_submissions.previously_submitted.page_description')%>
+</p>
+
+<ul class="govuk-list nlhf-list nlhf-list--links govuk-list--number govuk-!-font-size-27">
+  <%if @previous_submission.progress_update.present?%>
+    <li class="govuk-!-padding-top-5">
+      <span>
+        <%=
+          link_to(
+            t('progress_and_spend.previous_submissions.previously_submitted.progress_update_link'),
+            funding_application_progress_and_spend_previous_submissions_submission_summary_progress_update_submission_path(
+              progress_update_id: @previous_submission.progress_update_id),
+            class: 'govuk-link govuk-link--no-visited-state'
+          )
+        %>
+      </span>
+    </li>
+    <li class="govuk-!-padding-top-5">
+      <span>
+        <%=
+          link_to(
+            t('progress_and_spend.previous_submissions.previously_submitted.approved_purpose_link'),
+            funding_application_progress_and_spend_previous_submissions_submission_summary_approved_purposes_submission_path(
+              progress_update_id: @previous_submission.progress_update_id),
+            class: 'govuk-link govuk-link--no-visited-state'
+          )
+        %>
+      </span>
+    </li>
+  <%end%>
+  <% if @previous_submission.payment_request.present? %>
+    <li class="govuk-!-padding-top-5">
+      <span>
+        <%=
+          link_to(
+            t('progress_and_spend.previous_submissions.previously_submitted.spend_link'),
+            funding_application_progress_and_spend_previous_submissions_submission_summary_payments_submission_path(
+              payment_request_id: @previous_submission.payment_request_id),
+            class: 'govuk-link govuk-link--no-visited-state'
+          )
+        %>
+      </span>
+    </li>
+  <%end%>
+</ul>

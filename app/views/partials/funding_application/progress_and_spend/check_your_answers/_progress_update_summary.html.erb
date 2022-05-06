@@ -1,0 +1,595 @@
+  <table class="govuk-table">
+    <tbody class="govuk-table__body">
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-two-thirds">
+          <%= t('progress_and_spend.progress_update.check_your_answers.photos') %> 
+        </th>
+        <td class="govuk-table__cell ">
+          <%if answers_json["photos"]['has_upload_photos'] == "true"%>
+            <p>
+              <%= t("progress_and_spend.progress_update.photos.has_upload_true") %>:
+            </p>
+            <% progress_update.progress_update_photo.each do | photo | %>
+              <ul class= "govuk-list govuk-!-margin-bottom-0">
+                <li>
+                  <%= photo.progress_updates_photo_files_blob.filename%>
+                </li>
+              </ul>
+            <% end%>
+          <%else%>
+            <%= t("progress_and_spend.progress_update.photos.has_upload_false") %>
+          <%end%>
+
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_photos_path(
+                  progress_update_id: \
+                    funding_application.arrears_journey_tracker.progress_update_id
+                  ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+          <%= t('progress_and_spend.progress_update.check_your_answers.activities') %> 
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+          <%if answers_json["events"]['has_upload_events'] == "true"%>
+            <p>
+              <%= t("progress_and_spend.progress_update.events.has_upload_true") %>:
+            </p>
+            <% progress_update.progress_update_event.each do | event | %>
+            <ul class= "govuk-list govuk-!-margin-bottom-0">
+              <li>
+                <%= event.progress_updates_event_files_blob.filename%>
+              </li>
+            </ul>
+            <% end%>
+          <%else%>
+            <%= t("progress_and_spend.progress_update.events.has_upload_false") %>
+          <%end%>
+
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_events_path(
+                  progress_update_id:  \
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-two-thirds">
+          <%= t('progress_and_spend.progress_update.check_your_answers.new_staff') %> 
+        </th>
+        <td class="govuk-table__cell ">
+          <%if answers_json["new_staff"]['has_new_staff'] == "true"%>
+            <p>
+              <%= t("progress_and_spend.progress_update.new_staff.has_upload_true") %>:
+            </p>
+            <% progress_update.progress_update_new_staff.each do | new_staff | %>
+              <ul class= "govuk-list govuk-!-margin-bottom-0">
+                <li>
+                  <%= new_staff.progress_updates_new_staff_files_blob.filename%>
+                </li>
+              </ul>
+            <% end%>
+          <%else%>
+             <%= t("progress_and_spend.progress_update.new_staff.has_upload_false") %>
+          <%end%>
+
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_new_staff_path(
+                  progress_update_id:  \
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+          <%= t('progress_and_spend.progress_update.check_your_answers.procured_goods') %> 
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">              
+          <%if answers_json["procurements"]['has_procured_goods'] == "true"%>
+            <%= t('progress_and_spend.progress_update.procurement.procured_goods.has_procured_goods_true')%>
+          <%else%>
+            <%= t('progress_and_spend.progress_update.procurement.procured_goods.has_procured_goods_false')%>
+          <%end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_procurement_procured_goods_path(
+                  progress_update_id:  \
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+    <%if answers_json["procurements"]['has_procured_goods'] == "true"%>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+          <%= t('progress_and_spend.progress_update.check_your_answers.procured_good_evidence') %> 
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+          <%if answers_json["procurements"]['has_procurement_report_evidence'] == "true"%>
+            <p>
+              <%= t('progress_and_spend.progress_update.procurement.procurement_evidence.has_upload_true') %>: 
+            </p>
+            <% progress_update.progress_update_procurement_evidence.each do | procurement | %>
+              <ul class= "govuk-list govuk-!-margin-bottom-0">
+                <li>
+                  <%= procurement.progress_update_procurement_evidence_file_blob.filename%>
+                </li>
+              </ul>
+            <% end%>
+          <%else%>
+            <%= t('progress_and_spend.progress_update.procurement.procurement_evidence.has_upload_false') %>: 
+          <%end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_procurement_procurement_report_path(
+                  progress_update_id:  \
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+    <%end%>
+
+    <%if progress_update.progress_update_procurement.present? && 
+       answers_json["procurements"]['has_procured_goods'] == "true" &&
+         answers_json["procurements"]['has_procurement_report_evidence'] == "false" %>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+          <%= t('progress_and_spend.progress_update.check_your_answers.procurements') %> 
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+          <% progress_update.progress_update_procurement.each do | procurement | %>
+            <ul class= "govuk-list govuk-!-margin-bottom-0">
+              <li>
+                <%= procurement.name%>
+              </li>
+            </ul>
+          <% end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_procurement_procurements_summary_path(
+                progress_update_id:  \
+                  funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+    <% end %>
+
+    <%if @has_additional_grant_conditions %>
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+          <%= t('progress_and_spend.progress_update.check_your_answers.additional_conditions') %> 
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+          <%if answers_json['additional_grant_condition']['no_progress_update'] == false && \
+            progress_update.progress_update_additional_grant_condition.present? %>
+            <% progress_update.progress_update_additional_grant_condition.each do | grant_condition | %>
+              <ul class= "govuk-list govuk-!-margin-bottom-0">
+                <li>
+                  <%= grant_condition.description%>
+                </li>
+              </ul>
+            <% end%>
+          <%else%>
+            <%=t('progress_and_spend.progress_update.additional_grant_conditions.no_update_yet')%>
+          <%end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_additional_grant_conditions_path(
+                progress_update_id:  \
+                  funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+    <%end%>
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+           <%= t('progress_and_spend.progress_update.check_your_answers.completion_date', 
+            completion_date: @completion_date )%> 
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+            <%if answers_json["new_expiry_date"]["date_correct"] == false && \
+              progress_update.progress_update_new_expiry_date.first %>
+              <ul class= "govuk-list govuk-!-margin-bottom-0">
+                <li>
+                  <%= t('progress_and_spend.progress_update.check_your_answers.new_completion_date', 
+                    completion_date: progress_update.progress_update_new_expiry_date.first.full_date.strftime("%d/%m/%Y")  )%> 
+                  </li>
+              </ul>
+            <%else%>
+              <%=t('progress_and_spend.progress_update.completion_date.radio_yes',date: @completion_date)%>
+            <%end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_completion_date_path(
+                  progress_update_id:
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+          <%= t('progress_and_spend.progress_update.check_your_answers.new_evidence')%>
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+          <%if answers_json["statutory_permissions_licences"]['has_statutory_permissions_licence'] == "true"%>
+            <p>
+              <%=t('progress_and_spend.progress_update.statutory_permission_licences.has_upload_true')%>:
+            </p>
+            <% progress_update.progress_update_statutory_permissions_licence.each do | statutory_permissions_licence | %>
+              <ul class= "govuk-list govuk-!-margin-bottom-0">
+                <li>
+                  <%= statutory_permissions_licence.progress_update_statutory_permissions_licence_file_blob.filename%>
+                </li>
+              </ul>
+            <% end%>
+          <%else%>
+            <%=t('progress_and_spend.progress_update.statutory_permission_licences.has_upload_false')%>
+          <%end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_permissions_or_licences_path(
+                  progress_update_id:  \
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+           <%= t('progress_and_spend.progress_update.check_your_answers.risk_update')%>
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+          <%if answers_json['risk']['has_risk_update'] == true%>
+            <%=t('progress_and_spend.progress_update.risk.risk_question.radio_yes')%>
+          <%else%>
+            <%=t('progress_and_spend.progress_update.risk.risk_question.radio_no')%>
+          <%end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_risk_risk_question_path(
+                  progress_update_id:  \
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+      <% if answers_json['risk']['has_risk_update'] == true %>
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+            <%= t('progress_and_spend.progress_update.check_your_answers.risk_register')%>
+          </th>
+          <td class="govuk-table__cell govuk-!-width-two-thirds">
+            <%if answers_json["risk"]['has_risk_register'] == "true"%>
+              <p>
+                <%= t('progress_and_spend.progress_update.risk.risk_register.has_upload_true')%>:
+              </p>
+              <% progress_update.progress_update_risk_register.each do | risk_register | %>
+                <ul class= "govuk-list govuk-!-margin-bottom-0">
+                  <li>
+                    <%= risk_register.progress_update_risk_register_file_blob.filename%>
+                  </li>
+                </ul>
+              <%end%>
+            <%else%>
+              <%=t('progress_and_spend.progress_update.risk.risk_register.has_upload_false')%>
+            <%end%>
+          </td>
+          <td class="govuk-table__cell ">
+            <%if is_check_your_answers%>
+              <%=
+                link_to(
+                  t('generic.change'),
+                  funding_application_progress_and_spend_progress_update_risk_risk_register_path(
+                    progress_update_id:  \
+                      funding_application.arrears_journey_tracker.progress_update.id
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+            <%end%>
+          </td>
+        </tr>
+      <%end%>
+
+      <%if progress_update.progress_update_risk.present? && 
+         answers_json["risk"]['has_risk_register'] == "false" && 
+          answers_json['risk']['has_risk_update'] == true %>
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+            <%= t('progress_and_spend.progress_update.check_your_answers.about_risks')%>
+          </th>
+          <td class="govuk-table__cell govuk-!-width-two-thirds">
+            <% progress_update.progress_update_risk.each do | risk | %>
+              <ul class= "govuk-list govuk-!-margin-bottom-0">
+                <li>
+                  <%= risk.description%>
+                </li>
+              </ul>
+            <% end%>
+          </td>
+          <td class="govuk-table__cell ">
+            <%if is_check_your_answers%>
+              <%=
+                link_to(
+                  t('generic.change'),
+                  funding_application_progress_and_spend_progress_update_risk_risk_summary_path(
+                    progress_update_id:  \
+                      funding_application.arrears_journey_tracker.progress_update.id
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+            <%end%>
+          </td>
+        </tr>
+      <% end %>
+
+      <%if @cash_contribution_count > 0%>
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+            <%= t('progress_and_spend.progress_update.check_your_answers.cash_contributions')%>
+          </th>
+          <td class="govuk-table__cell govuk-!-width-two-thirds">
+            <%if answers_json["cash_contribution"]['has_cash_contribution_update'] == true %>
+              <%=t('progress_and_spend.progress_update.cash_contribution.cash_contribution_question.radio_yes')%>
+            <%else%>
+              <%=t('progress_and_spend.progress_update.cash_contribution.cash_contribution_question.radio_no')%>
+            <%end%>
+          </td>
+          <td class="govuk-table__cell ">
+            <%if is_check_your_answers%>
+              <%=
+                link_to(
+                  t('generic.change'),
+                  funding_application_progress_and_spend_progress_update_cash_contribution_cash_contribution_question_path(
+                    progress_update_id:  \
+                      funding_application.arrears_journey_tracker.progress_update.id
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+            <%end%>
+          </td>
+        </tr>
+      <%end%>
+
+      <%if progress_update.progress_update_cash_contribution.present? && 
+         answers_json["cash_contribution"]['has_cash_contribution_update'] == true %>
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+            <%= t('progress_and_spend.progress_update.check_your_answers.about_cash_contributions')%>
+          </th>
+          <td class="govuk-table__cell govuk-!-width-two-thirds">
+            <% progress_update.progress_update_cash_contribution.each do | cc | %>
+              <ul class= "govuk-list govuk-!-margin-bottom-0">
+                <li>
+                  <%= cc.display_text%>
+               </li>
+              </ul>          
+            <% end%>
+          </td>
+          <td class="govuk-table__cell ">
+            <%if is_check_your_answers%>
+              <%=
+                link_to(
+                  t('generic.change'),
+                  funding_application_progress_and_spend_progress_update_cash_contribution_cash_contribution_select_path(
+                    progress_update_id:  \
+                      funding_application.arrears_journey_tracker.progress_update.id
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+            <%end%>
+          </td>
+        </tr>
+      <% end %>
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+          <%= t('progress_and_spend.progress_update.check_your_answers.volunteer_update')%>
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+          <%if answers_json["volunteer"]['has_volunteer_update'] == true %>
+            <%=	t('progress_and_spend.progress_update.volunteer.volunteer_question.radio_yes')%>
+          <%else%>
+            <%=	t('progress_and_spend.progress_update.volunteer.volunteer_question.radio_no')%>
+          <%end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_volunteer_volunteer_question_path(
+                  progress_update_id:  \
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+
+      <%if progress_update.progress_update_volunteer.present?  && \
+        answers_json["volunteer"]['has_volunteer_update'] == true %>
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+             <%= t('progress_and_spend.progress_update.check_your_answers.about_volunteers')%>
+          </th>
+          <td class="govuk-table__cell govuk-!-width-two-thirds">
+            <% progress_update.progress_update_volunteer.each do | volunteer | %>
+              <p>
+                <%= volunteer.description%>
+              </p>
+            <% end%>
+          </td>
+          <td class="govuk-table__cell ">
+            <%if is_check_your_answers%>
+              <%=
+                link_to(
+                  t('generic.change'),
+                  funding_application_progress_and_spend_progress_update_volunteer_volunteer_summary_path(
+                    progress_update_id:  \
+                      funding_application.arrears_journey_tracker.progress_update.id
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+            <%end%>
+          </td>
+        </tr>
+      <% end %>
+
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+          <%= t('progress_and_spend.progress_update.check_your_answers.non_cash_cont')%>
+        </th>
+        <td class="govuk-table__cell govuk-!-width-two-thirds">
+          <%if answers_json["non_cash_contribution"]['has_non_cash_contribution'] == true %>
+            <%=t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_question.radio_yes')%>
+          <%else%>
+            <%=t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contribution_question.radio_no')%>
+          <%end%>
+        </td>
+        <td class="govuk-table__cell ">
+          <%if is_check_your_answers%>
+            <%=
+              link_to(
+                t('generic.change'),
+                funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_question_path(
+                  progress_update_id:  \
+                    funding_application.arrears_journey_tracker.progress_update.id
+                ),
+                class: 'govuk-link',
+              )
+            %> 
+          <%end%>
+        </td>
+      </tr>
+
+      <%if progress_update.progress_update_non_cash_contribution.present?  && \
+        answers_json["non_cash_contribution"]['has_non_cash_contribution'] == true %>
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+             <%= t('progress_and_spend.progress_update.check_your_answers.about_non_cash_cont')%>
+          </th>
+          <td class="govuk-table__cell govuk-!-width-two-thirds">
+            <% progress_update.progress_update_non_cash_contribution.each do | ncc | %>
+              <p>
+                <%= ncc.description%>
+              </p>
+            <% end%>
+          </td>
+          <td class="govuk-table__cell ">
+            <%if is_check_your_answers%>
+              <%=
+                link_to(
+                  t('generic.change'),
+                  funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_summary_path(
+                    progress_update_id:  \
+                      funding_application.arrears_journey_tracker.progress_update.id
+                  ),
+                  class: 'govuk-link',
+                )
+              %> 
+            <%end%>
+          </td>
+        </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+  

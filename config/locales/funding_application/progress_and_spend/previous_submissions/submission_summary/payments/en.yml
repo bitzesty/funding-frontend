@@ -1,0 +1,10 @@
+en-GB: 
+  progress_and_spend:
+    previous_submissions:
+      submission_summary:
+        payments_summary:
+          page_title: "Payments submission summary'"
+          page_heading: "Spend you have told us so far"
+          amount: "Amount"
+          vat_amount: "VAT amount"
+          total_costs: "Total costs"

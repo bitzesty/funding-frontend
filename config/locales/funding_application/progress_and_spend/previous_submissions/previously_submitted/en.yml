@@ -1,0 +1,11 @@
+en-GB: 
+  progress_and_spend:
+    previous_submissions:
+      previously_submitted:
+        page_title: "Previous Updates"
+        page_caption: "Project update or get a payment"
+        page_heading: "Your %{submission_date} submission"
+        page_description: "Select a section to see what you told us."
+        progress_update_link: "Tell us how the project is going"
+        approved_purpose_link: "Update on agreed purposes and outcomes"
+        spend_link: "Tell us what you have spent"
