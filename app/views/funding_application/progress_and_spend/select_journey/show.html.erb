@@ -104,3 +104,35 @@
     %>
   <% end %>
 </fieldset>
+
+<%= content_for :secondarycontent do %>
+  <div class="nlhf-panel" >
+    <h2 class="govuk-heading-m">
+      <%= t('progress_and_spend.select_journey.project_information')%>
+    </h2>
+    <p> 
+      <%= t('progress_and_spend.select_journey.project_name')%><%=@project_name%>
+    </p>
+    <p> 
+      <%= t('progress_and_spend.select_journey.project_reference_number')%><%=@project_reference_num%>
+    </p>
+    <p> 
+      <%= t('progress_and_spend.select_journey.grant_paid')%><%= number_with_precision(@grant_paid, :precision => 2, :delimiter => ',') %>
+    </p>
+    <p> 
+      <%= t('progress_and_spend.select_journey.remaining_grant')%><%= number_with_precision(@remaining_grant, :precision => 2, :delimiter => ',') %>
+    </p>
+    <p> 
+      <%= t('progress_and_spend.select_journey.grant_expiry_date')%><%=@grant_expiry_date%>
+    </p>
+     <span>
+        <%=
+          link_to(
+            t('progress_and_spend.select_journey.previous_submissions_link'),
+            funding_application_progress_and_spend_previous_submissions_previous_submission_dates_path(),
+            class: 'govuk-link govuk-link--no-visited-state'
+          )
+        %>
+      </span>
+  </div>
+<% end %>

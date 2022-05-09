@@ -1,0 +1,16 @@
+en-GB: 
+   progress_and_spend:
+    tasks:
+      page_title: "Manage you awarded project"
+      page_heading: "Manage you awarded project"
+      accept_grant: "Accept your Grant"
+      get_payment: Get a payment and give a project update 
+      links: 
+        progress_update: "Tell us how the project is going"
+        approved_purposes: "Update on approved purposes and outcomes"
+        spend: "Tell us what you have spent"
+        bank_details: "Bank details"
+        submit: "Submit your answers"
+        grant_conditions: "View Grant Contract"
+        previous_submissions: "Previous payments and project updates"
+      overview: "Project Overview"

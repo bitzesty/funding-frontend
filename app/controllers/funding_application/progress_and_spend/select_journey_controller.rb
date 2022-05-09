@@ -1,9 +1,10 @@
 class FundingApplication::ProgressAndSpend::SelectJourneyController < ApplicationController
 include FundingApplicationContext
+include ProgressAndSpendHelper
 include Enums::ArrearsJourneyStatus
 
   def show()
-  
+    retrieve_project_info
   end
 
   # At the point that an applicant clicks update, we create the payment request and progress_update 
@@ -86,6 +87,20 @@ include Enums::ArrearsJourneyStatus
       render :show
     end
    
+  end
+
+  private
+
+  def retrieve_project_info
+
+    details_hash = salesforce_arrears_project_details(@funding_application)
+
+    @project_name = details_hash[:project_name]
+    @project_reference_num = @funding_application.project_reference_number
+    @grant_paid = details_hash[:amount_paid] 
+    @remaining_grant = details_hash[:amount_remaining]
+    @grant_expiry_date = details_hash[:project_expiry_date]
+
   end
   
 end

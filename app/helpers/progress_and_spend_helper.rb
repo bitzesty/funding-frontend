@@ -50,6 +50,39 @@ module ProgressAndSpendHelper
 
   end
 
+  # Method responsible for getting details related to a project
+  # required for arrears from Salesforce.  
+  # Calls project_details on Salesforce
+  # API method for code reuse.
+  #
+  # @param [FundingApplication] funding_application An instance of
+  #                                                 FundingApplication
+  # @return [Hash] result Project data required for arrears
+  def salesforce_arrears_project_details(funding_application)
+
+    client = SalesforceApiClient.new
+
+    case_id = funding_application.salesforce_case_id
+
+    project_details =
+      client.project_details \
+        (funding_application.salesforce_case_id)
+
+    details_hash = {}
+
+    grant_expiry_date = Date.parse(
+      project_details.Grant_Expiry_Date__c 
+    )
+
+    details_hash[:project_name] = project_details.Project_Title__c
+    details_hash[:project_expiry_date] = grant_expiry_date.strftime("%d/%m/%Y")
+    details_hash[:amount_paid] = project_details.Total_Payments_Paid__c
+    details_hash[:amount_remaining] = project_details.Remaining_Grant__c
+
+    details_hash
+    
+  end
+
   # Validates and updates procurement model passed in - 
   # parsing date to correct modelformat, checks model valid
   # and calls update. Retruns the passed procurement model. 

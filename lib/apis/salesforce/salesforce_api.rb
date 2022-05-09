@@ -1016,9 +1016,10 @@
           @client.query_all("SELECT Owner.name, Account.Name, Project_Title__c, " \
             "Grant_Award__c, Grant_Percentage__c, Total_Development_Income__c, " \
               "Total_Non_Cash_contributions__c, Total_Volunteer_Contributions__c, " \
-                "Grant_Expiry_Date__c, Project_Reference_Number__c, Contact.Name, Submission_Date_Time__c " \
-                  "from Case " \
-                    "where ID = '#{salesforce_case_id}'")  
+                "Grant_Expiry_Date__c, Project_Reference_Number__c, Contact.Name, Submission_Date_Time__c, " \
+                  "Total_Payments_Paid__c, Remaining_Grant__c	" \
+                    "from Case " \
+                      "where ID = '#{salesforce_case_id}'")  
 
         if result.length != 1 
 

@@ -2,11 +2,83 @@
   render partial: "partials/page_title",
          locals: {
              model_object: @funding_application,
-             page_title: 'Manage you awarded project' 
+             page_title:  t('progress_and_spend.tasks.page_title')
          }
 %>
 
-<h1 class="govuk-heading-l"> Manage you awarded project </h1>
+<h1 class="govuk-heading-l"><%= t('progress_and_spend.tasks.page_heading')%></h1>
+
+<div class="govuk-!-padding-bottom-6 ">
+  <h2 class="govuk-heading-l"> <%=@project_name%> </h2>
+  <p> 
+    <%= t('progress_and_spend.select_journey.project_reference_number')%><%=@project_reference_num%>
+  </p>
+  <p> 
+    <%= t('progress_and_spend.select_journey.grant_paid')%><%= number_with_precision(@grant_paid, :precision => 2, :delimiter => ',') %>
+  </p>
+  <p> 
+    <%= t('progress_and_spend.select_journey.remaining_grant')%><%= number_with_precision(@remaining_grant, :precision => 2, :delimiter => ',') %>
+  </p>
+  <p> 
+    <%= t('progress_and_spend.select_journey.grant_expiry_date')%><%=@grant_expiry_date%>
+  </p>
+</div>
+
+<h2 class="govuk-heading-m"><%= t('progress_and_spend.tasks.accept_grant')%></h2>
+
+<ul class="govuk-list nlhf-list nlhf-list--links">
+    <li class="nlhf-list__item nlhf-task__item">
+
+      <span class="nlhf-tag-name">
+        <%=
+          link_to_if( 
+            false,
+            t('tasks.check_agree_grant'),
+            '',
+            class: 'govuk-link govuk-link--no-visited-state'
+          )
+        %>
+      </span>
+
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour:  get_tag_colour(:completed),
+            tag_text: t("generic.completed"),
+            tag_id: 'progress-updates_photos'
+          }
+        )
+      %>
+    </li>
+
+    <li class="nlhf-list__item nlhf-task__item">
+
+      <span class="nlhf-tag-name">
+        <%=
+          link_to_if( 
+            false,
+            t('tasks.agree_terms_conditions'),
+            '',
+            class: 'govuk-link govuk-link--no-visited-state'
+          )
+        %>
+      </span>
+
+      <%=
+        render(
+          partial: 'partials/tag_component',
+          locals: {
+            colour:  get_tag_colour(:completed),
+            tag_text: t("generic.completed"),
+            tag_id: 'progress-updates_photos'
+          }
+        )
+      %>
+    </li>
+</ul>
+
+<h2 class="govuk-heading-m"><%= t('progress_and_spend.tasks.get_payment')%></h2>
 
 <ul class="govuk-list nlhf-list nlhf-list--links">
 
@@ -19,7 +91,7 @@
       <% if @how_project_going_status == :completed %>
        <%=
           link_to(
-            'Tell us how the project is going',
+             t('progress_and_spend.tasks.links.progress_update'),
             funding_application_progress_and_spend_progress_update_check_your_answers_path(
               progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
             ),
@@ -30,7 +102,7 @@
       <%else%> 
         <%=
           link_to(
-            'Tell us how the project is going',
+            t('progress_and_spend.tasks.links.progress_update'),
             funding_application_progress_and_spend_progress_update_photos_path(
               progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
             ),
@@ -62,7 +134,7 @@
         <% if @approved_purposes_status == :completed %>
           <%=
             link_to(
-              'Update on approved purposes and outcomes',
+              t('progress_and_spend.tasks.links.approved_purposes'),
               funding_application_progress_and_spend_progress_update_check_outcome_answers_path(
                 progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
               ),
@@ -73,7 +145,7 @@
         <%else%> 
           <%=
             link_to(
-              'Update on approved purposes and outcomes',
+              t('progress_and_spend.tasks.links.approved_purposes'),
               funding_application_progress_and_spend_progress_update_approved_purposes_path(
                 progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
               ),
@@ -107,7 +179,7 @@
         
         <%=
           link_to(
-            'Tell us what you have spent',
+            t('progress_and_spend.tasks.links.spend'),
             funding_application_progress_and_spend_payments_what_spend_path(
               payment_request_id: @funding_application.arrears_journey_tracker.payment_request_id
             ),
@@ -137,7 +209,7 @@
         
         <%=
           link_to(
-            'Bank details',
+            t('progress_and_spend.tasks.links.bank_details'),
             funding_application_progress_and_spend_payments_have_your_bank_details_changed_path(
               payment_request_id: @funding_application.arrears_journey_tracker.payment_request_id
             ),
@@ -167,8 +239,9 @@
     <span class="nlhf-tag-name">
       
       <%=
-        link_to(
-          'Submit your answers',
+        link_to_if(
+          @can_submit,
+          t('progress_and_spend.tasks.links.submit'),
           funding_application_progress_and_spend_submit_your_answers_path(),
           class: 'govuk-link govuk-link--no-visited-state',
           aria: { describedby: 'submit-your-answers' }
@@ -181,8 +254,8 @@
       render(
         partial: 'partials/tag_component',
         locals: {
-          colour: 'grey',
-          tag_text: t('generic.cannot_start'),
+          colour: get_tag_colour(@submit_status),
+          tag_text: t("generic.#{@submit_status}"),
           tag_id: 'submit-your-answers'
         }
       )
@@ -195,15 +268,15 @@
 <%= content_for :secondarycontent do %>
   <div class="nlhf-panel" >
     <h2 class="govuk-heading-m">
-        Project Overview
+        <%=t('progress_and_spend.tasks.overview')%>
     </h2>
     <ul class="govuk-list nlhf-list nlhf-list--links">
       <li>
         <span>
           <%=
             link_to(
-              'View Grant Contract',
-              '',
+              t('progress_and_spend.tasks.links.grant_conditions'),
+              funding_application_view_signed_path,
               class: 'govuk-link govuk-link--no-visited-state'
             )
           %>
@@ -213,7 +286,7 @@
         <span>
           <%=
             link_to(
-              'Previous payments and project updates',
+              t('progress_and_spend.tasks.links.previous_submissions'),
               funding_application_progress_and_spend_previous_submissions_previous_submission_dates_path(),
               class: 'govuk-link govuk-link--no-visited-state'
             )
