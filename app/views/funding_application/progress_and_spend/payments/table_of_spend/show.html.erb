@@ -61,10 +61,6 @@
     method: :post,
     local: true do |f|
   %>
-    
-    <h2 class="govuk-heading-m">
-      <%=t("progress_and_spend.payments.table_of_spend.upload_table")%>
-    </h2>
 
     <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
       <fieldset class="govuk-fieldset">
@@ -77,6 +73,12 @@
                     locals: {
                         form_object: @payment_request
                     } if @payment_request.errors.any?
+          %>
+
+          <%=
+            f.label :table_of_spend_file,
+            t('progress_and_spend.payments.table_of_spend.upload_table'),
+            class: "govuk-heading-s"
           %>
 
           <div class="govuk-form-group">
@@ -104,7 +106,7 @@
 
             <%=
               render(ButtonComponent.new(
-                  text: t('progress_and_spend.payments.table_of_spend.upload_button'),
+                  text: t('generic.upload_file'),
                   classes: "govuk-button--secondary",
 									name: 'add_file_button'
                   ))
@@ -116,7 +118,7 @@
 
         <% unless @payment_request.table_of_spend_file.attached? %>
           <p class="govuk-body">
-            <%= t('progress_and_spend.payments.table_of_spend.no_document_uploaded') %>
+            <%= t('generic.no_file_uploaded') %>
           </p>
         <% else %>
           <table class="govuk-table">

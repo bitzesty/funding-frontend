@@ -70,7 +70,13 @@
 							</td>
 
 							<td class="govuk-table__cell">
-								<%= ls.total_amount + ls.vat_amount %>
+								<%=
+									number_to_currency(
+									ls.total_amount + ls.vat_amount,
+									precision: 2,
+									unit: '£'
+									)
+							 	%>
 							</td>
 
 							<td class="govuk-table__cell">
@@ -106,8 +112,16 @@
 							<%= t('progress_and_spend.payments.low_spend_summary.update_total') %>
 						</th>
 
-						<td scope="row" class="govuk-table__header"> 
-							£<%= @update_total %>
+						<td scope="row" class="govuk-table__header">
+
+							<%=
+								number_to_currency(
+								@update_total,
+								precision: 2,
+								unit: '£'
+								)
+							%>
+
 						</td>
 
 						<%# Voice over skips these empty headers, that are included for table style. %>

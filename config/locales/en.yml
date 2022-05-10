@@ -41,8 +41,11 @@ en-GB:
     upload_a_file: "Upload a file"
     uploaded_file: "Uploaded file"
     upload_files: "Upload files"
+    upload_file: "Upload file"
     uploaded_files: "Uploaded files"
     has_been_uploaded: "has been uploaded"
+    no_files_uploaded: "No files uploaded"
+    no_file_uploaded: "No file uploaded"
     select_one_option: "Select one option"
     delete: "Delete"
     remove: "Remove"
@@ -918,9 +921,39 @@ en-GB:
               blank: "Select if your organisation's bank details have changed"
             table_of_spend_file:
               inclusion: "Select table of spend"
+            add_another_high_spend:
+              inclusion: "Select if you need to add another item of spend over £%{spend_amount}"
         low_spend:
           attributes:
             total_amount:
               not_a_number: "Enter total amount of spend"
             vat_amount:
               not_a_number: "Enter total VAT amount or enter 0 if there is no VAT"
+        high_spend:
+          attributes:
+            cost_heading:
+              invalid: "Choose a spend type"
+            description:
+              blank: "Enter description of spend"
+            date_day:
+              not_a_number: "Enter the day"
+              greater_than: "A day value cannot be less than 1"
+              less_than: "A day value cannot exceed 31"
+            date_month:
+              not_a_number: "Enter the month"
+              greater_than: "A month value cannot be less than 1"
+              less_than: "A month value cannot exceed 12"
+            date_year:
+              not_a_number: "Enter the year"
+              greater_than: "Enter a year of 1700 or more"
+              less_than: "Enter a year of less than 4000"
+            full_date:
+              invalid: "Enter a valid date of spend"
+            amount:
+              not_a_number: "Enter amount of spend"
+              greater_than: "Enter a spend greater than £250"
+            vat_amount:
+              not_a_number: "Enter total VAT amount or enter 0 if there is no VAT"
+            evidence_of_spend_file:
+              inclusion: "Select evidence of spend"
+

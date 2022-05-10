@@ -1,0 +1,17 @@
+en-GB:
+  progress_and_spend:
+    payments:
+      high_spend_add_edit:
+        page_title: "Add item of spend"
+        page_heading: "Tell us about spend over £%{spend_threshold}"
+        page_caption: "Add item of spend"
+        before_we_give: "Before we give you the next part of your grant, you need to tell us what you have spent so far and provide evidence."
+        add_item_of_spend: "Add item of spend"
+        spend_type: "Spend type"
+        description_of_spend: "Description of spend"
+        date_of_spend: "Date of spend"
+        vat: "VAT (if applicable)"
+        upload_evidence_of_spend: "Upload evidence of spend"
+        this_could_be: "This could be a receipt, invoice, or screen grab of a digital receipt, to show what you bought with your grant money."
+        upload_your_evidence_of_spend: "Upload your evidence of spend"
+        add_spend: 'Add spend'

@@ -24,7 +24,13 @@ class FundingApplication::ProgressAndSpend::Payments::WhatSpendController < Appl
         get_spend_threshold(@funding_application)
       )
 
-      spend_journey_redirector(payment_request.answers_json)
+      remove_high_spends_with_no_file(payment_request) if \
+        payment_request.high_spend.present?
+
+      spend_journey_redirector(
+        payment_request.answers_json,
+        payment_request.high_spend.present?
+      )
 
     else
 
@@ -57,7 +63,11 @@ class FundingApplication::ProgressAndSpend::Payments::WhatSpendController < Appl
     selected_array = []
 
     selected_array.append(
-      {spends_over: spend_threshold}
+      {spends_over: {
+        spend_threshold: spend_threshold,
+        cost_headings: []
+        }
+      }
     ) if payment_request.higher_spend == 'true'
 
     selected_array.append(

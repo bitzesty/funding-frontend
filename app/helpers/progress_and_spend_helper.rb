@@ -692,7 +692,9 @@ module ProgressAndSpendHelper
   #
   # @param [String] answers_json JSON string containing payment details
   #                              journey state
-  def spend_journey_redirector(answers_json)
+  # @param [Boolean] use_high_spend_summary Optional param supplied by 
+  #                  calling function.  True if skipping to summary screen
+  def spend_journey_redirector(answers_json, use_high_spend_summary = false)
 
     to_do_array = answers_json['arrears_journey']['spend_journeys_to_do']
 
@@ -709,8 +711,14 @@ module ProgressAndSpendHelper
       if to_do_array.first.has_key?("spends_over")
 
         set_arrears_payment_status(JOURNEY_STATUS[:in_progress])
-        redirect_to \
-          funding_application_progress_and_spend_payments_high_spend_path()
+
+        if use_high_spend_summary
+          redirect_to \
+            funding_application_progress_and_spend_payments_high_spend_summary_path()
+        else
+          redirect_to \
+            funding_application_progress_and_spend_payments_high_spend_add_path()
+        end
 
       elsif to_do_array.first.has_key?("spends_under")
 
@@ -781,17 +789,191 @@ module ProgressAndSpendHelper
 
   end
 
+  # Used for Low spend journey only.
   # Uses spend_threshold stored in JSON
-  # Saves repeated calsl to Salesforce
+  # Saves repeated calls to Salesforce
   # @param [PaymentRequest] payment_request PaymentRequest instance that
   #                                         the array is recorded against
   # @return [Integer] spend_threshold The spend level for this spend journey
-  def get_spend_threshold_from_json(payment_request)
+  def get_low_spend_threshold_from_json(payment_request)
 
     # The first journey in [spend_journeys_to_do],
     # will always be the journey we are in.
     payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
       first['spends_under']['spend_threshold']
+
+  end
+
+  # Used for High spend journey only.
+  # Uses spend_threshold stored in JSON
+  # Saves repeated calls to Salesforce
+  # @param [PaymentRequest] payment_request PaymentRequest instance that
+  #                                         the array is recorded against
+  # @return [Integer] spend_threshold The spend level for this spend journey
+  def get_high_spend_threshold_from_json(payment_request)
+
+    # The first journey in [spend_journeys_to_do],
+    # will always be the journey we are in.
+    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+      first['spends_over']['spend_threshold']
+
+  end
+
+  # Retrieves the cost headings used by an applicant when they applied
+  # These are the cost headings that can be used to record items of spend.
+  #
+  # Tries to gets cached headings from answers_json if they are there.
+  # Otherwise gets the headings from Salesforce and updates answers_json.
+  # 
+  # @param [FundingApplication] funding_application
+  # @return [Array] headings An array of cost headings
+  def get_headings(funding_application)
+
+    payment_request =
+      funding_application.arrears_journey_tracker.payment_request
+
+    # The first journey in [spend_journeys_to_do],
+    # will always be the journey we are in.
+    headings = 
+      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+        first['spends_over']['cost_headings']
+
+    if headings.empty?
+
+      headings = get_salesforce_cost_headings(
+        @funding_application
+      )
+  
+      update_high_spend_headings_list(
+        headings,
+        payment_request
+      )
+    
+    end
+
+    headings
+
+  end
+
+  # Add and Edit controllers for high spends share a lot of code in their
+  # update method.  This consolidates into one function.
+  #
+  # Sets variables for validation and rendering :show
+  # Updates HighSpend
+  # Redirects if valid.
+  #
+  # @param [HighSpend] high_spend
+  # @param [PaymentRequest] payment_request
+  # @param [FundingApplication] funding_application
+  def high_spend_add_edit_controller_update_helper(high_spend,
+    payment_request, funding_application, params)
+
+    @spend_threshold = get_high_spend_threshold_from_json(payment_request)
+    high_spend.spend_threshold = @spend_threshold
+
+    @headings = get_headings(funding_application)
+    high_spend.cost_headings = @headings
+
+    high_spend.validate_save_continue = true
+
+    high_spend.update(fetched_high_spend_params(params))
+
+    unless high_spend.errors.any?
+
+      high_spend.date_of_spend = DateTime.new(
+        high_spend.date_year.to_i, 
+        high_spend.date_month.to_i, 
+        high_spend.date_day.to_i 
+      )
+
+      high_spend.save!
+
+      redirect_to(
+        funding_application_progress_and_spend_payments_high_spend_evidence_path(
+        high_spend_id: high_spend.id
+        )
+      )
+
+    else
+
+      render :show
+
+    end
+
+  end
+
+
+  # Updates answers_json to store headings for high spends, so the the 
+  # slow Salesforce call only happens once,
+  #
+  # @param [Array] headings An array of cost headings
+  # @param [PaymentRequest] payment_request PaymentRequest instance that
+  #                                         the array is recorded against
+  def update_high_spend_headings_list(headings, payment_request)
+
+    # The first journey in [spend_journeys_to_do],
+    # will always be the journey we are in.
+    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+      first['spends_over']['cost_headings'] = headings
+
+    payment_request.save!
+
+  end
+
+  def fetched_high_spend_params(params)
+    params.fetch(:high_spend, {}).permit(
+      :evidence_of_spend_file,
+      :cost_heading, :description,
+      :date_day,
+      :date_month,
+      :date_year,
+      :amount,
+      :vat_amount
+    )
+  end
+
+  # Allows returning applicants to see the date they added first time
+  # when adding a high spend.
+  # Breaks a datetime into its parts.
+  #
+  # @param [ProgressUpdateCashContribution] cash_contribution
+  def populate_day_month_year(high_spend)
+
+    date_of_spend = high_spend&.date_of_spend
+
+    if date_of_spend.present?
+      high_spend.date_day = date_of_spend.day
+      high_spend.date_month = date_of_spend.month
+      high_spend.date_year = date_of_spend.year
+    end
+
+  end
+
+  # If a user has left the high spend journey without attaching
+  # a file,then delete those spends.
+  #
+  # Before showing the form, it needs to reload payment details
+  # from the database, so that :show doesn't show the cached,
+  # deleted items.
+  #
+  # This is an MVP approach. Team would prefer a different approach
+  # where we showed the files attached on the high spend summary screen, and
+  # validated that each spend had a file before proceeding.
+  # The submit function should have similar validation to prevent URL
+  # hacking.
+  #
+  # @param [PaymentRequest] payment_request
+  def remove_high_spends_with_no_file(payment_request)
+
+    payment_request.high_spend.each do |high_spend|
+
+      unless high_spend.evidence_of_spend_file.present?
+        high_spend.destroy
+      end
+
+    end
+
+    payment_request.high_spend.reload
 
   end
 

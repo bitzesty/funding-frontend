@@ -1,140 +1,106 @@
 class HighSpend < ApplicationRecord
-  # Copied from Spend for reuse - but to be completed during
-  # development of high spend journey
   include ActiveModel::Validations, GenericValidator
 
   belongs_to :payment_request, optional: true
 
-  attr_accessor :validate_item_of_spend
+  attr_accessor :validate_save_continue
+  attr_accessor :validate_file
 
-  attr_accessor :validate_cost_type
-  attr_accessor :validate_description
-  attr_accessor :validate_net_amount
-  attr_accessor :validate_vat_amount
-  attr_accessor :validate_gross_amount
-  attr_accessor :validate_evidence_of_spend_file
-  attr_accessor :validate_evidence_of_spend_file
-  attr_accessor :validate_date
+  attr_accessor :cost_headings
 
-  attr_accessor :custom_date_of_spend
+  attr_accessor :date_day
+  attr_accessor :date_month
+  attr_accessor :date_year
+  attr_accessor :full_date
 
   has_one_attached :evidence_of_spend_file
 
-  validates :cost_type, presence: true, if: :validate_cost_type?
-  validates :description, presence: true, if: :validate_description?
+  validates :cost_heading, presence: true, if: :validate_save_continue?
+  validates :description, presence: true, if: :validate_save_continue?
 
-  validates :net_amount, numericality: {
-    greater_than: 0,
+  validates :amount, numericality: {
+    greater_than: :spend_threshold,
     less_than: 2147483648
-  }, if: :validate_net_amount?
+  }, if: :validate_save_continue?
 
   validates :vat_amount, numericality: {
-    greater_than: 0,
+    greater_than: -1,
     less_than: 2147483648
-  }, if: :validate_vat_amount?
+  }, if: :validate_save_continue?
 
-  validates :gross_amount, numericality: {
+  validates :date_day, numericality: {
     greater_than: 0,
-    less_than: 2147483648
-  }, if: :validate_gross_amount?
+    less_than: 32,
+  }, if: :validate_save_continue?
+
+  validates :date_month, numericality: {
+    greater_than: 0,
+    less_than: 13,
+  }, if: :validate_save_continue?
+
+  validates :date_year, numericality: {
+    greater_than: 1699,
+    less_than: 4000,
+  }, if: :validate_save_continue?
 
   validate do
 
-    if validate_cost_type
-
-      unless (CostType.first.id..CostType.last.id).member?(self.cost_type_id)
-        self.errors.add(
-          'cost_type',
-          'Enter a valid spend type'
-        )
-      end
+    # Ensure the given cost heading exists in the headings list
+    unless self.cost_headings.include?(self.cost_heading)
+      self.errors.add(
+        'cost_heading',
+        I18n.t("activerecord.errors.models.high_spend.attributes." \
+          "cost_heading.invalid")
+      ) if validate_save_continue?
 
     end
 
     validate_length(
       :description,
-      500,
-      I18n.t('activerecord.errors.models.spend.attributes.description.too_long', word_count: 500)
-    ) if validate_description?
+      50,
+      I18n.t("generic.word_count", max_words: 50)
+    ) if validate_save_continue?
 
-    if validate_date?
+    validate_full_date(
+      :full_date,
+      :date_day,
+      :date_month,
+      :date_month
+    ) if validate_save_continue?
 
-      unless self.custom_date_of_spend.present?
+    validate_file_attached(
+        :evidence_of_spend_file,
+        I18n.t("activerecord.errors.models.high_spend.attributes." \
+            "evidence_of_spend_file.inclusion")
+    ) if validate_file?
 
-        self.errors.add(
-          'custom_date_of_spend',
-          'Enter a date'
-        )
+  end
 
-      else
+  # Attempts to construct a valid date from the params
+  # adds an error to the record, if the attempt is invalid.
+  #
+  # @params [Integer] day
+  # @params [Integer] month
+  # @params [Integer] year
+  def validate_full_date(field, day, month, year)
 
-        begin
-
-          unless Date.valid_date?(
-            self.custom_date_of_spend[1],
-            self.custom_date_of_spend[2],
-            self.custom_date_of_spend[3]
-          )
-    
-            self.errors.add(
-                'custom_date_of_spend',
-                'Date must be a valid date'
-            )
-    
-          else
-    
-            self.date_of_spend = self.custom_date_of_spend
-    
-          end
-
-        # Rescuing TypeError, as we cannot convert from nil to an integer (in order to validate date)
-        # Rescuing NoMethodError, as Date.valid_date cannot operate on a nil value in first param
-        rescue TypeError, NoMethodError => e
-          self.errors.add(
-            'custom_date_of_spend',
-            'Date must be a valid date'
-          )
-        end
-
-      end
-
+    if !Date.valid_date? date_year.to_i, date_month.to_i, date_day.to_i
+      errors.add(
+          field,
+          I18n.t("activerecord.errors.models.high_spend" \
+            ".attributes.full_date.invalid")
+      )
     end
 
   end
 
-  validate do
-    validate_file_attached(
-        :evidence_of_spend_file,
-        I18n.t("activerecord.errors.models.spend.attributes.evidence_of_spend_file.inclusion")
-    ) if validate_evidence_of_spend_file?
+  def validate_save_continue?
+    validate_save_continue == true
   end
 
-  def validate_cost_type?
-    validate_cost_type == true
+  def validate_file?
+    validate_file == true
   end
 
-  def validate_description?
-    validate_description == true
-  end
-
-  def validate_net_amount?
-    validate_net_amount ==true
-  end
-  
-  def validate_vat_amount?
-    validate_net_amount ==true
-  end
-
-  def validate_gross_amount?
-    validate_net_amount ==true
-  end     
-
-  def validate_evidence_of_spend_file?
-    validate_evidence_of_spend_file == true
-  end
-
-  def validate_date?
-    validate_date == true
-  end
 
 end

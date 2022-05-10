@@ -22,6 +22,7 @@ en-GB:
         6: "This can be an estimate"
         7: "Help with cost types"
         8: "If you have finished adding all your costs"
+        help_with_spend_types: "Help with spend types"
       th:
         1: "Cost type"
         2: "Description"

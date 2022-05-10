@@ -1,0 +1,334 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t("progress_and_spend.payments.high_spend_add_edit.page_title")
+    }
+%>
+
+<fieldset class="govuk-fieldset">
+
+	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+    <%# form summary errors start%>
+    <% if @high_spend.errors.any? %>
+      <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+      role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+          <%= t('generic.there_is_a_problem') %>
+        </h2>
+
+        <div class="govuk-error-summary__body">
+
+          <ul class="govuk-list govuk-error-summary__list">
+
+            <% @high_spend.errors.each do |error| %>
+              <li>
+
+                <%# Link attributes to their fields.
+                Unless the full_date, then link to date_day %>
+                <% attr_name = 
+                  error.attribute.to_s == 'full_date' ? 'date_day' : error.attribute.to_s %>
+
+                <a href="#high_spend_<%= attr_name %> ">
+                  <%= error.message %>
+                </a>
+              </li>
+
+            <% end %>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    <% end %>
+    <%# form summary errors end%>
+
+    <span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.payments.high_spend_add_edit.page_caption') %>
+		</span>
+
+    <h1 class="govuk-heading-l">  
+      <%= t('progress_and_spend.payments.high_spend_add_edit.page_heading', spend_threshold: @spend_threshold) %>
+    </h1>
+
+    <p class="govuk-body">
+      <%= t('progress_and_spend.payments.high_spend_add_edit.before_we_give') %>
+    </p>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+  <%=
+    render partial: "partials/funding_application/progress_and_spend/help_with_spend_types_accordian"
+  %>
+
+  <h2 class="govuk-heading-m">
+    <%= t('progress_and_spend.payments.high_spend_add_edit.add_item_of_spend') %>
+  </h2>
+
+  <%=
+		form_with model: @high_spend,
+		url: controller_update_path,
+		method: :post,
+		local: true do |f|
+	%>
+
+    <%# spend type select start %>
+    <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @high_spend.errors[:cost_heading].any?}" %>">
+
+      <%=
+        f.label :cost_heading,
+        t('progress_and_spend.payments.high_spend_add_edit.spend_type'),
+        class: "govuk-heading-s govuk-!-margin-top-4"
+      %>
+
+      <%=
+        render partial: "partials/form_input_errors",
+        locals: {
+          form_object: @high_spend,
+          input_field_id: :cost_heading
+          } if @high_spend.errors[:cost_heading].any?
+      %>
+
+      <%=
+        f.select :cost_heading,
+        @headings,
+        {
+          "aria-describedby" => "cost_type_id_info"
+        },
+        { class: "govuk-select #{ 'govuk-select--error' if 
+          @high_spend.errors[:cost_heading].present?}" }
+      %>
+    
+    </div>
+    <%# spend type select end %>
+
+    <%# description start %>
+    <div class="govuk-character-count" data-module="govuk-character-count" data-maxwords="50">
+
+      <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @high_spend.errors[:description].any?}" %>">
+
+        <%=
+          f.label :description,
+          t('progress_and_spend.payments.high_spend_add_edit.description_of_spend'),
+          class: "govuk-heading-s govuk-!-margin-top-4"
+        %>
+
+        <%=
+          render partial: "partials/form_input_errors",
+          locals: {
+            form_object: @high_spend,
+            input_field_id: :description
+            } if @high_spend.errors['description'].any?
+        %>
+
+        <%=
+          f.text_area :description,
+          rows: 5,
+          class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+          "#{' govuk-textarea--error' if
+              @high_spend.errors[:description].any?}",
+          "aria-describedby" => "high_spend_description-info"
+        %>
+
+        <div id="high_spend_description-info"
+              class="govuk-hint govuk-character-count__message"
+              aria-live="polite">
+          <%= t('generic.word_count', max_words: 50) %>
+        </div>
+
+      </div>
+
+    </div>
+    <%# description end %>
+
+    <%# date of spend start %>
+    <div class="govuk-date-input <%= "#{'govuk-form-group--error' if
+      @high_spend.errors.any? { | er | [:date_day, :date_month, :date_year].include? er.attribute } }" %>" id="full-date">
+
+      <%=
+        f.label :description,
+        t('progress_and_spend.payments.high_spend_add_edit.date_of_spend'),
+        class: "govuk-heading-s govuk-!-margin-top-4"
+      %>
+
+      <% @high_spend.errors.each do |error| %>
+        <% if "date".in? error.attribute.to_s  %>
+
+          <span id="user[<%= error.attribute %>]-error" class="govuk-error-message">
+
+            <span class="govuk-visually-hidden">
+              <%= t('details.error') %>
+            </span> <%= error.message %>
+
+          </span>
+        <% end %>
+      <% end %>
+
+      <% date_css = "govuk-input govuk-date-input__input govuk-input--width-2" %>
+      <% date_year_css = "govuk-input govuk-date-input__input govuk-input--width-4" %>
+      <% date_error_css = "govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" %>
+      <% date_year_error_css = "govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error" %>
+
+      <div class="govuk-date-input" id="new-expiry-date">
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              f.label :date_day,
+              t('dates.day'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              f.number_field :date_day,
+              class: @high_spend.errors[:date_day].any? ? date_error_css : date_css
+            %>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              f.label :date_month,
+              t('dates.month'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+
+            <%=
+              f.number_field :date_month,
+              class: @high_spend.errors[:date_month].any? ? date_error_css : date_css
+            %>
+
+          </div>
+
+        </div>
+
+        <div class="govuk-date-input__item">
+
+          <div class="govuk-form-group">
+
+            <%=
+              f.label :date_year,
+              t('dates.year'),
+              class: 'govuk-label govuk-date-input__label'
+            %>
+            <%=
+              f.number_field :date_year,
+              class: @high_spend.errors[:date_year].any? ? date_year_error_css : date_year_css
+            %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <%# date of spend end %>
+
+    <%# amount start%>
+    <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+      @high_spend.errors['amount'].any?}" %>">
+
+      <%=
+        f.label :total_amount,
+        t('generic.amount'),
+        class: "govuk-heading-s govuk-!-margin-top-4"
+      %>
+
+      <%=
+        render partial: "partials/form_input_errors",
+        locals: {
+          form_object: @high_spend,
+          input_field_id: :amount
+          } if @high_spend.errors['amount'].any?
+      %>
+
+      <div class="nlhf-currency-denote">
+
+        <div class="nlhf-currency-denote__symbol">
+          &pound;
+        </div>
+
+        <div class="nlhf-currency-denote__capture">
+
+          <%=
+            f.text_field :amount,
+            class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
+              @high_spend.errors['amount'].any?}"
+          %>
+
+        </div>
+
+      </div>
+
+    </div>
+    <%# amount end%>
+
+    <%# vat start%>
+    <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+      @high_spend.errors['vat_amount'].any?}" %>">
+
+      <%=
+        f.label :vat_amount,
+        t('progress_and_spend.payments.high_spend_add_edit.vat'),
+        class: "govuk-heading-s govuk-!-margin-top-4"
+      %>
+
+      <%=
+        render partial: "partials/form_input_errors",
+        locals: {
+          form_object: @high_spend,
+          input_field_id: :vat_amount
+          } if @high_spend.errors['vat_amount'].any?
+      %>
+
+      <div class="nlhf-currency-denote">
+
+        <div class="nlhf-currency-denote__symbol">
+          &pound;
+        </div>
+
+        <div class="nlhf-currency-denote__capture">
+
+          <%=
+            f.text_field :vat_amount,
+            class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
+              @high_spend.errors['vat_amount'].any?}"
+          %>
+
+        </div>
+
+      </div>
+
+    </div>
+    <%# vat end%>
+
+    <%# upload evidence of spend start%>
+
+    <%# upload evidence of spend end%>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default')        )
+      )
+    %>
+
+	<% end %>
+
+</fieldset>

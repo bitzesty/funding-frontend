@@ -28,7 +28,7 @@ class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < Ap
 
       # always take the first heading in the list
       @heading = headings.first
-      @spend_threshold = get_spend_threshold_from_json(payment_request)
+      @spend_threshold = get_low_spend_threshold_from_json(payment_request)
       @low_spend = get_low_spend(@funding_application, @heading)
 
     else
@@ -50,7 +50,7 @@ class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < Ap
     # always take the first heading in the list
     headings = get_spend_headings_list(payment_request)
     @heading = headings.first
-    @spend_threshold = get_spend_threshold_from_json(payment_request)
+    @spend_threshold = get_low_spend_threshold_from_json(payment_request)
     @low_spend = get_low_spend(@funding_application, @heading)
 
     @low_spend.validate_vat_amount = true

@@ -1,0 +1,15 @@
+en-GB:
+  progress_and_spend:
+    payments:
+      high_spend_summary:
+        page_title: "Project spending and progress"
+        page_heading: "Spend over £%{spend_amount}"
+        page_caption: "Add item of spend"
+        your_project_spend: "Your project spend"
+        spend_type: "Type of spend"
+        total_spend: "Total spend"
+        including_vat: "Including VAT"
+        update_total: "Update total"
+        do_you_need_to: "Do you need to add another item of spend over £%{spend_amount}?"
+        radio_yes: "Yes, I need to add another item of spend over £%{spend_amount}"
+        radio_no: "No, I do not need to add another item of spend over £%{spend_amount} for now"

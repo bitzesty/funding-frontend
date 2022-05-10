@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_04_095519) do
+ActiveRecord::Schema.define(version: 2022_05_04_101407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -370,6 +370,19 @@ ActiveRecord::Schema.define(version: 2022_05_04_095519) do
     t.string "designation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "high_spends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_request_id"
+    t.text "cost_heading"
+    t.text "description"
+    t.decimal "vat_amount"
+    t.decimal "amount"
+    t.datetime "date_of_spend"
+    t.integer "spend_threshold"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["payment_request_id"], name: "index_high_spends_on_payment_request_id"
   end
 
   create_table "legal_signatories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -875,6 +888,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_095519) do
   add_foreign_key "gp_o_m_heritage_dsgntns", "heritage_designations"
   add_foreign_key "gp_open_medium", "funding_applications"
   add_foreign_key "gp_open_medium", "users"
+  add_foreign_key "high_spends", "payment_requests"
   add_foreign_key "low_spends", "payment_requests"
   add_foreign_key "non_cash_contributions", "projects"
   add_foreign_key "organisations_org_types", "org_types"

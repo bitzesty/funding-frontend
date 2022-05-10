@@ -519,8 +519,19 @@ Rails.application.routes.draw do
             get 'table-of-spend', to: 'table_of_spend#show'
             post 'table-of-spend', to: 'table_of_spend#update'
 
-            get 'high-spend', to: 'high_spend#show'
-            post 'high-spend', to: 'high_spend#update'
+            get 'high-spend-add', to: 'high_spend_add#show'
+            post 'high-spend-add', to: 'high_spend_add#update'
+            get 'high-spend-summary', to: 'high_spend_summary#show'
+            post 'high-spend-summary', to: 'high_spend_summary#update'
+            delete 'high-spend-summary/:high_spend_id',
+              to: 'high_spend_summary#delete',
+              as: :high_spend_summary_delete
+            scope '/:high_spend_id' do
+              get 'high-spend-evidence', to: 'high_spend_evidence#show'
+              post 'high-spend-evidence', to: 'high_spend_evidence#update'
+              get 'high-spend-edit', to: 'high_spend_edit#show'
+              post 'high-spend-edit', to: 'high_spend_edit#update'
+            end
 
             get 'have-your-bank-details-changed', to: 'have_bank_details_changed#show'
             post 'have-your-bank-details-changed', to: 'have_bank_details_changed#update'

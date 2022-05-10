@@ -57,7 +57,7 @@ class FundingApplication::ProgressAndSpend::Payments::\
 
     else
 
-      @spend_amount = get_spend_threshold_from_json(payment_request)
+      @spend_amount = get_low_spend_threshold_from_json(payment_request)
 
       # error link id, if the applicant selects nothing.
       @first_form_element = 
@@ -100,7 +100,7 @@ class FundingApplication::ProgressAndSpend::Payments::\
       payment_request
     )
 
-    @spend_amount = get_spend_threshold_from_json(payment_request)
+    @spend_amount = get_low_spend_threshold_from_json(payment_request)
 
     # error link id, if the applicant selects nothing.
     @first_form_element =
