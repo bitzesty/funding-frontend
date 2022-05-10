@@ -42,12 +42,23 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::Risk::RiskRegisterCo
 
         else
 
-          redirect_to(
-            funding_application_progress_and_spend_progress_update_risk_risk_add_path(
-              progress_update_id:  \
-                @funding_application.arrears_journey_tracker.progress_update.id
+          # If there are already existing risks (this is a return journey)
+          # then route to risk summary. 
+          if progress_update.progress_update_risk.empty?
+            redirect_to(
+              funding_application_progress_and_spend_progress_update_risk_risk_add_path(
+                progress_update_id:  \
+                  @funding_application.arrears_journey_tracker.progress_update.id
+              )
             )
-          )
+          else
+            redirect_to(
+              funding_application_progress_and_spend_progress_update_risk_risk_summary_path(
+                progress_update_id:  \
+                  @funding_application.arrears_journey_tracker.progress_update.id
+              )
+            )
+          end
 
         end
 

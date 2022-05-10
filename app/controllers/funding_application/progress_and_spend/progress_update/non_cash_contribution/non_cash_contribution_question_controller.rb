@@ -29,14 +29,23 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
 
       update_json(progress_update.answers_json, true)
 
-      # redirect to add non_cash_contribution 
-
-      redirect_to(
-        funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_add_path(
-            progress_update_id:
-              @funding_application.arrears_journey_tracker.progress_update.id
+      # If there are already existing non cc (this is a return journey)
+      # then route to non cc summary. 
+      if progress_update.progress_update_non_cash_contribution.empty?
+        redirect_to(
+          funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_add_path(
+              progress_update_id:
+                @funding_application.arrears_journey_tracker.progress_update.id
+          )
         )
-      )
+      else
+        redirect_to(
+          funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_summary_path(
+              progress_update_id:
+                @funding_application.arrears_journey_tracker.progress_update.id
+          )
+        )
+      end
 
     else
       

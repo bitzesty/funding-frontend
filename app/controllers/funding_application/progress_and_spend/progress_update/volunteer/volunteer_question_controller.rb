@@ -29,15 +29,24 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
 
       update_json(progress_update.answers_json, true)
 
-      # redirect to add volunteer update
-
-      redirect_to(
-        funding_application_progress_and_spend_progress_update_volunteer_volunteer_add_path(
-            progress_update_id:
-              @funding_application.arrears_journey_tracker.progress_update.id
+      # If there are already existing volunteers (this is a return journey)
+      # then route to volunteers summary. 
+      if  progress_update.progress_update_volunteer.empty? 
+        redirect_to(
+          funding_application_progress_and_spend_progress_update_volunteer_volunteer_add_path(
+              progress_update_id:
+                @funding_application.arrears_journey_tracker.progress_update.id
+          )
         )
-      )
-
+      else
+        redirect_to(
+          funding_application_progress_and_spend_progress_update_volunteer_volunteer_summary_path(
+              progress_update_id:
+                @funding_application.arrears_journey_tracker.progress_update.id
+          )
+        )
+      end
+   
     else
       
       # earlier update will add errors to the object

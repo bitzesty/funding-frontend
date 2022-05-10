@@ -29,12 +29,24 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::Procurement::Procure
             )
           )
         elsif progress_update.has_procurement_report_evidence == "false" 
-          redirect_to(
-            funding_application_progress_and_spend_progress_update_procurement_add_procurement_path(
-              progress_update_id:  \
-                @funding_application.arrears_journey_tracker.progress_update.id
+
+          # If there are already existing procurements (this is a return journey)
+          # then route to procurements summary. 
+          if progress_update.progress_update_procurement.empty?
+            redirect_to(
+              funding_application_progress_and_spend_progress_update_procurement_add_procurement_path(
+                progress_update_id:  \
+                  @funding_application.arrears_journey_tracker.progress_update.id
+              )
             )
-          )
+          else
+            redirect_to(
+              funding_application_progress_and_spend_progress_update_procurement_procurements_summary_path(
+                progress_update_id:  \
+                  @funding_application.arrears_journey_tracker.progress_update.id
+              )
+            )
+          end
         else
           redirect_to(
             funding_application_progress_and_spend_progress_update_completion_date_path(
@@ -43,6 +55,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::Procurement::Procure
             )
           )
         end
+        
       else
         rerender
       end
