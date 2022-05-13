@@ -84,6 +84,7 @@ include Enums::ArrearsJourneyStatus
       redirect_to \
         funding_application_progress_and_spend_progress_and_spend_tasks_path
     else
+      retrieve_project_info
       render :show
     end
    

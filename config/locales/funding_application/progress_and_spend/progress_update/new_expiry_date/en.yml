@@ -9,3 +9,4 @@ en-GB:
         for_example: "For example, 23 3 2026"
         briefly_explain: "Briefly explain why you need more time"
         after_you_submit: "After you submit your project update, your Investment Manager will be in touch to talk about the request and let you know the decision."
+        date_after_error: "New date proposed must be after %{current_completion_date}"

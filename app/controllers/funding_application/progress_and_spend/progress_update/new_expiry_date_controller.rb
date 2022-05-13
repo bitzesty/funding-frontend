@@ -1,6 +1,7 @@
 class FundingApplication::ProgressAndSpend::ProgressUpdate::\
   NewExpiryDateController < ApplicationController
     include FundingApplicationContext
+    include ProgressAndSpendHelper
   
     def show()
       @new_expiry_date = get_new_expiry_date
@@ -8,6 +9,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
     end
   
     def update()
+      @completion_date = salesforce_project_expiry_date(@funding_application)
 
       @new_expiry_date = get_new_expiry_date
 
@@ -16,6 +18,14 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
       @new_expiry_date.validate_description = true
 
       @new_expiry_date.update(permitted_params(params))
+
+      if @new_expiry_date.full_date < Date.parse(@completion_date)
+        @new_expiry_date.errors.add(
+          :full_date, 
+          t('progress_and_spend.progress_update.new_expiry_date.date_after_error', 
+            current_completion_date: @completion_date)
+        )
+      end
 
       unless @new_expiry_date.errors.any?
 

@@ -1,0 +1,14 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      digital_outputs_description:
+        page_title: "Digital Outputs"
+        page_heading: "Where can we find the digital outputs?"
+        page_caption: "Approved Purposes and outcomes"
+        all_digital_outputs_html: "All digital outputs we fund need to be available to the public, accessible, and %{href} (opens in a new tab)."
+        openly_licenced_href: "openly licenced"
+        brief_description: "Brief description of digital outputs and website links"
+        brief_description_hint: "You may have more than one."
+        radio_yes: "Yes, I have created digital outputs"
+        radio_no: "No, I have not created digital outputs"
+        contact: "Contact your Investment Manager if you have questions about digital outputs."

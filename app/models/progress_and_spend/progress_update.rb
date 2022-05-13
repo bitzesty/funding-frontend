@@ -18,6 +18,7 @@ class ProgressUpdate < ApplicationRecord
   has_many :progress_update_approved_purpose, -> { order "description" }, dependent: :destroy
   has_many :progress_update_demographic, dependent: :destroy
   has_many :progress_update_outcome, dependent: :destroy
+  has_many :progress_update_digital_output, dependent: :destroy
 
   accepts_nested_attributes_for :progress_update_photo
   accepts_nested_attributes_for :progress_update_event
@@ -65,6 +66,7 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :validate_has_non_cash_contribution
   attr_accessor :validate_add_another_non_cash_contribution
   attr_accessor :validate_add_another_non_cash_contribution
+  attr_accessor :validate_has_digital_outputs
 
 
   attr_accessor :has_upload_photos
@@ -85,6 +87,8 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :cash_contribution_selected
   attr_accessor :has_non_cash_contribution
   attr_accessor :add_another_non_cash_contribution
+  attr_accessor :has_digital_outputs
+
 
   validates :has_upload_photos, presence: true, if: :validate_has_upload_photo?
   validates :progress_update_photo, presence: true, if: :validate_progress_update_photo?
@@ -130,6 +134,7 @@ class ProgressUpdate < ApplicationRecord
   validates :progress_update_non_cash_contribution, presence: true, if: :validate_add_another_non_cash_contribution?
   validates_associated :progress_update_non_cash_contribution, if: :validate_add_another_non_cash_contribution?
   validates :add_another_non_cash_contribution, presence: true, if: :validate_add_another_non_cash_contribution?
+  validates_inclusion_of :has_digital_outputs, in: ["true", "false"], if: :validate_has_digital_outputs?
 
   def validate_has_upload_photo?
     validate_has_upload_photo == true
@@ -227,4 +232,9 @@ class ProgressUpdate < ApplicationRecord
   def validate_add_another_non_cash_contribution?
     validate_add_another_non_cash_contribution == true
   end
+
+  def validate_has_digital_outputs?
+    validate_has_digital_outputs == true
+  end
+
 end

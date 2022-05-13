@@ -37,7 +37,7 @@
 	%>
 
     <div class="govuk-date-input <%= "#{'govuk-form-group--error' if
-        @new_expiry_date.errors.any? { | er | [:date_day, :date_month, :date_year].include? er.attribute } }" %>" id="new-expiry-date">
+        @new_expiry_date.errors.any? { | er | [:full_date, :date_day, :date_month, :date_year].include? er.attribute } }" %>" id="new-expiry-date">
 
       <h3 class="govuk-heading-s"> 
         <%= t('progress_and_spend.progress_update.new_expiry_date.new_date_proposed')%> 

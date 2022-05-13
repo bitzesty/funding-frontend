@@ -1,0 +1,108 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.digital_outputs_description.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @digital_output,
+      first_form_element: :progress_update_digital_output_description
+    }
+  ) if @digital_output.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.digital_outputs_description.page_caption')%>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+		  <%= t('progress_and_spend.progress_update.digital_outputs_description.page_heading')%>
+		</h1>
+
+		<p class="govuk-body">
+			<%=
+				t('progress_and_spend.progress_update.digital_outputs_description.all_digital_outputs_html',
+					href: link_to(
+						t('progress_and_spend.progress_update.digital_outputs_description.openly_licenced_href'),
+						I18n.locale == :cy ? \
+							'https://www.heritagefund.org.uk/cy/publications/gweithio-gyda-thrwyddedau-agored-canllaw-i-brosiectau' : \
+								'https://www.heritagefund.org.uk/good-practice-guidance/digital-guide-working-open-licences',
+						target: '_blank',
+						class: 'govuk-link'
+					)
+				)
+			%>
+  	</p>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+  <%=
+		form_with model: @digital_output,
+		url: funding_application_progress_and_spend_progress_update_digital_outputs_description_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+    <div class="govuk-character-count" data-module="govuk-character-count"
+      data-maxwords="150">
+
+      <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
+        @digital_output.errors['description'].any?}" %>">
+
+        <h3 class="govuk-heading-s"> 
+          <%= t('progress_and_spend.progress_update.digital_outputs_description.brief_description') %> 
+        </h3>
+
+				<p class="govuk-hint">
+					<%= t('progress_and_spend.progress_update.digital_outputs_description.brief_description_hint') %> 
+				</p>
+
+        <%=
+          render partial: "partials/form_input_errors",
+          locals: {
+            form_object: @digital_output,
+            input_field_id: :description	
+            } if @digital_output.errors['description'].any?
+        %>
+
+        <%=
+          f.text_area :description,
+          rows: 15,
+          class:"govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+          "#{' govuk-textarea--error' if
+              @digital_output.errors['description'].any?}",
+          "aria-describedby" => "progress_update_digital_output_description-info"
+        %>
+
+        <div id="progress_update_digital_output_description-info"
+              class="govuk-hint govuk-character-count__message"
+              aria-live="polite">
+          <%= t('generic.word_count', max_words: 150) %>
+        </div>
+
+      </div>
+
+    </div>
+		
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+			%>
+
+  <%end%>
+
+</fieldset>

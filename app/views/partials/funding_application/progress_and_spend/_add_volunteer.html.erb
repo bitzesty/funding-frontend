@@ -88,12 +88,23 @@
             } if volunteer.errors['hours'].any?
       %>
 
-      <%=
-        f.text_field :hours,
-        "autocomplete" => "off",
-        class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
-          volunteer.errors['hours'].any?}"
-      %>
+      <div class="govuk-grid-row ">
+       <div class="govuk-grid-column-one-third">
+          <%=
+            f.text_field :hours,
+            "autocomplete" => "off",
+            class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if
+              volunteer.errors['hours'].any?}"
+          %>
+        </div>
+
+        <div class="govuk-grid-column-one-third govuk-!-padding-top-1">
+          <p class="govuk-body">
+            <%= t('progress_and_spend.progress_update.volunteer.volunteer_add_edit.hours') %>
+          </p>
+        </div>
+
+      </div>
 
     </div>
 

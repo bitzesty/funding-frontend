@@ -776,6 +776,8 @@ en-GB:
               blank: "Select if you need to add another another secured non-cash contribution"
             progress_update_approved_purpose:
               checkbox_selection: "Select an Approved Purpose to update on, or select 'I do not have an update on these yet'"
+            has_digital_outputs:
+              inclusion: "Select if you have created digital outputs"
         progress_update_procurement:
           attributes:
             name:
@@ -956,4 +958,10 @@ en-GB:
               not_a_number: "Enter total VAT amount or enter 0 if there is no VAT"
             evidence_of_spend_file:
               inclusion: "Select evidence of spend"
+        progress_update_digital_output:
+          attributes:
+            description:
+              too_long: "Description must be %{word_count} words or fewer"
+              blank: "Enter brief description of digital outputs and website links"
+
 

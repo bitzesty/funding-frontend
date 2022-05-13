@@ -489,6 +489,15 @@ Rails.application.routes.draw do
             get 'outcome', to: 'outcome#show'
             post 'outcome', to: 'outcome#update'
 
+            get 'digital-outputs-question', to: 'digital_outputs_question#show'
+            post 'digital-outputs-question', to: 'digital_outputs_question#update'
+
+            get 'digital-outputs-description', to: 'digital_outputs_description#show'
+            post 'digital-outputs-description', to: 'digital_outputs_description#update'
+
+            get 'funding-acknowledgement', to: 'funding_acknowledgement#show'
+            post 'funding-acknowledgement', to: 'funding_acknowledgement#update'
+
             get 'check-outcome-answers', to: 'check_outcome_answers#show'
             post 'check-outcome-answers', to: 'check_outcome_answers#update'
 

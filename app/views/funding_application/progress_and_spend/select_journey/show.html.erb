@@ -6,7 +6,6 @@
          }
 %>
 
-
 <fieldset class="govuk-fieldset">
  	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
@@ -25,7 +24,7 @@
         partial: 'partials/summary_errors',
         locals: {
           form_object: @funding_application.arrears_journey_tracker,
-          first_form_element: :select_get_payment
+          first_form_element: :arrears_journey_tracker_get_payment
         }
       ) if @funding_application.arrears_journey_tracker.errors.any?
   %>
@@ -45,51 +44,57 @@
 
       <div class="govuk-checkboxes">
 
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-          <%= t('progress_and_spend.select_journey.check_boxes.get_payment_heading')%>
-        </h3>
+        <section class="nlhf-summary govuk-!-padding-4 " id="project-costs">
 
-        <div class="govuk-checkboxes__item  govuk-!-margin-bottom-4">
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+            <%= t('progress_and_spend.select_journey.check_boxes.get_payment_heading')%>
+          </h3>
 
-          <%=
-            f.check_box :get_payment,
-              {
-                  id: :select_get_payment,
-                  class: "govuk-checkboxes__input"
-              },
-              'true', 'false'
-          %>
+        
+          <div class="govuk-checkboxes__item  govuk-!-margin-bottom-4">
 
-          <%=
-            f.label :get_payment,
-                     t('progress_and_spend.select_journey.check_boxes.get_payment_desc'),
-                    class: "govuk-label govuk-checkboxes__label"
-          %>
+            <%=
+              f.check_box :get_payment,
+                {
+                    id: :arrears_journey_tracker_get_payment,
+                    class: "govuk-checkboxes__input"
+                },
+                'true', 'false'
+            %>
 
-        </div>
+            <%=
+              f.label :get_payment,
+                      t('progress_and_spend.select_journey.check_boxes.get_payment_desc'),
+                      class: "govuk-label govuk-checkboxes__label"
+            %>
+
+          </div>
+        </section>
     
-        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-          <%= t('progress_and_spend.select_journey.check_boxes.project_update_heading')%>
-        </h3>
+        <section class="nlhf-summary govuk-!-padding-4 " id="project-update">
+          <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+            <%= t('progress_and_spend.select_journey.check_boxes.project_update_heading')%>
+          </h3>
 
-        <div class="govuk-checkboxes__item">
+          <div class="govuk-checkboxes__item">
 
-          <%=
-            f.check_box :give_project_update,
-              {
-                  id: :select_give_project_update,
-                  class: "govuk-checkboxes__input"
-              },
-              'true', 'false'
-          %>
+            <%=
+              f.check_box :give_project_update,
+                {
+                    id: :arrears_journey_tracker_give_project_update,
+                    class: "govuk-checkboxes__input"
+                },
+                'true', 'false'
+            %>
 
-          <%=
-            f.label :give_project_update,
-                  t('progress_and_spend.select_journey.check_boxes.project_update_desc'),
-                    class: "govuk-label govuk-checkboxes__label"
-          %>
+            <%=
+              f.label :give_project_update,
+                    t('progress_and_spend.select_journey.check_boxes.project_update_desc'),
+                      class: "govuk-label govuk-checkboxes__label"
+            %>
 
-        </div>
+          </div>
+        </section>
 
       </div>
 

@@ -1,0 +1,135 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.progress_update.digital_outputs_question.page_title')
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.arrears_journey_tracker.progress_update,
+      first_form_element: :progress_update_has_digital_outputs_true
+    }
+  ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.progress_update.digital_outputs_question.page_caption') %>
+		</span>
+
+		<h1 class="govuk-heading-l">
+      <%=
+        t(
+          'progress_and_spend.progress_update.digital_outputs_question.page_heading'
+        )
+      %>
+		</h1>
+
+	</legend>
+
+  <p class="govuk-body">
+    <%= t('progress_and_spend.progress_update.digital_outputs_question.digital_outputs_are') %>
+  </p>
+
+  <%=
+		render(
+			partial: 'partials/form_group_errors',
+			locals: {
+				form_object: @funding_application.arrears_journey_tracker.progress_update
+			}
+		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
+	%>
+
+  <%=
+		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		url: funding_application_progress_and_spend_progress_update_digital_outputs_question_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+
+		<div class="govuk-radios" data-module="govuk-radios">
+
+			<%=
+				render(
+					partial: 'partials/form_input_errors',
+					locals: {
+						form_object:  @funding_application.arrears_journey_tracker.progress_update,
+						input_field_id: :progress_update_has_digital_outputs
+					}
+				) if  @funding_application.arrears_journey_tracker.progress_update.errors.any? 
+			%>
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		     @funding_application.arrears_journey_tracker.progress_update.errors.any? %>">
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :has_digital_outputs,
+						true,
+						class: "govuk-radios__input"
+					%>
+
+					<%=
+						f.label :yes_true,
+						t(
+              'progress_and_spend.progress_update.digital_outputs_question.radio_yes',
+              date: @digital_outputs_question
+            ),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :has_digital_outputs,
+						false,
+						class: "govuk-radios__input",
+            "data-aria-controls" => "conditional-false"
+					%>
+
+					<%=
+							f.label :no_false,
+              t('progress_and_spend.progress_update.digital_outputs_question.radio_no'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+			</div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+        id="conditional-false">
+
+        <p class="govuk-body govuk-!-margin-bottom-9">
+          <%= t('progress_and_spend.progress_update.digital_outputs_question.contact') %>
+        </p>
+
+      </div>
+
+		</div>
+
+
+		<%=
+			render(
+				ButtonComponent.new(
+					element: 'button',
+					is_start_button: false,
+					text: t('buttons.labels.default'),
+					name: "save_and_continue_button"
+				)
+			)
+		%>
+
+	<% end %>
+
+</fieldset>

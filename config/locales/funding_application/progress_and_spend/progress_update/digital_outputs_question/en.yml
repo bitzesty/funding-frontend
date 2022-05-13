@@ -1,0 +1,11 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      digital_outputs_question:
+        page_title: "Digital Outputs"
+        page_heading: "Have you created any digital outputs as part of your project?"
+        page_caption: "Approved Purposes and outcomes"
+        digital_outputs_are: "Digital outputs are anything created in a digital format that help people engage with and learn about the heritage in your project. This includes images, research, educational materials, project reports, software, web and app content, databases, 3D models, sound and video recordings."
+        radio_yes: "Yes, I have created digital outputs"
+        radio_no: "No, I have not created digital outputs"
+        contact: "Contact your Investment Manager if you have questions about digital outputs."

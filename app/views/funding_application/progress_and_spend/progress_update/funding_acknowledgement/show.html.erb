@@ -1,0 +1,21 @@
+fa
+
+  <%=
+		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		url: funding_application_progress_and_spend_progress_update_funding_acknowledgement_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+			<%=
+				render(
+					ButtonComponent.new(
+						element: 'button',
+						is_start_button: false,
+						text: t('buttons.labels.default'),
+						name: "save_and_continue_button"
+					)
+				)
+			%>
+
+	<% end %>

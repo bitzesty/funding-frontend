@@ -10,3 +10,4 @@ en-GB:
           description: "Description of volunteer task"
           amount: "Total hours spent on this task"
           amount_hint: "Round to nearest hour"
+          hours: "hours"
