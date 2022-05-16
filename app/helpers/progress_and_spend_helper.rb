@@ -683,8 +683,8 @@ module ProgressAndSpendHelper
   # @return [Integer] spend_amount The threshold spend amount
   def get_spend_threshold(funding_application)
     set_award_type(funding_application)
-    spend_amount = 250 if @funding_application.is_100_to_250k?
-    # Large to follow
+    spend_amount = 500 if @funding_application.is_100_to_250k?
+    # Large to follow - development spend threshold could be less than £500
   end
 
   # Redirects the spend journey depending on the user's answers
