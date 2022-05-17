@@ -6,7 +6,7 @@ en-GB:
         page_heading: "Do you have any records of activities or events you have arranged?"
         page_caption: "Tell us how the project is going"
         description: "A record of activities could be a list or table of events including workshops, community events or volunteer activities. This helps us understand the work you have been doing."
-        upload_heading: "Upload your evidence"
+        upload_heading: "Upload records of events"
         has_upload_true: "Yes, I have records of events"
         has_upload_false: "No, I do not have records of events yet"
         upload_button: "Upload files"

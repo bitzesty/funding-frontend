@@ -4,7 +4,7 @@ en-GB:
       procurement:
         procured_goods:
           page_title: "Procured goods"
-          page_heading: "Have you procured any goods, work or service worth £10,000 or more since your last update? "
+          page_heading: "Have you procured any goods, work or services worth £10,000 or more since your last update? "
           page_caption: "Tell us how the project is going"
           desc: "This includes work with suppliers or contractors."
           has_procured_goods_true: "Yes, I have procured for £10,000 or more"

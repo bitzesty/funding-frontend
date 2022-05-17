@@ -37,7 +37,7 @@
 						<td class="govuk-table__cell ">
 								<%=
 									link_to(
-										t('progress_and_spend.progress_update.procurement.procurements_summary.change_button'),
+										t('generic.change'),
 										funding_application_progress_and_spend_progress_update_procurement_edit_procurement_path(procurement_id: procurement.id),
 										class: 'govuk-link',
 									)
@@ -46,7 +46,7 @@
 						<td class="govuk-table__cell ">
 							<%=
 								link_to(
-									t('progress_and_spend.progress_update.procurement.procurements_summary.delete_button'),
+									t('generic.remove'),
 									funding_application_progress_and_spend_progress_update_procurement_procurement_delete_path(procurement_id: procurement.id),
 									method: :delete,
 									class: 'govuk-link',
@@ -58,9 +58,9 @@
 			</tbody>
 		</table>
 
-		<h1 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
+		<h2 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
        <%= t('progress_and_spend.progress_update.procurement.procurements_summary.add_another_procurement_heading') %>
-		</h1>
+		</h2>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 

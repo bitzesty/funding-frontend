@@ -31,11 +31,11 @@
       %>
 		</h1>
 
-	</legend>
+    <div class="govuk-inset-text">
+      <%= t('progress_and_spend.progress_update.risk.risk_add_edit.page_hint') %>
+    </div>
 
-  <p class="govuk-hint" id="risk_hint">
-    <%= t('progress_and_spend.progress_update.risk.risk_add_edit.page_hint') %>
-  </p>
+	</legend>
 
   <%=
 		form_with model: @risk,

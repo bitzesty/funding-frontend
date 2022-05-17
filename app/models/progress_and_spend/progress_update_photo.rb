@@ -13,8 +13,11 @@ class ProgressUpdatePhoto < ApplicationRecord
   validate do
 
     validate_file_attached(
-        :progress_updates_photo_files,
-        "Add a progress update photo"
+      :progress_updates_photo_files,
+      I18n.t(
+        "activerecord.errors.models.progress_update" \
+          ".attributes.progress_update_photo.blank",
+      ) 
     )
 
   end

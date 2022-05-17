@@ -11,7 +11,8 @@ class ProgressUpdateVolunteer < ApplicationRecord
 
   validates :description, presence:true
 
-  validates :hours, numericality: {
+
+  validates :hours, presence:true, numericality: {
     only_integer: true,
     greater_than: 0,
     less_than: 2147483647

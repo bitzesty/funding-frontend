@@ -7,8 +7,6 @@ en-GB:
           page_heading_one_volunteer: "You have added 1 volunteer contribution"
           page_heading: "You have added %{volunteer_num} volunteer contributions"
           page_caption: "Tell us how the project is going"
-          change_button: "change"
-          remove_button: "remove"
           add_another_volunteer_heading: "Do you need to add another volunteer update?"
           yes_radio: "Yes, I need to add another volunteer update"
           no_radio: "No, I have added all volunteer updates for now"

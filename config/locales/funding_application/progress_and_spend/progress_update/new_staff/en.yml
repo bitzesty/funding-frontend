@@ -6,7 +6,7 @@ en-GB:
         page_heading: "Have you hired any new staff since your last update?"
         page_caption: "Tell us how the project is going"
         description: "Evidence includes job descriptions, CVs or contracts of employment for staff roles paid for with grant funds."
-        upload_heading: "Upload photos"
+        upload_heading: "Upload your evidence"
         has_upload_true: "Yes, I have hired new staff"
         has_upload_false: "No, I have not hired new staff"
         upload_button: "Upload evidence"

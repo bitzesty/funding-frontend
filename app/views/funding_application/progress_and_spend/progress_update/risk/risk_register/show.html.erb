@@ -42,15 +42,6 @@
 
 	<%=
 		render(
-			partial: 'partials/form_group_errors',
-			locals: {
-				form_object: @funding_application.arrears_journey_tracker.progress_update
-			}
-		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
-	%>
-
-	<%=
-		render(
 			partial: 'partials/funding_application/progress_and_spend/file_upload',
 			locals: {
 				input_field_id:  :'progress_update_risk_register.progress_update_risk_register_file',

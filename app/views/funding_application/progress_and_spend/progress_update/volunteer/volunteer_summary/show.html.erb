@@ -44,7 +44,7 @@
 						<td class="govuk-table__cell ">
 								<%=
 									link_to(
-                     t('progress_and_spend.progress_update.volunteer.volunteers_summary.change_button'),
+                     t('generic.change'),
 										  funding_application_progress_and_spend_progress_update_volunteer_volunteer_edit_path(volunteer_id: volunteer.id),
 										class: 'govuk-link',
 									)
@@ -53,7 +53,7 @@
 						<td class="govuk-table__cell ">
 							<%=
 								link_to(
-									t('progress_and_spend.progress_update.volunteer.volunteers_summary.remove_button'),
+									t('generic.remove'),
 									funding_application_progress_and_spend_progress_update_volunteer_volunteer_delete_path(volunteer_id: volunteer.id),
 									method: :delete,
 									class: 'govuk-link',
@@ -65,9 +65,9 @@
 			</tbody>
 		</table>
 
-		<h1 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
+		<h2 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
 			<%= t('progress_and_spend.progress_update.volunteer.volunteers_summary.add_another_volunteer_heading') %> 
-		</h1>
+		</h2>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 

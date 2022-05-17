@@ -44,7 +44,7 @@
 						<td class="govuk-table__cell ">
 								<%=
 									link_to(
-                     t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contributions_summary.change_button'),
+                     t('generic.change'),
 										  funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_edit_path(non_cash_contribution_id: non_cash_contribution.id),
 										class: 'govuk-link',
 									)
@@ -53,7 +53,7 @@
 						<td class="govuk-table__cell ">
 							<%=
 								link_to(
-									t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contributions_summary.remove_button'),
+									t('generic.remove'),
 									funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_delete_path(non_cash_contribution_id: non_cash_contribution.id),
 									method: :delete,
 									class: 'govuk-link',
@@ -65,9 +65,9 @@
 			</tbody>
 		</table>
 
-		<h1 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
+		<h2 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
 			<%= t('progress_and_spend.progress_update.non_cash_contribution.non_cash_contributions_summary.add_another_non_cash_contribution_heading') %> 
-		</h1>
+		</h2>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 

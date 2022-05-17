@@ -1,7 +1,7 @@
 en-GB: 
    progress_and_spend:
     start:
-      page_title: "Progress and Spend - Start"
+      page_title: "Get a payment or give a project update"
       page_heading: "Get a payment or give a project update "
       sub_headings:
         to_get_payment: "To get a payment you need:"

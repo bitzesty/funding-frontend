@@ -27,16 +27,11 @@
 			<%= t("progress_and_spend.progress_update.events.page_heading") %>
 		</h1>
 
-	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+		<p class="govuk-body govuk-!-padding-bottom-4">
+			<%= t("progress_and_spend.progress_update.events.description") %>
+		</p>
 
-	<%=
-		render(
-			partial: 'partials/form_group_errors',
-			locals: {
-				form_object: @funding_application.arrears_journey_tracker.progress_update
-			}
-		) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
-	%>
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
 	<%=
 		render(

@@ -1,8 +1,8 @@
 en-GB: 
    progress_and_spend:
     tasks:
-      page_title: "Manage you awarded project"
-      page_heading: "Manage you awarded project"
+      page_title: "Manage your awarded project"
+      page_heading: "Manage your awarded project"
       accept_grant: "Accept your Grant"
       get_payment: Get a payment and give a project update 
       links: 

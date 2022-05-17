@@ -727,23 +727,23 @@ en-GB:
         progress_update:      
           attributes:
             has_upload_photos:
-              blank: "Select if you have photographic evidence"
+              blank: "Select if you will upload photos"
             progress_update_photo:
-              blank: "Add a progress update photo"
+              blank: "Select photos"
             has_upload_events:
-              blank: "Select if you have events evidence"
+              blank: "Select if you will upload records of events"
             progress_update_event:
-              blank: "Add a progress update event"
+              blank: "Select record of events"
             has_upload_new_staff:
-              blank: "Select if you have any evidence of new staff"
+              blank: "Select if you will upload evidence of new staff"
             progress_update_new_staff:
-              blank: "Add evidence of new staff"
+              blank: "Select evidence"
             has_procured_goods:
-              blank: "Select if you have procured goods"
+              blank: "Select if you have procured goods, work or services worth £10,000 or more"
             has_procurement_report_evidence:
-              blank: "Select if you would like to upload a procurements report"
+              blank: "Select if you will upload a report or add details"
             progress_update_procurement_evidence:
-              blank: "Add evidence of procurements"
+              blank: "Select a report"
             add_another_procurement:
               blank: "Select if you would like to add another procurement"
             progress_update_additional_grant_condition:
@@ -751,9 +751,9 @@ en-GB:
             date_correct:
               blank: "Select if you expect to complete the project by the date specified"
             has_statutory_permissions_licence:
-              blank: "Select if you have received new statutory permissions or licences"
+              blank: "Select if you will upload permissions or licences "
             progress_update_statutory_permissions_licence:
-              blank: "Add evidence of statutory permission or licence"
+              blank: "Select new permission or statutory licence"
             has_risk_update:
               blank: 'Select if there are any risk updates'
             has_risk_register:
@@ -844,10 +844,10 @@ en-GB:
             is_still_risk:
               inclusion: "Select if this is still a risk"
             yes_still_a_risk_description:
-              blank: "Enter actions you will take to mitigate this risk"
+              blank: "Enter what actions you will take"
               too_long: "Enter your actions in 50 words or fewer"
             no_still_a_risk_description:
-              blank: "Enter actions you took to mitigate this risk"
+              blank: "Enter what actions you have taken"
               too_long: "Enter your actions in 50 words or fewer"
         progress_update_volunteer:
           attributes:
@@ -858,7 +858,7 @@ en-GB:
               less_than: "Hours spent on task must be a number, like 4"
               greater_than: "Hours spent on task must be a number, like 4"
               not_a_number: "Hours spent on task must be a number, like 4"
-              blank: "Hours spent on task must be a number, like 4"
+              blank: "Enter total hours spent on this task"
         progress_update_cash_contribution:
           attributes:
             received_amount_expected:
