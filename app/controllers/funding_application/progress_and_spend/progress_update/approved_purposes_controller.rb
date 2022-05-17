@@ -1,3 +1,15 @@
+# Stores the JSONB data as follows:
+# {
+# 	"boosting_economy": "",
+# 	"developing_skills": "",
+# 	"greater_wellbeing": "",
+# 	"learning_heritage": "",
+# 	"explaining_heritage": "",
+# 	"improving_condition": "",
+# 	"making_better_place": "",
+# 	"improving_resilience": ""
+# }
+#
 class FundingApplication::ProgressAndSpend::ProgressUpdate::ApprovedPurposesController < ApplicationController
   include FundingApplicationContext
   include ProgressAndSpendHelper

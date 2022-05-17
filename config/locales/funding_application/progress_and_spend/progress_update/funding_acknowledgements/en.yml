@@ -1,0 +1,18 @@
+en-GB:
+  progress_and_spend:
+    progress_update:
+      funding_acknowledgements:
+        page_title: "Funding acknowledgement"
+        page_heading: "How are you acknowledging your grant from the National Lottery Heritage Fund?"
+        page_caption: "Tell us how the project is going"
+        page_hint: "Approved Purposes are what we agreed to give you a grant for. Tell us about the work you have been doing so far to achieve these. This helps us to understand if, and how, the goals of the project are being met."
+        tell_us_about: "Tell us about this acknowledgement"
+        grant_guidance_html: "Contact your Investment Manager if you need help or %{href}."
+        grant_guidance_href: "read the acknowledging your grant guidance"
+
+        signs: "On-site including signs, information boards and construction site boards"
+        publications: "In publications and promotional materials"
+        events: "At events"
+        online: "Online including on your website and social media"
+        media: "In media and public relations"
+        no_update: "I do not have an update yet"

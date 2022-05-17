@@ -28,6 +28,7 @@ en-GB:
       england: "England"
     x_yes: "Yes"
     x_no: "No"
+    x_or: "Or"
     x_not_sure: "Not sure"
     choose_all_that_apply: "Choose all that apply"
     select_all_that_apply: "Select all that apply."
@@ -963,5 +964,10 @@ en-GB:
             description:
               too_long: "Description must be %{word_count} words or fewer"
               blank: "Enter brief description of digital outputs and website links"
-
-
+        progress_update_funding_acknowledgement:
+          attributes:
+            all:
+              too_long: "Description must be %{word_count} words or fewer"
+              blank: "Enter update on how you are acknowledging your grant"
+            no_update:
+              selections: "Select how you are acknowledging your grant, or select 'I do not have an update yet'"
