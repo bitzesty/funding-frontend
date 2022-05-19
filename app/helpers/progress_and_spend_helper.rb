@@ -504,8 +504,12 @@ module ProgressAndSpendHelper
     upload_evidence_files(progress_update, salesforce_project_update_id, client)
 
     # Upsert approved purposes if attached
+    clear_approved_purposes_with_no_progress_update(progress_update)
     client.upsert_approved_purposes(progress_update, salesforce_project_update_id)
     client.upsert_outcomes(funding_application)
+
+    # upsert digital outputs - if answered YES (clear object if NO)
+    # upsert acknowledgements - if no update NOT checked.
 
     progress_update.submitted_on = DateTime.now
     progress_update.save
@@ -974,6 +978,48 @@ module ProgressAndSpendHelper
     end
 
     payment_request.high_spend.reload
+
+  end
+
+  # Users that go backwards and forwards with their browser, or leave the
+  # journey on the approved purposes page, could have approved purpose
+  # objects stored with no progress update.
+  # This function clears those out.  Used when showing the outcomes summary
+  # page so that the pages shows correctly if refreshed.
+  # Used when submitting, so empty outcomes objects no created
+  # @param [ProgressUpdate] progress_update 
+  def clear_approved_purposes_with_no_progress_update(progress_update)
+    
+    progress_update.progress_update_approved_purpose.each do |ap|
+      ap.destroy_all unless ap.progress.present?
+    end
+
+  end
+
+  # Returns object if user answered yes to has digital outputs question.
+  # Handle parsing error silently, so journey not impacted,
+  # Sentry errors will be raised in the event of an error, as the
+  # JSON should always be correctly format at the point this is called
+  # Which is on summary pages.
+  # @params [ProgressUpdate] progress_update
+  # @return [ProgressUpdateDigitalOutput] result Provided if digital 
+  #                                        output question answered with yes
+  def get_digital_output_if_required(progress_update)
+
+    result = nil
+
+    begin
+
+      user_said_yes = 
+        progress_update.\
+          answers_json['digital_outputs']['has_digital_outputs'] == "true"
+
+      user_said_yes ? \
+        result = progress_update&.progress_update_digital_output&.first : nil
+
+    rescue => e
+      Rails.logger.error(error_msg)
+    end
 
   end
 

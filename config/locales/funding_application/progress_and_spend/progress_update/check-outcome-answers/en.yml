@@ -8,3 +8,6 @@ en-GB:
         approved_purposes: "Approved Purposes"
         project_outcomes: "Project outcomes"
         no_update_yet: "I do not have an update on these yet"
+        digital_outputs: "Digital outputs"
+        funding_acknowledgement: "Funding acknowledgement"
+        no_funding_acknowledgement: "I do not have an update on acknowledgement"
