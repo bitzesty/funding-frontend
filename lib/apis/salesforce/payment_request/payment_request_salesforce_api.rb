@@ -55,6 +55,28 @@ module PaymentRequestSalesforceApi
       
     end
 
+    # Method to see if an account already has a bank account associated.
+    #
+    # @param [String] salesforce_account_id Salesforce reference for an org
+    # @return [Boolean] (restforce_response.size > 0) 
+    #                        True if the org has a bank account in Salesforce
+    def org_has_bank_account_in_salesforce(salesforce_account_id)
+
+      Rails.logger.info("Checking for bank account for " \
+        "for salesforce account id: #{salesforce_account_id}")
+
+      query_string = "SELECT COUNT() " \
+        "FROM Bank_Account__c where Organisation__c = " \
+          "'#{salesforce_account_id}'"
+
+      restforce_response = run_salesforce_query(query_string,
+        "org_has_bank_account_in_salesforce", salesforce_account_id) \
+          if query_string.present?
+
+      restforce_response.size > 0
+
+    end
+
   end
 
 end

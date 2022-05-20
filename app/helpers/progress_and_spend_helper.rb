@@ -1023,4 +1023,18 @@ module ProgressAndSpendHelper
 
   end
 
+  # True if user has provided a bank account before.
+  # @param [FundingApplication] funding_application
+  # @return [Boolean] org_has_bank_account_in_salesforce True if so
+  #
+  def ask_if_bank_account_changed?(funding_application)
+
+    client = PaymentRequestSalesforceApiClient.new
+
+    client.org_has_bank_account_in_salesforce(
+      funding_application.organisation.salesforce_account_id
+    )
+
+  end
+
 end

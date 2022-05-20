@@ -1,12 +1,34 @@
 class FundingApplication::ProgressAndSpend::Payments::HaveBankDetailsChangedController < ApplicationController
   include FundingApplicationContext
   include Enums::ArrearsJourneyStatus
+  include ProgressAndSpendHelper
 
   def show
+
     @payment_request =
       @funding_application.arrears_journey_tracker.payment_request
 
-    initialise_view
+    if ask_if_bank_account_changed?(@funding_application)
+
+      initialise_view
+
+    else
+      # Setup JSON and skip straight to asking
+      @payment_request.\
+        answers_json['bank_details_journey']['has_bank_details_update'] = true
+
+      @payment_request.\
+        answers_json['bank_details_journey']['status'] = \
+          JOURNEY_STATUS[:in_progress]
+
+      @payment_request.save
+
+      redirect_to(
+        funding_application_bank_details_enter_path
+      )
+
+    end
+
   end
 
   def update
