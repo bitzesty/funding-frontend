@@ -60,24 +60,24 @@ module ProgressAndSpendHelper
   # @return [Hash] result Project data required for arrears
   def salesforce_arrears_project_details(funding_application)
 
-    client = SalesforceApiClient.new
+    client = ProgressUpdateSalesforceApiClient.new
 
     case_id = funding_application.salesforce_case_id
 
-    project_details =
-      client.project_details \
+    arrears_heading_info =
+      client.arrears_heading_info \
         (funding_application.salesforce_case_id)
 
     details_hash = {}
 
     grant_expiry_date = Date.parse(
-      project_details.Grant_Expiry_Date__c 
+      arrears_heading_info.Grant_Expiry_Date__c 
     )
 
-    details_hash[:project_name] = project_details.Project_Title__c
+    details_hash[:project_name] = arrears_heading_info.Project_Title__c
     details_hash[:project_expiry_date] = grant_expiry_date.strftime("%d/%m/%Y")
-    details_hash[:amount_paid] = project_details.Total_Payments_Paid__c
-    details_hash[:amount_remaining] = project_details.Remaining_Grant__c
+    details_hash[:amount_paid] = arrears_heading_info.Total_Payments_Paid__c
+    details_hash[:amount_remaining] = arrears_heading_info.Remaining_Grant__c
 
     details_hash
     

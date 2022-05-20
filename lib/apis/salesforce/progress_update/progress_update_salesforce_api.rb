@@ -442,6 +442,40 @@ module ProgressUpdateSalesforceApi
       end
     end
 
+    # Gets information from Salesforce used to display heading information
+    # when beginning an arrears payment
+    #
+    # @param [String] id A Project Id reference known to Salesforce
+    # @return [<Restforce::SObject>] restforce_response&first.
+    #                   First row in response containing query results needed
+    def arrears_heading_info(salesforce_case_id)
+      Rails.logger.info("Retrieving arrears_heading_info for" \
+        "for Case Id: #{salesforce_case_id}")
+
+      restforce_response = []
+
+      query_string = \
+        ("SELECT Project_Title__c, Grant_Expiry_Date__c, " \
+            "Total_Payments_Paid__c, Remaining_Grant__c	" \
+              "from Case where ID = '#{salesforce_case_id}'")
+
+      restforce_response = run_salesforce_query(query_string,
+        "arrears_heading_info", salesforce_case_id) \
+          if query_string.present?
+
+      if restforce_response.length != 1 
+
+        error_msg = "Project details not found for Case. " \
+          "Checking case id : '#{salesforce_case_id}'"
+
+        Rails.logger.error(error_msg) 
+
+      end
+
+      restforce_response&.first
+
+    end
+
     private
 
     # Runs upsert with paramatised outcome field to update
