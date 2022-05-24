@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_13_115404) do
+ActiveRecord::Schema.define(version: 2022_05_20_105551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2022_05_13_115404) do
     t.datetime "submitted_on"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "salesforce_form_id"
     t.index ["funding_application_id"], name: "index_completed_arrears_journeys_on_funding_application_id"
     t.index ["payment_request_id"], name: "index_completed_arrears_journeys_on_payment_request_id"
     t.index ["progress_update_id"], name: "index_completed_arrears_journeys_on_progress_update_id"

@@ -5,17 +5,19 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
   
     def show()
 
+      if arrears_journey_tracker.nil?
+        redirect_to :authenticated_root
+      end
+
       retrieve_project_info
 
-      @submit_status = :cannot_start
-
       @complete_progress_tasks =  \
-        @funding_application.arrears_journey_tracker.\
-          progress_update_id.present?
+        @funding_application.arrears_journey_tracker&.\
+          progress_update_id.present? ? true : false
       
       @complete_payment_tasks = \
-        @funding_application.arrears_journey_tracker.\
-          payment_request_id.present?
+        @funding_application.arrears_journey_tracker&.\
+          payment_request_id.present? ? true : false
 
       if @complete_progress_tasks
         @how_project_going_status = journey_status_string(progress_update
@@ -41,29 +43,31 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       end
 
       if @complete_progress_tasks && @complete_payment_tasks
-        @can_submit = submitted_progress_update && submitted_payment_tasks#
+        @can_submit = submitted_progress_update && submitted_payment_tasks
       elsif @complete_payment_tasks
         @can_submit = submitted_payment_tasks
       elsif  @complete_progress_tasks
         @can_submit = submitted_progress_update
       end
 
-      @submit_status = :not_started if @can_submit
-
     end
   
     def update()
-  
+      submit_to_salesforce if params.has_key?(:submit_button) 
     end
 
     private
 
     def progress_update
-      @funding_application.arrears_journey_tracker.progress_update
+      @funding_application.arrears_journey_tracker&.progress_update
     end
 
     def payment_request
-      @funding_application.arrears_journey_tracker.payment_request
+      @funding_application.arrears_journey_tracker&.payment_request
+    end
+
+    def arrears_journey_tracker
+      @funding_application.arrears_journey_tracker
     end
 
     def get_tag_colour(status) 
@@ -91,6 +95,41 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       @remaining_grant = details_hash[:amount_remaining]
       @grant_expiry_date = details_hash[:project_expiry_date]
   
+    end
+
+    def submit_to_salesforce()
+
+      completed_arrears_journey = get_completed_arrears_journey
+
+      upload_arrears_to_salesforce(@funding_application, completed_arrears_journey)
+
+      arrears_journey_tracker.delete
+
+      redirect_to funding_application_progress_and_spend_submit_your_answers_path(
+        completed_arrears_journey_id: completed_arrears_journey.id )
+
+    end
+
+    def get_completed_arrears_journey
+
+      completed_arrears_journey = 
+        @funding_application.completed_arrears_journeys
+          .where(
+            progress_update_id: progress_update&.id, 
+            payment_request: payment_request&.id 
+          )
+
+      if completed_arrears_journey.empty?
+        completed_arrears_journey = @funding_application
+          .completed_arrears_journeys.create(
+            payment_request_id:payment_request&.id,
+            progress_update_id: progress_update&.id,
+            submitted_on: DateTime.now()
+          )
+      end
+
+      completed_arrears_journey
+
     end
 
     helper_method :get_tag_colour

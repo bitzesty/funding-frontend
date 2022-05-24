@@ -475,15 +475,66 @@ module ProgressAndSpendHelper
   end
 
   # Method responsible for orchestrating upload
-  # of progress update data to Salesforce
+  # of arrears data to Salesforce
   #
   # @param [FundingApplication] funding_application An instance of
   #                                                 FundingApplication
-  def upload_progress_update(funding_application)
+  # @param [CompletedArrearsJourney] CompletedArrearsJourney 
+  #                                                 An instance of
+  #                                                 CompletedArrearsJourney
+  def upload_arrears_to_salesforce(funding_application, 
+    completed_arrears_journey)
 
-    client = ProgressUpdateSalesforceApiClient.new
+    salesforc_api_client = SalesforceApiClient.new
+    form_id = salesforc_api_client.instantiate_arrears_form_type(
+      funding_application, 
+      completed_arrears_journey
+    )
 
-    progress_update = funding_application.arrears_journey_tracker.progress_update
+    progress_update_client = ProgressUpdateSalesforceApiClient.new
+    upload_progress_update(
+      progress_update_client, 
+      funding_application, 
+      form_id, 
+      completed_arrears_journey
+    ) if completed_arrears_journey.progress_update.present?
+
+    payment_request_client = PaymentRequestSalesforceApiClient.new
+    upload_payment_request(
+      payment_request_client, 
+      funding_application, 
+      form_id
+    )  if completed_arrears_journey.payment_request.present?
+
+    # set SF form id and updated at as time of upload 
+    completed_arrears_journey.salesforce_form_id = form_id
+    completed_arrears_journey.updated_at = DateTime.now()
+
+    completed_arrears_journey.save
+    
+  end
+
+  private
+
+  # Method responsible for orchestrating upload
+  # of progress update data to Salesforce
+  #
+  # @param [ProgressUpdateSalesforceApiClient] progress_update_salesforce_api 
+  #                                                 An instance of
+  #                                                 ProgressUpdateSalesforceApiClient
+  # @param [FundingApplication] funding_application An instance of
+  #                                                 FundingApplication
+  # @param [String] string salesfoce form id to upsert against
+  #                                                  String
+  # 
+  # @param [CompletedArrearsJourney] CompletedArrearsJourney 
+  #                                                 An instance of
+  #                                                 CompletedArrearsJourney
+  def upload_progress_update(client, funding_application, 
+    form_id, completed_arrears_journey)
+
+    progress_update = completed_arrears_journey
+        .progress_update
 
     progress_update.answers_json.each do | field, flags |
       clear_unused_progress_update_data_items(
@@ -493,20 +544,15 @@ module ProgressAndSpendHelper
       )
     end 
 
-    progress_update = funding_application
-      .arrears_journey_tracker
-        .progress_update
+    client.upsert_project_update(funding_application, form_id, 
+      completed_arrears_journey)
 
-      salesforce_project_update_id = client.upsert_project_update(
-        funding_application
-      )
-
-    upload_evidence_files(progress_update, salesforce_project_update_id, client)
+    upload_evidence_files(progress_update, form_id, client)
 
     # Upsert approved purposes if attached
     clear_approved_purposes_with_no_progress_update(progress_update)
-    client.upsert_approved_purposes(progress_update, salesforce_project_update_id)
-    client.upsert_outcomes(funding_application)
+    client.upsert_approved_purposes(progress_update, form_id)
+    client.upsert_outcomes(funding_application, completed_arrears_journey)
 
     # upsert digital outputs - if answered YES (clear object if NO)
     # upsert acknowledgements - if no update NOT checked.
@@ -515,8 +561,29 @@ module ProgressAndSpendHelper
     progress_update.save
 
   end
-  
-  private
+
+   # Method responsible for orchestrating upload
+  # of progress update data to Salesforce
+  #
+  # @param [ProgressUpdateSalesforceApiClient] progress_update_salesforce_api 
+  #                                                 An instance of
+  #                                                 ProgressUpdateSalesforceApiClient
+  # @param [FundingApplication] funding_application An instance of
+  #                                                 FundingApplication
+  # @param [String] string salesfoce form id to upsert against
+  #                                                  String
+  def upload_payment_request(client, funding_application, form_id)
+
+    payment_request = funding_application
+      .arrears_journey_tracker
+        .payment_request
+
+    client.upsert_payment_request(funding_application, form_id)
+
+    payment_request.submitted_on = DateTime.now
+    payment_request.save
+
+  end
 
   # Method responsible for deleting unused progress update data.
   #
@@ -598,6 +665,10 @@ module ProgressAndSpendHelper
   #                                                 ProgressUpdate
   # @param [salesforce_project_update_id] Form Id of progress update
   #                                                  String
+  # 
+  # @param [ProgressUpdateSalesforceApiClient] progress_update_salesforce_api 
+  #                                                 An instance of
+  #                                                 ProgressUpdateSalesforceApiClient
   def upload_evidence_files(progress_update, salesforce_project_update_id, client)
     
 

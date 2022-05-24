@@ -1623,6 +1623,61 @@
       end
     end
 
+    # Method to instantiating appropriate form type based on the submission type
+    #  progress_update, payment request or both. Returns id of form upserted.
+    #
+    # @param [FundingApplication] funding_application being upserted against
+    # @param [CompletedArrearsJourney] completed_arrears_journey tracker 
+    #                                                               object created upon submission.
+    # 
+    #  @returns [String] string salesfoce form ID of upserted form
+    def instantiate_arrears_form_type(funding_application, completed_arrears_journey)
+      retry_number = 0
+
+      if completed_arrears_journey.progress_update.present? && 
+        !completed_arrears_journey.payment_request.present?
+          form_type = "Project_Update"
+      elsif !completed_arrears_journey.progress_update.present? && 
+        completed_arrears_journey.payment_request.present?
+          form_type = "Payment_Request"
+      else
+        form_type = "Payment_Request_and_Project_Update"
+      end
+
+        begin
+          # Instantiates our form 
+          salesforce_form_id = @client.upsert!(
+            'Forms__c',
+            'Frontend_External_Id__c',
+            Case__c: funding_application.salesforce_case_id,
+            Frontend_External_Id__c: completed_arrears_journey.id,
+            RecordTypeId: get_salesforce_record_type_id(form_type, 'Forms__c')
+          )
+
+          return salesforce_form_id
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.error(
+            "Error arrears from data with completed_arrears_journey ID: #{completed_arrears_journey.id}"
+          )
+
+          sleep(rand(0..max_sleep_seconds))
+
+        else
+          # Raise and allow global exception handler to catch
+          raise
+        end
+
+      end
+    end
     
     private
 

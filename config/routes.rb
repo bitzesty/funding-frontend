@@ -328,8 +328,9 @@ Rails.application.routes.draw do
         get 'progress-and-spend-tasks', to: 'tasks#show'
         post 'progress-and-spend-tasks', to: 'tasks#update'
 
-        get 'submit-your-answers', to: 'submit#show'
-        post 'submit-your-answers', to: 'submit#update'
+        scope '/:completed_arrears_journey_id' do
+          get 'submit-your-answers', to: 'submit#show'
+        end      
 
         scope 'previous-submissions', module: 'previous_submissions', as: :previous_submissions do
           get 'previous-submission-dates', to: 'previous_submission_dates#show'

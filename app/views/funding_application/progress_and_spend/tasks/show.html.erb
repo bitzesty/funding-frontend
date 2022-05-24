@@ -234,36 +234,29 @@
     </li>
   <% end %>
 
-  <li class="nlhf-list__item nlhf-task__item">
+</ul>
 
-    <span class="nlhf-tag-name">
-      
-      <%=
-        link_to_if(
-          @can_submit,
-          t('progress_and_spend.tasks.links.submit'),
-          funding_application_progress_and_spend_submit_your_answers_path(),
-          class: 'govuk-link govuk-link--no-visited-state',
-          aria: { describedby: 'submit-your-answers' }
-        )
-      %>
-
-    </span>
+  <%=
+    form_with model: @arrears_journey_tracker,
+    url: :funding_application_progress_and_spend_progress_and_spend_tasks,
+    method: :post,
+    local: true do |f|
+  %>
 
     <%=
       render(
-        partial: 'partials/tag_component',
-        locals: {
-          colour: get_tag_colour(@submit_status),
-          tag_text: t("generic.#{@submit_status}"),
-          tag_id: 'submit-your-answers'
-        }
+        ButtonComponent.new(
+          element: 'input',
+          is_start_button: false,
+          text: t('progress_and_spend.tasks.links.submit'),
+          name: "submit_button",
+          disabled: !@can_submit,
+          data_disable: true
+        )
       )
     %>
 
-  </li>
-
-</ul>
+  <%end%>
 
 <%= content_for :secondarycontent do %>
   <div class="nlhf-panel" >

@@ -90,7 +90,7 @@ module ProgressUpdateSalesforceApi
 
     end
 
-    # Method to upsert a PTS form files in Salesforce for a Permission to Start application
+    # Method to upsert a progress_update form files in Salesforce for a Permission to Start application
     #
     # @param [ActiveStorageBlob] file attachment to upload
     # @param [String] type The type of file to upload (e.g. 'photo evidence')
@@ -117,31 +117,28 @@ module ProgressUpdateSalesforceApi
 
     end
 
+
     # Method responsible for upserting any progress update data models
     # to their counter parts in SF
     #
     # @param [FundingApplication] funding_application An instance of
     #                                                 FundingApplication
-    #
-    def upsert_project_update(funding_application)
+    # @param [String] string id for SF Form to upsert against
+    # 
+    # @param [CompletedArrearsJourney] completed_arrears_journey 
+    #                                                 An instance of
+    #                                                 completed_arrears_journey
+    def upsert_project_update(funding_application, 
+      salesforce_project_update_id, completed_arrears_journey)
 
       retry_number = 0
 
-      progress_update = funding_application.arrears_journey_tracker.progress_update
+      progress_update = completed_arrears_journey.progress_update
 
       Rails.logger.info("Upserting progress update data " \
         "to progress update with ID: #{progress_update.id}")
 
       begin
-
-        # Instantiates our form 
-        salesforce_project_update_id = @client.upsert!(
-          'Forms__c',
-          'Frontend_External_Id__c',
-          Case__c: funding_application.salesforce_case_id,
-          Frontend_External_Id__c: progress_update.id,
-          RecordTypeId: get_salesforce_record_type_id('Project_Update', 'Forms__c')
-        )
 
         # Attach risks to form 
         progress_update.progress_update_risk.each do | risk | 
@@ -228,13 +225,27 @@ module ProgressUpdateSalesforceApi
           )
         end
 
+        # Attach additional grant conditions
+        progress_update.progress_update_additional_grant_condition
+          .each do | add_grant_cond |
+          @client.upsert!(
+            'Update_additional_grant_conditions__c',
+            'External_Id__c',
+            External_Id__c: add_grant_cond.id,
+            Form__c: salesforce_project_update_id,
+            Additional_grant_condition__c: add_grant_cond.description,
+            How_are_you_working_towards_this__c: add_grant_cond.progress
+          )
+        end
+
         # Upsert new project completion date if provided
         unless progress_update.progress_update_new_expiry_date.empty?
+          
           @client.upsert!(
             'Forms__c',
             'Frontend_External_Id__c',
             Case__c: funding_application.salesforce_case_id,
-            Frontend_External_Id__c: progress_update.id,
+            Frontend_External_Id__c: completed_arrears_journey.id,
             New_proposed_grant_expiry_date__c: progress_update
               .progress_update_new_expiry_date
                 .first.full_date.strftime("%Y-%m-%d"),
@@ -248,7 +259,7 @@ module ProgressUpdateSalesforceApi
             'Forms__c',
             'Frontend_External_Id__c',
             Case__c: funding_application.salesforce_case_id,
-            Frontend_External_Id__c: progress_update.id,
+            Frontend_External_Id__c: completed_arrears_journey.id,
             Do_you_still_expect_to_complete_by_GED__c: true
           )
         end
@@ -342,36 +353,42 @@ module ProgressUpdateSalesforceApi
     end
 
 
-
     # Method responsible for upserting any outcome models
     # to SF counterparts
     #
     # @param [FundingApplication] funding_application An instance of
     #                                                 FundingApplication
+    # @param [completed_arrears_journey] completed_arrears_journey 
+    #                                                 An instance of
+    #                                                 completed_arrears_journey
     #    
-    def upsert_outcomes(funding_application)
+    def upsert_outcomes(funding_application, completed_arrears_journey)
+      # Bring in complete object
+
       retry_number = 0
 
       begin
 
-        progress_update = funding_application.arrears_journey_tracker.progress_update
+        progress_update = completed_arrears_journey.progress_update
 
         progress_update_id = progress_update.id
         case_id = funding_application.salesforce_case_id
+        completed_arrears_journey_id = completed_arrears_journey.id
+
 
         Rails.logger.info("Upserting outcomes to " \
           "progress update with ID: #{progress_update_id}")
 
         # Upsert new project completion date if provided
         unless progress_update.progress_update_demographic.empty?
-          @client.upsert!(
-            'Forms__c',
-            'Frontend_External_Id__c',
-            Case__c: funding_application.salesforce_case_id,
-            Frontend_External_Id__c: progress_update_id,
-            A_wider_range_of_people_will_be_involved__c: progress_update
-              .progress_update_demographic.first.explanation
-          )
+          upsert_outcomes_field(
+              'A_wider_range_of_people_will_be_involved__c', 
+              progress_update
+                  .progress_update_demographic
+                    .first.explanation, 
+              case_id, 
+              completed_arrears_journey_id
+            )
         end
 
         unless progress_update.progress_update_outcome.empty?
@@ -379,37 +396,37 @@ module ProgressUpdateSalesforceApi
             .each do | outcome, update | 
             case outcome
             when 'boosting_economy'
-             upsert_outcomes_field(progress_update_id, 
+             upsert_outcomes_field( 
               'The_local_economy_will_be_boosted__c', 
-                update, case_id)
+                update, case_id, completed_arrears_journey_id)
             when 'developing_skills'
-             upsert_outcomes_field(progress_update_id, 
+             upsert_outcomes_field( 
               'People_will_have_developed_skills__c', 
-                update, case_id)
+                update, case_id, completed_arrears_journey_id)
             when 'greater_wellbeing'
-             upsert_outcomes_field(progress_update_id, 
+             upsert_outcomes_field( 
               'People_will_have_greater_wellbeing__c', 
-                update, case_id)
+                update, case_id, completed_arrears_journey_id)
             when 'learning_heritage'
-             upsert_outcomes_field(progress_update_id, 
+             upsert_outcomes_field( 
               'People_will_have_learned_about_heritage__c', 
-                update, case_id)
+                update, case_id, completed_arrears_journey_id)
             when 'explaining_heritage'
-             upsert_outcomes_field(progress_update_id, 
+             upsert_outcomes_field( 
               'Identified_and_better_explained__c', 
-                update, case_id)
+                update, case_id, completed_arrears_journey_id)
             when 'improving_condition'
-             upsert_outcomes_field(progress_update_id, 
+             upsert_outcomes_field( 
               'Heritage_will_be_in_better_condition__c', 
-                update, case_id)
+                update, case_id, completed_arrears_journey_id)
             when 'making_better_place'
-             upsert_outcomes_field(progress_update_id, 
+             upsert_outcomes_field( 
               'A_better_place_to_live_work_or_visit__c', 
-                update, case_id)
+                update, case_id, completed_arrears_journey_id)
             when 'improving_resilience'
-             upsert_outcomes_field(progress_update_id, 
+             upsert_outcomes_field( 
               'The_organisation_will_be_more_resilient__c', 
-                update, case_id)
+                update, case_id, completed_arrears_journey_id)
             end
 
             Rails.logger.info("Successfuly upserted #{outcome} outcome " \
@@ -429,7 +446,7 @@ module ProgressUpdateSalesforceApi
 
           Rails.logger.error(
             "Error upserting outcomes to progress update " \
-              "with ID: #{progress_update.id}"
+              "with ID: #{progress_update.id} #{e}"
           )
 
           sleep(rand(0..max_sleep_seconds))
@@ -480,17 +497,19 @@ module ProgressUpdateSalesforceApi
 
     # Runs upsert with paramatised outcome field to update
     # 
-    # @param [progress_update_id] Int progress_update_id to upsert against
     # @param [salesforce_field] String Name of SF feild to update
     # @param [update] String Value of feild being updated
     # @param [case_id] Int case id of form being updated
+    # @param [completed_arrears_journey_id] 
+    #                 Int completed_arrears_journey_id to upsert against
     # 
-    def upsert_outcomes_field(progress_update_id, salesforce_field, update, case_id)
+    def upsert_outcomes_field(salesforce_field, update, case_id, 
+      completed_arrears_journey_id)
       @client.upsert!(
         'Forms__c',
         'Frontend_External_Id__c',
         Case__c: case_id,
-        Frontend_External_Id__c: progress_update_id,
+        Frontend_External_Id__c: completed_arrears_journey_id,
         salesforce_field.to_sym => update
       )
     end
