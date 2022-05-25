@@ -1671,6 +1671,8 @@
 
           sleep(rand(0..max_sleep_seconds))
 
+          retry
+
         else
           # Raise and allow global exception handler to catch
           raise

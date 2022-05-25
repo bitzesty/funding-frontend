@@ -110,22 +110,33 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
 
     end
 
+    # Finds matching completed_arrears_journey rows with a matching
+    # payment_request.id and progress_update.id combination.
+    # There should only be one - so only return first if anything found.
+    #
+    # If no matches found, creates a new completed_arrears_journey instance.
+    #
+    # @return [CompletedArrearsJourney] 
+    #                  @funding_application.completed_arrears_journeys.first
     def get_completed_arrears_journey
 
-      completed_arrears_journey = 
+      matching_completed_arrears_journeys = 
         @funding_application.completed_arrears_journeys
           .where(
             progress_update_id: progress_update&.id, 
             payment_request: payment_request&.id 
           )
 
-      if completed_arrears_journey.empty?
-        completed_arrears_journey = @funding_application
-          .completed_arrears_journeys.create(
+      if matching_completed_arrears_journeys.empty?
+        completed_arrears_journey = 
+          @funding_application.completed_arrears_journeys.create(
             payment_request_id:payment_request&.id,
             progress_update_id: progress_update&.id,
             submitted_on: DateTime.now()
           )
+      else
+        completed_arrears_journey = 
+          matching_completed_arrears_journeys.first
       end
 
       completed_arrears_journey

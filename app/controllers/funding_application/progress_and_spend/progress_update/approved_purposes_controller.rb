@@ -94,7 +94,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::ApprovedPurposesCont
     def ap_already_in_postgres(ap_id)
 
       progress_update.progress_update_approved_purpose.include?(
-          ProgressUpdateApprovedPurpose.find_by(
+        progress_update.progress_update_approved_purpose.find_by(
             salesforce_approved_purpose_id: ap_id
             )
           )

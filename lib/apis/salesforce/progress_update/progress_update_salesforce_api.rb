@@ -284,6 +284,8 @@ module ProgressUpdateSalesforceApi
 
           sleep(rand(0..max_sleep_seconds))
 
+          retry
+
         else
           # Raise and allow global exception handler to catch
           raise
@@ -337,11 +339,13 @@ module ProgressUpdateSalesforceApi
           max_sleep_seconds = Float(2 ** retry_number)
 
           Rails.logger.error(
-            "Error upserting appproved purpose to progress update" \
+            "Error upserting approved purpose to progress update" \
               "with ID: #{progress_update.id}"
           )
 
           sleep(rand(0..max_sleep_seconds))
+
+          retry
 
         else
           # Raise and allow global exception handler to catch
@@ -352,6 +356,119 @@ module ProgressUpdateSalesforceApi
 
     end
 
+    # Method responsible for upserting digital outputs
+    # to SF.
+    #
+    # @param [String] completed_journey_id External Id to be used for upsert
+    # @param [String] description Description of digital outputs
+    #                    
+    def upsert_digital_outputs(completed_journey_id, description)
+
+      retry_number = 0
+
+      begin
+
+        Rails.logger.info("Upserting digital outputs for " \
+          "completed_journey_id: #{completed_journey_id}")
+
+        @client.upsert!(
+          'Forms__c',
+          'Frontend_External_Id__c',
+          Frontend_External_Id__c: completed_journey_id,
+          Digital_outputs__c: description
+        )
+
+        Rails.logger.info("Successfuly digital output for " \
+          "completed_journey_id: #{completed_journey_id}")
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.error(
+            "Error upserting digital outputs for completed_journey_id: " \
+              "#{completed_journey_id}"
+          )
+
+          sleep(rand(0..max_sleep_seconds))
+
+          retry
+
+        else
+          # Raise and allow global exception handler to catch
+          raise
+        end
+
+      end
+
+    end
+
+    # Method responsible for upserting a funding acknowledgment
+    # to SF
+    #
+    # @param [String] external_id The guid of the funding_acknowledgment and
+    #                             its ack_type concatenated.
+    # @param [String] form_id Salesforce reference for the Form__c we refer to
+    #
+    # @param [String] ack_type A salesforce picklist type, calculated in
+    #                                                          calling function
+    # @param [String] ack_desc Description for the funding acknowledgement
+    #                    
+    def upsert_funding_acknowledgement(external_id, form_id, ack_type, ack_desc)
+
+      retry_number = 0
+
+      begin
+
+        Rails.logger.info("Upserting funding_acknowledgement " \
+          "using external id #{external_id} for " \
+            "form with ID: #{form_id}")
+
+        @client.upsert!(
+          'Funding_acknowledgement_update__c',
+          'External_Id__c',
+          External_Id__c: external_id,
+          Description__c: ack_desc,
+          Type__c: ack_type,
+          Form__c: form_id
+        )        
+
+        Rails.logger.info("Successfully upserted funding_acknowledgement " \
+          "approved purpose with external ID: #{external_id}")
+
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.error(
+            "Error upserting funding_acknowledgement" \
+              "with  external ID: #{external_id} for " \
+                "form with ID: #{form_id}"
+          )
+
+          sleep(rand(0..max_sleep_seconds))
+
+          retry
+
+        else
+          # Raise and allow global exception handler to catch
+          raise
+        end
+
+      end
+
+    end
 
     # Method responsible for upserting any outcome models
     # to SF counterparts
@@ -450,6 +567,8 @@ module ProgressUpdateSalesforceApi
           )
 
           sleep(rand(0..max_sleep_seconds))
+
+          retry
 
         else
           # Raise and allow global exception handler to catch

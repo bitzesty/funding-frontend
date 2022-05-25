@@ -95,4 +95,27 @@ class ProgressUpdateFundingAcknowledgement < ApplicationRecord
 
   end
 
+  # returns the salesforce picklist value for a funding_acknowlwdgement type
+  #
+  # @param [String] ack_type An acknowledgement type
+  # @return [String] result The Salesforce picklist value
+  def get_salesforce_funding_acknowledgement_type(ack_type)
+
+    result = case ack_type
+
+      when 'media'
+        'In media and public relations'
+      when 'signs'
+        'On-site including signs, information boards and construction site board'
+      when 'events'
+        'At events'
+      when 'online'
+        'Online, including website and social media'
+      when 'publications'
+        'In publications and promotional materials'
+
+    end  
+    
+  end
+
 end

@@ -554,8 +554,17 @@ module ProgressAndSpendHelper
     client.upsert_approved_purposes(progress_update, form_id)
     client.upsert_outcomes(funding_application, completed_arrears_journey)
 
-    # upsert digital outputs - if answered YES (clear object if NO)
-    # upsert acknowledgements - if no update NOT checked.
+    check_and_upload_digital_outputs(
+      client,
+      progress_update,
+      completed_arrears_journey.id
+    )
+
+    check_and_upload_funding_acknowledgements(
+      client,
+      progress_update,
+      form_id
+    )
 
     progress_update.submitted_on = DateTime.now
     progress_update.save
@@ -1089,7 +1098,8 @@ module ProgressAndSpendHelper
         result = progress_update&.progress_update_digital_output&.first : nil
 
     rescue => e
-      Rails.logger.error(error_msg)
+      Rails.logger.error(e.message)
+      result
     end
 
   end
@@ -1107,5 +1117,60 @@ module ProgressAndSpendHelper
     )
 
   end
+
+  # upsert digital outputs - if user answered Yes to question, which
+  # is stored as has_digital_outputs == "true"
+  #
+  # @param [ProgressUpdateSalesforceApiClient] client Reusing SF client object
+  # @param [ProgressUpdate] progress_update Contains any digital outputs
+  def check_and_upload_digital_outputs(client, progress_update, completed_journey_id)
+    
+    progress_update.has_digital_outputs = \
+      progress_update.answers_json['digital_outputs']\
+        ['has_digital_outputs'] if \
+          progress_update.answers_json.has_key?('digital_outputs')
+
+    client.upsert_digital_outputs(
+      completed_journey_id,
+      progress_update.progress_update_digital_output.first.description
+    ) if progress_update.has_digital_outputs == "true"
+
+  end
+
+  # upsert funding acknowledgements - unless user answered 
+  # "I do not have an update yet"
+  #
+  # Controls the loop here and calls the upsert function for each item.
+  # This means the client API's retry only occurs on a problem item 
+  # which is faster than retrying all items.
+  #
+  # concatenates object.id and ack_type to make an external_id for SF
+  #
+  # @param [ProgressUpdateSalesforceApiClient] client Reusing SF client object
+  # @param [ProgressUpdate] progress_update To get any funding_acknowledgments
+  # @param [String] form_id Salesforce reference for its relevant Form__c instance
+  #
+  def check_and_upload_funding_acknowledgements(client, progress_update, form_id)
+
+    ack_object = progress_update&.progress_update_funding_acknowledgement&.first
+
+    acks_json = ack_object&.acknowledgements
+
+    unless acks_json.nil? || acks_json['no_update']['selected'] == 'true'
+
+      acks_json.each do |ack_type, ack_desc|
+
+        client.upsert_funding_acknowledgement(
+          progress_update.progress_update_funding_acknowledgement.first.id + ack_type,
+          form_id,
+          ack_object.get_salesforce_funding_acknowledgement_type(ack_type),
+          ack_desc['acknowledgement']
+        ) unless ack_type == 'no_update'
+
+      end
+
+    end
+
+  end 
 
 end
