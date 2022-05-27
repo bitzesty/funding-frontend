@@ -1,3 +1,4 @@
+# Care - used by arrears and small M1 payments journeys
 en-GB:
   payment_confirm_details:
     page_title: "Confirm bank details"
@@ -9,8 +10,15 @@ en-GB:
     building_society_roll_number: "Building society roll number"
     payment_reference: "Payment reference"
     buttons:
-      submit_bank_details: "Confirm bank details"
+      submit_bank_details: "Submit bank details"
+      confirm_bank_details: "Confirm bank details"
     change: "Change"
     change_span: "bank details"
     warning: "warning"
     confirm_responsibility_warning: "By submitting bank details, you are confirming you take full responsibility for making sure the bank details are correct. You are also confirming, the bank details given by the organisation have been checked by more than 1 person to make sure they are correct."
+    confirm_details_are_correct: "Confirm your bank details are correct and upload evidence of your account. Evidence can be a recent bank statement, cheque or paying-in slip."
+    bank_statements: "Bank statements need to be from within the last 3 months. Online bank statements need to show the bank logo, website address, account name, number and sort code."
+    page_sub_heading: "Review bank details"
+    evidence_file_label: "Upload evidence of bank account"
+    no_evidence_uploaded: "You have not added evidence of your bank account"
+    evidence_file: "Evidence of bank account file"
