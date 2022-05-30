@@ -1,0 +1,139 @@
+<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
+
+  <header class="nlhf-summary__header">
+
+    <h2 class="govuk-heading-m">
+      <%= @high_spend_table_heading %>
+    </h2>
+
+  </header>
+
+  <div class="nlhf-summary__body">
+
+    <table class="govuk-table">
+
+      <% if @high_spend.count < 1 %>
+
+        <th class="govuk-heading-s">
+          <%=
+            t(
+              'progress_and_spend.payments.high_spend_summary.no_spend',
+              spend_amount: @spend_threshold
+            )
+          %>
+        </th>
+
+      <% else %>
+
+        <thead class="govuk-table__head">
+
+          <tr class="govuk-table__row">
+
+            <th scope="col" class=<%= "govuk-table__header #{@show_change_links ? 'govuk-!-width-one-third' : 'govuk-!-width-one-half'}" %> >
+              <%= t('progress_and_spend.payments.high_spend_summary.spend_type') %>
+            </th>
+
+            <th scope="col" class=<%= "govuk-table__header #{@show_change_links ? 'govuk-!-width-one-third' : 'govuk-!-width-one-half'}" %> >
+              <%= t('progress_and_spend.payments.high_spend_summary.total_spend') %>
+              <div>
+                <%= t('progress_and_spend.payments.high_spend_summary.including_vat') %>
+              </div>
+            </th>
+
+            <%# Voice over skips these empty headers, that are included for table style. %>
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header"></th>
+
+          </tr>
+
+        </thead>
+
+        <tbody class="govuk-table__body">
+
+          <% @high_spend.each do | hs | %>
+
+            <tr class="govuk-table__row">
+
+              <td class="govuk-table__cell">
+                <%= hs.cost_heading %>
+              </td>
+
+              <td class="govuk-table__cell">
+                <%=
+                  number_to_currency(
+                  hs.amount + hs.vat_amount,
+                  precision: 2,
+                  unit: '£'
+                  )
+                %>
+              </td>
+
+              <% if @show_change_links %>
+
+                <td class="govuk-table__cell">
+                    <%=
+                      link_to(
+                        t('generic.change'),
+                        funding_application_progress_and_spend_payments_high_spend_edit_path(high_spend_id: hs.id),
+                        id: 'change-hs',
+                        class: 'govuk-link'
+                      )
+                    %>
+                </td>
+
+                <td class="govuk-table__cell">
+                  <%=
+                    link_to(
+                      t('generic.remove'),
+                      funding_application_progress_and_spend_payments_high_spend_summary_delete_path(high_spend_id: hs.id),
+                      class: 'govuk-link',
+                      style: 'color: red',
+                      id: 'delete-hs',
+                      :method => 'delete'
+                    )
+                  %>
+                </td>
+
+              <% else %>
+
+                <td class="govuk-table__cell"/>
+                <td class="govuk-table__cell"/>
+
+              <% end %>
+
+          <%end%>
+
+          </tr>
+
+            <th scope="row" class="govuk-table__header"> 
+              <%= t('progress_and_spend.payments.high_spend_summary.update_total') %>
+            </th>
+
+            <td scope="row" class="govuk-table__header"> 
+
+              <%=
+                number_to_currency(
+                @high_spend_update_total,
+                precision: 2,
+                unit: '£'
+                )
+                %>
+
+            </td>
+
+            <%# Voice over skips these empty headers, that are included for table style. %>
+
+            <th scope="col" class="govuk-table__header"/>
+            <th scope="col" class="govuk-table__header"/>
+
+          </tr>
+
+        </tbody>
+
+      <% end %>
+
+    </table>
+  
+  </div>
+
+</section>

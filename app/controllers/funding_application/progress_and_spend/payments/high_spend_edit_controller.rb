@@ -8,7 +8,7 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendEditController < 
       payment_request =
         @funding_application.arrears_journey_tracker.payment_request
 
-      @spend_threshold = get_high_spend_threshold_from_json(payment_request)
+      @spend_threshold = get_high_spend_threshold_from_json(payment_request, @funding_application)
 
       @headings = get_headings(@funding_application)
 

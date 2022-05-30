@@ -57,7 +57,7 @@ class FundingApplication::ProgressAndSpend::Payments::\
 
     else
 
-      @spend_amount = get_low_spend_threshold_from_json(payment_request)
+      @spend_threshold = get_low_spend_threshold_from_json(payment_request, @funding_application)
 
       # error link id, if the applicant selects nothing.
       @first_form_element = 
@@ -100,7 +100,7 @@ class FundingApplication::ProgressAndSpend::Payments::\
       payment_request
     )
 
-    @spend_amount = get_low_spend_threshold_from_json(payment_request)
+    @spend_threshold = get_low_spend_threshold_from_json(payment_request, @funding_application)
 
     # error link id, if the applicant selects nothing.
     @first_form_element =
@@ -118,12 +118,24 @@ class FundingApplication::ProgressAndSpend::Payments::\
   #                                         the array is recorded against
   def update_spend_headings_list(headings, payment_request)
 
-    # The first journey in [spend_journeys_to_do],
-    # will always be the journey we are in.
-    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
-      first['spends_under']['spends_to_do'] = headings
+    begin
+      # The first journey in [spend_journeys_to_do],
+      # will always be the journey we are in.
+      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+        first['spends_under']['spends_to_do'] = headings
 
-    payment_request.save!
+      payment_request.save!
+    
+    rescue
+
+      Rails.logger.info("Exception in update_spend_headings_list for " \
+        "funding application #{@funding_application.id}. Redirecting to " \
+          "spend-so-far path.")
+
+      redirect_to \
+        funding_application_progress_and_spend_payments_spend_so_far_path()
+
+    end
 
   end
 

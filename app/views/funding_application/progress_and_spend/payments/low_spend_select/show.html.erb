@@ -24,13 +24,13 @@
 		</span>
 
     <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-      <%= t('progress_and_spend.payments.low_spend_select.page_heading', spend_amount: @spend_amount) %>
+      <%= t('progress_and_spend.payments.low_spend_select.page_heading', spend_amount: @spend_threshold) %>
     </h1>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
 	<p class="govuk-body govuk-hint govuk-!-padding-bottom-2">
-		<%= t('progress_and_spend.payments.low_spend_select.page_hint', spend_amount: @spend_amount) %>
+		<%= t('progress_and_spend.payments.low_spend_select.page_hint', spend_amount: @spend_threshold) %>
 	</p>
 
 	<%=

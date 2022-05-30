@@ -11,11 +11,19 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendSummaryController
       remove_high_spends_with_no_file(payment_request) if \
         payment_request.high_spend.present?
 
-      @spend_threshold = get_high_spend_threshold_from_json(payment_request)
+      @spend_threshold = get_high_spend_threshold_from_json(payment_request, @funding_application)
       
       @high_spend = payment_request.high_spend
 
-      @update_total = @high_spend.sum {|hs| hs.amount + hs.vat_amount}
+      @high_spend_update_total = @high_spend.sum {|hs| hs.amount + hs.vat_amount}
+
+      @high_spend_table_heading =
+      t(
+        'progress_and_spend.payments.high_spend_summary.your_project_spend',
+        spend_amount: @spend_threshold
+      )
+
+      @show_change_links = true
 
     end
   
@@ -25,7 +33,7 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendSummaryController
         @funding_application.arrears_journey_tracker.payment_request
 
       # Spend threshold used by validation, which is why set here.
-      @spend_threshold = get_high_spend_threshold_from_json(payment_request)
+      @spend_threshold = get_high_spend_threshold_from_json(payment_request, @funding_application)
       payment_request.validate_add_another_high_spend = true
 
       payment_request.update(fetched_params(params))
@@ -55,7 +63,15 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendSummaryController
 
         @high_spend = payment_request.high_spend
 
-        @update_total = @high_spend.sum {|hs| hs.amount + hs.vat_amount}
+        @high_spend_update_total = @high_spend.sum {|hs| hs.amount + hs.vat_amount}
+
+        @high_spend_table_heading =
+          t(
+            'progress_and_spend.payments.high_spend_summary.your_project_spend',
+            spend_amount: @spend_threshold
+          )
+
+        @show_change_links = true
 
         render :show
 

@@ -4,7 +4,7 @@ class FundingApplication::ProgressAndSpend::Payments::WhatSpendController < Appl
   
   def show()
 
-    @spend_amount = get_spend_threshold(@funding_application)
+    @spend_threshold = get_spend_threshold(@funding_application)
 
   end
 
@@ -29,12 +29,13 @@ class FundingApplication::ProgressAndSpend::Payments::WhatSpendController < Appl
 
       spend_journey_redirector(
         payment_request.answers_json,
-        payment_request.high_spend.present?
+        payment_request.high_spend.present?,
+        payment_request.low_spend.present?
       )
 
     else
 
-      @spend_amount = get_spend_threshold(@funding_application)
+      @spend_threshold = get_spend_threshold(@funding_application)
       render :show
 
     end

@@ -762,6 +762,7 @@ module ProgressAndSpendHelper
     
   # return the spend amount that results in the need to capture spending evidence.
   # This value is different for 100-250k applications and those over 250k.
+  # Makes a call to Salesforce under the hood.
   # 
   # @params [FundingApplication] funding_application
   # @return [Integer] spend_amount The threshold spend amount
@@ -777,8 +778,11 @@ module ProgressAndSpendHelper
   # @param [String] answers_json JSON string containing payment details
   #                              journey state
   # @param [Boolean] use_high_spend_summary Optional param supplied by 
-  #                  calling function.  True if skipping to summary screen
-  def spend_journey_redirector(answers_json, use_high_spend_summary = false)
+  #                  calling function.  True if skipping to high spend summary
+  # @param [Boolean] use_low_spend_summary Optional param supplied by
+  #                  calling function.  True if skipping low spend summary
+  def spend_journey_redirector(answers_json, use_high_spend_summary = false,
+      use_low_spend_summary = false)
 
     to_do_array = answers_json['arrears_journey']['spend_journeys_to_do']
 
@@ -807,8 +811,14 @@ module ProgressAndSpendHelper
       elsif to_do_array.first.has_key?("spends_under")
 
         set_arrears_payment_status(JOURNEY_STATUS[:in_progress])
-        redirect_to \
-          funding_application_progress_and_spend_payments_low_spend_select_path()
+
+        if use_low_spend_summary
+          redirect_to \
+            funding_application_progress_and_spend_payments_low_spend_summary_path()
+        else
+          redirect_to \
+            funding_application_progress_and_spend_payments_low_spend_select_path()
+        end
 
       end
 
@@ -837,13 +847,32 @@ module ProgressAndSpendHelper
 
   # Removes first item in to do array, so that it will not be revisited
   # unless selected by the user again.
-  # 
+  #
+  # If applicants use the browser arrows to drive the journey backwards and
+  # forward, then JSON in the spend journey can become invalid.
+  # To avoid showing a user a rails error, log and redirect the user back to
+  # the spend-so-far page, which is a safe place to return to any aspect of
+  # the spend journey.
+  #
   # @param [PaymentRequest] payment_request
   def remove_spend_journey_from_todo_array(payment_request)
 
-    payment_request.\
-      answers_json['arrears_journey']['spend_journeys_to_do'].shift
-    payment_request.save!
+    begin
+
+      payment_request.\
+        answers_json['arrears_journey']['spend_journeys_to_do'].shift
+      payment_request.save!
+
+    rescue
+
+      Rails.logger.info("Exception in remove_spend_journey_from_todo_array " \
+        "for funding application #{@funding_application.id}. Redirecting to " \
+          "spend-so-far path.")
+
+      redirect_to \
+        funding_application_progress_and_spend_payments_spend_so_far_path()
+
+    end
 
   end
 
@@ -876,30 +905,74 @@ module ProgressAndSpendHelper
   # Used for Low spend journey only.
   # Uses spend_threshold stored in JSON
   # Saves repeated calls to Salesforce
+  #
+  # Testing has shown that using the JSON can break if a user goes
+  # backwards and forwards a lot using the browser.
+  # Handle all exceptions by making the expensive call to Salesforce.
+  #
   # @param [PaymentRequest] payment_request PaymentRequest instance that
   #                                         the array is recorded against
+  # @param [FundingApplication] funding_application
   # @return [Integer] spend_threshold The spend level for this spend journey
-  def get_low_spend_threshold_from_json(payment_request)
+  def get_low_spend_threshold_from_json(payment_request, funding_application)
 
-    # The first journey in [spend_journeys_to_do],
-    # will always be the journey we are in.
-    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
-      first['spends_under']['spend_threshold']
+    begin
+
+      # The first journey in [spend_journeys_to_do],
+      # will always be the journey we are in.
+      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+        first['spends_under']['spend_threshold']
+
+    rescue Exception => e
+
+      Rails.logger.error(
+        "Could not get low spend threshold for payment_request.id: " \
+          "#{payment_request.id} from JSON because error occurred: " \
+            "#{e.message}. Retreiving from Salesforce instead.")
+
+      get_spend_threshold(funding_application)
+
+    end
 
   end
 
   # Used for High spend journey only.
   # Uses spend_threshold stored in JSON
   # Saves repeated calls to Salesforce
+  #
+  # Testing has shown that using the JSON can break if a user goes
+  # backwards and forwards a lot using the browser.
+  # Handle all exceptions by making the expensive call to Salesforce.
+  #
   # @param [PaymentRequest] payment_request PaymentRequest instance that
   #                                         the array is recorded against
+  # @param [FundingApplication] funding_application
   # @return [Integer] spend_threshold The spend level for this spend journey
-  def get_high_spend_threshold_from_json(payment_request)
+  def get_high_spend_threshold_from_json(payment_request, funding_application)
 
-    # The first journey in [spend_journeys_to_do],
-    # will always be the journey we are in.
-    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
-      first['spends_over']['spend_threshold']
+    begin
+      # The first journey in [spend_journeys_to_do],
+      # will always be the journey we are in.
+      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+        first['spends_over']['spend_threshold']
+
+    rescue Exception => e
+
+      Rails.logger.error(
+        "Could not get high spend threshold for payment_request.id: " \
+          "#{payment_request.id} from JSON because error occurred: " \
+            "#{e.message}. Retreiving from Salesforce instead.")
+      unless funding_application.nil?
+
+        get_spend_threshold(funding_application)
+
+      else
+
+        0 # High spend validation passes nil funding_application, for err msg
+
+      end
+
+    end
 
   end
 
@@ -918,9 +991,13 @@ module ProgressAndSpendHelper
 
     # The first journey in [spend_journeys_to_do],
     # will always be the journey we are in.
-    headings = 
-      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
-        first['spends_over']['cost_headings']
+    begin
+      headings = 
+        payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+          first['spends_over']['cost_headings']
+    rescue
+      headings = []
+    end
 
     if headings.empty?
 
@@ -952,7 +1029,11 @@ module ProgressAndSpendHelper
   def high_spend_add_edit_controller_update_helper(high_spend,
     payment_request, funding_application, params)
 
-    @spend_threshold = get_high_spend_threshold_from_json(payment_request)
+    @spend_threshold = get_high_spend_threshold_from_json(
+      payment_request,
+      funding_application
+    )
+
     high_spend.spend_threshold = @spend_threshold
 
     @headings = get_headings(funding_application)
@@ -990,17 +1071,36 @@ module ProgressAndSpendHelper
   # Updates answers_json to store headings for high spends, so the the 
   # slow Salesforce call only happens once,
   #
+  # If applicants use the browser arrows to drive the journey backwards and
+  # forward, then JSON in the spend journey can become invalid.
+  # To avoid showing a user a rails error, log and redirect the user back to
+  # the spend-so-far page, which is a safe place to return to any aspect of
+  # the spend journey.
+  #
   # @param [Array] headings An array of cost headings
   # @param [PaymentRequest] payment_request PaymentRequest instance that
   #                                         the array is recorded against
   def update_high_spend_headings_list(headings, payment_request)
 
-    # The first journey in [spend_journeys_to_do],
-    # will always be the journey we are in.
-    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
-      first['spends_over']['cost_headings'] = headings
+    begin
 
-    payment_request.save!
+      # The first journey in [spend_journeys_to_do],
+      # will always be the journey we are in.
+      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+        first['spends_over']['cost_headings'] = headings
+
+      payment_request.save!
+
+    rescue
+
+      Rails.logger.info("Exception in update_high_spend_headings_list for " \
+        "funding application #{@funding_application.id}. Redirecting to " \
+          "spend-so-far path.")
+
+      redirect_to \
+        funding_application_progress_and_spend_payments_spend_so_far_path()
+
+    end
 
   end
 
@@ -1123,6 +1223,8 @@ module ProgressAndSpendHelper
   #
   # @param [ProgressUpdateSalesforceApiClient] client Reusing SF client object
   # @param [ProgressUpdate] progress_update Contains any digital outputs
+  # @param [String] completed_journey_id External reference for
+  #                                                  completed_arrears_journey
   def check_and_upload_digital_outputs(client, progress_update, completed_journey_id)
     
     progress_update.has_digital_outputs = \
@@ -1171,6 +1273,6 @@ module ProgressAndSpendHelper
 
     end
 
-  end 
+  end
 
 end

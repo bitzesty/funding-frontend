@@ -10,3 +10,7 @@ en-GB:
         total_spend: "Total spend"
         including_vat: "Including VAT"
         update_total: "Update total"
+        no_spend: "You have not added any spend less than £%{spend_amount}"
+        do_you_need_to: "Do you need to add another spend less than £%{spend_amount}?"
+        radio_yes: "Yes, I need to add another spend less than £%{spend_amount}"
+        radio_no: "No, I do not need to add another spend less than £%{spend_amount}"

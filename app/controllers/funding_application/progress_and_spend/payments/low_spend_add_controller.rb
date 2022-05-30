@@ -28,7 +28,7 @@ class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < Ap
 
       # always take the first heading in the list
       @heading = headings.first
-      @spend_threshold = get_low_spend_threshold_from_json(payment_request)
+      @spend_threshold = get_low_spend_threshold_from_json(payment_request, @funding_application)
       @low_spend = get_low_spend(@funding_application, @heading)
 
     else
@@ -50,7 +50,7 @@ class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < Ap
     # always take the first heading in the list
     headings = get_spend_headings_list(payment_request)
     @heading = headings.first
-    @spend_threshold = get_low_spend_threshold_from_json(payment_request)
+    @spend_threshold = get_low_spend_threshold_from_json(payment_request, @funding_application)
     @low_spend = get_low_spend(@funding_application, @heading)
 
     @low_spend.validate_vat_amount = true
@@ -91,15 +91,34 @@ class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < Ap
   # Once a low spend journey is completed for that cost heading - that
   # cost heading will be removed from the array.
   #
+  # If applicants use the browser arrows to drive the journey backwards and
+  # forward, then JSON in the spend journey can become invalid.
+  # To avoid showing a user a rails error, log and redirect the user back to
+  # the spend-so-far page, which is a safe place to return to any aspect of
+  # the spend journey.
+  #
   # @param [PaymentRequest] payment_request PaymentRequest instance that
   #                                         the array is recorded against
   # @return [Array] spend_headings_list
   def get_spend_headings_list(payment_request)
 
-    # The first journey in [spend_journeys_to_do],
-    # will always be the journey we are in.
-    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
-      first['spends_under']['spends_to_do']
+    begin
+
+      # The first journey in [spend_journeys_to_do],
+      # will always be the journey we are in.
+      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+        first['spends_under']['spends_to_do']
+
+    rescue
+
+      Rails.logger.info("Exception in get_spend_headings_list for " \
+        "funding application #{@funding_application.id}. Redirecting to " \
+          "spend-so-far path.")
+
+      redirect_to \
+        funding_application_progress_and_spend_payments_spend_so_far_path()
+
+    end
 
   end
 
@@ -140,10 +159,20 @@ class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < Ap
   # @param [PaymentRequest] payment_request
   def remove_heading_from_to_do(payment_request)
 
-    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
-      first['spends_under']['spends_to_do'].shift
+    begin
 
-    payment_request.save!
+      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+        first['spends_under']['spends_to_do'].shift
+
+      payment_request.save!
+
+    rescue
+
+      # In the event of an error - do nothing
+      Rails.logger.info("Exception in remove_heading_from_to_do for " \
+        "funding application #{@funding_application.id}.")
+
+    end
 
   end
 
@@ -153,8 +182,20 @@ class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < Ap
   # @return [Boolean] true if the to do array is empty
   def to_do_list_empty?(payment_request)
 
-    payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
-      first['spends_under']['spends_to_do'].empty?
+    begin
+
+      payment_request.answers_json['arrears_journey']['spend_journeys_to_do'].\
+        first['spends_under']['spends_to_do'].empty?
+
+    rescue
+
+      # In the event of an error - continue journey as though completed
+      Rails.logger.info("Exception in to_do_list_empty? for " \
+        "funding application #{@funding_application.id}.")
+
+      true
+
+    end
 
   end
 

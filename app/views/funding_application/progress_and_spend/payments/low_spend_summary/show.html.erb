@@ -6,6 +6,16 @@
     }
 %>
 
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.arrears_journey_tracker.payment_request,
+      first_form_element: :payment_request_add_another_low_spend_true
+    }
+  ) if @funding_application.arrears_journey_tracker.payment_request.errors.any?
+%>
+
 <fieldset class="govuk-fieldset">
 
 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -15,130 +25,16 @@
 		</span>
 
     <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
-      <%= t('progress_and_spend.payments.low_spend_summary.page_heading', spend_amount: @spend_amount) %>
+      <%= t('progress_and_spend.payments.low_spend_summary.page_heading', spend_amount: @spend_threshold) %>
     </h1>
 
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
 
 	<%# Spends table start.%>
-	<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
-
-		<header class="nlhf-summary__header">
-
-			<h2 class="govuk-heading-m">
-				<%= t('progress_and_spend.payments.low_spend_summary.your_project_spend') %>
-			</h2>
-
-		</header>
-
-		<div class="nlhf-summary__body">
-
-			<table class="govuk-table">
-
-				<thead class="govuk-table__head">
-
-					<tr class="govuk-table__row">
-
-						<th scope="col" class="govuk-table__header govuk-!-width-one-third">
-							<%= t('progress_and_spend.payments.low_spend_summary.spend_type') %>
-						</th>
-
-						<th scope="col" class="govuk-table__header govuk-!-width-one-third">
-							<%= t('progress_and_spend.payments.low_spend_summary.total_spend') %>
-							<div>
-								<%= t('progress_and_spend.payments.low_spend_summary.including_vat') %>
-							</div>
-						</th>
-
-						<%# Voice over skips these empty headers, that are included for table style. %>
-						<th scope="col" class="govuk-table__header"></th>
-						<th scope="col" class="govuk-table__header"></th>
-
-					</tr>
-
-				</thead>
-
-				<tbody class="govuk-table__body">
-
-					<% @low_spend.each do | ls | %>
-
-						<tr class="govuk-table__row">
-
-							<td class="govuk-table__cell">
-								<%= ls.cost_heading %>
-							</td>
-
-							<td class="govuk-table__cell">
-								<%=
-									number_to_currency(
-									ls.total_amount + ls.vat_amount,
-									precision: 2,
-									unit: '£'
-									)
-							 	%>
-							</td>
-
-							<td class="govuk-table__cell">
-									<%=
-										link_to(
-											t('generic.change'),
-											funding_application_progress_and_spend_payments_low_spend_edit_path(low_spend_id: ls.id),
-											id: 'change-ls',
-											class: 'govuk-link'
-										)
-									%>
-							</td>
-
-							<td class="govuk-table__cell">
-								<%=
-									link_to(
-										t('generic.remove'),
-										funding_application_progress_and_spend_payments_low_spend_summary_delete_path(low_spend_id: ls.id),
-										class: 'govuk-link',
-										style: 'color: red',
-										id: 'delete-ls',
-										:method => 'delete'
-									)
-								%>
-							</td>
-						</tr>
-
-					<%end%>
-
-					<tr>
-
-						<th scope="row" class="govuk-table__header"> 
-							<%= t('progress_and_spend.payments.low_spend_summary.update_total') %>
-						</th>
-
-						<td scope="row" class="govuk-table__header">
-
-							<%=
-								number_to_currency(
-								@update_total,
-								precision: 2,
-								unit: '£'
-								)
-							%>
-
-						</td>
-
-						<%# Voice over skips these empty headers, that are included for table style. %>
-
-						<th scope="col" class="govuk-table__header"/>
-						<th scope="col" class="govuk-table__header"/>
-						
-					</tr>
-
-				</tbody>
-
-			</table>
-		
-		</div>
-
-	</section>
-
+	<%=
+		render partial: "partials/funding_application/progress_and_spend/low_spend_summary_table"
+	%>
 	<%# Spends table end.%>
 
   <%=
@@ -148,16 +44,74 @@
 		local: true do |f|
 	%>
 
-			<%=
-				render(
-					ButtonComponent.new(
-						element: 'button',
-						is_start_button: false,
-						text: t('buttons.labels.default'),
-						name: "save_and_continue_button"
-					)
+		<%# Add another spend start %>
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2 govuk-!-padding-top-2">
+			<%= t('progress_and_spend.payments.low_spend_summary.do_you_need_to', spend_amount: @spend_threshold) %>
+		</h1>
+
+		<%=
+			render(
+				partial: 'partials/form_group_errors',
+				locals: {
+					form_object: @funding_application.arrears_journey_tracker.payment_request
+				}
+			) if @funding_application.arrears_journey_tracker.\
+					payment_request.errors[:add_another_low_spend].any?
+		%>
+
+		<div class="govuk-form-group <%= "govuk-form-group--error" if
+			@funding_application.arrears_journey_tracker.payment_request.\
+				errors[:add_another_low_spend].any?  %>">
+
+			<div id="form-group-errors"></div>
+
+			<div class="govuk-radios__item">
+
+				<%=
+					f.radio_button :add_another_low_spend,
+					true,
+					class: "govuk-radios__input"
+				%>
+
+				<%=
+					f.label :add_another_low_spend_true,
+					t('progress_and_spend.payments.low_spend_summary.radio_yes',
+						spend_amount: @spend_threshold),
+					class: "govuk-label govuk-radios__label"
+				%>
+
+			</div>
+
+			<div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+				<%=
+					f.radio_button :add_another_low_spend,
+					false,
+					class: "govuk-radios__input"
+				%>
+
+				<%=
+						f.label :add_another_low_spend_false,
+						t('progress_and_spend.payments.low_spend_summary.radio_no',
+							spend_amount: @spend_threshold),
+						class: "govuk-label govuk-radios__label"
+				%>
+
+			</div>
+
+		</div>
+		<%# Add another spend end %>
+
+		<%=
+			render(
+				ButtonComponent.new(
+					element: 'button',
+					is_start_button: false,
+					text: t('buttons.labels.default'),
+					name: "save_and_continue_button"
 				)
-			%>
+			)
+		%>
 
 	<% end %>
 

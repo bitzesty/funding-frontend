@@ -509,6 +509,9 @@ Rails.application.routes.draw do
         scope 'payments', module: 'payments', as: 'payments' do
           scope '/:payment_request_id' do
 
+            get 'spend-so-far', to: 'spend_so_far#show'
+            post 'spend-so-far', to: 'spend_so_far#update'
+
             get 'what-spend', to: 'what_spend#show'
             post 'what-spend', to: 'what_spend#update'
 

@@ -41,7 +41,7 @@
       @funding_application.arrears_journey_tracker.payment_request.errors.any? %>">
 
       <p class="govuk-body govuk-hint">
-        <%= t('progress_and_spend.payments.what_spend.page_hint', spend_amount: @spend_amount) %>
+        <%= t('progress_and_spend.payments.what_spend.page_hint', spend_amount: @spend_threshold) %>
       </p>
 
       <p class="govuk-body govuk-hint">
@@ -72,7 +72,7 @@
           <%=
             f.label :higher_spend,
                     t('progress_and_spend.payments.what_spend.spend_over',
-                    spend_amount: @spend_amount),
+                    spend_amount: @spend_threshold),
                     class: "govuk-label govuk-checkboxes__label"
           %>
 
@@ -92,7 +92,7 @@
           <%=
             f.label :lower_spend,
                   t('progress_and_spend.payments.what_spend.spend_under',
-                  spend_amount: @spend_amount),
+                  spend_amount: @spend_threshold),
                   class: "govuk-label govuk-checkboxes__label"
           %>
 

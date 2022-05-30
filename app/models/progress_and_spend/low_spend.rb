@@ -12,7 +12,7 @@ class LowSpend < ApplicationRecord
   }, if: :validate_vat_amount?
 
   validates :vat_amount, numericality: {
-    greater_than: 0,
+    greater_than: -1,
     less_than: 2147483648
   }, if: :validate_total_amount?
   

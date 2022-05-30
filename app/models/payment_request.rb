@@ -27,11 +27,20 @@ class PaymentRequest < ApplicationRecord
   attr_accessor :add_another_high_spend
   attr_accessor :validate_add_another_high_spend
 
+  attr_accessor :add_another_low_spend
+  attr_accessor :validate_add_another_low_spend
+
+  attr_accessor :add_or_change_spend
+  attr_accessor :validate_add_or_change_spend
+
   validates :lower_spend_chosen, presence: true, if: :validate_lower_spend_chosen?
   validates :has_bank_details_update, presence: true,  if: :validate_has_bank_details_update?
  
   validates :lower_spend_chosen, presence: true,
     if: :validate_lower_spend_chosen?
+
+  validates_inclusion_of :add_or_change_spend, in: ["true", "false"], if: :validate_add_or_change_spend?
+  validates_inclusion_of :add_another_low_spend, in: ["true", "false"], if: :validate_add_another_low_spend?
 
   validate do
 
@@ -86,7 +95,7 @@ class PaymentRequest < ApplicationRecord
         I18n.t(
           "activerecord.errors.models.payment_request." \
             "attributes.add_another_high_spend.inclusion",
-            spend_amount: get_high_spend_threshold_from_json(self)
+            spend_amount: get_high_spend_threshold_from_json(self, nil)
         )
       )
     end
@@ -107,6 +116,14 @@ class PaymentRequest < ApplicationRecord
 
   def validate_add_another_high_spend?
     validate_add_another_high_spend == true
+  end
+
+  def validate_add_another_low_spend?
+    validate_add_another_low_spend == true
+  end
+
+  def validate_add_or_change_spend?
+    validate_add_or_change_spend == true
   end
 
 end

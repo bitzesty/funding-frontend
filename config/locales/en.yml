@@ -926,12 +926,18 @@ en-GB:
               inclusion: "Select table of spend"
             add_another_high_spend:
               inclusion: "Select if you need to add another item of spend over £%{spend_amount}"
+            add_another_low_spend:
+              inclusion: "Select if you need to add another item of spend"
+            add_or_change_spend:
+              inclusion: "Select if you want to add or change spend or continue without making any changes"
         low_spend:
           attributes:
             total_amount:
               not_a_number: "Enter total amount of spend"
+              greater_than: "Enter total amount of spend"
             vat_amount:
               not_a_number: "Enter total VAT amount or enter 0 if there is no VAT"
+              greater_than: "Enter total VAT amount or enter 0 if there is no VAT"
         high_spend:
           attributes:
             cost_heading:
@@ -957,6 +963,7 @@ en-GB:
               greater_than: "Enter a spend greater than £500"
             vat_amount:
               not_a_number: "Enter total VAT amount or enter 0 if there is no VAT"
+              greater_than: "Enter total VAT amount or enter 0 if there is no VAT"
             evidence_of_spend_file:
               inclusion: "Select evidence of spend"
         progress_update_digital_output:

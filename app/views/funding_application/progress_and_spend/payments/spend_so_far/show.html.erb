@@ -1,0 +1,145 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t("progress_and_spend.payments.spend_so_far.page_title")
+    }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.arrears_journey_tracker.payment_request,
+      first_form_element: :payment_request_add_or_change_spend_true
+    }
+  ) if @funding_application.arrears_journey_tracker.payment_request.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+
+	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.payments.spend_so_far.page_caption') %>
+		</span>
+
+    <h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+      <%= t('progress_and_spend.payments.spend_so_far.page_heading', spend_amount: @spend_threshold) %>
+    </h1>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+	<%# High Spend table %>
+	<%=
+		render partial: "partials/funding_application/progress_and_spend/high_spend_summary_table"
+	%>
+
+  <%# Low Spend table %>
+	<%=
+		render partial: "partials/funding_application/progress_and_spend/low_spend_summary_table"
+	%>
+
+  <%# Table of spend file start %>
+  <div class="govuk-grid-row govuk-!-padding-bottom-2">
+
+    <div class="govuk-grid-column-one-third">
+      <h3 class="govuk-heading-s">
+
+        <%= t("progress_and_spend.payments.spend_so_far.table_of_spend") %>
+
+      </h3>
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">
+
+        <% if @payment_request&.table_of_spend_file&.blob.present? %>
+          <%= link_to(@payment_request.table_of_spend_file.blob.filename,
+            rails_blob_path(@payment_request.table_of_spend_file,
+              disposition: "attachment")) %>
+        <% else %>
+          <%= t('generic.no_file_uploaded') %>
+        <% end %>
+
+      </p>
+    </div>
+
+  </div>
+  <%# Table of spend file end %>
+
+  <%=
+    form_with model: @funding_application.arrears_journey_tracker.payment_request,
+    url: funding_application_progress_and_spend_payments_spend_so_far_path(),
+    method: :post,
+    local: true do |f|
+  %>
+
+    <h2 class="govuk-heading-m govuk-!-padding-bottom-2 govuk-!-padding-top-2">
+      <%= t('progress_and_spend.payments.spend_so_far.what_do_you_want_to_do') %>
+    </h2>
+
+    <%=
+      render(
+        partial: 'partials/form_group_errors',
+        locals: {
+          form_object: @funding_application.arrears_journey_tracker.payment_request
+        }
+      ) if @funding_application.arrears_journey_tracker.payment_request.errors.any?
+    %>
+
+    <div class="govuk-form-group <%= "govuk-form-group--error" if
+      @funding_application.arrears_journey_tracker.payment_request.errors.any? %>">
+
+      <div id="form-group-errors"></div>
+
+      <div class="govuk-radios__item">
+
+        <%=
+          f.radio_button :add_or_change_spend,
+          true,
+          class: "govuk-radios__input"
+        %>
+
+        <%=
+          f.label :add_or_change_spend_true,
+          t('progress_and_spend.payments.spend_so_far.radio_yes',
+            spend_amount: @spend_threshold),
+          class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+      <div class="govuk-radios__item  govuk-!-margin-bottom-9">
+
+        <%=
+          f.radio_button :add_or_change_spend,
+          false,
+          class: "govuk-radios__input"
+        %>
+
+        <%=
+            f.label :add_or_change_spend_false,
+            t('progress_and_spend.payments.spend_so_far.radio_no',
+              spend_amount: @spend_threshold),
+            class: "govuk-label govuk-radios__label"
+        %>
+
+      </div>
+
+    </div>
+
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default')
+        )
+      )
+    %>
+
+  <% end %>
+
+</fieldset>

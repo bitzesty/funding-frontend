@@ -1,0 +1,11 @@
+en-GB:
+  progress_and_spend:
+    payments:
+      spend_so_far:
+        page_title: "Spend so far"
+        page_heading: "What you have told us so far"
+        page_caption: "Add item of spend"
+        what_do_you_want_to_do: "What do you want to do?"
+        radio_yes: "I want to add or change spend"
+        radio_no: "I want to continue without making any changes"
+        table_of_spend: "Table of spend"

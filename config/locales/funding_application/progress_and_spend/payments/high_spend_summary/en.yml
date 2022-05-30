@@ -13,3 +13,4 @@ en-GB:
         do_you_need_to: "Do you need to add another item of spend over £%{spend_amount}?"
         radio_yes: "Yes, I need to add another item of spend over £%{spend_amount}"
         radio_no: "No, I do not need to add another item of spend over £%{spend_amount} for now"
+        no_spend: "You have not added any spend over £%{spend_amount}"
