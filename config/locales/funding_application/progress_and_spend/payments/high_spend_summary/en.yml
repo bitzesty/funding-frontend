@@ -6,7 +6,7 @@ en-GB:
         page_heading: "Spend over £%{spend_amount}"
         page_caption: "Add item of spend"
         your_project_spend: "Your project spend"
-        spend_type: "Type of spend"
+        spend_type: "Spend type"
         total_spend: "Total spend"
         including_vat: "Including VAT"
         update_total: "Update total"

@@ -17,95 +17,187 @@
 	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
 
-	<%# Spends table start.%>
-	<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
+	<%# Low spends table start.%>
+	<% if @low_spend.present? %>
 
-		<header class="nlhf-summary__header">
+		<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
 
-			<h2 class="govuk-heading-m">
-				<%= t('progress_and_spend.payments.low_spend_summary.your_project_spend') %>
-			</h2>
+			<header class="nlhf-summary__header">
 
-		</header>
+				<h2 class="govuk-heading-m">
+					<%= @low_spend_table_heading %>
+				</h2>
 
-		<div class="nlhf-summary__body">
+			</header>
 
-			<table class="govuk-table">
+			<div class="nlhf-summary__body">
 
-				<thead class="govuk-table__head">
+				<table class="govuk-table">
 
-					<tr class="govuk-table__row">
-
-						<th scope="col" class="govuk-table__header govuk-!-width-one-third">
-							<%= t('progress_and_spend.payments.low_spend_summary.spend_type') %>
-						</th>
-
-						<th scope="col" class="govuk-table__header govuk-!-width-one-third">
-							<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.amount')%>
-						</th>
-
-            <th scope="col" class="govuk-table__header govuk-!-width-one-third">
-              <%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.vat_amount')%>
-						</th>
-
-						<%# Voice over skips these empty headers, that are included for table style. %>
-						<th scope="col" class="govuk-table__header"></th>
-						<th scope="col" class="govuk-table__header"></th>
-
-					</tr>
-
-				</thead>
-
-				<tbody class="govuk-table__body">
-
-					<% @low_spend.each do | ls | %>
+					<thead class="govuk-table__head">
 
 						<tr class="govuk-table__row">
 
-							<td class="govuk-table__cell">
-								<%= ls.cost_heading %>
+							<th scope="col" class="govuk-table__header govuk-!-width-one-third">
+								<%= t('progress_and_spend.payments.low_spend_summary.spend_type') %>
+							</th>
+
+							<th scope="col" class="govuk-table__header govuk-!-width-one-third">
+								<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.amount')%>
+							</th>
+
+							<th scope="col" class="govuk-table__header govuk-!-width-one-third">
+								<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.vat_amount')%>
+							</th>
+
+							<%# Voice over skips these empty headers, that are included for table style. %>
+							<th scope="col" class="govuk-table__header"></th>
+							<th scope="col" class="govuk-table__header"></th>
+
+						</tr>
+
+					</thead>
+
+					<tbody class="govuk-table__body">
+
+						<% @low_spend&.each do | ls | %>
+
+							<tr class="govuk-table__row">
+
+								<td class="govuk-table__cell">
+									<%= ls.cost_heading %>
+								</td>
+
+								<td class="govuk-table__cell">
+									<%= ls.total_amount %>
+								</td>
+
+								<td class="govuk-table__cell">
+									<%= ls.vat_amount %>
+								</td>
+
+							<tr>
+
+						<%end%>
+
+						<tr class="govuk-table__body">
+
+							<th scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
+								<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.total_costs')%>
+							</th>
+
+							<td scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
+								£<%= @low_spend_update_total %>
 							</td>
 
-							<td class="govuk-table__cell">
-								<%= ls.total_amount %>
+							<%# Voice over skips these empty headers, that are included for table style. %>
+
+							<th scope="col" class="govuk-table__header"/>
+							<th scope="col" class="govuk-table__header"/>
+
+						</tr>
+
+					</tbody>
+
+				</table>
+
+			</div>
+
+		</section>
+
+	<% end %>
+	<%# Low spends table end.%>
+
+	<%# high spends table start.%>
+	<% if @high_spend.present? %>
+
+		<section class="nlhf-summary govuk-!-margin-bottom-9" id="project-costs">
+
+			<header class="nlhf-summary__header">
+
+				<h2 class="govuk-heading-m">
+					<%= @high_spend_table_heading %>
+				</h2>
+
+			</header>
+
+			<div class="nlhf-summary__body">
+
+				<table class="govuk-table">
+
+					<thead class="govuk-table__head">
+
+						<tr class="govuk-table__row">
+
+							<th scope="col" class="govuk-table__header govuk-!-width-one-third">
+								<%= t('progress_and_spend.payments.high_spend_summary.spend_type') %>
+							</th>
+
+							<th scope="col" class="govuk-table__header govuk-!-width-one-third">
+								<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.amount')%>
+							</th>
+
+							<th scope="col" class="govuk-table__header govuk-!-width-one-third">
+								<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.vat_amount')%>
+							</th>
+
+							<%# Voice over skips these empty headers, that are included for table style. %>
+							<th scope="col" class="govuk-table__header"></th>
+							<th scope="col" class="govuk-table__header"></th>
+
+						</tr>
+
+					</thead>
+
+					<tbody class="govuk-table__body">
+
+						<% @high_spend&.each do | hs | %>
+
+							<tr class="govuk-table__row">
+
+								<td class="govuk-table__cell">
+									<%= hs.cost_heading %>
+								</td>
+
+								<td class="govuk-table__cell">
+									<%= hs.amount %>
+								</td>
+
+								<td class="govuk-table__cell">
+									<%= hs.vat_amount %>
+								</td>
+
+							<tr>
+
+						<%end%>
+
+						<tr class="govuk-table__body">
+
+							<th scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
+								<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.total_costs')%>
+							</th>
+
+							<td scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
+								£<%= @high_spend_update_total %>
 							</td>
 
-              <td class="govuk-table__cell">
-								<%= ls.vat_amount %>
-							</td>
+							<%# Voice over skips these empty headers, that are included for table style. %>
 
-            <tr>
+							<th scope="col" class="govuk-table__header"/>
+							<th scope="col" class="govuk-table__header"/>
 
-					<%end%>
+						</tr>
 
-					<tr class="govuk-table__body">
+					</tbody>
 
-						<th scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
-							<%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.total_costs')%>
-						</th>
+				</table>
 
-						<td scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
-							£<%= @update_total %>
-						</td>
+			</div>
 
-						<%# Voice over skips these empty headers, that are included for table style. %>
+		</section>
 
-						<th scope="col" class="govuk-table__header"/>
-						<th scope="col" class="govuk-table__header"/>
-						
-					</tr>
-
-				</tbody>
-
-			</table>
-		
-		</div>
-
-	</section>
-
-	<%# Spends table end.%>
-
-  <%# TODO: High spend table will need adding %>
+	<% end %>
+	<%# high spends table end.%>
 
   <%=
 		form_with model: @funding_application.arrears_journey_tracker.payment_request,

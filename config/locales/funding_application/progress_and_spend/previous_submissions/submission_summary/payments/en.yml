@@ -8,3 +8,5 @@ en-GB:
           amount: "Amount"
           vat_amount: "VAT amount"
           total_costs: "Total costs"
+          spend_over: "Spend more than £%{spend_amount}"
+          spend_under: "Spend less than £%{spend_amount}"
