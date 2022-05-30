@@ -47,8 +47,9 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendSummaryController
           )
 
           spend_journey_redirector(
-            @funding_application.arrears_journey_tracker.\
-              payment_request.answers_json
+            payment_request.answers_json,
+            payment_request.high_spend.present?,
+            payment_request.low_spend.present?
           )
 
        elsif payment_request.add_another_high_spend.to_s == 'true'
