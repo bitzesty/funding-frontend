@@ -58,17 +58,14 @@ module PaymentRequestSalesforceApi
      # Method responsible for upserting any progress update data models
     # to their counter parts in SF
     #
-    # @param [FundingApplication] funding_application An instance of
-    #                                                 FundingApplication
-    # @param [String] string id for SF payemnt request form to upsert against
+    # @param [PaymentRequest] payment_request An instance of
+    #                                                 PaymentRequest
+    # @param [String] string id for SF payment request form to upsert against
     def upsert_payment_request(
-      funding_application, 
+      payment_request, 
       salesforce_payment_request_id)
 
       retry_number = 0
-
-      payment_request = funding_application
-        .arrears_journey_tracker.payment_request
 
       Rails.logger.info("Upserting payment_request data " \
         "to payment request with ID: #{payment_request.id}")
@@ -124,7 +121,7 @@ module PaymentRequestSalesforceApi
           salesforce_payment_request_id
         )
 
-        Rails.logger.info("Successfuly upserted payment request data with " \
+        Rails.logger.info("Successfully upserted payment request data with " \
           "ID: #{payment_request.id}")
 
       rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
@@ -175,7 +172,6 @@ module PaymentRequestSalesforceApi
 
     end
 
-    private
 
     # Method to upsert a payment form files in Salesforce for a Permission to Start application
     #

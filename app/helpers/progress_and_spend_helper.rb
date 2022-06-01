@@ -5,6 +5,8 @@ module ProgressAndSpendHelper
   include FundingApplicationHelper
   include Enums::ArrearsJourneyStatus
 
+  MAX_RETRIES = 3
+
   # Method responsible for orchestrating the retrieval of
   # additional grant conditions from Salesforce
   #
@@ -304,7 +306,7 @@ module ProgressAndSpendHelper
   # or re-renders page to show validation errors
   #
   # @params [ProgressUpdateVolunteer] volunteer
-  # @params [FundingAppplication] funding_app
+  # @params [FundingApplication] funding_app
   def update_validate_redirect_volunteer(volunteer, funding_app)
     volunteer.update(params.require(:progress_update_volunteer).permit(
         :id,
@@ -343,7 +345,7 @@ module ProgressAndSpendHelper
   # or re-renders page to show validation errors
   #
   # @params [ProgressUpdateNonCashContribution] non_cash_contribution
-  # @params [FundingAppplication] funding_app
+  # @params [FundingApplication] funding_app
   def update_validate_redirect_non_cash_contribution(non_cash_contribution, funding_app)
     non_cash_contribution.update(params.require(:progress_update_non_cash_contribution).permit(
         :id,
@@ -485,8 +487,8 @@ module ProgressAndSpendHelper
   def upload_arrears_to_salesforce(funding_application, 
     completed_arrears_journey)
 
-    salesforc_api_client = SalesforceApiClient.new
-    form_id = salesforc_api_client.instantiate_arrears_form_type(
+    salesforce_api_client = SalesforceApiClient.new
+    form_id = salesforce_api_client.instantiate_arrears_form_type(
       funding_application, 
       completed_arrears_journey
     )
@@ -502,9 +504,19 @@ module ProgressAndSpendHelper
     payment_request_client = PaymentRequestSalesforceApiClient.new
     upload_payment_request(
       payment_request_client, 
-      funding_application, 
+      completed_arrears_journey, 
       form_id
     )  if completed_arrears_journey.payment_request.present?
+
+    salesforce_api_client = SalesforceApiClient.new
+    upload_bank_details(
+      form_id,
+      salesforce_api_client,
+      payment_request_client,
+      funding_application
+    ) if completed_arrears_journey.payment_request
+      .answers_json['bank_details_journey']['has_bank_details_update'] == "true"
+     
 
     # set SF form id and updated at as time of upload 
     completed_arrears_journey.salesforce_form_id = form_id
@@ -571,27 +583,63 @@ module ProgressAndSpendHelper
 
   end
 
-   # Method responsible for orchestrating upload
+  # Method responsible for orchestrating upload
   # of progress update data to Salesforce
   #
   # @param [ProgressUpdateSalesforceApiClient] progress_update_salesforce_api 
   #                                                 An instance of
   #                                                 ProgressUpdateSalesforceApiClient
-  # @param [FundingApplication] funding_application An instance of
-  #                                                 FundingApplication
+  # @param [CompletedArrearsJourney] completed_arrears_journey An instance of
+  #                                                 CompletedArrearsJourney
   # @param [String] string salesfoce form id to upsert against
   #                                                  String
-  def upload_payment_request(client, funding_application, form_id)
+  def upload_payment_request(client, completed_arrears_journey, form_id)
 
-    payment_request = funding_application
-      .arrears_journey_tracker
-        .payment_request
+    payment_request = completed_arrears_journey
+      .payment_request
 
-    client.upsert_payment_request(funding_application, form_id)
+    client.upsert_payment_request(payment_request, form_id)
 
     payment_request.submitted_on = DateTime.now
     payment_request.save
 
+  end
+
+  # Method responsible for orchestrating upload
+  # of bank details data to Salesforce
+  #
+  # @param [String] string salesforce form ID to upload against 
+  #                                                 String
+  # @param [SalesforceApiClient] salesforce_api_client An instance of
+  #                                                 SalesforceApiClient
+  # @param [PaymentRequestSalesforceApiClient] payment_request_client An instance of
+  #                                                 PaymentRequestSalesforceApiClient
+  # @param [FundingApplication] funding_application an instance of 
+  #                                                  FundingApplication
+  def upload_bank_details(form_id, salesforce_api_client, 
+    payment_request_client, funding_application)
+
+    # Find or create bank account in salesforce
+    salesforce_bank_account_id = 
+      salesforce_api_client.find_or_create_bank_account_details(funding_application)
+
+    # Create link between form and account details with junction object
+    salesforce_api_client.
+      upsert_bank_account_payment_request_junction(
+        salesforce_bank_account_id, 
+        form_id
+      )
+
+    # Upload bank account evidence file
+    payment_details = funding_application.payment_details
+
+    payment_request_client.upsert_document_to_salesforce(
+      payment_details.evidence_file.attachment,
+      "Bank account evidence - #{payment_details.evidence_file_blob
+        .filename}",
+        salesforce_bank_account_id
+    )
+    
   end
 
   # Method responsible for deleting unused progress update data.
@@ -603,7 +651,7 @@ module ProgressAndSpendHelper
   #
   # @param [field] field String value denoting field in answers JSON
   #
-  # @param [flags] flags String Hash of flags denoting user answers to feild
+  # @param [flags] flags String Hash of flags denoting user answers to field
   #
   # @param [ProgressUpdate] progress_update An instance of
   #                                                 ProgressUpdate
@@ -668,7 +716,7 @@ module ProgressAndSpendHelper
 
   # Method responsible for upserting any evidence files attached to 
   # project update (calls file uploader used in PtsSalesforceAPI
-  # which could later be abstarcted to more generic helper)
+  # which could later be abstracted to more generic helper)
   #
   # @param [ProgressUpdate] progress_update An instance of
   #                                                 ProgressUpdate

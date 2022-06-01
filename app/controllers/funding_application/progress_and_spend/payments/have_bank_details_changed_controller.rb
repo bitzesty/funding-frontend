@@ -15,7 +15,7 @@ class FundingApplication::ProgressAndSpend::Payments::HaveBankDetailsChangedCont
     else
       # Setup JSON and skip straight to asking
       @payment_request.\
-        answers_json['bank_details_journey']['has_bank_details_update'] = true
+        answers_json['bank_details_journey']['has_bank_details_update'] = "true"
 
       @payment_request.\
         answers_json['bank_details_journey']['status'] = \
