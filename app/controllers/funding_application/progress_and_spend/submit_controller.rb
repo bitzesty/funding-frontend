@@ -32,11 +32,18 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
             .payment_request.answers_json["bank_details_journey"]["has_bank_details_update"] == "true"
         end
 
-        # TODO: Pull down payment amount
-        @payment_amount = 1000
+        @payment_amount = get_payment_amount(@submission)
 
-        # TODO: Pull down payment percentage
-        @payment_percentage = 85
+    end
+
+    def get_payment_amount(completed_arrears_journey)
+
+      details_hash = salesforce_arrears_project_details(@funding_application)
+
+      get_arrears_payment_amount(
+        completed_arrears_journey,
+        details_hash[:payment_percentage]
+      )
 
     end
 

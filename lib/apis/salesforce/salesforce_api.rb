@@ -1597,7 +1597,7 @@
     #  progress_update, payment request or both. Returns id of form upserted.
     #
     # @param [FundingApplication] funding_application being upserted against
-    # @param [CompletedArrearsJourney] completed_arrears_journey tracker 
+    # @param [CompletedArrearsJourney] completed_arrears_journey tracker
     #                                                               object created upon submission.
     # 
     #  @returns [String] string salesfoce form ID of upserted form

@@ -2,6 +2,7 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
   include FundingApplicationContext
   include ProgressAndSpendHelper
   include Enums::ArrearsJourneyStatus
+  include Mailers::ProgressAndSpendMailerHelper
   
     def show()
 
@@ -53,7 +54,29 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
     end
   
     def update()
-      submit_to_salesforce if params.has_key?(:submit_button) 
+      # submit button only enabled when tasks complete
+      if params.has_key?(:submit_button)
+
+        submit_to_salesforce
+
+        # Salesforce submission ok, gather info for email.
+        retrieve_project_info(@completed_arrears_journey)
+
+        payment_amount_as_currency_string =
+          view_context.number_to_currency(
+            @arrears_payment_amount,
+            precision: 2
+          )
+
+        send_confirmation_email(
+          @completed_arrears_journey,
+          @project_name,
+          @project_reference_num,
+          payment_amount_as_currency_string
+        )
+
+      end
+
     end
 
     private
@@ -85,7 +108,7 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       colour
     end
 
-    def retrieve_project_info
+    def retrieve_project_info(completed_arrears_journey = nil)
 
       details_hash = salesforce_arrears_project_details(@funding_application)
   
@@ -94,19 +117,29 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       @grant_paid = details_hash[:amount_paid] 
       @remaining_grant = details_hash[:amount_remaining]
       @grant_expiry_date = details_hash[:project_expiry_date]
-  
+      payment_percentage = details_hash[:payment_percentage]
+
+      if completed_arrears_journey.present?
+
+        @arrears_payment_amount = get_arrears_payment_amount(
+          completed_arrears_journey,
+          payment_percentage
+        )
+
+      end
+
     end
 
     def submit_to_salesforce()
 
-      completed_arrears_journey = get_completed_arrears_journey
+      @completed_arrears_journey = get_completed_arrears_journey
 
-      upload_arrears_to_salesforce(@funding_application, completed_arrears_journey)
+      upload_arrears_to_salesforce(@funding_application, @completed_arrears_journey)
 
-      arrears_journey_tracker.delete
+      arrears_journey_tracker&.delete
 
       redirect_to funding_application_progress_and_spend_submit_your_answers_path(
-        completed_arrears_journey_id: completed_arrears_journey.id )
+        completed_arrears_journey_id: @completed_arrears_journey.id )
 
     end
 

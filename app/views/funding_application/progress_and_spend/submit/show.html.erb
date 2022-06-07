@@ -55,8 +55,12 @@
   <p class="govuk-body">
     <%= 
       t('progress_and_spend.submit.what_next.you_will_be_paid',
-       payment_amount: @payment_amount, 
-       payment_percentage: @payment_percentage)
+        payment_amount: number_to_currency(
+          @payment_amount,
+          precision: 2,
+          unit: '£'
+        ),
+        payment_percentage: @payment_percentage)
       %>
   </p>
   <p class="govuk-body">

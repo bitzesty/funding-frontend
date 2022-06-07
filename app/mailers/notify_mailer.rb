@@ -226,4 +226,77 @@ class NotifyMailer < Mail::Notify::Mailer
                   })
   end
 
+  # Send payment request emails following an arrears journey
+  # @param [String] email
+  # @param [String] project_title
+  # @param [String] project_reference_number
+  # @param [String] payment_amount as a currency string
+  # @param [String] template_id GOV.UK guid for reqd template
+  def arrears_payment_request_submisson_confirmation(email, project_title, project_reference_num,
+    payment_amount, template_id)
+
+    logger.info "Sent arrears_payment_request_submisson_confirmation " \
+      "email to: #{email}"
+
+    template_mail(
+      template_id,
+      to: email,
+      reply_to_id: @reply_to_id,
+      personalisation: {
+          project_ref_number: project_reference_num,
+          project_title: project_title,
+          payment_amount: payment_amount
+      }
+    )
+
+  end
+
+  # Send project update and payment request emails following an arrears journey
+  # @param [String] email
+  # @param [String] project_title
+  # @param [String] project_reference_number
+  # @param [String] payment_amount as a currency string
+  # @param [String] template_id GOV.UK guid for reqd template
+  def arrears_payment_progress_submisson_confirmation(email, project_title, project_reference_num,
+    payment_amount, template_id)
+
+    logger.info "Sent arrears_payment_progress_submisson_confirmation " \
+      "email to: #{email}"
+
+    template_mail(
+      template_id,
+      to: email,
+      reply_to_id: @reply_to_id,
+      personalisation: {
+          project_ref_number: project_reference_num,
+          project_title: project_title,
+          payment_amount: payment_amount
+      }
+    )
+
+  end
+
+  # Send project update emails following an arrears journey
+  # @param [String] email
+  # @param [String] project_title
+  # @param [String] project_reference_number
+  # @param [String] template_id GOV.UK guid for reqd template
+  def arrears_project_update_submisson_confirmation(email, project_title, project_reference_num,
+    template_id)
+
+    logger.info "Sent arrears_project_update_submisson_confirmation " \
+      "email to: #{email}"
+
+    template_mail(
+      template_id,
+      to: email,
+      reply_to_id: @reply_to_id,
+      personalisation: {
+          project_ref_number: project_reference_num,
+          project_title: project_title
+      }
+    )
+
+  end
+
 end

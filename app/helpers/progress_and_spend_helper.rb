@@ -80,6 +80,7 @@ module ProgressAndSpendHelper
     details_hash[:project_expiry_date] = grant_expiry_date.strftime("%d/%m/%Y")
     details_hash[:amount_paid] = arrears_heading_info.Total_Payments_Paid__c
     details_hash[:amount_remaining] = arrears_heading_info.Remaining_Grant__c
+    details_hash[:payment_percentage] = arrears_heading_info.payment_percentage__c
 
     details_hash
     
@@ -1320,6 +1321,43 @@ module ProgressAndSpendHelper
       end
 
     end
+
+  end
+
+  # Calculates the amount The Fund will pay when an arrears payment request
+  # is made
+  # @param [CompletedArrearsJourney] completed_arrears_journey Tracker
+  #                                 object for completed arrears journeys
+  # @param [payment_percentage] payment_percentage The percentage of the total
+  #                             spend that we will pay for.
+  # @return [Float] result of multiplying total spend by payment percentage / 100
+  def get_arrears_payment_amount(completed_arrears_journey, payment_percentage)
+
+    get_total_spend(completed_arrears_journey) * (payment_percentage / 100)
+
+  end
+
+  # Gets the total spend recorded by a grantee in the arrears journey
+  # @param [CompletedArrearsJourney] completed_arrears_journey Tracker
+  #                                 object for completed arrears journeys
+  # @return [Float] total_spend Sum of high and low spends
+  def get_total_spend(completed_arrears_journey)
+
+    total_spend = 0
+
+    if completed_arrears_journey.payment_request.present?
+
+      high_spend =
+        completed_arrears_journey.payment_request.high_spend.sum {|hs| hs.amount + hs.vat_amount}
+
+      low_spend =
+        completed_arrears_journey.payment_request.low_spend.sum {|ls| ls.total_amount + ls.vat_amount}
+
+      total_spend = high_spend + low_spend
+    
+    end
+
+    total_spend
 
   end
 
