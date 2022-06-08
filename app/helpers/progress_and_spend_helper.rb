@@ -80,6 +80,7 @@ module ProgressAndSpendHelper
     details_hash[:project_expiry_date] = grant_expiry_date.strftime("%d/%m/%Y")
     details_hash[:amount_paid] = arrears_heading_info.Total_Payments_Paid__c
     details_hash[:amount_remaining] = arrears_heading_info.Remaining_Grant__c
+    details_hash[:grant_awarded]= arrears_heading_info.Grant_Award__c
     details_hash[:payment_percentage] = arrears_heading_info.payment_percentage__c
 
     details_hash
@@ -515,8 +516,9 @@ module ProgressAndSpendHelper
       salesforce_api_client,
       payment_request_client,
       funding_application
-    ) if completed_arrears_journey.payment_request
-      .answers_json['bank_details_journey']['has_bank_details_update'] == "true"
+    ) if completed_arrears_journey.payment_request.present? &&
+        completed_arrears_journey.payment_request
+          .answers_json['bank_details_journey']['has_bank_details_update'] == "true"
      
 
     # set SF form id and updated at as time of upload 

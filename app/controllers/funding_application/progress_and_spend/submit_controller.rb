@@ -16,6 +16,7 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
     def initialise_view()
       @submitting_progress_update = false
       @submitting_payment_request = false
+      @submitting_bank_details = false
 
       @submission = 
         @funding_application.completed_arrears_journeys
@@ -27,13 +28,15 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
           @submission.progress_update.present?
 
         if @submission.payment_request.present?
-          @submitting_payment_request = true
+         
           @submitting_bank_details = true if @submission
             .payment_request.answers_json["bank_details_journey"]["has_bank_details_update"] == "true"
+
+          @payment_amount = get_payment_amount(@submission)
+
+          @submitting_payment_request = true if @payment_amount > 0
+
         end
-
-        @payment_amount = get_payment_amount(@submission)
-
     end
 
     def get_payment_amount(completed_arrears_journey)

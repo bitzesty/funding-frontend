@@ -5,16 +5,18 @@ en-GB:
       page_headings:
         spend_submitted: "Project spend submitted"
         progress_update_submitted: "Project update submitted"
-        bank_details_submitted: "Bank details update submitted"
+        bank_details_submitted: "Bank details submitted"
         spend_and_bank_submitted: "Project spend and bank details submitted"
+        progress_update_and_bank_details_submitted: "Project update and bank details submitted"
         spend_and_progress_submitted: "Project spend and project update submitted"
-      confirmation_email: "We have set a confirmation emails to %{user_email}"
+      confirmation_email: "We have sent a confirmation email to %{user_email}."
       what_next: 
         sub_heading: "What happens next"
         we_will_check: "We will check your project spend and will be in touch if we have any questions."
-        aim_to_pay: "We will aim to pay you within 10 working days."
-        you_will_be_paid: "You will be paid %{payment_amount}."
+        you_will_be_paid: "If approved, you will be paid %{payment_amount}."
         send_email: "We will send you an email to confirm when we have sent the money."
         im_will_contact: "Your Investment Manager will be in touch if they need to discuss anything further."
         after_our_checks: "After we have done our checks, we will aim to pay you within 10 working days."
+        bank_details_check: "We will check the details and be in touch if we have any questions."
         any_questions: "If you have any questions, contact your Investment Manager."
+

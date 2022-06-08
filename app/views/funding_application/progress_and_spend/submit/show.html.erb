@@ -26,6 +26,11 @@
       <%= 
         t('progress_and_spend.submit.page_headings.spend_and_bank_submitted')
       %>
+    <%elsif !@submitting_payment_request && @submitting_bank_details && 
+      @submitting_progress_update %>
+      <%= 
+        t('progress_and_spend.submit.page_headings.progress_update_and_bank_details_submitted')
+      %>
     <%elsif @submitting_payment_request && @submitting_progress_update %>
       <%= 
         t('progress_and_spend.submit.page_headings.spend_and_progress_submitted')
@@ -40,80 +45,30 @@
   %>
 </p>
 
-<h2 class="govuk-heading-l">
+<h2 class="govuk-heading-m">
   <%= t('progress_and_spend.submit.what_next.sub_heading')%>
 </h2>
 
-<%if @submitting_payment_request && !@submitting_progress_update %>
-
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.we_will_check')%>
-  </p>
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.aim_to_pay')%>
-  </p>
-  <p class="govuk-body">
-    <%= 
-      t('progress_and_spend.submit.what_next.you_will_be_paid',
-        payment_amount: number_to_currency(
-          @payment_amount,
-          precision: 2,
-          unit: '£'
-        ),
-        payment_percentage: @payment_percentage)
-      %>
-  </p>
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.send_email')%>
-  </p>
-
-<%elsif @submitting_progress_update && !@submitting_payment_request %>
-
+<%if @submitting_progress_update && !@submitting_payment_request  %>
   <p class="govuk-body">
     <%= t('progress_and_spend.submit.what_next.im_will_contact')%>
   </p>
 
-<%elsif @submitting_bank_details && !@submitting_payment_request &&  
-  !@submitting_progress_update%>
+<%elsif !@submitting_payment_request && !@submitting_progress_update && @submitting_bank_details%>
   <p class="govuk-body">
-    TODO: Bank details content TBC
+    <%= t('progress_and_spend.submit.what_next.bank_details_check')%>
   </p>
-
-<%elsif @submitting_payment_request && @submitting_bank_details &&  
-   !@submitting_progress_update %>
-
+<%else%>
   <p class="govuk-body">
     <%= t('progress_and_spend.submit.what_next.after_our_checks')%>
   </p>
-  <p class="govuk-body">
+  <p class="govuk-body govuk-!-padding-bottom-6">
     <%= 
       t('progress_and_spend.submit.what_next.you_will_be_paid',
-      payment_amount: @payment_amount, 
-      payment_percentage: @payment_percentage)
-    %>
-  </p>
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.send_email')%>
-  </p>
-
-<%elsif @submitting_payment_request && @submitting_progress_update %>
-
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.we_will_check')%>
-  </p>
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.aim_to_pay')%>
-  </p>
-
-  <ul class="govuk-list govuk-list--bullet">
-    <li>
-      <%= 
-        t('progress_and_spend.submit.what_next.you_will_be_paid',
-        payment_amount: @payment_amount, 
-        payment_percentage: @payment_percentage)
+       payment_amount: number_to_currency(@payment_amount))
       %>
-    </li>
-  </ul>
+  </p>
+
   <p class="govuk-body">
     <%= t('progress_and_spend.submit.what_next.send_email')%>
   </p>
