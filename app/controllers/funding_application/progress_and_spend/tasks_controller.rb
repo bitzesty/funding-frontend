@@ -57,10 +57,16 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       # submit button only enabled when tasks complete
       if params.has_key?(:submit_button)
 
-        submit_to_salesforce
+        @completed_arrears_journey = get_completed_arrears_journey
 
-        # Salesforce submission ok, gather info for email.
+        # Gather info for email and calculating payment_request_amount.
         retrieve_project_info(@completed_arrears_journey)
+
+        submit_to_salesforce(
+          @arrears_payment_amount,
+          @funding_application,
+          @completed_arrears_journey
+        )
 
         payment_amount_as_currency_string =
           view_context.number_to_currency(
@@ -130,11 +136,28 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
 
     end
 
-    def submit_to_salesforce()
+    # Calls orchestration method to upload arrears data to Salesforce
+    #
+    # Upon successful execution, deletes the arrears_journey_tracker
+    # to allow new progress/payment requests to begin.
+    #
+    # @param [FundingApplication] funding_application An instance of
+    #                                                 FundingApplication
+    # @param [CompletedArrearsJourney] completed_arrears_journey
+    #                                                 An instance of
+    #                                                 CompletedArrearsJourney
+    # @param [Float] payment_amount Value of the payment request
+    def submit_to_salesforce(
+      payment_amount,
+      funding_application,
+      completed_arrears_journey
+    )
 
-      @completed_arrears_journey = get_completed_arrears_journey
-
-      upload_arrears_to_salesforce(@funding_application, @completed_arrears_journey)
+      upload_arrears_to_salesforce(
+        @funding_application,
+        @completed_arrears_journey,
+        payment_amount
+      )
 
       arrears_journey_tracker&.delete
 

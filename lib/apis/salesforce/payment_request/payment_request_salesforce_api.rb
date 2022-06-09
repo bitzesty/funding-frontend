@@ -55,20 +55,86 @@ module PaymentRequestSalesforceApi
       
     end
 
-     # Method responsible for upserting any progress update data models
-    # to their counter parts in SF
+    # Method responsible for orchestrating arrears payment request
+    # record creation for an existing payment form in Salesforce.
+    #
+    # Concludes by uploading spend files against the existing payment
+    # form
+    #
+    # Also populates the Payment_Request_From_Applicant__c field for
+    # the payment form in Salesforce (labelled as Amount requested in SF)
     #
     # @param [PaymentRequest] payment_request An instance of
     #                                                 PaymentRequest
-    # @param [String] string id for SF payment request form to upsert against
-    def upsert_payment_request(
+    # @param [String] salesforce_payment_request_id
+    #                   Id for SF payment request form to upsert against
+    # @param [Float] amount_requested Calculated from total expenditure offset
+    #                                 by the percentage The Fund agreed to pay.
+    def upsert_arrears_payment_request(
       payment_request, 
+      salesforce_payment_request_id,
+      amount_requested
+    )
+
+      Rails.logger.info("Starting upsert_arrears_payment_request with " \
+        "payment_request.id: #{payment_request.id}")
+
+      upsert_payment_request_amount_from_applicant(
+        amount_requested,
+        salesforce_payment_request_id
+      )
+
+      upsert_arrears_high_spend_records(
+        payment_request,
+        salesforce_payment_request_id
+      )
+
+      upsert_arrears_low_spend_records(
+        payment_request,
+        salesforce_payment_request_id
+      )
+
+      # Upload high spends documents against the payment form
+      payment_request.high_spend.each do | high_spend |
+
+        upsert_document_to_salesforce(
+          high_spend.evidence_of_spend_file.attachment,
+          "High spend #{high_spend.cost_heading} evidence - #{high_spend
+            .evidence_of_spend_file_blob
+              .filename}",
+          salesforce_payment_request_id
+        )
+
+      end
+
+      # Upload table of spend
+      upsert_document_to_salesforce(
+        payment_request.table_of_spend_file.attachment,
+        "Spend table - #{payment_request
+          .table_of_spend_file
+            .filename}",
+        salesforce_payment_request_id
+      )
+
+      Rails.logger.info("Successfully upserted payment request data with " \
+        "payment_request.id: #{payment_request.id}")
+
+    end
+
+    # Creates spending cost records in Salesforce
+    # for each payment_request.high_spend,
+    #
+    # @param [PaymentRequest] payment_request An instance of
+    #                                                 PaymentRequest
+    # @param [String] salesforce_payment_request_id
+    #                   Id for SF payment request form to upsert against
+    def upsert_arrears_high_spend_records(payment_request,
       salesforce_payment_request_id)
 
       retry_number = 0
 
-      Rails.logger.info("Upserting payment_request data " \
-        "to payment request with ID: #{payment_request.id}")
+      Rails.logger.info("upsert_arrears_high_spend_records " \
+        "for payment request ID: #{payment_request.id}")
 
       begin
 
@@ -88,14 +154,54 @@ module PaymentRequestSalesforceApi
             Spend_level__c: "Spend over £#{high_spend.spend_threshold}"
           )
 
-          upsert_document_to_salesforce(
-            high_spend.evidence_of_spend_file.attachment, 
-            "High spend #{high_spend.cost_heading} evidence - #{high_spend
-              .evidence_of_spend_file_blob
-                .filename}",
-            salesforce_payment_request_id
-          )
         end
+
+        Rails.logger.info("Successfully called upsert_arrears_high_spend_records " \
+          "with payment_request.id #{payment_request.id}")
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.error(
+            "Error in upsert_arrears_high_spend_records payment request with " \
+              "ID: #{payment_request.id}. #{e}"
+          )
+
+          sleep(rand(0..max_sleep_seconds))
+
+          retry
+
+        else
+          # Raise and allow global exception handler to catch
+          raise
+        end
+
+      end
+
+    end
+
+    # Creates spending cost records in Salesforce
+    # for each payment_request.low_spend,
+    #
+    # @param [PaymentRequest] payment_request An instance of
+    #                                                 PaymentRequest
+    # @param [String] salesforce_payment_request_id
+    #                   Id for SF payment request form to upsert against
+    def upsert_arrears_low_spend_records(payment_request,
+      salesforce_payment_request_id)
+
+      retry_number = 0
+
+      Rails.logger.info("upsert_arrears_low_spend_records " \
+        "for payment request ID: #{payment_request.id}")
+
+      begin
 
         # Attach low spends
         payment_request.low_spend.each do | low_spend | 
@@ -112,17 +218,8 @@ module PaymentRequestSalesforceApi
 
         end
 
-        # Upload table of spend
-        upsert_document_to_salesforce(
-          payment_request.table_of_spend_file.attachment, 
-          "Spend table - #{payment_request
-            .table_of_spend_file
-              .filename}",
-          salesforce_payment_request_id
-        )
-
-        Rails.logger.info("Successfully upserted payment request data with " \
-          "ID: #{payment_request.id}")
+        Rails.logger.info("Successfully called upsert_arrears_low_spend_records " \
+          "with payment_request.id #{payment_request.id}")
 
       rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
         Restforce::EntityTooLargeError, Restforce::ResponseError => e
@@ -134,7 +231,63 @@ module PaymentRequestSalesforceApi
           max_sleep_seconds = Float(2 ** retry_number)
 
           Rails.logger.error(
-            "Error upserting payment request with ID: #{payment_request.id}. #{e}"
+            "Error in upsert_arrears_low_spend_records payment request with " \
+              "ID: #{payment_request.id}. #{e}"
+          )
+
+          sleep(rand(0..max_sleep_seconds))
+
+          retry
+
+        else
+          # Raise and allow global exception handler to catch
+          raise
+        end
+
+      end
+
+    end
+
+    # Updates the form with the payment amount that the grantee has
+    # requested.
+    #
+    # @param [Float] amount_requested Calculated from total expenditure offset
+    #                                 by the percentage The Fund agreed to pay.
+    # @param [String] salesforce_payment_request_id
+    #                   Id for SF payment request form to upsert against
+    def upsert_payment_request_amount_from_applicant(amount_requested,
+      salesforce_payment_request_id)
+
+      retry_number = 0
+
+      Rails.logger.info("upsert_payment_request_from_applicant called for " \
+        "payment form id: #{salesforce_payment_request_id}")
+
+      begin
+
+        @client.upsert!(
+          'Forms__c',
+          'Id',
+          Id: salesforce_payment_request_id,
+          Payment_Request_From_Applicant__c: amount_requested
+        )
+
+        Rails.logger.info("Successfully called " \
+          "upsert_payment_request_from_applicant " \
+            "for payment form id #{salesforce_payment_request_id}")
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.error(
+            "Error in upsert_payment_request_amount_from_applicant " \
+              "for payment form id: #{salesforce_payment_request_id}. #{e}"
           )
 
           sleep(rand(0..max_sleep_seconds))

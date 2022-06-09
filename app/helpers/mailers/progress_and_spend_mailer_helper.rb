@@ -8,6 +8,9 @@ module Mailers::ProgressAndSpendMailerHelper
   # Uses completed_arrears_journey to see what has been submitted.
   #
   # @param [CompletedArrearsJourney] completed_arrears_journey
+  # @param [String] project_title
+  # @param [String] project_reference_number
+  # @param [String] payment_amount as a currency string
   def send_confirmation_email(completed_arrears_journey, project_title,
     project_reference_num, payment_amount)
 

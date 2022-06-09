@@ -483,11 +483,15 @@ module ProgressAndSpendHelper
   #
   # @param [FundingApplication] funding_application An instance of
   #                                                 FundingApplication
-  # @param [CompletedArrearsJourney] CompletedArrearsJourney 
+  # @param [CompletedArrearsJourney] completed_arrears_journey
   #                                                 An instance of
   #                                                 CompletedArrearsJourney
-  def upload_arrears_to_salesforce(funding_application, 
-    completed_arrears_journey)
+  # @param [Float] payment_amount Value of the payment request
+  def upload_arrears_to_salesforce(
+    funding_application,
+    completed_arrears_journey,
+    payment_amount
+  )
 
     salesforce_api_client = SalesforceApiClient.new
     form_id = salesforce_api_client.instantiate_arrears_form_type(
@@ -507,7 +511,8 @@ module ProgressAndSpendHelper
     upload_payment_request(
       payment_request_client, 
       completed_arrears_journey, 
-      form_id
+      form_id,
+      payment_amount
     )  if completed_arrears_journey.payment_request.present?
 
     salesforce_api_client = SalesforceApiClient.new
@@ -594,14 +599,23 @@ module ProgressAndSpendHelper
   #                                                 ProgressUpdateSalesforceApiClient
   # @param [CompletedArrearsJourney] completed_arrears_journey An instance of
   #                                                 CompletedArrearsJourney
-  # @param [String] string salesfoce form id to upsert against
-  #                                                  String
-  def upload_payment_request(client, completed_arrears_journey, form_id)
+  # @param [String] form_id salesforce form id to upsert against
+  # @param [Float] payment_amount Value of the payment request
+  def upload_payment_request(
+    client,
+    completed_arrears_journey,
+    form_id,
+    payment_amount
+  )
 
     payment_request = completed_arrears_journey
       .payment_request
 
-    client.upsert_payment_request(payment_request, form_id)
+    client.upsert_arrears_payment_request(
+      payment_request,
+      form_id,
+      payment_amount
+    )
 
     payment_request.submitted_on = DateTime.now
     payment_request.save
