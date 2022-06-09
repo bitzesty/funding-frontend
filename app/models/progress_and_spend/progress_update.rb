@@ -126,13 +126,10 @@ class ProgressUpdate < ApplicationRecord
   validates :has_cash_contribution_update, presence: true, if: :validate_has_cash_contribution_update?
   
   validates :has_volunteer_update, presence: true,  if: :validate_has_volunteer_update
-  validates :progress_update_volunteer, presence: true, if: :validate_progress_update_volunteer?
-  validates_associated :progress_update_volunteer, if: :validate_progress_update_volunteer?
   validates :add_another_volunteer, presence: true, if: :validate_add_another_volunteer?
   validates :cash_contribution_selected, presence: true, if: :validate_cash_contribution_selected?
 
   validates :has_non_cash_contribution, presence: true, if: :validate_has_non_cash_contribution?
-  validates :progress_update_non_cash_contribution, presence: true, if: :validate_add_another_non_cash_contribution?
   validates_associated :progress_update_non_cash_contribution, if: :validate_add_another_non_cash_contribution?
   validates :add_another_non_cash_contribution, presence: true, if: :validate_add_another_non_cash_contribution?
   validates_inclusion_of :has_digital_outputs, in: ["true", "false"], if: :validate_has_digital_outputs?

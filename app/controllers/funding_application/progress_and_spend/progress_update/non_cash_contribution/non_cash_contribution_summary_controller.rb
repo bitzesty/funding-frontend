@@ -3,7 +3,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
   include FundingApplicationContext
 
   def show()
-    get_non_cash_contributions 
+    get_non_cash_contributions
   end
 
   def update()

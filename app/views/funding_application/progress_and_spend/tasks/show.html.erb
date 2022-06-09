@@ -264,6 +264,9 @@
         <%=t('progress_and_spend.tasks.overview')%>
     </h2>
     <ul class="govuk-list nlhf-list nlhf-list--links">
+
+      <% if @funding_application.agreement&.project_details_html.present? && \
+        @funding_application.agreement&.terms_html.present?%>
       <li>
         <span>
           <%=
@@ -275,6 +278,7 @@
           %>
         </span>
       </li>
+      <% end %>
       <li>
         <span>
           <%=
