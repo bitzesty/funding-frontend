@@ -42,16 +42,18 @@
       <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
         @demographic.errors['explanation'].any?}" %>">
 
-        <p class="govuk-body govuk-!-padding-bottom-4" >
-          <%= t('progress_and_spend.progress_update.demographic.your_answer_should') %>
-        </p>
-
         <%=
           render partial: "partials/form_input_errors",
           locals: {
             form_object: @demographic,
             input_field_id: :explanation
             } if @demographic.errors['explanation'].any?
+        %>
+
+        <%= 
+          f.label :explanation,
+          t('progress_and_spend.progress_update.demographic.your_answer_should') ,
+          class: "govuk-label govuk-!-margin-bottom-4"
         %>
 
         <%=

@@ -57,14 +57,6 @@
       <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
         @digital_output.errors['description'].any?}" %>">
 
-        <h3 class="govuk-heading-s"> 
-          <%= t('progress_and_spend.progress_update.digital_outputs_description.brief_description') %> 
-        </h3>
-
-				<p class="govuk-hint">
-					<%= t('progress_and_spend.progress_update.digital_outputs_description.brief_description_hint') %> 
-				</p>
-
         <%=
           render partial: "partials/form_input_errors",
           locals: {
@@ -72,6 +64,17 @@
             input_field_id: :description	
             } if @digital_output.errors['description'].any?
         %>
+
+        <%= 
+          f.label :description,
+          t('progress_and_spend.progress_update.digital_outputs_description.brief_description'),
+          class: "govuk-label govuk-!-font-weight-bold govuk-!-margin-bottom-0"
+        %>
+
+        <p class="govuk-hint govuk-!-margin-bottom-6">
+					<%= t('progress_and_spend.progress_update.digital_outputs_description.brief_description_hint') %> 
+				</p>
+
 
         <%=
           f.text_area :description,

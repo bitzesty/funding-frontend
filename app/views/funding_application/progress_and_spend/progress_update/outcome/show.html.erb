@@ -63,9 +63,11 @@
     <%# beginning of loop for each progress update %>
     <% @outcomes.progress_updates.each do |pu_key, pu_value| %>
 
-      <h3 class="govuk-heading-s">
-        <%= t("progress_and_spend.progress_update.outcome_type.#{pu_key}") %>
-      </h3>
+      <%= 
+        f.label pu_key,
+        t("progress_and_spend.progress_update.outcome_type.#{pu_key}") ,
+        class: "govuk-label govuk-!-font-weight-bold govuk-!-margin-bottom-4"
+      %>
 
       <div class="govuk-character-count" data-module="govuk-character-count"
       data-maxwords="300">

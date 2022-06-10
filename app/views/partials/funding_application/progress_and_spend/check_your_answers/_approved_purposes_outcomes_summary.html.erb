@@ -15,8 +15,7 @@
                 funding_application_progress_and_spend_progress_update_approved_purposes_path(
                   progress_update_id: funding_application.arrears_journey_tracker.progress_update_id
                 ),
-                class: 'govuk-link govuk-link--no-visited-state',
-                aria: { describedby: 'approved-purposes-updates' }
+                class: 'govuk-link govuk-link--no-visited-state'
               )
             %>
           <%end%>
@@ -70,8 +69,7 @@
                 funding_application_progress_and_spend_progress_update_demographic_path(
                   progress_update_id: funding_application.arrears_journey_tracker.progress_update_id
                 ),
-                class: 'govuk-link govuk-link--no-visited-state',
-                aria: { describedby: 'project-outcome-updates' }
+                class: 'govuk-link govuk-link--no-visited-state'
               )
             %>
           <%end%>
@@ -92,7 +90,7 @@
 
     </div>
 
-    <% optional_outcomes_progress_updates.each do | pu_key, pu_value | %>
+    <% optional_outcomes_progress_updates&.each do | pu_key, pu_value | %>
 
      <div class="govuk-summary-list__row">
 
@@ -197,7 +195,7 @@
 
     </div>
 
-    <% @funding_acknowledgments.each do |fa_type, fa_value| %>
+    <% @funding_acknowledgments&.each do |fa_type, fa_value| %>
 
       <div class="govuk-summary-list__row">
 

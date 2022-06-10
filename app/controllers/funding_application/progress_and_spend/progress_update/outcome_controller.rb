@@ -75,7 +75,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::OutcomeController < 
           "funding application: #{@funding_application.id}.")
 
         redirect_to(
-          funding_application_progress_and_spend_progress_update_check_outcome_answers_path(
+          funding_application_progress_and_spend_progress_update_digital_outputs_question_path(
             progress_update_id:  \
               @funding_application.arrears_journey_tracker.progress_update.id
           )

@@ -23,11 +23,11 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::CheckOutcomeAnswersC
 
     @optional_outcomes_progress_updates =
       @funding_application.arrears_journey_tracker&.progress_update&.\
-        progress_update_outcome&.first.progress_updates
+        progress_update_outcome&.first&.progress_updates
 
     @funding_acknowledgments =
       @funding_application.arrears_journey_tracker&.progress_update&.\
-        progress_update_funding_acknowledgement&.first.acknowledgements
+        progress_update_funding_acknowledgement&.first&.acknowledgements
 
   end
 
