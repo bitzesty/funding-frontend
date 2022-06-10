@@ -4,7 +4,7 @@ en-GB:
       what_spend:
         page_title: "What spend"
         page_heading: "What item of spend do you want to tell us about?"
-        page_caption: "Add item of spend"
+        page_caption: "Tell us what you have spent"
         page_hint: "Tell us about your spend less than £%{spend_amount} under your different spend types. For example, if you have 3 £200 invoices for publicity and promotion you can tell us you have spent of £600 on publicity and promotion."
         spend_over: "Spend over £%{spend_amount}"
         spend_under: "Spend less than £%{spend_amount}"

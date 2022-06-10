@@ -1,6 +1,6 @@
 class ProgressUpdate < ApplicationRecord
-  has_one :funding_applications_progess_update, inverse_of: :progress_update
-  has_one :funding_applications, through: :funding_applications_progess_update
+  has_one :funding_applications_progress_update, inverse_of: :progress_update
+  has_one :funding_applications, through: :funding_applications_progress_update
 
   has_many :progress_update_photo, dependent: :destroy
   has_many :progress_update_event, dependent: :destroy
@@ -61,11 +61,9 @@ class ProgressUpdate < ApplicationRecord
   attr_accessor :validate_add_another_risk
   attr_accessor :validate_has_cash_contribution_update
   attr_accessor :validate_has_volunteer_update
-  attr_accessor :validate_progress_update_volunteer
   attr_accessor :validate_add_another_volunteer
   attr_accessor :validate_cash_contribution_selected
   attr_accessor :validate_has_non_cash_contribution
-  attr_accessor :validate_add_another_non_cash_contribution
   attr_accessor :validate_add_another_non_cash_contribution
   attr_accessor :validate_has_digital_outputs
 
@@ -114,7 +112,6 @@ class ProgressUpdate < ApplicationRecord
   validates_associated :progress_update_procurement, if: :validate_progress_update_procurement?
 
   validates :add_another_procurement, presence: true, if: :validate_add_another_procurement?
-
   validates :has_statutory_permissions_licence, presence: true, if: :validate_has_statutory_permissions_licence?
   validates :progress_update_statutory_permissions_licence, presence: true, if: :validate_progress_update_statutory_permissions_licence?
   validates_associated :progress_update_statutory_permissions_licence, if: :validate_progress_update_statutory_permissions_licence?
@@ -123,15 +120,18 @@ class ProgressUpdate < ApplicationRecord
   validates :has_risk_register, presence: true, if: :validate_has_risk_register?
   validates :progress_update_risk_register, presence: true, if: :validate_progress_update_risk_register?
   validates :add_another_risk, presence: true, if: :validate_add_another_risk?
+
   validates :has_cash_contribution_update, presence: true, if: :validate_has_cash_contribution_update?
   
   validates :has_volunteer_update, presence: true,  if: :validate_has_volunteer_update
   validates :add_another_volunteer, presence: true, if: :validate_add_another_volunteer?
+
   validates :cash_contribution_selected, presence: true, if: :validate_cash_contribution_selected?
 
   validates :has_non_cash_contribution, presence: true, if: :validate_has_non_cash_contribution?
-  validates_associated :progress_update_non_cash_contribution, if: :validate_add_another_non_cash_contribution?
+  
   validates :add_another_non_cash_contribution, presence: true, if: :validate_add_another_non_cash_contribution?
+
   validates_inclusion_of :has_digital_outputs, in: ["true", "false"], if: :validate_has_digital_outputs?
 
   def validate_has_upload_photo?
@@ -222,10 +222,11 @@ class ProgressUpdate < ApplicationRecord
     validate_cash_contribution_selected == true
   end
 
-
   def validate_has_non_cash_contribution?
     validate_has_non_cash_contribution == true
   end
+
+
 
   def validate_add_another_non_cash_contribution?
     validate_add_another_non_cash_contribution == true

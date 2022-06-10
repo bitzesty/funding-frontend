@@ -257,7 +257,7 @@
               <ul class= "govuk-list govuk-!-margin-bottom-0">
                 <li>
                   <%= t('progress_and_spend.progress_update.check_your_answers.new_completion_date', 
-                    completion_date: progress_update.progress_update_new_expiry_date.first.full_date.strftime("%d/%m/%Y")  )%> 
+                    completion_date: l(progress_update.progress_update_new_expiry_date.first.full_date, format: '%d %B %Y').to_s )%> 
                   </li>
               </ul>
             <%else%>

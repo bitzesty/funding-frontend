@@ -1,7 +1,7 @@
 en-GB:
   salesforce_experience_application:
     non_cash_contributions_correct:
-      page_title: "Non Cash contribution"
+      page_title: "Non-cash contribution"
       page_heading: "Are the non-cash contributions still correct?"
       page_caption: "Cash and non-cash contributions"
       table:

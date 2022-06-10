@@ -4,7 +4,9 @@ en-GB:
       page_title: "Manage your awarded project"
       page_heading: "Manage your awarded project"
       accept_grant: "Accept your Grant"
-      get_payment: Get a payment and give a project update 
+      get_payment: Get a payment 
+      give_progress_update: Give a project update 
+      payment_and_update: Get a payment and give a project update 
       links: 
         progress_update: "Tell us how the project is going"
         approved_purposes: "Update on approved purposes and outcomes"

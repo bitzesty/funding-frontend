@@ -48,7 +48,7 @@ module ProgressAndSpendHelper
       project_details.Grant_Expiry_Date__c 
     )
 
-    result = grant_expiry_date.strftime("%d/%m/%Y")
+    grant_expiry_date
 
   end
 
@@ -77,7 +77,7 @@ module ProgressAndSpendHelper
     )
 
     details_hash[:project_name] = arrears_heading_info.Project_Title__c
-    details_hash[:project_expiry_date] = grant_expiry_date.strftime("%d/%m/%Y")
+    details_hash[:project_expiry_date] = l(grant_expiry_date, format: '%d %B %Y').to_s 
     details_hash[:amount_paid] = arrears_heading_info.Total_Payments_Paid__c
     details_hash[:amount_remaining] = arrears_heading_info.Remaining_Grant__c
     details_hash[:grant_awarded]= arrears_heading_info.Grant_Award__c

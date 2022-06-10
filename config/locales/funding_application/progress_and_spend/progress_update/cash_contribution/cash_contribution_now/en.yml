@@ -6,7 +6,7 @@ en-GB:
           page_title: "Cash contribution update"
           page_heading: "Cash contribution update"
           page_caption: "Tell us how the project is going"
-          amount_expected: "Amount expected"
+          amount_expected: "Amount expected: "
           have_you_received: "Have you received the total amount expected?"
           radio_yes: "Yes, I have received the total amount expected"
           radio_no: "No, I have not received the total amount yet"

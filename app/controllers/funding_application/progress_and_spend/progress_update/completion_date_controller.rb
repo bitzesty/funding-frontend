@@ -75,7 +75,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::CompletionDateContro
 
   # populate instance variables for use by the form
   def initialise_form_vars
-    @completion_date = salesforce_project_expiry_date(@funding_application)
+    @completion_date = l(salesforce_project_expiry_date(@funding_application), format: '%d %B %Y')
     progress_update.date_correct = progress_update.answers_json['new_expiry_date']['date_correct']
   end
 

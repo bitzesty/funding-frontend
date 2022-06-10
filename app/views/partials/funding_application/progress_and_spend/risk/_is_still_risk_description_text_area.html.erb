@@ -5,9 +5,11 @@
   <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
     @risk.errors[model_attribute].any?}" %>">
 
-    <h3 class="govuk-heading-s"> 
-      <%= heading %>
-    </h3>
+    <%=
+      form.label model_attribute,
+      heading,
+      class: "govuk-heading-s"
+    %>
 
     <%=
       render partial: "partials/form_input_errors",

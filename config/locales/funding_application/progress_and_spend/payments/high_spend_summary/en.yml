@@ -4,7 +4,7 @@ en-GB:
       high_spend_summary:
         page_title: "Project spending and progress"
         page_heading: "Spend over £%{spend_amount}"
-        page_caption: "Add item of spend"
+        page_caption: "Tell us what you have spent"
         your_project_spend: "Your project spend"
         spend_type: "Spend type"
         total_spend: "Total spend"

@@ -74,12 +74,11 @@
 					<%=
 						f.radio_button :has_risk_update,
 						true,
-						class: "govuk-radios__input",
-            'aria-describedby' => 'risk_hint'
+						class: "govuk-radios__input"
 					%>
 
 					<%=
-						f.label :yes_true,
+						f.label :has_risk_update_true,
 						t('progress_and_spend.progress_update.risk.risk_question.radio_yes'),
 						class: "govuk-label govuk-radios__label"
 					%>
@@ -91,12 +90,11 @@
 					<%=
 						f.radio_button :has_risk_update,
 						false,
-						class: "govuk-radios__input",
-            'aria-describedby' => 'risk_hint'
+						class: "govuk-radios__input"
 					%>
 
 					<%=
-							f.label :no_false,
+							f.label :has_risk_update_false,
               t('progress_and_spend.progress_update.risk.risk_question.radio_no'),
 							class: "govuk-label govuk-radios__label"
 					%>

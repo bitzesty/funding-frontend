@@ -776,7 +776,7 @@ en-GB:
             add_another_non_cash_contribution:
               blank: "Select if you need to add another another secured non-cash contribution"
             progress_update_approved_purpose:
-              checkbox_selection: "Select an Approved Purpose to update on, or select 'I do not have an update on these yet'"
+              checkbox_selection: "Select an Approved Purpose to update on, or select \"I do not have an update on these yet\""
             has_digital_outputs:
               inclusion: "Select if you have created digital outputs"
         progress_update_procurement:
@@ -786,6 +786,8 @@ en-GB:
               too_short: "Enter supplier, contractor or consultant"
               blank: "Enter supplier, contractor or consultant"
             description: 
+              too_long: "description of item or service cannot exceed 150 characters"
+              too_short: "Enter description of item or service"
               blank: "Enter description of item or service"
             date_day: 
               not_a_number: "Enter the day"
@@ -891,13 +893,13 @@ en-GB:
         progress_update_non_cash_contribution:
           attributes:
             description:
-              blank: "Enter description of non cash contribution"
+              blank: "Enter description of non-cash contribution"
               too_long: "Description must be 50 words or fewer"
             value:
               less_than: "Amount entered is too large"
-              greater_than: "Hours spent on task must be a number, like 100"
-              not_a_number: "Hours spent on task must be a number, like 100"
-              blank: "Hours spent on task must be a number, like 100"
+              greater_than: "Value must be a number, for example 100"
+              not_a_number: "Value must be a number, for example 100"
+              blank: "Value must be a number, for example 100"
         progress_update_approved_purpose:
           attributes:
             progress:

@@ -8,7 +8,7 @@ en-GB:
           page_caption: "Tell us how the project is going"
           will_you_receive: "Will you receive the total amount expected?"
           radio_yes: "Yes, I will receive the total amount"
-          radio_no: "No, I will not receive the total amount yet"
+          radio_no: "No, I will not receive the total amount"
           when_do_you_expect: "When do you expect to receive the total amount?"
           explain_briefly: "Explain briefly why you will not be receiving the total amount."
           for_example: "For example, if the funder has decided to reduce the amount that they can contribute."

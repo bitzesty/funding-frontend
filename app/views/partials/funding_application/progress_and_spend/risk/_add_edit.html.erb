@@ -31,10 +31,6 @@
       %>
 		</h1>
 
-    <div class="govuk-inset-text">
-      <%= t('progress_and_spend.progress_update.risk.risk_add_edit.page_hint') %>
-    </div>
-
 	</legend>
 
   <%=
@@ -51,16 +47,18 @@
       <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
         @risk.errors['description'].any?}" %>">
 
-        <h3 class="govuk-heading-s"> 
-          <%= t('progress_and_spend.progress_update.risk.risk_add_edit.explain_risk') %> 
-        </h3>
-
         <%=
           render partial: "partials/form_input_errors",
           locals: {
             form_object: @risk,
             input_field_id: :description
             } if @risk.errors['description'].any?
+        %>
+
+        <%=
+          f.label :description,
+          t('progress_and_spend.progress_update.risk.risk_add_edit.explain_risk'),
+          class: "govuk-heading-s"
         %>
 
         <%=
@@ -83,9 +81,9 @@
     </div>
     <%# description textbox end%>
 
-    <h3 class="govuk-heading-s"> 
+    <h2 class="govuk-heading-s"> 
       <%= t('progress_and_spend.progress_update.risk.risk_add_edit.likelihood') %> 
-    </h3>
+    </h2>
 
     <%# likelihood radios start %>
     <div class="govuk-radios" data-module="govuk-radios">
@@ -110,7 +108,7 @@
 					%>
 
 					<%=
-						f.label :low_3,
+						f.label :likelihood_3,
 						t('progress_and_spend.progress_update.risk.risk_add_edit.radio_low'),
 						class: "govuk-label govuk-radios__label"
 					%>
@@ -126,7 +124,7 @@
 					%>
 
 					<%=
-							f.label :medium_2,
+							f.label :likelihood_2,
               t('progress_and_spend.progress_update.risk.risk_add_edit.radio_medium'),
 							class: "govuk-label govuk-radios__label"
 					%>
@@ -142,7 +140,7 @@
 					%>
 
 					<%=
-							f.label :high_1,
+							f.label :likelihood_1,
               t('progress_and_spend.progress_update.risk.risk_add_edit.radio_high'),
 							class: "govuk-label govuk-radios__label"
 					%>
@@ -154,9 +152,9 @@
 		</div>
     <%# likelihood radios end %>
 
-    <h3 class="govuk-heading-s"> 
+    <h2 class="govuk-heading-s"> 
       <%= t('progress_and_spend.progress_update.risk.risk_add_edit.impact') %> 
-    </h3>
+    </h2>
 
     <%# impact radios start %>
     <div class="govuk-radios" data-module="govuk-radios">
@@ -181,7 +179,7 @@
 					%>
 
 					<%=
-						f.label :low_3,
+						f.label :impact_3,
 						t('progress_and_spend.progress_update.risk.risk_add_edit.radio_low'),
 						class: "govuk-label govuk-radios__label"
 					%>
@@ -197,7 +195,7 @@
 					%>
 
 					<%=
-							f.label :medium_2,
+							f.label :impact_2,
               t('progress_and_spend.progress_update.risk.risk_add_edit.radio_medium'),
 							class: "govuk-label govuk-radios__label"
 					%>
@@ -213,7 +211,7 @@
 					%>
 
 					<%=
-							f.label :high_1,
+							f.label :impact_1,
               t('progress_and_spend.progress_update.risk.risk_add_edit.radio_high'),
 							class: "govuk-label govuk-radios__label"
 					%>
@@ -225,9 +223,9 @@
 		</div>
     <%# impact radios end %>
 
-    <h3 class="govuk-heading-s"> 
+    <h2 class="govuk-heading-s"> 
       <%= t('progress_and_spend.progress_update.risk.risk_add_edit.is_this_still_a_risk') %> 
-    </h3>
+    </h2>
 
     <%# is_still_risk radios start %>
     <div class="govuk-radios" data-module="govuk-radios">
@@ -253,7 +251,7 @@
 					%>
 
 					<%=
-						f.label :yes_true,
+						f.label :is_still_risk_true,
 						t('progress_and_spend.progress_update.risk.risk_add_edit.radio_yes'),
 						class: "govuk-label govuk-radios__label"
 					%>
@@ -284,7 +282,7 @@
 					%>
 
 					<%=
-							f.label :no_false,
+							f.label :is_still_risk_false,
               t('progress_and_spend.progress_update.risk.risk_add_edit.radio_no'),
 							class: "govuk-label govuk-radios__label"
 					%>

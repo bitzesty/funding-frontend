@@ -32,11 +32,10 @@
       <div class="govuk-form-group <%= "#{'govuk-form-group--error' if 
           procurement.errors['name'].any?}" %>">
 
-       
         <%=
           f.label :name,
-           t('progress_and_spend.progress_update.procurement.add_procurement.name'),
-          class: "govuk-label"
+            t('progress_and_spend.progress_update.procurement.add_procurement.name'),
+          class: "govuk-heading-m"
         %>
 
          <%=
@@ -58,7 +57,7 @@
       </div>
 
       <div class="govuk-character-count" data-module="govuk-character-count"
-          data-maxwords="500">
+          data-maxwords="150">
 
         <div class="govuk-form-group <%= "#{'govuk-form-group--error' if
          procurement.errors['description'].any?}" %>">
@@ -66,7 +65,7 @@
           <%=
             f.label :description,
             t('progress_and_spend.progress_update.procurement.add_procurement.desc'),
-            class: "govuk-label"
+            class: "govuk-heading-m"
           %>
 
           <%=
@@ -89,7 +88,7 @@
           <div id="progress_update_procurement_description-info"
                 class="govuk-hint govuk-character-count__message"
                 aria-live="polite">
-            <%= t('generic.word_count', max_words: 500) %>
+            <%= t('generic.word_count', max_words: 150) %>
           </div>
 
         </div>
@@ -99,11 +98,9 @@
       <div class="govuk-date-input <%= "#{'govuk-form-group--error' if
          procurement.errors.any? { | er | [:date_day, :date_month, :date_year, :date].include? er.attribute } }" %>" id="procurement-date">
 
-         <%=
-          f.label :date,
-           t('progress_and_spend.progress_update.procurement.add_procurement.purchase_date'),
-          class: "govuk-label  govuk-!-padding-bottom-4"
-        %>
+        <h2 class="govuk-heading-m govuk-!-padding-bottom-4">
+          <%= t('progress_and_spend.progress_update.procurement.add_procurement.purchase_date') %>
+        </h2>
 
         <% procurement.errors.each do |error| %>
           <% if "date".in? error.attribute.to_s  %>
@@ -198,7 +195,7 @@
         <%=
           f.label :amount,
            t('progress_and_spend.progress_update.procurement.add_procurement.amount'),
-          class: "govuk-label"
+          class: "govuk-heading-m"
         %>
 
         <%=
@@ -234,11 +231,9 @@
 			<div class="govuk-form-group <%= "govuk-form-group--error" if
 		      procurement.errors['lowest_tender'].any? %>">
 
-          <%=	
-            f.label :lowest_tender,
-             t('progress_and_spend.progress_update.procurement.add_procurement.lowest_tender'),
-            class: "govuk-label govuk-!-margin-bottom-4"
-					%>
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-4">
+            <%= t('progress_and_spend.progress_update.procurement.add_procurement.lowest_tender') %>
+          </h2>
 
           <%=
             render(

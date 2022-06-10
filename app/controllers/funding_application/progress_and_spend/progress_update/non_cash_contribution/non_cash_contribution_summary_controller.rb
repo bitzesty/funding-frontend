@@ -42,7 +42,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
 
     logger.info(
     'Deleting non_cash_contribution with id: ' \
-    "#{params[:non_cash_contribution_id]} from propress_update ID: " \
+    "#{params[:non_cash_contribution_id]} from progress_update ID: " \
     "#{params[:progress_update_id]}"
   )
 

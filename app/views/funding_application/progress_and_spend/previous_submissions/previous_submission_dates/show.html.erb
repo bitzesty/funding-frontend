@@ -25,7 +25,7 @@
         <%=
           link_to(
             t('progress_and_spend.previous_submissions.previous_submission_dates.link_text', 
-              submission_date: submission.submitted_on.strftime("%d %B %Y")),
+              submission_date: l(submission.submitted_on, format: '%d %B %Y')),
             funding_application_progress_and_spend_previous_submissions_previously_submitted_path(
               completed_arrears_journey_id: submission.id),
             class: 'govuk-link govuk-link--no-visited-state'

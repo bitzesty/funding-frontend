@@ -25,7 +25,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::CheckYourAnswersCont
     @progress_update = progress_update
     @answers_json = @progress_update.answers_json
     @has_additional_grant_conditions = has_additional_grant_conditions?
-    @completion_date = salesforce_project_expiry_date(@funding_application)
+    @completion_date = l(salesforce_project_expiry_date(@funding_application), format: '%d %B %Y')
     @cash_contribution_count = get_cash_contribution_count(@funding_application.salesforce_case_id) 
   end
 

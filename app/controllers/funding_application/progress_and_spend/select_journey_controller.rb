@@ -5,6 +5,14 @@ include Enums::ArrearsJourneyStatus
 
   def show()
     retrieve_project_info
+
+    if @funding_application.arrears_journey_tracker.payment_request_id.present? ||
+      @funding_application.arrears_journey_tracker.progress_update_id.present?
+    
+      redirect_to \
+        funding_application_progress_and_spend_progress_and_spend_tasks_path()
+    end
+
   end
 
   # At the point that an applicant clicks update, we create the payment request and progress_update 
@@ -43,8 +51,8 @@ include Enums::ArrearsJourneyStatus
           payment_request_id: payment_request.id)
 
       end
-
     end
+
 
     if @funding_application.arrears_journey_tracker.give_project_update == "true"
       if @funding_application.arrears_journey_tracker.progress_update_id.blank?

@@ -32,15 +32,17 @@
       %>
 		</h1>
 
-    <h3 class="govuk-heading-s">
+    <h3 class="govuk-heading-m">
       <%= @cash_contribution.display_text %>
     </h3>
 
-    <h3 class="govuk-heading-s">
-      <%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.amount_expected') %>
+    <p>
+      <strong> 
+        <%= t('progress_and_spend.progress_update.cash_contribution.cash_contribution_now.amount_expected') %>
+      </strong>  
       £<%= @cash_contribution.amount_expected %>
-    </h3>
-
+    </p>
+  
 	</legend>
 
   <%=

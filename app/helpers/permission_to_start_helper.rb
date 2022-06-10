@@ -440,10 +440,10 @@ module PermissionToStartHelper
 
       if is_cash_contribution
         result = ['Volunteer Time','Non-cash contributions', 
-          'Non cash contributions'].exclude? (source_of_funding) 
+          'Non cash contributions'].exclude? (source_of_funding)
       else # is non-cash contribution
         result = ['Volunteer Time','Non-cash contributions', 
-          'Non cash contributions'].include? (source_of_funding) 
+          'Non cash contributions'].include? (source_of_funding)
       end
       
       result

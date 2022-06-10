@@ -7,19 +7,19 @@
 %>
 
 <h1 class="govuk-heading-l"><%= t('progress_and_spend.tasks.page_heading')%></h1>
+<h1 class="govuk-heading-l"> <%=@project_name%> </h1>
 
 <div class="govuk-!-padding-bottom-6 ">
-  <h2 class="govuk-heading-l"> <%=@project_name%> </h2>
-  <p> 
+  <p class="govuk-!-margin-1 "> 
     <%= t('progress_and_spend.select_journey.project_reference_number')%><%=@project_reference_num%>
   </p>
-  <p> 
+  <p class="govuk-!-margin-1 "> 
     <%= t('progress_and_spend.select_journey.grant_paid')%><%= number_with_precision(@grant_paid, :precision => 2, :delimiter => ',') %>
   </p>
-  <p> 
+  <p class="govuk-!-margin-1 "> 
     <%= t('progress_and_spend.select_journey.remaining_grant')%><%= number_with_precision(@remaining_grant, :precision => 2, :delimiter => ',') %>
   </p>
-  <p> 
+  <p class="govuk-!-margin-1 "> 
     <%= t('progress_and_spend.select_journey.grant_expiry_date')%><%=@grant_expiry_date%>
   </p>
 </div>
@@ -78,7 +78,14 @@
     </li>
 </ul>
 
-<h2 class="govuk-heading-m"><%= t('progress_and_spend.tasks.get_payment')%></h2>
+
+ <% if !@complete_progress_tasks && @complete_payment_tasks %>
+  <h2 class="govuk-heading-m"><%= t('progress_and_spend.tasks.get_payment')%></h2>
+ <%elsif @complete_progress_tasks && !@complete_payment_tasks %>
+  <h2 class="govuk-heading-m"><%= t('progress_and_spend.tasks.give_progress_update')%></h2>
+ <%else%>
+    <h2 class="govuk-heading-m"><%= t('progress_and_spend.tasks.payment_and_update')%></h2>
+  <%end%>
 
 <ul class="govuk-list nlhf-list nlhf-list--links">
 
@@ -95,8 +102,7 @@
             funding_application_progress_and_spend_progress_update_check_your_answers_path(
               progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
             ),
-            class: 'govuk-link govuk-link--no-visited-state',
-            aria: { describedby: 'progress-updates_check_your_answers' }
+            class: 'govuk-link govuk-link--no-visited-state'
           )
         %>
       <%else%> 
@@ -106,8 +112,7 @@
             funding_application_progress_and_spend_progress_update_photos_path(
               progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
             ),
-            class: 'govuk-link govuk-link--no-visited-state',
-            aria: { describedby: 'progress-updates_photos' }
+            class: 'govuk-link govuk-link--no-visited-state'
           )
         %>
       <%end%>
@@ -138,8 +143,7 @@
               funding_application_progress_and_spend_progress_update_check_outcome_answers_path(
                 progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
               ),
-              class: 'govuk-link govuk-link--no-visited-state',
-              aria: { describedby: 'check_outcome_answers' }
+              class: 'govuk-link govuk-link--no-visited-state'
             )
           %>
         <%else%> 
@@ -149,8 +153,7 @@
               funding_application_progress_and_spend_progress_update_approved_purposes_path(
                 progress_update_id: @funding_application.arrears_journey_tracker.progress_update_id
               ),
-              class: 'govuk-link govuk-link--no-visited-state',
-              aria: { describedby: 'approved-purposes-updates' }
+              class: 'govuk-link govuk-link--no-visited-state'
             )
           %>
         <%end%>
@@ -183,8 +186,7 @@
             funding_application_progress_and_spend_payments_spend_so_far_path(
               payment_request_id: @funding_application.arrears_journey_tracker.payment_request_id
             ),
-            class: 'govuk-link govuk-link--no-visited-state',
-            aria: { describedby: 'what-you-have-spent' }
+            class: 'govuk-link govuk-link--no-visited-state'
           )
         %>
 
@@ -213,8 +215,7 @@
             funding_application_progress_and_spend_payments_have_your_bank_details_changed_path(
               payment_request_id: @funding_application.arrears_journey_tracker.payment_request_id
             ),
-            class: 'govuk-link govuk-link--no-visited-state',
-            aria: { describedby: 'bank-details' }
+            class: 'govuk-link govuk-link--no-visited-state'
           )
         %>
 
@@ -243,18 +244,19 @@
     local: true do |f|
   %>
 
-    <%=
-      render(
-        ButtonComponent.new(
-          element: 'input',
-          is_start_button: false,
-          text: t('progress_and_spend.tasks.links.submit'),
-          name: "submit_button",
-          disabled: !@can_submit,
-          data_disable: true
+    <%if @can_submit%>
+      <%=
+        render(
+          ButtonComponent.new(
+            element: 'input',
+            is_start_button: false,
+            text: t('progress_and_spend.tasks.links.submit'),
+            name: "submit_button",
+            data_disable: true
+          )
         )
-      )
-    %>
+      %>
+    <%end%>
 
   <%end%>
 

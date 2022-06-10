@@ -2,9 +2,9 @@ en-GB:
   progress_and_spend:
     payments:
       high_spend_add_edit:
-        page_title: "Add item of spend"
+        page_title: "Tell us what you have spent"
         page_heading: "Tell us about spend over £%{spend_threshold}"
-        page_caption: "Add item of spend"
+        page_caption: "Tell us what you have spent"
         before_we_give: "Before we give you the next part of your grant, you need to tell us what you have spent so far and provide evidence."
         add_item_of_spend: "Add item of spend"
         spend_type: "Spend type"

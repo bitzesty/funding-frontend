@@ -3,7 +3,7 @@ en-GB:
     progress_update:
       non_cash_contribution:
         non_cash_contribution_question:
-          page_title: "Add non cash contribution"
+          page_title: "Add non-cash contribution"
           page_heading: "Are there any secured non-cash contribution updates?"
           page_caption: "Tell us how the project is going"
           radio_yes: "Yes, I have secured non-cash contribution updates"

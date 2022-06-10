@@ -17,7 +17,7 @@ class ProgressUpdateProcurement < ApplicationRecord
   attr_accessor :date_year  
 
   validates :name, length: { minimum: 1, maximum: 120 }, if: :validate_details
-  validates :description, presence: true, if: :validate_details
+  validates :description, length: { minimum: 1, maximum: 150 }, if: :validate_details
   validates :amount, numericality: {
     only_integer: true,
     greater_than: 9999,
