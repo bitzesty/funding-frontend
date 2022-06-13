@@ -46,11 +46,17 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
 
     @funding_acknowledgement = get_funding_acknowledgement
 
+    order_hash(@funding_acknowledgement)
+
   end
 
   def update()
 
     @funding_acknowledgement = get_funding_acknowledgement
+
+    order_hash(@funding_acknowledgement)
+
+    @first_checkbox_href = get_first_checkbox_href(@funding_acknowledgement)
 
     fp = fetch_params(params, @funding_acknowledgement.acknowledgements)
 
@@ -200,5 +206,32 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
     end
 
   end
+
+  # Finds the first key in the ProgressUpdateFundingAcknowledgement's JSON
+  # then constructs a suitable href using that.
+  # @param [ProgressUpdateFundingAcknowledgement] funding_acknowledgement
+  def get_first_checkbox_href(funding_acknowledgement)
+    first_checkbox_type = 
+      funding_acknowledgement&.acknowledgements&.keys&.first
+
+    "progress_update_funding_acknowledgement_#{first_checkbox_type}_selected"
+
+  end
+
+  # Arranges the hash in a consistent way
+  # @param [ProgressUpdateFundingAcknowledgement] funding_acknowledgement
+  def order_hash(funding_acknowledgement)
+
+    funding_acknowledgement.acknowledgements =
+      funding_acknowledgement.acknowledgements.slice(
+        'signs',
+        'publications',
+        'events',
+        'online',
+        'media',
+        'no_update'
+      )
+
+    end
 
 end

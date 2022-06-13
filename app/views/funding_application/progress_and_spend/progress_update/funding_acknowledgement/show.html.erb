@@ -32,7 +32,7 @@
 
 					<% else %>
 
-						<a href='#progress_update_funding_acknowledgement_no_update_selected'>
+						<a href=<%= "##{@first_checkbox_href}" %> >
 							<%= error.message %>
 						</a>
 
@@ -82,18 +82,6 @@
 						form_object: @funding_acknowledgement,
 						input_field_id: :no_update_yet
 					} if @funding_acknowledgement.errors[:no_update_yet].any?
-			%>
-
-			<%
-				# specifies the order that we show the items in
-				@funding_acknowledgement.acknowledgements =
-					@funding_acknowledgement.acknowledgements.slice(
-						'signs',
-						'publications',
-						'events',
-						'online',
-						'media',
-						'no_update')
 			%>
 
 			<%# Loop through acknowledgements and use to populate each checkbox %>
