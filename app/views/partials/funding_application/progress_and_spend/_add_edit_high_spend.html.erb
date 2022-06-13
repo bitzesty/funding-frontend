@@ -245,8 +245,12 @@
       <%=
         f.label :total_amount,
         t('generic.amount'),
-        class: "govuk-heading-s govuk-!-margin-top-4"
+        class: "govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-0"
       %>
+
+      <p class="govuk-body govuk-!-margin-top-0">
+        <%= t("progress_and_spend.payments.high_spend_add_edit.without_vat") %>
+      </p>
 
       <%=
         render partial: "partials/form_input_errors",

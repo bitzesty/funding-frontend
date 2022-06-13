@@ -8,5 +8,5 @@ en-GB:
         page_hint: "Add the items of spend less than £%{spend_amount} under this spend type to get one total. Include the total for VAT separately."
         total_amount: "Total amount"
         without_vat: "without VAT"
-        vat_amount: "VAT amount"
+        vat_amount: "Total VAT"
         when_you_have_finished: "When you have finished entering spend types, we will show you a table with what you have told us. You can check or change your answers there."

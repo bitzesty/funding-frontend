@@ -146,7 +146,7 @@ module PaymentRequestSalesforceApi
             External_Id__c: high_spend.id,
             Forms__c: salesforce_payment_request_id,
             Cost_Heading__c: high_spend.cost_heading,
-            Amount__c: high_spend.amount , 
+            Amount__c: high_spend.amount, 
             VAT__c: high_spend.vat_amount,
             Date_of_spend__c: 
               high_spend.date_of_spend&.strftime("%Y-%m-%d"),
@@ -211,7 +211,7 @@ module PaymentRequestSalesforceApi
             External_Id__c: low_spend.id,
             Forms__c: salesforce_payment_request_id,
             Cost_Heading__c: low_spend.cost_heading,
-            Amount__c: (low_spend.total_amount - low_spend.vat_amount), 
+            Amount__c: low_spend.total_amount, 
             VAT__c: low_spend.vat_amount,
             Spend_level__c: "Spend less than £#{low_spend.spend_threshold}"
           )

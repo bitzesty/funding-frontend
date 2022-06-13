@@ -69,11 +69,11 @@
 								</td>
 
 								<td class="govuk-table__cell">
-									<%= ls.total_amount %>
+									<%= number_to_currency(ls.total_amount) %>
 								</td>
 
 								<td class="govuk-table__cell">
-									<%= ls.vat_amount %>
+									<%= number_to_currency(ls.vat_amount) %>
 								</td>
 
 							<tr>
@@ -87,7 +87,7 @@
 							</th>
 
 							<td scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
-								£<%= @low_spend_update_total %>
+								<%= number_to_currency(@low_spend_update_total) %>
 							</td>
 
 							<%# Voice over skips these empty headers, that are included for table style. %>
@@ -160,11 +160,11 @@
 								</td>
 
 								<td class="govuk-table__cell">
-									<%= hs.amount %>
+									<%= number_to_currency(hs.amount) %>
 								</td>
 
 								<td class="govuk-table__cell">
-									<%= hs.vat_amount %>
+									<%= number_to_currency(hs.vat_amount) %>
 								</td>
 
 							<tr>
@@ -178,7 +178,7 @@
 							</th>
 
 							<td scope="row" class="govuk-table__header  govuk-!-padding-top-6"> 
-								£<%= @high_spend_update_total %>
+								<%= number_to_currency(@high_spend_update_total) %>
 							</td>
 
 							<%# Voice over skips these empty headers, that are included for table style. %>
