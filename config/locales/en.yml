@@ -746,7 +746,7 @@ en-GB:
             progress_update_procurement_evidence:
               blank: "Select a report"
             add_another_procurement:
-              blank: "Select if you would like to add another procurement"
+              blank: "Select if you need to add another procurement of £10,000 or more"
             progress_update_additional_grant_condition:
               checkbox_selection: "Select an additional grant condition to update on, or select 'I do not have an update on this yet'"
             date_correct:
