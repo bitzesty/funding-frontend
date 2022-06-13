@@ -36,6 +36,24 @@ class ProgressUpdateRisk < ApplicationRecord
         word_count: 50)
     )
 
+    validate_length(
+      :yes_still_a_risk_description,
+      50,
+      I18n.t(
+        "activerecord.errors.models.progress_update_" \
+          "risk.attributes.yes_still_a_risk_description.too_long",
+        word_count: 50)
+    ) if validate_yes_still_a_risk_description?
+
+    validate_length(
+      :no_still_a_risk_description,
+      50,
+      I18n.t(
+        "activerecord.errors.models.progress_update_" \
+          "risk.attributes.no_still_a_risk_description.too_long",
+        word_count: 50)
+    ) if validate_no_still_a_risk_description?
+
   end
 
   def validate_yes_still_a_risk_description?

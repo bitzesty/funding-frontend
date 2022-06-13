@@ -17,7 +17,7 @@ class ProgressUpdateProcurement < ApplicationRecord
   attr_accessor :date_year  
 
   validates :name, length: { minimum: 1, maximum: 120 }, if: :validate_details
-  validates :description, length: { minimum: 1, maximum: 150 }, if: :validate_details
+  validates :description, presence: true, if: :validate_details
   validates :amount, numericality: {
     only_integer: true,
     greater_than: 9999,
@@ -47,6 +47,15 @@ class ProgressUpdateProcurement < ApplicationRecord
       :date_month,
       :date_month
     ) if validate_date?
+
+    validate_length(
+      :description,
+      150,
+      I18n.t(
+        "activerecord.errors.models.progress_update_" \
+          "procurement.attributes.description.too_long",
+        word_count: 150)
+    ) if validate_details?
 
   end
 
