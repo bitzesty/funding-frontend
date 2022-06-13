@@ -814,7 +814,7 @@ en-GB:
           attributes:
             progress:
               blank: "Enter update for additional grant condition"
-              too_long: " Description must be 300 words or fewer"
+              too_long: "Description must be 300 words or fewer"
         progress_update_new_expiry_date:
           attributes:
             description:
@@ -904,12 +904,12 @@ en-GB:
           attributes:
             progress:
               blank: "Enter update for Approved Purpose"
-              too_long: " Description must be 300 words or fewer"
+              too_long: "Description must be 300 words or fewer"
         progress_update_demographic:
           attributes:
             explanation:
               blank: "Enter update for how a wider range of people are involved in the project"
-              too_long: " Description must be 300 words or fewer"
+              too_long: "Description must be 300 words or fewer"
         progress_update_outcome:
           attributes:
             all:

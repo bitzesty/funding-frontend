@@ -101,12 +101,54 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::ApprovedPurposesCont
     end
 
     # Should be called prior to show
-    # Simply checks boxes when progress updates provided by the applicant
+    # Checks the boxes already chosen by the applicant
     # Does this by setting attr_accessor :entering_update
+    #
+    # Also sets @href_for_first_empty_text_field and
+    # @href_for_first_too_long_text_field which
+    # is used by the view to link an error to a text field.
+    # Setting these href vars find the position of the
+    # object in the progress_update_approved_purpose collection.  Relies
+    # on the order being unchanged when the approved purspose objects are
+    # rendered on the view.  But the risk is acceptable for linking.
+    #
     def populate_check_boxes
 
+      @href_for_first_empty_text_field = ''
+      @href_for_first_too_long_text_field = ''
+
+      position_in_collection = 0
+
       progress_update.progress_update_approved_purpose.each do |ap|
-        ap.entering_update = ap.progress.present? || ap.entering_update == 'true'
+
+        ap.entering_update = \
+          ap.progress.present? || ap.entering_update == 'true'
+
+        if ap.entering_update and ap.progress.nil?
+
+          @href_for_first_empty_text_field =
+            "#progress_update_progress_update_approved_purpose_" \
+              "attributes_#{position_in_collection}_progress" \
+                if @href_for_first_empty_text_field.empty?
+
+        end
+
+        ap.errors.each do |error|
+
+          if error.type == 
+            t("activerecord.errors.models.progress_update_approved_purpose." \
+              "attributes.progress.too_long")
+
+            @href_for_first_too_long_text_field =
+              "#progress_update_progress_update_approved_purpose_" \
+                "attributes_#{position_in_collection}_progress"
+
+          end
+
+        end
+
+        position_in_collection += 1
+
       end
 
       if progress_update.answers_json['approved_purpose'].has_key?(
@@ -211,5 +253,4 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::ApprovedPurposesCont
       
     end
 
-  
   end

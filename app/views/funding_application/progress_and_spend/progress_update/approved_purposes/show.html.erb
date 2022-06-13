@@ -6,20 +6,66 @@
          }
 %>
 
-<% # errors generated on this page do not carry information on where in the page %>
-<% # the affected attribute is rendered.  Thus working href can't be created. %>
-<% # Consider an approach that loops through field for attributes. %>
-<%=
-  render(
-      partial: 'partials/summary_errors',
-      locals: {
-        form_object:
-          @funding_application.arrears_journey_tracker.progress_update,
-          first_form_element: :entering_update
-      }
-    ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
-%>
+<%# Summary errors start %>
+<% if @funding_application.arrears_journey_tracker.progress_update.errors.any? %>
 
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+      role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      <%= t('generic.there_is_a_problem') %>
+    </h2>
+
+    <div class="govuk-error-summary__body">
+
+      <ul class="govuk-list govuk-error-summary__list">
+
+        <% @funding_application.arrears_journey_tracker.progress_update.errors.each do |error| %>
+
+					<% if error.type == :blank %>
+
+						<li>
+
+              <a href=<%= @href_for_first_empty_text_field %> >
+                <%= error.message %>
+              </a>
+
+						</li>
+
+          <% elsif error.type == t("activerecord.errors.models.progress_update_approved_purpose." \
+              "attributes.progress.too_long") %>
+
+            <li>
+
+              <a href=<%= @href_for_first_too_long_text_field %> >
+                <%= error.message %>
+              </a>
+
+            </li>
+
+					<% else %>
+            <%# link to first checkbox.  Typically this is an error selecting wrong checkboxes%>
+
+            <li>
+
+              <a href='#progress_update_progress_update_approved_purpose_attributes_0_entering_update'>
+                <%= error.message %>
+              </a>
+
+            </li>
+
+					<% end %>
+
+        <% end %>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+<% end %>
+<%# Summary errors end %>
 
 <fieldset class="govuk-fieldset">
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -41,21 +87,29 @@
     local: true do |form|
   %>
 
-    <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.arrears_journey_tracker.errors.any? %>">
+    <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.arrears_journey_tracker.progress_update.errors.any? %>">
 
       <p class="govuk-body govuk-hint govuk-!-padding-bottom-4">
         <%= t('progress_and_spend.progress_update.approved_purposes.page_hint') %>
       </p>
 
-      <%=
-        render(
-          partial: 'partials/form_group_errors',
-          locals: {
-            form_object: @funding_application.arrears_journey_tracker.progress_update
-          }
-        ) if @funding_application.arrears_journey_tracker.progress_update.errors.any?
-      %>
+      <%# custom form group errors start.  Only needs to show error when check boxes selected incorrectly. %>
+      <% pu = @funding_application.arrears_journey_tracker.progress_update %>
 
+      <% pu.errors.each do |error| %>
+
+        <% if error.type == 
+          t("activerecord.errors.models.progress_update.attributes."\
+            "progress_update_approved_purpose.checkbox_selection")%>
+
+          <span id="<%= pu.class.name.downcase %>[<%= error.attribute %>]-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> <%= error.message %>
+          </span>
+
+        <% end %>
+
+      <% end %>
+      <%# custom form group errors end %>
 
       <%=
         form.fields_for :progress_update_approved_purpose, @funding_application.arrears_journey_tracker.progress_update.progress_update_approved_purpose do |ap|
@@ -85,6 +139,15 @@
 
           <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
             id="conditional-description-conditional">
+
+            <%=
+              render partial: "partials/form_input_errors",
+                locals: {
+                  form_object: ap.object,
+                  input_field_id: :progress
+                } if ap.object.errors.any?
+            %>
+
 
             <div class="govuk-character-count" data-module="govuk-character-count"
               data-maxwords="300">
