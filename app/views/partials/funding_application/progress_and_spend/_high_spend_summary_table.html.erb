@@ -40,9 +40,13 @@
               </div>
             </th>
 
-            <%# Voice over skips these empty headers, that are included for table style. %>
-            <th scope="col" class="govuk-table__header"></th>
-            <th scope="col" class="govuk-table__header"></th>
+            <% if @show_change_links %>  
+
+              <%# Empty headers, included for table style. Column names given for accessibility%>
+              <th scope="col" class="govuk-table__header" style="visibility: hidden;"> <%= t('generic.change') %> </th>
+              <th scope="col" class="govuk-table__header" style="visibility: hidden;"> <%= t('generic.remove') %> </th>
+
+            <% end %>
 
           </tr>
 
@@ -87,17 +91,11 @@
                       t('generic.remove'),
                       funding_application_progress_and_spend_payments_high_spend_summary_delete_path(high_spend_id: hs.id),
                       class: 'govuk-link',
-                      style: 'color: red',
                       id: 'delete-hs',
                       :method => 'delete'
                     )
                   %>
                 </td>
-
-              <% else %>
-
-                <td class="govuk-table__cell"/>
-                <td class="govuk-table__cell"/>
 
               <% end %>
 
@@ -121,10 +119,18 @@
 
             </td>
 
-            <%# Voice over skips these empty headers, that are included for table style. %>
+            <% if @show_change_links %>  
 
-            <th scope="col" class="govuk-table__header"/>
-            <th scope="col" class="govuk-table__header"/>
+              <%# Invisible headers, that are included for table style and pass accessibility. %>
+              <th scope="col" class="govuk-table__header" style="visibility: hidden;"> 
+                <%= t('generic.no_text') %> 
+              </th>
+
+              <th scope="col" class="govuk-table__header" style="visibility: hidden;">
+                <%= t('generic.no_text') %>
+              </th>
+
+            <% end %>
 
           </tr>
 

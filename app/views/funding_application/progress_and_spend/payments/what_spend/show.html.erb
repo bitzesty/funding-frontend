@@ -15,7 +15,7 @@
           partial: 'partials/summary_errors',
           locals: {
             form_object: @funding_application.arrears_journey_tracker.payment_request,
-            first_form_element: :select_higher_spend
+            first_form_element: :payment_request_higher_spend
           }
         ) if @funding_application.arrears_journey_tracker.payment_request.errors.any?
     %>
@@ -63,7 +63,6 @@
           <%=
             f.check_box :higher_spend,
               {
-                  id: :select_higher_spend,
                   class: "govuk-checkboxes__input"
               },
               'true', 'false'
@@ -71,9 +70,9 @@
 
           <%=
             f.label :higher_spend,
-                    t('progress_and_spend.payments.what_spend.spend_over',
-                    spend_amount: @spend_threshold),
-                    class: "govuk-label govuk-checkboxes__label"
+            t('progress_and_spend.payments.what_spend.spend_over',
+            spend_amount: @spend_threshold),
+            class: "govuk-label govuk-checkboxes__label"
           %>
 
         </div>
@@ -83,7 +82,6 @@
           <%=
             f.check_box :lower_spend,
               {
-                  id: :select_lower_spend,
                   class: "govuk-checkboxes__input"
               },
               'true', 'false'
@@ -91,9 +89,9 @@
 
           <%=
             f.label :lower_spend,
-                  t('progress_and_spend.payments.what_spend.spend_under',
-                  spend_amount: @spend_threshold),
-                  class: "govuk-label govuk-checkboxes__label"
+            t('progress_and_spend.payments.what_spend.spend_under',
+            spend_amount: @spend_threshold),
+            class: "govuk-label govuk-checkboxes__label"
           %>
 
         </div>
@@ -103,7 +101,6 @@
           <%=
             f.check_box :no_update,
               {
-                  id: :select_no_update,
                   class: "govuk-checkboxes__input"
               },
               'true', 'false'
@@ -111,8 +108,8 @@
 
           <%=
             f.label :no_update,
-                  t('progress_and_spend.payments.what_spend.no_spend_update'),
-                  class: "govuk-label govuk-checkboxes__label"
+            t('progress_and_spend.payments.what_spend.no_spend_update'),
+            class: "govuk-label govuk-checkboxes__label"
           %>
 
         </div>

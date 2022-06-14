@@ -151,12 +151,10 @@
     <div class="govuk-date-input <%= "#{'govuk-form-group--error' if
       @high_spend.errors.any? { | er | [:date_day, :date_month, :date_year].include? er.attribute } }" %>" id="full-date">
 
-      <%=
-        f.label :description,
-        t('progress_and_spend.payments.high_spend_add_edit.date_of_spend'),
-        class: "govuk-heading-s govuk-!-margin-top-4"
-      %>
-
+      <p class= "govuk-heading-s govuk-!-margin-top-4">
+        <%= t('progress_and_spend.payments.high_spend_add_edit.date_of_spend')%>
+      </p>
+      
       <% @high_spend.errors.each do |error| %>
         <% if "date".in? error.attribute.to_s  %>
 
@@ -243,7 +241,7 @@
       @high_spend.errors['amount'].any?}" %>">
 
       <%=
-        f.label :total_amount,
+        f.label :amount,
         t('generic.amount'),
         class: "govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-0"
       %>

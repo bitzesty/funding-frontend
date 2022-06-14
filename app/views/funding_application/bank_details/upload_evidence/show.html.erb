@@ -71,7 +71,6 @@
   %>
 
     <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
-      <fieldset class="govuk-fieldset">
         
         <div class="govuk-form-group <%= "govuk-form-group--error" if @funding_application.payment_details.errors.any? %>" id="evidence_file-form-group" data-form-group="file">
           
@@ -163,8 +162,6 @@
 
           </table>
         <% end %>
-
-      </fieldset>
 
     </div>
 

@@ -84,6 +84,7 @@ en-GB:
     back: "< Back"
     print_this_page: "Print this page"
     javascript_off: "Javascript is disabled on your device. Please download this form using your browser's print functionality."
+    no_text: "no text"
   views:
     organisation:
       common:
