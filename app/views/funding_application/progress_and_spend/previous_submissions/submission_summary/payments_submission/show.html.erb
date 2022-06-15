@@ -199,8 +199,14 @@
 	<% end %>
 	<%# high spends table end.%>
 
+	<% if @high_spend.nil? && @low_spend.nil? %>
+		<p>
+		 <%= t('progress_and_spend.previous_submissions.submission_summary.payments_summary.no_spend')%>
+		</p>
+	<% end %>
+
   <%=
-		form_with model: @funding_application.arrears_journey_tracker.payment_request,
+		form_with model: @funding_application,
 		url: funding_application_progress_and_spend_previous_submissions_submission_summary_payments_submission_path(),
 		method: :post,
 		local: true do |f|

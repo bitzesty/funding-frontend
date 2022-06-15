@@ -29,7 +29,7 @@
   %>
 
   <%=
-		form_with model: @funding_application.arrears_journey_tracker.progress_update,
+		form_with model: @funding_application,
 		url: funding_application_progress_and_spend_previous_submissions_submission_summary_approved_purposes_submission_path(),
 		method: :post,
 		local: true do |f|

@@ -10,3 +10,4 @@ en-GB:
           total_costs: "Total costs"
           spend_over: "Spend more than £%{spend_amount}"
           spend_under: "Spend less than £%{spend_amount}"
+          no_spend: "No spends submitted"

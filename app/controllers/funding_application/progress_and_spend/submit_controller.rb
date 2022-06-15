@@ -5,6 +5,7 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
   
     def show()
       initialise_view
+      retrieve_project_info
     end
   
     def update()
@@ -48,6 +49,18 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
         details_hash[:payment_percentage]
       )
 
+    end
+
+    def retrieve_project_info
+  
+      details_hash = salesforce_arrears_project_details(@funding_application)
+  
+      @project_name = details_hash[:project_name]
+      @project_reference_num = @funding_application.project_reference_number
+      @grant_paid = details_hash[:amount_paid] 
+      @remaining_grant = details_hash[:amount_remaining]
+      @grant_expiry_date = details_hash[:project_expiry_date]
+  
     end
 
   end
