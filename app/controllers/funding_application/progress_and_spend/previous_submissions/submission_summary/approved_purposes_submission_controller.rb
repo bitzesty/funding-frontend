@@ -22,11 +22,11 @@ class FundingApplication::ProgressAndSpend::PreviousSubmissions::SubmissionSumma
 
     @optional_outcomes_progress_updates =
       previous_submission&.progress_update&.\
-        progress_update_outcome&.first.progress_updates
+        progress_update_outcome&.first&.progress_updates
 
     @funding_acknowledgments =
       previous_submission&.progress_update&.\
-        progress_update_funding_acknowledgement&.first.acknowledgements
+        progress_update_funding_acknowledgement&.first&.acknowledgements
 
   end
 
