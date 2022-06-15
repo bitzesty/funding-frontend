@@ -254,50 +254,7 @@ Rails.application.routes.draw do
           put 'confirm-bank-details', to: 'confirm_bank_details#update'
           put 'confirm-bank-details-submitted', to: 'confirm_bank_details#save_and_continue'
 
-          # Everything below will go when the new arrears journey is live.
-          # Kep for now to reuse some of the patterns in the existing arrears forms.
-          # To switch on this arrears journey do:
-          # - comment out lines 14-18 in Tasks_controller.rb
-          # - line 135 of tasks/show.html.erb should evaluate to false.
-
-          # not required in new arrears journey
-          get 'review-your-project-spend', to: 'review_spend#show'
-
-          # keep underlying views and controllers - patterns and validation can be reused.
-          get 'tell-us-what-you-have-spent', to: 'evidence_of_spend#show'
-          post 'tell-us-what-you-have-spent', to: 'evidence_of_spend#update'
-
-          # keep underlying views and controllers - patterns and validation can be reused.
-          get 'add-an-item-of-spend', to: 'add_item_of_spend#show'
-          put 'add-an-item-of-spend', to: 'add_item_of_spend#update'
-
-         # not required in new arrears journey
-          get 'edit-an-item-of-spend', to: 'edit_item_of_spend#show'
-
-          # not required in new arrears journey
-          get 'confirm-what-you-have-spent', to: 'confirm_evidence_of_spend#show'
-          post 'confirm-what-you-have-spent', to: 'confirm_evidence_of_spend#update'
-
           get 'submitted', to: 'submitted#show'
-
-          # to go
-          scope '/spend' do
-
-            scope '/:spend_id' do
-
-               # keep underlying views and controllers - patterns and validation can be reused.
-              get 'edit-spend-item', to: 'edit_item_of_spend#show'
-              put 'edit-spend-item', to: 'edit_item_of_spend#update'
-
-               # keep underlying views and controllers - patterns and validation can be reused.
-              get 'delete-spend-item', to: 'delete_spend_item#show'
-              put 'delete-spend-item', to: 'delete_spend_item#delete'
-
-            end
-              # Different pattern that shows the item you are about to delete.
-              get 'spend-item-deleted', to: 'spend_item_deleted#show'
-
-          end
           
         end
 
