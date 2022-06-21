@@ -1,5 +1,12 @@
 class Organisation < ApplicationRecord
-  include ActiveModel::Validations, GenericValidator
+  include ActiveModel::Validations, GenericValidator, OrganisationHelper
+
+  after_find do |organisation| 
+    unless organisation.updated_at.today? || organisation.salesforce_account_id.nil?
+      Rails.logger.info "Checking and updating Org with id: #{organisation.id}"
+      update_existing_organisation_from_salesforce_details(organisation)
+    end 
+  end
 
   self.implicit_order_column = "created_at"
 
@@ -144,6 +151,24 @@ class Organisation < ApplicationRecord
     end
   end
 
+  # Org types are set when an applicant initially completes organisation
+  # details (The organisation_org_types table has not been used.)
+  #
+  # The partial, that captures the org types, only shows orgs from 1 to 10
+  # 10 is 'other_public_sector_organisation' and the last type a user
+  # can select. So any additional org types will require changes in these
+  # partials.  And new translations for the application, pre-application,
+  # and organisation summary screens.
+  #
+  # Salesforce merges some org types upon submission like:
+  # - Faith based or church organisation (instead of faith or church)
+  # - Community of Voluntary group (instead of community or voluntary group)
+  # - Registered company or Community Interest Company (instead of reg or com)
+  #
+  # Future work intends to address this, so changes to an organisation type in
+  # Salesforce can be reflected in what FFE stores,
+  # when after_find runs above.
+  #
   enum org_type: {
       registered_charity: 0,
       local_authority: 1,
