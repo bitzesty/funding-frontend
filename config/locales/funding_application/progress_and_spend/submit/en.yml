@@ -9,6 +9,7 @@ en-GB:
         spend_and_bank_submitted: "Project spend and bank details submitted"
         progress_update_and_bank_details_submitted: "Project update and bank details submitted"
         spend_and_progress_submitted: "Project spend and project update submitted"
+        nothing_to_submit: "Nothing to submit"
       confirmation_email: "We have sent a confirmation email to %{user_email}."
       what_next: 
         sub_heading: "What happens next"
@@ -19,4 +20,6 @@ en-GB:
         after_our_checks: "After we have done our checks, we will aim to pay you within 10 working days."
         bank_details_check: "We will check the details and be in touch if we have any questions."
         any_questions: "If you have any questions, contact your Investment Manager."
-
+      not_told: "You have not told us what you have spent or updated your bank details. Go back to Manage your awarded project to start again."
+      need_assistance: "Contact your Investment Manager if you need any assistance."
+      back_to_manage_projects: "Back to Manage your awarded project"

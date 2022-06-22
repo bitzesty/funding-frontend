@@ -6,89 +6,117 @@
   }
 %>
 
-<div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
-  <h1 class="govuk-panel__title govuk-!-margin-bottom-0">
-    <%if @submitting_payment_request && !@submitting_progress_update && 
-      !@submitting_bank_details%>
-      <%= t('progress_and_spend.submit.page_headings.spend_submitted')%>
-    <%elsif @submitting_progress_update && !@submitting_payment_request && 
-      !@submitting_bank_details%>
-      <%= 
-        t('progress_and_spend.submit.page_headings.progress_update_submitted')
-      %>
-    <%elsif @submitting_bank_details && !@submitting_payment_request &&  
-      !@submitting_progress_update%>
-      <%= 
-        t('progress_and_spend.submit.page_headings.bank_details_submitted')
-      %>
-    <%elsif @submitting_payment_request && @submitting_bank_details && 
-      !@submitting_progress_update %>
-      <%= 
-        t('progress_and_spend.submit.page_headings.spend_and_bank_submitted')
-      %>
-    <%elsif !@submitting_payment_request && @submitting_bank_details && 
-      @submitting_progress_update %>
-      <%= 
-        t('progress_and_spend.submit.page_headings.progress_update_and_bank_details_submitted')
-      %>
-    <%elsif @submitting_payment_request && @submitting_progress_update %>
-      <%= 
-        t('progress_and_spend.submit.page_headings.spend_and_progress_submitted')
+<%if @submitting_payment_request || @submitting_progress_update || @submitting_bank_details%>
+  <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
+    <h1 class="govuk-panel__title govuk-!-margin-bottom-0">
+      <%if @submitting_payment_request && !@submitting_progress_update && 
+        !@submitting_bank_details%>
+        <%= t('progress_and_spend.submit.page_headings.spend_submitted')%>
+      <%elsif @submitting_progress_update && !@submitting_payment_request && 
+        !@submitting_bank_details%>
+        <%= 
+          t('progress_and_spend.submit.page_headings.progress_update_submitted')
         %>
-    <%end%>
-  </h1>
-</div>
+      <%elsif @submitting_bank_details && !@submitting_payment_request &&  
+        !@submitting_progress_update%>
+        <%= 
+          t('progress_and_spend.submit.page_headings.bank_details_submitted')
+        %>
+      <%elsif @submitting_payment_request && @submitting_bank_details && 
+        !@submitting_progress_update %>
+        <%= 
+          t('progress_and_spend.submit.page_headings.spend_and_bank_submitted')
+        %>
+      <%elsif !@submitting_payment_request && @submitting_bank_details && 
+        @submitting_progress_update %>
+        <%= 
+          t('progress_and_spend.submit.page_headings.progress_update_and_bank_details_submitted')
+        %>
+      <%elsif @submitting_payment_request && @submitting_progress_update %>
+        <%= 
+          t('progress_and_spend.submit.page_headings.spend_and_progress_submitted')
+          %>
+      <%end%>
+    </h1>
+  </div>
 
-<p class="govuk-body">
-  <%= 
-    t('progress_and_spend.submit.confirmation_email', user_email: @user_email )
-  %>
-</p>
-
-<h2 class="govuk-heading-m">
-  <%= t('progress_and_spend.submit.what_next.sub_heading')%>
-</h2>
-
-<%if @submitting_progress_update && !@submitting_payment_request  %>
   <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.im_will_contact')%>
-  </p>
-
-<%elsif !@submitting_payment_request && !@submitting_progress_update && @submitting_bank_details%>
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.bank_details_check')%>
-  </p>
-<%else%>
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.after_our_checks')%>
-  </p>
-  <p class="govuk-body govuk-!-padding-bottom-6">
     <%= 
-      t('progress_and_spend.submit.what_next.you_will_be_paid',
-       payment_amount: number_to_currency(@payment_amount))
-      %>
+      t('progress_and_spend.submit.confirmation_email', user_email: @user_email )
+    %>
   </p>
 
-  <p class="govuk-body">
-    <%= t('progress_and_spend.submit.what_next.send_email')%>
+  <h2 class="govuk-heading-m">
+    <%= t('progress_and_spend.submit.what_next.sub_heading')%>
+  </h2>
+
+  <%if @submitting_progress_update && !@submitting_payment_request  %>
+    <p class="govuk-body">
+      <%= t('progress_and_spend.submit.what_next.im_will_contact')%>
+    </p>
+
+  <%elsif !@submitting_payment_request && !@submitting_progress_update && @submitting_bank_details%>
+    <p class="govuk-body">
+      <%= t('progress_and_spend.submit.what_next.bank_details_check')%>
+    </p>
+  <%else%>
+    <p class="govuk-body">
+      <%= t('progress_and_spend.submit.what_next.after_our_checks')%>
+    </p>
+    <p class="govuk-body govuk-!-padding-bottom-6">
+      <%= 
+        t('progress_and_spend.submit.what_next.you_will_be_paid',
+        payment_amount: number_to_currency(@payment_amount))
+        %>
+    </p>
+
+    <p class="govuk-body">
+      <%= t('progress_and_spend.submit.what_next.send_email')%>
+    </p>
+
+  <%end%>
+
+  <p class="govuk-body govuk-!-margin-bottom-9">
+    <%= t('progress_and_spend.submit.what_next.any_questions')%>
   </p>
+
+  <%=
+    render(
+      ButtonComponent.new(
+          element: "a",
+          href: destroy_user_session_path,
+          text: t('buttons.labels.sign_out'),
+          data_method: 'delete'
+      )
+    )
+  %>
+<%else%>
+  <div class="govuk-!-padding-bottom-7">
+    <h1 class="govuk-heading-l">
+      <%= t('progress_and_spend.submit.page_headings.nothing_to_submit')%>
+    </h1>
+
+    <p>
+      <%= t('progress_and_spend.submit.not_told')%>
+    </p>
+
+    <p>
+      <%= t('progress_and_spend.submit.need_assistance')%>
+    </p>
+  </div>
+
+  <%=
+    render(
+      ButtonComponent.new(
+          element: "a",
+          href: authenticated_root_path,
+          text:  t('progress_and_spend.submit.back_to_manage_projects')
+      )
+    )
+  %>
+
 
 <%end%>
-
-<p class="govuk-body govuk-!-margin-bottom-9">
-  <%= t('progress_and_spend.submit.what_next.any_questions')%>
-</p>
-
-<%=
-  render(
-    ButtonComponent.new(
-        element: "a",
-        href: destroy_user_session_path,
-        text: t('buttons.labels.sign_out'),
-        data_method: 'delete'
-    )
-  )
-%>
 
 <%= content_for :secondarycontent do %>
   <div class="nlhf-panel" >
