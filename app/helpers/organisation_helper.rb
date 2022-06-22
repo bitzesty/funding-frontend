@@ -150,8 +150,11 @@ module OrganisationHelper
   # @param [String] vat_registered The salesforce string denoting
   #                                 VAT_Register type.
   #
-  #  @return [Boolean] boolean Value of VAT_Registered
+  #  @return [Boolean] boolean Value of VAT_Registered. Or nil if
+  #                            'N/A' or if there is no match, such
+  #                             as when SF set to 'None'
   def convert_vat_registered(vat_registered)
+
     case vat_registered
     when "Yes"
       return true
@@ -163,7 +166,7 @@ module OrganisationHelper
   end
 
   # Currently not used as org_types in SF and FFE do not align
-  # This will be enhanced and used in future work.
+  # This will be enhanced and used in future work
   def convert_org_type(org_type_string)
 
     case org_type_string
@@ -202,27 +205,31 @@ module OrganisationHelper
   #                                         to add against organisation. 
   def convert_mission_objective_type(mission_objective_type)
 
-    mission_objective_type = mission_objective_type.split(";")
-
     missions_list = []
 
-    mission_objective_type.each do | mission | 
-      case mission
-      when 'Black or minority ethnic-led'
-        missions_list.append('black_or_minority_ethnic_led')
-      when 'Disability-led'
-        missions_list.append('disability_led')
-      when 'LGBT+-led'
-        missions_list.append('lgbt_plus_led')
-      when 'Female-led'
-        missions_list.append('female_led') 
-      when 'Young people-led'
-        missions_list.append('young_people_led')
-      when 'Mainly led by people from Catholic communities'
-        missions_list.append('mainly_catholic_community_led')
-      when 'Mainly led by people from Protestant communities'
-        missions_list.append('mainly_protestant_community_led')
+    if mission_objective_type.present?
+
+      mission_objective_type = mission_objective_type.split(";")
+
+      mission_objective_type.each do | mission |
+        case mission
+        when 'Black or minority ethnic-led'
+          missions_list.append('black_or_minority_ethnic_led')
+        when 'Disability-led'
+          missions_list.append('disability_led')
+        when 'LGBT+-led'
+          missions_list.append('lgbt_plus_led')
+        when 'Female-led'
+          missions_list.append('female_led')
+        when 'Young people-led'
+          missions_list.append('young_people_led')
+        when 'Mainly led by people from Catholic communities'
+          missions_list.append('mainly_catholic_community_led')
+        when 'Mainly led by people from Protestant communities'
+          missions_list.append('mainly_protestant_community_led')
+        end
       end
+
     end
 
     missions_list
