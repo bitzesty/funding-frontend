@@ -3,9 +3,9 @@ en-GB:
     payments:
       what_spend:
         page_title: "What spend"
-        page_heading: "What item of spend do you want to tell us about?"
+        page_heading: "What spend do you want to tell us about?"
         page_caption: "Tell us what you have spent"
-        page_hint: "Tell us about your spend less than £%{spend_amount} under your different spend types. For example, if you have 3 £200 invoices for publicity and promotion you can tell us you have spent of £600 on publicity and promotion."
+        page_hint: "You will need to upload invoices for all spend over £500. For spend less than £500, you will be asked to upload a table showing totals for the spend types you choose."
         spend_over: "Spend over £%{spend_amount}"
         spend_under: "Spend less than £%{spend_amount}"
         no_spend_update: "No spend update"

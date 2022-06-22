@@ -20,7 +20,9 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
 
       @new_expiry_date.update(permitted_params(params))
 
-      if @new_expiry_date.full_date < @completion_date
+      if @new_expiry_date.full_date.present? && 
+        @new_expiry_date.full_date < @completion_date
+
         @new_expiry_date.errors.add(
           :full_date, 
           t('progress_and_spend.progress_update.new_expiry_date.date_after_error', 
