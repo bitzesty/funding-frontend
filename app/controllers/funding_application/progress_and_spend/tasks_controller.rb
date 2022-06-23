@@ -141,6 +141,9 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
     # Upon successful execution, deletes the arrears_journey_tracker
     # to allow new progress/payment requests to begin.
     #
+    # Also deletes any stored payment details (which includes bank accounts).
+    # These should only remain in Salesforce.
+    #
     # @param [FundingApplication] funding_application An instance of
     #                                                 FundingApplication
     # @param [CompletedArrearsJourney] completed_arrears_journey
@@ -160,6 +163,7 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       )
 
       arrears_journey_tracker&.delete
+      funding_application.payment_details&.delete
 
       redirect_to funding_application_progress_and_spend_submit_your_answers_path(
         completed_arrears_journey_id: @completed_arrears_journey.id )

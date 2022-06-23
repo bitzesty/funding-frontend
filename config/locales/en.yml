@@ -558,7 +558,7 @@ en-GB:
         payment_details:
           attributes:
             account_name:
-              blank: "Enter the name of the account holder"
+              blank: "Enter name on the account"
             account_number:
               blank: "Enter the account number"
               invalid_format: "Enter a valid bank account number like 12345678"
