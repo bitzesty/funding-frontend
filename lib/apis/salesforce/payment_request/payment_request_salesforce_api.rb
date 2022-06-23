@@ -114,7 +114,7 @@ module PaymentRequestSalesforceApi
           .table_of_spend_file
             .filename}",
         salesforce_payment_request_id
-      )
+      ) if payment_request.table_of_spend_file.present?
 
       Rails.logger.info("Successfully upserted payment request data with " \
         "payment_request.id: #{payment_request.id}")
