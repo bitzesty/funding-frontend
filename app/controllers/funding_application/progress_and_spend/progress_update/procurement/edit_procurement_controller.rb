@@ -28,12 +28,23 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::Procurement::EditPro
   private
 
   def get_procurement()
-    @procurement = progress_update.progress_update_procurement.find(params[:procurement_id])
-    procurement_date = DateTime.parse(@procurement.date.to_s) 
+    begin
 
-    @procurement.date_day = procurement_date.day
-    @procurement.date_month = procurement_date.month
-    @procurement.date_year = procurement_date.year
+      @procurement = progress_update.progress_update_procurement.find(params[:procurement_id])
+      procurement_date = DateTime.parse(@procurement.date.to_s) 
+
+      @procurement.date_day = procurement_date.day
+      @procurement.date_month = procurement_date.month
+      @procurement.date_year = procurement_date.year
+    rescue ActiveRecord::RecordNotFound  
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_procurement_procurements_summary_path(
+            progress_update_id:
+              @funding_application.arrears_journey_tracker.progress_update.id
+        )
+      )
+      return
+    end
   end
 
   def progress_update

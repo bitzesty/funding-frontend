@@ -4,9 +4,19 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::Risk::RiskEditContro
   
   def show()
 
-    @risk = 
-      @funding_application.arrears_journey_tracker.progress_update.\
-        progress_update_risk.find(params[:risk_id])
+    begin
+      @risk = 
+        @funding_application.arrears_journey_tracker.progress_update.\
+          progress_update_risk.find(params[:risk_id])
+    rescue ActiveRecord::RecordNotFound  
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_risk_risk_summary_path(
+            progress_update_id:
+              @funding_application.arrears_journey_tracker.progress_update.id
+        )
+      )
+      return
+    end
 
     populate_is_still_risk_description(@risk)
 

@@ -18,8 +18,18 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
   private
 
   def get_non_cash_contribution()
-  @non_cash_contribution = 
-    @funding_application.arrears_journey_tracker.progress_update.\
-      progress_update_non_cash_contribution.find(params[:non_cash_contribution_id])
+    begin
+      @non_cash_contribution = 
+        @funding_application.arrears_journey_tracker.progress_update.\
+          progress_update_non_cash_contribution.find(params[:non_cash_contribution_id])
+    rescue ActiveRecord::RecordNotFound  
+      redirect_to(
+        funding_application_progress_and_spend_progress_update_non_cash_contribution_non_cash_contribution_summary_path(
+            progress_update_id:
+              @funding_application.arrears_journey_tracker.progress_update.id
+        )
+      )
+      return
+    end
   end
 end
