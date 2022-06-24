@@ -72,6 +72,12 @@ module OrganisationHelper
   # Method to retrieve and update latest org details from salesforce
   # aligning FFE with any salesforce changes.
   #
+  # We don't update organisation details that are asked at the start
+  # of the medium grant journey.  This is because these questions are
+  # always asked as part of a medium grant and so a sync is not
+  # necessary.  When we had these questions included, they were being
+  # erroneously updated from Salesforce, wiping answers.
+  #
   # @param [Organisation] organisation The organisation to update.
   #
   def update_existing_organisation_from_salesforce_details(organisation)
@@ -95,14 +101,6 @@ module OrganisationHelper
       organisation.charity_number = sf_details.Charity_Number__c
       organisation.charity_number_ni = sf_details.Charity_Number_NI__c
       organisation.mission = convert_mission_objective_type(sf_details.Organisation_s_Mission_and_Objectives__c)
-      organisation.vat_registered = convert_vat_registered(sf_details.Are_you_VAT_registered_picklist__c)
-      
-      organisation.vat_number = sf_details.VAT_number__c
-      organisation.main_purpose_and_activities = sf_details.Organisation_s_Main_Purpose_Activities__c
-      organisation.board_members_or_trustees = sf_details.Number_Of_Board_members_or_Trustees__c
-      organisation.social_media_info = sf_details.Social_Media__c
-      organisation.spend_in_last_financial_year = sf_details.Amount_spent_in_the_last_financial_year__c
-      organisation.unrestricted_funds = sf_details.level_of_unrestricted_funds__c
 
       #Currently not used as org_types in SF and FFE do not align
       # organisation.org_type = convert_org_type(sf_details.Organisation_Type__c)
