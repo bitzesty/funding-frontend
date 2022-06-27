@@ -652,7 +652,7 @@ module ProgressAndSpendHelper
       "Bank account evidence - #{payment_details.evidence_file_blob
         .filename}",
         salesforce_bank_account_id
-    )
+    ) if payment_details.evidence_file.present?
     
   end
 
