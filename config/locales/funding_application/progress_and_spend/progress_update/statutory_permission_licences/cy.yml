@@ -1,0 +1,11 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      statutory_permission_licences:
+        page_title: "Tystiolaeth o drwyddedau caniatâd statudol"
+        page_heading: "Ydych chi wedi derbyn unrhyw ganiatâd neu drwyddedau statudol newydd ers eich diweddariad diwethaf?"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        upload_heading: "Uwchlwytho caniatadau neu drwyddedau statudol newydd"
+        has_upload_true: "Ydw, rwyf wedi cael caniatâd neu drwyddedau statudol newydd"
+        has_upload_false: "Na, nid wyf wedi cael unrhyw ganiatadau na thrwyddedau statudol newydd"
+        upload_button: "Uwchlwytho tystiolaeth"

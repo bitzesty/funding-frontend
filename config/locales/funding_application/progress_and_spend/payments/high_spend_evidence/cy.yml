@@ -1,0 +1,10 @@
+cy:
+  progress_and_spend:
+    payments:
+      high_spend_evidence:
+        page_title: "Uwchlwytho tystiolaeth o wariant"
+        page_heading: "Uwchlwytho tystiolaeth o wariant ar gyfer %{spend_type}"
+        upload_evidence_of_spend: "Uwchlwytho tystiolaeth o wariant"
+        this_could_be: "Gallai hyn fod yn dderbynneb, anfoneb neu sgrin o dderbynneb ddigidol, i ddangos yr hyn a brynwyd gennych gyda'ch arian grant."
+        add_spend: "Ychwanegu gwariant"
+        page_caption: "Dywedwch wrthym beth rydych wedi'i wario"

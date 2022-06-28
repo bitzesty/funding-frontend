@@ -1,0 +1,8 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      cash_contribution:
+        cash_contribution_select:
+          page_title: "Cyfraniad arian parod"
+          page_heading: "Dewiswch y cyfraniad arian parod rydych chi am ei ddiweddaru"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"

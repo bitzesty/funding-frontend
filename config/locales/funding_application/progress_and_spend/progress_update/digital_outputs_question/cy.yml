@@ -1,0 +1,11 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      digital_outputs_question:
+        page_title: "Allbynnau Digidol"
+        page_heading: "Ydych chi wedi creu unrhyw allbynnau digidol fel rhan o'ch prosiect?"
+        page_caption: "Dibenion a chanlyniadau cymeradwy"
+        digital_outputs_are: "Mae allbynnau digidol yn unrhyw beth sy'n cael ei greu mewn fformat digidol sy'n helpu pobl i ymgysylltu â'r dreftadaeth yn eich prosiect a dysgu amdani. Mae hyn yn cynnwys delweddau, ymchwil, deunyddiau addysgol, adroddiadau prosiect, meddalwedd, cynnwys gwe ac ap, cronfeydd data, modelau 3D, recordiadau sain a fideo."
+        radio_yes: "Ydw, rwyf wedi creu allbynnau digidol"
+        radio_no: "Na, nid wyf wedi creu allbynnau digidol"
+        contact: "Cysylltwch â'ch Rheolwr Buddsoddi os oes gennych gwestiynau am allbynnau digidol."

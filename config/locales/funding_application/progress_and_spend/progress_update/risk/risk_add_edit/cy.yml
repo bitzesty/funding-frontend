@@ -1,0 +1,21 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      risk:
+        risk_add_edit:
+          page_title: "Ychwanegu neu ddiweddaru Risg"
+          page_heading: "Ychwanegu neu ddiweddaru risg?"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          page_hint: "Yn eich cofnodion eich hun, dylai fod gan bob risg berchennog."
+          explain_risk: "Esbonio'r risg a nodwyd"
+          likelihood: "Tebgolrwydd"
+          impact: "Effaith"
+          radio_low: "Isel"
+          radio_medium: "Canolig"
+          radio_high: "Uchel"
+          is_this_still_a_risk: "A yw hyn yn dal i fod yn risg?"
+          radio_yes: "Ydy, mae hyn yn dal i fod yn risg"
+          radio_no: "Na, nid yw hyn yn risg mwyach"
+          will_action: "Pa gamau y byddwch yn eu cymryd i liniaru'r risg hon?"
+          did_action: "Pa gamau a gymerwyd gennych i liniaru'r risg hon?"
+          add_risk: "Ychwanegu risg"

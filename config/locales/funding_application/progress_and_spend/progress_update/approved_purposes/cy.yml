@@ -1,0 +1,9 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      approved_purposes:
+        page_title: "Dibenion Cymeradwy"
+        page_heading: "Dywedwch wrthym sut rydych chi'n cyflawni eich Dibenion Cymeradwy"
+        page_caption: "Dibenion a chanlyniadau cymeradwy"
+        page_hint: "Dibenion Cymeradwy yw'r hyn y cytunwyd i roi grant i chi ar ei gyfer. Dywedwch wrthym am y gwaith rydych chi wedi bod yn ei wneud hyd yn hyn i gyflawni'r rhain. Mae hyn yn ein helpu i ddeall a yw nodau'r prosiect yn cael eu cyflawni, a sut."
+        no_update_yet: "Nid oes gennyf ddiweddariad ar y rhain eto"

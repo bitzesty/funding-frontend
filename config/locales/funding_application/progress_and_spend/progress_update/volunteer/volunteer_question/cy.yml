@@ -1,0 +1,11 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      volunteer:
+        volunteer_question:
+          page_title: "Ychwanegu cyfraniad gwirfoddolwyr"
+          page_heading: "A oes unrhyw ddiweddariadau ar gyfraniadau gwirfoddolwyr? "
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          radio_yes: "Ydw, mae gen i ddiweddariadau cyfraniadau gwirfoddolwyr"
+          radio_no: "Na, nid oes gennyf ddiweddariadau cyfraniadau gwirfoddolwyr"
+

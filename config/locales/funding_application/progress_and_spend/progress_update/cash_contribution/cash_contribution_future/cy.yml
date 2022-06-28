@@ -1,0 +1,14 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      cash_contribution:
+        cash_contribution_future:
+          page_title: "Diweddariad cyfraniadau arian parod"
+          page_heading: "Diweddariad cyfraniadau arian parod"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          will_you_receive: "A fyddwch chi'n derbyn y cyfanswm a ddisgwylir?"
+          radio_yes: "Ydw, byddaf yn derbyn y cyfanswm"
+          radio_no: "Na, ni fyddaf yn derbyn y cyfanswm"
+          when_do_you_expect: "Pryd ydych chi'n disgwyl derbyn y cyfanswm?"
+          explain_briefly: "Eglurwch yn fyr pam na fyddwch yn derbyn y cyfanswm."
+          for_example: "Er enghraifft, os yw'r cyllidwr wedi penderfynu lleihau'r swm y gallant ei gyfrannu."

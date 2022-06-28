@@ -1,0 +1,9 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      additional_grant_conditions:
+        page_title: "Amodau grant ychwanegol"
+        page_heading: "Ydych chi wedi bodloni eich amodau grant ychwanegol?"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        working_towards_this: "Sut ydych chi'n gweithio tuag at hyn?"
+        no_update_yet: "Nid oes gennyf ddiweddariad ar hyn eto"

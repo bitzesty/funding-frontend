@@ -1,0 +1,17 @@
+cy:
+  progress_and_spend:
+    payments:
+      table_of_spend:
+        page_title: "Uwchlwytho tabl gwariant"
+        page_heading: "Uwchlwytho tabl gwariant"
+        page_caption: "Ychwanegu eitem o wariant"
+        page_hint:
+          upload_your_table: "Uwchlwythwch eich tabl gwariant sy'n dangos beth yw'r cyfansymiau rydych chi wedi dweud wrthym amdanynt."
+          in_your_table: "Yn eich tabl, ceisiwch gynnwys:"
+          date_of_spend: "dyddiad y gwariant,"
+          name_of_supplier: "enw'r cyflenwr, y siop neu'r gwasanaeth,"
+          brief_description: "disgrifiad byr,"
+          cost: "cost."
+        upload_table: "Uwchlwytho tabl gwariant"
+        upload_button: "Uwchlwytho dogfen"
+        no_document_uploaded: "Dim dogfen wedi'i huwchlwytho"

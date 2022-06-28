@@ -1,0 +1,26 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      check_your_answers:
+        page_title: "Gwiriwch eich atebion"
+        page_heading: "Gwiriwch eich atebion"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        photos: "Lluniau"
+        activities: "Cofnodion gweithgareddau"
+        new_staff: "Staff Newydd"
+        procured_goods: "Nwyddau, gwaith neu wasanaethau gwerth £10,000 neu fwy"
+        procured_good_evidence: "Sut ydych chi am ddweud wrthym am eich caffaeliad o £10,000 neu fwy"
+        procurements: "Ynglŷn â chaffael o £10,000 neu fwy"
+        additional_conditions: "Amodau ychwanegol"
+        completion_date: "Cwblhewch y prosiect erbyn %{completion_date}"
+        new_completion_date: "Na, y dyddiad newydd yw %{completion_date}"
+        new_evidence: "Unrhyw dystiolaeth newydd"
+        risk_update: "Diweddaru'r risg?"
+        risk_register: "Cofrestr Risg?"
+        about_risks: "Ynglŷn â risg"
+        cash_contributions: "Cyfraniad arian parod?"
+        about_cash_contributions: "Ynglŷn â chyfraniad arian parod?"
+        volunteer_update: "Diweddariad gwirfoddolwyr?"
+        about_volunteers: "Ynglŷn â gwirfoddolwyr"
+        non_cash_cont: "Diweddariad sicrhau cyfraniadau nad yw'n arian parod"
+        about_non_cash_cont: "Ynglŷn â chyfraniad nad yw'n arian parod"

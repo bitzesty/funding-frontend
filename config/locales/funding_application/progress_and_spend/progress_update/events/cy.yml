@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      events:
+        page_title: "Tystiolaeth digwyddiadau"
+        page_heading: "A oes gennych unrhyw gofnodion o weithgareddau neu ddigwyddiadau yr ydych wedi'u trefnu?"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        description: "Gallai cofnod o weithgareddau fod yn rhestr neu'n dabl o ddigwyddiadau gan gynnwys gweithdai, digwyddiadau cymunedol neu weithgareddau gwirfoddol. Mae hyn yn ein helpu i ddeall y gwaith rydych chi wedi bod yn ei wneud."
+        upload_heading: "Uwchlwytho cofnodion digwyddiadau"
+        has_upload_true: "Oes, mae gen i gofnodion o ddigwyddiadau"
+        has_upload_false: "Na, nid oes gennyf gofnodion o ddigwyddiadau eto"
+        upload_button: "Uwchlwytho ffeiliau"

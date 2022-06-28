@@ -1,24 +1,26 @@
+# Care - used by arrears and small M1 payments journeys
 cy:
   payment_confirm_details:
     page_title: "Cadarnhau manylion banc"
     page_heading: "Cadarnhau manylion banc"
-    confirm_details_are_correct: "Cadarnhewch fod manylion eich banc yn gywir a lanlwythwch tystiolaeth o'ch cyfrif. Gall tystiolaeth fod yn ddatganiad banc diweddar, siec neu slip talu i mewn."
-    bank_statements: "Mae angen i ddatganiadau banc fod o fewn y 3 mis diwethaf. Mae angen i ddatganiadau banc ar-lein ddangos logo'r banc, cyfeiriad y wefan, enw'r cyfrif, rhif a chod didoli."
-    page_sub_heading: "Adolygu manylion banc"
+    sub_heading: "Manylion banc"
     name_on_account: "Enw ar gyfrif"
-    account_number: "Rhif cyfrif"
+    account_number: "Rhif y cyfrif"
     sort_code: "Cod didoli"
     building_society_roll_number: "Rhif cofrestr cymdeithas adeiladu"
-    payment_reference: "Cyfeirnod talu"
-    evidence_file_label: "Lanlwytho tystiolaeth o gyfrif banc"
-    no_evidence_uploaded: "Nid ydych wedi ychwanegu tystiolaeth o'ch cyfrif banc"
-    evidence_file: "Tystiolaeth o ffeil cyfrif banc"
+    payment_reference: "Cyfeirnod y taliad"
     buttons:
+      submit_bank_details: "Cyflwyno manylion banc"
+      confirm_bank_details: "Cadarnhau manylion banc"
       add_evidence:
         text: "Ychwanegu tystiolaeth o gyfrif banc"
-      submit_bank_details: "Cyflwyno manylion banc"
     change: "Newid"
     change_span: "manylion banc"
-    warning: "Rhybudd"
-    confirm_responsibility_warning: "Drwy gyflwyno manylion banc, rydych yn cadarnhau eich bod yn cymryd cyfrifoldeb llawn am sicrhau bod manylion y banc yn gywir. Rydych hefyd yn cadarnhau bod y manylion banc a roddwyd gan y sefydliad wedi'u gwirio gan fwy nag un person i sicrhau eu bod yn gywir."
-    
+    warning: "rhybudd"
+    confirm_responsibility_warning: "Drwy gyflwyno manylion banc, rydych yn cadarnhau eich bod yn cymryd cyfrifoldeb llawn am sicrhau bod manylion y banc yn gywir. Rydych hefyd yn cadarnhau bod y manylion banc a roddwyd gan y sefydliad wedi'u gwirio gan fwy nag 1 person i sicrhau eu bod yn gywir."
+    confirm_details_are_correct: "Cadarnhewch fod eich manylion banc yn gywir a lanlwythwch tystiolaeth o'ch cyfrif. Gall tystiolaeth fod yn ddatganiad banc diweddar, siec neu slip talu i mewn."
+    bank_statements: "Mae angen i ddatganiadau banc fod o fewn y 3 mis diwethaf. Mae angen i gyfriflenni banc ar-lein ddangos logo'r banc, cyfeiriad y wefan, enw'r cyfrif, rhif a chod didoli."
+    page_sub_heading: "Adolygu manylion banc"
+    evidence_file_label: "Uwchlwytho tystiolaeth o gyfrif banc"
+    no_evidence_uploaded: "Nid ydych wedi ychwanegu tystiolaeth o'ch cyfrif banc"
+    evidence_file: "Tystiolaeth o ffeil cyfrif banc"

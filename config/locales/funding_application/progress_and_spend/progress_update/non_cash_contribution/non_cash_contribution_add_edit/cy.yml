@@ -1,0 +1,14 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      non_cash_contribution:
+        non_cash_contribution_add_edit:
+          add_page_title: "Ychwanegu cyfraniad nad yw'n arian parod"
+          edit_page_title: "Golygu cyfraniad nad yw'n arian parod"
+          page_heading: "Ychwanegu cyfraniad nad yw'n arian parod"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          description: "Disgrifiad o gyfraniad nad yw'n arian parod"
+          amount: "Gwerth cyfraniad nad yw'n arian parod"
+          amount_hint: "Talgrynnu i'r bunt agosaf"
+          save_btn: "Ychwanegu cyfraniad nad yw'n arian parod"
+          

@@ -1,0 +1,18 @@
+cy:
+  progress_and_spend:
+    payments:
+      high_spend_add_edit:
+        page_title: "Dywedwch wrthym beth rydych chi wedi'i wario"
+        page_heading: "Dywedwch wrthym am wariant dros £%{spend_threshold}"
+        page_caption: "Dywedwch wrthym beth rydych wedi'i wario"
+        before_we_give: "Cyn i ni roi rhan nesaf eich grant i chi, mae angen i chi ddweud wrthym beth rydych wedi'i wario hyd yn hyn a darparu tystiolaeth."
+        add_item_of_spend: "Ychwanegu eitem o wariant"
+        spend_type: "Math o wariant"
+        description_of_spend: "Disgrifiad o'r gwariant"
+        date_of_spend: "Dyddiad gwario"
+        vat: "TAW"
+        upload_evidence_of_spend: "Uwchlwytho tystiolaeth o wariant"
+        this_could_be: "Gallai hyn fod yn dderbynneb, anfoneb neu gopi o sgrin y dderbynneb ddigidol, i ddangos yr hyn a brynwyd gennych gyda'ch arian grant."
+        upload_your_evidence_of_spend: "Uwchlwytho eich tystiolaeth o wariant"
+        add_spend: "Ychwanegu gwariant"
+        without_vat: "heb TAW"

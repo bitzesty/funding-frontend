@@ -1,0 +1,11 @@
+cy: 
+  progress_and_spend:
+    previous_submissions:
+      previously_submitted:
+        page_title: "Diweddariadau Blaenorol"
+        page_caption: "Diweddariad prosiect neu gael taliad"
+        page_heading: "Eich cyflwyniad %{submission_date}"
+        page_description: "Dewiswch adran i weld beth ddywedoch chi wrthym."
+        progress_update_link: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        approved_purpose_link: "Y wybodaeth ddiweddaraf am ddibenion a chanlyniadau y cytunwyd arnynt"
+        spend_link: "Dywedwch wrthym beth rydych chi wedi'i wario"

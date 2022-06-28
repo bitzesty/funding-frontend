@@ -1,0 +1,9 @@
+cy: 
+  progress_and_spend:
+    previous_submissions:
+      previous_submission_dates:
+        page_title: "Diweddariadau Blaenorol"
+        page_caption: "Diweddariad prosiect neu gael taliad"
+        page_heading: "Diweddariadau blaenorol"
+        page_description: "Dewiswch gyflwyniad i weld beth oedd y diweddariad yn ei gynnwys."
+        link_text: "Cyflwynwyd ar %{submission_date}"

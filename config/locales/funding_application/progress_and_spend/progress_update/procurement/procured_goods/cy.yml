@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      procurement:
+        procured_goods:
+          page_title: "Nwyddau wedi'u caffael"
+          page_heading: "Ydych chi wedi caffael unrhyw nwyddau, gwaith neu wasanaethau gwerth £10,000 neu fwy ers eich diweddariad diwethaf?"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          desc: "Mae hyn yn cynnwys gwaith gyda chyflenwyr neu gontractwyr."
+          has_procured_goods_true: "Ydw, rwyf wedi caffael am £10,000 neu fwy"
+          has_procured_goods_false: "Na, nid wyf wedi caffael am £10,000 neu fwy"
+          

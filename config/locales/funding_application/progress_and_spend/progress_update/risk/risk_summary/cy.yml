@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      risk:
+        risk_summary:
+          page_title: "Crynodeb risg"
+          page_heading_one_risk: "Rydych wedi ychwanegu 1 diweddariad risg"
+          page_heading: "Rydych chi wedi ychwanegu %{risk_num} diweddariadau risg"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          add_another_risk_heading: "A oes angen i chi ychwanegu diweddariad risg arall?"
+          yes_radio: "Ydw, mae angen i mi ychwanegu diweddariad risg arall"
+          no_radio: "Na, rwyf wedi ychwanegu'r holl ddiweddariadau risg am y tro"

@@ -1,0 +1,14 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      procurement:
+        procurement_evidence:
+          page_title: "Manylion caffael"
+          page_heading: "Sut ydych chi am ddweud wrthym am eich caffaeliad o £10,000 neu fwy?"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          description: "Gall caffael gynnwys cymharu prisiau, hysbysebu contractau'n agored neu benodi ymgynghorwyr yn deg. Mae hyn yn ein helpu i wybod bod prosiectau'n cael y gwerth gorau am arian."
+          should_include: "Dylai hyn gynnwys disgrifiad manwl o'r broses gaffael ar gyfer pob eitem gan gynnwys briffiau a chymariaethau cost lle bo hynny'n berthnasol."
+          upload_heading: "Uwchlwytho eich dogfennau"
+          has_upload_true: "Rwyf am uwchlwytho adroddiad"
+          has_upload_false: "Rwyf am ychwanegu manylion"
+          upload_button: "Uwchlwytho dogfennau"

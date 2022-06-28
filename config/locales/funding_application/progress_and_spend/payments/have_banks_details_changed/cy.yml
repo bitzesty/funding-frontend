@@ -1,0 +1,9 @@
+cy:
+  progress_and_spend:
+    payments:
+     have_bank_details_changed:
+      page_title: "A yw eich manylion banc wedi newid"
+      page_heading: "A yw manylion banc eich sefydliad wedi newid ers y tro diwethaf i ni eich talu?"
+      page_caption: "Manylion banc"
+      radio_yes: "Ydy, mae manylion banc fy sefydliad wedi newid"
+      radio_no: "Na, nid yw manylion banc fy sefydliad wedi newid"

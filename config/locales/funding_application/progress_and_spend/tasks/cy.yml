@@ -1,0 +1,18 @@
+cy: 
+   progress_and_spend:
+    tasks:
+      page_title: "Rheoli eich prosiect a ddyfarnwyd"
+      page_heading: "Rheoli eich prosiect a ddyfarnwyd"
+      accept_grant: "Derbyn eich Grant"
+      get_payment: "Cael taliad"
+      give_progress_update: "Rhowch ddiweddariad prosiect"
+      payment_and_update: "Cael taliad a rhoi diweddariad prosiect" 
+      links: 
+        progress_update: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        approved_purposes: "Y wybodaeth ddiweddaraf am ddibenion a chanlyniadau cymeradwy"
+        spend: "Dywedwch wrthym beth rydych wedi'i wario"
+        bank_details: "Manylion banc"
+        submit: "Cyflwynwch eich atebion"
+        grant_conditions: "Gweld y Contract Grant"
+        previous_submissions: "Taliadau blaenorol a diweddariadau prosiect"
+      overview: "Trosolwg o'r Prosiect"

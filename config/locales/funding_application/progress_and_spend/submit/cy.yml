@@ -1,0 +1,25 @@
+cy: 
+   progress_and_spend:
+    submit:
+      page_title: "Cadarnhau'r cyflwyniad"
+      page_headings:
+        spend_submitted: "Cyflwynwyd gwariant prosiect"
+        progress_update_submitted: "Cyflwynwyd diweddariad prosiect"
+        bank_details_submitted: "Cyflwynwyd manylion banc"
+        spend_and_bank_submitted: "Gwariant prosiect a manylion banc wedi'u cyflwyno"
+        progress_update_and_bank_details_submitted: "Cyflwynwyd diweddariad prosiect a manylion banc"
+        spend_and_progress_submitted: "Cyflwynwyd gwariant prosiect a diweddariad prosiect"
+        nothing_to_submit: "Dim i'w gyflwyno"
+      confirmation_email: "Rydym wedi anfon e-bost cadarnhau at %{user_email}."
+      what_next: 
+        sub_heading: "Beth sy'n digwydd nesaf"
+        we_will_check: "Byddwn yn gwirio gwariant eich prosiect a byddwn mewn cysylltiad os oes gennym unrhyw gwestiynau."
+        you_will_be_paid: "Os cewch eich cymeradwyo, byddwch yn cael eich talu %{payment_amount}."
+        send_email: "Byddwn yn anfon e-bost atoch i gadarnhau pan fyddwn wedi anfon yr arian."
+        im_will_contact: "Bydd eich Rheolwr Buddsoddi mewn cysylltiad os bydd angen iddynt drafod unrhyw beth ymhellach."
+        after_our_checks: "Ar ôl i ni wneud ein gwiriadau, byddwn yn ceisio eich talu o fewn 10 diwrnod gwaith."
+        bank_details_check: "Byddwn yn gwirio'r manylion ac yn cysylltu os oes gennym unrhyw gwestiynau."
+        any_questions: "Os oes gennych unrhyw gwestiynau, cysylltwch â'ch Rheolwr Buddsoddi."
+      not_told: "Nid ydych wedi dweud wrthym beth rydych wedi'i wario na diweddaru eich manylion banc. Ewch yn ôl i Reoli eich prosiect a ddyfarnwyd i ddechrau eto."
+      need_assistance: "Cysylltwch â'ch Rheolwr Buddsoddi os oes angen unrhyw gymorth arnoch."
+      back_to_manage_projects: "Yn ôl i Reoli eich prosiect a ddyfarnwyd"

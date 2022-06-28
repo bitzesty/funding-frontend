@@ -19,6 +19,7 @@ cy:
       sign_out: "Allgofnodi"
       sign_in: "Mewngofnodi"
       your_account: "Eich cyfrif"
+      update: "Diweddariad"
   generic:
     countries:
       scotland: "Yr Alban"
@@ -27,6 +28,7 @@ cy:
       england: "Lloegr"
     x_yes: "Ie"
     x_no: "Na"
+    x_or: "Neu"
     x_not_sure: "Ddim yn siŵr"
     choose_all_that_apply: "Dewiswch bob un sy'n berthnasol"
     select_all_that_apply: "Dewiswch bob un sy'n berthnasol." 
@@ -40,8 +42,11 @@ cy:
     upload_a_file: "lanlwytho ffeil"
     uploaded_file: "Ffeil wedi'i lanlwytho" 
     upload_files: "Lanlwytho ffeiliau"
+    upload_file: "Uwchlwytho ffeil"
     uploaded_files: "Ffeiliau sydd wedi'u lanlwytho"
     has_been_uploaded: "wedi'i lanlwytho"
+    no_files_uploaded: "Dim ffeiliau wedi'u huwchlwytho"
+    no_file_uploaded: "Dim ffeil wedi'i huwchlwytho"
     select_one_option: "Dewiswch un opsiwn"
     delete: "Dileu"
     remove: "Dileu"
@@ -79,6 +84,7 @@ cy:
     back: "< Yn ôl"
     print_this_page: "Argraffu'r dudalen hon"
     javascript_off: "Mae Javascript wedi'i analluogi ar eich dyfais. Lawrlwythwch y ffurflen hon gan ddefnyddio swyddogaeth argraffu eich porwr."
+    no_text: "dim testun"
   views:
     organisation:
       common:
@@ -720,4 +726,258 @@ cy:
               less_than: "Rhowch flwyddyn o lai na 4000"
             licence_date: 
               invalid: "Rhowch ganiatâd statudol dilys neu ddyddiad trwydded"
-              
+        progress_update:      
+          attributes:
+            has_upload_photos:
+              blank: "Dewiswch os fyddwch yn lanlwytho delwedd"
+            progress_update_photo:
+              blank: "Dewiswch ddelweddau"
+            has_upload_events:
+              blank: "Dewiswch os fyddwch yn lanlwytho cofnodion digwyddiadau"
+            progress_update_event:
+              blank: "Dewiswch gofnod o ddigwyddiadau"
+            has_upload_new_staff:
+              blank: "Dewiswch os fyddwch yn lanlwytho tystiolaeth o staff newydd"
+            progress_update_new_staff:
+              blank: "Dewiswch dystiolaeth"
+            has_procured_goods:
+              blank: "Dewiswch os ydych wedi caffael nwyddau, gwaith neu wasanaethau gwerth £10,000 neu fwy"
+            has_procurement_report_evidence:
+              blank: "Dewiswch os fyddwch yn uwchlwytho adroddiad neu'n ychwanegu manylion"
+            progress_update_procurement_evidence:
+              blank: "Dewiswch adroddiad"
+            add_another_procurement:
+              blank: "Dewiswch a oes angen i chi ychwanegu caffaeliad arall o £10,000 neu fwy"
+            progress_update_additional_grant_condition:
+              checkbox_selection: "Dewiswch amod grant ychwanegol i roi'r wybodaeth ddiweddaraf amdano, neu dewiswch 'Nid oes gennyf ddiweddariad ar hyn eto'"
+            date_correct:
+              blank: "Dewiswch os ydych yn disgwyl cwblhau'r prosiect erbyn y dyddiad a nodwyd"
+            has_statutory_permissions_licence:
+              blank: "Dewiswch a fyddwch yn lanlwytho caniatâd neu drwyddedau "
+            progress_update_statutory_permissions_licence:
+              blank: "Dewiswch caniatâd neu drwydded statudol newydd"
+            has_risk_update:
+              blank: "Dewiswch a oes unrhyw ddiweddariadau risg"
+            has_risk_register:
+              blank: "Dewiswch a fyddwch yn lanlwytho cofrestr risg"
+            progress_update_risk_register:
+              blank: "Dewiswch cofrestr risg"
+            has_cash_contribution_update:
+              blank: "Dewiswch os oes unrhyw ddiweddariadau cyfraniadau arian parod"
+            add_another_risk:
+              blank: "Dewiswch os oes angen i chi ychwanegu diweddariad risg arall"
+            has_volunteer_update: 
+              blank: "Dewiswch os oes unrhyw ddiweddariadau cyfraniadau gwirfoddolwyr"
+            add_another_volunteer:
+              blank: "Dewiswch os hoffech ychwanegu cyfraniad gwirfoddolwr arall"
+            cash_contribution_selected:
+              blank: "Dewiswch y cyfraniad arian parod rydych chi am ei ddiweddaru"
+            has_non_cash_contribution:
+              blank: "Dewiswch a oes unrhyw ddiweddariadau cyfraniadau nad ydynt yn arian parod wedi'u sicrhau"
+            add_another_non_cash_contribution:
+              blank: "Dewiswch a oes angen i chi ychwanegu cyfraniad arall nad yw'n arian parod"
+            progress_update_approved_purpose:
+              checkbox_selection: "Dewiswch Bwrpas Cymeradwy i ddiweddaru arno, neu dewiswch 'Nid oes gennyf ddiweddariad ar y rhain eto'"
+            has_digital_outputs:
+              inclusion: "Dewiswch a ydych wedi creu allbynnau digidol"
+        progress_update_procurement:
+          attributes:
+            name:
+              too_long: "Ni all enw cyflenwr, contractwr neu ymgynghorydd fod yn fwy na 120 nod"
+              too_short: "Rhowch gyflenwr, contractwr neu ymgynghorydd"
+              blank: "Rhowch gyflenwr, contractwr neu ymgynghorydd"
+            description: 
+              too_long: "ni all disgrifiad o'r eitem neu'r gwasanaeth fod yn fwy na 150 nod"
+              too_short: "Rhowch ddisgrifiad o'r eitem neu'r gwasanaeth"
+              blank: "Rhowch ddisgrifiad o'r eitem neu'r gwasanaeth"
+            date_day: 
+              not_a_number: "Rhowch y diwrnod"
+              greater_than: "Ni all gwerth dydd fod yn llai nag 1"
+              less_than: "Ni all gwerth diwrnod fod yn fwy na 31"
+            date_month: 
+              not_a_number: "Rhowch y mis"
+              greater_than: "Ni all gwerth mis fod yn llai nag 1"
+              less_than: "Ni all gwerth mis fod yn fwy na 12"
+            date_year: 
+              not_a_number: "Rhowch y flwyddyn"
+              greater_than: "Rhowch flwyddyn o 1700 neu fwy"
+              less_than: "Rhowch flwyddyn o lai na 4000"
+            amount:
+              less_than: "Swm prynu yn rhy fawr"
+              greater_than: "Nodwch swm y pryniant £10,000 neu fwy"
+              not_a_number: "Nodwch swm y pryniant £10,000 neu fwy"
+              blank: "Nodwch swm y pryniant £10,000 neu fwy"
+            lowest_tender:
+              inclusion: "Dewiswch ai hwn oedd y tendr isaf"
+            supplier_justification:
+              blank: "Rhowch ddisgrifiad o sut roedd hyn yn werth am arian"
+        progress_update_additional_grant_condition:
+          attributes:
+            progress:
+              blank: "Rhowch y wybodaeth ddiweddaraf am amod grant ychwanegol"
+              too_long: "Mae'n rhaid i'r disgrifiad fod yn 300 gair neu lai"
+        progress_update_new_expiry_date:
+          attributes:
+            description:
+              too_long: "Mae'n rhaid i'r esboniad fod yn 50 gair neu'n llai"
+              too_short: "Rhowch esboniad ynghylch pam mae angen mwy o amser arnoch"
+              wag: "Rhowch esboniad ynghylch pam mae angen mwy o amser arnoch"
+            date_day: 
+              not_a_number: "Rhowch y diwrnod"
+              greater_than: "Ni all gwerth dydd fod yn llai nag 1"
+              less_than: "Ni all gwerth diwrnod fod yn fwy na 31"
+            date_month: 
+              not_a_number: "Rhowch y mis" 
+              greater_than: "Ni all gwerth mis fod yn llai nag 1"
+              less_than: "Ni all gwerth mis fod yn fwy na 12"
+            date_year: 
+              not_a_number: "Rhowch y flwyddyn"
+              greater_than: "Rhowch flwyddyn o 1700 neu fwy"
+              less_than: "Rhowch flwyddyn o lai na 4000"
+            full_date:
+              invalid: "Rhowch ddyddiad cwblhau prosiect dilys"
+        progress_update_risk:
+          attributes:
+            description:
+              blank: "Rhowch y risg a nodwyd"
+              too_long: "Mae'n rhaid i'r risg a nodir fod yn 50 gair neu lai"
+            likelihood:
+              blank: "Dewiswch debygolrwydd ar gyfer y risg hon"
+            impact:
+              blank: "Dewis effaith y risg hon"
+            is_still_risk:
+              inclusion: "Dewiswch a yw hyn yn dal yn risg"
+            yes_still_a_risk_description:
+              blank: "Rhowch pa gamau y byddwch yn eu cymryd"
+              too_long: "Rhowch eich gweithredoedd mewn 50 gair neu lai"
+            no_still_a_risk_description:
+              blank: "Rhowch pa gamau rydych chi wedi'u cymryd"
+              too_long: "Rhowch eich gweithredoedd mewn 50 gair neu lai"
+        progress_update_volunteer:
+          attributes:
+            description:
+              blank: "Rhowch ddisgrifiad o dasg gwirfoddolwyr"
+              too_long: "Mae'n rhaid i'r disgrifiad fod yn 50 gair neu lai"
+            hours:
+              less_than: "Mae'n rhaid i'r oriau a dreulir ar dasg fod yn nifer, fel 4"
+              greater_than: "Mae'n rhaid i'r oriau a dreulir ar dasg fod yn nifer, fel 4"
+              not_a_number: "Mae'n rhaid i'r oriau a dreulir ar dasg fod yn nifer, fel 4"
+              blank: "Rhowch gyfanswm yr oriau a dreulir ar y dasg hon"
+        progress_update_cash_contribution:
+          attributes:
+            received_amount_expected:
+              inclusion: "Dewiswch a ydych wedi derbyn y cyfanswm a ddisgwylir"
+            will_receive_amount_expected:
+              inclusion: "Dewiswch a fyddwch yn derbyn y cyfanswm a ddisgwylir"
+            amount_received_so_far:
+              blank: "Nodwch y swm a dderbyniwyd hyd yn hyn"
+              greater_than: "Rhowch swm o sero neu fwy"
+              less_than: "Rhowch swm sy'n llai na 2147483648"
+              not_a_number: "Mae'n rhaid i'r swm fod yn rhif, fel 1000"
+            date_day:
+              not_a_number: "Rhowch y diwrnod"
+              greater_than: "Ni all gwerth dydd fod yn llai nag 1"
+              less_than: "Ni all gwerth diwrnod fod yn fwy na 31"
+            date_month:
+              not_a_number: "Rhowch y mis"
+              greater_than: "Ni all gwerth mis fod yn llai nag 1"
+              less_than: "Ni all gwerth mis fod yn fwy na 12"
+            date_year:
+              not_a_number: "Rhowch y flwyddyn"
+              greater_than: "Rhowch flwyddyn o 1700 neu fwy"
+              less_than: "Rhowch flwyddyn o lai na 4000"
+            date_amount_received:
+              invalid: "Rhowch ddyddiad dilys ar gyfer pryd rydych yn disgwyl derbyn y cyfanswm"
+            reason_amount_expected_not_received:
+              blank: "Rhowch fanylion pam na fyddwch yn derbyn y cyfanswm a ddisgwylir"
+              too_long: "Mae'n rhaid i'r esboniad fod yn 50 gair neu'n llai"
+        progress_update_non_cash_contribution:
+          attributes:
+            description:
+              blank: "Rhowch ddisgrifiad o gyfraniad nad yw'n arian parod"
+              too_long: "Mae'n rhaid i'r disgrifiad fod yn 50 gair neu lai"
+            value:
+              less_than: "Mae'r swm a gofnodwyd yn rhy fawr"
+              greater_than: "Mae'n rhaid i werth fod yn rhif, er enghraifft 100"
+              not_a_number: "Mae'n rhaid i werth fod yn rhif, er enghraifft 100"
+              blank: "Mae'n rhaid i werth fod yn rhif, er enghraifft 100"
+        progress_update_approved_purpose:
+          attributes:
+            progress:
+              blank: "Rhowch y diweddariad at Ddiben Cymeradwy"
+              too_long: "Mae'n rhaid i'r disgrifiad fod yn 300 gair neu lai"
+        progress_update_demographic:
+          attributes:
+            explanation:
+              gwag: "Rhowch y wybodaeth ddiweddaraf am sut mae ystod ehangach o bobl yn cymryd rhan yn y prosiect"
+              too_long: "Mae'n rhaid i'r disgrifiad fod yn 300 gair neu lai"
+        progress_update_outcome:
+          attributes:
+            all:
+              blank: "Rhowch y diweddariad ar gyfer canlyniad eich prosiect"
+              too_long: "Mae'n rhaid i'r disgrifiad fod yn 300 gair neu lai"
+        payment_request:
+          attributes:
+            spend_journeys_to_do:
+              choose: "Dewiswch wariant i ddiweddaru arno, neu dewiswch 'Dim diweddariad gwariant'"
+              blank: 'Dewiswch pa wariant rydych chi am ddweud wrthym amdano'
+            lower_spend_chosen:
+              blank: "Dewiswch unrhyw fathau o wariant rydych chi am ddweud wrthym amdanynt"
+            has_bank_details_update:
+              blank: "Dewiswch a yw manylion banc eich sefydliad wedi newid"
+            table_of_spend_file:
+              inclusion: "Dewis tabl gwariant"
+            add_another_high_spend:
+              inclusion: "Dewiswch a oes angen i chi ychwanegu eitem arall o wariant dros £%{spend_amount}"
+            add_another_low_spend:
+              inclusion: "Dewiswch a oes angen i chi ychwanegu eitem arall o wariant"
+            add_or_change_spend:
+              inclusion: "Dewiswch a ydych am ychwanegu neu newid gwariant neu barhau heb wneud unrhyw newidiadau"
+        low_spend:
+          attributes:
+            total_amount:
+              not_a_number: "Nodwch gyfanswm y gwariant"
+              greater_than: "Nodwch gyfanswm y gwariant"
+            vat_amount:
+              not_a_number: "Rhowch gyfanswm y TAW neu rhowch 0 os nad oes TAW"
+              greater_than: "Rhowch gyfanswm y TAW neu rhowch 0 os nad oes TAW"
+        high_spend:
+          attributes:
+            cost_heading:
+              invalid: "Dewiswch fath o wariant"
+            description:
+              blank: "Rhowch ddisgrifiad o'r gwariant"
+            date_day:
+              not_a_number: "Rhowch y diwrnod"
+              greater_than: "Ni all gwerth dydd fod yn llai nag 1"
+              less_than: "Ni all gwerth diwrnod fod yn fwy na 31"
+            date_month:
+              not_a_number: "Rhowch y mis"
+              greater_than: "Ni all gwerth mis fod yn llai nag 1"
+              less_than: "Ni all gwerth mis fod yn fwy na 12"
+            date_year:
+              not_a_number: "Rhowch y flwyddyn"
+              greater_than: "Rhowch flwyddyn o 1700 neu fwy"
+              less_than: "Rhowch flwyddyn o lai na 4000"
+            full_date:
+              invalid: "Rhowch ddyddiad gwariant dilys"
+            amount:
+              not_a_number: "Nodwch faint o wariant"
+              greater_than: "Nodwch wariant sy'n fwy na £500"
+            vat_amount:
+              not_a_number: "Rhowch gyfanswm y TAW neu rhowch 0 os nad oes TAW"
+              greater_than: "Rhowch gyfanswm y TAW neu rhowch 0 os nad oes TAW"
+            evidence_of_spend_file:
+              inclusion: "Dewis tystiolaeth o wariant"
+        progress_update_digital_output:
+          attributes:
+            description:
+              too_long: "Mae'n rhaid i'r disgrifiad fod yn %{word_count} geiriau neu lai"
+              blank: "Rhowch ddisgrifiad byr o allbynnau digidol a dolenni gwefannau"
+        progress_update_funding_acknowledgement:
+          attributes:
+            all:
+              too_long: "Mae'n rhaid i'r disgrifiad fod yn %{word_count} geiriau neu lai"
+              blank: "Rhowch y wybodaeth ddiweddaraf am sut rydych yn cydnabod eich grant"
+            no_update:
+              selections: "Dewiswch sut rydych yn cydnabod eich grant, neu dewiswch 'Nid oes gennyf ddiweddariad eto'"

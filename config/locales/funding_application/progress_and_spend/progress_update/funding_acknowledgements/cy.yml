@@ -1,0 +1,17 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      funding_acknowledgements:
+        page_title: "Cydnabyddiaeth ariannol"
+        page_heading: "Sut ydych chi'n cydnabod eich grant gan Gronfa Treftadaeth y Loteri Genedlaethol?"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        page_hint: "Dibenion Cymeradwy yw'r hyn y cytunwyd i roi grant i chi ar ei gyfer. Dywedwch wrthym am y gwaith rydych chi wedi bod yn ei wneud hyd yn hyn i gyflawni'r rhain. Mae hyn yn ein helpu i ddeall a yw nodau'r prosiect yn cael eu cyflawni, a sut."
+        tell_us_about: "Dywedwch wrthym am y gydnabyddiaeth hon"
+        grant_guidance_html: "Cysylltwch â'ch Rheolwr Buddsoddi os oes angen help arnoch neu %{href}."
+        grant_guidance_href: "darllenwch y canllawiau cydnabod eich grant"
+        signs: "Ar y safle gan gynnwys arwyddion, byrddau gwybodaeth a byrddau safleoedd adeiladu"
+        publications: "Mewn cyhoeddiadau a deunyddiau hyrwyddo"
+        events: "Mewn digwyddiadau"
+        online: "Ar-lein gan gynnwys ar eich gwefan a'ch cyfryngau cymdeithasol"
+        media: "Yn y cyfryngau a chysylltiadau cyhoeddus"
+        no_update: "Nid oes gennyf ddiweddariad eto"

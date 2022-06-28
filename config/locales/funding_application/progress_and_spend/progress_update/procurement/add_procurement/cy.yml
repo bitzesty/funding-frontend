@@ -1,0 +1,18 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      procurement:
+        add_procurement:
+          page_title: "Ychwanegu Caffael"
+          page_heading: "Ychwanegu caffaeliad o £10,000 neu fwy"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          name: "Enw'r cyflenwr, contractwr neu ymgynghorydd"
+          desc: "Disgrifiad byr o'r eitem neu'r gwasanaeth"
+          purchase_date: "Dyddiad prynu neu ddyddiad y dyfarnwyd y contract i chi"
+          amount: "Cyfanswm"
+          lowest_tender: "Ai dyma'r tendr isaf?"
+          is_lowest_tender: "Ie, dyma'r tendr isaf"
+          is_not_lowest_tender: "Na, nid dyma'r tendr isaf"
+          supplier_justification: "Disgrifiwch sut roedd y cyflenwr buddugol yn werth am arian"
+          invalid_date: "Rhowch ddyddiad dilys"
+          

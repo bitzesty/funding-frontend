@@ -1,0 +1,11 @@
+cy:
+  progress_and_spend:
+    payments:
+      what_spend:
+        page_title: "Pa wariant"
+        page_heading: "Pa wariant ydych chi am ddweud wrthym amdano?"
+        page_caption: "Dywedwch wrthym beth rydych wedi'i wario"
+        page_hint: "Bydd angen i chi uwchlwytho anfonebau am yr holl wariant dros £500. Ar gyfer gwariant llai na £500, gofynnir i chi lanlwytho tabl sy'n dangos cyfansymiau ar gyfer y mathau o wariant a ddewiswch."
+        spend_over: "Gwariant  dros £%{spend_amount}"
+        spend_under: "Gwariant llai na £%{spend_amount}"
+        no_spend_update: "Dim diweddariad gwariant"

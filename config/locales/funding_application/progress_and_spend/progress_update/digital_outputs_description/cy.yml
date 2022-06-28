@@ -1,0 +1,14 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      digital_outputs_description:
+        page_title: "Allbynnau Digidol"
+        page_heading: "Ble allwn ni ddod o hyd i'r allbynnau digidol?"
+        page_caption: "Dibenion a chanlyniadau cymeradwy"
+        all_digital_outputs_html: "Mae angen i'r holl allbynnau digidol a ariennir gennym fod ar gael i'r cyhoedd, yn hygyrch, a %{href} (mae'n agor mewn tab newydd)."
+        openly_licenced_href: "wedi'i drwyddedu'n agored"
+        brief_description: "Disgrifiad byr o allbynnau digidol a dolenni gwefannau"
+        brief_description_hint: "Efallai bod gennych fwy nag un."
+        radio_yes: "Ydw, rwyf wedi creu allbynnau digidol"
+        radio_no: "Na, nid wyf wedi creu allbynnau digidol"
+        contact: "Cysylltwch â'ch Rheolwr Buddsoddi os oes gennych gwestiynau am allbynnau digidol."

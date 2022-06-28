@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    payments:
+      low_spend_add_edit:
+        page_title: "Ychwanegu eitem o wariant"
+        page_heading: "I gyd, faint ydych chi wedi'i wario ar %{cost_heading}?"
+        page_caption: "Ychwanegu eitem o wariant"
+        page_hint: "Ychwanegwch yr eitemau o wariant sy'n llai na £%{spend_amount} o dan y math hwn o wariant i gael un cyfanswm. Dylech gynnwys y cyfanswm ar gyfer TAW ar wahân."
+        total_amount: "Cyfanswm"
+        without_vat: "heb TAW"
+        vat_amount: "Cyfanswm TAW"
+        when_you_have_finished: "Pan fyddwch wedi gorffen cyflwyno mathau o wariant, byddwn yn dangos tabl i chi gyda'r hyn rydych wedi'i ddweud wrthym. Gallwch wirio neu newid eich atebion yno."

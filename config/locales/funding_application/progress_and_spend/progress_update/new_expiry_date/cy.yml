@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      new_expiry_date:
+        page_title: "Newid dyddiad cwblhau"
+        page_heading: "Gofyn am newid dyddiad y daw'r grant i ben"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        new_date_proposed: "Dyddiad newydd arfaethedig"
+        for_example: "Er enghraifft, 23 3 2026"
+        briefly_explain: "Esboniwch yn fyr pam fod angen mwy o amser arnoch"
+        after_you_submit: "Ar ôl i chi gyflwyno diweddariad eich prosiect, bydd eich Rheolwr Buddsoddi mewn cysylltiad i siarad am y cais a rhoi gwybod i chi am y penderfyniad."
+        date_after_error: "Mae'n rhaid i'r dyddiad newydd a gynigir fod ar ôl %{current_completion_date}"

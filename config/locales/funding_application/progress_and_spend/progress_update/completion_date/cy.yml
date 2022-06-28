@@ -1,0 +1,16 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      completion_date:
+        page_title: "Dyddiad cwblhau"
+        page_heading: "Ydych chi'n dal i ddisgwyl cwblhau eich prosiect erbyn %{date}?"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        tasks:
+          text: "Erbyn y dyddiad hwn, mae angen i chi:"
+          list:
+            finish: "gorffen eich gweithgareddau prosiect"
+            evaluate: "gwerthuso eich prosiect"
+            request: "gofyn am eich taliad olaf"
+        radio_yes: "Ydw, rwy'n disgwyl cwblhau'r prosiect erbyn %{date}"
+        radio_no: "Na, mae angen mwy o amser arnaf i gwblhau'r prosiect"
+        changes: "Mae'n rhaid i'ch Rheolwr Buddsoddi gymeradwyo newidiadau i ddyddiadau dod i ben y grant. Pan fyddwch yn bwrw ymlaen, byddwn yn gofyn i chi ddweud wrthym am eich cais."

@@ -1,0 +1,13 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      volunteer:
+        volunteer_add_edit:
+          add_page_title: "Ychwanegu cyfraniad gwirfoddolwyr"
+          edit_page_title: "Golygu cyfraniad gwirfoddolwyr"
+          page_heading: "Ychwanegu cyfraniad gwirfoddolwyr"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          description: "Disgrifiad o dasg y gwirfoddolwr"
+          amount: "Cyfanswm yr oriau a dreulir ar y dasg hon"
+          amount_hint: "Talgrynnwch i'r awr agosaf"
+          hours: "oriau"

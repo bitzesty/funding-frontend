@@ -8,7 +8,7 @@ en-GB:
           page_caption: "Tell us how the project is going"
           name: "Name of supplier, contractor or consultant"
           desc: "Brief description of item or service"
-          purchase_date: "Date of purchase or date you awarded the contract "
+          purchase_date: "Date of purchase or date you awarded the contract"
           amount: "Amount"
           lowest_tender: "Was this the lowest tender?"
           is_lowest_tender: "Yes, this was the lowest tender"

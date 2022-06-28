@@ -1,0 +1,8 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      demographic:
+        page_title: "Sut ydych chi'n cael ystod ehangach o bobl i gymryd rhan yn y prosiect?"
+        page_heading: "Sut ydych chi'n cael ystod ehangach o bobl i gymryd rhan yn y prosiect?"
+        page_caption: "Dibenion a chanlyniadau cymeradwy"
+        your_answer_should: "Dylai eich ateb esbonio sut mae proffil eich cynulleidfa neu'ch gwirfoddolwr wedi newid yn ystod y prosiect."

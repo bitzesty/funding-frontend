@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      volunteer:
+        volunteers_summary:
+          page_title: "Crynodeb o wirfoddolwyr"
+          page_heading_one_volunteer: "Rydych wedi ychwanegu 1 cyfraniad gwirfoddolwr"
+          page_heading: "Rydych wedi ychwanegu %{volunteer_num} cyfraniadau gwirfoddolwyr"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          add_another_volunteer_heading: "A oes angen i chi ychwanegu diweddariad gwirfoddol arall?"
+          yes_radio: "Oes, mae angen i mi ychwanegu diweddariad gwirfoddol arall"
+          no_radio: "Na, rwyf wedi ychwanegu'r holl ddiweddariadau gwirfoddolwyr am y tro"

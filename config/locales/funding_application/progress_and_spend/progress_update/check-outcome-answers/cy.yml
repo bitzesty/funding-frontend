@@ -1,0 +1,13 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      check_outcome_answers:
+        page_title: "Gwiriwch eich atebion"
+        page_heading: "Gwiriwch eich atebion"
+        page_caption: "Dibenion a chanlyniadau cymeradwy"
+        approved_purposes: "Dibenion Cymeradwy"
+        project_outcomes: "Canlyniadau'r prosiect"
+        no_update_yet: "Nid oes gennyf ddiweddariad ar y rhain eto"
+        digital_outputs: "Allbynnau digidol"
+        funding_acknowledgement: "Cydnabod cyllid"
+        no_funding_acknowledgement: "Nid oes gennyf y wybodaeth ddiweddaraf am gydnabyddiaeth"

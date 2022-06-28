@@ -1,0 +1,13 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      cash_contribution:
+        cash_contribution_now:
+          page_title: "Diweddariad cyfraniadau arian parod"
+          page_heading: "Diweddariad cyfraniadau arian parod"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          amount_expected: "Swm a ddisgwylir: "
+          have_you_received: "Ydych chi wedi derbyn y cyfanswm a ddisgwylir?"
+          radio_yes: "Ydw, rwyf wedi derbyn y cyfanswm a ddisgwylir"
+          radio_no: "Na, nid wyf wedi derbyn y cyfanswm eto"
+          amount_so_far: "Swm a dderbyniwyd hyd yn hyn"

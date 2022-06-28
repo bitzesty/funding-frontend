@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      photos:
+        page_title: "Tystiolaeth ffotograffig"
+        page_heading: "Oes gennych chi unrhyw luniau i ddangos camau a digwyddiadau eich prosiect?"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        description: "Gallai hyn gynnwys pobl sy'n mynychu eich gweithdai, cynnydd gwaith adeiladu neu sgrinluniau o waith digidol."
+        upload_heading: "Uwchlwytho lluniau"
+        has_upload_true: "Oes, mae gen i luniau i'w huwchlwytho"
+        has_upload_false: "Na, does gen i ddim lluniau eto"
+        upload_button: "Uwchlwytho ffeiliau"

@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      procurement:
+        procurements_summary:
+          page_title: "Crynodeb o gaffaeliadau"
+          page_heading: "Rydych wedi ychwanegu %{procurement_num} caffaeliadau"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          add_another_procurement_heading: "A oes angen i chi ychwanegu caffaeliad arall o £10,000 neu fwy?"
+          add_another_true: "Oes, mae angen i mi ychwanegu caffaeliad arall"
+          add_another_false: "Na, rwyf wedi ychwanegu fy holl gaffaeliadau am y tro"
+          

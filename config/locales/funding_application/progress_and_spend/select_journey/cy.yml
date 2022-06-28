@@ -1,0 +1,19 @@
+cy: 
+  progress_and_spend:
+    select_journey:
+      page_title: "Cynnydd a Gwariant - Dewis Taith"
+      page_heading: "Beth ydych chi am ei wneud?"
+      page_caption: "Cael taliad neu roi diweddariad prosiect"
+      check_boxes:
+        select: "Dewiswch bopeth sy'n berthnasol:"
+        get_payment_heading: "Cael taliad"
+        get_payment_desc: "Dywedwch wrthym am wariant y prosiect a manylion eich banc."
+        project_update_heading: "Rhowch ddiweddariad prosiect"
+        project_update_desc: "Dywedwch wrthym am gynnydd eich prosiect, dibenion cymeradwy a chanlyniadau."
+      project_information: "Gwybodaeth am y prosiect"
+      project_name: "Enw'r prosiect: "
+      project_reference_number: "Cyfeirnod y prosiect:"
+      grant_paid: "Grant wedi'i dalu: £"
+      remaining_grant: "Grant sy'n weddill: £"
+      grant_expiry_date: "Dyddiad y daw'r grant i ben: "
+      previous_submissions_link: "Taliadau blaenorol a diweddariadau prosiect"

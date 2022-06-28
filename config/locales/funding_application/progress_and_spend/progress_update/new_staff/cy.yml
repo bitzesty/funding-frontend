@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      new_staff:
+        page_title: "Tystiolaeth staff newydd"
+        page_heading: "Ydych chi wedi cyflogi unrhyw staff newydd ers eich diweddariad diwethaf?"
+        page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+        description: "Mae'r dystiolaeth yn cynnwys disgrifiadau swydd, CVs neu gontractau cyflogaeth ar gyfer rolau staff y talwyd amdanynt gyda chronfeydd grant."
+        upload_heading: "Uwchlwytho eich tystiolaeth"
+        has_upload_true: "Ydw, rwyf wedi cyflogi staff newydd"
+        has_upload_false: "Na, nid wyf wedi cyflogi staff newydd"
+        upload_button: "Uwchlwytho tystiolaeth"

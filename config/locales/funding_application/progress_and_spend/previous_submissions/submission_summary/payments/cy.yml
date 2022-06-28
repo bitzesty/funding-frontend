@@ -1,0 +1,13 @@
+cy: 
+  progress_and_spend:
+    previous_submissions:
+      submission_summary:
+        payments_summary:
+          page_title: "Crynodeb o'r cyflwyniad taliadau'"
+          page_heading: "Gwariant rydych chi wedi'i ddweud wrthym hyd yn hyn"
+          amount: "Cyfanswm"
+          vat_amount: "Swm TAW"
+          total_costs: "Cyfanswm y costau"
+          spend_over: "Gwariant mwy na £%{spend_amount}"
+          spend_under: "Gwariant llai na £%{spend_amount}"
+          no_spend: "Dim gwariant wedi'i gyflwyno"

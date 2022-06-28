@@ -1,0 +1,10 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      cash_contribution:
+        cash_contribution_question:
+          page_title: "Cyfraniad arian parod"
+          page_heading: "A oes unrhyw ddiweddariadau cyfraniadau arian parod?"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          radio_yes: "Oes, mae gen i ddiweddariadau cyfraniadau arian parod"
+          radio_no: "Na, nid oes gennyf ddiweddariadau cyfraniadau arian parod"

@@ -1,0 +1,11 @@
+cy:
+  progress_and_spend:
+    payments:
+      spend_so_far:
+        page_title: "Gwariant hyd yn hyn"
+        page_heading: "Yr hyn rydych chi wedi'i ddweud wrthym hyd yn hyn"
+        page_caption: "Ychwanegu eitem o wariant"
+        what_do_you_want_to_do: "Beth ydych chi am ei wneud?"
+        radio_yes: "Rydw i eisiau ychwanegu neu newid gwariant"
+        radio_no: "Rydw i eisiau parhau heb wneud unrhyw newidiadau"
+        table_of_spend: "Tabl gwariant"

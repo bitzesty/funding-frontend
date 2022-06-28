@@ -1,0 +1,10 @@
+cy:
+  progress_and_spend:
+    payments:
+      low_spend_select:
+        page_title: "Dywedwch wrthym beth rydych chi wedi'i wario"
+        page_heading: "Dywedwch wrthym am wariant llai na £%{spend_amount}"
+        page_caption: "Dywedwch wrthym beth rydych wedi'i wario"
+        page_hint: "Dywedwch wrthym am eich gwariant llai na £%{spend_amount} o dan eich gwahanol fathau o wariant. Er enghraifft, os oes gennych 3 anfoneb o £200 am gyhoeddusrwydd a hyrwyddo, gallwch ddweud wrthym eich bod wedi gwario £600 ar gyhoeddusrwydd a dyrchafiad."
+        spend_type: "Math o wariant"
+        select_spends: "Dewiswch unrhyw fathau o wariant rydych chi am ddweud wrthym amdanynt"

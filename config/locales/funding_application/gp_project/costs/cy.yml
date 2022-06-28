@@ -22,6 +22,7 @@ cy:
         6: "Gall hyn fod yn amcangyfrif"
         7: "Cymorth gyda mathau o gost"
         8: "Os ydych wedi gorffen ychwanegu eich holl gostau"
+        help_with_spend_types: "Cymorth gyda mathau o wariant"
       th:
         1: "Math o gost"
         2: "Disgrifiad"

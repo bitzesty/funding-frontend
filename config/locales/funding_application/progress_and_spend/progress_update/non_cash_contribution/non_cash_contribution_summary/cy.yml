@@ -1,0 +1,12 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      non_cash_contribution:
+        non_cash_contributions_summary:
+          page_title: "Crynodeb o gyfraniadau nad ydynt yn arian parod"
+          page_heading_one_non_cash_contribution: "Rydych wedi ychwanegu 1 cyfraniad nad yw'n arian parod"
+          page_heading: "Rydych wedi ychwanegu %{non_cash_contribution_num} cyfraniadau nad ydynt yn arian parod"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          add_another_non_cash_contribution_heading: "A oes angen i chi ychwanegu cyfraniad arall nad yw'n arian parod?"
+          yes_radio: "Ydw, mae angen i mi ychwanegu cyfraniad arall nad yw'n arian parod"
+          no_radio: "Na, nid oes angen i mi ychwanegu cyfraniad arall nad yw'n arian parod"

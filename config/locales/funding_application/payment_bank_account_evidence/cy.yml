@@ -1,0 +1,21 @@
+cy:
+  payment_bank_account_evidence:
+    page_title: "'Tystiolaeth o fanylion banc'"
+    page_heading: "Uwchlwytho tystiolaeth o fanylion banc"
+    caption: "Manylion banc"
+    description: "Dylai enw'r cyfrif banc yn eich tystiolaeth a lanlwythwyd gennych gyfateb i enw'r sefydliad o'ch cais."
+    accordion: 
+      heading: "Pam mae angen tystiolaeth o'r cyfrif banc arnom?"
+      bullet_heading: "Rydym yn defnyddio hwn i:"
+      bullet_one: "cadarnhau bod gennych gyfrif banc y gallwn dalu'r arian iddo,"
+      bullet_two: "gwirio fod gennym y manylion cyfrif cywir ar gyfer eich taliadau."
+    sub_heading: "Pa dystiolaeth y gallwn ei derbyn"
+    evidence_bullet_one: "Gall tystiolaeth fod yn ddatganiad banc diweddar, siec, neu slip talu i mewn."
+    evidence_bullet_two: "Mae angen i ddatganiadau banc fod o fewn y 3 mis diwethaf."
+    evidence_bullet_three: "Mae angen i ddatganiadau banc ar-lein ddangos logo'r banc, cyfeiriad y wefan, enw'r cyfrif, rhif a chod didoli."
+    evidence_file_label: "Uwchlwytho tystiolaeth o gyfrif banc"
+    no_evidence_uploaded: "Nid ydych wedi ychwanegu tystiolaeth o'ch cyfrif banc"
+    evidence_file: "Tystiolaeth o ffeil cyfrif banc"
+    buttons:
+      add_evidence:
+        text: "Ychwanegu tystiolaeth o gyfrif banc"

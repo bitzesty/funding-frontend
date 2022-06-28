@@ -1,0 +1,16 @@
+cy:
+  progress_and_spend:
+    payments:
+      low_spend_summary:
+        page_title: "Crynodeb o'r gwariant"
+        page_heading: "Gwariant llai na £%{spend_amount}"
+        page_caption: "Ychwanegu eitem o wariant"
+        your_project_spend: "Gwariant eich prosiect"
+        spend_type: "Math o wariant"
+        total_spend: "Cyfanswm y gwariant"
+        including_vat: "Gan gynnwys TAW"
+        update_total: "Cyfanswm y diweddariad"
+        no_spend: "Nid ydych wedi ychwanegu unrhyw wariant sy'n llai na £%{spend_amount}"
+        do_you_need_to: "Oes angen i chi ychwanegu gwariant arall llai na £%{spend_amount}?"
+        radio_yes: "Ydw, mae angen i mi ychwanegu gwariant arall llai na £%{spend_amount}"
+        radio_no: "Na, nid oes angen i mi ychwanegu gwariant arall sy'n llai na £%{spend_amount}"

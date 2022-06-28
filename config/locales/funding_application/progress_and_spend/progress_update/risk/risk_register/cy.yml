@@ -1,0 +1,14 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      risk:
+        risk_register:
+          page_title: "Cofrestr Risg"
+          page_heading: "Oes gennych chi gofrestr risg?"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          a_risk_register_is: "Mae cofrestr risg yn ddogfen sy'n rhestru'r holl risgiau a nodwyd ac a flaenoriaethir yn nhrefn eu pwysigrwydd."
+          upload_heading: "Uwchlwytho cofrestr risg"
+          has_upload_true: "Oes, mae gen i gofrestr risg"
+          has_upload_false: "Na, nid oes gennyf gofrestr risg"
+          upload_button: "Uwchlwytho cofrestr risg"
+          radio_no_hint: "Os nad oes gennych gofrestr risg, gallwch ddweud wrthym am eich risgiau ar y dudalen nesaf."

@@ -1,0 +1,11 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      risk:
+        risk_question:
+          page_title: "Risg"
+          page_heading: "A oes unrhyw ddiweddariadau risg?"
+          page_caption: "Dywedwch wrthym sut mae'r prosiect yn mynd"
+          page_hint: "Gallai hyn fod yn risgiau neu'n ddiweddariadau newydd i'r risgiau rydych eisoes wedi dweud wrthym amdanynt."
+          radio_yes: "Oes, mae gen i ddiweddariadau risg"
+          radio_no: "Na, nid oes gennyf ddiweddariadau risg"

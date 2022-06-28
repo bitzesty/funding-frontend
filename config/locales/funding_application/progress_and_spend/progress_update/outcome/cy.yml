@@ -1,0 +1,16 @@
+cy:
+  progress_and_spend:
+    progress_update:
+      outcome:
+        page_title: "Canlyniadau'r prosiect"
+        page_heading: "Disgrifiwch sut rydych chi'n cyflawni canlyniadau eich prosiect?"
+        page_caption: "Dibenion a chanlyniadau cymeradwy"
+      outcome_type:
+        improving_condition: "Bydd treftadaeth mewn cyflwr gwell"
+        explaining_heritage: "Bydd treftadaeth yn cael ei nodi a'i hegluro'n well"
+        developing_skills: "Bydd pobl wedi datblygu sgiliau"
+        learning_heritage: "Bydd pobl wedi dysgu am dreftadaeth, gan arwain at newid mewn syniadau a gweithredoedd"  
+        greater_wellbeing: "Bydd llesiant pobl wedi gwella"
+        improving_resilience: "Bydd y sefydliad a ariennir yn fwy gwydn"
+        making_better_place: "Bydd yr ardal leol yn lle gwell i fyw, gweithio neu ymweld"
+        boosting_economy: "Bydd yr economi leol yn cael hwb"
