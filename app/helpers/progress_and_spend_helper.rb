@@ -1233,7 +1233,7 @@ module ProgressAndSpendHelper
   def clear_approved_purposes_with_no_progress_update(progress_update)
     
     progress_update.progress_update_approved_purpose.each do |ap|
-      ap.destroy_all unless ap.progress.present?
+      ap.destroy unless ap.progress.present?
     end
 
   end

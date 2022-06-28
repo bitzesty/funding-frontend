@@ -24,31 +24,53 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::ApprovedPurposesCont
   
     def update()
 
-      progress_update.update(permitted_params(params))
+      begin
 
-      are_checkbox_selections_correct?(permitted_params(params))
+        progress_update.update(permitted_params(params))
 
-      if progress_update.errors.any?
+        are_checkbox_selections_correct?(permitted_params(params))
+
+        if progress_update.errors.any?
+
+          populate_check_boxes
+          render :show
+
+        else
+
+          remove_purposes_not_selected_for_update
+
+          update_json(
+            progress_update.answers_json,
+            progress_update.no_progress_update == 'true'
+          )
+
+          redirect_to(
+            funding_application_progress_and_spend_progress_update_demographic_path(
+                progress_update_id:
+                  @funding_application.arrears_journey_tracker.progress_update.id
+            )
+          )
+
+        end
+
+      # The following controller deletes empty Approved Purposes instances
+      # so handle any not-found exceptions caused by users using the back
+      # button/link by redisplaying the form.
+      rescue ActiveRecord::RecordNotFound => e
+
+        logger.error "RecordNotFound Error in update method for " \
+          "FundingApplication::ProgressAndSpend::ProgressUpdate::"\
+            "ApprovedPurposesController. " \
+              "Error message was: #{e.message}"
 
         populate_check_boxes
-        render :show
-  
-      else
-  
-        remove_purposes_not_selected_for_update
-  
-        update_json(
-          progress_update.answers_json,
-          progress_update.no_progress_update == 'true'
-        )
-        
         redirect_to(
-          funding_application_progress_and_spend_progress_update_demographic_path(
+          funding_application_progress_and_spend_progress_update_approved_purposes_path(
               progress_update_id:
                 @funding_application.arrears_journey_tracker.progress_update.id
           )
         )
-  
+
       end
   
     end
