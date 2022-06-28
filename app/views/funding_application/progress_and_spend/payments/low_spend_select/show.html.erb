@@ -37,9 +37,9 @@
 		render partial: "partials/funding_application/progress_and_spend/help_with_spend_types_accordian"
 	%>
 
-	<h3 class="govuk-heading-s">
+	<h2 class="govuk-heading-s">
 		<%= t('progress_and_spend.payments.low_spend_select.spend_type') %>
-	</h3>
+	</h2>
 
 	<%=
 		form_with model: @funding_application.arrears_journey_tracker.payment_request,
