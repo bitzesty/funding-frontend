@@ -10,9 +10,12 @@ RSpec.describe FundingApplication::LegalAgreements::CheckDetailsController do
       # that is a parameterised, underscored version of the text it points at.
       # Technially this is testing that the translations the function needs are right,
       # not the function itself.
+      #
+      # "new_building_work" is set up differently in Salesforce - mentioned to admins
 
       I18n.t('salesforce_text.project_costs').each do |translation|
-        expect(translation[0].to_s).to eq(translation[1].parameterize.underscore)
+        expect(translation[0].to_s).to eq(translation[1].parameterize.underscore) \
+          unless translation[0].to_s == "new_building_work"
       end
 
     end

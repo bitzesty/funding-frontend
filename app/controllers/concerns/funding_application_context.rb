@@ -74,15 +74,27 @@ module FundingApplicationContext
         not_an_allowed_paths_for_submitted_agreements(request.path)
   end
 
-  # True if the application has arrears payment underway
+  # Applies when an arrears payment is underway
   # and an invalid path is being tried
   #
-  # WIP
+  # WIP: This is not technically needed at the moment. Because
+  # progress_and_spend is as far as we've currently taken the
+  # process.  A grantee can remain on this journey for a
+  # while.
+  #
+  # Have confirmed with testing that a grantee can't make
+  # changes to a previous arrears submission, because it links via
+  # the arrears_journey_tracker which is deleted on submission.
+  # There is a Rails error, which we can replaces with a 500 page.
+  #
+  # The invalid_view_for_submitted_agreement check above will stop
+  # people changing a previously submitted legal agreement.
+  #
+  # If we introduce a step after progress and spend, we may revisit this.
   #
   def invalid_view_for_progress_and_spend?
 
-    # if the last arrears payment has been submitted (stubbed as false)
-    false && not_an_allowed_path_for_progress_and_spend(request.path)
+    false
 
   end
 

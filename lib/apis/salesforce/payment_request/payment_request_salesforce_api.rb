@@ -84,14 +84,21 @@ module PaymentRequestSalesforceApi
         salesforce_payment_request_id
       )
 
+      en_hash = get_en_cost_headings
+      cy_hash = get_cy_cost_headings
+
       upsert_arrears_high_spend_records(
         payment_request,
-        salesforce_payment_request_id
+        salesforce_payment_request_id,
+        en_hash,
+        cy_hash
       )
 
       upsert_arrears_low_spend_records(
         payment_request,
-        salesforce_payment_request_id
+        salesforce_payment_request_id,
+        en_hash,
+        cy_hash
       )
 
       # Upload high spends documents against the payment form
@@ -128,8 +135,10 @@ module PaymentRequestSalesforceApi
     #                                                 PaymentRequest
     # @param [String] salesforce_payment_request_id
     #                   Id for SF payment request form to upsert against
+    # @param [Hash] en_hash - hash loaded from file, required for upsert
+    # @param [Hash] cy_hash - hash loaded from file, required for upsert
     def upsert_arrears_high_spend_records(payment_request,
-      salesforce_payment_request_id)
+      salesforce_payment_request_id, en_hash, cy_hash)
 
       retry_number = 0
 
@@ -145,7 +154,11 @@ module PaymentRequestSalesforceApi
             'External_Id__c',
             External_Id__c: high_spend.id,
             Forms__c: salesforce_payment_request_id,
-            Cost_Heading__c: high_spend.cost_heading,
+            Cost_Heading__c: convert_cost_heading_to_salesforce_picklist(
+              high_spend.cost_heading,
+              en_hash,
+              cy_hash
+            ),
             Amount__c: high_spend.amount, 
             VAT__c: high_spend.vat_amount,
             Date_of_spend__c: 
@@ -193,8 +206,10 @@ module PaymentRequestSalesforceApi
     #                                                 PaymentRequest
     # @param [String] salesforce_payment_request_id
     #                   Id for SF payment request form to upsert against
+    # @param [Hash] en_hash - hash loaded from file, required for upsert
+    # @param [Hash] cy_hash - hash loaded from file, required for upsert
     def upsert_arrears_low_spend_records(payment_request,
-      salesforce_payment_request_id)
+      salesforce_payment_request_id, en_hash, cy_hash)
 
       retry_number = 0
 
@@ -210,7 +225,11 @@ module PaymentRequestSalesforceApi
             'External_Id__c',
             External_Id__c: low_spend.id,
             Forms__c: salesforce_payment_request_id,
-            Cost_Heading__c: low_spend.cost_heading,
+            Cost_Heading__c: convert_cost_heading_to_salesforce_picklist(
+              low_spend.cost_heading,
+              en_hash,
+              cy_hash
+            ),
             Amount__c: low_spend.total_amount, 
             VAT__c: low_spend.vat_amount,
             Spend_level__c: "Spend less than £#{low_spend.spend_threshold}"

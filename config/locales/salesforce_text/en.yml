@@ -1,3 +1,14 @@
+# Note: As it stands, the translations here match the Salesforce picklist values
+#
+# This file principally lists the salesforce picklist values, alongside a key that
+# is generated from "the picklist string".parameterize.underscore
+#
+# Controllers, like the spends controllers in the arrears journeys,
+# paramterize.underscore the picklist values from Salesforce so that the
+# corresponding translations can be used in the cy.yml for Welsh users.
+#
+# Both this file, and the cy.yml are used to convert the text back to picklist values.
+#
 en-GB:
   salesforce_text:
     project_costs:
@@ -34,6 +45,7 @@ en-GB:
       evaluation: "Evaluation"
       contingency: "Contingency"
       new_build_work: "New build work"
+      new_building_work: "New build work" # Salesforce actually uses new_building_work as API name
       community_grants: "Community grants"
       full_cost_recovery: "Full Cost Recovery"
       inflation: "Inflation"

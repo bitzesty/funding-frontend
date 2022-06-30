@@ -208,4 +208,91 @@ module SalesforceApiHelper
 
   end
 
+  # Returns I18n translation for a salesforce cost heading.
+  # If the translation is not found, then log as an error and
+  # return the passed string as a result.
+  #
+  # A MissingTranslationData error will occur is a new cost
+  # type is added to Salesforce without updating the salesforce_text ymls
+  #
+  # @param [String] heading A Salesforce cost heading
+  # @return [String] result The translated cost heading
+  def translate_salesforce_cost_heading(heading)
+
+    result = heading # use what is already there in event of error.
+
+    begin
+
+      result = t(
+        "salesforce_text.project_costs.#{heading.parameterize.underscore}",
+        :raise => I18n::MissingTranslationData
+      )
+
+    rescue I18n::MissingTranslationData => e
+
+      Rails.logger.error("translation missing error in translate_heading " \
+        "method. Error is #{e.message}")
+
+    end
+
+    result
+
+  end
+
+  # Uses the salesforce_text yamls to convert a heading back to salesforce
+  # picklist format.
+  # If the heading is English, it should already be in salesforce format.
+  # If the heading is Welsh, the English salesforce format is used.
+  # If the heading is not found in either yaml - we return it unchanged.
+  #
+  # @param [String] heading A cost heading stored FFE-side
+  # @param [Hash] en_hash Hash containing cost headings in English
+  # @param [Hash] cy_hash Hash containing cost headings in Welsh
+  # @return [String] result The cost heading, in Salesforce picklist format
+  #
+  def convert_cost_heading_to_salesforce_picklist(heading, en_hash, cy_hash)
+
+    # See if the value is in the English hash - if so return.
+    if en_hash.has_key?(heading.parameterize.underscore)
+
+      return heading
+
+    end
+
+    # See if the value is in the Welsh hash. If so, use the key to
+    # get the English value - and return.
+    if cy_hash.has_value?(heading)
+      yaml_key = cy_hash.key(heading)
+      return en_hash[yaml_key]
+    end
+
+    # If the string matches no hashes, return the original string.  Could
+    # be that FFE is not updated with a new picklist value yet.  Must be a
+    # valid picklist value, or subsequent upsert to Salesforce will fail.
+    heading
+
+  end
+
+  # Converts /salesforce_text/en.yml into a hash
+  # This can be used to convert translations.
+  def get_en_cost_headings
+
+    en_hash =
+      YAML.load_file(
+        'config/locales/salesforce_text/en.yml'
+      )["en-GB"]["salesforce_text"]["project_costs"]
+
+  end
+
+  # Converts /salesforce_text/cy.yml into a hash
+  # This can be used to convert translations.
+  def get_cy_cost_headings
+
+    cy_hash =
+      YAML.load_file(
+        'config/locales/salesforce_text/cy.yml'
+      )["cy"]["salesforce_text"]["project_costs"]
+
+  end
+
 end

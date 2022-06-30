@@ -1,3 +1,12 @@
+# See comments in en.yml version, which explain how these ymls are used.
+#
+#
+#
+#
+#
+#
+#
+#
 cy:
   salesforce_text:
     project_costs:
@@ -34,6 +43,7 @@ cy:
       evaluation: "Gwerthusiad"
       contingency: "Arian wrth gefn"
       new_build_work: "Gwaith adeiladu newydd"
+      new_building_work: "Gwaith adeiladu newydd" # Salesforce actually uses new_building_work as API name
       community_grants: "Grantiau cymunedol"
       full_cost_recovery: "Adennill Costau Llawn"
       inflation: "Chwyddiant"

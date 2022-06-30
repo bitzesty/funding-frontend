@@ -4,6 +4,7 @@ module ProgressAndSpendHelper
   include PaymentRequestSalesforceApi
   include FundingApplicationHelper
   include Enums::ArrearsJourneyStatus
+  include SalesforceApiHelper
 
   MAX_RETRIES = 3
 
@@ -956,11 +957,16 @@ module ProgressAndSpendHelper
 
     case_id = funding_application.salesforce_case_id
 
-    restforce_cash_contributions =
+    headings =
       client.salesforce_cost_headings(
         case_id, 
         record_type_id
       )
+
+    headings.each do |heading|
+      headings[headings.index(heading)] =
+        translate_salesforce_cost_heading(heading)
+    end
 
   end
 
@@ -1043,6 +1049,12 @@ module ProgressAndSpendHelper
   #
   # Tries to gets cached headings from answers_json if they are there.
   # Otherwise gets the headings from Salesforce and updates answers_json.
+  #
+  # Drawbacks to caching:
+  # - If cost headings change SF side.
+  # - If the applicant decides they want to switch language after caching
+  # In each of the cases above, that can be mitigated by start the spend
+  # journey again.
   # 
   # @param [FundingApplication] funding_application
   # @return [Array] headings An array of cost headings
