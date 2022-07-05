@@ -1428,7 +1428,7 @@ module ProgressAndSpendHelper
     form_id_for_penultimate_arrears_payment =
       funding_application.completed_arrears_journeys.where.not(
         payment_request_id: nil
-      ).order("submitted_on ASC").second_to_last.salesforce_form_id
+      ).order("submitted_on ASC").second_to_last&.salesforce_form_id
 
     client = PaymentRequestSalesforceApiClient.new
 
@@ -1450,7 +1450,7 @@ module ProgressAndSpendHelper
     form_id_for_last_arrears_payment =
       funding_application.completed_arrears_journeys.where.not(
         payment_request_id: nil
-      ).order("submitted_on ASC").last.salesforce_form_id
+      ).order("submitted_on ASC").last&.salesforce_form_id
 
     client = PaymentRequestSalesforceApiClient.new
 
