@@ -239,6 +239,72 @@ module SalesforceApiHelper
 
   end
 
+  # Returns payment reference if present on bank details,
+  # if not provided then queries previous payment requests for  
+  # reference.
+  #
+  #
+  # @param [FundingApplication] funding_application 
+  # @return [String] payment_ref The payment reference found
+  def get_payment_reference(funding_application)
+
+    retry_number = 0
+    
+    begin
+      payment_ref = funding_application.payment_details&.decrypt_payment_reference
+
+      if payment_ref.nil?
+
+        pymnt_rqst_rcrd_type_id = 
+          get_salesforce_record_type_id(
+            'Payment_Request', 
+            'Forms__c'
+          )
+
+        prg_updt_pymnt_rqst_rcrd_type_id = 
+          get_salesforce_record_type_id(
+            'Payment_Request_and_Project_Update', 
+            'Forms__c'
+          )
+
+        previous_payment_request_ref =  @client.query(
+          "SELECT Payment_Reference_number__c, CreatedDate FROM Forms__c WHERE "\
+            "(RecordTypeID = '#{pymnt_rqst_rcrd_type_id}' OR "\
+              "RecordTypeID = '#{prg_updt_pymnt_rqst_rcrd_type_id}' ) "\
+                "AND Case__c = '#{funding_application.salesforce_case_id}' "\
+                  "order by CreatedDate desc Limit 1")
+
+        payment_ref = previous_payment_request_ref.first&.Payment_Reference_number__c
+
+      end
+
+    rescue Exception => e
+      if retry_number < MAX_RETRIES
+
+        retry_number += 1
+
+        max_sleep_seconds = Float(2 ** retry_number)
+
+        Rails.logger.info(
+          "Error retrieving payment reference for application with id:"\
+            "#{funding_application.salesforce_case_id} " \
+              "will attempt again, retry number #{retry_number} " \
+                "after a sleeping for up to #{max_sleep_seconds} seconds"
+        )
+
+        sleep rand(0..max_sleep_seconds)
+
+        retry
+
+      else
+        raise
+      end
+    end
+
+    payment_ref
+
+  end
+
   # Uses the salesforce_text yamls to convert a heading back to salesforce
   # picklist format.
   # If the heading is English, it should already be in salesforce format.

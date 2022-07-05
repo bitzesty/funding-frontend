@@ -1621,7 +1621,8 @@
             'Frontend_External_Id__c',
             Case__c: funding_application.salesforce_case_id,
             Frontend_External_Id__c: completed_arrears_journey.id,
-            RecordTypeId: get_salesforce_record_type_id(form_type, 'Forms__c')
+            RecordTypeId: get_salesforce_record_type_id(form_type, 'Forms__c'),
+            Payment_Reference_number__c: completed_arrears_journey.payment_request.present? ? get_payment_reference(funding_application) : nil 
           )
 
           return salesforce_form_id
