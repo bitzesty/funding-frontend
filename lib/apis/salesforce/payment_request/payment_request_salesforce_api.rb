@@ -322,28 +322,30 @@ module PaymentRequestSalesforceApi
 
     end
 
-    # Method to see if an account already has a bank account associated.
+    # Returns the bank account for a form, unless that bank,
+    # account is void.
     #
-    # @param [String] salesforce_account_id Salesforce reference for an org
-    # @return [Boolean] (restforce_response.size > 0) 
-    #                        True if the org has a bank account in Salesforce
-    def org_has_bank_account_in_salesforce(salesforce_account_id)
+    # @param [String] form_id Salesforce reference
+    #
+    # @return [String] bank_account_id
+    #
+    def get_bank_account_for_form(form_id)
 
       Rails.logger.info("Checking for bank account for " \
-        "for salesforce account id: #{salesforce_account_id}")
+        "form_id: #{form_id}")
 
-      query_string = "SELECT COUNT() " \
-        "FROM Bank_Account__c where Organisation__c = " \
-          "'#{salesforce_account_id}'"
+      query_string = "SELECT Bank_Account__c " \
+        "FROM Form_Bank_Account__c " \
+          "where Forms__c = '#{form_id}' " \
+            "and Bank_Account__r.Void__c = false"
 
       restforce_response = run_salesforce_query(query_string,
-        "org_has_bank_account_in_salesforce", salesforce_account_id) \
+        "get_bank_account_for_form", form_id) \
           if query_string.present?
 
-      restforce_response.size > 0
+      restforce_response&.first&.Bank_Account__c
 
     end
-
 
     # Method to upsert a payment form files in Salesforce for a Permission to Start application
     #

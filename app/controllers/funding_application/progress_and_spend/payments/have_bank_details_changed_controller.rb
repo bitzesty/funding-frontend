@@ -56,6 +56,12 @@ class FundingApplication::ProgressAndSpend::Payments::HaveBankDetailsChangedCont
         )
       else
         answers_json['bank_details_journey']['status'] = JOURNEY_STATUS[:completed]
+
+        # If grantee enters details, then changes mind, and goes back,
+        # then payment details are stored. Safer to delete.
+        @funding_application.payment_details.delete if \
+          @funding_application.payment_details.present?
+
         @payment_request.save
         redirect_to \
           funding_application_progress_and_spend_progress_and_spend_tasks_path

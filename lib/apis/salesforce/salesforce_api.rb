@@ -1784,10 +1784,9 @@
     
     private
 
-
     # Returns a Restforce Object if it finds a matching Bank Account
     # If it finds no bank account, handles any error and returns nil.
-    # Returned object has an Id and Verified__c attribute.
+    # Returns the salesforce reference for the Bank Account record Id
     #
     # @param [FundingApplication] funding_application
     #                                 A FundingApplication instance

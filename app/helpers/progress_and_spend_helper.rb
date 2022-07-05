@@ -522,7 +522,7 @@ module ProgressAndSpendHelper
       salesforce_api_client,
       payment_request_client,
       funding_application
-    ) if funding_application.payment_details.present?      
+    )
 
     # set SF form id and updated at as time of upload 
     completed_arrears_journey.salesforce_form_id = form_id
@@ -623,29 +623,65 @@ module ProgressAndSpendHelper
   # Method responsible for orchestrating upload
   # of bank details data to Salesforce
   #
-  # @param [String] string salesforce form ID to upload against 
+  # @param [String] form_id salesforce form ID to upload against
   #                                                 String
   # @param [SalesforceApiClient] salesforce_api_client An instance of
   #                                                 SalesforceApiClient
-  # @param [PaymentRequestSalesforceApiClient] payment_request_client An instance of
-  #                                                 PaymentRequestSalesforceApiClient
+  # @param [PaymentRequestSalesforceApiClient] payment_request_client An
+  #                               instance of PaymentRequestSalesforceApiClient
   # @param [FundingApplication] funding_application an instance of 
   #                                                  FundingApplication
   def upload_bank_details(form_id, salesforce_api_client, 
     payment_request_client, funding_application)
 
-    # Find or create bank account in salesforce
-    salesforce_bank_account_id = 
-      salesforce_api_client.find_or_create_bank_account_details(funding_application)
+    if funding_application.payment_details.present?
+
+      # Grantee could create blank payment_details by going backward/forward
+      # Mitigated by deleting in controller, validation an extra check.
+      funding_application.payment_details.validate_account_name_presence = true
+      funding_application.payment_details.validate_account_number_presence = true
+      funding_application.payment_details.validate_sort_code_presence = true
+
+    end
+
+    # Only use bank details if validation OK.
+    if funding_application.payment_details.present? \
+      && funding_application.payment_details.valid?
+
+      # Grantee has provided bank details. Find or create bank account
+      # in Salesforce
+      salesforce_bank_account_id =
+        salesforce_api_client.find_or_create_bank_account_details(
+          funding_application
+        )
+
+    else
+
+      # Applicant has opted to reuse the bank account from a previous payment
+      salesforce_bank_account_id =
+        get_salesforce_bank_account_from_penultimate_arrears_payment(
+          funding_application
+        )
+
+      if salesforce_bank_account_id.nil?
+
+        raise StandardError.new(
+          "No bank account available to link to form_id #{form_id}"
+        )
+
+      end
+
+    end
 
     # Create link between form and account details with junction object
     salesforce_api_client.
       upsert_bank_account_payment_request_junction(
-        salesforce_bank_account_id, 
+        salesforce_bank_account_id,
         form_id
       )
 
-    # Upload bank account evidence file
+    # Upload bank account evidence file, if payment_details
+    # present and a file attached.
     payment_details = funding_application.payment_details
 
     payment_request_client.upsert_document_to_salesforce(
@@ -653,8 +689,8 @@ module ProgressAndSpendHelper
       "Bank account evidence - #{payment_details.evidence_file_blob
         .filename}",
         salesforce_bank_account_id
-    ) if payment_details.evidence_file.present?
-    
+    ) if payment_details&.evidence_file.present?
+
   end
 
   # Method responsible for deleting unused progress update data.
@@ -1278,20 +1314,6 @@ module ProgressAndSpendHelper
 
   end
 
-  # True if user has provided a bank account before.
-  # @param [FundingApplication] funding_application
-  # @return [Boolean] org_has_bank_account_in_salesforce True if so
-  #
-  def ask_if_bank_account_changed?(funding_application)
-
-    client = PaymentRequestSalesforceApiClient.new
-
-    client.org_has_bank_account_in_salesforce(
-      funding_application.organisation.salesforce_account_id
-    )
-
-  end
-
   # upsert digital outputs - if user answered Yes to question, which
   # is stored as has_digital_outputs == "true"
   #
@@ -1383,6 +1405,58 @@ module ProgressAndSpendHelper
     end
 
     total_spend
+
+  end
+
+  # Looks for the penultimate completed arrears payment and get the
+  # bank account for it - if not void.
+  #
+  # This is used when submitting an arrears payment and the grantee
+  # has opted to reuse bank details.  At the time this code is 
+  # executed, new arrears payments records have been created.  So we need
+  # to look at the previous (penultimate) set of records to see if there
+  # is a Bank Account we can reuse.
+  #
+  # @param [FundingApplication] funding_application
+  # @return [String] client.get_bank_account_for_form Salesforce
+  #                                    reference for a Bank Account
+  #
+  def get_salesforce_bank_account_from_penultimate_arrears_payment(
+    funding_application)
+
+    # Uses the penultimate completed_arrears_journey with a payment request
+    form_id_for_penultimate_arrears_payment =
+      funding_application.completed_arrears_journeys.where.not(
+        payment_request_id: nil
+      ).order("submitted_on ASC").second_to_last.salesforce_form_id
+
+    client = PaymentRequestSalesforceApiClient.new
+
+    client.get_bank_account_for_form(
+      form_id_for_penultimate_arrears_payment
+    )
+
+  end
+
+  # True if NO valid bank account exists from an earlier arrears
+  # payment for this project.
+  #
+  # @param [FundingApplication] funding_application
+  # @return [Boolean] True if bank account returned
+  #
+  def ask_if_bank_account_changed?(funding_application)
+
+    # Uses the last completed_arrears_journey with a payment request
+    form_id_for_last_arrears_payment =
+      funding_application.completed_arrears_journeys.where.not(
+        payment_request_id: nil
+      ).order("submitted_on ASC").last.salesforce_form_id
+
+    client = PaymentRequestSalesforceApiClient.new
+
+    client.get_bank_account_for_form(
+      form_id_for_last_arrears_payment
+    ).present?
 
   end
 
