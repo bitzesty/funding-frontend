@@ -5,6 +5,8 @@ class FundingApplication::TasksController < ApplicationController
   include DashboardHelper
   include FundingApplicationHelper
 
+  GENERIC_TIMESTAMP = '0001-01-01 00:00:00.000000'
+
   def show
 
     set_award_type(@funding_application)
@@ -16,6 +18,8 @@ class FundingApplication::TasksController < ApplicationController
 
       @funding_application.update(status: :payment_can_start)
       logger.info("legal agreement in place for funding_application #{@funding_application.id}")
+
+      check_for_agreement_submitted_on(@funding_application)
 
       redirect_to funding_application_progress_and_spend_start_path(
         application_id: @funding_application.id
@@ -186,6 +190,52 @@ class FundingApplication::TasksController < ApplicationController
     when funding_application.agreement.terms_agreed_at.present?
       @terms_status_tag_label = I18n.t('generic.submitted')
       @terms_status_tag_colour = 'grey'
+    end
+
+  end
+
+  # Older legal agreements do not set
+  # funding_application.agreement_submitted_on.
+  # This causes them to fail the FundingApplicationContext check for
+  # invalid_view_for_submitted_application when accessing arrears payments.
+  #
+  # This method is called when we have confirmed payment can start,
+  # using Salesforce.  If it finds that no timestamp exists, it adds
+  # a recognisable generic one, to allow the context check to pass.
+  #
+  # We could work out and enter a timestamp for when we think the last
+  # signatory submitted their terms - but this is disingenuous. Better to
+  # to use a clearly generic timestamp, that we can tie back to this function.
+  #
+  # We can monitor the number of potentially affected cases by running SQL
+  # to count the number of potentially affected cases.
+  #
+  # This counts all medium applications where agreement_submitted_on
+  # is incorrectly null:
+  #
+  # select count(*) from funding_applications where id in
+  # (select distinct(funding_application_id) from agreements
+  # where grant_agreed_at is not null and terms_agreed_at is not null)
+  # and agreement_submitted_on is null and project_reference_number like 'NM%';
+  #
+  # This is crude and should be either amended or run at non-busy times.
+  # Brings back 239 rows at the time of writing.  Some will not be medium
+  # applications > 100K , and so the actual number in less.  Also use
+  # funding_applicaions_pay_reqs table to see what applications have started
+  # payments already.
+  #
+  # As more cases are completed with the new agreements process, the need for this
+  # method will go.  Consider running SQL to see when the count is low enough.
+  #
+  def check_for_agreement_submitted_on(funding_application)
+
+    if funding_application.agreement_submitted_on.nil?
+
+      @funding_application.update(agreement_submitted_on: GENERIC_TIMESTAMP)
+
+      Rails.logger.info("check_for_agreement_submitted_on found no timestamp for " \
+        "funding application #{funding_application.id}. Inserted #{GENERIC_TIMESTAMP}")
+
     end
 
   end
