@@ -1363,7 +1363,7 @@ module ProgressAndSpendHelper
           form_id,
           ack_object.get_salesforce_funding_acknowledgement_type(ack_type),
           ack_desc['acknowledgement']
-        ) unless ack_type == 'no_update'
+        ) unless ack_type == 'no_update' || ack_desc['selected'] == 'false'
 
       end
 
