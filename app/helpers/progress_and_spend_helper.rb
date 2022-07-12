@@ -522,7 +522,7 @@ module ProgressAndSpendHelper
       salesforce_api_client,
       payment_request_client,
       funding_application
-    )
+    ) if completed_arrears_journey.payment_request.present?
 
     # set SF form id and updated at as time of upload 
     completed_arrears_journey.salesforce_form_id = form_id
