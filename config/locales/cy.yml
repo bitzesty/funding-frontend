@@ -909,7 +909,7 @@ cy:
         progress_update_demographic:
           attributes:
             explanation:
-              gwag: "Rhowch y wybodaeth ddiweddaraf am sut mae ystod ehangach o bobl yn cymryd rhan yn y prosiect"
+              blank: "Rhowch y wybodaeth ddiweddaraf am sut mae ystod ehangach o bobl yn cymryd rhan yn y prosiect"
               too_long: "Mae'n rhaid i'r disgrifiad fod yn 300 gair neu lai"
         progress_update_outcome:
           attributes:

@@ -1,7 +1,7 @@
 en-GB: 
   progress_and_spend:
     select_journey:
-      page_title: "Progress and Spend -Select Journey"
+      page_title: "Progress and Spend - Select Journey"
       page_heading: "What do you want to do?"
       page_caption: "Get a payment or give a project update"
       check_boxes:
@@ -17,3 +17,5 @@ en-GB:
       remaining_grant: "Remaining grant: £"
       grant_expiry_date: "Grant expiry date: "
       previous_submissions_link: "Previous payments and project updates"
+      please_select: "Please select a journey"
+

@@ -4,15 +4,15 @@ cy:
       page_title: "Cael taliad neu roi diweddariad prosiect"
       page_heading: "Cael taliad neu roi diweddariad prosiect"
       sub_headings:
-        to_get_payment: "I gael taliad sydd ei angen arnoch:"
+        to_get_payment: "Bydd angen y canlynol arnoch chi i gael taliad:"
         how_project_going: "I ddweud wrthym sut mae'r prosiect yn mynd, efallai y byddwch chi eisiau:"
       use_this_service: "Defnyddiwch y gwasanaeth hwn i:"
       your_investment_manager: "Fel arfer, bydd eich Rheolwr Buddsoddi am weld diweddariad prosiect i ddarparu taliad oni chytunir fel arall."
       bullet_points:
         get_a_payment:
           1: "cael taliad,"
-          2: "dywedwch wrthym sut mae'r prosiect yn mynd, neu,"
-          3: "dywedwch wrthym sut mae'r prosiect yn mynd a chael taliad"
+          2: "dweud wrthym sut mae'r prosiect yn mynd, neu,"
+          3: "dweud wrthym sut mae'r prosiect yn mynd a chael taliad"
         you_need:
           1: "copïau o anfonebau a derbynebau"
           2: "tystiolaeth o fanylion banc"
@@ -22,4 +22,4 @@ cy:
           3: "tystiolaeth ar gyfer staff newydd"
           4: "record ar gyfer caffael dros £10,000"
           5: "copïau o ganiatadau neu drwyddedau newydd"
-          6: "cofrestr risg gyfredol'r"
+          6: "cofrestr risg gyfredol"
