@@ -20,5 +20,6 @@ if ActiveRecord::Base.connection.table_exists? :flipper_features
     Flipper[:grant_programme_sff_medium].add
     Flipper[:permission_to_start_enabled].add
     Flipper[:progress_and_spend].add
+    Flipper[:large_arrears_progress_spend].add
   end
 end
