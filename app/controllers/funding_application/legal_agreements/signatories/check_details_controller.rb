@@ -5,8 +5,6 @@ class FundingApplication::LegalAgreements::Signatories::CheckDetailsController <
   include FundingApplicationHelper
 
   def show
-
-    set_award_type(@funding_application)
     
     content = salesforce_content_for_form(@funding_application)
 

@@ -17,5 +17,6 @@ en-GB:
       remaining_grant: "Remaining grant: £"
       grant_expiry_date: "Grant expiry date: "
       previous_submissions_link: "Previous payments and project updates"
+      previous_submissions_link_large: "Previous payments"
       please_select: "Please select a journey"
 

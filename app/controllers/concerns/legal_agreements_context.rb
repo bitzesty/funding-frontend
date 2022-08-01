@@ -4,6 +4,7 @@
 module LegalAgreementsContext
   extend ActiveSupport::Concern
   include LegalAgreementsHelper
+  include FundingApplicationHelper
   included do
     before_action :set_funding_application
   end
@@ -28,6 +29,8 @@ module LegalAgreementsContext
         @funding_application,
         params[:encoded_signatory_id]
       )
+
+    check_award_type(@funding_application)
 
   end
 

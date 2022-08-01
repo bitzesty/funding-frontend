@@ -33,8 +33,6 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
     end
 
     unless progress_update.errors.any?
-    
-      set_award_type(@funding_application)
 
       medium_cash_contribution_redirector(progress_update.answers_json) if \
         @funding_application.is_100_to_250k?
@@ -139,8 +137,6 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
   # Consider passing in pointers if tricky to unit test.
   #
   def populate_form_attributes_from_salesforce
-
-    set_award_type(@funding_application)
 
     if @funding_application.is_100_to_250k?
 

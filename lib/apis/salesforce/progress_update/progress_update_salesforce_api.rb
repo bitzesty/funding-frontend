@@ -592,9 +592,13 @@ module ProgressUpdateSalesforceApi
 
       query_string = \
         ("SELECT Project_Title__c, Grant_Expiry_Date__c, " \
-            "Total_Payments_Paid__c, Remaining_Grant__c, Grant_Award__c, " \
-              "payment_percentage__c	" \
-                "from Case where ID = '#{salesforce_case_id}'")
+            "Total_Payments_Paid__c, Remaining_Grant__c, " \
+              "Grant_Award__c, Development_grant_award__c, " \
+                "Delivery_grant_award__c, payment_percentage__c, " \
+                  "Delivery_payment_percentage__c, " \
+                    "Development_payment_percentage__c, " \
+                      "Development_grant_expiry_date__c " \
+                        "from Case where ID = '#{salesforce_case_id}'")
 
       restforce_response = run_salesforce_query(query_string,
         "arrears_heading_info", salesforce_case_id) \

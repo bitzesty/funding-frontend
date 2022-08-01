@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
 
     if user_details_complete(current_user)
 
-      salesforce_api_instance = get_salesforce_api_instance()
+      @salesforce_api_instance = get_salesforce_api_instance()
 
       gon.push({ tracking_url_path: '/project-dashboard' })
 
@@ -32,19 +32,19 @@ class DashboardController < ApplicationController
 
             @gp_open_smalls.push(funding_application) \
               if funding_application.project.present? && \
-                !awarded(funding_application, salesforce_api_instance)
+                !awarded(funding_application, @salesforce_api_instance)
 
             @gp_open_mediums.push(funding_application) \
               if funding_application.open_medium.present? && \
-                !awarded(funding_application, salesforce_api_instance)
+                !awarded(funding_application, @salesforce_api_instance)
             
             @legally_agreed_smalls.push(funding_application) \
               if funding_application.project.present? && \
-                awarded(funding_application, salesforce_api_instance)
+                awarded(funding_application, @salesforce_api_instance)
 
             @legally_agreed_mediums.push(funding_application) \
             if funding_application.open_medium.present? && \
-              awarded(funding_application, salesforce_api_instance)
+              awarded(funding_application, @salesforce_api_instance)
 
           end
 
@@ -55,7 +55,7 @@ class DashboardController < ApplicationController
         @pa_project_enquiry_presence = get_pa_project_enquiry_presence(@pre_applications)
         @pa_expression_of_interest_presence = get_pa_expression_of_interest_presence(@pre_applications)
         
-        @large_applications = get_large_salesforce_applications(salesforce_api_instance, current_user.email)
+        @large_applications = get_large_salesforce_applications(@salesforce_api_instance, current_user.email)
 
       end
 
@@ -196,5 +196,87 @@ class DashboardController < ApplicationController
     end
 
   end
+
+  # View is running a loop at this point and provides a hash.
+  # This function determines which journey the large application is
+  # ready to start.  Either a PtS or payments path is returned.
+  #
+  # If no suitable journey can be identified, nil is returned
+  # and the calling view will not render a link.
+  #
+  # If no funding applcation is found, and error page is shown.
+  #
+  # @param [Hash] large_hash of restforce data about a large project
+  # @return [String] For a link to a journey. Or nil if no suitable journey
+  #
+  def get_large_link(large_hash)
+
+    # Return path to arrears payment if appropriate for this large project
+    if Flipper.enabled?(:large_arrears_progress_spend) && \
+      legal_agreement_in_place?(
+        large_hash[:salesforce_info][:Id],
+        @salesforce_api_instance
+      )
+
+      funding_application = get_large_funding_application(
+        large_hash[:salesforce_info][:Id],
+        large_hash[:salesforce_info][:AccountId],
+        DateTime.parse(large_hash[:salesforce_info][:Submission_Date_Time__c]),
+        @salesforce_api_instance
+      )
+
+      if funding_application.present?
+
+        Rails.logger.info("Large project #{large_hash[:salesforce_info][:Id]} " \
+          "can start arrears journey")
+
+        return funding_application_progress_and_spend_start_path(
+          application_id: funding_application.id
+        )
+
+      else
+
+        # Problem getting funding application, return path to an error page
+        Rails.logger.error("No funding application for Large project " \
+          "#{large_hash[:salesforce_info][:Id]}")
+
+        return problem_with_project_path
+
+      end
+
+    else # not ready for arrears payment
+
+      # Return path to PtS if appropriate
+      project =
+        SfxPtsPayment.find_by(
+          salesforce_case_id: large_hash[:salesforce_info][:Id]
+        )
+
+      if Flipper.enabled?(:permission_to_start_enabled) && \
+        project&.submitted_on.blank?
+
+        Rails.logger.info("Large project " \
+          "#{large_hash[:salesforce_info][:Id]} " \
+            "can start PtS journey")
+
+        return sfx_pts_payment_permission_to_start_path(
+          salesforce_case_id: large_hash[:salesforce_info][:Id]
+        )
+      
+      else # not ready for PtS or arrears payment.
+
+        # Nothing appropriate found, return nil instead of a path to a journey
+        Rails.logger.error("No suitable journey found for Large project " \
+          "#{large_hash[:salesforce_info][:Id]}")
+
+        return nil
+
+      end
+
+    end
+
+  end
+  helper_method :get_large_link
+
 
 end

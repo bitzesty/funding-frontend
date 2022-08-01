@@ -1,5 +1,6 @@
 class FundingApplication::ProgressAndSpend::StartController < ApplicationController
 include FundingApplicationContext
+include FundingApplicationHelper
 
   def show()
 

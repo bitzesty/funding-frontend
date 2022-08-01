@@ -15,6 +15,7 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
     private 
 
     def initialise_view()
+
       @submitting_progress_update = false
       @submitting_payment_request = false
       @submitting_bank_details = false

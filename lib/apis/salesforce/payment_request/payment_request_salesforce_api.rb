@@ -55,6 +55,66 @@ module PaymentRequestSalesforceApi
       
     end
 
+    # Calls salesforce api helper to get the record type id
+    # for a large delivery grant record type of a project cost record
+    # @return [String] a record type id
+    def record_type_id_large_delivery_grant_cost
+
+      get_salesforce_record_type_id(
+      'Large_Grants_Actual_Delivery',
+      'Project_Cost__c'
+      )
+
+    end
+
+    # Calls salesforce api helper to get the record type id
+    # for a large development grant record type of a project cost record
+    # @return [String] a record type id
+    def record_type_id_large_development_grant_cost
+
+      get_salesforce_record_type_id(
+      'Large_Grants_Development',
+      'Project_Cost__c'
+      )
+
+    end
+
+    # Calls salesforce api helper to get the record type id
+    # for a medium grant spend cost record type
+    # @return [String] a record type id
+    def spend_record_type_id_medium
+
+      get_salesforce_record_type_id(
+      'Medium_grants_over_100K',
+      'Spending_Costs__c'
+      )
+
+    end 
+
+    # Calls salesforce api helper to get the record type id
+    # for a large development grant spend cost record type
+    # @return [String] a record type id
+    def spend_record_type_id_large_development
+
+      get_salesforce_record_type_id(
+      'Large_grants_development',
+      'Spending_Costs__c'
+      )
+
+    end 
+
+    # Calls salesforce api helper to get the record type id
+    # for a large delivery grant spend cost record type
+    # @return [String] a record type id
+    def spend_record_type_id_large_delivery
+
+      get_salesforce_record_type_id(
+      'Large_grants_delivery',
+      'Spending_Costs__c'
+      )
+
+    end 
+
     # Method responsible for orchestrating arrears payment request
     # record creation for an existing payment form in Salesforce.
     #
@@ -73,7 +133,8 @@ module PaymentRequestSalesforceApi
     def upsert_arrears_payment_request(
       payment_request, 
       salesforce_payment_request_id,
-      amount_requested
+      amount_requested,
+      spend_record_type_id
     )
 
       Rails.logger.info("Starting upsert_arrears_payment_request with " \
@@ -90,6 +151,7 @@ module PaymentRequestSalesforceApi
       upsert_arrears_high_spend_records(
         payment_request,
         salesforce_payment_request_id,
+        spend_record_type_id,
         en_hash,
         cy_hash
       )
@@ -97,6 +159,7 @@ module PaymentRequestSalesforceApi
       upsert_arrears_low_spend_records(
         payment_request,
         salesforce_payment_request_id,
+        spend_record_type_id,
         en_hash,
         cy_hash
       )
@@ -138,7 +201,7 @@ module PaymentRequestSalesforceApi
     # @param [Hash] en_hash - hash loaded from file, required for upsert
     # @param [Hash] cy_hash - hash loaded from file, required for upsert
     def upsert_arrears_high_spend_records(payment_request,
-      salesforce_payment_request_id, en_hash, cy_hash)
+      salesforce_payment_request_id, spend_record_type_id, en_hash, cy_hash)
 
       retry_number = 0
 
@@ -164,7 +227,8 @@ module PaymentRequestSalesforceApi
             Date_of_spend__c: 
               high_spend.date_of_spend&.strftime("%Y-%m-%d"),
             Description__c: high_spend.description,
-            Spend_level__c: "Spend over £#{high_spend.spend_threshold}"
+            Spend_level__c: "Spend over £#{high_spend.spend_threshold}",
+            RecordTypeID: spend_record_type_id
           )
 
         end
@@ -209,7 +273,7 @@ module PaymentRequestSalesforceApi
     # @param [Hash] en_hash - hash loaded from file, required for upsert
     # @param [Hash] cy_hash - hash loaded from file, required for upsert
     def upsert_arrears_low_spend_records(payment_request,
-      salesforce_payment_request_id, en_hash, cy_hash)
+      salesforce_payment_request_id, spend_record_type_id, en_hash, cy_hash)
 
       retry_number = 0
 
@@ -232,7 +296,8 @@ module PaymentRequestSalesforceApi
             ),
             Amount__c: low_spend.total_amount, 
             VAT__c: low_spend.vat_amount,
-            Spend_level__c: "Spend less than £#{low_spend.spend_threshold}"
+            Spend_level__c: "Spend less than £#{low_spend.spend_threshold}",
+            RecordTypeID: spend_record_type_id
           )
 
         end
@@ -323,7 +388,7 @@ module PaymentRequestSalesforceApi
     end
 
     # Returns the bank account for a form, unless that bank,
-    # account is void.
+    # account is void.  We DO return unverified accounts
     #
     # @param [String] form_id Salesforce reference
     #

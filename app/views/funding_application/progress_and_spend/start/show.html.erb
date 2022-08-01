@@ -6,37 +6,52 @@
          }
 %>
 
-<h1 class="govuk-heading-l">  <%= t('progress_and_spend.start.page_title') %></h1>
+<%# Contains check so progress update content hidden for large %>
+<h1 class="govuk-heading-l">
+  <%= @funding_application.is_100_to_250k? ? \
+    t('progress_and_spend.start.page_title') : \
+      t('progress_and_spend.start.page_title_payment_only')%>
+</h1>
 
-<p class="govuk-body">
+<%# Contains check so progress update content hidden for large %>
+<% if @funding_application.is_100_to_250k? %>
+
+  <p class="govuk-body">
     <%= t('progress_and_spend.start.use_this_service') %>
-</p>
+  </p>
 
-<ul  class="govuk-list govuk-list--bullet">
-  <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.1')%></li>
-  <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.2')%></li>
-  <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.3')%></li>
-</ul>
+  <ul  class="govuk-list govuk-list--bullet">
+    <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.1')%></li>
+    <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.2')%></li>
+    <li><%= t('progress_and_spend.start.bullet_points.get_a_payment.3')%></li>
+  </ul>
+<% end %>
 
 <p class="govuk-body">
       <%= t('progress_and_spend.start.your_investment_manager') %>
 </p>
 
+<%# Contains check so margin added to bottom of list for large %>
 <h2  class="govuk-heading-m"> <%= t('progress_and_spend.start.sub_headings.to_get_payment') %></h2>
-<ul  class="govuk-list govuk-list--bullet">
+<ul  class="govuk-list govuk-list--bullet <%= "govuk-!-margin-bottom-9" unless @funding_application.is_100_to_250k? %>" >
   <li><%= t('progress_and_spend.start.bullet_points.you_need.1')%></li>
   <li><%= t('progress_and_spend.start.bullet_points.you_need.2')%></li>
 </ul>
 
-<h2 class="govuk-heading-m"> <%= t('progress_and_spend.start.sub_headings.how_project_going') %></h2>
-<ul  class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
-  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.1')%></li>
-  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.2')%></li>
-  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.3')%></li>
-  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.4')%></li>
-  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.5')%></li>
-  <li><%= t('progress_and_spend.start.bullet_points.you_might_want.6')%></li>
-</ul>
+<%# Contains check so progress update content hidden for large %>
+<% if @funding_application.is_100_to_250k? %>
+
+  <h2 class="govuk-heading-m"> <%= t('progress_and_spend.start.sub_headings.how_project_going') %></h2>
+  <ul  class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+    <li><%= t('progress_and_spend.start.bullet_points.you_might_want.1')%></li>
+    <li><%= t('progress_and_spend.start.bullet_points.you_might_want.2')%></li>
+    <li><%= t('progress_and_spend.start.bullet_points.you_might_want.3')%></li>
+    <li><%= t('progress_and_spend.start.bullet_points.you_might_want.4')%></li>
+    <li><%= t('progress_and_spend.start.bullet_points.you_might_want.5')%></li>
+    <li><%= t('progress_and_spend.start.bullet_points.you_might_want.6')%></li>
+  </ul>
+
+<% end %>
 
 <%= form_tag(
     url: :funding_application_payment_request_start,

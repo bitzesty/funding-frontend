@@ -146,11 +146,13 @@
 
           <span class="nlhf-tag-name">
 
+          <% delivery_link = get_large_link(delivery_hash) %>
+
           <%=
             link_to_unless(
-              delivery_hash[:status] == t('generic.submitted'),
+              delivery_link.nil?,
               delivery_hash[:salesforce_info][:Project_Title__c],
-              sfx_pts_payment_permission_to_start_path(salesforce_case_id: delivery_hash[:salesforce_info][:Id]),
+              delivery_link,
               class: 'govuk-link govuk-link--no-visited-state'
             )
           %>
@@ -181,11 +183,13 @@
 
           <span class="nlhf-tag-name">
 
-          <%=
+          <% development_link = get_large_link(development_hash) %>
+
+          <%= 
             link_to_unless(
-              development_hash[:status] == t('generic.submitted'),
+              development_link.nil?,
               development_hash[:salesforce_info][:Project_Title__c],
-              sfx_pts_payment_permission_to_start_path(salesforce_case_id: development_hash[:salesforce_info][:Id]),
+              development_link,
               class: 'govuk-link govuk-link--no-visited-state'
             )
           %>

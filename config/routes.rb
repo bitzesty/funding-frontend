@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   put 'start-an-application', to: 'new_application#update', constraints: lambda { Flipper.enabled?(:new_applications_enabled) }
   put 'start-an-application', to: redirect('/', status: 302), constraints: lambda { !Flipper.enabled?(:new_applications_enabled) }
 
+  get 'problem-with-project', to: 'problem_with_project#show'
+
   # Modular address section of the service
   # Used in /user, /organisation and /3-10k/project
   scope '/:type/:id/address' do

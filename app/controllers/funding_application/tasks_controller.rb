@@ -9,8 +9,6 @@ class FundingApplication::TasksController < ApplicationController
 
   def show
 
-    set_award_type(@funding_application)
-
     set_instance_variables(@funding_application)
 
     if @legal_agreement_in_place && @funding_application.is_100_to_250k? && \
@@ -59,9 +57,11 @@ class FundingApplication::TasksController < ApplicationController
   #                                                 FundingApplication
   def set_instance_variables(funding_application)
 
+    salesforce_api_instance = get_salesforce_api_instance()
+
     @not_awarded = !awarded(
       funding_application,
-      get_salesforce_api_instance()
+      salesforce_api_instance
     )
 
     @has_agreed_to_grant =
@@ -75,12 +75,14 @@ class FundingApplication::TasksController < ApplicationController
       current_user
     )
 
-    # Todo: legal_agreement_in_place? temporarily return false if
-    # the award is >100k.  To prevent this journey starting.
-    @legal_agreement_in_place = legal_agreement_in_place?(
-      funding_application,
-      get_salesforce_api_instance()
-    )
+    submitted_and_agreement_in_place =
+      funding_application.submitted_on.present? && \
+        legal_agreement_in_place?(
+          funding_application.salesforce_case_id,
+          salesforce_api_instance
+        )
+
+    @legal_agreement_in_place = submitted_and_agreement_in_place
 
     # Show if agreements.terms_agreed_at is not null
     # AND the actual agreements table needs to have copies stored.

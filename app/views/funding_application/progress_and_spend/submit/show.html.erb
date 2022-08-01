@@ -141,7 +141,8 @@
      <span>
         <%=
           link_to(
-            t('progress_and_spend.select_journey.previous_submissions_link'),
+            @funding_application.is_100_to_250k? ? t('progress_and_spend.tasks.links.previous_submissions') : 
+                t('progress_and_spend.tasks.links.previous_submissions_large'),
             funding_application_progress_and_spend_previous_submissions_previous_submission_dates_path(),
             class: 'govuk-link govuk-link--no-visited-state'
           )

@@ -146,12 +146,7 @@ class FundingApplication::GpOpenMedium::DeclarationController < ApplicationContr
   #                                     for the current funding application
   def set_standard_terms_link(project_costs, cash_contributions)
 
-    grant_request = calculate_grant_request_total(
-      project_costs,
-      cash_contributions
-    )
-
-    if grant_request >= 10000 && grant_request < 100000
+    if @funding_application.is_10_to_100k?
 
       if I18n.locale == :cy 
         @standard_terms_link = 'https://www.heritagefund.org.uk/cy/publications/' \
@@ -161,7 +156,7 @@ class FundingApplication::GpOpenMedium::DeclarationController < ApplicationContr
         'standard-terms-grants-10k-100k'
       end
 
-    elsif grant_request >= 100000 && grant_request <= 250000
+    elsif @funding_application.is_100_to_250k?
 
       if I18n.locale == :cy 
         @standard_terms_link = 'https://www.heritagefund.org.uk/cy/publications/' \

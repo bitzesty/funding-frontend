@@ -1,0 +1,18 @@
+<%# Need content to review this if page is useful. 
+This is based on the GOV.UK design kit%>
+
+<%=
+  render partial: "partials/page_title",
+    locals: {
+        model_object: nil,
+        page_title: t('problem_with_project.page_title')
+    }
+%>
+
+<h1 class="govuk-heading-l">
+  <%= t('problem_with_project.page_heading') %>
+</h1>
+
+<p class="govuk-body">
+  <%= t('problem_with_project.contact') %>
+</p>

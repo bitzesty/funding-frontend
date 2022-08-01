@@ -7,7 +7,6 @@ class FundingApplication::LegalAgreements::AdditionalDocsController < Applicatio
   # rendering the :show template. This is used within the
   # _direct_file_upload_hooks partial
   def show
-    set_award_type(@funding_application)
     @has_file_upload = true
   end
 

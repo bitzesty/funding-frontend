@@ -228,10 +228,33 @@ class FundingApplication < ApplicationRecord
 
   end
 
+  # Apart from development and delivery, these align to grant-level
+  #
+  # is_3_to_10k: Use this if Salesforce has small grant record type. No
+  # need to check grant value.
+  #
+  # is_10_to_100k: Medium 1 grant - Check medium grant record type,
+  # then grant value
+  #
+  # is_100_to_250k: Medium 2 grant - Check for medium grant record type,
+  # then grant value
+  #
+  # dev_to_100k: Development grant up to and including 100k, Check record
+  # type then look at development grant value
+  #
+  # dev_over_100k: Development grant over 100k. Check record type then
+  # look at development grant value
+  #
+  # del_250k_to_5mm: Delivery grant, between 250k and 5 Million.
+  # Check record type.  No need to check value at the moment.
+  #
   enum award_type: {
     is_3_to_10k: 0,
     is_10_to_100k: 1,
     is_100_to_250k: 2,
+    dev_to_100k: 4,
+    dev_over_100k: 5,
+    del_250k_to_5mm: 6,
     award_type_unknown: 3
   }, _default: :award_type_unknown
 

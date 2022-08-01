@@ -2,6 +2,7 @@
 # instance variable
 module FundingApplicationContext
   extend ActiveSupport::Concern
+  include FundingApplicationHelper
   included do
     before_action :authenticate_user!, :set_funding_application
   end
@@ -41,7 +42,8 @@ module FundingApplicationContext
             )
 
           redirect_to :authenticated_root
-
+    else
+      check_award_type(@funding_application)
     end
 
   end
@@ -55,6 +57,7 @@ module FundingApplicationContext
   # Above checks qualify this as a submitted application 
   # so only allow certain paths
   def invalid_view_for_submitted_application?
+
     @funding_application&.submitted_on.present? && \
       @funding_application&.agreement_submitted_on.blank? && \
         not_an_allowed_paths_for_submitted_projects(request.path)
@@ -74,10 +77,11 @@ module FundingApplicationContext
         not_an_allowed_paths_for_submitted_agreements(request.path)
   end
 
-  # Applies when an arrears payment is underway
-  # and an invalid path is being tried
+  # Applies when an application is suitable for arrears payment.
+  # The application type is checked first to make sure it is
+  # ready for an arrears payment.  If so, we check thet we are
+  # on a progress-and-spend path.
   #
-  # WIP: This is not technically needed at the moment. Because
   # progress_and_spend is as far as we've currently taken the
   # process.  A grantee can remain on this journey for a
   # while.
@@ -87,22 +91,62 @@ module FundingApplicationContext
   # the arrears_journey_tracker which is deleted on submission.
   # There is a Rails error, which we can replaces with a 500 page.
   #
-  # The invalid_view_for_submitted_agreement check above will stop
-  # people changing a previously submitted legal agreement.
-  #
   # If we introduce a step after progress and spend, we may revisit this.
   #
   def invalid_view_for_progress_and_spend?
 
-    false
+    p_and_s_path = request.path.include?('progress-and-spend')
+
+    if p_and_s_path
+
+      is_p_and_s_project = @funding_application.dev_over_100k? || \
+        @funding_application.del_250k_to_5mm?  || \
+          (@funding_application.agreement_submitted_on.present? && \
+              @funding_application.is_100_to_250k?)
+
+
+      payment_can_start = @funding_application&.payment_can_start?
+
+      if is_p_and_s_project && payment_can_start
+
+        return false # valid
+
+      else
+
+        Rails.logger.error(
+          "Invalid_view_for_progress_and_spend. " \
+            "Application type ok?: #{is_p_and_s_project}. " \
+              "progress-and-spend-path used?: #{p_and_s_path}. " \
+                "Payment can start?: #{payment_can_start}."
+        )
+
+        return true # invalid
+      
+      end
+
+    else
+
+      return false # Not a progress and spend path
+
+    end
 
   end
 
   # Returns true if no suitable funding_application found
+  # - Error if no funding application
+  # - And if there is a funding application it must have either:
+  #   * A project (small application) attached
+  #   * An open_medium (medium application) attached
+  #   * Or have a status present
   def no_valid_funding_application_found?
+
     !@funding_application.present? || \
       (@funding_application.project.nil? && \
-        @funding_application.open_medium.nil?)
+        @funding_application.open_medium.nil? && \
+          (@funding_application.status.nil? || \
+            @funding_application.unknown?)
+      )
+
   end
   
   # Returns true if the passed path is NOT allowed for submitted applications.
@@ -114,7 +158,8 @@ module FundingApplicationContext
       path.exclude?('/tasks') && \
         path.exclude?('/agreement') && \
           path.exclude?('/summary') && \
-            path.exclude?('payments')
+            path.exclude?('payments') && \
+              path.exclude?('progress-and-spend')
   end
 
   # Returns true if the passed path is NOT allowed for submitted agreements.
@@ -133,3 +178,4 @@ module FundingApplicationContext
   end
 
 end
+

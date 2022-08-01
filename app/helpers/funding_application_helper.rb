@@ -53,8 +53,6 @@ module FundingApplicationHelper
   #         of Grant
   def get_standard_terms_link(funding_application)
 
-    set_award_type(funding_application) if funding_application.award_type_unknown?
-
     if I18n.locale == :cy 
       standard_terms_link =
         'https://www.heritagefund.org.uk/cy/publications/standard-terms-grants' \
@@ -93,8 +91,6 @@ module FundingApplicationHelper
   # @return A string containing the link to the relevant Retrieving a
   #         Grant guidance
   def get_receiving_a_grant_guidance_link(funding_application)
-
-    set_award_type(funding_application) if funding_application.award_type_unknown?
 
     if I18n.locale == :cy 
       receiving_a_grant_guidance_link =
@@ -136,8 +132,6 @@ module FundingApplicationHelper
   # @return A string containing the link to the relevant guidance
   def get_receiving_guidance_property_ownership_link(funding_application)
 
-    set_award_type(funding_application) if funding_application.award_type_unknown?
-
     if I18n.locale == :cy 
       link =
       'https://www.heritagefund.org.uk/cy/funding/receiving-grant-guidance' \
@@ -177,8 +171,6 @@ module FundingApplicationHelper
   #
   # @return A string containing the link to the relevant guidance
   def get_programme_application_guidance_link(funding_application)
-
-    set_award_type(funding_application) if funding_application.award_type_unknown?
 
     if I18n.locale == :cy 
       link =
@@ -248,15 +240,15 @@ module FundingApplicationHelper
 
   end
 
-  # Return true if grant award between 10000 and 100000
+  # Return true if the grant award is up to and including 100k.
   #
   # @param grant award [Integer] Grant award amount
   #
   # @return result Boolean value indicating award falls in threshold
-  def is_10001k_100000k_award(grant_award)
-    
+  def up_to_100k(grant_award)
+
     if grant_award
-      result = (grant_award > 10000) && (grant_award <= 100000)
+      result = grant_award <= 100000
     else
       result = false      
     end
@@ -265,57 +257,20 @@ module FundingApplicationHelper
 
   end
 
-  # Return true if grant award between 100001 and 250000
+  # Return true if the grant award is over 100k.
   #
   # @param grant award [Integer] Grant award amount
   #
   # @return result Boolean value indicating award falls in threshold
-  def is_100001k_250000k_award(grant_award)
+  def over_100k(grant_award)
 
     if grant_award
-      result = (grant_award > 100000) && (grant_award <= 250000) if grant_award
+      result = grant_award > 100000
     else
       result = false      
     end
 
     result 
-
-  end
-
-  # Sets an in memory enumerated type for the passed instance of
-  # FundingApplication.  Used to dynamically determine what content
-  # should be shown based on the category of award type.
-  #
-  # @param grant award [FundingApplication] an instance of this class
-  def set_award_type(funding_application)
-
-    funding_application.award_type = :award_type_unknown
-
-    if funding_application.project.present? 
-      funding_application.award_type = :is_3_to_10k
-
-    elsif funding_application.open_medium.present?
-
-      salesforce_api_client = SalesforceApiClient.new
-
-      award_hash = 
-        salesforce_api_client.get_payment_related_details \
-          (funding_application.id) 
-
-      funding_application.award_type = :is_10_to_100k \
-        if is_10001k_100000k_award(award_hash[:grant_award])
-
-      funding_application.award_type = :is_100_to_250k \
-        if is_100001k_250000k_award(award_hash[:grant_award])
-
-    end
-      
-    if funding_application.award_type_unknown?
-      raise StandardError.new(
-        "Could not identify an award type for: #{funding_application.id}"
-      )
-  
-    end
 
   end
 
@@ -355,5 +310,101 @@ module FundingApplicationHelper
       logger.info "Personal data removed for legal_signatory ID: #{ls.id} "
     end
   end
+
+  # Checks the award_type for a funding_application
+  # Sets if the award_type is nil after the legal agreements
+  # process can start.
+  #
+  # This is the only place the award_type can be set.
+  # This should be set ASAP after the when the legal agreement
+  # process starts, and no earlier.
+  # @param grant award [FundingApplication] an instance of this class
+  def check_award_type(funding_application)
+
+    if (funding_application.award_type.nil? || \
+      funding_application.award_type_unknown?) && \
+        funding_application.submitted_on.present?
+
+      salesforce_api_client = SalesforceApiClient.new
+
+      awarded = salesforce_api_client.is_project_awarded_using_case_id(
+        funding_application.salesforce_case_id
+      )
+
+      set_award_type(funding_application) if awarded
+
+    end
+
+  end
+
+  private
+
+  # Private function.  Only called by check_award_type.
+  # This should be set when the legal agreement process starts.
+  # For older applications where this had not happened,
+  # check_award_type will only set sometime after the legal
+  # agreement process has started.
+  #
+  # Sets an enumerated type for the passed instance of
+  # FundingApplication.  Used to determine what behaviour
+  # FFE should demonstrate based on grant level.
+  #
+  # When a record type of development or delivery is found, that
+  # is all we need, and award amount is disregarded.
+  # If the record type is not for development or delivery, then
+  # we use the award amount to set an award_type based on
+  # grant level.
+  #
+  # When an agreements journey starts, the grant
+  # level must remain the same, as far as FFE is concerned,
+  # so that the content is consiustent in the upcoming user journeys.
+  #
+  # @param grant award [FundingApplication] an instance of this class
+  def set_award_type(funding_application)
+
+    funding_application.award_type = :award_type_unknown
+
+    salesforce_api_client = SalesforceApiClient.new
+
+    award_hash =
+      salesforce_api_client.get_grant_level_details_for_project(
+        funding_application.salesforce_case_id
+      )
+
+    if award_hash[:record_type] == 'Large_Development_250_500k'
+
+      funding_application.update!(award_type: :dev_to_100k) \
+        if up_to_100k(award_hash[:dev_grant_award])
+
+      funding_application.update!(award_type: :dev_over_100k) \
+        if over_100k(award_hash[:dev_grant_award])
+
+    elsif award_hash[:record_type] == 'Large'
+
+      funding_application.update!(award_type: :del_250k_to_5mm)
+
+    elsif award_hash[:record_type] == 'Small_Grant_3_10k'
+
+      funding_application.update!(award_type: :is_3_to_10k)
+
+    elsif award_hash[:record_type] == 'Medium'
+
+      funding_application.update!(award_type: :is_10_to_100k) \
+        if up_to_100k(award_hash[:grant_award])
+
+      funding_application.update!(award_type: :is_100_to_250k) \
+        if over_100k(award_hash[:grant_award])
+
+    end
+      
+    if funding_application.award_type_unknown?
+      raise StandardError.new(
+        "Could not identify an award type for: #{funding_application.id}"
+      )
+  
+    end
+
+  end
+
 
 end

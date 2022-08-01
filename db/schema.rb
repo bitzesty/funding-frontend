@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_20_105551) do
+ActiveRecord::Schema.define(version: 2022_07_21_123733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_105551) do
     t.jsonb "submitted_payload"
     t.datetime "agreement_submitted_on"
     t.integer "status"
+    t.integer "award_type"
     t.index ["organisation_id"], name: "index_funding_applications_on_organisation_id"
   end
 
@@ -794,6 +795,14 @@ ActiveRecord::Schema.define(version: 2022_05_20_105551) do
     t.jsonb "payload"
     t.integer "form_type"
     t.index ["project_id"], name: "index_released_forms_on_project_id"
+  end
+
+  create_table "salesforce_changes_checks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "record_id"
+    t.text "record_type"
+    t.datetime "time_salesforce_checked"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sfx_pts_payments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

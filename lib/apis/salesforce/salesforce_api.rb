@@ -91,6 +91,92 @@
 
     end
 
+    # Method to retrieve grant level details for a project
+    #
+    # @param [String] salesforce_case_id Salesforce Id for a Project
+    #
+    # @return [Hash] A Hash, containing information about grant level
+    def get_grant_level_details_for_project(salesforce_case_id)
+
+      Rails.logger.info("Retrieving grant level details for case ID: " \
+        "#{salesforce_case_id}")
+
+      retry_number = 0
+
+      begin
+
+        # Equivalent of "SELECT Grant_Award__c, Grant_Percentage__c
+        # FROM Case WHERE ApplicationId__c = '#{salesforce_case_id}'"
+        restforce_response = @client.select(
+          'Case',
+          salesforce_case_id,
+          [
+            'Grant_Award__c',
+            'Development_grant_award__c',
+            'recordType.DeveloperName'
+          ],
+          'Id'
+        )
+
+      rescue Restforce::NotFoundError => e
+
+        Rails.logger.error(
+          "Exception occured when retrieving grant level details for " \
+            "case ID: #{salesforce_case_id}:" \
+              " - no Case found. (#{e})"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+             Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error(
+          "Exception occured when retrieving grant level details for " \
+            "project ID: #{salesforce_case_id}: (#{e})"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt get_grant_level_details_for_project again, " \
+              "retry number #{retry_number} " \
+                "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+      Rails.logger.info("Finished retrieving grant level details for " \
+        "project ID: #{salesforce_case_id}")
+
+      {
+        'grant_award': restforce_response.Grant_Award__c,
+        'dev_grant_award': restforce_response.Grant_Award__c,
+        'record_type': restforce_response.RecordType.DeveloperName
+      }
+
+    end
+
     def get_agreed_project_costs(salesforce_case_id)
 
       Rails.logger.info("Retrieving agreed project costs for salesforce case ID: #{salesforce_case_id}")
@@ -739,77 +825,6 @@
 
     end
 
-    # Method to check Salesforce to see if a legal agreement is in place for
-    # a given Project.
-    #
-    # Takes the Salesforce id as a parameter, rather than a UUID for
-    # a FundingApplication. This is because Salesforce currently stores
-    # the UUID of a Project for a £3,000 to £10,000 application and the UUID
-    # of a FundingApplication for everything else.
-    #
-    # Retries if initial call unsuccessful.
-    #
-    # @param [String] salesforce_external_id Can be a FundingApplication.id or a Project.id
-    #
-    # @return [Boolean] Returns True if the Legal_agreement_in_place__c field
-    #                   in Salesforce has been set, otherwise False.
-    def legal_agreement_in_place?(salesforce_external_id)
-
-      retry_number = 0
-
-      begin
-
-        record_type_id =
-          @client.query_all("select Legal_agreement_in_place__c from Case " \
-            "where ApplicationId__c ='#{salesforce_external_id}'")
-
-        if record_type_id.length != 1
-
-          error_msg = "Row not found for Case. " \
-            "Checking funding application id : '#{salesforce_external_id}'"
-
-          Rails.logger.error(error_msg)
-
-        end
-
-        record_type_id&.first&.Legal_agreement_in_place__c
-
-      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
-        Restforce::EntityTooLargeError, Restforce::ResponseError => e
-
-        Rails.logger.error("Error checking if legal agreement in place " \
-          "for funding application id: #{salesforce_external_id}")
-
-        # Raise and allow global exception handler to catch
-        raise
-
-      rescue Timeout::Error, Faraday::ClientError => e
-
-        if retry_number < MAX_RETRIES
-
-          retry_number += 1
-
-          max_sleep_seconds = Float(2 ** retry_number)
-
-          Rails.logger.info(
-            "Will attempt legal_agreement_in_place? again, retry number #{retry_number} " \
-            "after a sleeping for up to #{max_sleep_seconds} seconds"
-          )
-
-          sleep rand(0..max_sleep_seconds)
-
-          retry
-
-        else
-
-          raise
-
-        end
-
-      end
-
-    end
-
     # Method to orchestrate creating the salesforce records needed when
     # an applicant requests a payment.
     # Finds or creates a record for bank account, then payment request, then
@@ -1237,40 +1252,63 @@
     
     # Method to check Salesforce to see if a legal agreement is in place
     # True is returned if a legal agreement is in place.
-    # Takes and id as a parameter.  Because Salesforce stores project ids for smalls and
-    # funding_ids for everything else.
+    #
+    # 1) Looks for checked of Legal_agreement_in_place__c for projects < 100k.
+    # 2) Looks for completed Permission To Start form for projects > 100k.
+    # We may not know the award type. Projects < 100k are more common, so
+    # most efficient to check those first.
     #
     # Retries if initial call unsuccessful.
     #
-    # @param [String] salesforce_external_id Can be a FundingApplication.id or a Project.id
+    # @param [String] salesforce_case_id Salesforce reference for Case/Project
     #
-    # @return [Boolean] True if a legal agreement is in place for the funding_application
-    def legal_agreement_in_place?(salesforce_external_id)    
+    # @return [Boolean] True if a legal agreement is in place.
+    def legal_agreement_in_place?(salesforce_case_id)
 
       retry_number = 0
 
       begin
 
-        record_type_id = 
+        agreement_in_place = false # initialise
+
+        # Check Legal_agreement_in_place__c first
+        records =
           @client.query_all("select Legal_agreement_in_place__c from Case " \
-            "where ApplicationId__c ='#{salesforce_external_id}'")
+            "where Id ='#{salesforce_case_id}'")
 
-        if record_type_id.length != 1
+        if records.length > 0
 
-          error_msg = "Row not found for Case. " \
-            "Checking funding application id : '#{salesforce_external_id}'"
-
-          Rails.logger.error(error_msg)
+          agreement_in_place = records&.first&.Legal_agreement_in_place__c
 
         end
 
-        record_type_id&.first&.Legal_agreement_in_place__c
+        unless agreement_in_place # Legal_agreement_in_place__c false/missing
+
+          # Check for completed permission to start form next
+          record_type_id =
+          get_salesforce_record_type_id(
+            'Large_Grants_Permission_To_Start', 'Forms__c')
+
+          records =
+            @client.query_all("SELECT Count() FROM Forms__c " \
+              "where Case__c = '#{salesforce_case_id}' " \
+                "and RecordTypeId = '#{record_type_id}'" \
+                  "and Form_Status__c = 'Complete'")
+
+          agreement_in_place = records&.size > 0
+
+        end
+
+        Rails.logger.info("agreement in place is: " \
+          "#{agreement_in_place} for: '#{salesforce_case_id}'")
+
+        agreement_in_place
 
       rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
         Restforce::EntityTooLargeError, Restforce::ResponseError => e
 
-        Rails.logger.error("Error checking if application awarded " \
-          "for funding application id: #{salesforce_external_id}")
+        Rails.logger.error("Error checking legal_agreement_in_place? " \
+          "for sales_force_case_id: #{salesforce_case_id}")
 
         # Raise and allow global exception handler to catch
         raise
@@ -1452,6 +1490,72 @@
       
     end
 
+    # Method to check Salesforce to see if an application is awarded
+    # True is returned if a awarded.
+    #
+    # Essentially the same function as above, but uses salesforce_case_id
+    # rather than funding_application_id, making it suitable for large
+    # applications.
+    #
+    # Retries if initial call unsuccessful.
+    #
+    # @param [String] salesforce_case_id Case reference known to Salesforce
+    #
+    # @return [Boolean] True if tStart_the_legal_agreement_process__c is set
+    #                   in Salesforce for the case.
+    def is_project_awarded_using_case_id(salesforce_case_id)
+
+      retry_number = 0
+
+      begin
+
+        record_type_id =
+          @client.query_all("select Start_the_legal_agreement_process__c " \
+            "from Case where Id ='#{salesforce_case_id}'")
+
+        if record_type_id.length != 1
+          error_msg = "Start_the_legal_agreement_process__c not yet " \
+            "true for salesforce_case_id : '#{salesforce_case_id}'"
+          Rails.logger.info(error_msg)
+
+        end
+
+        record_type_id&.first&.Start_the_legal_agreement_process__c
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+        Rails.logger.error("Error in is_project_awarded_using_case_id" \
+          "for salesforce_case_id: #{salesforce_case_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt is_project_awarded_using_case_id again, " \
+            "retry number #{retry_number} " \
+            "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
     # Method to find additional grant conditions for an awarded project.
     # Currently used within the terms route
     #
@@ -1534,10 +1638,10 @@
 
       large_applications = []
 
-      users = @client.query_all("SELECT AccountId, Id FROM Contact WHERE Id IN  " \
-        "(SELECT ContactId FROM User where email = '#{email}' " \
+      users = @client.query_all("SELECT AccountId, Id FROM Contact WHERE Id " \
+        "IN (SELECT ContactId FROM User where email = '#{email}' " \
           "AND profile.name = 'NLHF Portal Login User') ")
-
+      
       if users.length == 1
 
         Rails.logger.info("Found matching salesforce contact id: " \
@@ -1546,11 +1650,13 @@
         unless users&.first&.values&.any? { | detail |  detail.nil? }
           large_applications = 
           @client.query_all("SELECT Project_Title__c, Id, " \
-            "recordType.DeveloperName FROM Case WHERE  " \
-              "AccountId = '#{users.first[:AccountId]}' AND " \
-                "contactId = '#{users.first[:Id]}' AND " \
-                  "Application_Submitted__c = TRUE AND " \
-                    "Start_the_legal_agreement_process__c = TRUE")
+            "recordType.DeveloperName, " \
+              "AccountId, Submission_Date_Time__c "\
+                "FROM Case WHERE  "\
+                  "AccountId = '#{users.first[:AccountId]}' AND " \
+                    "contactId = '#{users.first[:Id]}' AND " \
+                      "Application_Submitted__c = TRUE AND " \
+                        "Start_the_legal_agreement_process__c = TRUE")
         end
       
       elsif users.length > 1 

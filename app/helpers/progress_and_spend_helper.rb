@@ -73,16 +73,50 @@ module ProgressAndSpendHelper
 
     details_hash = {}
 
-    grant_expiry_date = Date.parse(
-      arrears_heading_info.Grant_Expiry_Date__c 
-    )
+    if funding_application.dev_over_100k?
+
+      grant_expiry_date = Date.parse(
+        arrears_heading_info.Development_grant_expiry_date__c
+      )
+
+      grant_awarded = arrears_heading_info
+        .Development_grant_award__c
+
+      payment_percentage = arrears_heading_info
+        .Development_payment_percentage__c
+      
+    elsif funding_application.del_250k_to_5mm?
+
+      grant_expiry_date = Date.parse(
+        arrears_heading_info.Grant_Expiry_Date__c
+      )
+
+      grant_awarded = arrears_heading_info
+        .Delivery_grant_award__c
+
+      payment_percentage = arrears_heading_info
+        .Delivery_payment_percentage__c
+
+    else
+
+      grant_expiry_date = Date.parse(
+        arrears_heading_info.Grant_Expiry_Date__c
+      )
+
+      grant_awarded = arrears_heading_info
+        .Grant_Award__c
+
+      payment_percentage = arrears_heading_info
+        .payment_percentage__c
+
+    end
 
     details_hash[:project_name] = arrears_heading_info.Project_Title__c
-    details_hash[:project_expiry_date] = l(grant_expiry_date, format: '%d %B %Y').to_s 
+    details_hash[:project_expiry_date] = l(grant_expiry_date, format: '%d %B %Y').to_s  
     details_hash[:amount_paid] = arrears_heading_info.Total_Payments_Paid__c
     details_hash[:amount_remaining] = arrears_heading_info.Remaining_Grant__c
-    details_hash[:grant_awarded]= arrears_heading_info.Grant_Award__c
-    details_hash[:payment_percentage] = arrears_heading_info.payment_percentage__c
+    details_hash[:grant_awarded]= grant_awarded
+    details_hash[:payment_percentage] = payment_percentage
 
     details_hash
     
@@ -609,10 +643,15 @@ module ProgressAndSpendHelper
     payment_request = completed_arrears_journey
       .payment_request
 
+    spend_record_type_id = get_spending_costs_record_type(
+      completed_arrears_journey.funding_application
+    )
+
     client.upsert_arrears_payment_request(
       payment_request,
       form_id,
-      payment_amount
+      payment_amount,
+      spend_record_type_id
     )
 
     payment_request.submitted_on = DateTime.now
@@ -859,16 +898,23 @@ module ProgressAndSpendHelper
     end
   end
     
-  # return the spend amount that results in the need to capture spending evidence.
-  # This value is different for 100-250k applications and those over 250k.
-  # Makes a call to Salesforce under the hood.
+  # Return the spend amount that results in the need to capture spending 
+  # evidence.
+  # This value usually £500.
+  # But is £250 for development grant awards up to and including £100k.
   # 
   # @params [FundingApplication] funding_application
   # @return [Integer] spend_amount The threshold spend amount
   def get_spend_threshold(funding_application)
-    set_award_type(funding_application)
-    spend_amount = 500 if @funding_application.is_100_to_250k?
-    # Large to follow - development spend threshold could be less than £500
+
+    if @funding_application.dev_to_100k?
+       spend_amount = 250
+    else
+      spend_amount = 500 
+    end
+
+    spend_amount    
+
   end
 
   # Redirects the spend journey depending on the user's answers
@@ -975,6 +1021,29 @@ module ProgressAndSpendHelper
 
   end
 
+  # Retrieves spend costs record type id from Salesforce
+  # based on funding application type 
+  # (medium / large delivery / large development).
+  #
+  # @param [FundingApplication] funding_application
+  # @return [String] record_type_id
+  def get_spending_costs_record_type(funding_application)
+
+    client = PaymentRequestSalesforceApiClient.new
+
+    record_type_id = client.spend_record_type_id_medium \
+      if funding_application.is_100_to_250k?
+
+    record_type_id = client.spend_record_type_id_large_development \
+        if funding_application.dev_to_100k? || funding_application.dev_over_100k?
+
+    record_type_id = client.spend_record_type_id_large_delivery \
+      if funding_application.del_250k_to_5mm?
+
+    record_type_id
+
+  end
+
   # Retrieves cost headings from Salesforce
   # Only suited for for medium application < 250001 at the moment
   #
@@ -984,12 +1053,17 @@ module ProgressAndSpendHelper
 
     client = PaymentRequestSalesforceApiClient.new
 
-    set_award_type(funding_application)
-
     record_type_id = client.record_type_id_medium_grant_cost \
       if funding_application.is_100_to_250k?
 
-    # large arrears payments will need own function
+    record_type_id = client.record_type_id_large_development_grant_cost \
+        if funding_application.dev_to_100k?
+
+    record_type_id = client.record_type_id_large_development_grant_cost \
+      if funding_application.dev_over_100k?
+
+    record_type_id = client.record_type_id_large_delivery_grant_cost \
+      if funding_application.del_250k_to_5mm?
 
     case_id = funding_application.salesforce_case_id
 
@@ -999,9 +1073,15 @@ module ProgressAndSpendHelper
         record_type_id
       )
 
+    if funding_application.dev_over_100k? || funding_application.del_250k_to_5mm?
+      headings.delete("Non-cash contributions")
+      headings.delete("Volunteer time")
+    end
+    
     headings.each do |heading|
       headings[headings.index(heading)] =
         translate_salesforce_cost_heading(heading)
+
     end
 
   end

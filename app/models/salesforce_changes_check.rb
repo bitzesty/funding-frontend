@@ -1,0 +1,3 @@
+class SalesforceChangesCheck < ApplicationRecord
+
+end

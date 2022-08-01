@@ -88,12 +88,18 @@ module OrganisationHelper
       client = OrganisationSalesforceApi.new
       sf_details = client.retrieve_existing_sf_org_details(organisation.salesforce_account_id)
 
-      lines_array = sf_details.BillingStreet.split(/\s*,\s*/)
+      lines_array = ['', '', '']
+
+      # BillingStreet nil when Account created with no address
+      unless sf_details.BillingStreet.nil?
+        lines_array = sf_details.BillingStreet.split(/\s*,\s*/)
+      end
 
       organisation.name = sf_details.Name
       organisation.line1 = lines_array[0]
       organisation.line2 = lines_array[1]
       organisation.line3 = lines_array[2]
+
       organisation.townCity = sf_details.BillingCity
       organisation.county = sf_details.BillingState
       organisation.postcode = sf_details.BillingPostalCode
@@ -106,6 +112,8 @@ module OrganisationHelper
       # organisation.org_type = convert_org_type(sf_details.Organisation_Type__c)
 
       organisation.save!
+
+      update_salesforce_changes_checks(organisation)
 
       Rails.logger.info("Latest organisation details for id: " \
         "#{organisation.id} populated from salesforce_account_id: " \
@@ -136,11 +144,56 @@ module OrganisationHelper
             "#{organisation.salesforce_account_id} failed owing to " \
               "error: #{e.message}"
         )
-  
+
         raise
 
       end
     end
+  end
+
+  # Updates the salesforce_changes_check table if
+  # updates have been pulled from Salesforce
+  #
+  # This function could be moved into SalesforceChangesCheck
+  # model, if other models end up using this.
+  #
+  # @param [Organisation] organisation
+  def update_salesforce_changes_checks(organisation)
+
+    existing_row =
+      SalesforceChangesCheck.find_by(record_id: organisation.id)
+
+    if existing_row.present?
+
+      existing_row.update!(
+        time_salesforce_checked: DateTime.now
+      )
+
+    else
+
+      SalesforceChangesCheck.create!(
+        record_id: organisation.id,
+        record_type: organisation.class,
+        time_salesforce_checked: DateTime.now
+      )
+
+    end
+
+  end
+
+  # True if updates have been pulled from Salesforce today.
+  #
+  # This function could be moved into SalesforceChangesCheck
+  # model, if other models end up using this.
+  #
+  # @param [Organisation] organisation
+  def salesforce_checked_today?(organisation)
+
+    record =
+      SalesforceChangesCheck.find_by(record_id: organisation.id)
+
+    record.present? ? record.updated_at.today? : false
+
   end
 
   # Method to convert salesforce VAT_registered type to FFE type

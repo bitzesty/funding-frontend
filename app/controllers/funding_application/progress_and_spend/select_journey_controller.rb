@@ -4,14 +4,27 @@ include ProgressAndSpendHelper
 include Enums::ArrearsJourneyStatus
 
   def show()
-    retrieve_project_info
 
+    # Journey has already begun, redirect to tasks page
     if @funding_application.arrears_journey_tracker.payment_request_id.present? ||
       @funding_application.arrears_journey_tracker.progress_update_id.present?
     
       redirect_to \
         funding_application_progress_and_spend_progress_and_spend_tasks_path()
+
+    # Journey has not started. If Large, skip select, default to payment
+    elsif @funding_application.dev_over_100k? || \
+        @funding_application.del_250k_to_5mm?
+
+      create_payment_request_if_needed
+
+      redirect_to \
+        funding_application_progress_and_spend_progress_and_spend_tasks_path()
+
     end
+
+    # Journey has not started, not large, show select screen
+    retrieve_project_info
 
   end
 
@@ -32,25 +45,8 @@ include Enums::ArrearsJourneyStatus
 
     if  @funding_application.arrears_journey_tracker.get_payment == "true"
 
-      if @funding_application.arrears_journey_tracker.payment_request_id.blank?
+      create_payment_request_if_needed
 
-        payment_request = @funding_application.payment_requests.create(
-          answers_json: {
-            arrears_journey: {
-              status: JOURNEY_STATUS[:not_started],
-              spend_journeys_to_do:[]
-            },
-            bank_details_journey: {
-              status: JOURNEY_STATUS[:not_started],
-              has_bank_details_update: nil
-            }
-          }
-        )
-
-        @funding_application.arrears_journey_tracker.update(
-          payment_request_id: payment_request.id)
-
-      end
     end
 
 
@@ -109,6 +105,33 @@ include Enums::ArrearsJourneyStatus
     @grant_paid = details_hash[:amount_paid] 
     @remaining_grant = details_hash[:amount_remaining]
     @grant_expiry_date = details_hash[:project_expiry_date]
+
+  end
+
+  # Creates the payment request and initialises answers_json if
+  # a payment request has not already been created.
+  # Then links the payment request to arrears_journey_tracker.
+  def create_payment_request_if_needed
+
+    if @funding_application.arrears_journey_tracker.payment_request_id.blank?
+
+      payment_request = @funding_application.payment_requests.create(
+        answers_json: {
+          arrears_journey: {
+            status: JOURNEY_STATUS[:not_started],
+            spend_journeys_to_do:[]
+          },
+          bank_details_journey: {
+            status: JOURNEY_STATUS[:not_started],
+            has_bank_details_update: nil
+          }
+        }
+      )
+
+      @funding_application.arrears_journey_tracker.update(
+        payment_request_id: payment_request.id)
+
+    end
 
   end
   

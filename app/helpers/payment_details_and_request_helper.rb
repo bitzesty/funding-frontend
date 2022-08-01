@@ -44,7 +44,7 @@ module PaymentDetailsAndRequestHelper
 
     grant_award = payment_related_details[:grant_award]
 
-    if grant_award > 0 && grant_award <= 10000
+    if @funding_application.is_3_to_10k?
 
       logger.info(
         "Payment request triggered for funding_application ID: #{funding_application.id}" \
@@ -55,7 +55,7 @@ module PaymentDetailsAndRequestHelper
 
       submit_payment_request(funding_application, payment_request)
 
-    elsif grant_award > 10000 && grant_award <= 100000
+    elsif @funding_application.is_10_to_100k?
 
       logger.info(
         "Payment request triggered for funding_application ID: #{funding_application.id}" \
@@ -65,15 +65,6 @@ module PaymentDetailsAndRequestHelper
       calculate_payment_request_between_10000_and_100000(funding_application, payment_request, grant_award)
 
       submit_payment_request(funding_application, payment_request)
-
-    else
-
-      logger.info(
-        "Payment request triggered for funding_application ID: #{funding_application.id}" \
-        ', grant award is above £100,000'
-      )
-
-      redirect_to_evidence_of_spend
 
     end
 

@@ -30,7 +30,7 @@ RSpec.describe FundingApplicationContext do
     before {
       get :fake_action,
           params: {
-              application_id: 100
+              application_id: 100,
           }
     }
 
@@ -53,7 +53,9 @@ RSpec.describe FundingApplicationContext do
         :funding_application,
         id: 'id',
         organisation_id: subject.current_user.organisations.first.id,
-        project: nil
+        project: nil,
+        award_type: 3, 
+        status: 0
       )
     }
 
@@ -66,6 +68,39 @@ RSpec.describe FundingApplicationContext do
 
     it "should redirect to root if the funding application belonging to the current user " \
        "does not have an associated project" do
+
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(:root)
+
+    end
+
+  end
+
+  describe "set_funding_application failure scenario - no funding application status " \
+    "(simulating existing projects, prior status being added)" do
+
+    login_user
+
+    let(:funding_application) {
+      create(
+        :funding_application,
+        id: 'id',
+        organisation_id: subject.current_user.organisations.first.id,
+        project: nil,
+        award_type: 3, 
+        status: nil
+      )
+    }
+
+    before {
+      get :fake_action,
+          params: {
+              application_id: funding_application.id
+          }
+    }
+
+    it "should redirect to root if the funding application belonging to the current user " \
+       "does not have an associated project or status set" do
 
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(:root)

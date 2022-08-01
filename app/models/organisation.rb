@@ -1,10 +1,14 @@
 class Organisation < ApplicationRecord
   include ActiveModel::Validations, GenericValidator, OrganisationHelper
 
-  after_find do |organisation| 
-    unless organisation.updated_at.today? || organisation.salesforce_account_id.nil?
+  after_find do |organisation|
+
+    unless organisation.updated_at.today? || organisation.salesforce_account_id.nil? \
+      || salesforce_checked_today?(organisation)
+
       Rails.logger.info "Checking and updating Org with id: #{organisation.id}"
       update_existing_organisation_from_salesforce_details(organisation)
+
     end 
   end
 

@@ -15,4 +15,5 @@ en-GB:
         submit: "Submit your answers"
         grant_conditions: "View Grant Contract"
         previous_submissions: "Previous payments and project updates"
+        previous_submissions_large: "Previous payments"
       overview: "Project Overview"

@@ -4,8 +4,6 @@ class FundingApplication::LegalAgreements::Signatories::TermsController < Applic
 
   def show
 
-    set_award_type(@funding_application)
-
     @award_more_than_10k = @funding_application.open_medium.present?
 
     @standard_terms_link = get_standard_terms_link(@funding_application)
