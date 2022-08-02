@@ -16,6 +16,8 @@
 class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < ApplicationController
   include FundingApplicationContext
   include ProgressAndSpendHelper
+
+  class LowSpendCostHeadingError < StandardError; end
   
   def show()
 
@@ -50,7 +52,15 @@ class FundingApplication::ProgressAndSpend::Payments::LowSpendAddController < Ap
     # always take the first heading in the list
     headings = get_spend_headings_list(payment_request)
     @heading = headings.first
-    @spend_threshold = get_low_spend_threshold_from_json(payment_request, @funding_application)
+
+    if @heading.blank?
+      raise LowSpendCostHeadingError.new("Error, no cost heading on low spend" \
+        "with payment request id: #{payment_request.id}")
+    end
+
+    @spend_threshold = get_low_spend_threshold_from_json(
+      payment_request, 
+      @funding_application)
     @low_spend = get_low_spend(@funding_application, @heading)
 
     @low_spend.validate_vat_amount = true
