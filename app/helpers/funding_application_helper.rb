@@ -318,6 +318,12 @@ module FundingApplicationHelper
   # This is the only place the award_type can be set.
   # This should be set ASAP after the when the legal agreement
   # process starts, and no earlier.
+  #
+  # Calls to this function are currently made when
+  # - funding_application_context.rb finds a valid application
+  # - legal_agreement_context.rb finds a valid application
+  # - A new FundingApplication is created for a large project
+  #
   # @param grant award [FundingApplication] an instance of this class
   def check_award_type(funding_application)
 
