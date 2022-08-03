@@ -17,4 +17,5 @@ cy:
       remaining_grant: "Grant sy'n weddill: £"
       grant_expiry_date: "Dyddiad y daw'r grant i ben: "
       previous_submissions_link: "Taliadau blaenorol a diweddariadau prosiect"
+      previous_submissions_link_large: "Taliadau blaenorol"
       please_select: "Dewiswch opsiwn"

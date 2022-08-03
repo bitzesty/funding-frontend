@@ -15,4 +15,5 @@ cy:
         submit: "Cyflwynwch eich atebion"
         grant_conditions: "Gweld y Contract Grant"
         previous_submissions: "Taliadau blaenorol a diweddariadau prosiect"
+        previous_submissions_large: "Taliadau blaenorol"
       overview: "Trosolwg o'r Prosiect"

@@ -3,6 +3,8 @@ cy:
     start:
       page_title: "Cael taliad neu roi diweddariad prosiect"
       page_heading: "Cael taliad neu roi diweddariad prosiect"
+      page_title_payment_only: "Cael taliad"
+      page_heading_payment_only: "Cael taliad"
       sub_headings:
         to_get_payment: "Bydd angen y canlynol arnoch chi i gael taliad:"
         how_project_going: "I ddweud wrthym sut mae'r prosiect yn mynd, efallai y byddwch chi eisiau:"
