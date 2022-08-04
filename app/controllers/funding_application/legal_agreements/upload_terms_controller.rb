@@ -79,7 +79,7 @@ class FundingApplication::LegalAgreements::UploadTermsController < ApplicationCo
 
       send_legal_signatory_link_emails(
         @funding_application, 
-        @funding_application.legal_signatories.second
+        @funding_application.legal_signatories.order(:created_at).second
       )
 
       # Assuming calls to Notify and Salesforce succeeded, set timestamps/logs.
