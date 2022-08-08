@@ -10,6 +10,8 @@ cy:
         how_project_going: "I ddweud wrthym sut mae'r prosiect yn mynd, efallai y byddwch chi eisiau:"
       use_this_service: "Defnyddiwch y gwasanaeth hwn i:"
       your_investment_manager: "Fel arfer, bydd eich Rheolwr Buddsoddi am weld diweddariad prosiect i ddarparu taliad oni chytunir fel arall."
+      get_project_update: "Fel arfer, bydd eich Rheolwr Buddsoddi eisiau gweld diweddariad prosiect i ddarparu taliad oni bai y cytunir arno fel arall. E-bostiwch eich Rheolwr Buddsoddi i gael y ffurflen diweddaru'r prosiect."
+      email_project_update: "E-bostiwch eich diweddariad prosiect gorffenedig i'ch Rheolwr Buddsoddi pan fyddwch yn cyflwyno eich cais am daliad."
       bullet_points:
         get_a_payment:
           1: "cael taliad,"

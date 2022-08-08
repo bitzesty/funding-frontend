@@ -28,8 +28,18 @@
 <% end %>
 
 <p class="govuk-body">
-      <%= t('progress_and_spend.start.your_investment_manager') %>
+  <%= t('progress_and_spend.start.your_investment_manager') %>
+  <%# This content is only displayed for large%>
+  <%= t('progress_and_spend.start.get_project_update') \
+    unless @funding_application.is_100_to_250k? %>
 </p>
+
+<%# This content is only displayed for large%>
+<% unless @funding_application.is_100_to_250k? %>
+  <p class="govuk-body">
+    <%= t('progress_and_spend.start.email_project_update') %>
+  </p>
+<% end %>
 
 <%# Contains check so margin added to bottom of list for large %>
 <h2  class="govuk-heading-m"> <%= t('progress_and_spend.start.sub_headings.to_get_payment') %></h2>

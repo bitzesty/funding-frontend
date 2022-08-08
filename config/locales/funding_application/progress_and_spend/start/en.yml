@@ -10,6 +10,8 @@ en-GB:
         how_project_going: "To tell us how the project is going you might want:"
       use_this_service: "Use this service to:"
       your_investment_manager: "Your Investment Manager will usually want to see a project update to provide a payment unless agreed otherwise."
+      get_project_update: "Email your Investment Manager to get the project update form."
+      email_project_update: "Email your completed project update to your Investment Manager when you submit your payment request."
       bullet_points:
         get_a_payment:
           1: "get a payment,"
