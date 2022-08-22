@@ -12,6 +12,14 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
 
       retrieve_project_info
 
+    # Show if agreements.terms_agreed_at is not null
+    # AND the actual agreements table needs to have copies stored.
+    # Which isn't the case for older applications.
+    @view_signed_agreement =
+      @funding_application&.agreement&.terms_agreed_at.present? &&
+        @funding_application&.agreement&.project_details_html.present? &&
+          @funding_application&.agreement&.terms_html.present?
+
       @complete_progress_tasks =  \
         @funding_application.arrears_journey_tracker&.\
           progress_update_id.present? ? true : false

@@ -76,6 +76,24 @@
         )
       %>
     </li>
+
+    <% if @view_signed_agreement %>
+      <li class="nlhf-list__item nlhf-task__item">
+
+        <span class="nlhf-tag-name">
+
+            <%=
+              link_to(
+                t('tasks.view_grant_contract'),
+                funding_application_view_signed_path,
+                class: 'govuk-link govuk-link--no-visited-state',
+                aria: { describedby: 'view_signed' }
+              )
+            %>
+
+        </span>
+      </li>
+  <% end %>
 </ul>
 
 
