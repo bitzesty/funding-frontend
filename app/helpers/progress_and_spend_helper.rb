@@ -529,10 +529,15 @@ module ProgressAndSpendHelper
   )
 
     salesforce_api_client = SalesforceApiClient.new
+    
     form_id = salesforce_api_client.instantiate_arrears_form_type(
       funding_application, 
       completed_arrears_journey
     )
+
+    logger.info "Beginning upload of arrears to salesforce for"\
+      " funding_application: #{funding_application.id},"\
+        " with form ID: #{form_id}"
 
     progress_update_client = ProgressUpdateSalesforceApiClient.new
     upload_progress_update(
@@ -557,6 +562,10 @@ module ProgressAndSpendHelper
       payment_request_client,
       funding_application
     ) if completed_arrears_journey.payment_request.present?
+
+    logger.info "Successfully uploaded arrears to salesforce for" \
+    " funding_application: #{funding_application.id},"\
+      " with form ID: #{form_id}"
 
     # set SF form id and updated at as time of upload 
     completed_arrears_journey.salesforce_form_id = form_id
@@ -588,6 +597,9 @@ module ProgressAndSpendHelper
     progress_update = completed_arrears_journey
         .progress_update
 
+    logger.info "Beginning upload of progress_update: " \
+      "#{progress_update.id}"
+
     progress_update.answers_json.each do | field, flags |
       clear_unused_progress_update_data_items(
         field, 
@@ -601,16 +613,30 @@ module ProgressAndSpendHelper
 
     upload_evidence_files(progress_update, form_id, client)
 
-    # Upsert approved purposes if attached
     clear_approved_purposes_with_no_progress_update(progress_update)
+
+    logger.info "Beginning upload of approved purposes for progress_update: " \
+    "#{progress_update.id}"
+
+    # Upsert approved purposes if attached
     client.upsert_approved_purposes(progress_update, form_id)
+
+    logger.info "Beginning upload of outcomes for progress_update: " \
+    "#{progress_update.id}"
+
     client.upsert_outcomes(funding_application, completed_arrears_journey)
+
+    logger.info "Beginning upload of digital outputs for progress_update: " \
+    "#{progress_update.id}"
 
     check_and_upload_digital_outputs(
       client,
       progress_update,
       completed_arrears_journey.id
     )
+
+    logger.info "Beginning upload of acknowledgements for progress_update: " \
+    "#{progress_update.id}"
 
     check_and_upload_funding_acknowledgements(
       client,
@@ -620,6 +646,9 @@ module ProgressAndSpendHelper
 
     progress_update.submitted_on = DateTime.now
     progress_update.save
+
+    logger.info "Successfully uploaded progress_update: " \
+    "#{progress_update.id}"
 
   end
 
@@ -643,6 +672,9 @@ module ProgressAndSpendHelper
     payment_request = completed_arrears_journey
       .payment_request
 
+    logger.info "Beginning upload of payment_request: " \
+    "#{payment_request.id}"
+
     spend_record_type_id = get_spending_costs_record_type(
       completed_arrears_journey.funding_application
     )
@@ -656,6 +688,9 @@ module ProgressAndSpendHelper
 
     payment_request.submitted_on = DateTime.now
     payment_request.save
+
+    logger.info "Successfully uploaded payment_request: " \
+    "#{payment_request.id}"
 
   end
 
@@ -672,6 +707,9 @@ module ProgressAndSpendHelper
   #                                                  FundingApplication
   def upload_bank_details(form_id, salesforce_api_client, 
     payment_request_client, funding_application)
+
+    logger.info "Beginning upload of arrears bank details for " \
+      "SF payment request form: #{form_id }"
 
     if funding_application.payment_details.present?
 
@@ -729,6 +767,9 @@ module ProgressAndSpendHelper
         .filename}",
         salesforce_bank_account_id
     ) if payment_details&.evidence_file.present?
+
+    logger.info "Successfully uploaded arrears bank details for " \
+    "SF payment request form: #{form_id }"
 
   end
 
@@ -817,7 +858,6 @@ module ProgressAndSpendHelper
   #                                                 An instance of
   #                                                 ProgressUpdateSalesforceApiClient
   def upload_evidence_files(progress_update, salesforce_project_update_id, client)
-    
 
     unless progress_update.progress_update_photo.empty?
       progress_update.progress_update_photo.each do | photo |
@@ -896,6 +936,10 @@ module ProgressAndSpendHelper
         )
       end
     end
+
+    logger.info "Successfully uploaded evidence files for progress_update: " \
+    "#{progress_update.id}"
+
   end
     
   # Return the spend amount that results in the need to capture spending 
