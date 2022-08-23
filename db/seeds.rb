@@ -25,6 +25,7 @@ flipper_gates_sql = <<-EOL
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('permission_to_start_enabled', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('progress_and_spend_enabled', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('large_arrears_progress_spend', 'boolean', 'true', now(), now());
+    INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('dev_to_100k_1st_payment', 'boolean', 'true', now(), now());
 EOL
 
 cost_types_sql = <<-EOL

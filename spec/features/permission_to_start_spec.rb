@@ -16,6 +16,8 @@ RSpec.feature 'SfxPtsPayment', type: :feature do
 
       mock_large_application_retrieval()
 
+      mock_agreement_in_place()
+
       mock_all_delivery_pts_salesforce_api_client_responses()
 
       allow_any_instance_of(NotifyMailer).to \
@@ -275,6 +277,8 @@ RSpec.feature 'SfxPtsPayment', type: :feature do
 
       mock_large_application_retrieval()
 
+      mock_agreement_in_place()
+
       mock_all_development_pts_salesforce_api_client_responses()
 
       # Dashboard
@@ -370,6 +374,10 @@ RSpec.feature 'SfxPtsPayment', type: :feature do
 
     allow_any_instance_of(DashboardHelper).to receive(:get_large_salesforce_applications).and_return(large_applications)
 
+  end
+
+  def mock_agreement_in_place
+    allow_any_instance_of(DashboardHelper).to receive(:legal_agreement_in_place?).and_return(false)
   end
 
   # This IS NOT what Salesforce will return for any particular call.

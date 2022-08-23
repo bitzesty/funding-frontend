@@ -212,11 +212,9 @@ class DashboardController < ApplicationController
   def get_large_link(large_hash)
 
     # Return path to arrears payment if appropriate for this large project
-    if Flipper.enabled?(:large_arrears_progress_spend) && \
-      legal_agreement_in_place?(
-        large_hash[:salesforce_info][:Id],
-        @salesforce_api_instance
-      )
+    if legal_agreement_in_place?(
+      large_hash[:salesforce_info][:Id],
+      @salesforce_api_instance)
 
       funding_application = get_large_funding_application(
         large_hash[:salesforce_info][:Id],
@@ -227,12 +225,7 @@ class DashboardController < ApplicationController
 
       if funding_application.present?
 
-        Rails.logger.info("Large project #{large_hash[:salesforce_info][:Id]} " \
-          "can start arrears journey")
-
-        return funding_application_progress_and_spend_start_path(
-          application_id: funding_application.id
-        )
+        return get_large_payments_path(funding_application)
 
       else
 
@@ -244,39 +237,104 @@ class DashboardController < ApplicationController
 
       end
 
-    else # not ready for arrears payment
+    else # not ready for arrears payment. Return path to PtS if appropriate
 
-      # Return path to PtS if appropriate
-      project =
-        SfxPtsPayment.find_by(
-          salesforce_case_id: large_hash[:salesforce_info][:Id]
-        )
-
-      if Flipper.enabled?(:permission_to_start_enabled) && \
-        project&.submitted_on.blank?
-
-        Rails.logger.info("Large project " \
-          "#{large_hash[:salesforce_info][:Id]} " \
-            "can start PtS journey")
-
-        return sfx_pts_payment_permission_to_start_path(
-          salesforce_case_id: large_hash[:salesforce_info][:Id]
-        )
-      
-      else # not ready for PtS or arrears payment.
-
-        # Nothing appropriate found, return nil instead of a path to a journey
-        Rails.logger.error("No suitable journey found for Large project " \
-          "#{large_hash[:salesforce_info][:Id]}")
-
-        return nil
-
-      end
+      return get_pts_path(large_hash)
 
     end
 
   end
   helper_method :get_large_link
 
+  # Given a large FundingApplication, this function
+  # returns a path suitable for processing a payment
+  # for that application.
+  #
+  # It identifies the correct path from the award_type.
+  # Later this may be enhanced to consider earlier payments.
+  #
+  # It also considers flipper gates
+  #
+  # @param [FundApplication] funding_application
+  # @return [String] path A path to a payment journey
+  #                                      nil if no valid path
+  def get_large_payments_path(funding_application)
+
+    if funding_application.dev_to_100k? && \
+      Flipper.enabled?(:dev_to_100k_1st_payment)
+
+      Rails.logger.info("Large project " \
+          "#{funding_application.salesforce_case_id} " \
+            "can start non-arrears payment journey")
+
+      return funding_application_tasks_path(
+        application_id: funding_application.id
+      )
+
+    elsif (funding_application.dev_over_100k? || \
+      funding_application.del_250k_to_5mm?) && \
+        Flipper.enabled?(:large_arrears_progress_spend)
+
+      Rails.logger.info("Large project " \
+        "#{funding_application.salesforce_case_id} " \
+          "can start arrears journey")
+
+      return funding_application_progress_and_spend_start_path(
+        application_id: funding_application.id
+      )
+
+    else
+
+      # Nothing appropriate found, return nil instead of a path to a journey
+      Rails.logger.error("No suitable payment journey found for Large " \
+        "project #{funding_application.salesforce_case_id} in " \
+          "get_large_link. Either the flipper gate is off, " \
+            "or the award_type incorrect.")
+
+      return nil
+
+    end
+
+  end
+
+  # Given a large hash, this function
+  # returns a path suitable for processing a permission to start
+  # for that application.
+  #
+  # It returns the path if the flipper gate is on and if the
+  # permission has not already been completed.
+  #
+  # @param [Hash] large_hash of restforce data about a large project
+  # @return [String] path A path to a permission to start journey
+  #                                             nil if no valid path
+  def get_pts_path(large_hash)
+
+    project =
+    SfxPtsPayment.find_by(
+      salesforce_case_id: large_hash[:salesforce_info][:Id]
+    )
+
+    if Flipper.enabled?(:permission_to_start_enabled) && \
+      project&.submitted_on.blank?
+
+      Rails.logger.info("Large project " \
+        "#{large_hash[:salesforce_info][:Id]} " \
+          "can start PtS journey")
+
+      return sfx_pts_payment_permission_to_start_path(
+        salesforce_case_id: large_hash[:salesforce_info][:Id]
+      )
+
+    else # not ready for PtS journey.
+
+      # Nothing appropriate found, return nil instead of a path to a journey
+      Rails.logger.error("No suitable permission to start path found for " \
+        "Large project #{large_hash[:salesforce_info][:Id]} in get_pts_path.")
+
+      return nil
+
+    end
+
+  end
 
 end

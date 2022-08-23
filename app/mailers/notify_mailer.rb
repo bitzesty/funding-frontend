@@ -163,6 +163,31 @@ class NotifyMailer < Mail::Notify::Mailer
     )
   end
 
+  # @param [string] email email address of applicant
+  # @param [string] reference reference for the pef
+  # @param [string] payment_amount payment amount
+  # @param [string] ffty_prcnt_prjct_cst 50 percent payment cost
+  # @param [string] template_id Notify template id
+  def dev_to_100k_payment_request_confirmation(
+    email, 
+    reference, 
+    payment_amount,
+    ffty_prcnt_prjct_cst,
+    template_id
+  )
+
+    template_mail(
+      template_id,
+      to: email,
+      reply_to_id: @reply_to_id,
+      personalisation: {
+        project_reference_number: reference,
+        payment_amount: payment_amount,
+        ffty_prcnt_prjct_cst: ffty_prcnt_prjct_cst
+      }
+    )
+  end
+
   # Method which will trigger an email from GOV.UK Notify containing a link
   # which will allow a Legal Signatory access to the legal agreement journey
   #

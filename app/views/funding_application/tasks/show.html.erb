@@ -18,6 +18,10 @@
     <%= @funding_application.open_medium.project_title %>
   <% end %>
 
+  <% if @funding_application.dev_to_100k? %>
+    <%= @large_project_title %>
+  <% end %>
+
   - <%= @funding_application.project_reference_number %>
 
 </h1>
@@ -70,7 +74,8 @@
 
   </li>
 
-  <% if @show_agree_terms_conditions_link %>
+  <% if @show_agree_terms_conditions_link && \
+    !@funding_application.dev_to_100k? %>
 
     <li class="nlhf-list__item nlhf-task__item">
 

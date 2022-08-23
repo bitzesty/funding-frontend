@@ -55,7 +55,7 @@ module PaymentDetailsAndRequestHelper
 
       submit_payment_request(funding_application, payment_request)
 
-    elsif @funding_application.is_10_to_100k?
+    elsif @funding_application.is_10_to_100k? || @funding_application.dev_to_100k? 
 
       logger.info(
         "Payment request triggered for funding_application ID: #{funding_application.id}" \
@@ -138,6 +138,18 @@ module PaymentDetailsAndRequestHelper
       payment_details = salesforce_api_client.get_payment_related_details(funding_application.id)
     end
 
+    if funding_application.dev_to_100k?
+      restforce_response = salesforce_api_client
+      .get_grant_level_details_for_project(
+        funding_application.salesforce_case_id
+      )
+
+      payment_details = {
+        'grant_award': restforce_response[:dev_grant_award],
+        'grant_percentage': nil
+      }
+    end
+
     payment_details
 
   end
@@ -199,12 +211,32 @@ module PaymentDetailsAndRequestHelper
     im_email = investment_manager_details.Owner&.Email ? 
       investment_manager_details.Owner&.Email : 'email not known' 
 
-    payment_request_submission_confirmation(
-      funding_application.organisation.users.first.email,
-      funding_application.project_reference_number,
-      im_name,
-      im_email 
-    )
+    unless funding_application.dev_to_100k?
+      payment_request_submission_confirmation(
+        funding_application.organisation.users.first.email,
+        funding_application.project_reference_number,
+        im_name,
+        im_email 
+      ) 
+    else
+
+      total_costs =  salesforce_api_client.get_total_project_costs(
+        funding_application.salesforce_case_id
+      )
+
+      dev_to_100k_payment_request_confirmation(
+        funding_application.organisation.users.first.email,
+        funding_application.project_reference_number,
+        ActionController::Base.helpers.number_to_currency(
+          payment_request.amount_requested,
+          precision: 2),
+        ActionController::Base.helpers.number_to_currency(
+          total_costs/2,
+          precision: 2)
+      ) 
+
+    end
+  
 
     logger.info("Payment request email sent for: #{funding_application.id}. " \
       "Redirecting to payment request submitted")

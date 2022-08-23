@@ -177,6 +177,88 @@
 
     end
 
+
+    # Method to retrieve total project costs
+    #
+    # @param [String] salesforce_case_id Salesforce Id for a Project
+    #
+    # @return [int] Integer value of total project costs
+    def get_total_project_costs(salesforce_case_id)
+
+      Rails.logger.info("Retrieving project costs for case ID: " \
+        "#{salesforce_case_id}")
+
+      retry_number = 0
+
+      begin
+
+        # Equivalent of "SELECT Total_Cost__c
+        # FROM Case WHERE ApplicationId__c = '#{salesforce_case_id}'"
+        restforce_response = @client.select(
+          'Case',
+          salesforce_case_id,
+          [
+            'Total_Cost__c'
+          ],
+          'Id'
+        )
+
+      rescue Restforce::NotFoundError => e
+
+        Rails.logger.error(
+          "Exception occured in get_total_project_costs for " \
+            "case ID: #{salesforce_case_id}:" \
+              " - error is: (#{e})"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+             Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error(
+          "Exception occured in get_total_project_costs for " \
+            "project ID: #{salesforce_case_id}: (#{e})"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt get_total_project_costs again, " \
+              "retry number #{retry_number} " \
+                "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+      Rails.logger.info("Finished retrieving project costs for " \
+        "project ID: #{salesforce_case_id}")
+
+      return  restforce_response.Total_Cost__c
+
+    end    
+
+
     def get_agreed_project_costs(salesforce_case_id)
 
       Rails.logger.info("Retrieving agreed project costs for salesforce case ID: #{salesforce_case_id}")
@@ -1888,6 +1970,78 @@
 
       end
     end
+
+    # Retrieve Title for a given project using the salesfoce_case_id
+    # 
+    # @param [String] salesforce_case_id The Salesforce
+    #                                   reference for the case
+    # @return [Hash] restforce_response The Restforce
+    #                                   response containing project title
+    def get_project_title(salesforce_case_id)
+      retry_number = 0
+
+      begin
+
+        # Equivalent of "SELECT Project_Title__c
+        # FROM Case WHERE ApplicationId__c = '#{salesforce_case_id}'"
+        restforce_response = @client.select(
+          'Case',
+          salesforce_case_id,
+          [
+            'Project_Title__c'
+          ],
+          'Id'
+        )
+
+      rescue Restforce::NotFoundError => e
+
+        Rails.logger.error(
+          "Exception occured when retrieving Project Title for " \
+            "case ID: #{salesforce_case_id}:" \
+              " - no Case found. (#{e})"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+             Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error(
+          "Exception occured when retrieving Project Title for " \
+            "project ID: #{salesforce_case_id}: (#{e})"
+        )
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt get_project_title again, " \
+              "retry number #{retry_number} " \
+                "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
     
     private
 
@@ -3373,5 +3527,4 @@
     end
     
   end
-
 end

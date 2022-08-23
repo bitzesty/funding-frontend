@@ -36,6 +36,38 @@ module Mailers::PaymentMailerHelper
 
   end
 
+
+
+  def dev_to_100k_payment_request_confirmation(email, reference, payment_amount, ffty_prcnt_prjct_cst)
+    deliver_dev_to_100k_payment_request_confirmation(
+      email,
+      reference,
+      payment_amount, 
+      ffty_prcnt_prjct_cst,
+      '86dea493-d5b6-4534-a06f-a0a94b3e807c'
+    ) if send_english_mails?
+
+    deliver_dev_to_100k_payment_request_confirmation(
+      email,
+      reference,
+      payment_amount, 
+      ffty_prcnt_prjct_cst,
+      '1000d122-6b4a-4f5c-88b6-e26f8449604d'
+    ) if send_welsh_mails?
+
+    deliver_dev_to_100k_payment_request_confirmation(
+      email,
+      reference,
+      payment_amount, 
+      ffty_prcnt_prjct_cst,
+      'e74620c1-65c0-4af4-b3d8-7bbe90e6df8a'
+    ) if send_bilingual_mails?
+
+    log_mails_sent(__method__.to_s)
+  end
+
+  private
+
   def deliver_payment_request_submission_confirmation(email, 
     reference, investment_manager_name, investment_manager_email,
       template_id)
@@ -45,6 +77,24 @@ module Mailers::PaymentMailerHelper
       reference,
       investment_manager_name,
       investment_manager_email,
+      template_id
+    ).deliver_later()
+
+  end
+
+  def deliver_dev_to_100k_payment_request_confirmation(
+    email, 
+    reference, 
+    payment_amount, 
+    ffty_prcnt_prjct_cst,
+    template_id
+  )
+
+    NotifyMailer.dev_to_100k_payment_request_confirmation(
+      email, 
+      reference, 
+      payment_amount, 
+      ffty_prcnt_prjct_cst,
       template_id
     ).deliver_later()
 

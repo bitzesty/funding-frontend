@@ -23,6 +23,12 @@ class FundingApplication::TasksController < ApplicationController
         application_id: @funding_application.id
       )
 
+    elsif @funding_application.dev_to_100k?
+      salesforce_api_instance = get_salesforce_api_instance()
+      @large_project_title = get_large_project_title(
+        salesforce_api_instance, 
+        @funding_application.salesforce_case_id
+      )
     end
 
   end
@@ -132,21 +138,36 @@ class FundingApplication::TasksController < ApplicationController
   # FundingApplication has an associated Agreement which has a populated
   # grant_agreed_at attribute
   #
+  # This is disregarded if the application is dev_to_100k.  This is because
+  # the agreement has been completed via permission to start. So we rely
+  # on it being completed before getting to this point in the grantee's
+  # journey.
+  #
   # @param [FundingApplication] funding_application An instance of
   #                                                 FundingApplication
   def set_agreement_status_tag(funding_application)
-    case
-    when funding_application.agreement.nil?
-      @agreement_status_tag_label = I18n.t('generic.not_started')
-      @agreement_status_tag_colour = 'grey'
-    when funding_application.agreement.present? &&
-        funding_application.agreement.grant_agreed_at.nil?
-      @agreement_status_tag_label = I18n.t('generic.in_progress')
-      @agreement_status_tag_colour = 'blue'
-    when funding_application.agreement.present? &&
-        funding_application.agreement.grant_agreed_at.present?
+
+    unless funding_application.dev_to_100k?
+
+      case
+      when funding_application.agreement.nil?
+        @agreement_status_tag_label = I18n.t('generic.not_started')
+        @agreement_status_tag_colour = 'grey'
+      when funding_application.agreement.present? &&
+          funding_application.agreement.grant_agreed_at.nil?
+        @agreement_status_tag_label = I18n.t('generic.in_progress')
+        @agreement_status_tag_colour = 'blue'
+      when funding_application.agreement.present? &&
+          funding_application.agreement.grant_agreed_at.present?
+        @agreement_status_tag_label = I18n.t('generic.submitted')
+        @agreement_status_tag_colour = 'grey'
+      end
+
+    else
+
       @agreement_status_tag_label = I18n.t('generic.submitted')
       @agreement_status_tag_colour = 'grey'
+
     end
 
   end
