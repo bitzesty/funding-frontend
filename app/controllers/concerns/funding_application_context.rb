@@ -99,10 +99,10 @@ module FundingApplicationContext
 
     if p_and_s_path
 
-      is_p_and_s_project = @funding_application.dev_over_100k? || \
-        @funding_application.del_250k_to_5mm?  || \
-          (@funding_application.agreement_submitted_on.present? && \
-              @funding_application.is_100_to_250k?)
+      is_p_and_s_project = @funding_application&.dev_over_100k? || \
+        @funding_application&.del_250k_to_5mm?  || \
+          (@funding_application&.agreement_submitted_on.present? && \
+              @funding_application&.is_100_to_250k?)
 
 
       payment_can_start = @funding_application&.payment_can_start?
