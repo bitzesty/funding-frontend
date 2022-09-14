@@ -4,6 +4,10 @@ include FundingApplicationHelper
 
   def show()
 
+    @fifty_perc_payment_amount = get_total_project_costs(
+      @funding_application.salesforce_case_id
+      ) / 2
+
   end
 
   def update()

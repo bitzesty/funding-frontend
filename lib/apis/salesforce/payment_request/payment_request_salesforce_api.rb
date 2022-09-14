@@ -82,7 +82,19 @@ module PaymentRequestSalesforceApi
     # Calls salesforce api helper to get the record type id
     # for a medium grant spend cost record type
     # @return [String] a record type id
-    def spend_record_type_id_medium
+    def spend_record_type_id_medium_under_100k
+
+      get_salesforce_record_type_id(
+      'Medium_grants_up_to_100K',
+      'Spending_Costs__c'
+      )
+
+    end
+
+     # Calls salesforce api helper to get the record type id
+    # for a medium grant spend cost record type
+    # @return [String] a record type id
+    def spend_record_type_id_medium_over_100k
 
       get_salesforce_record_type_id(
       'Medium_grants_over_100K',
@@ -130,19 +142,27 @@ module PaymentRequestSalesforceApi
     #                   Id for SF payment request form to upsert against
     # @param [Float] amount_requested Calculated from total expenditure offset
     #                                 by the percentage The Fund agreed to pay.
+    #
+    # @param [String] spend_record_type_id A salesforce record type Id for the
+    #                            spend  records making up this payment request.
+    #
+    # @param [Boolean] vat_registered_status_changed True if the grantee
+    #                       indicated that the VAT status of their org changed.
     def upsert_arrears_payment_request(
       payment_request, 
       salesforce_payment_request_id,
       amount_requested,
-      spend_record_type_id
+      spend_record_type_id,
+      vat_registered_status_changed
     )
 
       Rails.logger.info("Starting upsert_arrears_payment_request with " \
         "payment_request.id: #{payment_request.id}")
 
-      upsert_payment_request_amount_from_applicant(
+      upsert_payment_request_with_grantee_information(
         amount_requested,
-        salesforce_payment_request_id
+        salesforce_payment_request_id,
+        vat_registered_status_changed
       )
 
       en_hash = get_en_cost_headings
@@ -333,14 +353,15 @@ module PaymentRequestSalesforceApi
     end
 
     # Updates the form with the payment amount that the grantee has
-    # requested.
+    # requested.  And whether the grantee has indicated that the
+    # VAT status of their organisation has changed.
     #
     # @param [Float] amount_requested Calculated from total expenditure offset
     #                                 by the percentage The Fund agreed to pay.
     # @param [String] salesforce_payment_request_id
     #                   Id for SF payment request form to upsert against
-    def upsert_payment_request_amount_from_applicant(amount_requested,
-      salesforce_payment_request_id)
+    def upsert_payment_request_with_grantee_information(amount_requested,
+      salesforce_payment_request_id, has_vat_registered_changed)
 
       retry_number = 0
 
@@ -353,7 +374,8 @@ module PaymentRequestSalesforceApi
           'Forms__c',
           'Id',
           Id: salesforce_payment_request_id,
-          Payment_Request_From_Applicant__c: amount_requested
+          Payment_Request_From_Applicant__c: amount_requested,
+          Organisation_s_VAT_status_has_changed__c: has_vat_registered_changed
         )
 
         Rails.logger.info("Successfully called " \
@@ -370,7 +392,7 @@ module PaymentRequestSalesforceApi
           max_sleep_seconds = Float(2 ** retry_number)
 
           Rails.logger.error(
-            "Error in upsert_payment_request_amount_from_applicant " \
+            "Error in upsert_payment_request_with_grantee_information " \
               "for payment form id: #{salesforce_payment_request_id}. #{e}"
           )
 

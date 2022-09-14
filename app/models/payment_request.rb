@@ -15,6 +15,7 @@ class PaymentRequest < ApplicationRecord
   attr_accessor :lower_spend
   attr_accessor :no_update
   attr_accessor :validate_spend_journeys_to_do
+  attr_accessor :validate_spend_journeys_to_do_40_perc
   
   attr_accessor :lower_spend_chosen
   attr_accessor :validate_lower_spend_chosen
@@ -33,18 +34,27 @@ class PaymentRequest < ApplicationRecord
   attr_accessor :add_or_change_spend
   attr_accessor :validate_add_or_change_spend
 
+  attr_accessor :vat_status_changed
+  attr_accessor :validate_vat_status_changed
+  attr_accessor :vat_number
+  attr_accessor :validate_vat_number
+
   validates :lower_spend_chosen, presence: true, if: :validate_lower_spend_chosen?
   validates :has_bank_details_update, presence: true,  if: :validate_has_bank_details_update?
  
   validates :lower_spend_chosen, presence: true,
     if: :validate_lower_spend_chosen?
 
+  validates :vat_number, length: { minimum: 9, maximum: 12 }, if: :validate_vat_number?
+
   validates_inclusion_of :add_or_change_spend, in: ["true", "false"], if: :validate_add_or_change_spend?
   validates_inclusion_of :add_another_low_spend, in: ["true", "false"], if: :validate_add_another_low_spend?
+  validates_inclusion_of :vat_status_changed, in: ["true", "false"], if: :validate_vat_status_changed?
 
   validate do
 
-    validate_spend_journeys_to_do_presence if validate_spend_journeys_to_do
+    validate_spend_journeys_to_do_presence if \
+      validate_spend_journeys_to_do || validate_spend_journeys_to_do_40_perc
 
     validate_add_another_high_spend_inclusion if validate_add_another_high_spend?
 
@@ -58,9 +68,7 @@ class PaymentRequest < ApplicationRecord
 
   def validate_spend_journeys_to_do_presence
 
-    if higher_spend == 'false' && \
-      lower_spend == 'false' && \
-        no_update == 'false'
+    if checkboxes_false
 
       errors.add(
         :spend_journeys_to_do,
@@ -124,6 +132,30 @@ class PaymentRequest < ApplicationRecord
 
   def validate_add_or_change_spend?
     validate_add_or_change_spend == true
+  end
+
+  def validate_vat_status_changed?
+    validate_vat_status_changed == true
+  end
+
+  def validate_vat_number?
+    validate_vat_number == true
+  end
+
+  # Validates at least one checkbox is checked
+  # when no_update is both present (on arrears journey) 
+  # and not present (on a M1 40% payment journey).
+  def checkboxes_false
+
+    return higher_spend == 'false' && \
+      lower_spend == 'false' && \
+        no_update == 'false' \
+          if validate_spend_journeys_to_do
+
+    return higher_spend == 'false' && \
+      lower_spend == 'false' \
+        if validate_spend_journeys_to_do_40_perc
+
   end
 
 end

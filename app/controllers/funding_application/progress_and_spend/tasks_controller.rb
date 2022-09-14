@@ -3,6 +3,7 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
   include ProgressAndSpendHelper
   include Enums::ArrearsJourneyStatus
   include Mailers::ProgressAndSpendMailerHelper
+  include PaymentDetailsAndRequestHelper
   
     def show()
 
@@ -132,13 +133,18 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       @remaining_grant = details_hash[:amount_remaining]
       @grant_expiry_date = details_hash[:project_expiry_date]
       payment_percentage = details_hash[:payment_percentage]
+      grant_awarded = details_hash[:grant_awarded]
 
       if completed_arrears_journey.present?
-
-        @arrears_payment_amount = get_arrears_payment_amount(
-          completed_arrears_journey,
-          payment_percentage
-        )
+        # Account for 40% M1 Payment
+        if @funding_application.is_10_to_100k?
+          @arrears_payment_amount = grant_awarded * 0.4
+        else
+          @arrears_payment_amount = get_arrears_payment_amount(
+            completed_arrears_journey,
+            payment_percentage
+          )  
+        end
 
       end
 
@@ -164,14 +170,27 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       completed_arrears_journey
     )
 
+      store_payment_request_state_when_submitted(
+        funding_application,
+        payment_request
+      ) # store for support should request fail.
+
+      update_payment_request_amount(payment_request, payment_amount)
+
       upload_arrears_to_salesforce(
         @funding_application,
         @completed_arrears_journey,
         payment_amount
       )
 
+      # payment request in salesforce, so clear support data
+      payment_request.update(payload_submitted: nil)
+
       arrears_journey_tracker&.delete
       funding_application.payment_details&.delete
+
+      funding_application.update(status: :m1_40_payment_complete) if \
+        funding_application.m1_40_payment_can_start?
 
       redirect_to funding_application_progress_and_spend_submit_your_answers_path(
         completed_arrears_journey_id: @completed_arrears_journey.id )

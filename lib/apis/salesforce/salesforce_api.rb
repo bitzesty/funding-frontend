@@ -2042,6 +2042,69 @@
       end
 
     end
+
+    # Uses the id of the form to query salesforce and see if that form is
+    # has a status of completed.
+    #
+    # The id of the form comes from FFE and will relate to a FFE record.
+    # Salesforce uses that id an a unique external reference.
+    #
+    # @param [String] form_external_id FFE GUID that SF uses to ID a form.
+    # @return [Boolean] form_is_completed True if form is completed.
+    def is_form_completed?(form_external_id)
+
+      retry_number = 0
+
+      begin
+
+        completed_form_count =
+          @client.query_all("SELECT COUNT() FROM Forms__c  where "\
+            "Frontend_External_Id__c = '#{form_external_id}' "\
+              "and Form_Status__c = 'Complete'")
+
+        form_is_completed = completed_form_count&.size > 0
+
+        Rails.logger.info("Form with id: #{form_external_id} " \
+          "is complete: #{form_is_completed} ")
+
+        form_is_completed
+        
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error checking complete status of " \
+          "form with id: #{form_external_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt to check form complete status again, "\
+              "retry number #{retry_number} " \
+                "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
     
     private
 

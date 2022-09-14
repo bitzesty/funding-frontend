@@ -5,6 +5,7 @@ module ProgressAndSpendHelper
   include FundingApplicationHelper
   include Enums::ArrearsJourneyStatus
   include SalesforceApiHelper
+  include OrganisationSalesforceApi
 
   MAX_RETRIES = 3
 
@@ -683,7 +684,8 @@ module ProgressAndSpendHelper
       payment_request,
       form_id,
       payment_amount,
-      spend_record_type_id
+      spend_record_type_id,
+      has_vat_registered_changed?(payment_request)
     )
 
     payment_request.submitted_on = DateTime.now
@@ -951,8 +953,9 @@ module ProgressAndSpendHelper
   # @return [Integer] spend_amount The threshold spend amount
   def get_spend_threshold(funding_application)
 
-    if @funding_application.dev_to_100k?
-       spend_amount = 250
+    if @funding_application.dev_to_100k? || 
+      @funding_application.is_10_to_100k?
+      spend_amount = 250
     else
       spend_amount = 500 
     end
@@ -1075,7 +1078,10 @@ module ProgressAndSpendHelper
 
     client = PaymentRequestSalesforceApiClient.new
 
-    record_type_id = client.spend_record_type_id_medium \
+    record_type_id = client.spend_record_type_id_medium_under_100k \
+      if funding_application.is_10_to_100k?
+
+    record_type_id = client.spend_record_type_id_medium_over_100k \
       if funding_application.is_100_to_250k?
 
     record_type_id = client.spend_record_type_id_large_development \
@@ -1083,6 +1089,7 @@ module ProgressAndSpendHelper
 
     record_type_id = client.spend_record_type_id_large_delivery \
       if funding_application.del_250k_to_5mm?
+
 
     record_type_id
 
@@ -1098,7 +1105,8 @@ module ProgressAndSpendHelper
     client = PaymentRequestSalesforceApiClient.new
 
     record_type_id = client.record_type_id_medium_grant_cost \
-      if funding_application.is_100_to_250k?
+      if funding_application.is_100_to_250k? ||
+        funding_application.is_10_to_100k?
 
     record_type_id = client.record_type_id_large_development_grant_cost \
         if funding_application.dev_to_100k?
@@ -1581,6 +1589,78 @@ module ProgressAndSpendHelper
     client.get_bank_account_for_form(
       form_id_for_last_arrears_payment
     ).present?
+
+  end
+
+  # Queries Salesforce to see if an org is VAT registered
+  #
+  # @params [String] organisation_id
+  # @return [Boolean] true if VAT registered picklist contains "Yes"
+  def vat_registered?(salesforce_account_id)
+
+    client = OrganisationSalesforceApi.new
+
+    sf_details = client.retrieve_existing_sf_org_details(salesforce_account_id)
+
+    sf_details.Are_you_VAT_registered_picklist__c == "Yes"
+
+  end
+
+  # Returns true if the grantee indicates that the VAT status
+  # shown for their organisation is now different. Returns
+  # false if the grantee indicates that the VAT status is
+  # unchanged.
+  #
+  # If the grantee indicates that the VAT status changed, then
+  # change_organisation_vat_status called to update the Account record
+  # in Salesforce.
+  #
+  # @param [PaymentRequest] payment_request FFE record for the payment
+  # @return [Boolean] changed True if the vat registered answer changed
+  def has_vat_registered_changed?(payment_request)
+
+    changed = false
+
+    # Older payment requests may pre-date vat_status enhancements, check key.
+    if payment_request.answers_json['arrears_journey'].key?('vat_status')
+
+      changed = payment_request.answers_json['arrears_journey']\
+        ['vat_status']['changed'] == "true"
+
+      if changed
+
+        # No number provided when changing to 'vat registered = no'. Check key.
+        has_vat_number =
+          payment_request.answers_json['arrears_journey']\
+            ['vat_status'].has_key?('vat_number')
+
+        has_vat_number ? vat_number =
+          payment_request.answers_json['arrears_journey']\
+            ['vat_status']['vat_number'] : vat_number = nil
+
+        # Ternary flipped, so true = 'No' and false = 'Yes' to update SF.
+        payment_request.answers_json['arrears_journey']\
+          ['vat_status']['vat_registered_in_salesforce'] ? \
+            new_vat_registered_status = 'No' :\
+              new_vat_registered_status = 'Yes'
+
+        # A payment request should only have ONE funding application
+        salesforce_acc_id =
+          payment_request.funding_applications.first.\
+            organisation.salesforce_account_id
+
+        client = OrganisationSalesforceApi.new
+        client.change_organisation_vat_status(
+          salesforce_acc_id,
+          vat_number,
+          new_vat_registered_status
+        )
+
+      end
+
+    end
+
+    changed
 
   end
 

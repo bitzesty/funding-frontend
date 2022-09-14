@@ -29,6 +29,21 @@ class FundingApplication::TasksController < ApplicationController
         salesforce_api_instance, 
         @funding_application.salesforce_case_id
       )
+
+    elsif Flipper.enabled?(:m1_40_payment) && \
+      @funding_application.is_10_to_100k? && \
+        first_50_percent_payment_completed?(@funding_application) && \
+          !@funding_application.m1_40_payment_complete?
+        
+      @funding_application.update(status: :m1_40_payment_can_start)
+
+      logger.debug("M1 40% payment started for funding_application"\
+        "#{@funding_application.id}")
+
+      redirect_to funding_application_progress_and_spend_start_path(
+        application_id: @funding_application.id
+      )
+
     end
 
   end
@@ -107,6 +122,10 @@ class FundingApplication::TasksController < ApplicationController
 
     @first_payment_completed =
       funding_application&.payment_requests&.first&.submitted_on.present?
+
+    # Not nil if a forty percent journey has been completed.
+    @completed_arrears_journey =
+      @funding_application&.completed_arrears_journeys&.first
 
     set_status_tags(funding_application)
 

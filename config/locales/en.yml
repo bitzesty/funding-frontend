@@ -933,6 +933,11 @@ en-GB:
               inclusion: "Select if you need to add another item of spend"
             add_or_change_spend:
               inclusion: "Select if you want to add or change spend or continue without making any changes"
+            vat_status_changed:
+              inclusion: "Select if your organisation's VAT status has changed"
+            vat_number:
+              too_short: "Enter the VAT number of your organisation in the correct format"
+              too_long: "Enter the VAT number of your organisation in the correct format"
         low_spend:
           attributes:
             total_amount:

@@ -46,13 +46,26 @@ module Mailers::ProgressAndSpendMailerHelper
 
     elsif payment_mail
 
-      send_payment_mail(
-        email,
-        project_title,
-        project_reference_num,
-        payment_amount
-      )
+      if completed_arrears_journey.funding_application.is_10_to_100k?
 
+        send_40_perc_payment_mail(
+          email,
+          project_title,
+          project_reference_num,
+          payment_amount
+        )
+
+      else
+
+        send_arrears_payment_mail(
+          email,
+          project_title,
+          project_reference_num,
+          payment_amount
+        )
+
+      end
+    
     end
   
   end
@@ -137,7 +150,7 @@ module Mailers::ProgressAndSpendMailerHelper
   # @param [String] project_title
   # @param [String] project_reference_number
   # @param [String] payment_amount as a currency string
-  def send_payment_mail(email, project_title, project_reference_num,
+  def send_arrears_payment_mail(email, project_title, project_reference_num,
     payment_amount)
 
     deliver_arrears_payment_request_submisson_confirmation(
@@ -162,6 +175,44 @@ module Mailers::ProgressAndSpendMailerHelper
       project_reference_num,
       payment_amount,
       '30be9fc5-65f0-4cfc-bd08-8434187360f5'
+    ) if send_bilingual_mails?
+
+    log_mails_sent(__method__.to_s)
+
+  end
+
+  # Only a Payment request was submitted, send a mail for that.
+  # Also chooses the appropriate template language.
+  #
+  # @param [String] email
+  # @param [String] project_title
+  # @param [String] project_reference_number
+  # @param [String] payment_amount as a currency string
+  def send_40_perc_payment_mail(email, project_title, project_reference_num,
+    payment_amount)
+
+    deliver_arrears_payment_request_submisson_confirmation(
+      email,
+      project_title,
+      project_reference_num,
+      payment_amount,
+      'd40c3023-1831-4c53-ac8d-25319d97ccdb'
+    ) if send_english_mails?
+
+    deliver_arrears_payment_request_submisson_confirmation(
+      email,
+      project_title,
+      project_reference_num,
+      payment_amount,
+      'b9d64280-a719-49be-8b9a-58cfabe3a203'
+    ) if send_welsh_mails?
+
+    deliver_arrears_payment_request_submisson_confirmation(
+      email,
+      project_title,
+      project_reference_num,
+      payment_amount,
+      '317b61f7-217e-46ed-a7a5-cb4b35777f86'
     ) if send_bilingual_mails?
 
     log_mails_sent(__method__.to_s)

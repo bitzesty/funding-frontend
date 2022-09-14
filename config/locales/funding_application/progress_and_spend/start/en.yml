@@ -27,3 +27,15 @@ en-GB:
           4: "a record for procurement over £10,000"
           5: "copies of new permissions or licences"
           6: "an up-to-date risk register"
+      m1_40_content:
+        get_40_once: "Get the next 40% of your grant once you have spent the first 50% of your total project costs."
+        50_perc_costs_is: "50% of your total project costs is %{fifty_perc_payment_amount}"
+        we_will_ask: "We will ask"
+        you_will_need: "You will need"
+        ask_bullets:
+          1: "if you need to update your bank details."
+          2: "what you have spent on the project so far."
+        need_bullets:
+          1: "copies of invoices and receipts over £250."
+          2: "a table for spends under £250."
+

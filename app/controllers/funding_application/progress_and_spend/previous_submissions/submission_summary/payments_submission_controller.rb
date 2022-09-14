@@ -41,7 +41,18 @@ class FundingApplication::ProgressAndSpend::PreviousSubmissions::SubmissionSumma
   end
 
   def update
-    redirect_to funding_application_progress_and_spend_previous_submissions_previously_submitted_path(
-      completed_arrears_journey_id: params[:completed_arrears_journey_id] )
+
+    if @funding_application.is_10_to_100k?
+
+      redirect_to funding_application_tasks_path
+
+    else
+
+      redirect_to funding_application_progress_and_spend_previous_submissions_previously_submitted_path(
+        completed_arrears_journey_id: params[:completed_arrears_journey_id] )
+
+    end
+
   end
+
 end

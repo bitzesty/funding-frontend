@@ -332,12 +332,12 @@ module PaymentDetailsAndRequestHelper
   def store_payment_request_state_when_submitted(funding_application, payment_request)
     
     payment_request.payload_submitted = { 
-      account_name: funding_application.payment_details.account_name, 
-      account_number: funding_application.payment_details.account_number,  
-      building_society_roll_number: funding_application.payment_details.building_society_roll_number,
-      sort_code: funding_application.payment_details.sort_code,
-      payment_reference: funding_application.payment_details.payment_reference,
-      amount_requested: payment_request.amount_requested
+      account_name: funding_application.payment_details&.account_name,
+      account_number: funding_application.payment_details&.account_number,
+      building_society_roll_number: funding_application.payment_details&.building_society_roll_number,
+      sort_code: funding_application.payment_details&.sort_code,
+      payment_reference: funding_application.payment_details&.payment_reference,
+      amount_requested: payment_request&.amount_requested
     }
 
     payment_request.save

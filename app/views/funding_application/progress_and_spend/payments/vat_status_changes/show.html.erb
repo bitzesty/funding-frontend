@@ -1,0 +1,176 @@
+<%=
+  render partial: "partials/page_title",
+    locals: {
+      model_object: nil,
+      page_title: t('progress_and_spend.payments.vat_status_changes.page_title')
+    }
+%>
+
+<%# form summary errors start%>
+<% if @payment_request.errors.any? %>
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+  role="alert" tabindex="-1" data-module="govuk-error-summary">
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      <%= t('generic.there_is_a_problem') %>
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <% @payment_request.errors.each do |attr, error| %>
+
+          <% case attr %>
+            <% when :vat_status_changed %>
+
+              <li>
+                <a href="#payment_request_vat_status_changed_false">
+                  <%= error %>
+                </a>
+              </li>
+
+            <% when :vat_number %>
+              <li>
+                <a href="#payment_request_vat_number">
+                  <%= error %>
+                </a>
+              </li>
+
+          <% end %>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+<% end %>
+<%# form summary errors end%>
+
+
+<fieldset class="govuk-fieldset">
+ 	<legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+		<span class="govuk-caption-xl govuk-!-padding-bottom-2">
+			<%= t('progress_and_spend.payments.vat_status_changes.page_caption')%>
+		</span>
+
+		<h1 class="govuk-heading-l govuk-!-padding-bottom-2">
+      <%= t('progress_and_spend.payments.vat_status_changes.page_heading')%> 
+		</h1>
+
+
+    <% if @vat_registered %>
+      <div class="govuk-inset-text">
+        <%= t('progress_and_spend.payments.vat_status_changes.page_hint_vat_registered')%>
+      </div>
+    <% else %>
+      <div class="govuk-inset-text">
+        <%= t('progress_and_spend.payments.vat_status_changes.page_hint_vat_not_registered')%>
+      </div>
+    <% end %>
+
+	</legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+	<%=
+		render(
+			partial: 'partials/form_group_errors',
+			locals: {
+				form_object: @payment_request
+			}
+		) if @payment_request.errors[:vat_status_changed].any?
+	%>
+
+  <%= 
+		form_with model: @payment_request,
+		url: funding_application_progress_and_spend_payments_vat_status_changes_path(),
+		method: :post,
+		local: true do |f|
+	%>
+
+		<div class="govuk-radios" data-module="govuk-radios">
+
+			<div class="govuk-form-group <%= "govuk-form-group--error" if
+		     @payment_request.errors[:vat_status_changed].any?%>">
+
+				<div id="form-group-errors"></div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :vat_status_changed,
+						false,
+						class: "govuk-radios__input",
+						"data-aria-controls" => "conditional-has_upload"
+					%>
+								
+					<%=
+						f.label :has_procured_goods_false,
+						t('progress_and_spend.payments.vat_status_changes.changed_false'),
+						class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+
+				<div class="govuk-radios__item">
+
+					<%=
+						f.radio_button :vat_status_changed,
+						true,
+						class: "govuk-radios__input",
+            "data-aria-controls" => "conditional-true"
+					%>
+
+					<%=	
+							f.label :has_procured_goods_true,
+              t('progress_and_spend.payments.vat_status_changes.changed_true'),
+							class: "govuk-label govuk-radios__label"
+					%>
+
+				</div>
+			
+			</div>
+      
+      <%# VAT number only required if org isn't already VAT registered %>
+      <% unless @vat_registered %>
+        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+          id="conditional-true">
+
+            <%=
+              render(
+                partial: 'partials/form_input_errors',
+                locals: {
+                  form_object: @payment_request,
+                  input_field_id: :vat_number
+                }
+              ) if @payment_request.errors[:vat_number].any?
+            %>
+
+            <%=
+              f.label :vat_number,
+              t('progress_and_spend.payments.vat_status_changes.what_is_your_vat_number'),
+              class: 'govuk-label'
+            %>
+
+            <%=
+              f.text_field :vat_number,
+              class: "govuk-input govuk-input--width-20 #{'govuk-input--error' if
+                @payment_request.errors[:vat_number].any?}"
+            %>
+
+        </div>
+      <% end %>
+
+    </div>
+    
+    <p class="govuk-body govuk-!-padding-bottom-1" ></p>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+    %>
+
+	<% end %>
+
+</fieldset>

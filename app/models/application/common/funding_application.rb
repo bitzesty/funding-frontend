@@ -258,9 +258,15 @@ class FundingApplication < ApplicationRecord
     award_type_unknown: 3
   }, _default: :award_type_unknown
 
+  # Unknown, existing applications that pre-date status, or are new
+  # payment_can_start, used to see if arrears, M1 50%, Dev 50% payment can start
+  # m1_40_payment_can_start, M1 40% payment journey can start
+  # m1_40_payment_complete, M1_40% payment journey concluded.
   enum status: {
     unknown: 0,
-    payment_can_start: 1
+    payment_can_start: 1,
+    m1_40_payment_can_start: 2,
+    m1_40_payment_complete: 3
   }, _default: :unknown
 
 end

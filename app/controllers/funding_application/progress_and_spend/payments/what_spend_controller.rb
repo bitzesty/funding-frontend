@@ -13,7 +13,12 @@ class FundingApplication::ProgressAndSpend::Payments::WhatSpendController < Appl
     payment_request =
       @funding_application.arrears_journey_tracker.payment_request
 
-    payment_request.validate_spend_journeys_to_do = true
+      if @funding_application.m1_40_payment_can_start?
+        payment_request.validate_spend_journeys_to_do_40_perc = true
+      else
+        payment_request.validate_spend_journeys_to_do = true
+      end
+
 
     payment_request.update(required_params(params))
 

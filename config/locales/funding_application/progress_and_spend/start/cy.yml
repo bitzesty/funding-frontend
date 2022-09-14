@@ -27,3 +27,14 @@ cy:
           4: "record ar gyfer caffael dros £10,000"
           5: "copïau o ganiatadau neu drwyddedau newydd"
           6: "cofrestr risg gyfredol"
+      m1_40_content:
+        get_40_once: " Mynnwch y 40% nesaf o'ch grant ar ôl i chi wario'r 50% cyntaf o gyfanswm costau eich prosiect."
+        50_perc_costs_is: "50% o gyfanswm costau eich prosiect yw %{fifty_perc_payment_amount}"
+        we_will_ask: "Byddwn yn gofyn"
+        you_will_need: "Byddwch angen"
+        ask_bullets:
+          1: " os ydych angen diweddaru eich manylion banc."
+          2: " yr hyn rydych wedi'i wario ar y prosiect hyd yma."
+        need_bullets:
+          1: " copïau o anfonebau a derbynebau dros £250."
+          2: " tabl ar gyfer gwariant o dan £250."

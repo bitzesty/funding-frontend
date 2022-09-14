@@ -201,7 +201,7 @@
         <%=
           link_to(
             t('progress_and_spend.tasks.links.spend'),
-            funding_application_progress_and_spend_payments_spend_so_far_path(
+            funding_application_progress_and_spend_payments_vat_status_changes_path(
               payment_request_id: @funding_application.arrears_journey_tracker.payment_request_id
             ),
             class: 'govuk-link govuk-link--no-visited-state'
@@ -278,39 +278,41 @@
 
   <%end%>
 
-<%= content_for :secondarycontent do %>
-  <div class="nlhf-panel" >
-    <h2 class="govuk-heading-m">
-        <%=t('progress_and_spend.tasks.overview')%>
-    </h2>
-    <ul class="govuk-list nlhf-list nlhf-list--links">
+<%unless @funding_application.is_10_to_100k?%>
+  <%= content_for :secondarycontent do %>
+    <div class="nlhf-panel" >
+      <h2 class="govuk-heading-m">
+          <%=t('progress_and_spend.tasks.overview')%>
+      </h2>
+      <ul class="govuk-list nlhf-list nlhf-list--links">
 
-      <% if @funding_application.agreement&.project_details_html.present? && \
-        @funding_application.agreement&.terms_html.present?%>
-      <li>
-        <span>
-          <%=
-            link_to(
-              t('progress_and_spend.tasks.links.grant_conditions'),
-              funding_application_view_signed_path,
-              class: 'govuk-link govuk-link--no-visited-state'
-            )
-          %>
-        </span>
-      </li>
-      <% end %>
-      <li>
-        <span>
-          <%=
-            link_to(
-              @funding_application.is_100_to_250k? ? t('progress_and_spend.tasks.links.previous_submissions') : 
-                t('progress_and_spend.tasks.links.previous_submissions_large'),
-              funding_application_progress_and_spend_previous_submissions_previous_submission_dates_path(),
-              class: 'govuk-link govuk-link--no-visited-state'
-            )
-          %>
-        </span>
-      </li>
-    </ul>
-  </div>
-<% end %>
+        <% if @funding_application.agreement&.project_details_html.present? && \
+          @funding_application.agreement&.terms_html.present?%>
+        <li>
+          <span>
+            <%=
+              link_to(
+                t('progress_and_spend.tasks.links.grant_conditions'),
+                funding_application_view_signed_path,
+                class: 'govuk-link govuk-link--no-visited-state'
+              )
+            %>
+          </span>
+        </li>
+        <% end %>
+        <li>
+          <span>
+            <%=
+              link_to(
+                @funding_application.is_100_to_250k? ? t('progress_and_spend.tasks.links.previous_submissions') : 
+                  t('progress_and_spend.tasks.links.previous_submissions_large'),
+                funding_application_progress_and_spend_previous_submissions_previous_submission_dates_path(),
+                class: 'govuk-link govuk-link--no-visited-state'
+              )
+            %>
+          </span>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+<%end%>

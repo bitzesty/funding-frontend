@@ -237,6 +237,33 @@
     
     </li>
 
+    <%if @funding_application.m1_40_payment_complete? %>
+
+      <li class="nlhf-list__item nlhf-task__item">
+
+        <span class="nlhf-tag-name">
+
+          <%=
+            link_to(
+              t('tasks.spend_you_have_already_submitted'),
+              funding_application_payment_request_start_path,
+              class: 'govuk-link govuk-link--no-visited-state')
+
+            link_to(
+              t('tasks.spend_you_have_already_submitted'),
+              funding_application_progress_and_spend_previous_submissions_submission_summary_payments_submission_path(
+                completed_arrears_journey_id: @completed_arrears_journey.id,
+                payment_request_id: @completed_arrears_journey.payment_request.id),
+              class: 'govuk-link govuk-link--no-visited-state')
+          %>
+
+        </span>
+
+      </li>
+
+    <% end %>
+
   <% end %>
 
 </ul>
+

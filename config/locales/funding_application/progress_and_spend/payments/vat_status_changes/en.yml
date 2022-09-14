@@ -1,0 +1,12 @@
+en-GB:  
+  progress_and_spend:
+    payments:
+      vat_status_changes:
+        page_title: "Has your organisation's VAT status changed?"
+        page_heading: "Has your organisation's VAT status changed?"
+        page_caption: "Tell us what you have spent"
+        page_hint_vat_registered: "Based on what you have told us, your organisation is VAT registered." 
+        page_hint_vat_not_registered: "Based on what you have told us, your organisation is not VAT registered."
+        changed_false: "No, my organisation's VAT status has not changed"
+        changed_true: "Yes, my organisation's VAT status has changed"
+        what_is_your_vat_number: "What is your VAT number?"

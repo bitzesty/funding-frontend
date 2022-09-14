@@ -72,8 +72,9 @@ module FundingApplicationContext
   # Above checks qualify this as a submitted agreement 
   # so only allow certain paths
   def invalid_view_for_submitted_agreement?
+    
     @funding_application&.agreement_submitted_on.present? && \
-      !@funding_application&.payment_can_start? && \
+      not_in_payments?(@funding_application) && \
         not_an_allowed_paths_for_submitted_agreements(request.path)
   end
 
@@ -102,12 +103,16 @@ module FundingApplicationContext
       is_p_and_s_project = @funding_application&.dev_over_100k? || \
         @funding_application&.del_250k_to_5mm?  || \
           (@funding_application&.agreement_submitted_on.present? && \
-              @funding_application&.is_100_to_250k?)
+            (@funding_application&.is_100_to_250k? || @funding_application&.is_10_to_100k?))
 
 
-      payment_can_start = @funding_application&.payment_can_start?
+      progress_spend_payment_allowed =
+        @funding_application&.payment_can_start? || \
+          @funding_application&.m1_40_payment_can_start?
 
-      if is_p_and_s_project && payment_can_start
+      if is_p_and_s_project && progress_spend_payment_allowed || \
+        request.path.include?('submit-your-answers') || \
+          request.path.include?('payments-submission')
 
         return false # valid
 
@@ -117,7 +122,7 @@ module FundingApplicationContext
           "Invalid_view_for_progress_and_spend. " \
             "Application type ok?: #{is_p_and_s_project}. " \
               "progress-and-spend-path used?: #{p_and_s_path}. " \
-                "Payment can start?: #{payment_can_start}."
+                "Payment can start?: #{progress_spend_payment_allowed}."
         )
 
         return true # invalid

@@ -96,23 +96,25 @@
 
         </div>
 
-        <div class="govuk-checkboxes__item">
+        <%unless @funding_application.is_10_to_100k?%>
+          <div class="govuk-checkboxes__item">
 
-          <%=
-            f.check_box :no_update,
-              {
-                  class: "govuk-checkboxes__input"
-              },
-              'true', 'false'
-          %>
+            <%=
+              f.check_box :no_update,
+                {
+                    class: "govuk-checkboxes__input"
+                },
+                'true', 'false'
+            %>
 
-          <%=
-            f.label :no_update,
-            t('progress_and_spend.payments.what_spend.no_spend_update'),
-            class: "govuk-label govuk-checkboxes__label"
-          %>
+            <%=
+              f.label :no_update,
+              t('progress_and_spend.payments.what_spend.no_spend_update'),
+              class: "govuk-label govuk-checkboxes__label"
+            %>
 
-        </div>
+          </div>
+        <%end%>
 
       </div>
 

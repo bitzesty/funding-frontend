@@ -468,6 +468,9 @@ Rails.application.routes.draw do
         scope 'payments', module: 'payments', as: 'payments' do
           scope '/:payment_request_id' do
 
+            get 'vat-status-changes', to: 'vat_status_changes#show'
+            post 'vat-status-changes', to: 'vat_status_changes#update'
+
             get 'spend-so-far', to: 'spend_so_far#show'
             post 'spend-so-far', to: 'spend_so_far#update'
 

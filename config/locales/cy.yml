@@ -933,6 +933,11 @@ cy:
               inclusion: "Dewiswch a oes angen i chi ychwanegu eitem arall o wariant"
             add_or_change_spend:
               inclusion: "Dewiswch a ydych am ychwanegu neu newid gwariant neu barhau heb wneud unrhyw newidiadau"
+            vat_status_changed:
+              inclusion: "Select if your organisation's VAT status has changed"
+            vat_number:
+              too_short: "Rhowch rif TAW eich sefydliad yn y fformat cywir"
+              too_long: "Rhowch rif TAW eich sefydliad yn y fformat cywir"
         low_spend:
           attributes:
             total_amount:
