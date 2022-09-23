@@ -102,8 +102,8 @@ module FundingApplicationContext
 
       is_p_and_s_project = @funding_application&.dev_over_100k? || \
         @funding_application&.del_250k_to_5mm?  || \
-          (@funding_application&.agreement_submitted_on.present? && \
-            (@funding_application&.is_100_to_250k? || @funding_application&.is_10_to_100k?))
+          @funding_application&.is_100_to_250k? || \
+            @funding_application&.is_10_to_100k?
 
 
       progress_spend_payment_allowed =
