@@ -170,12 +170,13 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       completed_arrears_journey
     )
 
-      store_payment_request_state_when_submitted(
-        funding_application,
-        payment_request
-      ) # store for support should request fail.
-
-      update_payment_request_amount(payment_request, payment_amount)
+      if completed_arrears_journey.payment_request.present?
+        store_payment_request_state_when_submitted(
+          funding_application,
+          payment_request
+        ) # store for support should request fail.
+        update_payment_request_amount(payment_request, payment_amount)
+      end
 
       upload_arrears_to_salesforce(
         @funding_application,
@@ -184,7 +185,8 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
       )
 
       # payment request in salesforce, so clear support data
-      payment_request.update(payload_submitted: nil)
+      payment_request.update(payload_submitted: nil) if
+        completed_arrears_journey.payment_request.present?
 
       arrears_journey_tracker&.delete
       funding_application.payment_details&.delete
