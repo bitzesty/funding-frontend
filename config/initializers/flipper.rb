@@ -22,6 +22,7 @@ if ActiveRecord::Base.connection.table_exists? :flipper_features
     Flipper[:progress_and_spend].add
     Flipper[:large_arrears_progress_spend].add
     Flipper[:dev_to_100k_1st_payment].add
-    Flipper[:m1_40_payment].add
+    Flipper[:m1_40_payment_release].add
+    Flipper[:dev_to_100k_40_payment_release].add
   end
 end

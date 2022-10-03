@@ -688,6 +688,8 @@ module ProgressAndSpendHelper
       has_vat_registered_changed?(payment_request)
     )
 
+    remove_deleted_spends_from_salesforce(form_id, payment_request, client)
+
     payment_request.submitted_on = DateTime.now
     payment_request.save
 
@@ -1570,13 +1572,27 @@ module ProgressAndSpendHelper
 
   end
 
-  # True if NO valid bank account exists from an earlier arrears
+  # Firstly check JSON to see if we can allow a grantee to ask
+  # if the bank account changed (and skip bank question).  This is because
+  # for released payment forms, they need to enter bank details again.
+  # Return false if must_enter_bank_details key is true.
+  #
+  # Otherwise true if a valid bank account exists from an earlier arrears
   # payment for this project.
   #
   # @param [FundingApplication] funding_application
   # @return [Boolean] True if bank account returned
   #
   def ask_if_bank_account_changed?(funding_application)
+
+    payment_request =
+      @funding_application.arrears_journey_tracker.payment_request
+
+    return false if
+      payment_request.answers_json['bank_details_journey']\
+        .key?('must_enter_bank_details') && \
+          payment_request.answers_json['bank_details_journey']\
+            ['must_enter_bank_details'] == true
 
     # Uses the last completed_arrears_journey with a payment request
     form_id_for_last_arrears_payment =
@@ -1661,6 +1677,37 @@ module ProgressAndSpendHelper
     end
 
     changed
+
+  end
+
+  # Removes spending costs that have been deleted in funding frontend from 
+  # salesforce, comparing the spending costs that are present in SF, 
+  # to those of the submitted payment request. 
+  # Implemented for 40% payment request rerelease.
+  # 
+  # @param [String] salesforce_form_id Salesforce's reference for a form
+  # @param [PaymentRequest] payment_request Instance of parent payment request
+  # @param [PaymentRequestSalesforceApiClient] payment_request_salesforce_api 
+  #   Reusing an instance of PaymentRequestSalesforceApiClient for performance
+  def remove_deleted_spends_from_salesforce(salesforce_form_id,
+      payment_request, payment_request_salesforce_api)
+
+    salesforce_spends =
+      payment_request_salesforce_api.get_spends_for_a_form(salesforce_form_id)
+
+    salesforce_spends.each do |ss|
+
+      if payment_request.high_spend.where(id: ss.External_Id__c).empty? &&
+        payment_request.low_spend.where(id: ss.External_Id__c).empty?
+
+        logger.info("Deleting spend from Salesforce with external Id of "\
+          " #{ss.External_Id__c}")
+
+        DeleteSpendingCostJob.perform_later(ss.Id)
+
+      end
+
+    end
 
   end
 

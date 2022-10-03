@@ -305,6 +305,82 @@ module SalesforceApiHelper
 
   end
 
+  # Returns an array of Salesforce document IDs that match a provided filename,
+  # and have been uploaded against a specific linked entity (Form or Case). 
+  #
+  #
+  # @param [String] file_name 
+  # @param [String] salesforce_linked_entity_id 
+  # @return [ Array[String] ] matching_file_ids IDs of matching documents
+  def get_existing_files_in_salesforce(salesforce_linked_entity_id, file_name)
+    retry_number = 0     
+
+    begin
+
+      matching_file_ids = []
+      
+      document_link_ids =
+        @client.query("SELECT ContentDocumentId FROM "\
+          "ContentDocumentLink where LinkedEntityId = '#{salesforce_linked_entity_id}'")      
+
+      document_link_ids.each do | doc_id |  
+
+        query_string = "SELECT Id "\
+        "FROM ContentDocument where " \
+          "Id = '#{doc_id.ContentDocumentId}' AND "\
+            "Title = '#{file_name}' AND IsDeleted = false AND IsArchived = false"
+
+        doc =  @client.query(query_string)
+     
+        if doc.size > 0 
+          matching_file_ids.push(doc.first.Id) 
+          
+          Rails.logger.info("Document with id #{doc.first.Id}"\
+            "found against link entity #{salesforce_linked_entity_id} " )
+
+        end
+        
+      end
+
+      matching_file_ids
+    
+    rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+      Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+      Rails.logger.error("Error checking for existing  document id" \
+        "with link entity id: #{salesforce_linked_entity_id}")
+
+      # Raise and allow global exception handler to catch
+      raise
+
+    rescue Timeout::Error, Faraday::ClientError => e
+
+      if retry_number < MAX_RETRIES
+
+        retry_number += 1
+
+        max_sleep_seconds = Float(2 ** retry_number)
+
+        Rails.logger.info(
+          "Will attempt to retrieve existing document id , "\
+            "retry number #{retry_number} " \
+              "after a sleeping for up to #{max_sleep_seconds} seconds"
+        )
+
+        sleep rand(0..max_sleep_seconds)
+
+        retry
+
+      else
+
+        raise
+
+      end
+
+    end
+
+  end
+
   # Uses the salesforce_text yamls to convert a heading back to salesforce
   # picklist format.
   # If the heading is English, it should already be in salesforce format.

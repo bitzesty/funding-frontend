@@ -80,6 +80,11 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendSummaryController
 
     end
 
+    # For released 40% payment forms, some files may already exist in Salesforce.
+    # Ids for these live in the salesforce_content_document_ids column of high spends
+    # Loop through these Ids and call the active job to delete the files.
+    # Some of the file Ids may no longer exist, because IMs have manually deleted the
+    # files, or the forms may be released multiple times.
     def delete()
 
       logger.info(
@@ -87,6 +92,13 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendSummaryController
           "#{params[:high_spend_id]} from payment_request ID: " \
             "#{params[:payment_request_id]}"
       )
+
+
+      HighSpend.find(params[:high_spend_id])&.salesforce_content_document_ids&.each do |file_id|
+
+        DeleteDocumentJob.perform_later(file_id)
+
+      end
 
       HighSpend.destroy(params[:high_spend_id])
 

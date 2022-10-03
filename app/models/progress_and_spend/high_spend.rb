@@ -46,12 +46,14 @@ class HighSpend < ApplicationRecord
   validate do
 
     # Ensure the given cost heading exists in the headings list
-    unless self.cost_headings.include?(self.cost_heading)
-      self.errors.add(
-        'cost_heading',
-        I18n.t("activerecord.errors.models.high_spend.attributes." \
-          "cost_heading.invalid")
-      ) if validate_save_continue?
+    if validate_save_continue? &&
+      self.cost_headings.exclude?(self.cost_heading)
+
+        self.errors.add(
+          'cost_heading',
+          I18n.t("activerecord.errors.models.high_spend.attributes." \
+            "cost_heading.invalid")
+        )
 
     end
 

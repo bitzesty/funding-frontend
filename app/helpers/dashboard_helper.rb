@@ -1,6 +1,7 @@
 module DashboardHelper
   include SalesforceApi
   include FundingApplicationHelper
+  include Enums::ArrearsJourneyStatus
 
   # Allows use of the salesforce_api lib file.
   # Returns true if a legal agreement is in place
@@ -296,6 +297,73 @@ module DashboardHelper
   def get_large_project_title(salesforce_api_client, salesforce_case_id)
     project_title = salesforce_api_client
       .get_project_title(salesforce_case_id).Project_Title__c
+  end
+
+  # Checks to see if a 40% payment form has been released.  Which
+  # means that a grantee needs to complete it again for some
+  # reason.
+  #
+  def previous_m1_40_payment_released(funding_application)
+
+    salesforce_api_client = get_salesforce_api_instance()
+
+    # get the last completed arrears journey, for 40% there should be one.
+    previous_arrears_journey =
+      @funding_application.completed_arrears_journeys.order(:created_at).last
+
+    # if released:
+    if forty_percent_release_flippers_on?(funding_application) &&
+      salesforce_api_client.is_previous_payment_request_released?(
+        previous_arrears_journey&.id)
+
+      # build a new arrears_journey_tracker from previous_arrears_journey
+      @funding_application.arrears_journey_tracker =
+      ArrearsJourneyTracker.create(
+        funding_application_id: funding_application.id,
+        payment_request_id: previous_arrears_journey&.payment_request&.id,
+        progress_update_id: previous_arrears_journey&.progress_update&.id,
+      ) unless @funding_application.arrears_journey_tracker.present?
+
+      # Reset bank details questions - as though details deleted for GDPR.
+      # Must re-enter bank details - unless we develop method to get them.
+      @funding_application.arrears_journey_tracker
+        .payment_request
+          .answers_json['bank_details_journey'] =
+            {
+              status: JOURNEY_STATUS[:not_started],
+              has_bank_details_update: nil,
+              must_enter_bank_details: true
+            }
+      @funding_application.arrears_journey_tracker
+        .payment_request.save!
+
+      return true
+    end
+    return false
+  end
+
+  # Looks at the application type, then checks to see if the required
+  # flipper is enabled to release a 40% payment form for that
+  # application type.
+  #
+  # @param [FundingApplication] funding_application
+  # @return [Boolean] true If the flipper is on for the application type
+  def forty_percent_release_flippers_on?(funding_application)
+
+    if funding_application.is_10_to_100k?
+
+      return Flipper.enabled?(:m1_40_payment_release)
+
+    elsif funding_application.dev_to_100k?
+
+      return Flipper.enabled?(:dev_to_100k_40_payment_release)
+
+    else
+
+      return false
+
+    end
+
   end
 
 end

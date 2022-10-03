@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_21_123733) do
+ActiveRecord::Schema.define(version: 2022_09_30_121247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -384,6 +384,7 @@ ActiveRecord::Schema.define(version: 2022_07_21_123733) do
     t.integer "spend_threshold"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "salesforce_content_document_ids", array: true
     t.index ["payment_request_id"], name: "index_high_spends_on_payment_request_id"
   end
 

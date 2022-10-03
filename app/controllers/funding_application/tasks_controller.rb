@@ -2,7 +2,6 @@ class FundingApplication::TasksController < ApplicationController
   include FundingApplicationContext
   include ObjectErrorsLogger
   include DashboardHelper
-  include DashboardHelper
   include FundingApplicationHelper
 
   GENERIC_TIMESTAMP = '0001-01-01 00:00:00.000000'
@@ -32,8 +31,7 @@ class FundingApplication::TasksController < ApplicationController
 
     elsif Flipper.enabled?(:m1_40_payment) && \
       @funding_application.is_10_to_100k? && \
-        first_50_percent_payment_completed?(@funding_application) && \
-          !@funding_application.m1_40_payment_complete?
+        m1_40_payment_journey_can_start?(@funding_application)
         
       @funding_application.update(status: :m1_40_payment_can_start)
 
@@ -279,6 +277,19 @@ class FundingApplication::TasksController < ApplicationController
         "funding application #{funding_application.id}. Inserted #{GENERIC_TIMESTAMP}")
 
     end
+
+  end
+
+  # Method to check if M1 40% payment request journey can start.
+  # 
+  # The journey can begin if the applicant has completed their M1
+  # 50% journey, and, they have either not completed the M1 40% 
+  #  journey already (as indicated by the app status), or their 40%
+  #  form has been released for further applicant modification. 
+  def m1_40_payment_journey_can_start?(funding_application)
+    first_50_percent_payment_completed?(funding_application) && \
+      (!@funding_application.m1_40_payment_complete? || \
+        previous_m1_40_payment_released(funding_application))
 
   end
 

@@ -1852,7 +1852,8 @@
     #
     # @return [String] salesforce_payment_request_id The Salesforce reference for the record
     def upsert_bank_account_payment_request_junction(salesforce_bank_account_id, salesforce_payment_request_id)
-
+      retry_number = 0
+      
       begin
 
         salesforce_form_bank_account_id = @client.upsert!(
@@ -2088,6 +2089,65 @@
 
           Rails.logger.info(
             "Will attempt to check form complete status again, "\
+              "retry number #{retry_number} " \
+                "after a sleeping for up to #{max_sleep_seconds} seconds"
+          )
+
+          sleep rand(0..max_sleep_seconds)
+
+          retry
+
+        else
+
+          raise
+
+        end
+
+      end
+
+    end
+
+    # Returns true if a previous payment request form has been released
+    # on Salesforce for applicant action.
+    # 
+    # @param [String] form_external_id 
+    # @return [ Boolean ] form_is_released True if SF checkbox checked
+    def is_previous_payment_request_released?(form_external_id)
+      retry_number = 0     
+
+      begin
+
+        released_form_count =
+          @client.query("SELECT COUNT() FROM Forms__c  where "\
+            "Frontend_External_Id__c = '#{form_external_id}' "\
+              "and Re_release_40_payment_request_form__c = true")
+
+        form_is_released = released_form_count&.size > 0
+
+        Rails.logger.info("Payment request with id #{form_external_id} " \
+          "is released: #{form_is_released} ")
+
+        form_is_released
+        
+      rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+        Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+        Rails.logger.error("Error checking Re_release_40_payment_request_form__c " \
+          "for id: #{form_external_id}")
+
+        # Raise and allow global exception handler to catch
+        raise
+
+      rescue Timeout::Error, Faraday::ClientError => e
+
+        if retry_number < MAX_RETRIES
+
+          retry_number += 1
+
+          max_sleep_seconds = Float(2 ** retry_number)
+
+          Rails.logger.info(
+            "Will attempt to check Re_release_40_payment_request_form__c, "\
               "retry number #{retry_number} " \
                 "after a sleeping for up to #{max_sleep_seconds} seconds"
           )

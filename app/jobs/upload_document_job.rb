@@ -14,11 +14,14 @@ class UploadDocumentJob < ApplicationJob
   # @param [String] salesforce_reference The Salesforce Case/Form reference
   #                                              to link this upload to
   # @param [String] description A description of the file being uploaded
+  # @param [ApplicationRecord] owning_record Record the file is associated to
   def perform( 
     file,
     type,
     salesforce_reference,
-    description)
+    description,
+    owning_record = nil
+  )
 
     initialise_client
 
@@ -40,7 +43,7 @@ class UploadDocumentJob < ApplicationJob
         )
 
         if file.blob.byte_size > 0 
-          @client.insert!(
+          content_version_id = @client.insert!(
             'ContentVersion',
             title: "#{type} File",
             description: description,
@@ -52,6 +55,12 @@ class UploadDocumentJob < ApplicationJob
           Rails.logger.debug(
             "Finished upserting ContentVersion file for #{type} in Salesforce"
           )
+
+          update_owning_record_with_file_id(
+            content_version_id,
+            owning_record
+          ) if owning_record.present?
+
         else
           Rails.logger.error(
             "Cannot upload empty file #{file.blob.filename} in Salesforce - file is of size 0 bytes"
@@ -115,4 +124,51 @@ class UploadDocumentJob < ApplicationJob
     end
 
   end
+
+  # Only suitable for HighSpends instances at the time of writing.
+  #
+  # Checks that the owning_record has an attribute for
+  # salesforce_content_document_ids - see HighSpends as example.
+  # Then initialises if nil and pushes the content version id to the array.
+  #
+  # This can be used later to see which SF files came from this HighSpend.
+  #
+  # @param [String] content_version_id Id for content version returned from SF
+  # @param [ApplicationRecord] owning_record Instance of HighSpend (for now)
+  def update_owning_record_with_file_id(content_version_id, owning_record)
+
+    if owning_record&.has_attribute?(:salesforce_content_document_ids)
+
+      logger.info(
+        "File uploaded for #{owning_record.class.name} with id " \
+          "#{owning_record.id}. Content version Id is #{content_version_id}."
+      )
+
+      # We insert documents by content version.  But we can't delete by content
+      # version Id.  So get and store the document Id instead.
+      content_document_id = @client.select(
+        'ContentVersion',
+        content_version_id,
+        ["ContentDocumentId"],
+        'Id'
+      ).ContentDocumentId
+
+      owning_record.salesforce_content_document_ids = [] if
+        owning_record.salesforce_content_document_ids.nil?
+
+      owning_record.salesforce_content_document_ids.push(content_document_id)
+      owning_record.save!
+
+    else
+
+      logger.error(
+        "#{owning_record.class.name} with id #{owning_record.id} has no " \
+          "salesforce_content_document_ids attribute. Content document Id is " \
+            "#{content_document_id}.  But this has not been stored."
+      )
+
+    end
+
+  end
+
 end

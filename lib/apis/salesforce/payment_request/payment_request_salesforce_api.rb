@@ -192,7 +192,9 @@ module PaymentRequestSalesforceApi
           "High spend #{high_spend.cost_heading} evidence - #{high_spend
             .evidence_of_spend_file_blob
               .filename}",
-          salesforce_payment_request_id
+          salesforce_payment_request_id,
+          nil,
+          high_spend
         )
 
       end
@@ -375,7 +377,8 @@ module PaymentRequestSalesforceApi
           'Id',
           Id: salesforce_payment_request_id,
           Payment_Request_From_Applicant__c: amount_requested,
-          Organisation_s_VAT_status_has_changed__c: has_vat_registered_changed
+          Organisation_s_VAT_status_has_changed__c: has_vat_registered_changed,
+          Re_release_40_payment_request_form__c: false
         )
 
         Rails.logger.info("Successfully called " \
@@ -434,7 +437,10 @@ module PaymentRequestSalesforceApi
 
     end
 
-    # Method to upsert a payment form files in Salesforce for a Permission to Start application
+    # Method to upsert a payment form files in Salesforce for an arrears
+    # application
+    # Gets any existing documents with a matching filename, and removes them
+    # after uploading the latest version.
     #
     # @param [ActiveStorageBlob] file attachment to upload
     # @param [String] type The type of file to upload (e.g. 'photo evidence')
@@ -445,8 +451,12 @@ module PaymentRequestSalesforceApi
       file,
       type,
       salesforce_reference,
-      description = nil
+      description = nil,
+      owning_record = nil
     )
+
+      file_name = type + " File"
+      existing_docs = get_existing_files_in_salesforce(salesforce_reference, file_name)
 
       Rails.logger.info("Creating #{type} file in Salesforce")
 
@@ -454,14 +464,44 @@ module PaymentRequestSalesforceApi
         file,
         type,
         salesforce_reference,
-        description
+        description,
+        owning_record
       )
 
       Rails.logger.info("Finished creating #{type} file in Salesforce")
 
+      existing_docs.each do |file_id|
+
+        DeleteDocumentJob.perform_later(file_id)
+
+      end
+
+    end
+
+    # Returns a list of all the current spending costs associated
+    # to a form in SalesForce. 
+    # 
+    # @param [String] salesforce_form_id From Id that spending costs are 
+    #                                 attached against. 
+    # @return [RestforceResponse<>] restforce_response Response containing a
+    #                                            collection of the Spending Cost Id and External_Id
+    def get_spends_for_a_form(salesforce_form_id)
+
+      Rails.logger.info("Getting spends for " \
+        "form_id: #{salesforce_form_id}")
+
+      query_string = "SELECT Id, External_Id__c " \
+        "FROM Spending_Costs__c " \
+          "where Forms__c = '#{salesforce_form_id}'"
+
+      restforce_response = run_salesforce_query(query_string,
+        "get_spends_for_a_form", salesforce_form_id) \
+          if query_string.present?
+
+      restforce_response
+
     end
 
   end
-
 
 end
