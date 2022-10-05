@@ -372,14 +372,28 @@ module PaymentRequestSalesforceApi
 
       begin
 
-        @client.upsert!(
-          'Forms__c',
-          'Id',
-          Id: salesforce_payment_request_id,
-          Payment_Request_From_Applicant__c: amount_requested,
-          Organisation_s_VAT_status_has_changed__c: has_vat_registered_changed,
-          Re_release_40_payment_request_form__c: false
-        )
+        if Flipper.enabled?(:m1_40_payment_release)
+
+          @client.upsert!(
+            'Forms__c',
+            'Id',
+            Id: salesforce_payment_request_id,
+            Payment_Request_From_Applicant__c: amount_requested,
+            Organisation_s_VAT_status_has_changed__c: has_vat_registered_changed,
+            Re_release_40_payment_request_form__c: false
+          )
+
+        else
+
+          @client.upsert!(
+            'Forms__c',
+            'Id',
+            Id: salesforce_payment_request_id,
+            Payment_Request_From_Applicant__c: amount_requested,
+            Organisation_s_VAT_status_has_changed__c: has_vat_registered_changed
+          )
+
+        end
 
         Rails.logger.info("Successfully called " \
           "upsert_payment_request_from_applicant " \
