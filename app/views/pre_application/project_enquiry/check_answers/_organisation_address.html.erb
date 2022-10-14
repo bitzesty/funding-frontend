@@ -34,14 +34,19 @@
     <% end %>
   </dd>
 
-  <%= render partial: 'pre_application/expression_of_interest/check_answers/change_link',
-             locals: {
-                 link_url: postcode_path(
-                    'preapplication',
-                    @pre_application.id
-                ),
-                 link_hidden_label: t('pa_expression_of_interest.check_answers.change_links.org_address')
-             }
-  %>
+  <% if @organisation.salesforce_account_id.nil? %>
+    <%= render partial: 'pre_application/change_link/change_link',
+              locals: {
+                  link_url: postcode_path(
+                      'preapplication',
+                      @pre_application.id
+                  ),
+                  link_hidden_label: t('pa_expression_of_interest.check_answers.change_links.org_address')
+              }
+    %>
+  <%else%>
+    <dd class="govuk-summary-list__actions">
+    </dd>
+  <%end%>
 
 </div>

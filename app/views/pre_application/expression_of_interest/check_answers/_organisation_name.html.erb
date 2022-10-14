@@ -8,7 +8,8 @@
     <%= @organisation.name.present? ? @organisation.name : t('generic.not_answered') %>
   </dd>
 
-  <%= render partial: 'pre_application/expression_of_interest/check_answers/change_link',
+<% if @organisation.salesforce_account_id.nil? %>
+  <%= render partial: 'pre_application/change_link/change_link',
              locals: {
                  link_url: postcode_path(
                     'preapplication',
@@ -17,5 +18,9 @@
                  link_hidden_label: t('pa_expression_of_interest.check_answers.change_links.org_name')
              }
   %>
+<%else%>
+  <dd class="govuk-summary-list__actions">
+  </dd>
+<%end%>
 
 </div>

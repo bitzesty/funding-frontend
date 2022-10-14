@@ -8,7 +8,7 @@
     <%= @pre_application.pa_project_enquiry.project_participants.present? ? @pre_application.pa_project_enquiry.project_participants : t('generic.not_answered')%>
   </dd>
 
-  <%= render partial: 'pre_application/project_enquiry/check_answers/change_link',
+  <%= render partial: 'pre_application/change_link/change_link',
              locals: {
                  link_url: pre_application_project_enquiry_who_will_be_involved_path,
                  link_hidden_label: t('pa_project_enquiry.check_answers.table.row_headings.project_participants')

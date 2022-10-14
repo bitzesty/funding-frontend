@@ -8,7 +8,7 @@
     <%= @pre_application.pa_expression_of_interest.overall_cost? ? @pre_application.pa_expression_of_interest.overall_cost : t('generic.not_answered') %>
   </dd>
 
-  <%= render partial: 'pre_application/expression_of_interest/check_answers/change_link',
+  <%= render partial: 'pre_application/change_link/change_link',
              locals: {
                  link_url: pre_application_expression_of_interest_overall_cost_path,
                  link_hidden_label: t('pa_expression_of_interest.check_answers.change_links.overall_cost')
