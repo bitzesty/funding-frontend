@@ -84,10 +84,13 @@ class AddressController < ApplicationController
       case @type
       when 'organisation'
         @model_object = Organisation.find(params[:id])
+        redirect_to :root unless current_user.organisations.first&.id == @model_object&.id
       when 'project'
         @model_object = Project.find(params[:id])
+        redirect_to :root unless current_user.id == @model_object&.user_id
       when 'gp-open-medium'
         @model_object = OpenMedium.find(params[:id])
+        redirect_to :root unless current_user.id == @model_object&.user_id
       when 'user'
         users_organisation = UsersOrganisation.find_by(organisation_id: params[:id])
         @model_object = current_user
@@ -97,6 +100,7 @@ class AddressController < ApplicationController
         # address against the associated Organisation object
         pre_application = PreApplication.find(params[:id])
         @model_object = Organisation.find(pre_application.organisation_id)
+        redirect_to :root unless current_user.organisations.first&.id == @model_object&.id
       end
     else
       redirect_to :root
