@@ -164,7 +164,8 @@ module FundingApplicationContext
         path.exclude?('/agreement') && \
           path.exclude?('/summary') && \
             path.exclude?('payments') && \
-              path.exclude?('progress-and-spend')
+              path.exclude?('progress-and-spend') && \
+                path.exclude?('bank-details')
   end
 
   # Returns true if the passed path is NOT allowed for submitted agreements.
