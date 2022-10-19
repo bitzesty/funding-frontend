@@ -1,0 +1,12 @@
+cy:  
+  progress_and_spend:
+    payments:
+      vat_status_changes:
+        page_title: "A yw statws TAW eich sefydliad wedi newid?"
+        page_heading: "A yw statws TAW eich sefydliad wedi newid?"
+        page_caption: "Dywedwch wrthym beth rydych chi wedi'i wario"
+        page_hint_vat_registered: "Yn seiliedig ar yr hyn a ddywedoch wrthym, mae eich sefydliad wedi ei gofrestru â TAW." 
+        page_hint_vat_not_registered: "Yn seiliedig ar yr hyn rydych chi wedi'i ddweud wrthym, nid yw eich sefydliad wedi ei gofrestru â TAW."
+        changed_false: "Na, nid yw statws TAW fy sefydliad wedi newid"
+        changed_true: "Ydy, mae statws TAW fy sefydliad wedi newid"
+        what_is_your_vat_number: "Beth yw eich rhif TAW?"

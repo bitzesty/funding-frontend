@@ -38,3 +38,7 @@ cy:
         need_bullets:
           1: " copïau o anfonebau a derbynebau dros £250."
           2: " tabl ar gyfer gwariant o dan £250."
+      dev_under_100k_40_content:
+        get_40_once: "Mynnwch y 40% nesaf o'ch grant datblygu ar ôl i chi wario'r 50% cyntaf o'ch costau y cytunwyd arnynt."
+        50_perc_costs_is: "Mae 50% o'ch costau y cytunwyd arnynt yn %{fifty_perc_payment_amount}"
+

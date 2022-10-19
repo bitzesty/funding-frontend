@@ -372,7 +372,8 @@ module PaymentRequestSalesforceApi
 
       begin
 
-        if Flipper.enabled?(:m1_40_payment_release)
+        if Flipper.enabled?(:m1_40_payment_release)  ||
+          Flipper.enabled?(:dev_40_payment_release)
 
           @client.upsert!(
             'Forms__c',

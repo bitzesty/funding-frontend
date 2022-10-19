@@ -45,8 +45,9 @@ class FundingApplication::ProgressAndSpend::SubmitController < ApplicationContro
 
       details_hash = salesforce_arrears_project_details(@funding_application)
       
-      # Account for 40% M1 Payment
-      if @funding_application.is_10_to_100k?
+      # Account for 40% Payment
+      if @funding_application.is_10_to_100k? || 
+        @funding_application.dev_to_100k?
         details_hash[:grant_awarded] * 0.4
       else
         get_arrears_payment_amount(

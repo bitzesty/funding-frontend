@@ -42,7 +42,7 @@ class FundingApplication::ProgressAndSpend::PreviousSubmissions::SubmissionSumma
 
   def update
 
-    if @funding_application.is_10_to_100k?
+    if @funding_application.is_10_to_100k? || @funding_application.dev_to_100k?
 
       redirect_to funding_application_tasks_path
 

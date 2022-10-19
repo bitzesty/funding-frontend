@@ -23,11 +23,26 @@ class FundingApplication::TasksController < ApplicationController
       )
 
     elsif @funding_application.dev_to_100k?
+
       salesforce_api_instance = get_salesforce_api_instance()
       @large_project_title = get_large_project_title(
         salesforce_api_instance, 
         @funding_application.salesforce_case_id
       )
+
+      if Flipper.enabled?(:dev_40_payment) &&
+        dev_40_payment_journey_can_start?(@funding_application)
+
+        @funding_application.update(status: :dev_40_payment_can_start)
+
+        logger.debug("Dev < 100K 40% payment journey started for " \
+          "funding_application #{@funding_application.id}")
+
+        redirect_to funding_application_progress_and_spend_start_path(
+          application_id: @funding_application.id
+        )
+
+      end
 
     elsif Flipper.enabled?(:m1_40_payment) && \
       @funding_application.is_10_to_100k? && \
@@ -43,6 +58,8 @@ class FundingApplication::TasksController < ApplicationController
       )
 
     end
+
+    # unless a redirect happens above, tasks/show.html is rendered.
 
   end
 
@@ -123,7 +140,8 @@ class FundingApplication::TasksController < ApplicationController
 
     # Not nil if a forty percent journey has been completed.
     @completed_arrears_journey =
-      @funding_application&.completed_arrears_journeys&.first
+      @funding_application&.completed_arrears_journeys&.order(
+        "submitted_on ASC").last
 
     set_status_tags(funding_application)
 
@@ -284,12 +302,25 @@ class FundingApplication::TasksController < ApplicationController
   # 
   # The journey can begin if the applicant has completed their M1
   # 50% journey, and, they have either not completed the M1 40% 
-  #  journey already (as indicated by the app status), or their 40%
-  #  form has been released for further applicant modification. 
+  # journey already (as indicated by the app status), or their 40%
+  # form has been released for further applicant modification. 
   def m1_40_payment_journey_can_start?(funding_application)
     first_50_percent_payment_completed?(funding_application) && \
       (!@funding_application.m1_40_payment_complete? || \
-        previous_m1_40_payment_released(funding_application))
+        previous_40_payment_released(funding_application))
+
+  end
+
+  # Method to check if Dev < 100K 40% payment request journey can start.
+  #
+  # The journey can begin if the applicant has completed their Dev < 100K
+  # 50% journey, and, they have either not completed the Dev 40%
+  # journey already (as indicated by the app status), or their 40%
+  # form has been released for further applicant modification.
+  def dev_40_payment_journey_can_start?(funding_application)
+    first_50_percent_payment_completed?(funding_application) && \
+      (!@funding_application.dev_40_payment_complete? || \
+        previous_40_payment_released(funding_application))
 
   end
 

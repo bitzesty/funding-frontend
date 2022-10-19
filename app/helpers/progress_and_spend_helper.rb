@@ -74,7 +74,7 @@ module ProgressAndSpendHelper
 
     details_hash = {}
 
-    if funding_application.dev_over_100k?
+    if funding_application.dev_over_100k? || funding_application.dev_to_100k?
 
       grant_expiry_date = Date.parse(
         arrears_heading_info.Development_grant_expiry_date__c
@@ -1127,11 +1127,14 @@ module ProgressAndSpendHelper
         record_type_id
       )
 
-    if funding_application.dev_over_100k? || funding_application.del_250k_to_5mm?
+    if funding_application.dev_over_100k? ||
+      funding_application.del_250k_to_5mm? ||
+        funding_application.dev_to_100k?
+
       headings.delete("Non-cash contributions")
       headings.delete("Volunteer time")
     end
-    
+
     headings.each do |heading|
       headings[headings.index(heading)] =
         translate_salesforce_cost_heading(heading)

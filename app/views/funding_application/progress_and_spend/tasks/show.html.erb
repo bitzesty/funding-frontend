@@ -278,7 +278,7 @@
 
   <%end%>
 
-<%unless @funding_application.is_10_to_100k?%>
+<%unless @funding_application.is_10_to_100k? || @funding_application.dev_to_100k?%>
   <%= content_for :secondarycontent do %>
     <div class="nlhf-panel" >
       <h2 class="govuk-heading-m">

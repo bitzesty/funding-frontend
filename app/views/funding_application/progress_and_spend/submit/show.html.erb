@@ -138,7 +138,7 @@
     <p> 
       <%= t('progress_and_spend.select_journey.grant_expiry_date')%><%=@grant_expiry_date%>
     </p>
-    <%unless @funding_application.is_10_to_100k?%>
+    <%unless @funding_application.is_10_to_100k? || @funding_application.dev_to_100k? %>
      <span>
         <%=
           link_to(

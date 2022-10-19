@@ -353,6 +353,16 @@ module FundingApplicationHelper
     salesforce_api_client.get_total_project_costs(salesforce_case_id)
   end
 
+  # Retrieves the total agreed project costs for a development application
+  #
+  # @param salesforce_case_id [String] salesforce case ID associated to a
+  #                                                 funding application
+  # @return total costs [Int] total agreed costs for a given project
+  def get_agreed_project_costs_dev(salesforce_case_id)
+    salesforce_api_client = SalesforceApiClient.new
+    salesforce_api_client.get_agreed_project_costs_dev(salesforce_case_id)
+  end
+
   private
 
   # Private function.  Only called by check_award_type.
@@ -423,15 +433,15 @@ module FundingApplicationHelper
   end
 
   # Queries funding_application and salesforce to determine 
-  # if the first 50% payment has been completed for an M1 app.
+  # if the first 50% payment has been completed for an M1 or Dev < 100K app.
   #
   # @param funding_application [FundingApplication] 
-  #                                                    funding application to query
+  #                                             funding application to query
   #                                                 
   # @return is first 50% payment complete [Boolean] 
   def first_50_percent_payment_completed?(funding_application)
 
-    if funding_application.is_10_to_100k?
+    if funding_application.is_10_to_100k? || funding_application.dev_to_100k?
 
       fifty_form =
         funding_application.payment_requests.order(:created_at).first
@@ -449,14 +459,16 @@ module FundingApplicationHelper
   # the application is in not in a payment journey.
   #
   # @param funding_application [FundingApplication] 
-  #                                                    funding application to query
+  #                                                funding application to query
   #                                                 
   # @return is not in payment journey [Boolean] 
   def not_in_payments?(funding_application)
 
-    !funding_application&.payment_can_start? && \
-      !funding_application&.m1_40_payment_can_start? && \
-        !funding_application&.m1_40_payment_complete?
+    !funding_application&.payment_can_start? &&
+      !funding_application&.m1_40_payment_can_start? &&
+        !funding_application&.m1_40_payment_complete? &&
+          !funding_application&.dev_40_payment_can_start? &&
+            !funding_application&.dev_40_payment_complete?
 
   end
 

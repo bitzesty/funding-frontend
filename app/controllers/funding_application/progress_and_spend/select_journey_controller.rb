@@ -12,11 +12,12 @@ include Enums::ArrearsJourneyStatus
       redirect_to \
         funding_application_progress_and_spend_progress_and_spend_tasks_path()
 
-    # Journey has not started. If arrears or medium 1 40%, skip select,
-    # default to payment
+    # Skip journey selection, create payment request, & redirect to the start
+    # of an arrears journey if any of these grant award types (inc 40% arrears)
     elsif @funding_application.dev_over_100k? || \
         @funding_application.del_250k_to_5mm? || \
-          @funding_application.is_10_to_100k?
+          @funding_application.is_10_to_100k? || 
+            @funding_application.dev_to_100k?
 
       create_payment_request_if_needed
 

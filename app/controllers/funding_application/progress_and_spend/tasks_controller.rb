@@ -137,7 +137,8 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
 
       if completed_arrears_journey.present?
         # Account for 40% M1 Payment
-        if @funding_application.is_10_to_100k?
+        if @funding_application.is_10_to_100k? || 
+            @funding_application.dev_to_100k? 
           @arrears_payment_amount = grant_awarded * 0.4
         else
           @arrears_payment_amount = get_arrears_payment_amount(
@@ -193,6 +194,9 @@ class FundingApplication::ProgressAndSpend::TasksController < ApplicationControl
 
       funding_application.update(status: :m1_40_payment_complete) if \
         funding_application.m1_40_payment_can_start?
+
+      funding_application.update(status: :dev_40_payment_complete) if \
+        funding_application.dev_40_payment_can_start?
 
       redirect_to funding_application_progress_and_spend_submit_your_answers_path(
         completed_arrears_journey_id: @completed_arrears_journey.id )

@@ -266,7 +266,9 @@ class FundingApplication < ApplicationRecord
     unknown: 0,
     payment_can_start: 1,
     m1_40_payment_can_start: 2,
-    m1_40_payment_complete: 3
+    m1_40_payment_complete: 3,
+    dev_40_payment_can_start: 4,
+    dev_40_payment_complete: 5
   }, _default: :unknown
 
 end

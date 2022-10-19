@@ -1,0 +1,34 @@
+<%# Contains check so progress update content hidden for large %>
+<h1 class="govuk-heading-l">
+   <%=t('progress_and_spend.start.page_title_payment_only')%>
+</h1>
+
+<p class="govuk-body">
+  <%= t('progress_and_spend.start.use_this_service') %>
+</p>
+
+<p class="govuk-body">
+  <%= t('progress_and_spend.start.dev_under_100k_40_content.get_40_once') %>
+</p>
+
+<ul  class="govuk-list govuk-list--bullet">
+  <li>
+    <%= t('progress_and_spend.start.dev_under_100k_40_content.50_perc_costs_is', fifty_perc_payment_amount: number_to_currency(@fifty_perc_payment_amount) ) %> 
+  </li>
+</ul>
+
+<h2  class="govuk-heading-m">
+  <%= t('progress_and_spend.start.m1_40_content.we_will_ask') %>
+</h2>
+<ul  class="govuk-list govuk-list--bullet">
+  <li><%= t('progress_and_spend.start.m1_40_content.ask_bullets.1') %></li>
+  <li><%= t('progress_and_spend.start.m1_40_content.ask_bullets.2') %></li>
+</ul>
+
+<h2  class="govuk-heading-m">
+  <%= t('progress_and_spend.start.m1_40_content.you_will_need') %>
+</h2>
+<ul  class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+  <li><%= t('progress_and_spend.start.m1_40_content.need_bullets.1') %></li>
+  <li><%= t('progress_and_spend.start.m1_40_content.need_bullets.2') %></li>
+</ul>

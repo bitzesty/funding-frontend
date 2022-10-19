@@ -6,7 +6,6 @@
          }
 %>
 
-
 <%if @funding_application.payment_can_start?%>
   <%=
     render partial: "partials/funding_application/progress_and_spend/start_pages/medium_2_and_large"
@@ -18,8 +17,14 @@
             fifty_perc_payment_amount: number_to_currency(@fifty_perc_payment_amount)
          }
   %>
+<%elsif @funding_application.dev_40_payment_can_start?%>
+ <%=
+    render partial: "partials/funding_application/progress_and_spend/start_pages/dev_under_100k_40_perc",
+     locals: {
+            fifty_perc_payment_amount: number_to_currency(@fifty_perc_payment_amount)
+         }
+  %>
 <%end%>
-
 
 <%= form_tag(
     url: :funding_application_payment_request_start,

@@ -129,7 +129,8 @@ module DashboardHelper
 
     # In progress if funding application exists and payment can start
     fa = FundingApplication.find_by(salesforce_case_id: salesforce_case_id)
-    if fa&.payment_can_start?
+    if fa&.payment_can_start? || fa&.dev_40_payment_can_start? ||
+      fa&.dev_40_payment_complete?
 
       if fa.payment_requests.any?
 
@@ -303,7 +304,9 @@ module DashboardHelper
   # means that a grantee needs to complete it again for some
   # reason.
   #
-  def previous_m1_40_payment_released(funding_application)
+  # @param [FundingApplication] funding_application
+  # @return [Boolean] true If salesforce indicates that the 40% payment journey
+  def previous_40_payment_released(funding_application)
 
     salesforce_api_client = get_salesforce_api_instance()
 
@@ -356,7 +359,7 @@ module DashboardHelper
 
     elsif funding_application.dev_to_100k?
 
-      return Flipper.enabled?(:dev_to_100k_40_payment_release)
+      return Flipper.enabled?(:dev_40_payment_release)
 
     else
 

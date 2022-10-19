@@ -100,15 +100,17 @@ module FundingApplicationContext
 
     if p_and_s_path
 
-      is_p_and_s_project = @funding_application&.dev_over_100k? || \
-        @funding_application&.del_250k_to_5mm?  || \
-          @funding_application&.is_100_to_250k? || \
-            @funding_application&.is_10_to_100k?
+      is_p_and_s_project = @funding_application&.dev_over_100k? ||
+        @funding_application&.del_250k_to_5mm?  ||
+          @funding_application&.is_100_to_250k? ||
+            @funding_application&.is_10_to_100k? ||
+              @funding_application&.dev_to_100k?
 
 
       progress_spend_payment_allowed =
-        @funding_application&.payment_can_start? || \
-          @funding_application&.m1_40_payment_can_start?
+        @funding_application&.payment_can_start? ||
+          @funding_application&.m1_40_payment_can_start? ||
+            @funding_application&.dev_40_payment_can_start?
 
       if is_p_and_s_project && progress_spend_payment_allowed || \
         request.path.include?('submit-your-answers') || \
@@ -122,7 +124,9 @@ module FundingApplicationContext
           "Invalid_view_for_progress_and_spend. " \
             "Application type ok?: #{is_p_and_s_project}. " \
               "progress-and-spend-path used?: #{p_and_s_path}. " \
-                "Payment can start?: #{progress_spend_payment_allowed}."
+                "Payment can start?: #{@funding_application&.payment_can_start?}. " \
+                  "m1_40_payment_can_start?: #{@funding_application&.m1_40_payment_can_start?}. " \
+                    "dev_40_payment_can_start?: #{@funding_application&.dev_40_payment_can_start?}."
         )
 
         return true # invalid

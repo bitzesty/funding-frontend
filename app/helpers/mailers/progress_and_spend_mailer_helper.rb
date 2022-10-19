@@ -46,7 +46,8 @@ module Mailers::ProgressAndSpendMailerHelper
 
     elsif payment_mail
 
-      if completed_arrears_journey.funding_application.is_10_to_100k?
+      if completed_arrears_journey.funding_application.is_10_to_100k? ||
+        completed_arrears_journey.funding_application.dev_to_100k?
 
         send_40_perc_payment_mail(
           email,

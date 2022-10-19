@@ -38,4 +38,8 @@ en-GB:
         need_bullets:
           1: "copies of invoices and receipts over £250."
           2: "a table for spends under £250."
+      dev_under_100k_40_content:
+          get_40_once: "Get the next 40% of your development grant once you have spent the first 50% of your agreed costs."
+          50_perc_costs_is: "50% of your agreed costs is %{fifty_perc_payment_amount}"
+
 

@@ -259,7 +259,7 @@
     end    
 
 
-    def get_agreed_project_costs(salesforce_case_id)
+    def get_agreed_project_costs_dev(salesforce_case_id)
 
       Rails.logger.info("Retrieving agreed project costs for salesforce case ID: #{salesforce_case_id}")
 
@@ -267,8 +267,15 @@
 
       begin
 
-        restforce_response = @client.query(
-          "SELECT SUM(Costs__c), SUM(Vat__c), Cost_heading__c FROM Project_Cost__c WHERE Case__c = '#{salesforce_case_id}' GROUP BY Cost_heading__c"
+        # Equivalent of "SELECT Agreed_costs_development__c
+        # FROM Case WHERE ApplicationId__c = '#{salesforce_case_id}'"
+        restforce_response = @client.select(
+          'Case',
+          salesforce_case_id,
+          [
+            'Agreed_costs_development__c'
+          ],
+          'Id'
         )
 
         if restforce_response.length == 0
@@ -281,7 +288,7 @@
 
         end
 
-        restforce_response
+        restforce_response.Agreed_costs_development__c
 
       rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
              Restforce::EntityTooLargeError, Restforce::ResponseError => e
@@ -302,7 +309,7 @@
           max_sleep_seconds = Float(2 ** retry_number)
 
           Rails.logger.info(
-            "Will attempt get_agreed_project_costs again, retry number #{retry_number} " \
+            "Will attempt get_agreed_project_costs_dev again, retry number #{retry_number} " \
             "after a sleeping for up to #{max_sleep_seconds} seconds"
           )
 
