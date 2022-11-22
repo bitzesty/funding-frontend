@@ -121,7 +121,7 @@ en-GB:
     digital_outputs_include: "Digital Outputs include things like photographs, documents, code, websites, digital archives, sound and video recordings or audio-visual installations."
     digital_outputs_agree: "If your Project includes Digital Outputs, by accepting these terms you also agree to:"
     digital_outputs_list:
-      item_1_html: "release all Grant funded Digital Outputs under our default licence, Creative COmmons Attribution 4.0 International (%{href_1}) or equivalent, except code and metadata which should be marked with a Creative COmmons 0 1.0 Universal (%{href_2}) Public Domain Dedication or equivalent. Assets already in the public domain cannot be included in our required licence, so should be marked with a Creative Commons 0 1.0 Universal (%{href_2}) Public Domain Dedication, or equivalent."
+      item_1_html: "release all Grant funded Digital Outputs under our default licence, Creative Commons Attribution 4.0 International (%{href_1}) or equivalent, except code and metadata which should be marked with a Creative Commons 0 1.0 Universal (%{href_2}) Public Domain Dedication or equivalent. Assets already in the public domain cannot be included in our required licence, so should be marked with a Creative Commons 0 1.0 Universal (%{href_2}) Public Domain Dedication, or equivalent."
       item_1_href_1: "CC BY 4.0"
       item_1_href_2: "CC0 1.0"
       item_2: "No new rights should arise in non-original materials resulting from the reproduction of public domain works supported by grant funding. Digital reproductions of public domain materials, including photographic images and 3D data, should be shared under a CC0 1.0 Public Domain Dedication."
