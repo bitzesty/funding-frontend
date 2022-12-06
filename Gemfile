@@ -59,7 +59,7 @@ group :test do
   gem 'webmock', '~> 3.8'
 end
 
-group :production, :uat, :staging do
+group :production, :uat, :staging, :civmiguat do
   gem 'aws-sdk-s3', require: false
   gem 'cf-app-utils'
   gem 'delayed_job_active_record', '~> 4.1'
