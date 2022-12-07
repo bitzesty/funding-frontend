@@ -1,10 +1,10 @@
-name: Deploy to CIVMIGUAT
+name: Deploy to Training
 
 on: [workflow_dispatch]
 
 jobs:
-  deploy_to_civmiguat:
-    name: Deploy to CIVMIGUAT
+  deploy_to_training:
+    name: Deploy to Training
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -20,11 +20,11 @@ jobs:
           cf api https://api.london.cloud.service.gov.uk
           cf auth
           cf target -o national-lottery-heritage-fund
-      - name: Deploy to CIVMIGUAT
+      - name: Deploy to Training
         env:
-          CF_APP: funding-frontend-civmiguat
+          CF_APP: funding-frontend-training
           CF_SPACE: uat
-          CF_MANIFEST: civmiguat
+          CF_MANIFEST: training
         run: |
           cf target -s ${CF_SPACE}
           cf push ${CF_APP} -f manifest-${CF_MANIFEST}.yml --strategy rolling
