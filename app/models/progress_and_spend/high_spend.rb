@@ -19,7 +19,7 @@ class HighSpend < ApplicationRecord
   validates :description, presence: true, if: :validate_save_continue?
 
   validates :amount, numericality: {
-    greater_than: :spend_threshold,
+    greater_than_or_equal_to: :spend_threshold,
     less_than: 2147483648
   }, if: :validate_save_continue?
 

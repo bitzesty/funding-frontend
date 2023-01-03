@@ -968,7 +968,7 @@ en-GB:
               invalid: "Enter a valid date of spend"
             amount:
               not_a_number: "Enter amount of spend"
-              greater_than: "Enter a spend greater than £500"
+              greater_than_or_equal_to: "Enter a spend greater than or equal to the spend threshold"
             vat_amount:
               not_a_number: "Enter total VAT amount or enter 0 if there is no VAT"
               greater_than: "Enter total VAT amount or enter 0 if there is no VAT"
