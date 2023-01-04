@@ -318,6 +318,11 @@ module SalesforceApiHelper
     begin
 
       matching_file_ids = []
+
+      # replaces single apostrophe with escaped apostrophe 
+      # using a backslash when escaped_filename put out.
+      # Required so the SOQL call will run.
+      escaped_filename = file_name.gsub("'", "\\\\'")
       
       document_link_ids =
         @client.query("SELECT ContentDocumentId FROM "\
@@ -328,7 +333,7 @@ module SalesforceApiHelper
         query_string = "SELECT Id "\
         "FROM ContentDocument where " \
           "Id = '#{doc_id.ContentDocumentId}' AND "\
-            "Title = '#{file_name}' AND IsDeleted = false AND IsArchived = false"
+            "Title = '#{escaped_filename}' AND IsDeleted = false AND IsArchived = false"
 
         doc =  @client.query(query_string)
      
