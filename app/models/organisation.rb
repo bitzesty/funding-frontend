@@ -173,6 +173,9 @@ class Organisation < ApplicationRecord
   # Salesforce can be reflected in what FFE stores,
   # when after_find runs above.
   #
+  # For cases being imported from GEMS, a new type of unknown as been added.
+  # This should be used when FFE can't understand the org type being used.
+  #
   enum org_type: {
       registered_charity: 0,
       local_authority: 1,
@@ -184,7 +187,8 @@ class Organisation < ApplicationRecord
       voluntary_group: 7,
       individual_private_owner_of_heritage: 8,
       other: 9,
-      other_public_sector_organisation: 10
+      other_public_sector_organisation: 10,
+      unknown: 11
   }
 
 end

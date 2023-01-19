@@ -1,0 +1,62 @@
+<p>
+  <%= @contact_restforce_collection.size %> matching contact(s) found for this email:
+</p>
+
+<% @contact_restforce_collection.each do |contact| %>
+  <ul>
+    <li>
+      name is: <%=contact.LastName%>
+    </li>
+    <li>
+      Email is: <%=contact.Email%>
+    </li>
+    <li>
+      Phone is: <%=contact.Phone%>
+    </li>
+    <li>
+      Birthdate is: <%=contact.Birthdate%>
+    </li>
+    <li>
+      language pref is: <%=contact.Language_Preference__c%>
+    </li>
+    <li>
+      Address is: <%=contact.MailingAddress%>
+    </li>
+    <li>
+      Id is: <%=contact.LastModifiedDate%>
+    </li>
+    <li>
+      Last modified date is: <%=contact.LastModifiedDate%>
+    </li>
+    <li>
+      Id: <%=contact.Id%>
+    </li>
+  </ul>
+<% end %>
+
+<p>
+  User could pick one of these, FFE would populate user details from
+  Salesforce then redirect to dashboard.
+</p>
+
+<p>
+  There can be multiple contacts that are genuine Main Contacts.
+  These can come from different sources like FFE, NHMF and manually 
+  created contacts.
+  Also signatories are also stored as contacts.
+</p>
+
+<p>
+  Chat with Jamie and Emily for a strategy to deal with this.
+  Some ideas - we could:
+</p>
+<ul>
+  <li>Stop the journey, so support can follow up</li>
+  <li>Allow the User to pick one</li>
+  <li>Just show the latest one </li>
+</ul>
+
+<%= form_for :for_the_newest_user, url: user_existing_details_path, action: :submit_form do |f| %>
+ <%= f.submit %>
+<% end %>
+

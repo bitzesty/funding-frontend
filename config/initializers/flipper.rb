@@ -26,5 +26,8 @@ if ActiveRecord::Base.connection.table_exists? :flipper_features
     Flipper[:m1_40_payment_release].add
     Flipper[:dev_40_payment].add
     Flipper[:dev_40_payment_release].add
+    Flipper[:import_enabled].add
+    Flipper[:import_existing_contact_enabled].add
+    Flipper[:import_existing_account_enabled].add
   end
 end

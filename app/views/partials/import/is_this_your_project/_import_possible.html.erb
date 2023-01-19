@@ -1,0 +1,160 @@
+<%=
+  render partial: "partials/page_title",
+  locals: {
+      model_object: @funding_application,
+      page_title:  "Import your project to the new system"
+  }
+%>
+
+<%=
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application,
+      first_form_element: :funding_application_migrated_details_correct
+    }
+  ) if @funding_application.errors.any?
+%>
+
+<fieldset class="govuk-fieldset">
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+    <h1 class="govuk-heading-l">Import your project to the new system</h1>
+    <h2 class="govuk-heading-m">You are currently logged in as <%= current_user.email %></h2>
+    <p>These are the project details that will be added to your account. </p>
+    <p>Click continue if the information is correct and you are the main contact for the project.</p>
+    <p>
+      Contact your Investment Manager, 
+      <%=@salesforce_info_for_page.Owner.Name %> 
+      ,and do not continue any further if any of the details below are incorrect, 
+      or you are not the main contact. 
+    </p>
+    
+  </legend>
+
+  <h2 class="govuk-heading-m">Project Details </h2>
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Project tile
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= @salesforce_info_for_page.Project_Title__c %>
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Project reference number
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= @salesforce_info_for_page.Project_Reference_Number__c %>
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Project organisation
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= @salesforce_info_for_page.Account.Name %>
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Project address
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <p>
+          <%= @salesforce_info_for_page.Account.BillingStreet %>
+        </p>
+        <p>
+          <%= @salesforce_info_for_page.Account.BillingCity %>
+        </p>
+        <p>
+          <%= @salesforce_info_for_page.Account.BillingState %>
+        </p>
+        <p>
+          <%= @salesforce_info_for_page.Account.BillingPostalCode %>
+        </p>
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Investment manager
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%=@salesforce_info_for_page.Owner.Name %>
+      </dd>
+    </div>
+  </dl>
+
+  <%=
+    form_with model: @funding_application,
+    url: import_is_this_your_project_path(),
+    method: :post,
+    local: true do |f|
+  %>
+
+  <div class="govuk-inset-text">
+    <p>
+      Click continue if the project details presented here are correct. 
+      Otherwise, 
+      <%= link_to(t('buttons.labels.sign_out').downcase, destroy_user_session_path, method: :delete, class: 'nlhf-toolbar__link') %>
+      and contact your investment manager.
+    </p>
+    <p>
+      When you click continue, this project will be added to you list of projects.
+    </p>
+  </div>
+
+    <div class="govuk-form-group <%= "govuk-form-group--error" if
+      @funding_application.errors.any? %>">
+
+      <%=
+        render(
+          partial: 'partials/form_group_errors',
+          locals: {
+            form_object: @funding_application
+          }
+        ) if @funding_application.errors.any?
+      %>
+    
+      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+        <div class="govuk-checkboxes__item  govuk-!-margin-bottom-4">
+
+          <%=
+            f.check_box :migrated_details_correct,
+            {
+              class: "govuk-checkboxes__input",
+            },
+            true, 
+            false
+          %>
+
+          <%=
+            f.label :migrated_details_correct,
+            "Project details are correct",
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+      </div>
+    </div>
+
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.continue'),
+          name: "continue_button"
+        )
+      )
+    %>
+
+	<% end %>
+
+</fieldset>
+

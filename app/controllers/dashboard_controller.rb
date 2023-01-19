@@ -2,6 +2,7 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
   include DashboardHelper
+  include UserHelper
 
   def show
 
@@ -117,30 +118,6 @@ class DashboardController < ApplicationController
     end
 
     presence
-
-  end
-
-  # Checks for the presence of mandatory fields on a given user.
-  # Returns true if all mandatory fields are present, otherwise
-  # returns false.
-  #
-  # @param [User] user An instance of User
-  def user_details_complete(user)
-
-    user_details_fields_presence = []
-
-    user_details_fields_presence.push(user.name.present?)
-    user_details_fields_presence.push(user.date_of_birth.present?)
-    user_details_fields_presence.push(
-      (
-        user.line1.present? &&
-        user.townCity.present? &&
-        user.county.present? &&
-        user.postcode.present?
-      )
-    )
-
-    user_details_fields_presence.all?
 
   end
 

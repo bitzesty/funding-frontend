@@ -254,6 +254,8 @@ cy:
           attributes:
             details_correct:
               blank: "Dewiswch a yw manylion eich prosiect yn gywir"
+            migrated_details_correct:
+              blank: "Please confirm project details are correct, or contact your investment manager"
             project_costs:
               blank: "Nodwch o leiaf un gost prosiect" 
             cash_contributions_question:

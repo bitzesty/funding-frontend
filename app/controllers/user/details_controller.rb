@@ -1,6 +1,17 @@
 # Controller for the page that captures user details.
 class User::DetailsController < ApplicationController
   before_action :authenticate_user!
+  include ImportHelper
+
+  def show
+
+    if Flipper.enabled?(:import_existing_contact_enabled)
+      contact_restforce_collection =
+      retrieve_existing_contact_info(current_user.email)
+
+     redirect_to user_existing_details_path if contact_restforce_collection.size > 0
+    end
+  end
 
   def update
 

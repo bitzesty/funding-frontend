@@ -69,6 +69,34 @@ module OrganisationHelper
 
   end
 
+  # Populates an Organisation from the Salesforce Account.
+  # Firstly calls:
+  # update_existing_organisation_from_salesforce_details which
+  # populates anything normally captured by FFE for a new organisation.
+  #
+  # Secondly calls:
+  # update_org_with_medium_grant_questions which adds any organisation
+  # information added as part of a medium grant.
+  #
+  # Thirdly, sets the organisation type to unknown.  SF and FFE org types
+  # do not map.  And migrated cases could have different org types.
+  def populate_migrated_org_from_salesforce(org, salesforce_account_id)
+
+    # set salesforce_account_id in memory
+    # update_existing_organisation_from_salesforce_details will save if OK.
+    org.salesforce_account_id = salesforce_account_id
+
+    update_existing_organisation_from_salesforce_details(org)
+
+    update_org_with_medium_grant_questions(org)
+
+    # type can't be populated from Salesforce as it conflates FFE values and
+    # has its own types too.
+    org.org_type = :unknown
+    org.save!
+
+  end
+
   # Method to retrieve and update latest org details from salesforce
   # aligning FFE with any salesforce changes.
   #
@@ -122,7 +150,7 @@ module OrganisationHelper
     rescue StandardError => e
 
       if retry_number < MAX_RETRIES
-        
+
         retry_number +=1
 
         max_sleep_seconds = Float(2 ** retry_number)
@@ -150,6 +178,85 @@ module OrganisationHelper
       end
     end
   end
+
+  # Method to retrieve and update latest medium grant org details
+  # from salesforce aligning FFE with any salesforce changes.
+  #
+  # This method does not update FFE with organisation information
+  # that is captured outside of the medium grant process.
+  #
+  # @param [Organisation] organisation The organisation to update.
+  #
+  def update_org_with_medium_grant_questions(organisation)
+    retry_number = 0
+
+    begin
+
+      client = OrganisationSalesforceApi.new
+      sf_details = client.retrieve_existing_sf_org_details(organisation.salesforce_account_id)
+
+      organisation.main_purpose_and_activities =
+        sf_details.Organisation_s_Main_Purpose_Activities__c
+
+      organisation.spend_in_last_financial_year =
+        sf_details.Amount_spent_in_the_last_financial_year__c
+
+      organisation.unrestricted_funds =
+        sf_details.level_of_unrestricted_funds__c
+
+      organisation.board_members_or_trustees =
+        sf_details.Number_Of_Board_members_or_Trustees__c
+
+      organisation.vat_registered =
+        convert_vat_registered_picklist(sf_details.Are_you_VAT_registered_picklist__c)
+
+      organisation.vat_number =
+        sf_details.VAT_number__c
+
+      organisation.social_media_info =
+        sf_details.Social_Media__c
+
+      organisation.save!
+
+      update_salesforce_changes_checks(organisation)
+
+      Rails.logger.info("Latest medium grant related organisation details " \
+        "for id: #{organisation.id} populated from salesforce_account_id: " \
+          "#{organisation.salesforce_account_id}")
+
+    rescue StandardError => e
+
+      if retry_number < MAX_RETRIES
+
+        retry_number +=1
+
+        max_sleep_seconds = Float(2 ** retry_number)
+
+        Rails.logger.info(
+          "Will attempt to update medium grant related organisation details " \
+            "from salesforce again, retry number #{retry_number} " \
+                "after a sleeping for up to #{max_sleep_seconds} seconds"
+        )
+
+        sleep rand(0..max_sleep_seconds)
+
+        retry
+
+      else
+
+        Rails.logger.error("Latest medium grant related organisation " \
+          "details for id: #{organisation.id} populated from " \
+            "salesforce_account_id: #{organisation.salesforce_account_id} " \
+              "failed owing to error: #{e.message}"
+        )
+
+        raise
+
+      end
+    end
+
+  end
+
 
   # Updates the salesforce_changes_check table if
   # updates have been pulled from Salesforce
@@ -284,6 +391,25 @@ module OrganisationHelper
     end
 
     missions_list
+
+  end
+
+  # Method to convert salesforce vat registered picklist value to FFE type
+  #
+  # @param [String] picklist_type A string containing a picklist value
+  #
+  # @return [String] picklist string A picklist string or nil
+  #
+  def convert_vat_registered_picklist(picklist_type)
+
+    case picklist_type
+    when 'Yes'
+      picklist = true
+    when 'No'
+      picklist = false
+    else
+      picklist = nil
+    end
 
   end
 

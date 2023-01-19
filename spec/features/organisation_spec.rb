@@ -49,6 +49,7 @@ RSpec.feature 'Organisation', type: :feature do
 
       click_link_or_button 'Save and continue'
 
+      Flipper[:import_existing_account_enabled].disable
       set_address(title_field = 'Organisation name')
 
       expect(page.title).to include(I18n.t('organisation.mission.page_title'))

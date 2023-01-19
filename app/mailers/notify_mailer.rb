@@ -324,4 +324,25 @@ class NotifyMailer < Mail::Notify::Mailer
 
   end
 
+  # Send support team an emails following a failed migrated project import
+  # @param [String] support_mail_subject
+  # @param [String] support_mail_body
+  def issue_importing_alert_email(
+    support_mail_subject, 
+    support_mail_body,
+    template_id
+    )
+
+    template_mail(
+      template_id,
+      to: Rails.configuration.x.support_email_address, 
+      reply_to_id: @reply_to_id,
+      personalisation: {
+        support_mail_subject: support_mail_subject,
+        support_mail_body: support_mail_body
+      }
+    )
+
+  end
+
 end

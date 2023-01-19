@@ -9,6 +9,7 @@ RSpec.feature 'Application', type: :feature do
   end
 
   scenario 'About you page' do
+
     user = FactoryBot.create(
         :user,
         name: nil,
@@ -24,6 +25,10 @@ RSpec.feature 'Application', type: :feature do
     fill_in 'Month', with: '01'
     fill_in 'Year', with: '1970'
     click_button 'Save and continue'
+
+    # import todo: This test currently fail because I'm throwing up a POC
+    # page with a SF call in the show.  Fix when proper page in place.
+
     expect(page)
         .to have_current_path("/user/#{user.organisations.first.id}/address/postcode?locale=en-GB")
   end

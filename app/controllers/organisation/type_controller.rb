@@ -7,6 +7,7 @@ class Organisation::TypeController < ApplicationController
   # redirecting to :organisation_numbers if successful and re-rendering
   # :show method if unsuccessful
   def update
+
     logger.info "Updating org_type for organisation ID: #{@organisation.id}"
 
     @organisation.validate_org_type = true

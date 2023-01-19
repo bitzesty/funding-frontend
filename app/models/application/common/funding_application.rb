@@ -72,6 +72,7 @@ class FundingApplication < ApplicationRecord
   attr_accessor :validate_applicant_role
   attr_accessor :validate_details_correct
   attr_accessor :validate_legal_signatories_email_uniqueness
+  attr_accessor :validate_migrated_details_correct
 
   attr_accessor :cash_contributions_question
   attr_accessor :non_cash_contributions_question
@@ -80,6 +81,7 @@ class FundingApplication < ApplicationRecord
   attr_accessor :applicant_is_legal_sig
   attr_accessor :applicant_role
   attr_accessor :details_correct
+  attr_accessor :migrated_details_correct
 
 
   validates_associated :organisation
@@ -92,6 +94,7 @@ class FundingApplication < ApplicationRecord
   validates_associated :legal_signatories, if: :validate_legal_signatories?
 
   validates :details_correct, presence: true, if: :validate_details_correct?
+  validates :migrated_details_correct, presence: true, if: :validate_migrated_details_correct?
   validates :project_costs, presence: true, if: :validate_has_associated_project_costs?
   validates :applicant_is_legal_sig, presence: true, if: :validate_applicant_is_legal_sig?
   validates :applicant_role, presence: true, if: :validate_applicant_role?
@@ -108,6 +111,11 @@ class FundingApplication < ApplicationRecord
   def validate_details_correct?
     validate_details_correct
   end
+
+  def validate_migrated_details_correct?
+    validate_migrated_details_correct == true
+  end
+
 
   def validate_applicant_is_legal_sig?
     validate_applicant_is_legal_sig == true

@@ -1,0 +1,9 @@
+<% if @user_can_import %>
+  <%=
+    render partial: "partials/import/is_this_your_project/import_possible"
+  %>
+<% else %>
+  <%=
+    render partial: "partials/import/is_this_your_project/import_not_possible"
+  %>
+<% end %>

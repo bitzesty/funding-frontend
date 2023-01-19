@@ -4,6 +4,7 @@
 class AddressController < ApplicationController
   include ObjectErrorsLogger
   include PostcodeLookup
+  include ImportHelper
   before_action :authenticate_user!, :check_and_set_model_type
 
   def assign_address_attributes
@@ -33,16 +34,30 @@ class AddressController < ApplicationController
 
       if @type == 'organisation'
 
-        redirect_to organisation_mission_path(params['id'])
+        if Flipper.enabled?(:import_existing_account_enabled) &&
+          retrieve_matching_sf_orgs(@model_object).size == 0
+
+          redirect_to organisation_existing_organisations_path(params['id'])
+
+        else
+          redirect_to organisation_mission_path(params['id'])
+        end
 
       elsif @type == 'preapplication'
 
-        redirect_to(
-          pre_application_organisation_mission_path(
-            pre_application_id: params['id'],
-            organisation_id: @model_object.id
+        if Flipper.enabled?(:import_existing_account_enabled) &&
+          retrieve_matching_sf_orgs(@model_object).size > 0
+
+          redirect_to organisation_existing_organisations_path(@model_object.id)
+
+        else
+          redirect_to(
+            pre_application_organisation_mission_path(
+              pre_application_id: params['id'],
+              organisation_id: @model_object.id
+            )
           )
-        )
+        end
 
       elsif @type == 'project'
 
@@ -72,7 +87,8 @@ class AddressController < ApplicationController
 
     end
 
-  end
+
+  end 
 
   private
 

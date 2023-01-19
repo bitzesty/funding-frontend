@@ -40,6 +40,9 @@ Rails.application.routes.draw do
   namespace :user do
     get 'details', to: 'details#show'
     put 'details', to: 'details#update'
+    # 
+    get 'existing-details', to: 'existing_details#show', constraints: lambda { Flipper.enabled?(:import_existing_contact_enabled) }
+    post 'existing-details', to: 'existing_details#update', constraints: lambda { Flipper.enabled?(:import_existing_contact_enabled) }
   end
 
   # Dashboard section of the service
@@ -87,6 +90,8 @@ Rails.application.routes.draw do
       get '/mission', to: 'mission#show'
       put '/mission', to: 'mission#update'
       get '/summary', to: 'summary#show'
+      get '/existing-organisations', to: 'existing_organisations#show', constraints: lambda { Flipper.enabled?(:import_existing_account_enabled) }
+      post '/existing-organisations', to: 'existing_organisations#update', constraints: lambda { Flipper.enabled?(:import_existing_account_enabled) }
     end
   end
 
@@ -869,5 +874,17 @@ Rails.application.routes.draw do
 
   # DelayedJob dashboard
   match "/delayed_job" => DelayedJobWeb, :anchor => false, :via => [:get, :post]
+
+  # Import journey for migrated cases
+  scope 'import', module: 'import', as: :import do
+
+    scope '/:salesforce_case_id' do
+
+      get '/is-this-your-project', to: 'is_this_your_project#show', constraints: lambda { Flipper.enabled?(:import_enabled) }
+      post '/is-this-your-project', to: 'is_this_your_project#update', constraints: lambda { Flipper.enabled?(:import_enabled) }
+    
+    end
+
+  end
 
 end

@@ -254,6 +254,8 @@ en-GB:
           attributes:
             details_correct:
               blank: "Select if your project details are correct"
+            migrated_details_correct:
+              blank: "Please confirm project details are correct, or contact your investment manager"
             project_costs:
               blank: "Enter at least one project cost"
             cash_contributions_question:

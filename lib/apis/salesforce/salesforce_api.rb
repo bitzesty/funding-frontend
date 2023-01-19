@@ -3042,7 +3042,7 @@
       when 'other'
         'Other organisation type'
       else
-        'Other organisation type'
+        'Unknown organisation type'
       end
 
     end
