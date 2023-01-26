@@ -10,12 +10,10 @@ module UserHelper
     user_details_fields_presence = []
 
     user_details_fields_presence.push(user.name.present?)
-    user_details_fields_presence.push(user.date_of_birth.present?)
     user_details_fields_presence.push(
       (
         user.line1.present? &&
         user.townCity.present? &&
-        user.county.present? &&
         user.postcode.present?
       )
     )
