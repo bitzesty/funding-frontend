@@ -5,6 +5,7 @@ class AddressController < ApplicationController
   include ObjectErrorsLogger
   include PostcodeLookup
   include ImportHelper
+  include UserHelper
   before_action :authenticate_user!, :check_and_set_model_type
 
   def assign_address_attributes
@@ -121,72 +122,6 @@ class AddressController < ApplicationController
     else
       redirect_to :root
     end
-  end
-
-  # Checks for the presence of an associated Address via the PeopleAddresses
-  # model. If none exists, a new Address and PeopleAddress is created. Address
-  # details are replicated from the current_user object
-  #
-  # @param [User] user An instance of User
-  def check_and_set_person_address(user)
-
-    person_address_association = PeopleAddress.find_by(person_id: user.person_id)
-
-    unless person_address_association
-
-      logger.debug "No people_addresses record found for person ID: #{user.person_id}"
-
-      address = Address.create
-
-      logger.debug "addresses record created with ID: #{address.id}"
-
-      person_address_association = create_person_address_association(user.person_id, address.id)
-
-    end
-
-    replicate_address_from_current_user_details(person_address_association.address_id, user)
-
-  end
-
-  # Creates and returns a new Address object based on the
-  # attributes stored against the User argument
-  #
-  # @param [uuid] id The unique identifier of an Address
-  # @param [User] user An instance of User
-  def replicate_address_from_current_user_details(id, user)
-
-    address = Address.find(id)
-
-    address.update(
-      line1: user.line1,
-      line2: user.line2,
-      line3: user.line3,
-      town_city: user.townCity,
-      county: user.county,
-      postcode: user.postcode
-    )
-
-  end
-
-  # Creates and returns a PeopleAddress object based on the
-  # Address and User arguments passed
-  #
-  # @param [uuid] person_id The unique identifier of a Person
-  # @param [uuid] address_id The unique identifier of an Address
-  def create_person_address_association(person_id, address_id)
-
-    logger.debug "Creating people_addresses record for person ID: #{person_id} " \
-      "and address ID: #{address_id}"
-
-    person_address_association = PeopleAddress.create(
-      person_id: person_id,
-      address_id: address_id
-    )
-
-    logger.debug "people_addresses record created with ID: #{person_address_association.id}"
-
-    person_address_association
-
   end
 
   def model_params

@@ -41,8 +41,7 @@ Rails.application.routes.draw do
     get 'details', to: 'details#show'
     put 'details', to: 'details#update'
     # 
-    get 'existing-details', to: 'existing_details#show', constraints: lambda { Flipper.enabled?(:import_existing_contact_enabled) }
-    post 'existing-details', to: 'existing_details#update', constraints: lambda { Flipper.enabled?(:import_existing_contact_enabled) }
+    get 'existing-details-error', to: 'existing_details_error#show', constraints: lambda { Flipper.enabled?(:import_existing_contact_enabled) }
   end
 
   # Dashboard section of the service

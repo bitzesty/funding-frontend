@@ -2,15 +2,51 @@
 class User::DetailsController < ApplicationController
   before_action :authenticate_user!
   include ImportHelper
+  include UserHelper
 
   def show
 
     if Flipper.enabled?(:import_existing_contact_enabled)
       contact_restforce_collection =
-      retrieve_existing_contact_info(current_user.email)
+        retrieve_existing_sf_contact_info_by_email(current_user.email)
 
-     redirect_to user_existing_details_path if contact_restforce_collection.size > 0
+      if single_complete_sf_contact_found(contact_restforce_collection)
+
+        populate_user_from_restforce_object(
+          current_user,
+          contact_restforce_collection.first
+        )
+
+        replicate_user_attributes_to_associated_person(current_user)
+        check_and_set_person_address(current_user)
+
+        Rails.logger.info("Funding Frontend User id: #{current_user.id} " \
+          "has a reusable contact in Salesforce. Importing Contact " \
+            "#{contact_restforce_collection.first.Id} from " \
+              "Salesforce and skipping journey to capture user details.")
+
+        redirect_to :authenticated_root
+
+      elsif contact_restforce_collection.size > 0
+
+        Rails.logger.info("Funding Frontend User id: #{current_user.id} " \
+          "has #{contact_restforce_collection.size} " \
+            "matching contacts in Salesforce. But they are unsuitable to " \
+              "reuse. Showing User an error page to advise that "\
+                "support will be in contact.")
+
+        redirect_to user_existing_details_error_path
+
+      else
+
+        Rails.logger.info("Funding Frontend User id: #{current_user.id} " \
+          "has no matching contacts in Salesforce. " \
+            "Beginning journey to capture user details.")
+
+      end
+
     end
+
   end
 
   def update
@@ -82,22 +118,6 @@ class User::DetailsController < ApplicationController
     return if user.organisations.any?
 
     user.organisations.create
-
-  end
-
-  # Replicates a subset of attributes from the passed in User object
-  # to the User's associated Person record
-  #
-  # @param [User] user An instance of User
-  def replicate_user_attributes_to_associated_person(user)
-
-    person = Person.find(user.person_id)
-
-    person.update(
-      name: user.name,
-      date_of_birth: user.date_of_birth,
-      phone_number: user.phone_number
-    )
 
   end
 

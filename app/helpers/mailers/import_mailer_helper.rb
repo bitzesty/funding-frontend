@@ -5,12 +5,12 @@ module Mailers::ImportMailerHelper
 
   include Mailers::CommonMailerHelper
 
-  def issue_importing_alert_email(
+  def send_email_to_support(
     support_mail_subject, 
     support_mail_body
   )
 
-    deliver_issue_importing_alert_email(
+    deliver_send_email_to_support(
       support_mail_subject,
       support_mail_body,
       '1e92d866-3ff0-4e73-8288-3cdbb3a623b2'
@@ -21,13 +21,13 @@ module Mailers::ImportMailerHelper
 
   end
 
-  def deliver_issue_importing_alert_email(
+  def deliver_send_email_to_support(
     support_mail_subject,
     support_mail_body, 
     template_id
   )
 
-    NotifyMailer.issue_importing_alert_email(
+    NotifyMailer.send_email_to_support(
       support_mail_subject, 
       support_mail_body,
       template_id

@@ -15,8 +15,8 @@ module ImportSalesforceApi
     # Method to retrieve imported project information.
     #
     # @param [case_id] String A Case Id reference known to Salesforce
-    # @return [restforce_response] RestforceResponse A response object containing the 
-    #                                                    the details required to import a project.
+    # @return [restforce_response] RestforceResponse A response object
+    # containing the details required to import a project.
     #       
     def retrieve_imported_project_info(case_id)
 
@@ -52,11 +52,11 @@ module ImportSalesforceApi
 
     end
 
-    # Method  to retrieve existing contact information.
+    # Method to retrieve existing contact information from SF by Contact Id.
     #
-    # @param [email] String Email of contact to  us a Salesforce look-up
-    # @return [restforce_response] RestforceResponse A response object containing the 
-    #                                                    the existing contact details if found. 
+    # @param [salesforce_contact_id] String A SF Contact Id
+    # @return [restforce_response] RestforceResponse A response object
+    #                   containing the existing contact details if found.
     #    
     def retrieve_existing_salesforce_contact(salesforce_contact_id)
 
@@ -83,38 +83,57 @@ module ImportSalesforceApi
     end
 
    
-    # Method to retrieve existing salesforce contact details using 
-    # the user's email.
+    # Method to retrieve existing salesforce contact details with 
+    # an email address that matches a passed email.
     #
-    # @param [email] String user's name 
-    # @param [current_user_id] String user Id to log 
-    # @return [restforce_response] <Restforce::SObject> Restforce Response object
-    #                                                       containing the user's existing contact details. 
-    def retrieve_existing_contact_info(email, current_user_id)
+    # NHMF contacts should NOT be considered a duplicate.
+    # This is because the digital experience portals for large grants
+    # and NHMF applications each require their own distinct user with
+    # a role.  And Salesforce works better with one contact per user.
+    #
+    # @param [email] String an email
+    # @param [current_user_id] String user.id to log
+    # @return [restforce_response] <Restforce::SObject>
+    #   Restforce Response object containing matching SF contact details.
+    def retrieve_existing_sf_contact_info_by_email(email, current_user_id)
 
-      query = "SELECT Id, LastName, FirstName, Email, Birthdate, " \
-        "Language_Preference__c, Phone, MailingAddress, LastModifiedDate " \
-          "FROM Contact WHERE Email = '#{email}' " \
-            "ORDER BY LastModifiedDate DESC"
+      query = "SELECT Id, LastName, FirstName, MiddleName, Email, " \
+        "Birthdate, Language_Preference__c, Phone, MobilePhone, " \
+          "MailingAddress, LastModifiedDate, Agrees_To_User_Research__c, " \
+            "Other_communication_needs_for_contact__c " \
+              "FROM Contact " \
+                "WHERE Email = '#{email}' " \
+                  "AND Id NOT IN " \
+                    "(SELECT ContactId FROM User where email = '#{email}' " \
+                      "AND profile.name = 'Applicant Community User') "
 
       restforce_response = run_salesforce_query(
         query,
-        'retrieve_existing_contact_info',
+        'retrieve_existing_sf_contact_info_by_email',
         current_user_id
       )
+
+      log_safe_info = []
+      restforce_response.each do |contact|
+        log_safe_info.push(contact.Id)
+      end
+
+      Rails.logger.info("The following (non NHMF) Salesforce contacts were " \
+        "found with an email that matches Funding Frontend User id: " \
+          "#{current_user_id}: #{log_safe_info}")
 
       restforce_response
 
     end
 
-    # Method to retrieve existing salesforce organisation account details using 
-    #  the organisation name and postcode.
+    # Method to retrieve existing salesforce organisation account details using
+    # the organisation name and postcode.
     #
     # @param [name] String organisation name 
-    # @param [name] String organisation postcode
+    # @param [postcode] String organisation postcode
     # @param [org_id] String organisation Id to log 
-    # @return [restforce_response] <Restforce::SObject> Restforce Response object
-    #                                                       containing the organisation existing account details. 
+    # @return [restforce_response] <Restforce::SObject> Restforce Response
+    #              object containing the organisation existing account details.
     def retrieve_existing_account_info(name, postcode, org_id)
       query = "SELECT " \
       "Name, BillingStreet, BillingCity, BillingState, BillingPostalCode, " \

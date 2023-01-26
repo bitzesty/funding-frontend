@@ -327,7 +327,7 @@ class NotifyMailer < Mail::Notify::Mailer
   # Send support team an emails following a failed migrated project import
   # @param [String] support_mail_subject
   # @param [String] support_mail_body
-  def issue_importing_alert_email(
+  def send_email_to_support(
     support_mail_subject, 
     support_mail_body,
     template_id
