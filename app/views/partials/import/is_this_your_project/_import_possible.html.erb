@@ -20,10 +20,10 @@
 
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
 
-    <h1 class="govuk-heading-l">Import your project to the new system</h1>
+    <h1 class="govuk-heading-l">Import your project</h1>
     <h2 class="govuk-heading-m">You are currently logged in as <%= current_user.email %></h2>
     <p>These are the project details that will be added to your account. </p>
-    <p>Click continue if the information is correct and you are the main contact for the project.</p>
+    <p>Click continue if the information below is correct and you are the main contact for the project.</p>
     <p>
       Contact your Investment Manager, 
       <%=@salesforce_info_for_page.Owner.Name %> 
@@ -78,14 +78,6 @@
         </p>
       </dd>
     </div>
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-        Investment manager
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <%=@salesforce_info_for_page.Owner.Name %>
-      </dd>
-    </div>
   </dl>
 
   <%=
@@ -100,7 +92,7 @@
       Click continue if the project details presented here are correct. 
       Otherwise, 
       <%= link_to(t('buttons.labels.sign_out').downcase, destroy_user_session_path, method: :delete, class: 'nlhf-toolbar__link') %>
-      and contact your investment manager.
+      and contact your Investment Manager.
     </p>
     <p>
       When you click continue, this project will be added to you list of projects.
