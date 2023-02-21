@@ -33,6 +33,7 @@ flipper_gates_sql = <<-EOL
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('import_enabled', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('import_existing_contact_enabled', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('import_existing_account_enabled', 'boolean', 'true', now(), now());
+    INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('disable_ffe', 'boolean', 'false', now(), now());
 EOL
 
 cost_types_sql = <<-EOL

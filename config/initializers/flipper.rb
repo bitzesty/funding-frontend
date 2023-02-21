@@ -29,5 +29,6 @@ if ActiveRecord::Base.connection.table_exists? :flipper_features
     Flipper[:import_enabled].add
     Flipper[:import_existing_contact_enabled].add
     Flipper[:import_existing_account_enabled].add
+    Flipper[:disable_ffe].add
   end
 end

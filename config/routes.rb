@@ -846,6 +846,7 @@ Rails.application.routes.draw do
 
   # Static pages within the service
   get '/accessibility-statement', to: 'static_pages#show_accessibility_statement'
+  get '/service-unavailable', to: 'static_pages#show_service_unavailable_page'
 
   # Support section of the service
   get 'support', to: 'support#show'
