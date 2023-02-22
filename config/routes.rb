@@ -89,8 +89,7 @@ Rails.application.routes.draw do
       get '/mission', to: 'mission#show'
       put '/mission', to: 'mission#update'
       get '/summary', to: 'summary#show'
-      get '/existing-organisations', to: 'existing_organisations#show', constraints: lambda { Flipper.enabled?(:import_existing_account_enabled) }
-      post '/existing-organisations', to: 'existing_organisations#update', constraints: lambda { Flipper.enabled?(:import_existing_account_enabled) }
+      get '/existing-organisations-error', to: 'existing_organisations_error#show', constraints: lambda { Flipper.enabled?(:import_existing_account_enabled) }
     end
   end
 

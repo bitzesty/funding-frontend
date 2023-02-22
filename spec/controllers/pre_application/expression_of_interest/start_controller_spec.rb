@@ -17,35 +17,36 @@ RSpec.describe PreApplication::ExpressionOfInterest::StartController do
 
     end
 
+
     it 'should create an organisation and redirect to organisation path ' \
-      'if no organisation existed' do
+      'if no organisation existed and import_existing_account disabled' do
 
-      subject.current_user.organisations.clear
+        subject.current_user.organisations.clear
 
-      put :update
+        put :update
 
-      expect(subject.current_user.organisations.count).to(eq(1))
-
-      # Expect that a PreApplication and an associated PaExpressionOfInterest
-      # have been created
-      expect(assigns(:pre_application)).not_to(be_nil)
-      expect(assigns(:pre_application).pa_expression_of_interest).not_to(be_nil)
-      expect(assigns(:pre_application).user).not_to(be_nil)
-
-      expect(response).to have_http_status(:redirect)
-
-      expect(response).to(
-        redirect_to(
-          pre_application_organisation_type_path(
-            organisation_id: subject.current_user.organisations.first.id,
-            pre_application_id: assigns(:pre_application).id
+        expect(subject.current_user.organisations.count).to(eq(1))
+        # Expect that a PreApplication and an associated PaExpressionOfInterest
+        # have been created
+        expect(assigns(:pre_application)).not_to(be_nil)
+        expect(assigns(:pre_application).pa_expression_of_interest).not_to(be_nil)
+        expect(assigns(:pre_application).user).not_to(be_nil)
+        expect(response).to have_http_status(:redirect)
+  
+        expect(response).to(
+          redirect_to(
+            pre_application_organisation_type_path(
+              organisation_id: subject.current_user.organisations.first.id,
+              pre_application_id: assigns(:pre_application).id
+            )
           )
         )
-      )
 
     end
 
-    it 'should redirect to organisation path for an incomplete organisation' do
+
+    it 'should redirect to organisation path for an incomplete organisation ' \
+      'and import_existing_account disabled' do
 
       put :update
 
@@ -54,7 +55,6 @@ RSpec.describe PreApplication::ExpressionOfInterest::StartController do
       expect(assigns(:pre_application)).not_to(be_nil)
       expect(assigns(:pre_application).pa_expression_of_interest).not_to(be_nil)
       expect(assigns(:pre_application).user).not_to(be_nil)
-
       expect(response).to have_http_status(:redirect)
 
       expect(response).to(
@@ -65,6 +65,73 @@ RSpec.describe PreApplication::ExpressionOfInterest::StartController do
           )
         )
       )
+    end
+
+    it 'should create an organisation and redirect to :postcode path ' \
+      'if no organisation existed and import_existing_account enabled' do
+
+      begin
+        
+        Flipper[:import_existing_account_enabled].enable
+
+        subject.current_user.organisations.clear
+
+        put :update
+
+        expect(subject.current_user.organisations.count).to(eq(1))
+
+        # Expect that a PreApplication and an associated PaExpressionOfInterest
+        # have been created
+        expect(assigns(:pre_application)).not_to(be_nil)
+        expect(assigns(:pre_application).pa_expression_of_interest).not_to(be_nil)
+        expect(assigns(:pre_application).user).not_to(be_nil)
+
+        expect(response).to have_http_status(:redirect)
+
+        expect(response).to(
+          redirect_to(
+            postcode_path(
+              'preapplication',
+              id: assigns(:pre_application).id
+            )
+          )
+        )
+        
+      ensure
+        Flipper[:import_existing_account_enabled].disable
+      end    
+
+    end
+
+    it 'should redirect to organisation :postcode path for an incomplete organisation ' \
+      'and import_existing_account enabled' do
+
+      begin
+        
+        Flipper[:import_existing_account_enabled].enable
+
+        put :update
+
+        # Expect that a PreApplication and an associated PaExpressionOfInterest
+        # have been created
+        expect(assigns(:pre_application)).not_to(be_nil)
+        expect(assigns(:pre_application).pa_expression_of_interest).not_to(be_nil)
+        expect(assigns(:pre_application).user).not_to(be_nil)
+
+        expect(response).to have_http_status(:redirect)
+
+        expect(response).to(
+          redirect_to(
+            postcode_path(
+              'preapplication',
+              id: assigns(:pre_application).id
+            )
+          )
+        )
+
+      ensure
+        Flipper[:import_existing_account_enabled].disable
+      end      
 
     end
 

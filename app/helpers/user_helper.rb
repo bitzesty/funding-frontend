@@ -60,6 +60,7 @@ module UserHelper
     user.townCity = restforce_object.MailingAddress.city
     user.county = restforce_object.MailingAddress.state
     user.postcode = restforce_object.MailingAddress.postalCode
+    user.salesforce_contact_id = restforce_object.Id
 
     user.name =
       [

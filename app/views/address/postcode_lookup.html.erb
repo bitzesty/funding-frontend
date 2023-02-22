@@ -10,20 +10,21 @@
     first_form_element: :postcode_lookup
 } if flash[:errors] %>
 
+<%# Determines the caption  %>
 <% if @type == "organisation" || @type == "project" %>
   <div class="govuk-caption-xl"> <%= t('postcode.about_your') + ' ' + @type %></div>
 <% elsif @type == 'gp-open-medium' %>
   <div class="govuk-caption-xl"><%= t('postcode.about_your_project') %></div>
 <% else %>
-  <h1 class="govuk-heading-xl">
-    <span class="govuk-caption-xl"> <%= t('postcode.add_your_details') %> </span>
-    <%= t('postcode.find_your_address') %>
-  </h1>
+  <div class="govuk-caption-xl"> <%= t('postcode.add_your_details') %> </div>
 <% end %>
 
-<% if @type == "organisation" || @type == "project" || @type == 'gp-open-medium' %>
-  <h2 class="govuk-heading-xl"> <%= t('postcode.find_your_address') %> </h2>
-<% end %>
+<%# Determines H1 %>
+<% if @type == 'organisation' || @type == 'preapplication'%> 
+    <h1 class="govuk-heading-xl"> <%= t('postcode.find_your_organisation_address') %> </h1>
+  <%else%>
+    <h1 class="govuk-heading-xl"> <%= t('postcode.find_your_address') %> </h1>
+<% end %> 
 
 <% if @type == "organisation" %>
   <p class="govuk-body govuk-hint govuk-!-margin-bottom-8"> <%= t('postcode.based_in_uk_hint') %> </p>

@@ -14,7 +14,6 @@ module OrganisationHelper
         organisation.name.present?,
         organisation.line1.present?,
         organisation.townCity.present?,
-        organisation.county.present?,
         organisation.postcode.present?,
         organisation.org_type.present?
     ].all?
@@ -27,7 +26,6 @@ module OrganisationHelper
         organisation.name.present?,
         organisation.line1.present?,
         organisation.townCity.present?,
-        organisation.county.present?,
         organisation.postcode.present?,
         organisation.org_type.present?
     ].all?
@@ -116,28 +114,7 @@ module OrganisationHelper
       client = OrganisationSalesforceApi.new
       sf_details = client.retrieve_existing_sf_org_details(organisation.salesforce_account_id)
 
-      lines_array = ['', '', '']
-
-      # BillingStreet nil when Account created with no address
-      unless sf_details.BillingStreet.nil?
-        lines_array = sf_details.BillingStreet.split(/\s*,\s*/)
-      end
-
-      organisation.name = sf_details.Name
-      organisation.line1 = lines_array[0]
-      organisation.line2 = lines_array[1]
-      organisation.line3 = lines_array[2]
-
-      organisation.townCity = sf_details.BillingCity
-      organisation.county = sf_details.BillingState
-      organisation.postcode = sf_details.BillingPostalCode
-      organisation.company_number = sf_details.Company_Number__c
-      organisation.charity_number = sf_details.Charity_Number__c
-      organisation.charity_number_ni = sf_details.Charity_Number_NI__c
-      organisation.mission = convert_mission_objective_type(sf_details.Organisation_s_Mission_and_Objectives__c)
-
-      #Currently not used as org_types in SF and FFE do not align
-      # organisation.org_type = convert_org_type(sf_details.Organisation_Type__c)
+      populate_organisation_from_restforce_object(organisation, sf_details)
 
       organisation.save!
 
@@ -410,6 +387,72 @@ module OrganisationHelper
     else
       picklist = nil
     end
+
+  end
+
+  # Takes an array of Organisations.  Returns true if all match using the
+  # Organisation model's equality function (def == (other)).
+  # @param [orgs_array] Array An array of Organisation objects.
+  # @return [true/false] Boolean True if all match 
+  def orgs_match?(orgs_array)
+
+    result = orgs_array.all? { | org |  org == orgs_array.first}
+
+    return result
+
+  end
+
+  # Checks if each of the orgs in the
+  # passed array is complete
+  #
+  # @param [orgs] Array An Array of Organisation objects
+  # @return [true/false] Boolean True if everything complete
+  def orgs_are_complete?(orgs)
+
+    orgs.each do |org|
+      return false unless complete_organisation_details?(org)
+    end
+
+    return true
+
+  end
+
+  # Populates a FFE Organisation instance from a Salesforce
+  # Restforce::Object for an Account.
+  #
+  # Used to sync FFE from Salesforce and
+  # to partially populate potential organisations (for checking) when trying
+  # to import an organisation from an existing SF account
+  #
+  # @param [org] Organisation An Organisation instance
+  # @param [restforce_org] Restforce::Object An Account instance from SF
+  #
+  def populate_organisation_from_restforce_object(org, restforce_org)
+
+    lines_array = ['', '', '']
+
+    # BillingStreet nil when Account created with no address
+    unless restforce_org&.BillingStreet.nil?
+      lines_array = restforce_org&.BillingStreet.split(/\s*,\s*/)
+    end
+
+    org.name = restforce_org&.Name
+    org.line1 = lines_array[0]
+    org.line2 = lines_array[1]
+    org.line3 = lines_array[2]
+
+    org.townCity = restforce_org&.BillingCity
+    org.county = restforce_org&.BillingState
+    org.postcode = restforce_org&.BillingPostalCode
+    org.company_number = restforce_org&.Company_Number__c
+    org.charity_number = restforce_org&.Charity_Number__c
+    org.charity_number_ni = restforce_org&.Charity_Number_NI__c
+    org.mission = convert_mission_objective_type(
+      restforce_org&.Organisation_s_Mission_and_Objectives__c
+    )
+
+    #Currently not used as org_types in SF and FFE do not align
+    # organisation.org_type = convert_org_type(restforce_org.Organisation_Type__c)
 
   end
 

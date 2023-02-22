@@ -19,7 +19,10 @@
 
 <dl class="govuk-summary-list">
 
-  <%= render 'pre_application/expression_of_interest/summary/organisation_type' %>
+  <%unless @pre_application.organisation.unknown?%>
+    <%= render 'pre_application/expression_of_interest/summary/organisation_type' %>
+  <%end%>
+
   <%= render 'pre_application/expression_of_interest/summary/organisation_name' %>
   <%= render 'pre_application/expression_of_interest/summary/organisation_address' %>
   <%= render 'pre_application/expression_of_interest/summary/organisation_mission' %>

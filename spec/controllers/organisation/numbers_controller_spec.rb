@@ -53,7 +53,7 @@ RSpec.describe Organisation::NumbersController do
     end
 
     it "should successfully redirect to about if empty charity_number " \
-       "and company_number params are passed" do
+    "and company_number params are passed and when import_existing_account disabled" do
 
       put :update, params: {
           organisation_id: subject.current_user.organisations.first.id,
@@ -72,8 +72,37 @@ RSpec.describe Organisation::NumbersController do
 
     end
 
+    it "should successfully redirect to mission if empty charity_number " \
+       "and company_number params are passed and import_existing_account enabled" do
+
+      begin
+        
+        Flipper[:import_existing_account_enabled].enable
+
+        put :update, params: {
+            organisation_id: subject.current_user.organisations.first.id,
+            organisation: {
+                charity_number: "",
+                company_number: ""
+            }
+        }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(
+            organisation_mission_path(
+              subject.current_user.organisations.first.id
+            )
+        )
+        expect(assigns(:organisation).errors.empty?).to eq(true)
+
+      ensure
+        Flipper[:import_existing_account_enabled].disable
+      end      
+
+    end
+
     it "should successfully redirect to about if populated charity_number " \
-       "and company_number params are passed" do
+    "and company_number params are passed and import_existing_account disabled" do
 
       put :update, params: {
           organisation_id: subject.current_user.organisations.first.id,
@@ -91,6 +120,36 @@ RSpec.describe Organisation::NumbersController do
       expect(assigns(:organisation).errors.empty?).to eq(true)
       expect(assigns(:organisation).charity_number).to eq("CHNO12345")
       expect(assigns(:organisation).company_number).to eq("CONO54321")
+    end
+
+    it "should successfully redirect to mission if populated charity_number " \
+       "and company_number params are passed and import_existing_account enable" do
+
+      begin
+        
+        Flipper[:import_existing_account_enabled].enable
+
+        put :update, params: {
+            organisation_id: subject.current_user.organisations.first.id,
+            organisation: {
+                charity_number: "CHNO12345",
+                company_number: "CONO54321"
+            }
+        }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(
+          organisation_mission_path (
+              subject.current_user.organisations.first.id
+          )
+        )
+        expect(assigns(:organisation).errors.empty?).to eq(true)
+        expect(assigns(:organisation).charity_number).to eq("CHNO12345")
+        expect(assigns(:organisation).company_number).to eq("CONO54321")
+
+      ensure
+        Flipper[:import_existing_account_enabled].disable
+      end      
 
     end
 

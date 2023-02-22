@@ -1,0 +1,19 @@
+<div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <div class="govuk-error-summary__body">
+      <p>
+        Our support team are reviewing the issue and will be in touch soon.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-inset-text">
+  <p>
+    Please
+    <%= link_to(t('buttons.labels.sign_out').downcase, destroy_user_session_path, method: :delete, class: 'nlhf-toolbar__link') %>
+  </p>
+  <p>
+    When the problem has been resolved you will be asked to try again.
+  </p>
+</div>

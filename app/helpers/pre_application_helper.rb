@@ -36,12 +36,21 @@ module PreApplicationHelper
 
       logger.info("Organisation details incomplete for #{organisation.id}")
 
-      redirect_to(
-        pre_application_organisation_type_path(
-          @pre_application.id,
-          organisation.id
+      if Flipper.enabled?(:import_existing_account_enabled)
+        redirect_to(
+          postcode_path(
+            'preapplication',
+            @pre_application.id
+          )
         )
-      )
+      else
+        redirect_to(
+          pre_application_organisation_type_path(
+            @pre_application.id,
+            organisation.id
+          )
+        )
+      end
 
     end
 

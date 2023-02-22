@@ -16,13 +16,22 @@ class PreApplication::Org::TypeController < ApplicationController
       if @organisation.update(organisation_params)
   
         logger.info "Finished updating org_type for organisation ID: #{@organisation.id}"
-  
-        redirect_to(
-          postcode_path(
-            'preapplication',
-            @pre_application.id
+
+        if Flipper.enabled?(:import_existing_account_enabled)
+          redirect_to(
+            pre_application_organisation_mission_path(
+              pre_application_id:  @pre_application.id,
+              organisation_id: @organisation.id
+            )
           )
-        )
+        else
+          redirect_to(
+            postcode_path(
+              'preapplication',
+              @pre_application.id
+            )
+          )
+        end
   
       else
   

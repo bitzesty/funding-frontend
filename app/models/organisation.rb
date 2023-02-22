@@ -155,6 +155,24 @@ class Organisation < ApplicationRecord
     end
   end
 
+  # Equality function.
+  # Compares two organisation based on the attributes that FFE would normally
+  # consider mandatory when capturing organisation information before applying
+  # for a grant.  Medium grant attributes ignores as they vary per application.
+  # @param [other] Organisation The Organisation to compare to self.
+  # @return [true/false] Boolean Returns true for a match
+  def == (other)
+    self.name&.strip&.downcase == other.name&.strip&.downcase &&
+    self.org_type&.strip&.downcase == other.org_type&.strip&.downcase &&
+    self.line1&.strip&.downcase == other.line1&.strip&.downcase &&
+    self.townCity&.strip&.downcase == other.townCity&.strip&.downcase &&
+    self.county&.strip&.downcase == other.county&.strip&.downcase &&
+    self.postcode&.strip&.downcase == other.postcode&.strip&.downcase &&
+    self.mission == other.mission &&
+    self.company_number&.strip&.downcase == other.company_number&.strip&.downcase &&
+    self.charity_number&.strip&.downcase == other.charity_number&.strip&.downcase
+  end
+
   # Org types are set when an applicant initially completes organisation
   # details (The organisation_org_types table has not been used.)
   #

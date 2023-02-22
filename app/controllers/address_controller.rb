@@ -6,6 +6,7 @@ class AddressController < ApplicationController
   include PostcodeLookup
   include ImportHelper
   include UserHelper
+  include OrganisationHelper
   before_action :authenticate_user!, :check_and_set_model_type
 
   def assign_address_attributes
@@ -35,10 +36,20 @@ class AddressController < ApplicationController
 
       if @type == 'organisation'
 
-        if Flipper.enabled?(:import_existing_account_enabled) &&
-          retrieve_matching_sf_orgs(@model_object).size == 0
+        if Flipper.enabled?(:import_existing_account_enabled)
+          retrieved_orgs = retrieve_matching_sf_orgs(@model_object)
 
-          redirect_to organisation_existing_organisations_path(params['id'])
+          if retrieved_orgs.size > 0
+
+            if suitable_org(retrieved_orgs).present?
+              redirect_to start_an_application_path
+            else
+              redirect_to organisation_existing_organisations_error_url(@model_object.id)
+            end
+
+          else
+            redirect_to organisation_type_path(params['id'])
+          end
 
         else
           redirect_to organisation_mission_path(params['id'])
@@ -46,12 +57,36 @@ class AddressController < ApplicationController
 
       elsif @type == 'preapplication'
 
-        if Flipper.enabled?(:import_existing_account_enabled) &&
-          retrieve_matching_sf_orgs(@model_object).size > 0
+        if Flipper.enabled?(:import_existing_account_enabled)
+          retrieved_orgs = retrieve_matching_sf_orgs(@model_object)
 
-          redirect_to organisation_existing_organisations_path(@model_object.id)
+          if retrieved_orgs.size > 0
+
+            if suitable_org(retrieved_orgs).present?
+
+              redirect_to pre_application_project_enquiry_previous_contact_url(@pre_application.id) if
+                @pre_application.pa_project_enquiry.present?
+
+              redirect_to pre_application_expression_of_interest_previous_contact_url(@pre_application.id) if
+                @pre_application.pa_expression_of_interest.present?
+
+            else
+              redirect_to organisation_existing_organisations_error_url(@model_object.id)
+            end
+
+          else
+
+            redirect_to(
+              pre_application_organisation_type_path(
+                params['id'],
+                @model_object.id
+              )
+            )
+
+          end
 
         else
+
           redirect_to(
             pre_application_organisation_mission_path(
               pre_application_id: params['id'],
@@ -115,8 +150,8 @@ class AddressController < ApplicationController
       when 'preapplication'
         # When @type is 'preapplication', we need to actually set the
         # address against the associated Organisation object
-        pre_application = PreApplication.find(params[:id])
-        @model_object = Organisation.find(pre_application.organisation_id)
+        @pre_application = PreApplication.find(params[:id])
+        @model_object = Organisation.find(@pre_application.organisation_id)
         redirect_to :root unless current_user.organisations.first&.id == @model_object&.id
       end
     else
@@ -143,6 +178,98 @@ class AddressController < ApplicationController
     params.require(model_type)
           .permit(:name, :line1, :line2, :line3,
                   :townCity, :county, :postcode)
+  end
+
+  # Provides a restforce collection.  And returns a populated
+  #                         Organisation object if something suitable found
+  #
+  # The Restforce::Collection is ordered by LastModifiedDate desc so that
+  # the first organisation is the most recent and potentially the one we
+  # should populate the FFE database from.  Also suitable for reporting
+  # errors to support via mails.
+  #
+  # Uses a collection of memory only orgs for validation and comparision.
+  # If the in-memory collection contains complete information, and appropriate
+  # information matches throughout the collection, then the user's org is
+  # populated from all available Salesforce Account information (including
+  # medium grant questions).
+  # This is so that SF Account medium grant information is included in new
+  # submissions to Salesforce (and not overwritten by nil).
+  #
+  # @param [retreived_orgs] Restforce::Collection Collection of SF Accounts
+  # @return [organisation] Organisation A suitable organisation, or nil
+  def suitable_org(retrieved_orgs)
+
+    in_mem_orgs =
+      convert_salesforce_account_collection_to_organisations(retrieved_orgs)
+
+    complete = orgs_are_complete?(in_mem_orgs)
+    match = orgs_match?(in_mem_orgs)
+
+    if complete && match
+
+      current_user_org = current_user.organisations.first
+
+      current_user_org.salesforce_account_id = in_mem_orgs.first.salesforce_account_id
+      update_existing_organisation_from_salesforce_details(current_user_org)
+      update_org_with_medium_grant_questions(current_user_org)
+      current_user_org.org_type = :unknown
+      current_user_org.save!
+
+      Rails.logger.info("Successfully populated organisation " \
+        "#{current_user_org.id} from existing Salesforce account " \
+          "#{in_mem_orgs.first.salesforce_account_id}.")
+
+      return current_user_org
+
+    elsif !match
+
+      send_multiple_account_import_error_support_email(
+        current_user.email,
+        in_mem_orgs.first.name,
+        in_mem_orgs.first.postcode
+      )
+
+    elsif !complete
+
+      send_incomplete_account_import_error_support_email(
+        current_user.email,
+        in_mem_orgs.first
+      )
+
+    end
+
+    return nil
+
+  end
+
+  # Takes a Restforce::Collection containing Salesforce accounts, and
+  # returns the same collection as populated Organisations objects
+  #
+  # Maintains order of the Restforce::Collection. So that the latest org is
+  # first.
+  #
+  # @params [retrieved_orgs] Restforce::Collection Contains Salesforce accounts
+  # @return [org_array] Array Array of populated Organisation objects
+  #
+  def convert_salesforce_account_collection_to_organisations(retrieved_orgs)
+
+    org_array  = []
+
+    retrieved_orgs.each do |restforce_org|
+
+      org = Organisation.new()
+      populate_organisation_from_restforce_object(org, restforce_org)
+
+      # Populate additional attributes not covered by common function.
+      org.salesforce_account_id = restforce_org.Id
+      org.org_type = :unknown
+
+      org_array.push(org)
+    end
+
+    org_array
+
   end
 
 end

@@ -168,7 +168,11 @@ class DashboardController < ApplicationController
 
       logger.info "Organisation details not complete for #{organisation.id}"
 
-      redirect_to organisation_type_path(organisation.id)
+      if Flipper.enabled?(:import_existing_account_enabled)
+        redirect_to postcode_path 'organisation', organisation.id
+      else
+        redirect_to organisation_type_path(organisation.id)
+      end
 
     end
 

@@ -54,10 +54,9 @@ RSpec.describe DashboardController do
     login_user
 
     it 'should create an empty organisation and redirect to :organisation_type ' \
-       'when the current_user has no organisation' do
+    'when the current_user has no organisation when import_existing_account disabled' do
 
       subject.current_user.organisations.delete_all
-
       get :orchestrate_dashboard_journey
 
       expect(response).to have_http_status(:redirect)
@@ -70,25 +69,81 @@ RSpec.describe DashboardController do
     end
 
     it 'should not create an empty organisation. It should find the organisation is ' \
-       'missing detail(s) and so redirect to :organisation_type' do
+       'missing detail(s) and so redirect to :organisation_type when import_existing_account disabled' do
 
-      expect(subject).not_to receive(:create_organisation)
-
-      subject.current_user.organisations.append(
-        build(
-          :organisation
+        expect(subject).not_to receive(:create_organisation)
+        subject.current_user.organisations.append(
+          build(
+            :organisation
+          )
         )
-      )
+        get :orchestrate_dashboard_journey
 
-      get :orchestrate_dashboard_journey
-
-      expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(
-        organisation_type_path(
-          organisation_id: subject.current_user.organisations.first.id
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(
+          organisation_type_path(
+            organisation_id: subject.current_user.organisations.first.id
+          )
         )
-      )
 
+    end
+
+    it 'should create an empty organisation and redirect to :postcode_lookup ' \
+       'when the current_user has no organisation when import_existing_account enabled' do
+
+      
+      begin
+        
+        Flipper[:import_existing_account_enabled].enable
+
+        subject.current_user.organisations.delete_all
+
+        get :orchestrate_dashboard_journey
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(
+          postcode_path(
+            'organisation',
+            subject.current_user.organisations.first.id
+          )
+        )
+
+      ensure
+        Flipper[:import_existing_account_enabled].disable
+      end      
+    
+
+    end
+
+    it 'should not create an empty organisation. It should find the organisation is ' \
+       'missing detail(s) and so redirect to :postcode_path when import_existing_account enabled' do
+
+      begin
+        
+        Flipper[:import_existing_account_enabled].enable
+
+
+        expect(subject).not_to receive(:create_organisation)
+
+        subject.current_user.organisations.append(
+          build(
+            :organisation
+          )
+        )
+
+        get :orchestrate_dashboard_journey
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(
+          postcode_path(
+            'organisation',
+            subject.current_user.organisations.first.id
+          )
+        )
+
+      ensure
+        Flipper[:import_existing_account_enabled].disable
+      end      
     end
 
     it 'should find the organisation is present and redirect to :start_an_application' do

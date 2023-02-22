@@ -2803,6 +2803,8 @@
     # Upserts to an Account record in Salesforce using the organisation.id
     # Calling function should handle exceptions/retries
     #
+    # Upsert org types when a brand new org.
+    #
     # @param [Organisation] organisation An instance of a Organisation object
     #
     # @return [String] salesforce_account_id A Salesforce Account Id for the Organisation
@@ -2835,6 +2837,10 @@
     # Upserts to an Account record in Salesforce using the salesforce Account Id
     # Calling function should handle exceptions/retries
     #
+    # Do not upsert org type. To preserve any existing Salesforce org type.
+    # At some point consider where we should upload anything to Salesforce when we
+    # know the account id.  As FFE has no method to update org - whereas SF does.
+    #
     # @param [Organisation] organisation An instance of a Organisation object
     # @param [String] salesforce_account_id A salesforce Account Id 
     #                                       for the User's organisation
@@ -2854,7 +2860,6 @@
         Company_Number__c: organisation.company_number,
         Charity_Number__c: organisation.charity_number,
         Charity_Number_NI__c: organisation.charity_number_ni,
-        Organisation_Type__c: get_organisation_type_for_salesforce(organisation),
         Organisation_s_Mission_and_Objectives__c: convert_to_salesforce_mission_types(organisation.mission),
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
@@ -3514,6 +3519,12 @@
       
       begin
 
+        if user.salesforce_contact_id.present?
+          Rails.logger.info("FFE already has salesforce contact id: "\
+            "#{user.salesforce_contact_id}, for user: #{user.id} ")  
+          return user.salesforce_contact_id
+        end
+
         contact_salesforce_id =  @client.find(
           'Contact',
           user.id,
@@ -3557,6 +3568,12 @@
     def find_matching_account_for_organisation(organisation)
       
       begin
+
+        if organisation.salesforce_account_id.present?
+          Rails.logger.info("FFE already has salesforce account id: "\
+            "#{organisation.salesforce_account_id}, for organisation: #{organisation.id} ")  
+          return organisation.salesforce_account_id
+        end
 
         account_salesforce_id =  @client.find(
           'Account',

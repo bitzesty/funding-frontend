@@ -19,7 +19,11 @@ class Organisation::NumbersController < ApplicationController
 
       logger.info "Finished updating company_number/charity_number for organisation ID: #{@organisation.id}"
 
-      redirect_to postcode_path 'organisation', @organisation.id
+      if Flipper.enabled?(:import_existing_account_enabled)
+        redirect_to organisation_mission_path(@organisation.id)
+      else
+        redirect_to postcode_path 'organisation', @organisation.id
+      end
 
     else
 

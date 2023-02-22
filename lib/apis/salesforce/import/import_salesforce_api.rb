@@ -129,6 +129,8 @@ module ImportSalesforceApi
     # Method to retrieve existing salesforce organisation account details using
     # the organisation name and postcode.
     #
+    # First result is the one most recently modified.
+    #
     # @param [name] String organisation name 
     # @param [postcode] String organisation postcode
     # @param [org_id] String organisation Id to log 
@@ -137,7 +139,7 @@ module ImportSalesforceApi
     def retrieve_existing_account_info(name, postcode, org_id)
       query = "SELECT " \
       "Name, BillingStreet, BillingCity, BillingState, BillingPostalCode, " \
-        "Company_Number__c, Charity_Number__c, Charity_Number_NI__c, "\
+        "Company_Number__c, Charity_Number__c, Charity_Number_NI__c, Id, "\
           "Organisation_Type__c, Organisation_s_Mission_and_Objectives__c, " \
             "Are_you_VAT_registered_picklist__c, VAT_number__c, "\
               "Organisation_s_Main_Purpose_Activities__c, " \
@@ -146,7 +148,8 @@ module ImportSalesforceApi
                     "level_of_unrestricted_funds__c " \
                       "FROM Account " \
                         "where Name = '#{name}' and " \
-                          "BillingPostalCode = '#{postcode}'"
+                          "BillingPostalCode = '#{postcode}' " \
+                            "order by LastModifiedDate desc"
 
     restforce_response = run_salesforce_query(
       query,

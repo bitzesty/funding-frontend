@@ -212,4 +212,63 @@ module ImportHelper
 
   end
 
+  # Sends an email to the supoort team when FFE finds > 1 different Salesforce
+  # Accounts with the given name, postcode combination.
+  # @param [user_email] String Email for the current user
+  # @param [org_name] String Email for the current user
+  # @param [org_postcode] String Email for the current user
+  def send_multiple_account_import_error_support_email(
+    user_email, org_name, org_postcode)
+
+    support_mail_body = ""
+    support_mail_subject = "Multiple organisations found in Salesforce with name #{org_name} and postcode #{org_postcode} and they have differences."
+
+    support_mail_body << "\nA user with email #{user_email} is trying to start a new application or pre-application. However, multiple organisations have been found with the name #{org_name} and postcode #{org_postcode} in Salesforce and they have differences. Please refer to the job instructions for correcting this. Once the corrections are made, please ask the user to try applying again."
+
+      send_email_to_support(
+        support_mail_subject,
+        support_mail_body
+      )
+
+  end
+
+  # Sends an email to the supoort team when FFE finds 1 or more
+  # matching salesforce accounts, with the given name, postcode combination.
+  # But they are missing some essential information.
+  # @param [user_email] String Email for the current user
+  # @param [org_name] String Email for the current user
+  # @param [org_postcode] String Email for the current user
+  # @param [organisation] Organisation Instance of an organisation
+  def send_incomplete_account_import_error_support_email(user_email,
+    organisation)
+
+    # organisation.name.present?,
+    # organisation.line1.present?,
+    # organisation.townCity.present?,
+    # organisation.postcode.present?,
+
+    missing_fields = ""
+    support_mail_body = ""
+
+    missing_fields.concat("Organisation name empty \n") unless organisation.name.present?
+    missing_fields.concat("Organisation street empty \n") unless organisation.line1.present?
+    missing_fields.concat("Organisation city empty \n") unless organisation.townCity.present?
+    missing_fields.concat("Organisation postcode empty \n") unless organisation.postcode.present?
+
+    support_mail_body = ""
+    support_mail_subject = "Incomplete organisations found in Salesforce with name #{organisation.name} and postcode #{organisation.postcode}."
+
+    support_mail_body << "\nA user with email #{user_email} is trying to apply in Funding Frontend. Matching Salesforce organisation(s) have been found for organisation name #{organisation.name} and postcode #{organisation.postcode}, but the following information is missing: \n\n"
+
+    support_mail_body << missing_fields
+
+    support_mail_body << "\n\nPlease complete the missing information for all occurrences of this Organisation in Salesforce. After that has been done, please ask the user to try applying again."
+
+      send_email_to_support(
+        support_mail_subject,
+        support_mail_body
+      )
+
+    end
+
 end

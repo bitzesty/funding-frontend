@@ -33,7 +33,7 @@ RSpec.describe Organisation::MissionController do
     it "should re-render the page if a single invalid param is passed" do
 
       expect(subject).to \
-        receive(:log_errors).with(subject.current_user.organisations.first)
+        receive(:log_errors)
 
       put :update, params: {
           organisation_id: subject.current_user.organisations.first.id,
@@ -56,7 +56,7 @@ RSpec.describe Organisation::MissionController do
        "valid params are passed" do
 
       expect(subject).to \
-        receive(:log_errors).with(subject.current_user.organisations.first)
+        receive(:log_errors)
 
       put :update, params: {
           organisation_id: subject.current_user.organisations.first.id,
