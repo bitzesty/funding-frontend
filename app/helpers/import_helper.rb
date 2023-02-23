@@ -165,7 +165,7 @@ module ImportHelper
     support_mail_body = ""
     support_mail_subject = "Multiple matching contacts found in Salesforce for email #{user_email}."
 
-    support_mail_body << "\nA user with email #{user_email} is trying to register a Funding Frontend account. Multiple matching contacts with the same email address have been found in Salesforce. Please refer to the job instructions for correcting this. Once the corrections are made, please ask the user to try the account registration process again."
+    support_mail_body << "\nA user with email #{user_email} is trying to register a Funding Frontend account. Multiple matching contacts with the same email address have been found in Salesforce. Please refer to the job instructions for correcting this. Once the corrections are made, please ask the user to sign in again."
 
       send_email_to_support(
         support_mail_subject,
@@ -203,7 +203,7 @@ module ImportHelper
 
     support_mail_body << missing_fields
 
-    support_mail_body << "\n\nPlease complete the missing information for the contact. After that has been done, please ask the user to try the account registration process again."
+    support_mail_body << "\n\nPlease complete the missing information for the contact. After that has been done, please ask the user to sign in again."
 
     send_email_to_support(
       support_mail_subject,
