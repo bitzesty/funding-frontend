@@ -1155,7 +1155,7 @@
       begin
 
         result = 
-          @client.query_all("SELECT Cost_Heading__c, Costs__c, Vat__c, Project_Cost_Description__c " \
+          @client.query("SELECT Cost_Heading__c, Costs__c, Vat__c, Project_Cost_Description__c " \
             "FROM Project_Cost__c " \
               "where Case__c = '#{salesforce_case_id}'")  
 
@@ -1534,7 +1534,7 @@
       begin
 
         record_type_id = 
-          @client.query_all("select Start_the_legal_agreement_process__c from Case " \
+          @client.query("select Start_the_legal_agreement_process__c from Case " \
             "where ApplicationId__c ='#{salesforce_external_id}'")
 
         if record_type_id.length != 1
@@ -3536,10 +3536,10 @@
           "will attempt to find contact using a name and Email match")  
       end
       
-      unless contact_salesforce_id 
+      unless contact_salesforce_id
 
         contact_collection_from_salesforce = 
-          @client.query_all("select Id from Contact where Email = '#{user.email}'")
+          @client.query("select Id from Contact where Email = '#{user.email}'")
 
         contact_salesforce_id = contact_collection_from_salesforce&.first&.Id
 
