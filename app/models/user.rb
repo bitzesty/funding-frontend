@@ -10,6 +10,9 @@ class User < ApplicationRecord
          :validatable,
          :confirmable
 
+  enum role: [:user, :admin]
+  after_initialize :set_default_role, :if => :new_record?
+
   has_many :users_organisations, inverse_of: :user
   has_many :organisations, through: :users_organisations
 
@@ -49,6 +52,10 @@ class User < ApplicationRecord
 
   end
 
+  def set_default_role
+    self.role ||= :user
+  end
+  
   def validate_details?
     validate_details == true
   end

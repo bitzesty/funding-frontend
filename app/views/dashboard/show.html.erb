@@ -6,6 +6,10 @@
          }
 %>
 
+<% if Rails.env.development? ||  Rails.env.staging? %>
+  <p class = 'govuk-hint'> Your current user role is: <%= current_user.role%> </p>
+<% end %>
+
 <%= render 'dashboard/funding_applications' %>
 
 <%= render 'dashboard/pa_project_enquiries' %>
