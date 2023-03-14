@@ -1868,7 +1868,7 @@
           'Forms_Bank_Account_External_Id__c',
           Bank_Account__c: salesforce_bank_account_id,
           Forms__c: salesforce_payment_request_id,
-          Forms_Bank_Account_External_Id__c: salesforce_bank_account_id + salesforce_payment_request_id,
+          Forms_Bank_Account_External_Id__c: salesforce_bank_account_id + salesforce_payment_request_id
         )
 
         Rails.logger.info(
@@ -2195,14 +2195,18 @@
       salesforce_account_id = \
         funding_application.organisation.salesforce_account_id
 
+      record_type_id =
+        get_salesforce_record_type_id('Bank_account', 'Bank_Account__c')
+
       begin
 
         bank_account_collection_from_salesforce = \
           @client.query("SELECT id FROM Bank_Account__c "\
             "where Organisation__c = '#{salesforce_account_id}' "\
-              " and Account_Number_Sort_Code__c = '#{acc_no_sort_code}' "\
+              "and Account_Number_Sort_Code__c = '#{acc_no_sort_code}' "\
                 "and Void__c = false and Verified__c = true "\
-                  "order by CreatedDate desc Limit 1")
+                  "and RecordTypeId = '#{record_type_id}' "\
+                    "order by CreatedDate desc Limit 1")
 
         sf_bank_account = bank_account_collection_from_salesforce&.first
 
@@ -2247,7 +2251,8 @@
           Organisation__c: salesforce_account_id,
           Sort_Code__c: funding_application.payment_details.decrypt_sort_code,
           Account_Number_Sort_Code__c: funding_application.payment_details.decrypt_account_number \
-            + funding_application.payment_details.decrypt_sort_code
+            + funding_application.payment_details.decrypt_sort_code,
+          RecordTypeId: get_salesforce_record_type_id('Bank_account', 'Bank_Account__c')
         )
 
         Rails.logger.info(
