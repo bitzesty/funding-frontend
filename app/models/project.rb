@@ -425,7 +425,13 @@ class Project < ApplicationRecord
                     ) if self.user.organisations.first.salesforce_account_id
                 json.set!('organisationId', self.user.organisations.first.id)
                 json.set!('organisationName', self.user.organisations.first.name)
-                json.set!('organisationMission', self.user.organisations.first.mission.map!(&:dasherize).map { |m| m == 'lgbt-plus-led' ? 'lgbt+-led' : m })
+
+                json.set!('organisationMission',
+                    self.user.organisations.first.mission.map!(&:dasherize).map {
+                        |m| m == 'lgbt-plus-led' ? 'lgbt+-led' : m
+                    }
+                ) if self.user.organisations.first.mission.present?
+
                 json.set!('organisationType',
                     get_organisation_type_for_salesforce_json)
                 json.set!('companyNumber', self.user.organisations.first.company_number)
