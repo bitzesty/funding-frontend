@@ -8,7 +8,11 @@ class StaticPagesController < ApplicationController
   end
 
   def show_service_unavailable_page
-    render('static_pages/service_unavailable/show')
+    unless Flipper.enabled?(:disable_ffe)
+      redirect_to :authenticated_root
+    else
+      render('static_pages/service_unavailable/show')
+    end
   end
 
 end
