@@ -1,5 +1,6 @@
 # Controller used to return health check status for GOV.UK PaaS
 class HealthController < ApplicationController
+  skip_before_action :check_ffe_enabled!
 
   # Returns application status and the current server timestamp
   #
