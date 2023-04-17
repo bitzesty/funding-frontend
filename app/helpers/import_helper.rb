@@ -48,9 +48,9 @@ module ImportHelper
   #     
   # Consider moving to org helper
   def retrieve_matching_sf_orgs(organisation)
-    client =  get_import_salesforce_api_instance()
+    client =  get_import_salesforce_api_instance() 
     client.retrieve_existing_account_info(
-      organisation.name,
+      organisation.name.gsub(/[']/,"\\\\'"),
       organisation.postcode,
       organisation.id
     )
