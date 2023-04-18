@@ -43,6 +43,37 @@ module PaymentRequestSalesforceApi
 
     end
 
+    # Method to get an aggregated list of delivery cost headings from salesforce.
+    #
+    # @param [string] case_id Salesforce reference for a case
+    # @param [string] record_type_id Salesforce id for a project cost
+    #                                 record type.
+    # @return [Array] result_array.  Array of cost headings
+    def salesforce_cost_headings_delivery(case_id, record_type_id)
+
+      Rails.logger.info("Retrieving salesforce cost headings" \
+        "for salesforce case id: #{case_id}")
+
+      restforce_response = []
+      result_array = []
+
+      query_string = "SELECT Cost_heading_Delivery__c " \
+        "FROM Project_Cost__c WHERE Case__c = " \
+          "'#{case_id}' " \
+            "and RecordTypeId = '#{record_type_id}' GROUP BY Cost_heading_Delivery__c "
+
+      restforce_response = run_salesforce_query(query_string,
+        "salesforce_cost_headings", case_id) \
+          if query_string.present?
+
+      restforce_response.each do |record|
+        result_array.push(record.Cost_heading_Delivery__c)
+      end
+
+      result_array
+
+    end
+
     # Calls salesforce api helper to get the record type id
     # for a medium grant record type of a project cost record
     # @return [String] a record type id
@@ -65,6 +96,17 @@ module PaymentRequestSalesforceApi
       'Project_Cost__c'
       )
 
+    end
+
+    # Calls salesforce api helper to get the record type id
+    # for a migrated SF4 large delivery grant record type of a project cost record
+    # @return [String] a record type id
+    def record_type_id_migrated_SF4_large_delivery_grant_cost
+
+      get_salesforce_record_type_id(
+        'Migrated_SF4_Large_Delivery',
+        'Project_Cost__c'
+        )
     end
 
     # Calls salesforce api helper to get the record type id
@@ -122,6 +164,18 @@ module PaymentRequestSalesforceApi
 
       get_salesforce_record_type_id(
       'Large_grants_delivery',
+      'Spending_Costs__c'
+      )
+
+    end 
+
+    # Calls salesforce api helper to get the record type id
+    # for a migrated SF4 large delivery grant spend cost record type
+    # @return [String] a record type id
+    def spend_record_type_id_migrated_sf4_large_delivery
+
+      get_salesforce_record_type_id(
+      'Migrated_SF4_Large_Delivery',
       'Spending_Costs__c'
       )
 
@@ -514,6 +568,46 @@ module PaymentRequestSalesforceApi
           if query_string.present?
 
       restforce_response
+
+    end
+
+    # True if the Project is Strategic plan version SF4
+    # @param [salesforce_case_id] String Salesforce Case Id
+    # @return [Boolean] Boolean True if framework is SF4
+    def is_sf4?(salesforce_case_id)
+
+      restforce_response = run_salesforce_select(
+        'Case',
+        salesforce_case_id,
+        'Id',
+        [
+          'Strategic_Plan_Version__c'
+        ],
+        'is_sf4?',
+        salesforce_case_id
+      )
+
+      restforce_response.Strategic_Plan_Version__c == 'SF4'
+
+    end
+
+    # True if the Project is Strategic plan version SFF5
+    # @param [salesforce_case_id] String Salesforce Case Id
+    # @return [Boolean] Boolean True if framework is SFF5
+    def is_sff5?(salesforce_case_id)
+
+      restforce_response = run_salesforce_select(
+        'Case',
+        salesforce_case_id,
+        'Id',
+        [
+          'Strategic_Plan_Version__c'
+        ],
+        'is_sff5?',
+        salesforce_case_id
+      )
+
+      restforce_response.Strategic_Plan_Version__c == 'SFF5'
 
     end
 

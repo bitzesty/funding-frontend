@@ -7,6 +7,7 @@ cy:
     about_your_project: "Ynglŷn â'ch prosiect"
     add_your_details: "Ychwanegwch eich manylion"
     find_your_address: "Dod o hyd i'ch cyfeiriad"
+    find_your_organisation_address: "Chwilio am gyfeiriad eich sefydliad"
     find_address: "Dod o hyd i'ch cyfeiriad"
     based_in_uk_hint: "Mae'n rhaid i'ch sefydliad fod wedi'i leoli yn y DU"
     select_an_address: "Dewis cyfeiriad"

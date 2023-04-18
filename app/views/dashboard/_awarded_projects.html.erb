@@ -135,7 +135,7 @@
     <% end %>
   <% end %>
 
-  <% if @large_applications[:delivery].present? %>
+  <% if @large_applications[:delivery].present? || @migrated_large_delivery_grants_for_payment.present? %>
     <h2 class="govuk-heading-m">
         <%= t('dashboard.awarded_projects.delivery_phase') %>
     </h2>
@@ -163,6 +163,26 @@
               locals: {
                 hash: delivery_hash
               }
+            )
+          %>
+
+        </li>
+
+      <%end%>
+
+      <% @migrated_large_delivery_grants_for_payment&.each do | funding_application | %>
+
+        <li class="nlhf-list__item nlhf-task__item">
+
+          <span class="nlhf-tag-name">
+
+          <% delivery_link = get_large_payments_path(funding_application) %>
+
+          <%=
+            link_to(
+              get_project_title(funding_application.salesforce_case_id),
+              delivery_link,
+              class: 'govuk-link govuk-link--no-visited-state'
             )
           %>
 

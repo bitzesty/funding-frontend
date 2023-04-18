@@ -1,21 +1,21 @@
-<span class="govuk-caption-xl"> Add your details </span>
+<span class="govuk-caption-xl"> <%= t('import_error.add_your_details') %> </span>
 
 <%=
   render partial: "partials/page_title",
   locals: {
-    page_title:  "There is a problem with your account"
+    page_title:  t('import_error.page_title')
   }
 %>
 
 <fieldset class="govuk-fieldset">
 
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-    <h1 class="govuk-heading-l">There is a problem with your account</h1>
-    <h2 class="govuk-heading-m">You are currently logged in as <%= current_user.email %></h2>
+    <h1 class="govuk-heading-l"><%= t('import_error.page_heading') %></h1>
+    <h2 class="govuk-heading-m"><%= t('import_error.logged_in_as', email: current_user.email )%></h2>
   </legend>
 
-    <%=
-      render partial: "partials/error_with_account"
-    %>
+  <%=
+    render partial: "partials/error_with_account"
+  %>
 
 </fieldset>

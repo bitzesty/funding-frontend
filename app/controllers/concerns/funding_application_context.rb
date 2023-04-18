@@ -104,7 +104,8 @@ module FundingApplicationContext
         @funding_application&.del_250k_to_5mm?  ||
           @funding_application&.is_100_to_250k? ||
             @funding_application&.is_10_to_100k? ||
-              @funding_application&.dev_to_100k?
+              @funding_application&.dev_to_100k? ||
+                @funding_application&.migrated_large_delivery?
 
 
       progress_spend_payment_allowed =

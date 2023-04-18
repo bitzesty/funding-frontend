@@ -1,0 +1,10 @@
+en-GB:
+  import_error:
+    page_title: "There is a problem with your account"
+    page_heading: "There is a problem with your account"
+    add_your_details: "Add your details"
+    there_is_a_problem_with_your_account: "There is a problem with your account"
+    logged_in_as: "You are currently logged in as %{email}"
+    support_in_touch: "Our support team are reviewing the issue and will be in touch soon."
+    please: "Please"
+    try_again: "When the problem has been resolved you will be asked to try again."

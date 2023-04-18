@@ -28,6 +28,7 @@ class DashboardController < ApplicationController
           @legally_agreed_smalls = []
           @legally_agreed_mediums = []
           @large_applications = []
+          @migrated_large_delivery_grants_for_payment = []
 
           @funding_applications.each do |funding_application|
 
@@ -46,6 +47,11 @@ class DashboardController < ApplicationController
             @legally_agreed_mediums.push(funding_application) \
             if funding_application.open_medium.present? && \
               awarded(funding_application, @salesforce_api_instance)
+
+            @migrated_large_delivery_grants_for_payment.push(
+              funding_application
+            ) if funding_application.migrated_large_delivery? &&
+              funding_application.payment_can_start?
 
           end
 
@@ -227,6 +233,14 @@ class DashboardController < ApplicationController
   end
   helper_method :get_large_link
 
+
+  # @param [case_id] String Salesforce reference for a Project record
+  # @return [get_large_project_title] String A project title
+  def get_project_title(case_id)
+    get_large_project_title(@salesforce_api_instance, case_id)
+  end
+  helper_method :get_project_title
+
   # Given a large FundingApplication, this function
   # returns a path suitable for processing a payment
   # for that application.
@@ -253,8 +267,9 @@ class DashboardController < ApplicationController
       )
 
     elsif (funding_application.dev_over_100k? || \
-      funding_application.del_250k_to_5mm?) && \
-        Flipper.enabled?(:large_arrears_progress_spend)
+      funding_application.del_250k_to_5mm? || 
+        funding_application.migrated_large_delivery?) && \
+          Flipper.enabled?(:large_arrears_progress_spend)
 
       Rails.logger.info("Large project " \
         "#{funding_application.salesforce_case_id} " \
@@ -277,6 +292,7 @@ class DashboardController < ApplicationController
     end
 
   end
+  helper_method :get_large_payments_path
 
   # Given a large hash, this function
   # returns a path suitable for processing a permission to start

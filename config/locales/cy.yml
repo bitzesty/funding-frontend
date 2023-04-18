@@ -255,7 +255,7 @@ cy:
             details_correct:
               blank: "Dewiswch a yw manylion eich prosiect yn gywir"
             migrated_details_correct:
-              blank: "Please confirm project details are correct, or contact your investment manager"
+              blank: "Cadarnhewch fod manylion y prosiect yn gywir, neu cysylltwch â'ch rheolwr buddsoddi"
             project_costs:
               blank: "Nodwch o leiaf un gost prosiect" 
             cash_contributions_question:
@@ -460,7 +460,7 @@ cy:
             heritage_attracts_visitors:
               inclusion: "Dewiswch opsiwn i ddweud wrthym a yw eich prosiect yn cynnwys treftadaeth sy'n denu ymwelwyr" 
             visitors_in_last_financial_year:
-              not_a_number: "Number of visitors in last financial year must be a number" 
+              not_a_number: "Rhaid i nifer yr ymwelwyr yn y flwyddyn ariannol ddiwethaf fod yn rhif" 
               greater_than: "Rhowch swm sy'n fwy na 0"
               less_than: "Rhowch swm sy'n llai na 2147483648" 
             visitors_expected_per_year:
@@ -569,7 +569,7 @@ cy:
               invalid_format: "Rhowch god didoli dilys fel 309430"
             building_society_roll_number:
               invalid_format: "Ni ddylai rhif cofrestr cymdeithas adeiladu fod yn fwy na 18 o nodau"
-              length: "Building society roll number must be between 1 and 18 characters"
+              length: "Rhaid i rif cyfresol cymdeithas adeiladu fod rhwng 1 a 18 nod"
             payment_reference:
               too_long: "Mae'n rhaid i'r cyfeirnod talu beidio â bod yn fwy na 18 o nodau"
               invalid_format: "Mae'n rhaid i'r cyfeirnod talu gynnwys llythrennau a rhifau yn unig"

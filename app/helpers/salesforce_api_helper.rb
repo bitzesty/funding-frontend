@@ -208,6 +208,82 @@ module SalesforceApiHelper
 
   end
 
+  # Method to run a salesforce select with MAX_RETRIES.
+  # select_field is the field we use to search against, like with a
+  # where clause
+  #
+  # @param [object_string] String The name of the Object being selected from
+  # @param [select_field_value] String The value of the select string
+  # @param [select_field_name] String The name of the select string
+  # @param [fields_array] Array Array of strings for the fields we want
+  # @param [calling_function_name] String Name of calling function
+  # @param [log_safe_id] String A unique id. But no personal info.
+  # @return [<Restforce::SObject>] result&first.  A Restforce object
+  #                                               with query results
+  def run_salesforce_select(object_string, select_field_value,
+    select_field_name, fields_array, calling_function_name, log_safe_id)
+
+    retry_number = 0
+
+    begin
+
+      restforce_response =
+        @client.select(
+          object_string,
+          select_field_value,
+          fields_array,
+          select_field_name
+        )
+
+      restforce_response
+
+    rescue Restforce::NotFoundError => e
+
+      Rails.logger.info("Nothing found by run_salesforce_select " \
+        "when called from #{calling_function_name} using " \
+          "#{select_field_name}. Log safe id is: #{log_safe_id}")
+
+      restforce_response = nil
+
+    rescue Restforce::MatchesMultipleError, Restforce::UnauthorizedError,
+      Restforce::EntityTooLargeError, Restforce::ResponseError => e
+
+      Rails.logger.error("Restforce error from run_salesforce_select, " \
+        "called from #{calling_function_name} for #{select_field_name}. " \
+          "Log safe id is: #{select_field_value}")
+
+      # Raise and allow global exception handler to catch
+      raise
+
+    rescue Timeout::Error, Faraday::ClientError => e
+
+      if retry_number < MAX_RETRIES
+
+        retry_number += 1
+
+        max_sleep_seconds = Float(2 ** retry_number)
+
+        Rails.logger.info(
+          "Will attempt #{calling_function_name} again, " \
+          "#{select_field_name}: #{select_field_value}, " \
+          "for retry number #{retry_number} " \
+          "after a sleeping for up to #{max_sleep_seconds} seconds"
+        )
+
+        sleep rand(0..max_sleep_seconds)
+
+        retry
+
+      else
+
+        raise
+
+      end
+
+    end
+
+  end
+
   # Returns I18n translation for a salesforce cost heading.
   # If the translation is not found, then log as an error and
   # return the passed string as a result.

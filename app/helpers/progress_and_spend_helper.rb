@@ -86,7 +86,8 @@ module ProgressAndSpendHelper
       payment_percentage = arrears_heading_info
         .Development_payment_percentage__c
       
-    elsif funding_application.del_250k_to_5mm?
+    elsif funding_application.del_250k_to_5mm? || 
+      funding_application.migrated_large_delivery?
 
       grant_expiry_date = Date.parse(
         arrears_heading_info.Grant_Expiry_Date__c
@@ -1092,6 +1093,14 @@ module ProgressAndSpendHelper
     record_type_id = client.spend_record_type_id_large_delivery \
       if funding_application.del_250k_to_5mm?
 
+    record_type_id = client.spend_record_type_id_migrated_sf4_large_delivery \
+      if funding_application.migrated_large_delivery? &&
+        client.is_sf4?(funding_application.salesforce_case_id)
+
+    # Some SFF5 Projects came through Top Level and were migrated
+    record_type_id = client.spend_record_type_id_large_delivery \
+      if funding_application.migrated_large_delivery? &&
+        client.is_sff5?(funding_application.salesforce_case_id)
 
     record_type_id
 
@@ -1119,17 +1128,35 @@ module ProgressAndSpendHelper
     record_type_id = client.record_type_id_large_delivery_grant_cost \
       if funding_application.del_250k_to_5mm?
 
+    record_type_id = client.record_type_id_migrated_SF4_large_delivery_grant_cost \
+      if funding_application.migrated_large_delivery? &&
+        client.is_sf4?(funding_application.salesforce_case_id)
+
+    # Some SFF5 Projects came through Top Level and were migrated
+    record_type_id = client.record_type_id_large_delivery_grant_cost \
+      if funding_application.migrated_large_delivery? &&
+        client.is_sff5?(funding_application.salesforce_case_id)
+
     case_id = funding_application.salesforce_case_id
 
-    headings =
-      client.salesforce_cost_headings(
-        case_id, 
-        record_type_id
-      )
+    if funding_application.migrated_large_delivery?
+      headings =
+        client.salesforce_cost_headings_delivery(
+          case_id, 
+          record_type_id
+        )
+    else
+      headings =
+        client.salesforce_cost_headings(
+          case_id, 
+          record_type_id
+        )
+    end
 
     if funding_application.dev_over_100k? ||
       funding_application.del_250k_to_5mm? ||
-        funding_application.dev_to_100k?
+        funding_application.dev_to_100k? ||
+          funding_application.migrated_large_delivery?
 
       headings.delete("Non-cash contributions")
       headings.delete("Volunteer time")

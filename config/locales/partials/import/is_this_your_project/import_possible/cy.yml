@@ -1,0 +1,20 @@
+cy: 
+  import: 
+    is_this_your_project: 
+      import_possible: 
+        title: "Mewnforiwch eich prosiect i'r system newydd" 
+        heading: "Mewnforiwch eich prosiect" 
+        logged_in_as: "Rydych chi wedi mewngofnodi ar hyn o bryd fel %{user_email} " 
+        these_are_project_details: "Dyma fanylion y prosiect fydd yn cael eu hychwanegu at eich cyfrif." 
+        click_continue: "Cliciwch parhau os yw'r wybodaeth isod yn gywir a chi yw'r prif gyswllt ar gyfer y prosiect." 
+        contact_your_investment_manager: "Cysylltwch â'ch Rheolwr Buddsoddi, %{investment_manager}, a pheidiwch â symud ymlaen ymhellach os bydd unrhyw rai o'r manylion isod yn anghywir, neu os nad chi yw'r prif gyswllt. " 
+        project_details:  
+          heading: "Manylion y Prosiect" 
+          project_title: "Teilsen y prosiect" 
+          project_ref_num: "Cyfeirnod y prosiect" 
+          organisation: "Sefydliad y prosiect" 
+          address: "Cyfeiriad y prosiect" 
+        continue_if_correct_pt1:  "Cliciwch parhau os bydd manylion y prosiect a gyflwynir yma yn gywir. Fel arall, " 
+        continue_if_correct_pt2: " a cysylltwch â'ch Rheolwr Buddsoddi." 
+        when_you_continue: "Pan fyddwch yn clicio parhau, bydd y prosiect hwn yn cael ei ychwanegu at eich rhestr o brosiectau." 
+        details_are_correct: "Mae manylion y prosiect yn gywir"

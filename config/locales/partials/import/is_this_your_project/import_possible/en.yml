@@ -1,0 +1,21 @@
+en-GB:
+  import:
+    is_this_your_project:
+      import_possible:
+        title: "Import your project to the new system"
+        heading: "Import your project"
+        logged_in_as: "You are currently logged in as %{user_email} "
+        these_are_project_details: "These are the project details that will be added to your account."
+        click_continue: "Click continue if the information below is correct and you are the main contact for the project."
+        contact_your_investment_manager: "Contact your Investment Manager, %{investment_manager}, and do not continue any further if any of the details below are incorrect,  or you are not the main contact. "
+        project_details: 
+          heading: "Project Details"
+          project_title: "Project tile"
+          project_ref_num: "Project reference number"
+          organisation: "Project organisation"
+          address: "Project address"
+        continue_if_correct_pt1:  "Click continue if the project details presented here are correct.  Otherwise, "
+        continue_if_correct_pt2: " and contact your Investment Manager."
+        when_you_continue: "When you click continue, this project will be added to you list of projects."
+        details_are_correct: "Project details are correct"
+

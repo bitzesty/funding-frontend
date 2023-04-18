@@ -1,0 +1,10 @@
+cy: 
+  import_error: 
+    page_title: "Mae problem gyda'ch cyfrif " 
+    page_heading: "Mae problem gyda’ch cyfrif" 
+    add_your_details: "Ychwanegwch eich manylion" 
+    there_is_a_problem_with_your_account: "Mae problem gyda'ch cyfrif " 
+    logged_in_as: "Rydych chi wedi mewngofnodi ar hyn o bryd fel %{email}" 
+    support_in_touch: "Mae ein tîm cymorth yn adolygu'r mater a byddant yn cysylltu cyn hir." 
+    please: "Os gwelwch yn dda" 
+    try_again: "Pan fydd y broblem wedi'i datrys, gofynnir i chi roi cynnig arall arni." 

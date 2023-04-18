@@ -2198,6 +2198,9 @@
       record_type_id =
         get_salesforce_record_type_id('Bank_account', 'Bank_Account__c')
 
+      record_type_id =
+        get_salesforce_record_type_id('Bank_account', 'Bank_Account__c')
+
       begin
 
         bank_account_collection_from_salesforce = \

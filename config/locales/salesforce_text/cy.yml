@@ -43,7 +43,7 @@ cy:
       evaluation: "Gwerthusiad"
       contingency: "Arian wrth gefn"
       new_build_work: "Gwaith adeiladu newydd"
-      new_building_work: "Gwaith adeiladu newydd" # Salesforce actually uses new_building_work as API name
+      new_building_work: "Gwaith adeiladu newydd."  #Full stop added to account for spending type conversion of translations. 
       community_grants: "Grantiau cymunedol"
       full_cost_recovery: "Adennill Costau Llawn"
       inflation: "Chwyddiant"
@@ -52,3 +52,4 @@ cy:
       volunteer_time: "Amser gwirfoddoli"
       fees_e_g_to_an_auction_house: "Ffioedd (e.e. i dŷ arwerthu)"
       professional_fees_relating_to_any_of_the_above: "Ffioedd proffesiynol sy'n ymwneud ag unrhyw un o'r uchod"
+      endowment_fundraising: "Codi Arian Gwaddol"

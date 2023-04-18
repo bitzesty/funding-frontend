@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
   locals: {
       model_object: @funding_application,
-      page_title:  "Problem importing project"
+      page_title: t('import.is_this_your_project.import_not_possible.title')
   }
 %>
 
@@ -19,14 +19,14 @@
 <fieldset class="govuk-fieldset">
 
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-    <h1 class="govuk-heading-l">Problem importing project</h1>
-    <h2 class="govuk-heading-m">You are currently logged in as <%= current_user.email %></h2>
+    <h1 class="govuk-heading-l"><%=t('import.is_this_your_project.import_not_possible.title')%></h1>
+    <h2 class="govuk-heading-m"><%= t('import.is_this_your_project.import_possible.logged_in_as', user_email: current_user.email)%></h2>
   </legend>
 
   <div class="govuk-error-summary" data-module="govuk-error-summary">
     <div role="alert">
       <h2 class="govuk-error-summary__title">
-        Sorry, there is a problem with this project.
+        <%=t('import.is_this_your_project.import_not_possible.there_is_a_problem')%>
       </h2>
       <div class="govuk-error-summary__body">
         <ul class="govuk-list govuk-error-summary__list govuk-list govuk-list--bullet">
@@ -34,9 +34,7 @@
           <% if !@emails_match && @project_found %>
             <li>
               <p class="govuk-error-message">
-                <%= current_user.email %> 
-                is not the main contact for project reference number 
-                <%= @salesforce_info_for_page&.Project_Reference_Number__c %>
+                <%= t('import.is_this_your_project.import_not_possible.not_the_main_contact', user_email: current_user.email, postcode: current_user.organisations.first.postcode, project_ref_num: @salesforce_info_for_page&.Project_Reference_Number__c)%>
               </p>
             </li>
           <% end %>
@@ -44,12 +42,9 @@
           <% if !@orgs_match && @project_found %>
             <li>
               <p class="govuk-error-message">
-                Organisation 
-                <%= current_user.organisations.first.name%> 
-                with post code 
-                <%= current_user.organisations.first.postcode %> 
-                does not match the details for project reference number 
-                <%= @salesforce_info_for_page&.Project_Reference_Number__c %>
+
+              <%= t('import.is_this_your_project.import_not_possible.no_match_name_postcode', org_name: current_user.organisations.first.name, postcode: current_user.organisations.first.postcode, project_ref_num: @salesforce_info_for_page&.Project_Reference_Number__c)%>
+               
               </p>
             </li>
           <% end %>
@@ -57,14 +52,14 @@
           <% unless @project_found %>
             <li>
               <p class="govuk-error-message">
-                No project found for the provided link
+                <%=t('import.is_this_your_project.import_not_possible.no_project_found')%>
               </p>
             </li>
           <% end %>
 
         </ul>
         <p>
-          Our support team are reviewing the issue and will be in touch soon.
+          <%=t('import.is_this_your_project.import_not_possible.support_review')%>
         </p>
       </div>
     </div>
@@ -72,11 +67,11 @@
 
   <div class="govuk-inset-text">
     <p>
-      Please
+      <%=t('import.is_this_your_project.import_not_possible.please')%>
       <%= link_to(t('buttons.labels.sign_out').downcase, destroy_user_session_path, method: :delete, class: 'nlhf-toolbar__link') %>
     </p>
     <p>
-      When the problem has been resolved you will be asked to try again.
+      <%=t('import.is_this_your_project.import_not_possible.when_resolved')%>
     </p>
   </div>
 

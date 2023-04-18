@@ -5,7 +5,7 @@ module UserHelper
   # returns false.
   #
   # @param [User] user An instance of User
-  def user_details_complete(user)
+def user_details_complete(user)
 
     user_details_fields_presence = []
 
@@ -19,18 +19,6 @@ module UserHelper
     )
 
     user_details_fields_presence.all?
-
-  end
-
-  # populates passed user with salesforce contact
-  # @param [User] user An instance of User
-  # @param [String] salesforce_contact_id Reference for Salesforce contact
-  def populate_user_from_salesforce(user, salesforce_contact_id)
-
-    contact_restforce =
-      retrieve_existing_salesforce_contact(salesforce_contact_id)
-
-    populate_user_from_restforce_object(user, contact_restforce)
 
   end
 
@@ -62,20 +50,12 @@ module UserHelper
     user.postcode = restforce_object.MailingAddress.postalCode
     user.salesforce_contact_id = restforce_object.Id
 
-    user.name =
-      [
-        restforce_object.FirstName || '',
-        restforce_object.MiddleName || '',
-        restforce_object.LastName || ''
-      ].reject(&:empty?).join(' ') # SF names together, space delimited
+    user.name = concatenate_contact_name(restforce_object)
 
-    user.phone_number =
-      restforce_object.Phone.present? ? restforce_object.Phone :
-        (restforce_object.MobilePhone || '') # get mobile if no phone.
+    user.phone_number = choose_contact_phone(restforce_object)
 
     user.date_of_birth = restforce_object.Birthdate
     user.language_preference = restforce_object.Language_Preference__c
-    user.salesforce_contact_id = restforce_object.Id
     user.agrees_to_user_research = restforce_object.Agrees_To_User_Research__c
     user.communication_needs = restforce_object.Other_communication_needs_for_contact__c
     user.save

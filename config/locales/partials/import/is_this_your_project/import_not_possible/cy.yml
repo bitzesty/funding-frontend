@@ -1,0 +1,14 @@
+cy: 
+  import: 
+    is_this_your_project: 
+      import_not_possible: 
+        title: "Problem yn mewnforio prosiect" 
+        heading: "Problem yn mewnforio prosiect" 
+        logged_in_as: "Rydych chi wedi mewngofnodi ar hyn o bryd fel %{user_email} " 
+        there_is_a_problem: "Sori, mae problem gyda'r prosiect hwn." 
+        not_the_main_contact: "Nid %{user_email} yw'r prif gyswllt ar gyfer y prosiect sydd â chyfeirnod %{project_ref_num}" 
+        no_match_name_postcode: "Nid yw sefydliad %{org_name} sydd â'r cod post %{postcode} yn cyfateb i'r manylion ar gyfer y prosiect sydd â chyfeirnod %{project_ref_num}"         
+        no_project_found: "Ni ddaethpwyd o hyd i brosiect ar gyfer y ddolen a ddarparwyd" 
+        support_review: "Mae ein tîm cymorth yn adolygu'r mater a byddant yn cysylltu cyn hir." 
+        please: "Os gwelwch yn dda" 
+        when_resolved: "Pan fydd y broblem wedi'i datrys, gofynnir i chi roi cynnig arall arni." 

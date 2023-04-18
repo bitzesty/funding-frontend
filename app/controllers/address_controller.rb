@@ -206,9 +206,9 @@ class AddressController < ApplicationController
     complete = orgs_are_complete?(in_mem_orgs)
     match = orgs_match?(in_mem_orgs)
 
-    if complete && match
+    current_user_org = current_user.organisations.first
 
-      current_user_org = current_user.organisations.first
+    if complete && match
 
       current_user_org.salesforce_account_id = in_mem_orgs.first.salesforce_account_id
       update_existing_organisation_from_salesforce_details(current_user_org)
@@ -230,12 +230,22 @@ class AddressController < ApplicationController
         in_mem_orgs.first.postcode
       )
 
+      Rails.logger.info("Unsuccessfully populated organisation " \
+        "#{current_user_org.id} from existing Salesforce account " \
+          "#{in_mem_orgs.first.salesforce_account_id}. " \
+            "Multiple orgs found that did not match.")
+
     elsif !complete
 
       send_incomplete_account_import_error_support_email(
         current_user.email,
         in_mem_orgs.first
       )
+
+      Rails.logger.info("Unsuccessfully populated organisation " \
+        "#{current_user_org.id} from existing Salesforce account " \
+          "#{in_mem_orgs.first.salesforce_account_id}. " \
+            "Org chosen was incomplete.")
 
     end
 

@@ -36,7 +36,14 @@ module ImportSalesforceApi
             'Account.BillingPostalCode',
             'Project_Reference_Number__c',
             'Project_Title__c',
-            'Owner.name'
+            'Project_Street__c',
+            'Project_City__c',
+            'Project_County__c',
+            'Project_Post_Code__c',
+            'Owner.name',
+            'Permission_to_start_date__c',
+            'Submission_Date_Migrated__c',
+            'recordType.DeveloperName'
           ],
           'retrieve_imported_project_info',
           case_id
@@ -65,14 +72,17 @@ module ImportSalesforceApi
         salesforce_contact_id,
         'Id',
         [
+          'FirstName',
+          'MiddleName',
           'LastName',
           'Email',
           'Birthdate',
           'Language_Preference__c',
           'Phone',
+          'MobilePhone',
           'MailingAddress',
           'Agrees_To_User_Research__c',
-          'Other_communication_needs_for_contact__c',
+          'Other_communication_needs_for_contact__c'
         ],
         'retrieve_existing_salesforce_contact',
         salesforce_contact_id

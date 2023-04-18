@@ -118,6 +118,8 @@ module ImportHelper
   #
   # @param [contact_restforce_collection] RestforceResponse A response
   #              object containing existing contact details, if found.
+  # @return [mandatory_details_present] Boolean True if a single
+  #                                             complete contact found.
   def single_complete_sf_contact_found(contact_restforce_collection)
 
     if contact_restforce_collection.size != 1
@@ -130,30 +132,68 @@ module ImportHelper
 
       con = contact_restforce_collection.first
 
-      con_name = (con.FirstName || '') +
-        (con.MiddleName || '') + (con.LastName || '')
-
-      con_phone = (con.Phone || '') + (con.MobilePhone || '')
-
-      con_address =  con&.MailingAddress
-
-      mandatory_details_present =
-        con_address&.street&.present? &&
-          con_address&.city&.present? &&
-            con_address&.postalCode&.present? &&
-              con_phone.present? &&
-                con_name.present?
+      mandatory_details_present = salesforce_contact_complete?(con)
 
       send_incomplete_contact_import_error_support_email(
         current_user.email,
-        con_name, 
-        con_phone, 
-        con_address
+        concatenate_contact_name(con),
+        choose_contact_phone(con),
+        con&.MailingAddress
       ) unless mandatory_details_present
 
       return mandatory_details_present
 
     end
+
+  end
+
+  # Returns true if the passed contact contains mandatory info
+  # complete Salesforce contact.
+  # Otherwise mails support with the issue to follow up, and returns
+  # false
+  #
+  # @param [con] RestforceResponse A response
+  #              object containing contact details.
+  # @return [mandatory_details_present] Boolean True if a single
+  #                                             complete contact found.
+  def salesforce_contact_complete?(con)
+
+    con_address =  con&.MailingAddress
+
+    mandatory_details_present =
+      con_address&.street&.present? &&
+        con_address&.city&.present? &&
+          con_address&.postalCode&.present? &&
+            choose_contact_phone(con).present? &&
+              concatenate_contact_name(con).present?
+  end
+
+  # Takes a Salesforce Contact and translates the
+  # various name fields into an appropriately
+  # concatenated, trimmed single name string.
+  #
+  # @param [sf_contact] RestforceResponse A Contact record from Salesforce
+  # @return [result] String The name formatted as a single string
+  def concatenate_contact_name(sf_contact)
+
+    result = [
+        sf_contact.FirstName || '',
+        sf_contact.MiddleName || '',
+        sf_contact.LastName || ''
+      ].reject(&:empty?).join(' ')
+
+  end
+
+  # Takes a Salesforce Contact and select the
+  # phone number giving priority to home over mobile
+  # number.
+  #
+  # @param [sf_contact] RestforceResponse A Contact record from Salesforce
+  # @return [sf_contact.Phone] String The chosen phone number or blank string
+  def choose_contact_phone(sf_contact)
+
+    sf_contact.Phone.present? ? sf_contact.Phone :
+      (sf_contact.MobilePhone || '') # get mobile if no phone.
 
   end
 
@@ -268,6 +308,23 @@ module ImportHelper
         support_mail_subject,
         support_mail_body
       )
+
+    end
+
+    # Sets the award type of a funding application based on the SF case 
+    # record type.
+    # matching salesforce accounts, with the given name, postcode combination.
+    # But they are missing some essential information.
+    # @param [funding_application] FundingApplication to set the award type on.
+    # @param [salesforce_case_record_type] String record type in salesforce.
+    def set_migrated_award_type(
+      funding_application,
+      salesforce_case_record_type
+    )
+
+      if salesforce_case_record_type == 'Migrated_Large_Delivery'
+        funding_application.update!(award_type: :migrated_large_delivery)
+      end
 
     end
 

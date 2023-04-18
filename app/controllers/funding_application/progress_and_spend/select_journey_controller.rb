@@ -17,7 +17,8 @@ include Enums::ArrearsJourneyStatus
     elsif @funding_application.dev_over_100k? || \
         @funding_application.del_250k_to_5mm? || \
           @funding_application.is_10_to_100k? || 
-            @funding_application.dev_to_100k?
+            @funding_application.dev_to_100k? ||
+             @funding_application.migrated_large_delivery?
 
       create_payment_request_if_needed
 

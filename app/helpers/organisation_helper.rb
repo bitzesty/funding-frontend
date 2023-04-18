@@ -78,7 +78,16 @@ module OrganisationHelper
   #
   # Thirdly, sets the organisation type to unknown.  SF and FFE org types
   # do not map.  And migrated cases could have different org types.
+  #
+  # Fourthly, checks that the populated org is now complete.  If so, then
+  # saves and returns true.  Otherwise sends a support mail, and the result
+  # remains false (though set to false again for code readability).
+  #
+  # @param [org] Organisation An instance of this class
+  # @param [salesforce_account_id] String A reference for Salesforce Account Id
   def populate_migrated_org_from_salesforce(org, salesforce_account_id)
+
+    result = false # Initialise.  Set to true upon success.
 
     # set salesforce_account_id in memory
     # update_existing_organisation_from_salesforce_details will save if OK.
@@ -91,7 +100,35 @@ module OrganisationHelper
     # type can't be populated from Salesforce as it conflates FFE values and
     # has its own types too.
     org.org_type = :unknown
-    org.save!
+
+    # Salesforce information may be incomplete, send mail if so.
+    if complete_organisation_details?(org)
+
+      org.save!
+
+      Rails.logger.info("Successfully populated organisation " \
+        "#{org.id} from existing Salesforce account " \
+          "#{salesforce_account_id}.")
+
+      result = true
+
+    else
+
+      send_incomplete_account_import_error_support_email(
+        current_user.email,
+        org
+      )
+
+      Rails.logger.info("Unsuccessfully populated organisation " \
+        "#{org.id} from existing Salesforce account " \
+          "#{salesforce_account_id}. " \
+            "Org chosen was incomplete.")
+
+      result = false
+
+    end
+
+    result
 
   end
 
@@ -107,6 +144,7 @@ module OrganisationHelper
   # @param [Organisation] organisation The organisation to update.
   #
   def update_existing_organisation_from_salesforce_details(organisation)
+
     retry_number = 0
 
     begin
@@ -456,4 +494,31 @@ module OrganisationHelper
 
   end
 
+end
+
+# Returns an organisation to its unpopulated state
+# Saves changes to the database
+# @param [org] Organisation An instance of this class
+def clear_org_data(org)
+  org.line1 = nil
+  org.line2 = nil
+  org.line3 = nil
+  org.townCity = nil
+  org.county = nil
+  org.postcode = nil
+  org.company_number = nil
+  org.charity_number = nil
+  org.charity_number_ni = nil
+  org.name = nil
+  org.org_type = nil
+  org.mission = {}
+  org.salesforce_account_id = nil
+  org.custom_org_type = nil
+  org.main_purpose_and_activities = nil
+  org.spend_in_last_financial_year = nil
+  org.unrestricted_funds = nil
+  org.board_members_or_trustees = nil
+  org.vat_registered = nil
+  org.social_media_info = nil
+  org.save!
 end

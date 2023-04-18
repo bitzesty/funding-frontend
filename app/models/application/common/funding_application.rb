@@ -263,6 +263,7 @@ class FundingApplication < ApplicationRecord
     dev_to_100k: 4,
     dev_over_100k: 5,
     del_250k_to_5mm: 6,
+    migrated_large_delivery: 7,
     award_type_unknown: 3
   }, _default: :award_type_unknown
 

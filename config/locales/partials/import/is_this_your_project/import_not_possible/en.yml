@@ -1,0 +1,14 @@
+en-GB:
+  import:
+    is_this_your_project:
+      import_not_possible:
+        title: "Problem importing project"
+        heading: "Problem importing project"
+        logged_in_as: "You are currently logged in as %{user_email} "
+        there_is_a_problem: "Sorry, there is a problem with this project."
+        not_the_main_contact: "%{user_email}  is not the main contact for project reference number %{project_ref_num}"
+        no_match_name_postcode: "Organisation %{org_name} with post code %{postcode} does not match the details for project reference number %{project_ref_num}"        
+        no_project_found: "No project found for the provided link"
+        support_review: "Our support team are reviewing the issue and will be in touch soon."
+        please: "Please"
+        when_resolved: "When the problem has been resolved you will be asked to try again."
