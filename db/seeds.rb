@@ -14,7 +14,6 @@ User.create(email: 'test@example.com', encrypted_password: User.new.send(:passwo
 # from scratch (which would have the effect of inserting rows into the flipper_gates table).
 
 flipper_gates_sql = <<-EOL
-    INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('covid_banner_enabled', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('registration_enabled', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('grant_programme_sff_small', 'boolean', 'true', now(), now());
     INSERT INTO flipper_gates (feature_key, key, value, created_at, updated_at) VALUES ('new_applications_enabled', 'boolean', 'true', now(), now());

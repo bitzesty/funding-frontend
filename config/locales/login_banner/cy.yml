@@ -1,0 +1,6 @@
+cy:
+  login_banner:
+    important_notice: "Hysbysiad Pwysig"
+    if_you_previously_accessed: "Os oeddech wedi cael at brosiect yn flaenorol trwy ein hen borth ceisiadau, mae cyfres o brosesau dros dro ar waith wrth i ni ailgysylltu sefydliadau â'u prosiectau."
+    please_contact_your: "Os oes angen i chi gyflwyno diweddariad i brosiect, adroddiad cwblhau neu gais am daliad, cysylltwch â'ch Rheolwr Buddsoddiad a fydd yn gallu eich arwain trwy'r broses."
+    please_only_register: "Cofrestrwch ar gyfer y gwasanaeth 'cael cyllid ar gyfer prosiect treftadaeth' dim ond os ydych eisiau cyflwyno ymholiad ynglŷn â phrosiect newydd, mynegiant newydd o ddiddordeb neu gais newydd am gyllid."

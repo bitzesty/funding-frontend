@@ -10,7 +10,6 @@ if ActiveRecord::Base.connection.table_exists? :flipper_features
     # Flipper gates toggle app features on and off. Adding the flippers 
     # here creates a row in flipper_features.
     # To control toggles - see README
-    Flipper[:covid_banner_enabled].add
     Flipper[:registration_enabled].add
     Flipper[:new_applications_enabled].add
     Flipper[:grant_programme_sff_small].add

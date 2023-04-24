@@ -11,9 +11,7 @@
   resource: resource
 %>
 
-<% if Flipper.enabled?(:covid_banner_enabled) %>
-  <%= render partial: "partials/criteria_banner" %>
-<% end %>
+<%= render partial: "partials/login_banner" %>
 
 <h1 class="govuk-heading-l">
   <%= t('sessions.new.page_heading') %>
