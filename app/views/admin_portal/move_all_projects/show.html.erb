@@ -1,0 +1,243 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: I18n.t("dashboard.page_title")
+         }
+%>
+
+<h1 class="govuk-heading-xl">
+  Move all projects
+</h1>
+
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-warning-text__assistive">Warning</span>
+      <% unless  @user_details.salesforce_contact_id.present? %>
+        The contact does not exist in Salesforce, create it and enter the Salesforce Contact ID below.
+      <%else%>
+        If any of the following details are incorrect - change them in Salesforce and click 'Refresh from Salesforce'
+      <%end%>
+    </strong>
+  </div>
+
+
+<% if @errors&.any? %>
+
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+    role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      <%= t('generic.there_is_a_problem') %>
+    </h2>
+
+    <div class="govuk-error-summary__body">
+
+      <ul class="govuk-list govuk-error-summary__list">
+
+        <% @errors.each do |msg| %>
+            <li>
+              <a href='#no_model_salesforce_contact_id'>
+                <%= msg %>
+              </a>
+            </li>
+        <% end %>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+<% end %>
+
+<p class = "govuk-hint">
+  When you click 'Refresh from Salesforce' the Funding Frontend contact will be updated from the corresponding contact in Salesforce
+</p>
+
+<%=
+  form_for :no_model,
+  url: :admin_portal_move_all_projects,
+  method: :post,
+  local: true do |f|
+%>
+
+  <% unless User.find(params[:user_id]).salesforce_contact_id.present? %>
+
+    <%= 
+      f.label :salesforce_contact_id,
+      "Salesforce Contact ID",
+      class: "govuk-label govuk-!-margin-bottom-3" 
+    %>
+
+    <%= 
+      f.text_field :salesforce_contact_id,
+      autofocus: true,
+      class: "govuk-input govuk-input--width-20 govuk-!-margin-bottom-6" ,
+      value: @salesforce_contact_id
+    %>
+
+  <%else%>
+    <p>
+      <%= link_to('Open contact in Salesforce', @contact_sf_url, class: 'govuk-link', target: :_blank) %>
+    </p>
+  <% end %>
+
+  <%= f.submit 'Refresh from salesforce',
+    class:"govuk-button",
+    role: "button",
+    "data-module" => "govuk-button"
+  %>
+
+<%end%>
+
+<h2 class="govuk-heading-m">
+  Projects to be moved
+</h2>
+
+<% unless @apps_to_move.empty? && @preapps_to_move.empty?%>
+
+  <dl class="govuk-summary-list">
+    <% @apps_to_move.each do | app | %>
+      <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+              <%= app.project_reference_number.blank? ? 'NOT SUBMITTED' : app.project_reference_number %>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <% if app.project.present? %>
+              <%= app.project.project_title.blank? ? 'UNTITLED' :  app.project.project_title %>
+            <% elsif app.open_medium.present? %>
+              <%= app.open_medium.project_title.blank? ? 'UNTITLED' : app.open_medium.project_title %>
+            <% else%>
+            <%# Large app %>
+            <%= get_project_title(app.salesforce_case_id)%>
+            <%end%>
+          </dd>
+      </div>
+    <% end %>
+  
+    <% @preapps_to_move.each do | pre_app | %>
+      <div class="govuk-summary-list__row">
+        <%unless pre_app.pa_expression_of_interest.blank?%>
+          <dt class="govuk-summary-list__key">
+            <%=pre_app.pa_expression_of_interest.salesforce_eoi_reference.blank? ? 'NOT SUBMITTED' : pre_app.pa_expression_of_interest.salesforce_eoi_reference%>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%=pre_app.pa_expression_of_interest.working_title%>
+          </dd>
+        <% end %>
+         <%unless pre_app.pa_project_enquiry.blank?%>
+          <dt class="govuk-summary-list__key">
+            <%=pre_app.pa_project_enquiry.salesforce_project_enquiry_id.blank? ? 'NOT SUBMITTED' : pre_app.pa_project_enquiry.salesforce_project_enquiry_id%>
+          </dt>
+          <dd class="govuk-summary-list__value">
+            <%=pre_app.pa_project_enquiry.working_title%>
+          </dd>
+        <% end %>
+      </div>
+    <%end%>
+  </dl>
+<%else%>
+  <p>User has no applications to move</p>
+<%end%>
+
+<h3 class="govuk-heading-m">
+  Contact information currently held in Funding Frontend
+</h3>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Email
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @user_details.email %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @user_details.name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Phone
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @user_details.phone_number %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date of birth
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @user_details.date_of_birth.present? ? @user_details.date_of_birth.strftime('%d %B %Y') : ''%>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+     Address
+    </dt>
+    <dd class="govuk-summary-list__value">
+    <p>
+      <%= @user_details.line1 %>
+    </p>
+    <p>
+      <%= @user_details.line2 %>
+    </p>
+    <p>
+         <%= @user_details.line3 %>
+    </p>
+    <p>
+       <%= @user_details.townCity %>
+    </p>
+    <p>
+      <%= @user_details.county %>
+    </p>
+    <p>
+     <%= @user_details.postcode %>
+    </p>      
+    </dd>
+  </div>
+   <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Language preference
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @user_details.language_preference %>
+    </dd>
+  </div>
+   <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Communication Needs
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%if @user_details.communication_needs.present?%>
+        <%= @user_details.communication_needs %>
+      <%else%>
+        -
+      <%end%>
+    </dd>
+  </div>
+   <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Agrees to be contacted
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%if @user_details.agrees_to_user_research.present?%>
+        <% if @user_details.agrees_to_user_research %>
+          Yes
+        <%else%>
+          No
+        <%end%>
+      <%else%>
+        -
+      <%end%>
+    </dd>
+  </div>
+</dl>

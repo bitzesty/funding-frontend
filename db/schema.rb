@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_09_135320) do
+ActiveRecord::Schema.define(version: 2023_04_11_103844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -79,6 +79,22 @@ ActiveRecord::Schema.define(version: 2023_03_09_135320) do
     t.index ["funding_application_id"], name: "index_arrears_journey_trackers_on_funding_application_id"
     t.index ["payment_request_id"], name: "index_arrears_journey_trackers_on_payment_request_id"
     t.index ["progress_update_id"], name: "index_arrears_journey_trackers_on_progress_update_id"
+  end
+
+  create_table "audits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "user_id"
+    t.string "user_name"
+    t.string "user_email"
+    t.integer "user_role"
+    t.string "record_type"
+    t.string "record_id"
+    t.integer "action"
+    t.boolean "action_successful"
+    t.jsonb "record_changes"
+    t.date "redact_date"
+    t.uuid "request_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "cash_contributions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

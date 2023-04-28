@@ -1,0 +1,114 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: I18n.t("dashboard.page_title")
+         }
+%>
+
+<h1 class="govuk-heading-xl">
+  Moving <%= "#{@chosen_app_hash[:ref_no]} - #{@chosen_app_hash[:title]}" %>
+</h1>
+
+<p class="govuk-body govuk-hint">
+  <%=
+    "You are changing the main contact for " \
+      "#{@chosen_app_hash[:ref_no]} - #{@chosen_app_hash[:title]} from " \
+        "#{@current_main_contact.name} to " \
+          "#{@new_main_contact.name}"
+  %>
+</p>
+
+<h2 class="govuk-heading-m">
+  Current main contact for <%="#{@chosen_app_hash[:ref_no]}" %>
+</h2>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Email
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @current_main_contact.email %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @current_main_contact.name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Organisation name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @current_main_contact_organisation.name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Organisation postcode
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @current_main_contact_organisation.postcode %>
+    </dd>
+  </div>
+</dl>
+
+<h2 class="govuk-heading-m">
+  New main contact for <%="#{@chosen_app_hash[:ref_no]}" %>
+</h2>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Email
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @new_main_contact.email %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @new_main_contact.name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Organisation name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @new_main_contact_organisation.name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Organisation postcode
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @new_main_contact_organisation.postcode %>
+    </dd>
+  </div>
+</dl>
+
+<%= 
+  form_for :no_model, 
+  url: :admin_portal_move_application,
+  method: :post,
+  local: true do |f|  
+%>
+
+  <%= f.submit "Move #{@chosen_app_hash[:ref_no]}",
+    class:"govuk-button govuk-button",
+    role: "button",
+    "data-module" => "govuk-button"
+  %>
+
+
+<%end%>

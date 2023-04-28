@@ -1,0 +1,84 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: I18n.t("dashboard.page_title")
+         }
+%>
+
+<h1 class="govuk-heading-xl">
+  New main contact
+</h1>
+
+<p class="govuk-body govuk-hint">
+  <%= "Please enter the email of the new main contact you wish to move #{@chosen_app_hash[:ref_no]} to" %>
+</p>
+
+<% if @error_message.present? %>
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+  role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+  <h2 class="govuk-error-summary__title" id="error-summary-title">
+    <%= t('generic.there_is_a_problem') %>
+  </h2>
+
+  <div class="govuk-error-summary__body">
+
+    <ul class="govuk-list govuk-error-summary__list">
+      <li>
+        <a href=<%="#no_model_email"%>>
+            <%= @error_message %>
+        </a>
+      </li>
+    </ul>
+
+    </div>
+  </div>
+<% end %>
+
+<p class="govuk-body">
+  Current main contact: <%= @current_main_contact.email %>
+</p>
+
+<p class="govuk-body">
+  Current main contact's organisation: <%= @current_main_contact_organisation.name %>
+</p>
+
+<%= 
+  form_for :no_model, 
+  url: :admin_portal_new_main_contact,
+  method: :post,
+  local: true do |f|  
+%>
+
+  <div class="govuk-form-group <%="#{'govuk-form-group--error'}" if @error_message.present? %>" >
+    <%=
+      f.label :email,
+      "Enter the new main applicant's email",
+      class: "govuk-heading-m govuk-!-margin-bottom-3",
+      for: "email"
+    %>
+
+    <% if @error_message.present? %>
+      <p id="email-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> <%=@error_message%>
+      </p>
+    <% end %>
+
+    <%=
+      f.text_field :email,
+      autofocus: true,
+      autocomplete: "email",
+      class: "govuk-input govuk-input--width-30 govuk-!-margin-bottom-6",
+      value: @entered_email
+    %>
+
+    <%= f.submit 'Search',
+      class:"govuk-button",
+      role: "button",
+      "data-module" => "govuk-button"
+    %>
+  </div>
+
+
+<%end%>

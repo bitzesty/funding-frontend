@@ -122,13 +122,11 @@ module ImportHelper
   #                                             complete contact found.
   def single_complete_sf_contact_found(contact_restforce_collection)
 
-    if contact_restforce_collection.size != 1
-
-      send_multiple_contact_import_error_support_email(current_user.email)
+    if contact_restforce_collection.none?
 
       return false
 
-    else
+    elsif contact_restforce_collection.size == 1
 
       con = contact_restforce_collection.first
 
@@ -142,6 +140,12 @@ module ImportHelper
       ) unless mandatory_details_present
 
       return mandatory_details_present
+
+    elsif contact_restforce_collection.size > 1
+
+      send_multiple_contact_import_error_support_email(current_user.email)
+
+      return false
 
     end
 

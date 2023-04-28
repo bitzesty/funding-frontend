@@ -1,0 +1,92 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: I18n.t("dashboard.page_title")
+         }
+%>
+
+<h1 class="govuk-heading-xl">
+  Move one application or project
+</h1>
+
+<% if @nothing_selected %>
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+  role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+  <h2 class="govuk-error-summary__title" id="error-summary-title">
+    <%= t('generic.there_is_a_problem') %>
+  </h2>
+
+  <div class="govuk-error-summary__body">
+
+    <ul class="govuk-list govuk-error-summary__list">
+      <li>
+        <a href=<%="#selected_project_#{@main_contact_apps.first[:id]}"%>>
+            Please select an application to move
+        </a>
+      </li>
+    </ul>
+
+    </div>
+  </div>
+<% end %>
+
+<p class="govuk-body">
+  Current main contact: <%= @current_main_contact.email %>
+</p>
+
+<p class="govuk-body">
+  Current main contact's organisation: <%= @current_main_contact_organisation.name %>
+</p>
+
+<%= 
+  form_for :no_model, 
+  url: :admin_portal_select_to_move,
+  method: :post,
+  local: true do |f|  
+%>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h2 class="govuk-fieldset__heading govuk-!-padding-bottom-4">
+          Select what you would like to move
+        </h2>
+      </legend>
+      <div class="govuk-radios" data-module="govuk-radios">
+
+        <%@main_contact_apps.each do |app|%>
+          <div class="govuk-radios__item">
+            <%=
+              f.radio_button "selected_project",
+              app[:id],
+              class: "govuk-radios__input",
+              id: "selected_project_#{app[:id]}",
+              type: "radio",
+              checked: false,
+              value: app[:id]
+            %>
+            <%=
+              f.label "label for #{app[:id]}",
+              "#{app[:ref_no]} - #{app[:title]}",
+              class: "govuk-label govuk-radios__label",
+              for: "selected_project"
+            %>
+
+          </div>
+        <% end %>
+
+      </div>
+    </fieldset>
+  </div>
+
+
+  <%= f.submit 'Move',
+    class:"govuk-button govuk-button",
+    role: "button",
+    "data-module" => "govuk-button"
+  %>
+
+
+<%end%>

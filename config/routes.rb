@@ -886,4 +886,49 @@ Rails.application.routes.draw do
 
   end
 
+  scope  'admin-portal', module: 'admin_portal', as: :admin_portal do
+
+    get '/', to: 'landing_page#show'
+    post '/', to: 'landing_page#update'
+
+    scope 'user/:user_id' do
+      
+      get '/user-found', to: 'user_found#show'
+      post '/user-found', to: 'user_found#update'
+
+      get '/update-contact-details', to: 'update_contact_details#show'
+      post '/update-contact-details', to: 'update_contact_details#update'
+
+      get '/move-all-projects', to: 'update_contact_details#move_all_show'
+      post '/move-all-projects', to: 'update_contact_details#move_all_update'
+
+
+      scope 'organisation/:organisation_id' do
+
+        get '/update-organisation-details', to: 'update_organisation_details#show'
+        post '/update-organisation-details', to: 'update_organisation_details#update'
+
+        get '/select-to-move', to: 'application_to_move#show'
+        post '/select-to-move', to: 'application_to_move#update'
+
+        scope 'application/:application_id' do
+
+          get '/new-main-contact', to: 'new_main_contact#show'
+          post '/new-main-contact', to: 'new_main_contact#update'
+
+          scope '/new-main-contact/:new_main_contact_id' do 
+            scope '/new_organisation/:new_org_id' do 
+              get '/move_application', to: 'move_app#show'
+              post '/move_application', to: 'move_app#update'
+              get '/moved', to: 'moved#show'
+            end
+          end
+       
+        end
+
+      end
+      
+    end
+  end
+
 end

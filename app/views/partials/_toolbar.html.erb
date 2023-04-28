@@ -4,10 +4,15 @@
             <div class="govuk-grid-column-full">
                 <ul class="nlhf-toolbar__items">
                   <% if user_signed_in? %>
+                    <% if current_user.admin? %>
+                      <li class="nlhf-toolbar__item">
+                        <%= link_to('Admin', admin_portal_path, class: 'nlhf-toolbar__link') %>
+                      </li>
+                    <% end %>
                     <li class="nlhf-toolbar__item">
                       <%= link_to(t('buttons.labels.your_account'), edit_user_registration_path, class: 'nlhf-toolbar__link') %>
                     </li>
-                    <% end %>
+                  <% end %>
                     <li class="nlhf-toolbar__item">
                       <% if user_signed_in? %>
                         <%= link_to(t('buttons.labels.sign_out'), destroy_user_session_path, method: :delete, class: 'nlhf-toolbar__link') %>

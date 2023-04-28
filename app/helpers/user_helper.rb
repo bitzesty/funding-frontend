@@ -1,5 +1,7 @@
 module UserHelper
 
+  include Auditor
+
   # Checks for the presence of mandatory fields on a given user.
   # Returns true if all mandatory fields are present, otherwise
   # returns false.
@@ -27,7 +29,11 @@ def user_details_complete(user)
   # Takes a Restforce collection for a Contact, and populates a User from it.
   # @param [User] user An instance of User (FFE)
   # @param [RestforceResponse] restforce_object A restforce collection frm SF.
-  def populate_user_from_restforce_object(user, restforce_object)
+  # @param [Boolean] skip_email_change_notification True if an email not sent
+  #                                                 upon email change.
+  # @param [Boolean] audit_changes True if any changes were made to the user
+  def populate_user_from_restforce_object(user, restforce_object,
+    skip_email_change_notification = false, audit_changes = false)
 
     Rails.logger.info("Starting to populate " \
       "User id: #{user.id} from SF contact: #{restforce_object.Id}")
@@ -58,7 +64,21 @@ def user_details_complete(user)
     user.language_preference = restforce_object.Language_Preference__c
     user.agrees_to_user_research = restforce_object.Agrees_To_User_Research__c
     user.communication_needs = restforce_object.Other_communication_needs_for_contact__c
-    user.save
+    user.email = restforce_object.Email
+    user.skip_reconfirmation! if skip_email_change_notification
+
+    User.transaction do # rolls back audit row if save! fails
+
+      create_audit_row(
+        current_user,
+        user,
+        Audit.audit_actions['admin_contact_change'],
+        user.changes
+      ) if audit_changes && user.changed?
+
+      user.save!
+
+    end
 
     Rails.logger.info("Successfully populated " \
       "User id: #{user.id} from SF contact: #{restforce_object.Id}")
@@ -142,7 +162,8 @@ def user_details_complete(user)
     person.update(
       name: user.name,
       date_of_birth: user.date_of_birth,
-      phone_number: user.phone_number
+      phone_number: user.phone_number,
+      email: user.email
     )
 
   end

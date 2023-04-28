@@ -1,0 +1,65 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: I18n.t("dashboard.page_title")
+         }
+%>
+
+<h1 class="govuk-heading-xl">
+  Welcome to the FFE Admin Portal
+</h1>
+
+<h2 class="govuk-heading-s">
+  You are currently logged in as <%= current_user.email%>
+</h2>
+
+<% if @not_found %>
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+  role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+  <h2 class="govuk-error-summary__title" id="error-summary-title">
+    <%= t('generic.there_is_a_problem') %>
+  </h2>
+
+  <div class="govuk-error-summary__body">
+
+    <ul class="govuk-list govuk-error-summary__list">
+      <li>
+        <a href='#no_model_email'>
+            Email address not found in Funding Frontend 
+        </a>
+      </li>
+    </ul>
+
+    </div>
+  </div>
+<% end %>
+
+<%= 
+  form_for :no_model, 
+  url: :admin_portal,
+  method: :post,
+  local: true do |f|  
+%>
+
+ <%= 
+    f.label :email,
+    'Please enter the email for the user you wish to amend',
+    class: "govuk-label govuk-!-margin-bottom-3" 
+  %>
+
+  <%= 
+    f.text_field :email,
+    autofocus: true,
+    autocomplete: "email",
+    class: "govuk-input govuk-input--width-30 govuk-!-margin-bottom-6" 
+  %>
+
+  <%= f.submit 'Search',
+    class:"govuk-button",
+    role: "button",
+    "data-module" => "govuk-button"
+  %>
+
+<%end%>

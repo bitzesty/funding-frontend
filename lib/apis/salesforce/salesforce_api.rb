@@ -2172,6 +2172,21 @@
       end
 
     end
+
+    # Uses the Salesforce connection to return the url of the Salesforce
+    # instance.
+    # Api returns https://heritagefund--[NAME].sandbox.my.salesforce.com
+    # This function string replaces to make a working link
+    # @return [String] instance_url Url for the instance of the Salesforce
+    def get_salesforce_url
+
+      my_salesforce_url = @client.instance_url
+      lightning_force_url = my_salesforce_url.gsub(
+        "my.salesforce",
+        "lightning.force"
+      )
+
+    end
     
     private
 

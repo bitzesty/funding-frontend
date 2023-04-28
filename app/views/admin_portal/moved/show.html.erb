@@ -1,0 +1,29 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: I18n.t("dashboard.page_title")
+         }
+%>
+
+<h1 class="govuk-heading-xl">
+  <%= @chosen_app_hash[:ref_no] %> moved
+</h1>
+
+<p class="govuk-body">
+  <%=
+    "#{@chosen_app_hash[:ref_no]} has been moved in Funding Frontend. " \
+      "Now the main contact is #{@updated_main_contact.email}."
+  %>
+</p>
+
+<p class="govuk-body">
+  <%=
+    link_to(
+      'Amend another user',
+      admin_portal_path,
+      class: 'govuk-link'
+      )
+  %>
+</p>
+

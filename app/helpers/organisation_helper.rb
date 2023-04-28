@@ -132,6 +132,16 @@ module OrganisationHelper
 
   end
 
+  # Call Organisation API to retrieve existing organisation details
+  # from salesforce using a SF account ID
+  #
+  # @param [String] Salesforce Account ID
+  # @return [RestforceResponse] Organisation details found
+  def retrieve_existing_salesforce_organisation(salesforce_account_id)
+    client = OrganisationSalesforceApi.new
+    return client.retrieve_existing_sf_org_details(salesforce_account_id)
+  end
+  
   # Method to retrieve and update latest org details from salesforce
   # aligning FFE with any salesforce changes.
   #

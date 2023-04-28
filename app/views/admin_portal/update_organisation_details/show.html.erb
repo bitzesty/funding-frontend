@@ -1,0 +1,164 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: I18n.t("dashboard.page_title")
+         }
+%>
+
+<h1 class="govuk-heading-xl">
+  Change Organisation details
+</h1>
+
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-warning-text__assistive">Warning</span>
+      <% unless  @organisation.salesforce_account_id.present? %>
+        The account does not exist in Salesforce, create it and enter the Salesforce Organisation ID below.
+      <%else%>
+        If any of the following details are incorrect - change them in Salesforce and click 'Refresh from Salesforce'
+      <%end%>
+    </strong>
+  </div>
+
+<% if @errors&.any? %>
+
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title"
+    role="alert" tabindex="-1" data-module="govuk-error-summary">
+
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      <%= t('generic.there_is_a_problem') %>
+    </h2>
+
+    <div class="govuk-error-summary__body">
+
+      <ul class="govuk-list govuk-error-summary__list">
+
+        <% @errors.each do |msg| %>
+            <li>
+              <a href='#no_model_salesforce_account_id'>
+                <%= msg %>
+              </a>
+            </li>
+        <% end %>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+<% end %>
+
+<p class = "govuk-hint">
+  When you click 'Refresh from Salesforce' the Funding Frontend organisation will be updated from the corresponding organisation in Salesforce
+</p>
+
+<%=
+  form_for :no_model,
+  url: :admin_portal_update_organisation_details,
+  method: :post,
+  local: true do |f|
+%>
+
+  <% unless @organisation.salesforce_account_id.present? %>
+    <%= 
+      f.label :salesforce_account_id,
+      "Salesforce Organisation ID",
+      class: "govuk-label govuk-!-margin-bottom-3" 
+    %>
+
+    <%=
+      f.text_field :salesforce_account_id,
+      autofocus: true,
+      class: "govuk-input govuk-input--width-20 govuk-!-margin-bottom-6" ,
+      value: @salesforce_account_id
+    %>
+  <%else%>
+    <p>
+      <%= link_to('Open organisation in Salesforce', @organisation_sf_url, class: 'govuk-link', target: :_blank) %>
+    </p>
+  <% end %>
+
+  <%= f.submit 'Refresh from salesforce',
+    class:"govuk-button",
+    role: "button",
+    "data-module" => "govuk-button"
+  %>
+
+<%end%>
+
+<h2 class="govuk-heading-m">
+  Organisation details for user with email <%= @user.email %>
+</h2>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @organisation.name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+     Address
+    </dt>
+    <dd class="govuk-summary-list__value">
+    <p>
+      <%= @organisation.line1 %>
+    </p>
+    <p>
+      <%= @organisation.line2 %>
+    </p>
+    <p>
+      <%= @organisation.line3 %>
+    </p>
+    <p>
+      <%= @organisation.townCity %>
+    </p>
+    <p>
+      <%= @organisation.county %>
+    </p>
+    <p>
+      <%= @organisation.postcode %>
+    </p>      
+    </dd>
+  </div>
+   <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Organisation Type
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @organisation&.org_type&.titleize %>
+    </dd>
+  </div>
+   <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Organisation Mission
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%@organisation.mission.each do | miss |%>
+        <%= miss.titleize %>
+      <%end%>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Company Number
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @organisation.company_number %>
+    </dd>
+  </div>
+    <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Charity Number
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @organisation.charity_number %>
+    </dd>
+  </div>
+</dl>

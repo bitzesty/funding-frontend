@@ -1,0 +1,83 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: nil,
+             page_title: I18n.t("dashboard.page_title")
+         }
+%>
+
+<h1 class="govuk-heading-l">
+  User found with email address
+  <%= @applicant_found.email %>
+</h1>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @applicant_found.name %>
+    </dd>
+  </div>
+</dl>
+
+<% if @applicant_found.salesforce_contact_id.present?%>
+  <p>
+    <%= link_to('Open contact in Salesforce', @contact_sf_url, class: 'govuk-link', target: :_blank) %>
+  </p>
+<% end %>
+
+<dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Organisation Name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @applicant_found_organisation.name %>
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Organisation Postcode
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <%= @applicant_found_organisation.postcode %>
+    </dd>
+  </div>
+</dl>
+
+<% if @applicant_found_organisation.salesforce_account_id.present?%>
+  <p>
+    <%= link_to('Open organisation in Salesforce', @organisation_sf_url, class: 'govuk-link', target: :_blank) %>
+  </p>
+<% end %>
+
+<h2 class="govuk-heading-m">
+  What action would you like to perform for
+  <%= @applicant_found.name %>
+</h2>
+
+<p class="govuk-hint govuk-!-padding-bottom-3">
+  Please select the task you would like to perform from the list below
+</p>
+
+<p>
+  <%= link_to('Change contact details', admin_portal_update_contact_details_path(@applicant_found.id), class: 'govuk-link') %>
+</p>
+
+<p>
+  <%= link_to('Change organisation details', admin_portal_update_organisation_details_path(user_id: @applicant_found.id, organisation_id: @applicant_found_organisation.id), class: 'govuk-link') %>
+</p>
+
+<p>
+  <%= link_to('Move all projects to a new contact', admin_portal_move_all_projects_path(@applicant_found.id), class: 'govuk-link') %>
+</p>
+
+<p>
+  <%= link_to('Move one application or project', admin_portal_select_to_move_path(user_id: @applicant_found.id, organisation_id: @applicant_found_organisation.id), class: 'govuk-link') %>
+</p>
+
+
+
+
