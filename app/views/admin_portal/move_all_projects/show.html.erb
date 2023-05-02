@@ -129,7 +129,7 @@
         <% end %>
          <%unless pre_app.pa_project_enquiry.blank?%>
           <dt class="govuk-summary-list__key">
-            <%=pre_app.pa_project_enquiry.salesforce_project_enquiry_id.blank? ? 'NOT SUBMITTED' : pre_app.pa_project_enquiry.salesforce_project_enquiry_id%>
+            <%=pre_app.pa_project_enquiry.salesforce_project_enquiry_id.blank? ? 'NOT SUBMITTED' : pre_app.pa_project_enquiry.salesforce_pef_reference%>
           </dt>
           <dd class="govuk-summary-list__value">
             <%=pre_app.pa_project_enquiry.working_title%>
