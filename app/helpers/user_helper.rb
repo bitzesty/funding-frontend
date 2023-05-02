@@ -61,10 +61,16 @@ def user_details_complete(user)
     user.phone_number = choose_contact_phone(restforce_object)
 
     user.date_of_birth = restforce_object.Birthdate
-    user.language_preference = restforce_object.Language_Preference__c
+
+    user.language_preference = restforce_object.Language_Preference__c.blank? \
+      ? nil : restforce_object.Language_Preference__c.downcase
+
     user.agrees_to_user_research = restforce_object.Agrees_To_User_Research__c
-    user.communication_needs = restforce_object.Other_communication_needs_for_contact__c
-    user.email = restforce_object.Email
+
+    user.communication_needs =
+      restforce_object.Other_communication_needs_for_contact__c
+
+    user.email = restforce_object.Email # SF forces emails to be downcase
     user.skip_reconfirmation! if skip_email_change_notification
 
     User.transaction do # rolls back audit row if save! fails
