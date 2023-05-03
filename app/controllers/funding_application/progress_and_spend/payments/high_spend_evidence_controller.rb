@@ -41,11 +41,13 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendEvidenceControlle
         logger.info "Finished updating high_spend.id: " \
                     "#{@high_spend.id}"
   
-      redirect_to(
-        funding_application_progress_and_spend_payments_high_spend_evidence_path(
-        high_spend_id: @high_spend.id
-        )
-      )
+        redirect_to(
+          funding_application_progress_and_spend_payments_high_spend_evidence_path(
+          high_spend_id: @high_spend.id
+          )
+        ) 
+
+        return
   
       else
   
@@ -54,7 +56,7 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendEvidenceControlle
   
         log_errors(@high_spend)
   
-        render :show
+        render :show and return
   
       end
   
@@ -70,9 +72,11 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendEvidenceControlle
   
       if @high_spend.valid?
   
-      redirect_to(
-        funding_application_progress_and_spend_payments_high_spend_summary_path
-      )
+        redirect_to(
+          funding_application_progress_and_spend_payments_high_spend_summary_path
+        )
+
+        return
   
       else
 
@@ -81,7 +85,7 @@ class FundingApplication::ProgressAndSpend::Payments::HighSpendEvidenceControlle
 
         log_errors(@payment_request)
   
-        render :show
+        render :show and return
   
       end
   
