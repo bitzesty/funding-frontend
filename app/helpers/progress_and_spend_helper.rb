@@ -1331,11 +1331,11 @@ module ProgressAndSpendHelper
         funding_application_progress_and_spend_payments_high_spend_evidence_path(
         high_spend_id: high_spend.id
         )
-      )
+      ) and return
 
     else
 
-      render :show
+      render :show and return
 
     end
 
