@@ -929,6 +929,9 @@ Rails.application.routes.draw do
       end
       
     end
+
+    get '/reconnection-report', to: 'reconnection_report#show'
+
   end
 
 end

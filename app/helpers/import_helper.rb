@@ -332,4 +332,66 @@ module ImportHelper
 
     end
 
+
+  # Gets a list of projects, migrated from GEMS, that have been marked
+  # for reconnetion to FFE
+  # @return [get_projects_selected_for_reconnection] Restforce::Collection
+  def get_projects_selected_for_reconnection
+    client = get_import_salesforce_api_instance()
+    client.get_projects_selected_for_reconnection
+  end
+
+  # Creates a temporary table to store the reconnected project info from SF
+  # Runs SQL to populate this table
+  # Runs SQL to see which of these projects have/not been reconnected
+  # Always drops the temporary table
+  #
+  # temp tables can't be viewed in psql, change to a normal table for debugging
+  # @param [projects_for_reconnection] Restforce::Collection A list of projects
+  #             migrated from GEMS, that have been marked for reconnetion to FFE
+  # @return [result] Hash Report in Hash form.
+  def populate_temporary_table_and_run_report(projects_for_reconnection)
+
+    begin
+      create_temp_table_sql =
+        "CREATE TEMP TABLE reconnection_projects(" \
+        "owner_name VARCHAR(200)," \
+        "project_title VARCHAR(255)," \
+        "project_reference_number VARCHAR(100)" \
+        ");"
+
+      pop_temp_table_sql = '' #initialise
+      projects_for_reconnection.each do |project|
+        pop_temp_table_sql << "INSERT INTO reconnection_projects VALUES (" \
+          "'#{project.Owner.Name}', " \
+           "'#{project.Project_Title__c}', " \
+            "'#{project.Project_Reference_Number__c}');"
+      end
+
+      report_sql =
+        "select rp.owner_name, rp.project_reference_number, " \
+          "rp.project_title, fa.created_at as reconnected_at " \
+            "from reconnection_projects rp " \
+              "left outer join funding_applications fa " \
+                "on rp.project_reference_number = " \
+                  "fa.project_reference_number " \
+                    "order by reconnected_at asc;"
+
+      Rails.logger.info("creating table for reconnection report")
+      ActiveRecord::Base.connection.execute(create_temp_table_sql)
+      Rails.logger.info("populating table for reconnection report")
+      ActiveRecord::Base.connection.execute(pop_temp_table_sql)
+      Rails.logger.info("Running SQL for reconnection report")
+      result = ActiveRecord::Base.connection.exec_query(report_sql)
+
+    # ensure table removed at the end
+    ensure
+      Rails.logger.info("Dropping temp table reconnection_projects")
+      ActiveRecord::Base.connection.execute("DROP TABLE reconnection_projects;")
+    end
+
+    return result
+
+  end
+
 end

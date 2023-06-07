@@ -170,6 +170,23 @@ module ImportSalesforceApi
     restforce_response
     end
 
+
+    # Gets a list of projects, migrated from GEMS, that have been marked
+    # for reconnetion to FFE
+    # @return [get_projects_selected_for_reconnection] Restforce::Collection
+    def get_projects_selected_for_reconnection
+      query = "SELECT Owner.Name, Project_Title__c, " \
+        "Project_Reference_Number__c " \
+          "FROM Case where Export_to_IMS_Portal__c = true"
+
+      restforce_response = run_salesforce_query(
+        query,
+        'get_projects_selected_for_reconnection',
+         nil
+      )
+
+    end
+
     # Consider moving to some kind of helper.  Or write methods in an
     # abstract class that each of these classes inherit from.
     private
