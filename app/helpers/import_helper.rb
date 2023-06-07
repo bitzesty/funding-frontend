@@ -345,6 +345,7 @@ module ImportHelper
   # Runs SQL to populate this table
   # Runs SQL to see which of these projects have/not been reconnected
   # Always drops the temporary table
+  # ActiveRecord::Base.connection.quote usage best practice for all quotes
   #
   # temp tables can't be viewed in psql, change to a normal table for debugging
   # @param [projects_for_reconnection] Restforce::Collection A list of projects
@@ -362,10 +363,14 @@ module ImportHelper
 
       pop_temp_table_sql = '' #initialise
       projects_for_reconnection.each do |project|
+        name = ActiveRecord::Base.connection.quote(project.Owner.Name)
+        title = ActiveRecord::Base.connection.quote(project.Project_Title__c)
+        ref = ActiveRecord::Base.connection.quote(
+          project.Project_Reference_Number__c)
+
         pop_temp_table_sql << "INSERT INTO reconnection_projects VALUES (" \
-          "'#{project.Owner.Name}', " \
-           "'#{project.Project_Title__c}', " \
-            "'#{project.Project_Reference_Number__c}');"
+          "#{name}, #{title}, #{ref});"
+
       end
 
       report_sql =
