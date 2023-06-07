@@ -25,7 +25,7 @@ class FundingApplication::TasksController < ApplicationController
     elsif @funding_application.dev_to_100k?
 
       salesforce_api_instance = get_salesforce_api_instance()
-      @large_project_title = get_large_project_title(
+      @large_project_title = get_project_title_with_sf_connection(
         salesforce_api_instance, 
         @funding_application.salesforce_case_id
       )

@@ -85,7 +85,7 @@
       </h3>
 
       
-        <% if @legally_agreed_mediums.present? %>
+        <% if @legally_agreed_mediums.present? || @migrated_medium_over_100k.present?%>
 
           <ul class="govuk-list govuk-list--number nlhf-list nlhf-list--links govuk-!-margin-bottom-8">  
 
@@ -119,6 +119,37 @@
 
                 </li>
               <% end %>
+
+            <% end %>
+
+
+            <% @migrated_medium_over_100k.each do| funding_application | %>
+
+              <li class="nlhf-list__item nlhf-task__item">
+
+                <span class="nlhf-tag-name">
+
+                    <%=
+                      link_to(
+                        get_project_title(funding_application.salesforce_case_id),
+                        funding_application_progress_and_spend_start_path(application_id: funding_application.id),
+                        class: 'govuk-link govuk-link--no-visited-state',
+                        aria: {describedby: funding_application.id}
+                      )
+                    %>
+
+                </span>
+
+                <%=
+                  render(
+                    partial: 'awarded_projects_tags',
+                    locals: {
+                      funding_application: funding_application
+                    }
+                  )
+                %>
+
+              </li>
 
             <% end %>
 

@@ -29,6 +29,7 @@ class DashboardController < ApplicationController
           @legally_agreed_mediums = []
           @large_applications = []
           @migrated_large_delivery_grants_for_payment = []
+          @migrated_medium_over_100k = []
 
           @funding_applications.each do |funding_application|
 
@@ -39,7 +40,7 @@ class DashboardController < ApplicationController
             @gp_open_mediums.push(funding_application) \
               if funding_application.open_medium.present? && \
                 !awarded(funding_application, @salesforce_api_instance)
-            
+
             @legally_agreed_smalls.push(funding_application) \
               if funding_application.project.present? && \
                 awarded(funding_application, @salesforce_api_instance)
@@ -47,6 +48,9 @@ class DashboardController < ApplicationController
             @legally_agreed_mediums.push(funding_application) \
             if funding_application.open_medium.present? && \
               awarded(funding_application, @salesforce_api_instance)
+
+            @migrated_medium_over_100k.push(funding_application) if
+              funding_application&.migrated_medium_over_100k?
 
             @migrated_large_delivery_grants_for_payment.push(
               funding_application
@@ -235,9 +239,12 @@ class DashboardController < ApplicationController
 
 
   # @param [case_id] String Salesforce reference for a Project record
-  # @return [get_large_project_title] String A project title
+  # @return [get_project_title_with_sf_connection] String A project title
   def get_project_title(case_id)
-    get_large_project_title(@salesforce_api_instance, case_id)
+
+    @salesforce_api_instance = get_salesforce_api_instance()
+    get_project_title_with_sf_connection(@salesforce_api_instance, case_id)
+
   end
   helper_method :get_project_title
 

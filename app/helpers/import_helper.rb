@@ -328,6 +328,8 @@ module ImportHelper
 
       if salesforce_case_record_type == 'Migrated_Large_Delivery'
         funding_application.update!(award_type: :migrated_large_delivery)
+      elsif salesforce_case_record_type =='Migrated_Medium_Grants'
+        funding_application.update!(award_type: :migrated_medium_over_100k)
       end
 
     end

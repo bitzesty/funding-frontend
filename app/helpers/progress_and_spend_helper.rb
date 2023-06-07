@@ -1085,7 +1085,7 @@ module ProgressAndSpendHelper
       if funding_application.is_10_to_100k?
 
     record_type_id = client.spend_record_type_id_medium_over_100k \
-      if funding_application.is_100_to_250k?
+      if funding_application.is_100_to_250k? || funding_application.migrated_medium_over_100k? 
 
     record_type_id = client.spend_record_type_id_large_development \
         if funding_application.dev_to_100k? || funding_application.dev_over_100k?
@@ -1117,10 +1117,11 @@ module ProgressAndSpendHelper
 
     record_type_id = client.record_type_id_medium_grant_cost \
       if funding_application.is_100_to_250k? ||
-        funding_application.is_10_to_100k?
+        funding_application.is_10_to_100k? ||
+          funding_application.migrated_medium_over_100k?
 
     record_type_id = client.record_type_id_large_development_grant_cost \
-        if funding_application.dev_to_100k?
+        if funding_application.dev_to_100k? 
 
     record_type_id = client.record_type_id_large_development_grant_cost \
       if funding_application.dev_over_100k?

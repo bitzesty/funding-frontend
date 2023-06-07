@@ -287,7 +287,7 @@ module DashboardHelper
 
   end
 
-  # Helper method that calls salesforce_api to retrieve large project title.
+  # Helper method that calls salesforce_api to retrieve a project title from SF.
   #
   # @param [SalesforceApi] salesforce_api_client Instance of 
   #                                   salesforce_api used to call query method
@@ -295,9 +295,9 @@ module DashboardHelper
   # 
   # @return [String] project_title project title for given case with 
   #                                   salesforce_case_id
-  def get_large_project_title(salesforce_api_client, salesforce_case_id)
-    project_title = salesforce_api_client
-      .get_project_title(salesforce_case_id).Project_Title__c
+  def get_project_title_with_sf_connection(salesforce_api_client, salesforce_case_id)
+    project_title =
+      salesforce_api_client.get_project_title(salesforce_case_id).Project_Title__c
   end
 
   # Checks to see if a 40% payment form has been released.  Which

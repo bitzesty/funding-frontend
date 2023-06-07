@@ -35,7 +35,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
     unless progress_update.errors.any?
 
       medium_cash_contribution_redirector(progress_update.answers_json) if \
-        @funding_application.is_100_to_250k?
+        @funding_application.is_100_to_250k? || @funding_application.migrated_medium_over_100k?
 
     else
       
@@ -138,7 +138,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
   #
   def populate_form_attributes_from_salesforce
 
-    if @funding_application.is_100_to_250k?
+    if @funding_application.is_100_to_250k? || @funding_application.migrated_medium_over_100k?
 
       ccs_from_salesforce = salesforce_medium_cash_contributions(
         @funding_application
@@ -160,7 +160,7 @@ class FundingApplication::ProgressAndSpend::ProgressUpdate::\
     end
 
     # error link id, if the applicant selects nothing.
-    @first_form_element = "progress_update_#{ccs_from_salesforce.first.Id}"
+    @first_form_element = "progress_update_#{ccs_from_salesforce&.first&.Id}"
 
   end
 

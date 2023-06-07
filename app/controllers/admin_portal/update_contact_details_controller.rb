@@ -37,10 +37,10 @@ class AdminPortal::UpdateContactDetailsController < ApplicationController
   end
 
   # @param [case_id] String Salesforce reference for a Project record
-  # @return [get_large_project_title] String A project title
+  # @return [get_project_title_with_sf_connection] String A project title
   def get_project_title(case_id)
     @salesforce_api_instance = get_salesforce_api_instance()
-    get_large_project_title(@salesforce_api_instance, case_id)
+    get_project_title_with_sf_connection(@salesforce_api_instance, case_id)
   end
   helper_method :get_project_title
 

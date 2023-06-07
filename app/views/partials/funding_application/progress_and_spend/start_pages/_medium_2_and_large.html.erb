@@ -1,12 +1,13 @@
 <%# Contains check so progress update content hidden for large %>
 <h1 class="govuk-heading-l">
-  <%= @funding_application.is_100_to_250k? ? \
+  <%= @funding_application.is_100_to_250k? ||  
+    @funding_application.migrated_medium_over_100k? ? \
     t('progress_and_spend.start.page_title') : \
       t('progress_and_spend.start.page_title_payment_only')%>
 </h1>
 
 <%# Contains check so progress update content hidden for large %>
-<% if @funding_application.is_100_to_250k? %>
+<% if @funding_application.is_100_to_250k? ||  @funding_application.migrated_medium_over_100k?  %>
 
   <p class="govuk-body">
     <%= t('progress_and_spend.start.use_this_service') %>
@@ -23,11 +24,13 @@
   <%= t('progress_and_spend.start.your_investment_manager') %>
   <%# This content is only displayed for large%>
   <%= t('progress_and_spend.start.get_project_update') \
-    unless @funding_application.is_100_to_250k? %>
+    unless @funding_application.is_100_to_250k? ||  
+      @funding_application.migrated_medium_over_100k? %>
 </p>
 
 <%# This content is only displayed for large%>
-<% unless @funding_application.is_100_to_250k? %>
+<% unless @funding_application.is_100_to_250k? ||  
+  @funding_application.migrated_medium_over_100k? %>
   <p class="govuk-body">
     <%= t('progress_and_spend.start.email_project_update') %>
   </p>
@@ -35,13 +38,15 @@
 
 <%# Contains check so margin added to bottom of list for large %>
 <h2  class="govuk-heading-m"> <%= t('progress_and_spend.start.sub_headings.to_get_payment') %></h2>
-<ul  class="govuk-list govuk-list--bullet <%= "govuk-!-margin-bottom-9" unless @funding_application.is_100_to_250k? %>" >
+<ul  class="govuk-list govuk-list--bullet <%= "govuk-!-margin-bottom-9" unless @funding_application.is_100_to_250k? ||  
+  @funding_application.migrated_medium_over_100k? %>" >
   <li><%= t('progress_and_spend.start.bullet_points.you_need.1')%></li>
   <li><%= t('progress_and_spend.start.bullet_points.you_need.2')%></li>
 </ul>
 
 <%# Contains check so progress update content hidden for large %>
-<% if @funding_application.is_100_to_250k? %>
+<% if @funding_application.is_100_to_250k? ||  
+  @funding_application.migrated_medium_over_100k? %>
 
   <h2 class="govuk-heading-m"> <%= t('progress_and_spend.start.sub_headings.how_project_going') %></h2>
   <ul  class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
