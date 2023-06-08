@@ -114,9 +114,16 @@ module FundingApplicationContext
           @funding_application&.m1_40_payment_can_start? ||
             @funding_application&.dev_40_payment_can_start?
 
-      if is_p_and_s_project && progress_spend_payment_allowed || \
-        request.path.include?('submit-your-answers') || \
-          request.path.include?('payments-submission')
+      has_journey_tracker =
+        @funding_application.arrears_journey_tracker.present? ||
+          (@funding_application.arrears_journey_tracker.nil? && 
+            (request.path.include?('start') || request.path.include?('select_journey')))
+
+      if has_journey_tracker && 
+        is_p_and_s_project && 
+          progress_spend_payment_allowed || \
+            request.path.include?('submit-your-answers') || \
+              request.path.include?('payments-submission')
 
         return false # valid
 
@@ -124,11 +131,12 @@ module FundingApplicationContext
 
         Rails.logger.error(
           "Invalid_view_for_progress_and_spend. " \
-            "Application type ok?: #{is_p_and_s_project}. " \
-              "progress-and-spend-path used?: #{p_and_s_path}. " \
-                "Payment can start?: #{@funding_application&.payment_can_start?}. " \
-                  "m1_40_payment_can_start?: #{@funding_application&.m1_40_payment_can_start?}. " \
-                    "dev_40_payment_can_start?: #{@funding_application&.dev_40_payment_can_start?}."
+            "Has arrears tracker: #{has_journey_tracker}. " \
+              "Application type ok?: #{is_p_and_s_project}. " \
+                "progress-and-spend-path used?: #{p_and_s_path}. " \
+                  "Payment can start?: #{@funding_application&.payment_can_start?}. " \
+                    "m1_40_payment_can_start?: #{@funding_application&.m1_40_payment_can_start?}. " \
+                      "dev_40_payment_can_start?: #{@funding_application&.dev_40_payment_can_start?}."
         )
 
         return true # invalid
