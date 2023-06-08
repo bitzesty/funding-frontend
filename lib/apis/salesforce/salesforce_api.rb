@@ -959,7 +959,7 @@
       begin
 
         record_type_id = 
-          @client.query_all("SELECT Owner.name from Case " \
+          @client.query("SELECT Owner.name from Case " \
             "where Id ='#{salesforce_case_id}'")
 
         if record_type_id.length != 1
@@ -1021,7 +1021,7 @@
 
       begin
 
-        result = @client.query_all(
+        result = @client.query(
             "SELECT Owner.name, Owner.Email from Case " \
             "where ID = '#{salesforce_case_id}'"
         )  
@@ -1087,7 +1087,7 @@
       begin
 
         result = 
-          @client.query_all("SELECT Owner.name, Account.Name, Project_Title__c, " \
+          @client.query("SELECT Owner.name, Account.Name, Project_Title__c, " \
             "Grant_Award__c, Grant_Percentage__c, Total_Development_Income__c, " \
               "Total_Non_Cash_contributions__c, Total_Volunteer_Contributions__c, " \
                 "Grant_Expiry_Date__c, Project_Reference_Number__c, Contact.Name, Submission_Date_Time__c " \
@@ -1362,7 +1362,7 @@
 
         # Check Legal_agreement_in_place__c first
         records =
-          @client.query_all("select Legal_agreement_in_place__c from Case " \
+          @client.query("select Legal_agreement_in_place__c from Case " \
             "where Id ='#{salesforce_case_id}'")
 
         if records.length > 0
@@ -1379,7 +1379,7 @@
             'Large_Grants_Permission_To_Start', 'Forms__c')
 
           records =
-            @client.query_all("SELECT Count() FROM Forms__c " \
+            @client.query("SELECT Count() FROM Forms__c " \
               "where Case__c = '#{salesforce_case_id}' " \
                 "and RecordTypeId = '#{record_type_id}'" \
                   "and Form_Status__c = 'Complete'")
@@ -1599,7 +1599,7 @@
       begin
 
         record_type_id =
-          @client.query_all("select Start_the_legal_agreement_process__c " \
+          @client.query("select Start_the_legal_agreement_process__c " \
             "from Case where Id ='#{salesforce_case_id}'")
 
         if record_type_id.length != 1
@@ -1727,7 +1727,7 @@
 
       large_applications = []
 
-      users = @client.query_all("SELECT AccountId, Id FROM Contact WHERE Id " \
+      users = @client.query("SELECT AccountId, Id FROM Contact WHERE Id " \
         "IN (SELECT ContactId FROM User where email = '#{email}' " \
           "AND profile.name = 'NLHF Portal Login User') ")
       
@@ -1738,7 +1738,7 @@
 
         unless users&.first&.values&.any? { | detail |  detail.nil? }
           large_applications = 
-          @client.query_all("SELECT Project_Title__c, Id, " \
+          @client.query("SELECT Project_Title__c, Id, " \
             "recordType.DeveloperName, " \
               "AccountId, Submission_Date_Time__c "\
                 "FROM Case WHERE  "\
@@ -2066,7 +2066,7 @@
       begin
 
         completed_form_count =
-          @client.query_all("SELECT COUNT() FROM Forms__c  where "\
+          @client.query("SELECT COUNT() FROM Forms__c  where "\
             "Frontend_External_Id__c = '#{form_external_id}' "\
               "and Form_Status__c = 'Complete'")
 
@@ -3616,7 +3616,7 @@
         escaped_org_name = organisation.name.gsub(/[']/,"\\\\'")
     
         account_collection_from_salesforce = 
-          @client.query_all("select Id from Account where name = '#{escaped_org_name}' and BillingPostalCode = '#{organisation.postcode}'")
+          @client.query("select Id from Account where name = '#{escaped_org_name}' and BillingPostalCode = '#{organisation.postcode}'")
 
         account_salesforce_id = account_collection_from_salesforce&.first&.Id
 
