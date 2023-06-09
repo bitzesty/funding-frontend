@@ -115,8 +115,8 @@ module FundingApplicationContext
             @funding_application&.dev_40_payment_can_start?
 
       has_journey_tracker =
-        @funding_application.arrears_journey_tracker.present? ||
-          (@funding_application.arrears_journey_tracker.nil? && 
+        @funding_application&.arrears_journey_tracker.present? ||
+          (@funding_application&.arrears_journey_tracker.nil? && 
             (request.path.include?('start') || request.path.include?('select_journey')))
 
       if has_journey_tracker && 
