@@ -1,5 +1,7 @@
 require 'restforce'
 
+include SalesforceApi
+
 class ApplicationToSalesforceJob < ApplicationJob
 
   include Mailers::GpProjectMailerHelper
@@ -57,48 +59,77 @@ class ApplicationToSalesforceJob < ApplicationJob
         project.funding_application.project_reference_number
       )
 
-      salesforce_case_id = project.funding_application.salesforce_case_id
+      logger.info
+      (
+        "Uploading 3-10K files uploaded for case id: " \
+        "#{project.funding_application.salesforce_case_id}"
+      )
+      
+      # upload files with salesforce_api_client
+      salesforce_api_client = SalesforceApiClient.new
 
-      ApplicationAttachmentsToSalesforceJob.perform_later(
-        salesforce_case_id,
-        project,
-        :capital_work_file,
-        "capital work attachment"
-      ) if project.capital_work_file.attached?
+      # Capital Work - only ever one file.
+      salesforce_api_client.create_file_in_salesforce(
+        project.capital_work_file,
+        'Capital Work',
+        project.funding_application.salesforce_case_id
+      ) if project.capital_work_file.present?
 
-      ApplicationAttachmentsToSalesforceJob.perform_later(
-        salesforce_case_id,
-        project,
-        :governing_document_file,
-        "governing document attachment"
-      ) if project.governing_document_file.attached?
+      # Governing document - only ever one file
+      salesforce_api_client.create_file_in_salesforce(
+        project.governing_document_file,
+        'Governing Document',
+        project.funding_application.salesforce_case_id
+      ) if project.governing_document_file.present?
 
-      project.accounts_files.each_with_index do |af, idx|
-        ApplicationAttachmentsToSalesforceJob.perform_later(
-          salesforce_case_id,
-          project,
-          :accounts_files,
-          "accounts attachment ##{idx}",
-          idx)
-      end
+      # Accounts files, can be more than one, all stored against Project
+      salesforce_api_client.create_multiple_files_in_salesforce(
+        project.accounts_files,
+        'Accounts',
+        project.funding_application.salesforce_case_id
+      ) if project.accounts_files.any?
 
-      project.evidence_of_support.each do |eos|
-        ApplicationAttachmentsToSalesforceJob.perform_later(
-          salesforce_case_id,
-          eos,
-          :evidence_of_support_files,
-          eos.description
-        )
-      end
+      # Project has many cash contributions objects. Each cc has one file.
+      project.cash_contributions.each_with_index do |cc, idx|
 
-      project.cash_contributions.filter{ |cc| cc.cash_contribution_evidence_files.attached? }.each do |cc|
-        ApplicationAttachmentsToSalesforceJob.perform_later(
-          salesforce_case_id,
-          cc,
-          :cash_contribution_evidence_files,
+        salesforce_api_client.create_file_in_salesforce(
+          cc.cash_contribution_evidence_files,
+          "Cash contribution ##{ idx + 1 }",
+          project.funding_application.salesforce_case_id,
           cc.description
         )
+
       end
+      
+      # Project has many Evidence of Support objects. Each EOS has one file.
+      project.evidence_of_support.each_with_index do |eos, idx|
+
+        salesforce_api_client.create_file_in_salesforce(
+          eos.evidence_of_support_files,
+          "Evidence of support ##{ idx + 1 }",
+          project.funding_application.salesforce_case_id,
+          eos.description
+        )
+
+      end
+
+      logger.info
+      (
+        "All 3-10K files uploaded to case id: " \
+        "#{project.funding_application.salesforce_case_id}"
+      )
+
+      # Consider - this upload functionality could upload each file in its
+      # own job for reslience.
+      #
+      # Example below of how we could call the job.
+      #
+      # CapitalWorkFileToSalesforceJob.perform_later(
+      #   project.id
+      # ) if project.capital_work_file.present?
+      #
+      # Project Id is serialisable, and the job could find the project and
+      # upload the file reusing the code above.
 
     else
 

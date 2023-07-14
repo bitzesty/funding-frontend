@@ -30,11 +30,11 @@
 
       <ul class="govuk-list govuk-error-summary__list">
 
-        <% @funding_application.project.errors.each do |attr, msg| %>
-          <% unless attr.to_s == "evidence_of_support" %>
+        <% @funding_application.project.errors.each do |error| %>
+          <% unless error.attribute.to_s == "evidence_of_support" %>
             <li>
-              <a href='#project_evidence_of_support_attributes_0_<%= "#{attr.to_s.split('.')[1]}" %>'>
-                <%= msg %>
+              <a href='#project_evidence_of_support_attributes_0_<%= "#{error.attribute.to_s.split('.')[1]}" %>'>
+                <%= error.message %>
               </a>
             </li>
           <% end %>

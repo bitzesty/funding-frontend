@@ -3,6 +3,9 @@ include ActionView::Helpers::NumberHelper
 
 RSpec.feature 'Project', type: :feature do
 
+  # TODO: Fix failing test - dependent on salesforce_stub mocking the response form
+  # Restforce Data Client `query()` method calls and returning appropriate data object. 
+  #
   # This tests for the successful creation of a generic project application,
   # which has almost all fields filled in.
   scenario 'Successful submission of an application' do

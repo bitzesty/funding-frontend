@@ -36,11 +36,11 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '16.14.2'
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6'
+          ruby-version: '3.1'
 
       - name: Get yarn cache
         id: yarn-cache
@@ -53,7 +53,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn install
-      - run: gem install bundler -v 2.1.4
+      - run: gem install bundler -v 2.3.11
 
       - name: Cache Gemfile dependencies
         uses: actions/cache@v1

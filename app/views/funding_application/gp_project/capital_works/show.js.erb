@@ -6,12 +6,12 @@
 
   var errorKeys = [];
 
-  <% @funding_application.project.errors.each do |attr, msg| %>
+  <% @funding_application.project.errors.each do |error| %>
 
     addSummaryError(
       false,
-      "<%= attr %>",
-      "<%= msg %>",
+      "<%= error.attribute %>",
+      "<%= error.message %>",
       "project",
       "capital_work_files"
     );
@@ -19,8 +19,8 @@
     addFormGroupError(
         "capital-works-form-group-main",
         "form-group-errors",
-        "<%= attr %>",
-        "<%= msg %>"
+        "<%= error.attribute %>",
+        "<%= error.message %>"
     );
 
   <% end %>

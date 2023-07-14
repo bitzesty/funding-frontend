@@ -8,6 +8,8 @@
   )
 %>
 
+<noscript><% no_js = true %></noscript>
+
 <%= content_for :secondarycontent do %>
   <%= 
     render partial: "partials/summary/summary_link", locals: {
@@ -15,8 +17,6 @@
     } 
   %>
 <% end %>
-
-<noscript><% no_js = true %></noscript>
 
 <div id="summary-errors"></div>
 

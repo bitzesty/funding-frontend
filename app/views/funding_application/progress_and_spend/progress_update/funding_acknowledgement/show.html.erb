@@ -100,7 +100,7 @@
 									f.check_box "#{type}_selected",
 									{
 										class: "govuk-checkboxes__input",
-										'data-aria-controls' => 'conditional-acknowledgement-conditional',
+										'data-aria-controls' => "conditional-acknowledgement-#{type}",
 										checked: value['selected'] == 'true' ? 'checked' : nil
 									},
 									'true',
@@ -116,7 +116,7 @@
 							</div>
 
 							<div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
-								id="conditional-acknowledgement-conditional">
+								id=<%="conditional-acknowledgement-#{type}"%>>
 
 								<div class="govuk-character-count" data-module="govuk-character-count"
 									data-maxwords="100">

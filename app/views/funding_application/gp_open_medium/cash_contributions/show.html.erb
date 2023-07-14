@@ -8,6 +8,8 @@
   )
 %>
 
+<noscript><% no_js = true %></noscript>
+
 <%= content_for :secondarycontent do %>
   <%= 
     render partial: "partials/summary/summary_link", locals: {
@@ -15,8 +17,6 @@
     } 
   %>
 <% end %>
-
-<noscript><% no_js = true %></noscript>
 
 <% if @funding_application.errors.any? %>
 
@@ -31,11 +31,11 @@
 
       <ul class="govuk-list govuk-error-summary__list">
 
-        <% @funding_application.errors.each do |attr, msg| %>
-          <% unless attr.to_s == "cash_contributions" %>
+        <% @funding_application.errors.each do |error| %>
+          <% unless error.attribute.to_s  == "cash_contributions" %>
             <li>
-              <a href='#funding_application_cash_contributions_attributes_0_<%= "#{attr.to_s.split('.')[1]}" %>'>
-                <%= msg %>
+              <a href='#funding_application_cash_contributions_attributes_0_<%= "#{error.attribute.to_s.split('.')[1]}" %>'>
+                <%= error.message %>
               </a>
             </li>
           <% end %>
@@ -62,7 +62,7 @@
 <%=
   form_with model: @funding_application,
   url: :funding_application_gp_open_medium_cash_contributions,
-  method: :put,
+  method: :put,	 
   remote: no_js ? false : true do |f|
 %>
 

@@ -9,13 +9,13 @@
 
     <ul class="govuk-list govuk-error-summary__list">
 
-      <% flash[:errors].each do |attr, msg| %>
-        <li>
-          <a href="#<%= flash[:errors].size > 1 ? attr : first_form_element  %>">
-            <%= msg %>
-          </a>
-        </li>
-      <% end %>
+    <% flash[:errors].each do |attr, msg| %>
+      <li>
+        <a href="#<%= flash[:errors].size > 1 ? attr : first_form_element  %>">
+          <%= msg %>
+        </a>
+      </li>
+    <% end %>
 
     </ul>
 

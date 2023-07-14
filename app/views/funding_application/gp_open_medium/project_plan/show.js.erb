@@ -11,22 +11,22 @@
 
   var errorKeys = [];
 
-  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+  <% @funding_application.open_medium.errors.each do |error| %>
 
-    errorKeys.push("<%= attr.to_s %>");
+    errorKeys.push("<%= error.attribute.to_s %>");
 
     addSummaryError(
       false,
-      "<%= attr %>",
-      "<%= msg %>",
+      "<%= error.attribute %>",
+      "<%= error.message %>",
       "open_medium"
     );
 
     addFormGroupError(
-      "<%= attr %>-form-group",
-      "<%= attr %>-errors",
-      "<%= attr %>",
-      "<%= msg %>",
+      "<%= error.attribute %>-form-group",
+      "<%= error.attribute %>-errors",
+      "<%= error.attribute %>",
+      "<%= error.message %>",
       "open_medium"
     );
 

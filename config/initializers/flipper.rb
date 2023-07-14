@@ -1,6 +1,3 @@
-
-require 'flipper/adapters/active_record'
-
 if ActiveRecord::Base.connection.table_exists? :flipper_features
   Flipper.configure do |config|
     config.default do

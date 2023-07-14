@@ -1,41 +1,41 @@
-<% if @funding_application.open_medium.errors.any? %>
+<% if @funding_application.open_medium.errors.any? %>	
 
-  document.title = "Error: <%== I18n.t('ownership.page_title') %>";
+  document.title = "Error: <%== I18n.t('ownership.page_title') %>";	
 
-  removeAllFormGroupErrors(
-    "ownership_file-form-group",
-    "ownership_file-errors"
-  );
+  removeAllFormGroupErrors(	
+    "ownership_file-form-group",	
+    "ownership_file-errors"	
+  );	
 
-  createSummaryErrorsSkeleton();
+  createSummaryErrorsSkeleton();	
 
-  var errorKeys = [];
+  var errorKeys = [];	
 
-  mainFormElement = document.getElementById("ownership_type-form-group");
-  mainFormElement.classList.add("govuk-form-group--error");
+  mainFormElement = document.getElementById("ownership_type-form-group");	
+  mainFormElement.classList.add("govuk-form-group--error");	
 
-  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+  <% @funding_application.open_medium.errors.each do |error| %>	
 
-    errorKeys.push("<%= attr.to_s %>");
+    errorKeys.push("<%= error.attribute.to_s %>");	
 
-    addSummaryError(
-      false,
-      "<%= attr %>",
-      "<%= msg %>",
-      "open_medium"
-    );
+    addSummaryError(	
+      false,	
+      "<%= error.attribute %>",	
+      "<%= error.message %>",	
+      "open_medium"	
+    );	
 
-    addFormGroupError(
-      "<%= attr %>-form-group",
-      "<%= attr %>-errors",
-      "<%= attr %>",
-      "<%= msg %>",
-      "open_medium"
-    );
+    addFormGroupError(	
+      "<%= error.attribute %>-form-group",	
+      "<%= error.attribute %>-errors",	
+      "<%= error.attribute %>",	
+      "<%= error.message %>",	
+      "open_medium"	
+    );	
 
-    inputElement = document.getElementById("open_medium_<%= attr %>");
-    inputElement.classList.add("govuk-textarea--error");
+    inputElement = document.getElementById("open_medium_<%= error.attribute  %>");	
+    inputElement.classList.add("govuk-textarea--error");	
 
-  <% end %>
+  <% end %>	
 
 <% end %>

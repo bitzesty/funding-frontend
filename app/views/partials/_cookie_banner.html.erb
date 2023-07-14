@@ -7,8 +7,10 @@
       <%= t('cookie_banner.info_text') %>
     </p>
     <div class="nlhf-cookie-banner__buttons">
-      <%= render(ButtonComponent.new(text: (t('generic.x_yes') + '<span class="govuk-visually-hidden">, ' + t('cookie_banner.buttons.yes_button.description') + '</span>').html_safe, classes: 'nlhf-cookie-banner__button nlhf-cookie-banner__button--accept', attributes: [{attribute: 'data-accept-cookies', value: true} , {attribute: 'aria-describedby', value: 'nlhf-cookie-banner__heading'} ] )) %>
-      <%= render(ButtonComponent.new(text: (t('generic.x_no') + '<span class="govuk-visually-hidden">, ' + t('cookie_banner.buttons.no_button.description') + '</span>').html_safe, classes: 'nlhf-cookie-banner__button nlhf-cookie-banner__button--reject', attributes: [{attribute: 'data-accept-cookies', value: false} , {attribute: 'aria-describedby', value: 'nlhf-cookie-banner__heading'} ] )) %>
+      <%= render(ButtonComponent.new(text: t('generic.x_yes'), classes: 'nlhf-cookie-banner__button nlhf-cookie-banner__button--accept', attributes: [{attribute: 'data-accept-cookies', value: true} , {attribute: 'aria-describedby', value: 'nlhf-cookie-banner__heading'} ] )) %>
+      <span class="govuk-visually-hidden"><%= t('cookie_banner.buttons.yes_button.description') %></span>
+      <%= render(ButtonComponent.new(text: t('generic.x_no'), classes: 'nlhf-cookie-banner__button nlhf-cookie-banner__button--reject', attributes: [{attribute: 'data-accept-cookies', value: false} , {attribute: 'aria-describedby', value: 'nlhf-cookie-banner__heading'} ] )) %>
+      <span class="govuk-visually-hidden"><%= t('cookie_banner.buttons.no_button.description') %></span>
           <a class="govuk-link nlhf-cookie-banner__link" href=<%= help_cookie_details_path %>>
             <%= t('cookie_banner.how_we_use_cookies') %>
           </a>

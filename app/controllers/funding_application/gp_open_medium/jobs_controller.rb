@@ -12,6 +12,10 @@ class FundingApplication::GpOpenMedium::JobsController < ApplicationController
     @has_file_upload = true
   end
 
+  # Rails 7 always populates the first item in the files array with a
+  # blank string. This blank string will erase any files already attached.
+  # So to prevent form re-renders from wiping files, only update
+  # :job_description_files when actual files are provided in params.
   def update
 
     logger.info(
@@ -23,7 +27,16 @@ class FundingApplication::GpOpenMedium::JobsController < ApplicationController
     @funding_application.open_medium
       .validate_jobs_or_apprenticeships_description = true
 
-    if @funding_application.open_medium.update(open_medium_params)
+    @funding_application.open_medium.jobs_or_apprenticeships_description =
+      open_medium_params[:jobs_or_apprenticeships_description]
+
+    @funding_application.open_medium.job_description_files =
+      open_medium_params[:job_description_files] unless
+        file_array_empty?(open_medium_params)
+
+    if @funding_application.open_medium.valid?
+
+      @funding_application.open_medium.save
 
       logger.info(
         'Finished updating jobs_or_apprenticeships_description and ' \
@@ -62,24 +75,32 @@ class FundingApplication::GpOpenMedium::JobsController < ApplicationController
 
   # Method used to determine and enact redirect path
   #
-  # If a job_description_files param is present, then the user should be
-  # redirected to the same page, so that their file upload can be confirmed
-  # if necessary, otherwise they should be redirected to the next page
-  # in the journey
+  # If job_description_files DON'T exist, then the user should be
+  # redirected to the next page.
+  # If job_description_files DO exist, reload the page so that their
+  # file upload can be confirmed
   #
   # @param [Params] params Incoming form parameters
   def redirect_based_on_job_description_files_param_presence(params)
 
-    if params[:open_medium][:job_description_files].present?
-
-      redirect_to :funding_application_gp_open_medium_jobs_or_apprenticeships
-
-    else
+    if file_array_empty?(open_medium_params)
 
       redirect_to :funding_application_gp_open_medium_costs
 
+    else
+
+      redirect_to :funding_application_gp_open_medium_jobs_or_apprenticeships
+
     end
 
+  end
+
+  # Returns true if :job_description_files
+  # @params [Hash] permitted_params
+  # @return [Boolean]
+  def file_array_empty?(permitted_params)
+    permitted_params[:job_description_files].first.blank? &&
+      permitted_params[:job_description_files].count == 1
   end
 
 end

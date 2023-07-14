@@ -23,6 +23,7 @@ RSpec.feature 'Organisation', type: :feature do
       login_as(user, :scope => :user)
 
       # setup scenario
+
       visit '/'
       expect(page).to have_text(
         I18n.t('dashboard.funding_applications.buttons.start')

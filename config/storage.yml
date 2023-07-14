@@ -6,6 +6,14 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
+
+research:
+  service: S3
+  access_key_id: <%= Rails.env.research? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
+  secret_access_key: <%= Rails.env.research? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
+  region: <%= Rails.env.research? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
+  bucket: <%= Rails.env.research? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
+
 # Rails tries to read this on all environments and expects a string value
 staging:
   service: S3

@@ -1,42 +1,42 @@
-<% if @funding_application.errors.any? %>
+<% if @funding_application.errors.any? %>	
 
-  removeAllFormGroupErrors(
-    "evidence_of_support.description-form-group",
-    "evidence_of_support.description-errors"
-  );
+  removeAllFormGroupErrors(	
+    "evidence_of_support.description-form-group",	
+    "evidence_of_support.description-errors"	
+  );	
 
-  removeAllFormGroupErrors(
-    "evidence_of_support.evidence_of_support_files-form-group",
-    "evidence_of_support.evidence_of_support_files-errors"
-  );
+  removeAllFormGroupErrors(	
+    "evidence_of_support.evidence_of_support_files-form-group",	
+    "evidence_of_support.evidence_of_support_files-errors"	
+  );	
 
-  document.title = "Error: Evidence of support";
+  document.title = "Error: Evidence of support";	
 
-  createSummaryErrorsSkeleton();
+  createSummaryErrorsSkeleton();	
 
-  var errorKeys = [];
+  var errorKeys = [];	
 
-  <% @funding_application.errors.each do |attr, msg| %>
+  <% @funding_application.errors.each do |error| %>	
 
-    errorKeys.push("<%= attr.to_s %>");
+    errorKeys.push("<%= error.attribute.to_s %>");	
 
-    addSummaryError(
-      false,
-      "<%= attr %>",
-      "<%= msg %>",
-      "funding_application",
-      "evidence_of_support"
-    );
+    addSummaryError(	
+      false,	
+      "<%= error.attribute %>",	
+      "<%= error.message %>",	
+      "funding_application",	
+      "evidence_of_support"	
+    );	
 
-    addFormGroupError(
-      "<%= attr %>-form-group",
-      "<%= attr %>-errors",
-      "<%= attr %>",
-      "<%= msg %>",
-      "evidence_of_support",
-      "funding_application"
-    );
+    addFormGroupError(	
+      "<%= error.attribute %>-form-group",	
+      "<%= error.attribute %>-errors",	
+      "<%= error.attribute %>",	
+      "<%= error.message %>",	
+      "evidence_of_support",	
+      "funding_application"	
+    );	
 
-  <% end %>
+  <% end %>	
 
 <% end %>

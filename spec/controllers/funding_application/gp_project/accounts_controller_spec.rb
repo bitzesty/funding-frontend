@@ -62,18 +62,23 @@ RSpec.describe FundingApplication::GpProject::AccountsController do
 
     end
 
-    it "should raise an InvalidSignature exception if an empty string is " \
-       "passed in the accounts_file param" do
+    it "should re-render the show template if an invalid file is " \
+    "passed" do
 
-      expect {
-        put :update,
-            params: {
-                application_id: funding_application.id,
-                project: {
-                    accounts_files: [""]
-                }
-            }
-      }.to raise_error(ActiveSupport::MessageVerifier::InvalidSignature)
+    put :update,
+    params: {
+        application_id: funding_application.id,
+        project: {
+            accounts_files: [""]
+        }
+    }
+
+    expect(response).to have_http_status(:success)
+    expect(response).to render_template(:show)
+
+    expect(assigns(:funding_application).project.errors.empty?).to eq(false)
+    expect(assigns(:funding_application).project.errors.messages[:accounts_files][0])
+        .to eq("Add accounts")
 
     end
 

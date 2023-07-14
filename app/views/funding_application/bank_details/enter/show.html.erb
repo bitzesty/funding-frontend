@@ -32,9 +32,9 @@
         </h1>
       </legend>
 
-      <span id="account_paid_into-hint" class="govuk-hint">
+      <p id="account_paid_into-hint" class="govuk-hint">
         <%= t('payment_details.account_paid_into') %>
-      </span>
+      </p>
 
       <div class="govuk-form-group <%= 'govuk-form-group--error' if @funding_application.payment_details.errors[:account_name].present? %>">
 
@@ -61,9 +61,9 @@
 
         <%= f.label :sort_code, t('generic.sort_code'), class: "govuk-heading-m" %>
 
-        <span id="sort_code_hint" class="govuk-hint">
+        <p id="sort_code_hint" class="govuk-hint">
           <%= t('payment_details.sort_code_hint') %>
-        </span>
+        </p>
 
         <%=
           render partial: "partials/form_input_errors",
@@ -86,9 +86,9 @@
 
         <%= f.label :account_number, t('payment_details.account_number_label'), class: "govuk-heading-m" %>
 
-        <span id="account_number_hint" class="govuk-hint">
+        <p id="account_number_hint" class="govuk-hint">
           <%= t('payment_details.account_number_hint') %>
-        </span>
+        </p>
 
         <%=
           render partial: "partials/form_input_errors",
@@ -111,9 +111,9 @@
 
         <%= f.label :building_society_roll_number, t('payment_details.building_society_roll_number_label'), class: "govuk-heading-m" %>
 
-        <span id="building_society_roll_number_hint" class="govuk-hint">
+        <p id="building_society_roll_number_hint" class="govuk-hint">
           <%= t('payment_details.building_society_roll_number_hint') %>
-        </span>
+        </p>
 
         <%=
           render partial: "partials/form_input_errors",
@@ -136,9 +136,9 @@
 
         <%= f.label :payment_reference, t('payment_details.payment_reference_label'), class: "govuk-heading-m" %>
 
-        <span id="payment_reference_hint"class="govuk-hint">
+        <p id="payment_reference_hint"class="govuk-hint">
           <%= t('payment_details.payment_reference_hint') %>
-        </span>
+        </p>
 
         <%=
           render partial: "partials/form_input_errors",

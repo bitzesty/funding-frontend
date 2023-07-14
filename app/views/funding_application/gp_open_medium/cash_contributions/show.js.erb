@@ -1,52 +1,52 @@
-<% if @funding_application.errors.any? %>
+<% if @funding_application.errors.any? %>	
 
-  removeAllFormGroupErrors(
-     "cash_contributions.description-form-group",
-     "cash_contributions.description-errors"
-   );
+  removeAllFormGroupErrors(	
+     "cash_contributions.description-form-group",	
+     "cash_contributions.description-errors"	
+   );	
 
-   removeAllFormGroupErrors(
-     "cash_contributions.amount-form-group",
-     "cash_contributions.amount-errors"
-   );
+   removeAllFormGroupErrors(	
+     "cash_contributions.amount-form-group",	
+     "cash_contributions.amount-errors"	
+   );	
 
-   removeAllFormGroupErrors(
-     "cash_contributions.secured-form-group",
-     "cash_contributions.secured-errors"
-   );
+   removeAllFormGroupErrors(	
+     "cash_contributions.secured-form-group",	
+     "cash_contributions.secured-errors"	
+   );	
 
-   removeAllFormGroupErrors(
-     "cash_contributions.cash_contribution_evidence_files-form-group",
-     "cash_contributions.cash_contribution_evidence_files-errors"
-   );
+   removeAllFormGroupErrors(	
+     "cash_contributions.cash_contribution_evidence_files-form-group",	
+     "cash_contributions.cash_contribution_evidence_files-errors"	
+   );	
 
-  document.title = "Error: <%= t('application.cash_contributions.page_title') %>";
+  document.title = "Error: <%= t('application.cash_contributions.page_title') %>";	
 
-  createSummaryErrorsSkeleton();
+  createSummaryErrorsSkeleton();	
 
-  var errorKeys = [];
+  var errorKeys = [];	
 
-  <% @funding_application.errors.each do |attr, msg| %>
+  <% @funding_application.errors.each do |error| %>	
 
-    errorKeys.push("<%= attr.to_s %>");
+    errorKeys.push("<%= attr.to_s %>");	
 
-    addSummaryError(
-      false,
-      "<%= attr %>",
-      "<%= msg %>",
-      "funding_application",
-      "cash_contributions"
-    );
+    addSummaryError(	
+      false,	
+      "<%= error.attribute %>",	
+      "<%= error.message %>",	
+      "funding_application",	
+      "cash_contributions"	
+    );	
 
-    addFormGroupError(
-      "<%= attr %>-form-group",
-      "<%= attr %>-errors",
-      "<%= attr %>",
-      "<%= msg %>",
-      "cash_contributions",
-      "funding_application"
-    );
+    addFormGroupError(	
+      "<%= error.attribute %>-form-group",	
+      "<%= error.attribute %>-errors",	
+      "<%= error.attribute %>",	
+      "<%= error.message %>",	
+      "cash_contributions",	
+      "funding_application"	
+    );	
 
-  <% end %>
+  <% end %>	
 
 <% end %>

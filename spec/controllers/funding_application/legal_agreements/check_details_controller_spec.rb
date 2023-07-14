@@ -6,7 +6,7 @@ RSpec.describe FundingApplication::LegalAgreements::CheckDetailsController do
 
     it "should have access to english translations that are paramterised, underscored versions of itself" do
 
-      # Simple test of the translations to check that each translation index is a key 
+      # Simple test of the translations to check that each translation index is a key
       # that is a parameterised, underscored version of the text it points at.
       # Technially this is testing that the translations the function needs are right,
       # not the function itself.
@@ -24,9 +24,9 @@ RSpec.describe FundingApplication::LegalAgreements::CheckDetailsController do
     it "should return New staff for key 'new_staff' when local is en-GB " do
 
       I18n.locale = 'en-GB'
-      
+
       expect(subject.get_translation("New staff")).to eq("New staff")
-      
+
     end
 
     # Technically this test the underlying get_translation helper method
@@ -39,21 +39,18 @@ RSpec.describe FundingApplication::LegalAgreements::CheckDetailsController do
       ensure
         I18n.locale = 'en-GB'
       end
-      
+
     end
 
     # Technically this test the underlying get_translation helper method
     it "should raise an exception for an unknown key" do
-      
-      expect{subject.get_translation("unknown key")}.to \
-        raise_error(
-          StandardError, 
-          'translation missing for cost heading unknown key'
-        )
-          
-    end
 
+      expect(subject.get_translation("unknown key")).to eq(
+        "Translation missing: en-GB.salesforce_text.project_costs.unknown_key"
+      )
+
+    end
 
   end
 
-end
+ end

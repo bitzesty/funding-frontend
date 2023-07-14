@@ -252,13 +252,32 @@ If Homebrew is already installed, update it by running `brew update`.
 If Homebrew is not already installed, run 
 `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` to install it.
 
-### Install rbenv
+### Install rbenv - for Ruby 2.6.5
+
+On WSL2, rbenv is suitable for Ruby 2.6.5 only.  Use RVM for Ruby 3.1.0 if you are on WSL2 (instructions below).
 
 Run `brew install rbenv` to install the latest version of [rbenv](https://github.com/rbenv/rbenv).
 
 Run `rbenv init`, which will run some commands to allow `rbenv` to work with `zsh`, like updating the path.
 
 Add `eval "$(rbenv init -)"` to your `~/.zshrc` profile.
+
+### Install RVM – for Ruby 3.1.0
+
+On WSL 2 there were rbenv issues compiling Ruby 2.6.5 with a working openssl library.
+RVM seems the best alternative. It downloads the compiled 3.1.0 Ruby binary.
+
+Firstly, uninstall rbenv.   
+
+$ brew uninstall ruby-builld 
+
+$ sudo apt remove rbenv 
+
+Install GPG keys used to verify installation package: 
+
+Follow the installation instructions at https://github.com/rvm/ubuntu_rvm 
+
+Follow the instructions at https://github.com/rvm/rvm for info on how to use RVM 
 
 ### Install PostgreSQL
 

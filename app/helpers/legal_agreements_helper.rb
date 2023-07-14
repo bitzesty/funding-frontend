@@ -35,7 +35,7 @@ module LegalAgreementsHelper
     result = nil
     
     # At this point, the encoded_signatory_id is a URI encoded string
-    base64_encoded_signatory_id = URI.decode(encoded_signatory_id)
+    base64_encoded_signatory_id = URI.decode_www_form_component(encoded_signatory_id)
 
     # After URI decoding, we are left with a Base64 encoded string
     encrypted_signatory_id = Base64.decode64(base64_encoded_signatory_id)
@@ -112,7 +112,7 @@ module LegalAgreementsHelper
       "URI encoding LegalSignatory ID: #{legal_signatory_id}"
     )
 
-    URI.encode(base64_encoded)
+    URI.encode_www_form_component(base64_encoded)
 
   end
 

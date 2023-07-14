@@ -40,12 +40,12 @@
 
         <% end %>
 
-        <% @funding_application.project.errors.each do |attr, msg| %>
+        <% @funding_application.project.errors.each do |error| %>
 
-          <% unless attr.to_s == 'project_costs' %>
+          <% unless error.attribute.to_s == 'project_costs' %>
             <li>
-              <a href='#project_project_costs_attributes_0_<%= "#{attr.to_s.split('.')[1]}" %>'>
-                <%= msg %>
+              <a href='#project_project_costs_attributes_0_<%= "#{error.attribute.to_s.split('.')[1]}" %>'>
+                <%= error.message %>
               </a>
             </li>
           <% end %>

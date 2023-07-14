@@ -24,27 +24,27 @@
   mainFormElement = document.getElementById("is_partnership-form-group");
   mainFormElement.classList.add("govuk-form-group--error");
 
-  <% @funding_application.open_medium.errors.each do |attr, msg| %>
+  <% @funding_application.open_medium.errors.each do |error| %>
 
-    errorKeys.push("<%= attr.to_s %>");
+    errorKeys.push("<%= error.attribute.to_s %>");
 
     addSummaryError(
       false,
-      "<%= attr %>",
-      "<%= msg %>",
+      "<%= error.attribute %>",
+      "<%= error.message %>",
       "open_medium"
     );
 
     addFormGroupError(
-      "<%= attr %>-form-group",
-      "<%= attr %>-errors",
-      "<%= attr %>",
-      "<%= msg %>",
+      "<%= error.attribute %>-form-group",
+      "<%= error.attribute %>-errors",
+      "<%= error.attribute %>",
+      "<%= error.message %>",
       "open_medium"
     );
 
-    if ("<%= attr %>" === "partnership_details") {
-      inputElement = document.getElementById("open_medium_<%= attr %>");
+    if ("<%= error.attribute %>" === "partnership_details") {
+      inputElement = document.getElementById("open_medium_<%= error.attribute %>");
       inputElement.classList.add("govuk-textarea--error");
     }
 

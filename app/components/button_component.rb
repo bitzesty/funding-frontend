@@ -3,8 +3,10 @@ class ButtonComponent < ViewComponent::Base
   # See examples of this component at:
   # /rails/components/button_component/
 
-  # https://github.com/github/actionview-component#content-areas
-  with_content_areas :html
+  # https://github.com/github/actionview-component#content-areas 
+  # DEPRECATED use Slots instead
+  # https://viewcomponent.org/guide/slots.html
+  renders_many :html
 
   # API for the button component based on GOVUK Design System
   # https://design-system.service.gov.uk/components/button/

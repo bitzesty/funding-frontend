@@ -2,7 +2,7 @@
 applications:
   - name: funding-frontend-training
     buildpacks:
-      - https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.13
+      - https://github.com/cloudfoundry/ruby-buildpack.git#v1.8.53
     env:
       RAILS_ENV: training
     services:

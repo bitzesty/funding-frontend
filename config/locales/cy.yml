@@ -349,6 +349,8 @@ cy:
               too_long: "Mae'n rhaid i ddisgrifiad o sut y byddwch yn bodloni'r canlyniad hwn fod yn 300 gair neu lai"
         open_medium:
           attributes:
+            first_fund_application:
+              inclusion: "Dewiswch ai hwn yw eich cais cronfa cyntaf"
             received_advice_description:
               too_long: "Mae'n rhaid i ddisgrifiad o'r cyngor a gawsoch wrth gynllunio a chan bwy fod yn %{word_count} gair neu lai"  
             recent_project_title:

@@ -1,5 +1,4 @@
 module ApplicationHelper
-  require_relative './nlhf_form_builder'
   require 'uri'
   include Project::CalculateTotalHelper
 

@@ -349,6 +349,8 @@ en-GB:
               too_long: "Description of how you will meet this outcome must be 300 words or fewer"
         open_medium:
           attributes:
+            first_fund_application:
+              inclusion: "Select if this is your first fund application"
             received_advice_description:
               too_long: "Description of advice you have received in planning and who from must be %{word_count} words or fewer"
             recent_project_title:
@@ -426,7 +428,7 @@ en-GB:
               blank: "Enter a description of how your heritage is at risk"
               too_long: "Description of how your heritage is at risk must be %{word_count} words or fewer"
             jobs_or_apprenticeships_description:
-              too_long: "Description of any jobs or apprentcieships that you will create must be %{word_count} words or fewer"
+              too_long: "Description of any jobs or apprenticeships that you will create must be %{word_count} words or fewer"
             hd_grade_1_description:
               not_a_number: "Amount of Grade I or Grade A listed buildings must be a number, like 10"
               greater_than: "Amount of Grade I or Grade A listed buildings must be greater than 0"

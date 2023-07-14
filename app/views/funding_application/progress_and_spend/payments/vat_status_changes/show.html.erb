@@ -15,21 +15,21 @@
     </h2>
     <div class="govuk-error-summary__body">
       <ul class="govuk-list govuk-error-summary__list">
-        <% @payment_request.errors.each do |attr, error| %>
+        <% @payment_request.errors.each do |attribute| %>
 
-          <% case attr %>
+          <% case attribute.attribute %>
             <% when :vat_status_changed %>
 
               <li>
                 <a href="#payment_request_vat_status_changed_false">
-                  <%= error %>
+                  <%= attribute.message %>
                 </a>
               </li>
 
             <% when :vat_number %>
               <li>
                 <a href="#payment_request_vat_number">
-                  <%= error %>
+                  <%= attribute.message %>
                 </a>
               </li>
 
