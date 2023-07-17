@@ -34,7 +34,7 @@
   form_with model: @funding_application.project,
   url: :funding_application_gp_project_accounts,
   method: :put,
-  remote: no_js ? false : true do |f|
+  local: no_js ? true : false do |f|
 %>
 
   <%=

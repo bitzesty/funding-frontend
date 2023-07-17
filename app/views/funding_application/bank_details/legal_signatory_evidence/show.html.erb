@@ -58,7 +58,7 @@
     form_with model: @funding_application.payment_details,
     url: :funding_application_bank_details_legal_signatory_evidence,
     method: :post,
-    remote: no_js ? false : true do |f|
+    local: no_js ? true : false do |f|
   %>
 
     <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">

@@ -63,7 +63,7 @@
   form_with model: @funding_application.project,
   url: :funding_application_gp_project_evidence_of_support,
   method: :put,
-  remote: no_js ? false : true do |f|
+  local: no_js ? true : false do |f|
 %>
 
   <%=

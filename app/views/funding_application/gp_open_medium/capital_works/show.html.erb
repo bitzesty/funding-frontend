@@ -34,7 +34,7 @@
   form_with model: @funding_application.open_medium,
   url: :funding_application_gp_open_medium_capital_works,
   method: :put,
-  remote: no_js ? false : true do |f|
+  local: no_js ? true : false do |f|
 %>
 
   <%=

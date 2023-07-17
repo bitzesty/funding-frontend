@@ -26,7 +26,7 @@
   form_with model: @funding_application,
   url: :funding_application_additional_documents,
   method: :put,
-  remote: no_js ? false : true do |f|
+  local: no_js ? true : false do |f|
 %>
 
   <div class="govuk-form-group <%= "govuk-form-group--error" if 

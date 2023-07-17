@@ -122,7 +122,7 @@
   form_with model: @funding_application.payment_details,
             url: :funding_application_payment_request_confirm_bank_details,
             method: :put,
-            remote: no_js ? false : true do |f|
+            local: no_js ? true : false do |f|
 %>
 
   <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
@@ -231,7 +231,7 @@
     form_with model: @funding_application.payment_details,
               url: :funding_application_payment_request_confirm_bank_details_submitted,
               method: :put,
-              remote: no_js ? false : true do |f|
+              local: no_js ? true : false do |f|
   %>
 
     <div class="govuk-warning-text">

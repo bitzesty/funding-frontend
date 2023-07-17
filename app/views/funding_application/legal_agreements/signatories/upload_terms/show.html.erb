@@ -26,7 +26,7 @@
   form_with model: @model_object,
   url: :funding_application_signatories_upload_terms_and_conditions,
   method: :put,
-  remote: no_js ? false : true do |f|
+  local: no_js ? true : false do |f|
 %>
 
   <%=
@@ -45,7 +45,7 @@
   form_with model: @model_object,
   url: :funding_application_signatories_submit_uploaded_terms_and_conditions,
   method: :put,
-  remote: false do |f|
+  local: true do |f|
 %>
 
   <%=
