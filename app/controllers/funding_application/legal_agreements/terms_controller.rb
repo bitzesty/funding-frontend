@@ -32,25 +32,6 @@ class FundingApplication::LegalAgreements::TermsController < ApplicationControll
     @section_start_html = SECTION_START_HTML
     @section_end_html = SECTION_END_HTML
 
-    # This was duplicated from sign terms controller during a bug fix.  
-    # Given time, would be good to write a helper function to consolidate the
-    # filenames in one place.  Maybe cater for the signatory download links 
-    # too.
-    @download_link = 
-      '/terms_and_conditions/Applicant only National Lottery Heritage Fund terms and ' \
-        'conditions for £3,000 to £10,000.docx' \
-          if @funding_application.is_3_to_10k?
-
-    @download_link = 
-      '/terms_and_conditions/Applicant only National Lottery Heritage ' \
-        'Fund terms and conditions for £10,000 to £100,000.docx' \
-          if @funding_application.is_10_to_100k?
-
-    @download_link = 
-      '/terms_and_conditions/Applicant only National Lottery Heritage ' \
-        'Fund terms and conditions for £100,000 to £250,000.docx' \
-          if @funding_application.is_100_to_250k?
-    
     store_page_content(render_to_string(:show))
     
   end

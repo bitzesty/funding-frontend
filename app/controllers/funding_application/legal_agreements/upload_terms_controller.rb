@@ -13,23 +13,6 @@ class FundingApplication::LegalAgreements::UploadTermsController < ApplicationCo
 
     set_model_object(@funding_application, current_user)
 
-    @download_link = 
-      '/terms_and_conditions/Signatory only National Lottery Heritage Fund terms and ' \
-        'conditions for £3,000 to £10,000.docx' \
-          if @funding_application.is_3_to_10k?
-         
-    
-    @download_link = 
-      '/terms_and_conditions/Signatory only National Lottery Heritage ' \
-        'Fund terms and conditions for £10,000 to £100,000.docx' \
-          if @funding_application.is_10_to_100k?
-          
-    
-    @download_link = 
-      '/terms_and_conditions/Signatory only National Lottery Heritage ' \
-        'Fund terms and conditions for £100,000 to £250,000.docx' \
-          if @funding_application.is_100_to_250k?          
-
   end
 
   def update

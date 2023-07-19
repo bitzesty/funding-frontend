@@ -113,13 +113,29 @@
       <%= t('agreement.includes_list.item_1') %>
     </li>
 
-    <li>
-      <%= t('agreement.includes_list.item_2') %>
-    </li>
+    <% if @funding_application.is_3_to_10k? || @funding_application.is_10_to_100k? %>
+      <li>
+        <%= t('agreement.includes_list.item_2') %>
+      </li>
+    <% end %>
 
-    <li>
-      <%= t('agreement.includes_list.item_3') %>
-    </li>
+    <% if@funding_application.is_100_to_250k? %>
+      <li>
+        <%= t('agreement.includes_list.item_2_over_100k') %>
+      </li>
+    <% end %>
+
+    <% if @funding_application.is_3_to_10k? || @funding_application.is_10_to_100k? %>
+      <li>
+        <%= t('agreement.includes_list.item_3_up_to_100k') %>
+      </li>
+    <% end %>
+
+    <% if @funding_application.is_100_to_250k? %>
+      <li>
+        <%= t('agreement.includes_list.item_3_over_100k') %>
+      </li>
+    <% end %>
 
     <li>
       <%=

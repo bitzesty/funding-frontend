@@ -86,7 +86,9 @@ cy:
     includes_list:
       item_1: "gweithgareddau, fel arddangosfa, neu ddigwyddiad heb Allbynnau Digidol, mae'r telerau Grant hyn yn dod i ben ar Ddyddiad Cwblhau'r Prosiect,"
       item_2: "Allbynnau Digidol, fel creu gwefan, bydd y telerau Grant hyn yn gymwys tan 5 mlynedd ar ôl Dyddiad Cwblhau'r Prosiect, os ydych yn sefydliad dielw. Os ydych chi'n unigolyn preifat neu'n sefydliad masnachol er elw, bydd y telerau'n berthnasol am 10 mlynedd ar ôl Dyddiad Cwblhau'r Prosiect,"
-      item_3: "gwaith cyfalaf, fel adeilad neu adfer, bydd y telerau Grant hyn yn gymwys tan 20 mlynedd ar ôl Dyddiad Cwblhau'r Prosiect,"
+      item_2_over_100k: "o ran Allbynnau Digidol, fel creu gwefan, bydd tymor y Grant yn berthnasol tan 20 mlynedd ar ôl Dyddiad Cwblhau'r Prosiect,"
+      item_3_up_to_100k: "o ran gwaith cyfalaf, fel adeiladu estyniad neu waith adfer, bydd tymor y Grant yn berthnasol tan 5 mlynedd ar ôl Dyddiad Cwblhau'r Prosiect. O ran unigolyn preifat neu sefydliad masnachol sy'n gwneud elw, bydd y tymor yn berthnasol am 10 mlynedd ar ôl Dyddiad Cwblhau'r Prosiect,"
+      item_3_over_100k: "o ran gwaith cyfalaf, fel adeiladu estyniad neu waith adfer, bydd tymor y Grant yn berthnasol tan 20 mlynedd ar ôl Dyddiad Cwblhau'r Prosiect,"
       item_4_html: "prynu eitem dreftadaeth, tir neu adeilad, bydd y telerau Grant hyn yn berthnasol am gyfnod amhenodol. Os ydych am werthu, dinistrio neu waredu'r hyn yr ydych wedi'i brynu yn y dyfodol, mae'n rhaid i chi ofyn am ein caniatâd a gallwn hawlio'n ôl y cyfan, neu ran o'ch Grant neu ofyn am gyfran o'r enillion yn gymesur â gwerth y Grant. Mae rhagor o wybodaeth am hyn ar gael yn ein %{href}."
       item_4_href: "canllawiau ar Berchenogaeth Eiddo"
     projects_must_list:
