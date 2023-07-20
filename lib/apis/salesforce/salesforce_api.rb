@@ -1727,8 +1727,11 @@
 
       large_applications = []
 
+      # allows emails to contain apostrophes
+      escaped_email = email.gsub(/[']/,"\\\\'")
+
       users = @client.query("SELECT AccountId, Id FROM Contact WHERE Id " \
-        "IN (SELECT ContactId FROM User where email = '#{email}' " \
+        "IN (SELECT ContactId FROM User where email = '#{escaped_email}' " \
           "AND profile.name = 'NLHF Portal Login User') ")
       
       if users.length == 1
@@ -3562,8 +3565,11 @@
       
       unless contact_salesforce_id
 
+        # allows emails to contain apostrophes
+        escaped_email = user.email.gsub(/[']/,"\\\\'")
+
         contact_collection_from_salesforce = 
-          @client.query("select Id from Contact where Email = '#{user.email}'")
+          @client.query("select Id from Contact where Email = '#{escaped_email}'")
 
         contact_salesforce_id = contact_collection_from_salesforce&.first&.Id
 

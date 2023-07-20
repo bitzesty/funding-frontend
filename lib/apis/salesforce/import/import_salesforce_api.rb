@@ -107,14 +107,17 @@ module ImportSalesforceApi
     #   Restforce Response object containing matching SF contact details.
     def retrieve_existing_sf_contact_info_by_email(email, current_user_id)
 
+      # allows emails to contain apostrophes
+      escaped_email = email.gsub(/[']/,"\\\\'")
+
       query = "SELECT Id, LastName, FirstName, MiddleName, Email, " \
         "Birthdate, Language_Preference__c, Phone, MobilePhone, " \
           "MailingAddress, LastModifiedDate, Agrees_To_User_Research__c, " \
             "Other_communication_needs_for_contact__c " \
               "FROM Contact " \
-                "WHERE Email = '#{email}' " \
+                "WHERE Email = '#{escaped_email}' " \
                   "AND Id NOT IN " \
-                    "(SELECT ContactId FROM User where email = '#{email}' " \
+                    "(SELECT ContactId FROM User where email = '#{escaped_email}' " \
                       "AND profile.name = 'Applicant Community User') "
 
       restforce_response = run_salesforce_query(
