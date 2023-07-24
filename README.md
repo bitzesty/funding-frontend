@@ -1,8 +1,11 @@
 # funding-frontend
 
-## Running locally on Ubuntu WSL2 
+## Running locally on Ubuntu WSL2
 
-### Setting up WSL2 with Ubuntu 
+### Setting up WSL2 with Ubuntu
+
+Firstly, check that WSL is on within Windows features.
+Secondly, check that Hyper-V is on within Windows features.
 
 Open a new windows terminal or powershell instance.
 
@@ -46,25 +49,7 @@ sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
 sudo chattr +i /etc/resolv.conf
 ```
 
-### Install Homebrew 
-
-`/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"` 
-
-then followed on screen instructions for adding to path and installing brew dependencies,  
-
-Adding to a bash path: 
-
-`(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/<user>/.profile` 
-
-`eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"` 
-
-`sudo apt get install build essential `
-
-`Brew install gcc` 
- 
-Test with: 
-
-`brew –help` 
+Restart terminal to take effect.
 
 ### Install ZShell (optional) 
 
@@ -95,44 +80,17 @@ fi
 Then restart your terminal instance. You should see a newly styled ZSH terminal. An example guide on how to customise the shell further to your needs can be found [here](https://blog.joaograssi.com/windows-subsystem-for-linux-with-oh-my-zsh-conemu/).  
 
 
-### Install rbenv 
+### Install RVM
 
-Note: There are options to install via apt, git or homebrew.  
+Follow the installation instructions at https://github.com/rvm/ubuntu_rvm
 
-It was found that homebrew (the recommended option) had path issues, and as such `apt` provided the easiest installation. 
+Follow the instructions at https://github.com/rvm/rvm for info on how to use RVM
 
+You can test by writing some ruby
 
-`sudo apt install rbenv` 
+$ irb
 
-To install rbenv, then 
-
-`rbenv init` 
-
-Then add to your relevant profile as instructed, then  
-
-`brew install ruby-build` 
-
-Which is required to install ruby,  then 
-
-`rbenv install 2.6.5` 
-
-Which installs ruby, then  
-
-If you receive an error with Zlib, install the missing header libraries with  
-
-`sudo apt-get install -y libreadline-dev zlib1g-dev` 
-
-(Needed when adding ruby 2.6.5 to Ubuntu v20.*) 
-
-Finally, if you want to set a particular ruby version across the machine 
-
-`rbenv global 2.6.5` 
-
-You can test by opening a ruby console
-
-`irb` 
-
-`puts("a string")` 
+$ puts("a string")
 
 
 ### Install and setup Postgres 
@@ -151,17 +109,15 @@ Then test with
 
 `psql –version`
 
-Start postgres with the command below. See link for other commands: 
+Start postgres manually with the command below. There are instructions to automate later in this document.  See link for other commands:
 
 `sudo service postgresql start`
-
-Note: This may need manually starting after reboot – check. 
 
 #### Create a Postgres User  
 
 The username should match your Ubuntu username, for which you installed Rails. 
 
-`sudo -u postgres createuser -s <username>` 
+`sudo -u postgres createuser -s <YOUR USER>`
 
 Check the user by logging into psql with 
 
@@ -179,174 +135,109 @@ Then while still in PSQL, create the database
  # create database funding_frontend_development;  
 ```
 
-### Installing & Running Rails 
+### Script startup services
 
-#### Postgres gem dependency 
+These steps will sync your Ubuntu clock from the host machine, the start the postgres server when the host is started. 
 
-libpq-fe.h is needed to run the pg gem on Ubuntu.  These are psql devtools. 
+Firstly allow the postgresql service and hwclock to run without sudo by navigating to the /etc/sudoers.d folder with
 
-`sudo apt-get install libpq-dev` 
-
-
-#### bundler 
-
-`gem install bundler` 
-
-Now update bundler to support our old version of rails: 
-
-`gem update --system 3.2.3` 
-
-
-#### Rails 
-
-At the time of writing we use Rails 6.1.3.2.  This needs an old version of nokogiri to be installed first 
-
-`gem install nokogiri -v 1.13.10` 
-
-`gem install rails -v 6.1.3.2` 
-
-
-#### Spinning up FFE 
-
-Firstly, add the .env file.  Get this from another dev or from 1password.  Copy to the root of your cloned folder and ensure you have completed the database steps from the postres section above. 
-
-Next install gems 
-
-`bundle install` 
-
-Next install node.js so that the Yarn dependencies can be met 
- 
-`sudo apt-get install nodejs` 
-
-Next install Yarn 
-
-`brew install yarn` 
-
-And run the yarn install: 
-
-`yarn install --check-files` 
-
-Next setup the database for FFE with  
-
-`bundle exec rails db:setup` 
-
-`bundle exec rails db:migrate` 
-
-Then run FFE with 
-
-`bundle exec rails server`
-
-The application will now be running locally and can be accessed by navigating to https://localhost:3000 in your browser. 
-
-
-
-## Running locally on macOS
-
-### Install Homebrew
-
-Check to see if [Homebrew](https://brew.sh) is installed by running `which brew` in a terminal. If already 
-installed you'll get output similar to `/usr/local/bin/brew`, otherwise the command will return `brew not found`.
-
-If Homebrew is already installed, update it by running `brew update`. 
-
-If Homebrew is not already installed, run 
-`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` to install it.
-
-### Install rbenv - for Ruby 2.6.5
-
-On WSL2, rbenv is suitable for Ruby 2.6.5 only.  Use RVM for Ruby 3.1.0 if you are on WSL2 (instructions below).
-
-Run `brew install rbenv` to install the latest version of [rbenv](https://github.com/rbenv/rbenv).
-
-Run `rbenv init`, which will run some commands to allow `rbenv` to work with `zsh`, like updating the path.
-
-Add `eval "$(rbenv init -)"` to your `~/.zshrc` profile.
-
-### Install RVM – for Ruby 3.1.0
-
-On WSL 2 there were rbenv issues compiling Ruby 2.6.5 with a working openssl library.
-RVM seems the best alternative. It downloads the compiled 3.1.0 Ruby binary.
-
-Firstly, uninstall rbenv.   
-
-$ brew uninstall ruby-builld 
-
-$ sudo apt remove rbenv 
-
-Install GPG keys used to verify installation package: 
-
-Follow the installation instructions at https://github.com/rvm/ubuntu_rvm 
-
-Follow the instructions at https://github.com/rvm/rvm for info on how to use RVM 
-
-### Install PostgreSQL
-
-Run `brew install postgres` to install the latest version of [PostgreSQL](https://www.postgresql.org).
-
-### Install the recommended version of Ruby
-
-We specify a recommended version of Ruby in the [`.ruby-version`](.ruby-version) file in funding-frontend. 
-To install this recommended version of Ruby, use rbenv by running `rbenv install x.y.z` inside the application 
-directory (where `x.y.z` is replaced with the version number specified in [`.ruby-version`](.ruby-version)).
-
-
-You may need to run `rbenv global x.y.z` to switch your terminal to use the new version.
-
-### Install the PostgreSQL app
-
-Download and install [Postgres.app](https://postgresapp.com).
-
-Run the Postgres app.
-
-### Configure the necessary environment variables
-
-Create an empty `.env` file in your application directory by running `touch .env` in a terminal.
-
-The necessary environment variables in order to run the application are stored in the team's shared
-1Password vault. If you don't have access to the shared 1Password vault, contact @stuartmccoll or @ptrelease.
-
-With access to the vault, copy the contents of `funding-frontend.env` into your own `.env` file.
-
-### Install the PostgreSQL Gem
-
-Install the PostgreSQL Gem, telling it the path of PostgreSQL. If PostgreSQL is installed in a default 
-location, the command will look like:
-
-```bash
-gem install pg -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/latest/bin/pg_config
+```
+cd /etc/sudoers.d
 ```
 
-### Install Bundler
+Then create a new file with no full stop or tilda in the name:
 
-Run `gem install bundler` to install [Bundler](https://bundler.io).
+```
+Touch startupservices01
+```
 
-### Install Yarn
+Edit the file and add the following lines.  The file must end with a new line.
 
-Run `brew install yarn` to install [Yarn]((https://yarnpkg.com/lang/en/docs/install/#mac-stable)).
+```
+%sudo ALL=(ALL) NOPASSWD: /usr/sbin/service postgresql *
+%sudo ALL=(ALL) NOPASSWD: /usr/sbin/hwclock *
+```
 
-### Install necessary application dependencies
+Next create a batch file, used by Windows startup, to start postgres and sync the clock.
 
-Run `bundle install` to install the Ruby dependencies necessary for the application to run. These are 
-specified in the application's `Gemfile`.
+First, press Windows+r, to open the run dialog, and enter:
 
-Run `yarn install` to install the Yarn dependencies necessary for the application to run. These are
-specified in the application's `package.json` and `yarn.lock` files.
+```
+shell:startup
+```
 
-### Initialise the database
+This opens the startup folder.  Create a new txt file that contains:
 
-Run `bundle exec rails db:setup` in your terminal.  If the database needs creating, run
-`psql` then `create database funding_frontend_development;`.
+```
+wsl sudo hwclock --hctosys
+
+wsl sudo service postgresql start
+```
+
+Save the file, then change the extension from txt to bat
+
+Next time the host machine is started, this batch file will execute, and startupservices01 will negate the need for the user’s password.
+
+### Installing & Running Rails
+
+#### Postgres gem dependency
+
+libpq-fe.h is needed to run the pg gem on Ubuntu.  These are psql devtools.
+
+`sudo apt-get install libpq-dev`
+
+
+#### bundler
+
+`gem install bundler -v 2.3.11`
+
+#### Rails
+
+`gem install rails -v 7.0.6`
+
+
+#### Spinning up FFE
+
+Firstly, add the .env file.  Get this from another dev or from password manager.  Copy to the root of your cloned folder and ensure you have completed the database steps from the postres section above.
+
+Next install gems
+
+`bundle install`
+
+Next install v16.14.2 of node so that the Yarn dependencies can be met
+
+[Consider NVM](https://github.com/nvm-sh/nvm) as a way to manage and install node versions.
+
+Next install npm if you haven't done so already
+
+`sudo apt install nodejs npm`
+
+Next install yarn
+
+`sudo npm install -g yarn`
+
+And run the yarn install:
+
+`yarn install --check-files`
+
+Next setup the database for FFE with
+
+`bundle exec rails db:setup`
+
+`bundle exec rails db:migrate`
 
 Run `bundle exec rails db:seed` in your terminal. This will have the effect of populating
 relevant database tables with the necessary rows to run the application.
 
-### Running the funding-frontend application
+Then run FFE with
 
-Run `bundle exec rails server` (or `bundle exec rails s` for a shorter command) in your terminal. 
-The application will now be running locally and can be accessed by navigating to 
-`https://localhost:3000` in your browser.
+`bundle exec rails server`
 
----
+The application will now be running locally and can be accessed by navigating to https://localhost:3000 in your browser. Use 127.0.0.1:3000 if localhost doesn't resolve.
+
+To get past the open-ssl issue run this command
+
+`sudo apt install libssl-dev=1.1.1l-1ubuntu1.4  openssl=1.1.1l-1ubuntu1.4`
 
 ## Running the automated test suite
 
