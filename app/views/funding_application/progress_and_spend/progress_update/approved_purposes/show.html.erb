@@ -123,7 +123,7 @@
               ap.check_box :entering_update,
               {
                 class: "govuk-checkboxes__input",
-                'data-aria-controls' => 'conditional-description-conditional'
+                "data-aria-controls" => "conditional-description-#{ap.object_name.parameterize.underscore}"
               },
               'true',
               'false'
@@ -138,7 +138,7 @@
           </div>
 
           <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
-            id="conditional-description-conditional">
+            id=<%="conditional-description-#{ap.object_name.parameterize.underscore}"%>>
 
             <%=
               render partial: "partials/form_input_errors",
