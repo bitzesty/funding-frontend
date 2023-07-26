@@ -252,12 +252,10 @@ module LegalAgreementsHelper
 
     # send to applicant
     send_legal_signatory_email(legal_signatory.email_address, 
-        funding_application, agreement_link, ".")
+      funding_application, agreement_link, ".")
 
-    
-    logger.info "Sig link mail sent to #{legal_signatory.email_address} " \
-      "for legal_signatory.id #{legal_signatory.id} and "
-        "for funding_application ID: #{@funding_application.id}"
+    Rails.logger.info "Sig link mail sent for legal_signatory.id #{legal_signatory.id} and " \
+      "for funding_application ID: #{funding_application.id}"
 
     # copy to support
     send_legal_signatory_email(
@@ -266,10 +264,8 @@ module LegalAgreementsHelper
       " FAO - #{legal_signatory.email_address}"
     )
 
-    logger.info "Support link mail sent to "
-      "#{Rails.configuration.x.no_reply_email_address} " \
-        "for legal_signatory.id #{legal_signatory.id} and "
-          "for funding_application ID: #{@funding_application.id}"
+    Rails.logger.info "Support copy of link mail sent for legal_signatory.id #{legal_signatory.id} and " \
+      "for funding_application ID: #{funding_application.id}"
 
   end
 
