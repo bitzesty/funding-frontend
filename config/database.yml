@@ -9,6 +9,7 @@ default: &default
   database: funding_frontend_development
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  host: host.docker.internal
 
 development:
   <<: *default
