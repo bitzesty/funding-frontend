@@ -4,7 +4,8 @@ module FundingApplicationContext
   extend ActiveSupport::Concern
   include FundingApplicationHelper
   included do
-    before_action :authenticate_user!, :set_funding_application
+    before_action :authenticate_user!
+    before_action :set_funding_application
   end
 
   # This method retrieves a FundingApplication object based on the id
@@ -15,7 +16,6 @@ module FundingApplicationContext
   # If no FundingApplication object matching the parameters is found,
   # then the user is redirected to the applications dashboard.
   def set_funding_application
-
     @funding_application = FundingApplication.find_by(
       id: params[:application_id],
       organisation_id: current_user.organisations.first&.id

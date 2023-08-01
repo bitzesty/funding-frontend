@@ -203,6 +203,67 @@ RSpec.describe FundingApplicationContext do
     end
 
   end
+  
+end  
 
-end
+  # Further work needed on tests to assert if before_action: :authenticate_user! is being called. leaving comments for reference. 
 
+#   describe "set_funding_application failure scenario - invalid funding application" do
+#    login_user
+
+#    let(:legal_signatory) {
+#     create(
+#       :legal_signatory,
+#       id: '1',
+#       name: 'Joe Bloggs',
+#       email_address: 'joe@bloggs.com',
+#       phone_number: '07000000000'
+#     )
+#   }
+
+#   before do
+
+#     subject.current_user.organisations.first.update(
+#       name: 'Test Organisation',
+#       line1: '10 Downing Street',
+#       line2: 'Westminster',
+#       townCity: 'London',
+#       county: 'London',
+#       postcode: 'SW1A 2AA',
+#       org_type: 1
+#     )
+    
+#   end
+
+#   let(:funding_application) {
+#     create(
+#       :funding_application,
+#       id: "id",
+#       organisation_id: subject.current_user.organisations.first.id,
+#       submitted_on: Date.new
+#     )
+#   }
+
+#   before {
+#     get :fake_action,
+#         params: {
+#             application_id: funding_application.id
+#         }
+#   }
+
+#     sign_out_user
+#     it "should redirect to root if the current user is not logged in " do
+#       expect(response).to have_http_status(:redirect)
+#       expect(response).to redirect_to(:root)
+#     end
+
+#   end
+
+#   # describe "authenticate_user! should be called before set_funding_application" do
+  
+    
+#   #   it "should authenticate user and redirect to root " \
+#   # end  
+# end
+
+# # we want to assert that authenticate_user! is called before set_funding_application

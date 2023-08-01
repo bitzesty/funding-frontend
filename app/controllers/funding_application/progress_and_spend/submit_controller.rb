@@ -1,7 +1,6 @@
 class FundingApplication::ProgressAndSpend::SubmitController < ApplicationController
   include FundingApplicationContext
   include ProgressAndSpendHelper
-  before_action :authenticate_user!
   
     def show()
       initialise_view
