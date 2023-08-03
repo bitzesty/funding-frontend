@@ -283,6 +283,16 @@ UPDATE flipper_gates SET value = true WHERE feature_key = '<key_name>';
 
 ## Docker
 
+If you are building the image locally, you need to change the `database.yml` file
+so that `host:localhost` is commented out for the development environment:
+
+```
+development:
+  <<: *default
+  # comment out line below if you want to build the docker container locally.
+  # host: localhost
+```
+
 Build a docker image with:
 
 ```

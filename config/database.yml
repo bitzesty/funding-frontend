@@ -13,6 +13,8 @@ default: &default
 
 development:
   <<: *default
+  # comment out line below if you want to build the docker container locally.
+  host: localhost
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
