@@ -360,6 +360,7 @@ module ImportHelper
         "CREATE TEMP TABLE reconnection_projects(" \
         "owner_name VARCHAR(200)," \
         "project_title VARCHAR(255)," \
+        "project_area VARCHAR(255)," \
         "project_reference_number VARCHAR(100)" \
         ");"
 
@@ -367,22 +368,24 @@ module ImportHelper
       projects_for_reconnection.each do |project|
         name = ActiveRecord::Base.connection.quote(project.Owner.Name)
         title = ActiveRecord::Base.connection.quote(project.Project_Title__c)
+        area = ActiveRecord::Base.connection.quote(project.Region__c)
         ref = ActiveRecord::Base.connection.quote(
           project.Project_Reference_Number__c)
 
         pop_temp_table_sql << "INSERT INTO reconnection_projects VALUES (" \
-          "#{name}, #{title}, #{ref});"
-
+          "#{name}, #{title}, #{ref}, #{area});"
+          
       end
 
       report_sql =
         "select rp.owner_name, rp.project_reference_number, " \
-          "rp.project_title, fa.created_at as reconnected_at " \
-            "from reconnection_projects rp " \
-              "left outer join funding_applications fa " \
-                "on rp.project_reference_number = " \
-                  "fa.project_reference_number " \
-                    "order by reconnected_at asc;"
+          "rp.project_area, rp.project_title, " \
+            "fa.created_at as reconnected_at " \
+              "from reconnection_projects rp " \
+                "left outer join funding_applications fa " \
+                  "on rp.project_reference_number = " \
+                    "fa.project_reference_number " \
+                      "order by reconnected_at asc;"
 
       Rails.logger.info("creating table for reconnection report")
       ActiveRecord::Base.connection.execute(create_temp_table_sql)
