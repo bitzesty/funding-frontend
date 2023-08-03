@@ -278,3 +278,21 @@ Update a `flipper_gates` row by running a SQL statement such as (after running
 ```postgresql
 UPDATE flipper_gates SET value = true WHERE feature_key = '<key_name>';   
 ```
+
+---
+
+## Docker
+
+Build a docker image with:
+
+```
+docker build -t [IMAGE NAME] --build-arg RAILS_RUNNING_USER=[USER NAME] .
+```
+
+The username must have a corresponding username on the database.
+
+Run the image with:
+
+```
+docker run  -p 3000:3000 [IMAGE NAME]
+```
