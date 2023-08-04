@@ -13,7 +13,7 @@ applications:
     processes:
       - type: web
         command: bundle exec rake cf:on_first_instance db:migrate && rails s -p $PORT
-        memory: 256M
+        memory: 2GB
         instances: 2
         health-check-type: http
         health-check-http-endpoint: /health
