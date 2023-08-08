@@ -204,6 +204,7 @@ cy:
                   not_a_number: "Mae'n rhaid i rif cwmni fod yn rhif, fel 12345678"
                 name:
                   blank: "Rhowch enw eich sefydliad"
+                  too_long: "Rhaid i Enw Sefydliad fod yn 225 nod neu lai"
                 line1:
                   blank: "Rhowch linell gyntaf cyfeiriad eich sefydliad"
                 townCity:
