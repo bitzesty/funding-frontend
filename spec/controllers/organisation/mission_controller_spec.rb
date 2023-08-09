@@ -110,6 +110,68 @@ RSpec.describe Organisation::MissionController do
 
     end
 
+    it "should successfully update if no mission params are passed" do
+
+      put :update, params: {
+          organisation_id: subject.current_user.organisations.first.id,
+          organisation: {
+              mission: []
+          }
+      }
+
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(:organisation_summary)
+
+      expect(assigns(:organisation).errors.empty?).to eq(true)
+      expect(assigns(:organisation)
+              .mission).to eq([])
+
+    end
+
+  end
+
+  # These tests specifically test the ensure_mission_params method
+   describe '#ensure_mission_params' do
+    
+    before do
+      controller.class.send(:public, :ensure_mission_params) # This makes the method available for testing as it is a private method
+    end
+
+    context 'when :organisation is present' do
+      context 'when :mission is already set' do
+        it 'does not change the mission' do
+          params = {
+            organisation: {
+              mission: ["female_led"],
+            }
+          }
+          allow(controller).to receive(:params).and_return(params)
+
+          controller.ensure_mission_params
+
+          expect(params[:organisation][:mission]).to eq(['female_led'])
+
+        end
+
+      end
+
+    end
+    
+    context 'when :mission is not set' do
+      it 'sets mission to an empty array' do
+        params = {
+          organisation: {}
+        }
+        allow(controller).to receive(:params).and_return(params)
+
+        controller.ensure_mission_params
+
+        expect(params[:organisation][:mission]).to eq([])
+
+      end
+
+    end
+
   end
 
 end
