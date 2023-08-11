@@ -33,5 +33,14 @@ class User::RegistrationsController < Devise::RegistrationsController
     NotifyMailer.confirmation_instructions_copy(resource).deliver_later
 
   end
+  
+  # Override the Devise::RegistrationsController update_resource method
+  # Ensures the email is not provided as a param to prevent it being updated
+  def update_resource(resource, params)
+  
+    params.delete(:email)
+
+    super
+  end
 
 end
