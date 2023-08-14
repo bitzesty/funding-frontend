@@ -37,7 +37,7 @@ yarn-debug.log*
 # Credentials - env is copied if present
 # but env is never present in source control.
 # so docker can only copy when running locally
-# .env
+.env
 
 # Ignore Mac specific files
 .DS_Store
