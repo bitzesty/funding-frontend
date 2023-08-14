@@ -306,3 +306,11 @@ Run the image with:
 ```
 docker run  -p 3000:3000 [IMAGE NAME]
 ```
+
+Docker is slightly stricter when parsing env files.
+
+* .dockerignore
+* .gitignore
+
+will ignore a file called .dockersenv if you want a separate env
+file for your docker container.

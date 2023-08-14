@@ -38,6 +38,7 @@ yarn-debug.log*
 # but env is never present in source control.
 # so docker can only copy when running locally
 .env
+.dockersenv
 
 # Ignore Mac specific files
 .DS_Store
