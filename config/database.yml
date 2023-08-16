@@ -6,10 +6,10 @@
 #
 default: &default
   adapter: postgresql
-  database: funding_frontend_development
+  database: <%= ENV.fetch("RAILS_DATABASE") {"funding_frontend_development"} %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  host: host.docker.internal
+  host: <%= ENV.fetch("RAILS_PG_HOST") {"host.docker.internal"} %>
 
 development:
   <<: *default
