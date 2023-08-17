@@ -6,7 +6,7 @@ FROM ruby:$RUBY_VERSION
 WORKDIR /docker/app
 
 # Install fundamentals, git, npm, node and yarn
-# This builds with a node v16.20.1 binary, so dev env needs to match that
+# This builds with a node v16.20.2 binary, so dev env needs to match that. (Github link https://github.com/nodesource/distributions )
 RUN apt-get update -qq && apt-get install -y build-essential apt-utils libpq-dev git \
     -y curl gnupg2 && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
