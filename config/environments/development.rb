@@ -104,5 +104,7 @@ Rails.application.configure do
   config.x.consumer.password = 'test'
 
   config.view_component.preview_path = "#{Rails.root}/spec/components/previews"
+
+  config.hosts << "ffe.azurewebsites.net"
   
 end

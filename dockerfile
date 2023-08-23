@@ -46,5 +46,5 @@ USER $RAILS_RUNNING_USER
 EXPOSE 3000
 
 # run rails server -b 0.0.0.0 -p 3000
-ENTRYPOINT ["rails","server", "-b", "0.0.0.0", "-p", "3000"]
+ENTRYPOINT sh ./web-entrypoint.sh
 
