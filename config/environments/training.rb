@@ -3,6 +3,9 @@ Rails.application.configure do
   
     # Code is not reloaded between requests.
     config.cache_classes = true
+
+    # Set azure as hosts
+    config.hosts << ENV.fetch("HOST_URI")
   
     # Eager load code on boot. This eager loads most of Rails and
     # your application in memory, allowing both threaded web servers
@@ -52,7 +55,7 @@ Rails.application.configure do
   
     # Use a different cache store in production.
     config.cache_store = :redis_cache_store, {
-        url: CF::App::Credentials.find_by_service_label('redis')['uri'],
+        url:  ENV.fetch("REDIS_URL"),
         connect_timeout:    30,
         read_timeout:       0.2,
         write_timeout:      0.2,
@@ -119,7 +122,7 @@ Rails.application.configure do
     # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
     # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
     # Send emails via notify
-    config.action_mailer.default_url_options = { host: "https://#{JSON.parse(ENV['VCAP_APPLICATION'])['application_uris'][0]}" }
+    config.action_mailer.default_url_options = { host: "https://#{ENV.fetch("HOST_URI")}" }
     config.action_mailer.delivery_method = :notify
     config.action_mailer.notify_settings = {
         api_key: ENV.fetch("NOTIFY_API_KEY")

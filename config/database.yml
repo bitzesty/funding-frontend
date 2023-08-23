@@ -6,7 +6,7 @@
 #
 default: &default
   adapter: postgresql
-  database: <%= ENV.fetch("RAILS_DATABASE") {"funding_frontend_development"} %>
+  database: <%= ENV.fetch("RAILS_DATABASE") {"funding_frontend"} %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   host: <%= ENV.fetch("RAILS_PG_HOST") {"host.docker.internal"} %>
@@ -15,6 +15,7 @@ default: &default
 
 development:
   <<: *default
+  database: funding_frontend_development
   # comment out line below if you want to build the docker container locally.
   # host: localhost
 
@@ -26,4 +27,7 @@ test:
   database: funding_frontend_test
 
 production:
+  <<: *default
+
+training:
   <<: *default

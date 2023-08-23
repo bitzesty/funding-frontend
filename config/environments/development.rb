@@ -8,6 +8,9 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  # Set azure as hosts TODO remove from development
+  config.hosts << "ffe.azurewebsites.net"
+
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -104,7 +107,5 @@ Rails.application.configure do
   config.x.consumer.password = 'test'
 
   config.view_component.preview_path = "#{Rails.root}/spec/components/previews"
-
-  config.hosts << "ffe.azurewebsites.net"
   
 end
