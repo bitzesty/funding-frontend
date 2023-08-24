@@ -30,6 +30,8 @@ gem 'uk_postcode', '~> 2.1.5'
 gem 'view_component', '~> 2.74.1'
 gem 'webpacker', '~> 4.0'
 gem 'psych', '< 4'
+# gem "azure-storage-blob", "~> 2.0", require: false
+# gem 'azure-storage-ruby', :git => 'https://github.com/honeyankit/azure-storage-ruby'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
