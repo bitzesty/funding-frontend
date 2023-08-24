@@ -417,7 +417,7 @@ class Project < ApplicationRecord
                 json.cashContributions self.cash_contributions do |cash_contribution|
                         json.description cash_contribution.description
                         json.amount cash_contribution.amount
-                        json.secured cash_contribution.secured&.dasherize
+                        json.secured format_secured_for_salesforce(cash_contribution)
                         json.id cash_contribution.id
                 end
                 json.set!('organisationSalesforceAccountId', 
@@ -470,4 +470,23 @@ class Project < ApplicationRecord
 
     end
 
+    # Formats the secured value of a cash contribution for Salesforce.
+    #
+    # Given a cash contribution with a particular secured value, this method
+    # will either return the "not sure" string or a dasherized version of the
+    # value, depending on the original value.
+    #
+    # @param [object] cash contribution object
+    # @param [string] :secured for the answer/value of the 'is your cash 
+    #                                       contribution secured?' question
+    #
+    # @return [string] - A formatted string value. Either 'not sure' or
+    #                                              a dasherized value   
+    def format_secured_for_salesforce(cash_contribution)
+        if cash_contribution.secured == 'x_not_sure'
+          'not sure'
+        else
+          cash_contribution.secured&.dasherize
+        end
+    end
 end
