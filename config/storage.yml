@@ -7,55 +7,56 @@ local:
   root: <%= Rails.root.join("storage") %>
 
 
-research:
-  service: S3
-  access_key_id: <%= Rails.env.research? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
-  secret_access_key: <%= Rails.env.research? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
-  region: <%= Rails.env.research? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
-  bucket: <%= Rails.env.research? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
+# research:
+#   service: S3
+#   access_key_id: <%= Rails.env.research? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
+#   secret_access_key: <%= Rails.env.research? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
+#   region: <%= Rails.env.research? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
+#   bucket: <%= Rails.env.research? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
 
-# Rails tries to read this on all environments and expects a string value
-staging:
-  service: S3
-  access_key_id: <%= Rails.env.staging? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
-  secret_access_key: <%= Rails.env.staging? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
-  region: <%= Rails.env.staging? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
-  bucket: <%= Rails.env.staging? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
+# # Rails tries to read this on all environments and expects a string value
+# staging:
+#   service: S3
+#   access_key_id: <%= Rails.env.staging? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
+#   secret_access_key: <%= Rails.env.staging? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
+#   region: <%= Rails.env.staging? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
+#   bucket: <%= Rails.env.staging? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
 
 # Rails tries to read this on all environments and expects a string value
 training:
-  service: Disk
-  root: <%= Rails.root.join("storage") %>
-  # service: S3
-  # access_key_id: <%= Rails.env.training? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
-  # secret_access_key: <%= Rails.env.training? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
-  # region: <%= Rails.env.training? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
-  # bucket: <%= Rails.env.training? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
-  
+  # service: AzureStorage
+  # storage_account_name: "sarailsappv1"
+  # storage_access_key: "qm5eQhhlibmhcQpr36nkj1rbxNcSa6p6COw2tim7+1NfHORO5P7pQw3t5xwvMObk/buEWXNouo51+ASthXTubg=="
+  # container: "blob"
+  service: S3
+  access_key_id: AKIAV3ON3AJYPAE4RF3Q
+  secret_access_key: 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
+  region: eu-west-2
+  bucket: paas-s3-broker-prod-lon-0a379e9a-b592-49bc-9b43-364abaeb7993
 
 # Rails tries to read this on all environments and expects a string value
-uat:
-  service: S3
-  access_key_id: <%= Rails.env.uat? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
-  secret_access_key: <%= Rails.env.uat? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
-  region: <%= Rails.env.uat? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
-  bucket: <%= Rails.env.uat? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
+# uat:
+#   service: S3
+#   access_key_id: <%= Rails.env.uat? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
+#   secret_access_key: <%= Rails.env.uat? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
+#   region: <%= Rails.env.uat? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
+#   bucket: <%= Rails.env.uat? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
 
-# Rails tries to read this on all environments and expects a string value
-civmiguat:
-  service: S3
-  access_key_id: <%= Rails.env.civmiguat? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
-  secret_access_key: <%= Rails.env.civmiguat? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
-  region: <%= Rails.env.civmiguat? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
-  bucket: <%= Rails.env.civmiguat? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
+# # Rails tries to read this on all environments and expects a string value
+# civmiguat:
+#   service: S3
+#   access_key_id: <%= Rails.env.civmiguat? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
+#   secret_access_key: <%= Rails.env.civmiguat? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
+#   region: <%= Rails.env.civmiguat? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
+#   bucket: <%= Rails.env.civmiguat? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
 
-# Rails tries to read this on all environments and expects a string value
-production:
-  service: S3
-  access_key_id: <%= Rails.env.production? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
-  secret_access_key: <%= Rails.env.production? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
-  region: <%= Rails.env.production? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
-  bucket: <%= Rails.env.production? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
+# # Rails tries to read this on all environments and expects a string value
+# production:
+#   service: S3
+#   access_key_id: <%= Rails.env.production? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
+#   secret_access_key: <%= Rails.env.production? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
+#   region: <%= Rails.env.production? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['aws_region'] : "" %>
+#   bucket: <%= Rails.env.production? ? CF::App::Credentials.find_by_service_label('aws-s3-bucket')['bucket_name'] : "" %>
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
