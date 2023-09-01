@@ -24,15 +24,11 @@ local:
 
 # Rails tries to read this on all environments and expects a string value
 training:
-  # service: AzureStorage
-  # storage_account_name: "sarailsappv1"
-  # storage_access_key: "qm5eQhhlibmhcQpr36nkj1rbxNcSa6p6COw2tim7+1NfHORO5P7pQw3t5xwvMObk/buEWXNouo51+ASthXTubg=="
-  # container: "blob"
   service: S3
-  access_key_id: AKIAV3ON3AJYPAE4RF3Q
-  secret_access_key: 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
-  region: eu-west-2
-  bucket: paas-s3-broker-prod-lon-0a379e9a-b592-49bc-9b43-364abaeb7993
+  access_key_id: <%= Rails.env.uat? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
+  secret_access_key: <%= Rails.env.uat? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
+  region: <%= Rails.env.uat? ? ENV.fetch('AWS_REGION') : "" %>
+  bucket: <%= Rails.env.uat? ? ENV.fetch('AWS_BUCKET') : "" %>
 
 # Rails tries to read this on all environments and expects a string value
 # uat:
