@@ -25,10 +25,10 @@ local:
 # Rails tries to read this on all environments and expects a string value
 training:
   service: S3
-  access_key_id: <%= Rails.env.uat? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
-  secret_access_key: <%= Rails.env.uat? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
-  region: <%= Rails.env.uat? ? ENV.fetch('AWS_REGION') : "" %>
-  bucket: <%= Rails.env.uat? ? ENV.fetch('AWS_BUCKET') : "" %>
+  access_key_id: <%= Rails.env.training? ? ENV.fetch('AWS_ACCESS_KEY')  : "" %>
+  secret_access_key: <%= Rails.env.training? ? ENV.fetch('AWS_SECRET_KEY') : "" %>
+  region: <%= Rails.env.training? ? ENV.fetch('AWS_REGION') : "" %>
+  bucket: <%= Rails.env.training? ? ENV.fetch('AWS_BUCKET') : "" %>
 
 # Rails tries to read this on all environments and expects a string value
 # uat:

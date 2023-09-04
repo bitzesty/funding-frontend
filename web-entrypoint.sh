@@ -12,8 +12,10 @@ bin/rails db:migrate
 
 echo 'running server'
 
-bundle exec  rake webpacker:clean
+bundle exec rake webpacker:clean
 
 bundle exec rake webpacker:compile
+
+bundle exec rails assets:precompile
 
 bundle exec rails server -b 0.0.0.0 -p 3000
