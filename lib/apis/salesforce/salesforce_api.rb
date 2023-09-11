@@ -361,7 +361,7 @@
           Likely_Submission_Description__c: expression_of_interest.likely_submission_description,
           Contact__c: salesforce_contact_id,
           Name_of_your_organisation__c: salesforce_account_id,
-          RecordTypeId: get_salesforce_record_type_id('H33_EOI_v1', 'Investment_Principles__c')
+          RecordTypeId: get_salesforce_record_type_id('H33_EOI_v1', 'Expression_Of_Interest__c')
         )
 
         Rails.logger.info(

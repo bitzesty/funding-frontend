@@ -16,12 +16,12 @@
 
 <%= render partial: "partials/summary_errors", locals: {
     form_object: @pre_application.pa_expression_of_interest,
-    first_form_element: :pa_expression_of_interest_programme_outcomes
+    first_form_element: :pa_expression_of_interest_investment_principles
 } if @pre_application.pa_expression_of_interest.errors.any? %>
 
 <%=
   form_for @pre_application.pa_expression_of_interest,
-  url: :pre_application_expression_of_interest_programme_outcomes,
+  url: :pre_application_expression_of_interest_investment_principles,
   method: :put do |f| 
 %>
 
@@ -29,19 +29,19 @@
        data-maxwords="300">
 
     <div class="govuk-form-group <%= "govuk-form-group--error" if
-      @pre_application.pa_expression_of_interest.errors[:programme_outcomes].any? %>">
+      @pre_application.pa_expression_of_interest.errors[:investment_principles].any? %>">
 
       <h1 class="govuk-label-wrapper">
 
         <%= 
-          f.label :programme_outcomes,
+          f.label :investment_principles,
           t('pa_expression_of_interest.investment_principles.page_heading'),
           class: "govuk-label govuk-label--xl govuk-!-margin-bottom-4"
         %>
 
       </h1>
 
-    <div id="programme_outcomes-hint" class="govuk-hint">
+    <div id="investment_principles-hint" class="govuk-hint">
           <div class= "govuk-!-margin-bottom-5">
             <%= 
               t(
@@ -68,7 +68,7 @@
           <%=t('pa_expression_of_interest.investment_principles.page_hint_html_description_4')%>
       </div>
           <%=t('pa_expression_of_interest.investment_principles.page_hint_html_strategy_pre_link')%> 
-          <a href="https://www.heritagefund.org.uk/about/heritage-2033-our-10-year-strategy">
+          <a class="govuk-link" href="https://www.heritagefund.org.uk/about/heritage-2033-our-10-year-strategy" target="_blank">
             <%=t('pa_expression_of_interest.investment_principles.page_hint_html_strategy_link')%>
           </a>
     </div>
@@ -77,20 +77,20 @@
         render partial: "partials/form_input_errors",
                 locals: {
                   form_object: @pre_application.pa_expression_of_interest,
-                  input_field_id: :programme_outcomes\
-                  } if @pre_application.pa_expression_of_interest.errors[:programme_outcomes].any?
+                  input_field_id: :investment_principles\
+                  } if @pre_application.pa_expression_of_interest.errors[:investment_principles].any?
       %>
 
       <%=
-        f.text_area :programme_outcomes,
+        f.text_area :investment_principles,
                     rows: 10,
                     class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
                             "#{' govuk-textarea--error' if
-                        @pre_application.pa_expression_of_interest.errors[:programme_outcomes].any?}",
-                    "aria-describedby" => "programme_outcomes-hint pa_expression_of_interest_programme_outcomes-info"
+                        @pre_application.pa_expression_of_interest.errors[:investment_principles].any?}",
+                    "aria-describedby" => "investment_principles-hint pa_expression_of_interest_investment_principles-info"
       %>
 
-      <div id="pa_expression_of_interest_programme_outcomes-info"
+      <div id="pa_expression_of_interest_investment_principles-info"
             class="govuk-hint govuk-character-count__message"
             aria-live="polite">
         <%= t('generic.word_count', max_words: 300) %>
