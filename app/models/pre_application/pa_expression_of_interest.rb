@@ -8,6 +8,7 @@ class PaExpressionOfInterest < ApplicationRecord
   attr_accessor :validate_what_project_does
   attr_accessor :validate_working_title
   attr_accessor :validate_programme_outcomes
+  attr_accessor :validate_investment_principles
   attr_accessor :validate_project_reasons
   attr_accessor :validate_project_timescales
   attr_accessor :validate_overall_cost
@@ -34,6 +35,12 @@ class PaExpressionOfInterest < ApplicationRecord
       200,
       I18n.t('activerecord.errors.models.pa_expression_of_interest.attributes.programme_outcomes.too_long', word_count: 200)
     ) if validate_programme_outcomes?
+
+    validate_length(
+      :investment_principles,
+      300,
+      I18n.t('activerecord.errors.models.pa_expression_of_interest.attributes.investment_principles.too_long', word_count: 300)
+    ) if validate_investment_principles?
 
     validate_length(
       :heritage_focus,
@@ -81,6 +88,10 @@ class PaExpressionOfInterest < ApplicationRecord
 
   def validate_programme_outcomes?
     validate_programme_outcomes == true
+  end
+
+  def validate_investment_principles?
+    validate_investment_principles == true
   end
 
   def validate_project_reasons?

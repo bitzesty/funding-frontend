@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: @pre_application.pa_expression_of_interest,
-      page_title: t('pa_expression_of_interest.programme_outcomes.page_title')
+      page_title: t('pa_expression_of_interest.investment_principles.page_title')
          }
 %>
 
@@ -35,23 +35,43 @@
 
         <%= 
           f.label :programme_outcomes,
-          t('pa_expression_of_interest.programme_outcomes.page_heading'),
+          t('pa_expression_of_interest.investment_principles.page_heading'),
           class: "govuk-label govuk-label--xl govuk-!-margin-bottom-4"
         %>
 
       </h1>
 
-      <div id="programme_outcomes-hint" class="govuk-hint">
-        <%= 
-          t(
-            'pa_expression_of_interest.programme_outcomes.page_hint_html',
-            href: link_to(
-              t('pa_expression_of_interest.programme_outcomes.page_hint_href'),
-              "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110862' : 'https://www.heritagefund.org.uk/funding/outcomes'}"
-            )
-          )
-        %>
+    <div id="programme_outcomes-hint" class="govuk-hint">
+          <div class= "govuk-!-margin-bottom-5">
+            <%= 
+              t(
+                'pa_expression_of_interest.investment_principles.page_hint_html_description_1'            
+              )
+            %>
+          </div>
+        <div class= "govuk-!-margin-bottom-5">
+          <%=t( 'pa_expression_of_interest.investment_principles.page_hint_html_description_2')%>
+        </div>
+      <div class= "govuk-!-margin-bottom-5">
+          <%= t('pa_expression_of_interest.investment_principles.page_hint_html_description_3')%>
       </div>
+      <div class= "govuk-!-margin-bottom-5">
+        <%=t('pa_expression_of_interest.investment_principles.page_hint_investment_principles_sub_heading')%>
+      </div>
+          <ul class="govuk-list govuk-list--bullet govuk-hint">
+            <li><%=t('pa_expression_of_interest.investment_principles.investment_principle_item_1')%></li>
+            <li> <%=t('pa_expression_of_interest.investment_principles.investment_principle_item_2')%></li>
+            <li> <%=t('pa_expression_of_interest.investment_principles.investment_principle_item_3')%></li>
+            <li> <%=t('pa_expression_of_interest.investment_principles.investment_principle_item_4')%></li>
+          </ul>
+      <div class= "govuk-!-margin-bottom-5">
+          <%=t('pa_expression_of_interest.investment_principles.page_hint_html_description_4')%>
+      </div>
+          <%=t('pa_expression_of_interest.investment_principles.page_hint_html_strategy_pre_link')%> 
+          <a href="https://www.heritagefund.org.uk/about/heritage-2033-our-10-year-strategy">
+            <%=t('pa_expression_of_interest.investment_principles.page_hint_html_strategy_link')%>
+          </a>
+    </div>
 
       <%=
         render partial: "partials/form_input_errors",
@@ -73,7 +93,7 @@
       <div id="pa_expression_of_interest_programme_outcomes-info"
             class="govuk-hint govuk-character-count__message"
             aria-live="polite">
-        <%= t('generic.word_count', max_words: 200) %>
+        <%= t('generic.word_count', max_words: 300) %>
       </div>
 
     </div>

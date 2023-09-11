@@ -10,7 +10,7 @@ class PreApplication::ExpressionOfInterest::ProgrammeOutcomesController < Applic
     logger.info 'Updating programme_outcomes for ' \
                 "pa_expression_of_interest ID: #{@pre_application.pa_expression_of_interest.id}"
 
-    @pre_application.pa_expression_of_interest.validate_programme_outcomes = true
+    @pre_application.pa_expression_of_interest.validate_investment_principles = true
 
     if @pre_application.pa_expression_of_interest.update(pa_expression_of_interest_params)
 
@@ -34,7 +34,7 @@ class PreApplication::ExpressionOfInterest::ProgrammeOutcomesController < Applic
 
   def pa_expression_of_interest_params
 
-    params.require(:pa_expression_of_interest).permit(:programme_outcomes)
+    params.require(:pa_expression_of_interest).permit(:investment_principles)
 
   end
 
