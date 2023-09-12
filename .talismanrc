@@ -1,0 +1,6 @@
+fileignoreconfig:
+- filename: .devcontainer/Dockerfile
+  checksum: 639c47e8b62a514518e1018b41b08d6166f4132ba07100a4e4bf424d5645a7b6
+- filename: README.md
+  checksum: efd3d9b4082cc4661b15753b8b3b1923a59308d6d598876af47d6e23dc1b7e56
+version: "1.0"
