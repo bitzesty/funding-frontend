@@ -110,7 +110,7 @@ RSpec.describe PreApplication::ExpressionOfInterest::WorkingTitleController do
       expect(response).to have_http_status(:redirect)
       expect(response).to(
         redirect_to(
-          :pre_application_expression_of_interest_programme_outcomes
+          :pre_application_expression_of_interest_investment_principles
         )
       )
 
@@ -140,7 +140,7 @@ RSpec.describe PreApplication::ExpressionOfInterest::WorkingTitleController do
       expect(response).to have_http_status(:redirect)
       expect(response).to(
         redirect_to(
-          :pre_application_expression_of_interest_programme_outcomes
+          :pre_application_expression_of_interest_investment_principles
         )
       )
 
