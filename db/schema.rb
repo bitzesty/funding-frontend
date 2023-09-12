@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_11_103844) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_110507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -499,6 +499,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_11_103844) do
     t.datetime "updated_at", null: false
     t.string "salesforce_expression_of_interest_id"
     t.string "salesforce_eoi_reference"
+    t.text "investment_principles"
     t.index ["pre_application_id"], name: "index_pa_expressions_of_interest_on_pre_application_id"
   end
 
