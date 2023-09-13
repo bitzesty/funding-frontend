@@ -4,8 +4,6 @@
 
 echo 'prepping database'
 
-bin/rails db:setup
-
 bin/rails db:migrate
 
 # Runs rails server

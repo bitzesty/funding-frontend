@@ -55,16 +55,16 @@ Rails.application.configure do
   
     # Use a different cache store in production.
     config.cache_store = :redis_cache_store, {
-        url:  ENV.fetch("REDIS_URL"),
-        connect_timeout:    30,
-        read_timeout:       0.2,
-        write_timeout:      0.2,
-        reconnect_attempts: 1,
-        error_handler: -> (method:, returning:, exception:) {
-          # Report errors to Sentry as warnings
-          Raven.capture_exception exception, level: 'warning',
-                                  tags: { method: method, returning: returning }
-        }
+      url: "rediss://:#{ENV.fetch("REDIS_PASSWORD")}@#{ENV.fetch("REDIS_URL")}:#{ENV.fetch("REDIS_PORT")}",
+      connect_timeout:    30,
+      read_timeout:       0.2,
+      write_timeout:      0.2,
+      reconnect_attempts: 1,
+      error_handler: -> (method:, returning:, exception:) {
+        # Report errors to Sentry as warnings
+        Raven.capture_exception exception, level: 'warning',
+                                tags: { method: method, returning: returning }
+      }
     }
   
     # Use a real queuing backend for Active Job (and separate queues per environment).
