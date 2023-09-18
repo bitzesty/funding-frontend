@@ -36,6 +36,7 @@ yarn-debug.log*
 .yarn-integrity
 # Credentials
 .env
+.talismanrc
 
 # Ignore Mac specific files
 .DS_Store
