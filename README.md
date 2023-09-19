@@ -238,7 +238,6 @@ Bundle install
 
 rails db:setup
 ```
-Delete your node modules folder, enter the recommended Node version ("node": "16.20.2") in package.json and use the command:
 
 ```bash
 yarn install --check-files

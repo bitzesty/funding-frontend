@@ -21,7 +21,7 @@ RUN \curl -sSL https://get.rvm.io | bash -s stable && \
 ENV RAILS_DEVELOPMENT_HOSTS=".githubpreview.dev,.app.github.dev"
 
 # [Choice] Node.js version: lts/*, 16, 14, 12, 10
-ARG NODE_VERSION="16"
+ARG NODE_VERSION="16.14.2"
 RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"
 
 # Set PATH for other binaries
