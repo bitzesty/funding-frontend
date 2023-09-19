@@ -12,6 +12,9 @@ default: &default
 
 development:
   <<: *default
+  host: <%= ENV.fetch("RAILS_PG_HOST") {"host.docker.internal"} %>
+  username: <%= ENV.fetch("RAILS_PG_USERNAME")%>
+  password: <%= ENV.fetch("RAILS_PG_PASSWORD")%>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

@@ -3,28 +3,34 @@
 **HP Z-Book Set up**
 
 **Install WSL** in windows terminal with the cmd:
-
-$ wsl --update --web-download
+```bash
+wsl --update --web-download
+```
 
 This will install Ubuntu by default.
 
 Then run
 
-### $ wsl –-install --web-download
-
+```bash
+wsl –-install --web-download
+```
 Alternatively, list the available distros to install explicitly
 
-$ wsl --list -–online
+```bash
+wsl --list -–online
 
-$ wsl –install –d Ubuntu
+wsl –install –d Ubuntu
+```
 
 When installed. Create a username and password (whatever you like)
 
 Then update:
 
-$ sudo apt-get update
+```bash
+sudo apt-get update
 
-$ sudo apt-get upgrade
+sudo apt-get upgrade
+```
 
 Note: if the distro has no internet access, see next section.
 
@@ -34,19 +40,23 @@ To allow the virtual linux machine to access the internet, the DNS config will n
 
 If you see 'rm: cannot remove '/etc/resolv.conf': Operation not permitted' go to: [https://support.tools/post/fix-stuck-resolv-conf/](https://support.tools/post/fix-stuck-resolv-conf/)
 
-$ sudo rm /etc/resolv.conf
-$ sudo bash -c 'echo "nameserver 8.8.8.8" \> /etc/resolv.conf'
-$ sudo bash -c 'echo "[network]" \> /etc/wsl.conf'
-$ sudo bash -c 'echo "generateResolvConf = false" \>\> /etc/wsl.conf'
-$ sudo chattr +i /etc/resolv.conf
+```bash
+sudo rm /etc/resolv.conf
+sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+sudo bash -c 'echo "[network]" > /etc/wsl.conf'
+sudo bash -c 'echo "generateResolvConf = false" >> /etc/wsl.conf'
+sudo chattr +i /etc/resolv.conf
+```
 
 Restart terminal to take affect
 
 Then update again:
 
-$ sudo apt-get update
+```bash
+sudo apt-get update
 
-$ sudo apt-get upgrade
+sudo apt-get upgrade
+```
 
 ## **Install Postgres**
 
@@ -56,27 +66,37 @@ See: [https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-database#insta
 
 To install:
 
-$ sudo apt install postgresql postgresql-contrib
+```bash
+sudo apt install postgresql postgresql-contrib
+```
 
 Then test with
 
-$ psql –version
+```bash
+psql –version
+```
 
 Start postgres with the command below. There are instructions to automate later in this document. See link for other commands:
 
-$ sudo service postgresql start
+```bash
+sudo service postgresql start
+```
 
 ### **Create a Postgres User**
 
 The username should match your Ubuntu username, for which you installed Rails.
 
+```bash
 $ sudo -u postgres createuser -s [YOUR USER]
+```
 
 Check the user by logging into psql with
 
-$ sudo –u postgres psql
+```bash
+psql postgres
 
 \du
+```
 
 Then while still in PSQL, create the database
 
@@ -100,7 +120,9 @@ These steps will sync your Ubuntu clock from the host machine, the start the pos
 
 Firstly allow the postgresql service and hwclock to run without sudo by navigating to the /etc/sudoers.d folder with
 
+```bash
 cd /etc/sudoers.d
+```
 
 Then create a new file with no full stop or tilda in the name:
 
@@ -136,29 +158,39 @@ Ubuntu rolls out with Git installed. Following steps assume you are happy with t
 
 Update the global settings for Git:
 
-$ git config --global user.name "Your name"
+```bash
+git config --global user.name "Your name"
 
-$ git config --global user.email "your git email"
+git config --global user.email "your git email"
+```
 
 Next, check for any existing ssh keys. You'll get a no such file/directory error if none exist:
 
-$ ls –al /.ssh
-
+```bash
+ls –al /.ssh
+```
 If you have no keys, generate one (otherwise read resources above)
 
-$ ssh-keygen -t ed25519 -C "your\_email.com"
-
+```bash
+ssh-keygen -t ed25519 -C "your\_email.com"
+```
 Then start the ssh agent to add the key to:
 
+```bash
 $ eval "$(ssh-agent -s)"
+```
 
 Next add the key to the agent. You will be prompted for a passphrase here if your key uses one
 
+```bash
 $ ssh-add ~/.ssh/id\_ed25519
+```
 
 Next login to Github on your browser, and in setting for your user, add the contents of your public key. You can get this with:
 
+```bash
 $ cat ~/.ssh/id\_ed25519.pub
+```
 
 And save with a nice alias for your HP Z-book.
 
@@ -201,13 +233,16 @@ The dev container should be connected to your local PostgreSQL by using the appr
 
 Then in the terminal use the command
 
+```bash
 Bundle install
 
 rails db:setup
-
+```
 Delete your node modules folder, enter the recommended Node version ("node": "16.20.2") in package.json and use the command:
 
+```bash
 yarn install --check-files
+```
 
 You should then be able to run the rails server.
 
@@ -227,13 +262,17 @@ Potential Issue:
 
 If the .talismanrc file is not ignoring a file, run this command: 
 
+```bash
 talisman --checksum <filename> 
+```
 
 This will resync the checksum and allow the file to be ignored. 
 
 You can also run talisman in interactive mode so that this is done automatically  
 
-- talisman -i -g pre-commit 
+```bash
+talisman -i -g pre-commit 
+```
 
  >>> talisman >>> # Below environment variables should not be modified unless you know what you a$ export TALISMAN_HOME=/Users/jackdouglas/.talisman/bin alias talisman=$TALISMAN_HOME/talisman_darwin_amd64 export TALISMAN_INTERACTIVE=true # <<< talisman <<< 
 
@@ -249,6 +288,7 @@ The image is the basic Ruby image with Node.js added, if it fails on the first b
 
 Here is the devcontainer.json:
 
+```bash
 {
 
 "name": "Ruby",
@@ -270,6 +310,7 @@ Here is the devcontainer.json:
 "nodeGypDependencies": true
 
 }
+```
 
 Run:
 
@@ -299,16 +340,22 @@ Tech Docs middleman should now be running on [http://localhost:4567](http://loca
 
 ...first add the Cloud Foundry Foundation public key and package repository to your system
 
+```bash
 wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
 echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-
+```
 ...then, update your local package index, then finally install the cf CLI
+
+```bash
 sudo apt-get update
 sudo apt-get install cf8-cli
+```
 
 Once logged in use the below command to install the conduit plugin
 
+```bash
 cf install-plugin -r CF-Community "conduit"
+```
 
 Cloud Foundry Commands:
 
@@ -316,23 +363,31 @@ Cloud Foundry commands:
 
 login:
 
+```bash
 cf login -a api.london.cloud.service.gov.uk -u \<your email\>
+```
 
 connect via conduit:
 
+```bash
 cf conduit funding-frontend-research -- psql
-
+```
 Connect on different port
 
+```bash
 cf conduit funding-frontend-research --local-port 7081 -- psql
+```
 
 change target
 
+```bash
 cf target -s sandbox
-
+```
 get logs
 
+```bash
 cf logs funding-frontend-staging
+```
 
 **Misc:**
 
