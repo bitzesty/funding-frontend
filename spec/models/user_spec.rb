@@ -117,6 +117,31 @@ RSpec.describe User, type: :model do
       end
     end
 
+    describe 'enum roles' do
+      it 'defines enum for role with values user and admin' do
+        expected_enum = {
+          'user' => 0,
+          'admin' => 1
+        }
+        expect(User.defined_enums['role']).to eq(expected_enum)
+      end
+    end
+  
+  
+    describe '#set_default_role' do
+      context 'when the record is new' do
+        it 'sets the default role to user if role is not set' do
+          user = User.new
+          expect(user.role).to eq('user')
+        end
+  
+        it 'does not override the role if it is set' do
+          user = User.new(role: :admin)
+          expect(user.role).to eq('admin')
+        end
+      end
+    end
+
     describe 'validations' do
       context 'with validate_details set to true' do
         let(:user) { User.new(validate_details: true) }
