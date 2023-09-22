@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/users", to: redirect("/")
+
   # Override the Devise registration controller, which allows us
   # to create an organisation when a user is created
   devise_for :users,
