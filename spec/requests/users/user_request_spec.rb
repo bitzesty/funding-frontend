@@ -16,4 +16,35 @@ RSpec.describe "User", type: :request do
 
   end
 
+  # We are testing the devise workflows to ensure any custom routes do 
+  # not interfere with devise. 
+  describe "Devise workflows" do
+    let(:user_params) { { email: 'test@example.com', password: 'password', password_confirmation: 'password' } }
+    let(:user) { User.create!(user_params) }
+
+    after(:each) do
+      User.destroy_all  # Clean up any created users
+    end
+
+    it "allows user to sign in" do
+      post "/users/sign_in", params: { user: { email: user.email, password: 'password' } }
+      expect(response).to redirect_to('http://www.example.com/users/sign_in') 
+    end
+
+    it "allows user to sign out" do
+      # Sign in before trying to sign out
+      post "/users/sign_in", params: { user: { email: user.email, password: 'password' } }
+      delete "/users/sign_out"
+      expect(response).to redirect_to('http://www.example.com/?locale=en-GB')  
+    end
+
+    it "allows user to register" do
+      # Only run this test if registration is enabled
+      if Flipper.enabled?(:registration_enabled)
+        post "/users", params: { user: user_params }
+        expect(response).to redirect_to(root_path) 
+      end
+    end
+  end
+
 end
