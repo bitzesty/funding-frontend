@@ -157,6 +157,32 @@ RSpec.describe FundingApplication::LegalAgreements::SecondSignatoryController do
 
     end
 
+    it "should raise email error based on invalid email validation  " \
+    "when email without a domain is passed" do
+
+      put :update,
+          params: {
+            application_id: @funding_application.id,
+            legal_signatory:{
+              name: "John Smith",
+              email_address: "john@smith",
+              role: "Trustee"
+            }
+          }
+
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:show)
+
+      expect(assigns(:funding_application).errors.empty?).to eq(false)
+      
+      expect(assigns(:funding_application).errors.count)
+        .to eq(1)
+
+      expect(assigns(:funding_application).errors[:"legal_signatories.email_address"][0])
+        .to eq("Enter a valid email address")
+
+    end
+
     it "should raise email error based matching email address of " \
       "legal signatory 1 and legal signatory 2" do
 
