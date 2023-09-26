@@ -4,8 +4,6 @@ FROM phusion/passenger-ruby31:latest
 
 ENV HOME /home/app/deploy
 
-CMD ["/sbin/my_init"]
-
 # Install common dependencies
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -81,4 +79,13 @@ RUN mkdir -p $HOME/tmp/pids
 COPY --chown=app:app . .
 
 # Precompile assets
-RUN SECRET_KEY_BASE=dummyvalue bundle exec rake assets:precompile
+
+RUN SKIP_SALESFORCE_INIT=true SKIP_FLIPPER_INIT=true SECRET_KEY_BASE=dummyvalue bundle exec rake assets:precompile
+
+RUN mkdir -p /etc/my_init.d
+COPY docker/puma.sh /etc/my_init.d/puma.sh
+COPY docker/workers.sh /etc/my_init.d/workers.sh
+
+
+CMD ["/sbin/my_init"]
+EXPOSE 3000
