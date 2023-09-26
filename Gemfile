@@ -64,7 +64,6 @@ end
 group :production, :uat, :staging, :training, :civmiguat, :research do
   gem 'aws-sdk-s3', require: false
   gem 'remote_syslog_logger', '~> 1.0', '>= 1.0.4'
-  gem 'cf-app-utils'
   gem 'delayed_job_active_record', '~> 4.1'
   gem 'sentry-raven', '~> 3.1.2'
 end

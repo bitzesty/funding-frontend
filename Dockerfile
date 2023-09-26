@@ -47,6 +47,7 @@ ENV RAILS_ENV=production \
   LANG=C.UTF-8 \
   LC_ALL=C.UTF-8
 
+
 # Upgrade RubyGems and install the latest Bundler version
 ARG BUNDLER_VERSION=2.3.11
 RUN echo "gem: --no-rdoc --no-ri >> \"$HOME/.gemrc\""
