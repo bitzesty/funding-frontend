@@ -11,9 +11,9 @@
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Project Owner</th>
-      <th scope="col" class="govuk-table__header">Project Reference Number</th>
       <th scope="col" class="govuk-table__header">Project Title</th>
       <th scope="col" class="govuk-table__header">Project Area/Country</th>
+      <th scope="col" class="govuk-table__header">Project Reference Number</th>
       <th scope="col" class="govuk-table__header">Reconnection Date</th>
     </tr>
   </thead>
@@ -22,17 +22,15 @@
       <tr class="govuk-table__row">
         <%# This could be a nested loop, but to be explicit: %>
         <%# row[0] - Project Owner%>
-        <%# row[2] - Project Reference Number%>
-        <%# row[3] - Project Title%>
-        <%# row[1] - Project area/country%>
+        <%# row[1] - Project Title%>
+        <%# row[2] - Project area/country%>
+        <%# row[3] - Project Reference Number%>       
         <%# row[4] - Project Reconnection Date%>
         <th scope="row" class="govuk-table__header"><%=row[0]%></th>
-        <td class="govuk-table__cell"><%=row[2]%></td>
+        <td class="govuk-table__cell"><%=row[1]%></td>
+        <td class="govuk-table__cell"><%=row[2].present? ? row[2]: 'Not specified'%></td>
         <td class="govuk-table__cell"><%=row[3]%></td>
-        <td class="govuk-table__cell"><%=row[1].present? ? row[1]: 'Not specified'%></td>
         <td class="govuk-table__cell"><%=row[4].present? ? row[4].strftime('%d-%m-%Y').to_s : 'Not reconnected' %></td>
-
-
       </tr>
     <% end %>
   </tbody>

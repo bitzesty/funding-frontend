@@ -17,7 +17,7 @@ gem 'lograge', '~> 0.11.2'
 gem 'mail-notify', '~> 1.1.0 '
 gem 'nilify_blanks', '~> 1.3'
 gem 'pg', '~> 1.1'
-gem 'puma', '~> 4.3'
+gem 'puma', '~> 5.6'
 gem "rails", "~> 7.0.0"
 gem 'rails-i18n', '~> 7.0.5'
 gem 'redis', '~> 4.1.3'
