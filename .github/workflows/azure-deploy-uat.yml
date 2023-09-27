@@ -1,7 +1,7 @@
 name: Build, test & deploy to Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: funding-frontend # Name set within Azure Web App
+  AZURE_WEBAPP_NAME: uat
   REGISTRY: ghcr.io
 
 on:
