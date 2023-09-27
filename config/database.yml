@@ -9,7 +9,7 @@ default: &default
   database: <%= ENV.fetch("RAILS_DATABASE") {"funding_frontend"} %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  host: <%= ENV.fetch("RAILS_PG_HOST") {"host.docker.internal"} %>
+  host: <%= ENV.fetch("RAILS_PG_HOST") { "localhost" } %>
   username: <%= ENV.fetch("RAILS_PG_USERNAME") { "postgres" } %>
   password: <%= ENV.fetch("RAILS_PG_PASSWORD") { "postgres" } %>
 
