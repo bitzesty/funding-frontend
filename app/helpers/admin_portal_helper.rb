@@ -43,6 +43,7 @@ module AdminPortalHelper
   PEF = 4
   EOI = 5
   UNKNOWN = 6
+  MIGRATED_MEDIUM_OVER_100k = 7
 
   # Creates an array of hashes for the applications and
   # pre-applications belonging to a main applicant.
@@ -72,6 +73,16 @@ module AdminPortalHelper
       if fa.open_medium.present?
         title = fa.open_medium.project_title
         type = MEDIUM
+      end
+
+      if fa.migrated_medium_over_100k?
+        type = MIGRATED_MEDIUM_OVER_100k
+
+        salesforce_api_client= SalesforceApiClient.new
+
+        title =  salesforce_api_client
+           .get_project_title(fa.salesforce_case_id)
+             .Project_Title__c
       end
 
       if fa.project.present?
@@ -163,6 +174,8 @@ module AdminPortalHelper
       move_3_to_10k(chosen_app_hash, new_contact_id, new_org_id)
     when MEDIUM
       move_10_to_250k(chosen_app_hash, new_contact_id, new_org_id)
+    when MIGRATED_MEDIUM_OVER_100k
+      move_migrated_medium_over_100k(chosen_app_hash, new_org_id)
     when LARGE
       move_large(chosen_app_hash, new_org_id)
     when PEF
@@ -351,6 +364,16 @@ module AdminPortalHelper
       "#{funding_application.id} to organisation id: " \
           "#{funding_application.organisation_id}"
     )
+
+  end
+
+  # uses exactly the same as move_large for migrating medium over 100k
+  # @param [Hash] chosen_app_hash App that we are moving: example
+  #         {:id=>"", :ref_no=>"", :type=>1, :title=>"", salesforce_id => ""}
+  # @param [String] new_org_id FFE GUID for new organisation 
+  def move_migrated_medium_over_100k(chosen_app_hash, new_org_id)
+
+    move_large(chosen_app_hash, new_org_id)
 
   end
 

@@ -180,7 +180,7 @@ module ImportSalesforceApi
     
     def get_projects_selected_for_reconnection
       query = "SELECT Owner.Name, Project_Title__c, " \
-        "Project_Reference_Number__c, Region__c  " \
+        "Region__c, Project_Reference_Number__c " \
           "FROM Case where Export_to_IMS_Portal__c = true "
 
       restforce_response = run_salesforce_query(

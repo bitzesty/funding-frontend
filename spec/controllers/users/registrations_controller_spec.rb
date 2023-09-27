@@ -30,4 +30,5 @@ RSpec.describe User::RegistrationsController  do
       subject.create_person(resource)
     end
   end
+
 end

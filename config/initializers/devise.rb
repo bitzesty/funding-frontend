@@ -171,12 +171,19 @@ Devise.setup do |config|
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
-  config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  # original email_regexp /\A[^@\s]+@[^@\s]+\z/
+
+  # a custom regex has now been added below, this ensures that a domain 
+  # is present and also allows tags.
+  config.email_regexp =/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i 
+
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
-  # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  # time the user will be asked for credentials again.
+  # Gone for WCAG 20 hour exception to meet level A criteria.
+  # https://www.w3.org/WAI/WCAG21/Understanding/timing-adjustable.html
+  config.timeout_in = 20.hours
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.

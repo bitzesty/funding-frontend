@@ -92,9 +92,30 @@ RSpec.describe User, type: :model do
       expect(resource.send_english_mails?).to eq(true)
       expect(resource.send_welsh_mails?).to eq(false)
       expect(resource.send_bilingual_mails?).to eq(false)
+    end    
+
+
+    context "when email is invalid" do
+      let(:invalid_emails) { ['invalid', 'invalid@', 'invalid@.com', '@invalid.com', 'invalid@invalid'] }
+
+      it "should be invalid" do
+        invalid_emails.each do |email|
+          resource.email = email
+          expect(resource.valid?).to eq(false)
+        end
+      end
+    end
+
+    context "when email is valid" do
+      let(:valid_emails) { ['valid@example.com', 'valid.name@example.com', 'valid.name+tag@example.co.uk', 'valid-name@example.co.uk'] }
+    
+      it "should be valid" do
+        valid_emails.each do |email|
+          resource.email = email
+          expect(resource.valid?).to eq(true)
+        end
+      end
+    end
 
   end
-
-  end
-
 end

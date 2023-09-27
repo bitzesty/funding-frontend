@@ -10,6 +10,8 @@ class Organisation::MissionController < ApplicationController
 
     logger.info "Updating mission for organisation ID: #{@organisation.id}"
 
+    ensure_mission_params
+
     @organisation.validate_mission = true
 
     @organisation.update(organisation_params)
@@ -37,6 +39,22 @@ class Organisation::MissionController < ApplicationController
   def organisation_params
 
     params.fetch(:organisation, {}).permit(:mission, mission: [])
+
+  end
+
+    # This method ensures that if no mission is chosen by the user
+    # the mission array is set back to empty.
+  def ensure_mission_params
+
+    if params[:organisation]  
+
+         params[:organisation][:mission] ||= []
+
+    else
+
+        params[:organisation] = { mission: [] }
+    
+    end
 
   end
 
