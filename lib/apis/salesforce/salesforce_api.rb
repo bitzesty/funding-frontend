@@ -334,7 +334,7 @@
     # @param [Organisation] instance of current User's organisation
     #
     # @return [Hash] A Hash, currently containing the salesforce references to the PEF, Contact and Organisation Salesforce objects
-    def create_expression_of_interest(expression_of_interest, user, organisation)
+    def create_expression_of_interest(expression_of_interest, user, organisation )
 
       retry_number = 0
 
@@ -353,14 +353,15 @@
           Potential_Funding_Amount__c: expression_of_interest.potential_funding_amount,
           Previous_Fund_Contact__c: expression_of_interest.previous_contact_name,
           What_Project_Does__c: expression_of_interest.what_project_does,
-          Programme_Outcomes__c: expression_of_interest.programme_outcomes,
+          Investment_Principles__c: expression_of_interest.investment_principles,
           Project_Reasons__c: expression_of_interest.project_reasons,
           Timescales__c: expression_of_interest.project_timescales, 
           Project_Title__c: expression_of_interest.working_title,
           Overall_cost__c: expression_of_interest.overall_cost,
           Likely_Submission_Description__c: expression_of_interest.likely_submission_description,
           Contact__c: salesforce_contact_id,
-          Name_of_your_organisation__c: salesforce_account_id
+          Name_of_your_organisation__c: salesforce_account_id,
+          RecordTypeId: get_salesforce_record_type_id('H33_EOI_v1', 'Expression_Of_Interest__c')
         )
 
         Rails.logger.info(

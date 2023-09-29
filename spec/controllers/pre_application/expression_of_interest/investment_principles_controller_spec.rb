@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PreApplication::ExpressionOfInterest::ProgrammeOutcomesController do
+RSpec.describe PreApplication::ExpressionOfInterest::InvestmentPrinciplesController do
 
   login_user
 
@@ -78,15 +78,15 @@ RSpec.describe PreApplication::ExpressionOfInterest::ProgrammeOutcomesController
 
       put :update, params: {
         pre_application_id: pre_application.id,
-        pa_expression_of_interest: { programme_outcomes: 'word ' * 201 }
+        pa_expression_of_interest: { investment_principles: 'word ' * 301 }
       }
 
       expect(
-        assigns(:pre_application).pa_expression_of_interest.errors[:programme_outcomes]
+        assigns(:pre_application).pa_expression_of_interest.errors[:investment_principles]
       ).to include(
         I18n.t(
-          'activerecord.errors.models.pa_expression_of_interest.attributes.programme_outcomes.too_long',
-          word_count: 200
+          'activerecord.errors.models.pa_expression_of_interest.attributes.investment_principles.too_long',
+          word_count: 300
         )
       )
 
@@ -95,12 +95,12 @@ RSpec.describe PreApplication::ExpressionOfInterest::ProgrammeOutcomesController
 
     end
 
-    it 'should successfully progress if an empty programme_outcomes ' \
+    it 'should successfully progress if an empty investment_principles ' \
       'param is passed' do
 
       put :update, params: {
         pre_application_id: pre_application.id,
-        pa_expression_of_interest: { programme_outcomes: '' }
+        pa_expression_of_interest: { investment_principles: '' }
       }
 
       expect(
@@ -118,18 +118,18 @@ RSpec.describe PreApplication::ExpressionOfInterest::ProgrammeOutcomesController
         assigns(:pre_application).pa_expression_of_interest.errors.size
       ).to eq(0)
       expect(
-        assigns(:pre_application).pa_expression_of_interest.programme_outcomes
+        assigns(:pre_application).pa_expression_of_interest.investment_principles
       ).to eq(nil)
 
     end
 
-    it 'should successfully update if a populated programme_outcomes ' \
+    it 'should successfully update if a populated investment_principles ' \
       'param is passed' do
 
       put :update, params: {
         pre_application_id: pre_application.id,
         pa_expression_of_interest: {
-            programme_outcomes: 'Test value'
+            investment_principles: 'Test value'
         }
       }
 
@@ -148,7 +148,7 @@ RSpec.describe PreApplication::ExpressionOfInterest::ProgrammeOutcomesController
         assigns(:pre_application).pa_expression_of_interest.errors.empty?
       ).to eq(true)
       expect(
-        assigns(:pre_application).pa_expression_of_interest.programme_outcomes
+        assigns(:pre_application).pa_expression_of_interest.investment_principles
       ).to eq('Test value')
 
     end
