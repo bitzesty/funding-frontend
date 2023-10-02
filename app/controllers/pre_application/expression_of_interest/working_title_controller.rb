@@ -3,7 +3,7 @@ class PreApplication::ExpressionOfInterest::WorkingTitleController < Application
   include PreApplicationContext, ObjectErrorsLogger
 
   # This method updates the working_title attribute of a pa_expression_of_interest,
-  # redirecting to :pre_application_project_enquiry_programme_outcomes if successful and
+  # redirecting to :pre_application_project_enquiry_investment_principles if successful and
   # re-rendering :show method if unsuccessful
   def update
 
@@ -17,7 +17,7 @@ class PreApplication::ExpressionOfInterest::WorkingTitleController < Application
       logger.info 'Finished updating working_title for pa_expression_of_interest ID: ' \
                   "#{@pre_application.pa_expression_of_interest.id}"
 
-      redirect_to(:pre_application_expression_of_interest_programme_outcomes)
+      redirect_to(:pre_application_expression_of_interest_investment_principles)
 
     else
 

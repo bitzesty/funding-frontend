@@ -617,9 +617,9 @@ en-GB:
               too_long: "Description of what you will do during your project must be %{word_count} words or fewer"
             working_title:
               too_long: "Working project title must be %{count} characters or fewer"
-            programme_outcomes:
-              blank: "Enter the programme outcomes you are hoping to achieve"
-              too_long: "Description of programme outcomes must be %{word_count} words or fewer"
+            investment_principles:
+              blank: "Enter the investment principles you are hoping to achieve"
+              too_long: "How your project will respond to our four investment principles description must be %{word_count} words or fewer"
             project_reasons:
               blank: "Enter the reasons you want to do your project"
               too_long: "Description of the need for your project must be %{word_count} words or fewer"

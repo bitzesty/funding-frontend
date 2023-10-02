@@ -617,9 +617,9 @@ cy:
               too_long: "Mae'n rhaid i ddisgrifiad o'r hyn y byddwch yn ei wneud yn ystod eich prosiect fod yn %{word_count} gair neu lai"
             working_title:
               too_long: "Mae'n rhaid i deitl y prosiect gweithio fod yn %{count} nod neu lai"
-            programme_outcomes:
-              blank: "Nodwch ganlyniadau'r rhaglen rydych chi'n gobeithio eu cyflawni"
-              too_long: "Mae'n rhaid i'r disgrifiad o ddeilliannau'r rhaglen fod yn %{word_count} gair neu lai"
+            investment_principles:
+              blank: "Nodwch yr egwyddorion buddsoddi yr ydych yn gobeithio eu cyflawni"
+              too_long: "Rhaid i’ch disgrifiad o sut bydd eich prosiect yn ymateb i’n pedair egwyddor fuddsoddi fod yn %{word_count} gair neu lai"
             project_reasons:
               blank: "Nodwch y rhesymau pam rydych chi eisiau cyflawni eich prosiect"
               too_long: "Mae'n rhaid i ddisgrifiad o'r angen am eich prosiect fod yn %{word_count} gair neu lai"
