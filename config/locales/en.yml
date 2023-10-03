@@ -204,6 +204,7 @@ en-GB:
               not_a_number: "Company number must be a number, like 12345678"
             name:
               blank: "Enter the name of your organisation"
+              too_long: "Organisation name must be 255 characters or fewer"
             line1:
               blank: "Enter the first line of your organisation's address"
             townCity:

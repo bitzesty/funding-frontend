@@ -14,8 +14,10 @@ class LegalSignatory < ApplicationRecord
 
   validates :name, length: { minimum: 1, maximum: 80 }
 
+  # the custom regex below ensures that a domain 
+  # is present and also allows tags.
   validates :email_address,
-            format: { with: URI::MailTo::EMAIL_REGEXP }
+            format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   def validate_role?
     validate_role == true

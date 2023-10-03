@@ -373,7 +373,7 @@ module ImportHelper
           project.Project_Reference_Number__c)
 
         pop_temp_table_sql << "INSERT INTO reconnection_projects VALUES (" \
-          "#{name}, #{title}, #{ref}, #{area});"
+          "#{name}, #{title}, #{area}, #{ref} );"
           
       end
 

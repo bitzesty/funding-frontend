@@ -46,6 +46,7 @@ class Organisation < ApplicationRecord
   validates :custom_org_type, presence: true, if: :validate_custom_org_type?
   validate :validate_mission_array, if: :validate_mission?
   validates :name, presence: true, if: :validate_name?
+  validates :name, length: { maximum: 255 }
   validates :name, presence: true, if: :validate_address?
   validates :line1, presence: true, if: :validate_address?
   validates :townCity, presence: true, if: :validate_address?
