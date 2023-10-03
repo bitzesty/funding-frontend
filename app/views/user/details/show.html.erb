@@ -257,17 +257,17 @@
 
           <div class="govuk-radios__item">
             <%= f.radio_button :language_preference, "english", class: "govuk-radios__input" %>
-            <%= f.label :language_preference_english, "English", class: "govuk-label govuk-radios__label" %>
+            <%= f.label :language_preference_english, I18n.t("details.radio_eng_opt"), class: "govuk-label govuk-radios__label" %>
           </div>
 
           <div class="govuk-radios__item">
             <%= f.radio_button :language_preference, "welsh", class: "govuk-radios__input" %>
-            <%= f.label :language_preference_welsh, "Welsh", class: "govuk-label govuk-radios__label" %>
+            <%= f.label :language_preference_welsh, I18n.t("details.radio_cy_opt"), class: "govuk-label govuk-radios__label" %>
           </div>
 
           <div class="govuk-radios__item">
             <%= f.radio_button :language_preference, "both", class: "govuk-radios__input" %>
-            <%= f.label :language_preference_both, "Both", class: "govuk-label govuk-radios__label" %>
+            <%= f.label :language_preference_both, I18n.t("details.radio_both_opt"), class: "govuk-label govuk-radios__label" %>
           </div>
 
         </div>
