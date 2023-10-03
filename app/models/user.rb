@@ -67,11 +67,11 @@ class User < ApplicationRecord
 
   def date_of_birth_is_date_and_in_past?
     unless Date.valid_date?(self.dob_year.to_i, self.dob_month.to_i, self.dob_day.to_i)
-      errors.add(:date_of_birth, 'Date of birth must be a valid date')
+      errors.add(:date_of_birth, I18n.t("details.valid_dob_error"))
     else
       dob_provided = Date.new(self.dob_year.to_i, self.dob_month.to_i, self.dob_day.to_i)
       unless dob_provided.past?  
-        errors.add(:date_of_birth, 'Date of birth must be in the past')
+        errors.add(:date_of_birth, I18n.t("details.dob_future_error"))
       end
       unless dob_provided >= Date.new(1910,1,1)
         errors.add(:date_of_birth,  I18n.t("details.dob_error"))
