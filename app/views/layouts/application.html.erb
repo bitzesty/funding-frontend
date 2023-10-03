@@ -38,14 +38,14 @@
     <%= render "partials/phase-banner" %>
 
     <% if ['check_answers', 'dashboard', 'submitted', \
-      'application_submitted', 'sessions'].exclude?(controller_name) %>
+      'application_submitted', 'sessions', 'registrations'].exclude?(controller_name) %>
       <div class="no-print">
          <script class="no-print">
             var txt = "<%= t('generic.back') %>";
             document.write(txt.link('javascript:history.back()'));
         </script>
       </div>
-     <% end %>
+    <% end %>
 
     <main class="govuk-main-wrapper" id="main-content" role="main">
       <div class="govuk-grid-row">
