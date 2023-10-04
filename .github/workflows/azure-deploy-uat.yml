@@ -1,7 +1,7 @@
 name: Build, test & deploy to Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: uat
+  AZURE_WEBAPP_NAME: funding-frontend-uat2
 
 on:
   push:
@@ -92,9 +92,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Lowercase the repository name and username
-        run: echo "REPOSITORY=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
-
       - name: Build and push image
         uses: azure/docker-login@v1
         with:
@@ -102,8 +99,8 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REPOSITORY }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REPOSITORY }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
+          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -111,4 +108,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REPOSITORY }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
+          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
