@@ -105,14 +105,10 @@ jobs:
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REPOSITORY }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REPOSITORY }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
 
-      - name: Deploy to Azure Container Instance
-        uses: azure/aci-deploy@v1
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
         with:
-          resource-group: ${{ secrets.RESOURCE_GROUP }}
-          dns-name-label: ${{ secrets.RESOURCE_GROUP }}${{ github.run_number }}
-          image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REPOSITORY }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
-          registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          registry-username: ${{ secrets.REGISTRY_USERNAME }}
-          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          name: ${{ env.AZURE_WEBAPP_NAME }}
-          location: uksouth
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.REPOSITORY }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
