@@ -5,6 +5,9 @@ env:
   REGISTRY: ghcr.io
 
 on:
+  push:
+    branches:
+      - feature/bitzesty-ci-containerisation
   workflow_dispatch:
 
 permissions:
