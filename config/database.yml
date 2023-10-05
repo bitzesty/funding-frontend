@@ -31,3 +31,6 @@ production:
 
 training:
   <<: *default
+
+uat:
+  <<: *default
