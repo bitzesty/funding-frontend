@@ -1,12 +1,12 @@
 name: Build, test & deploy to Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: funding-frontend-uat2
+  AZURE_WEBAPP_NAME: funding-frontend-training
 
 on:
-  push:
-    branches:
-      - feature/bitzesty-ci-containerisation
+  # push:
+  #   branches:
+  #     - feature/bitzesty-ci-containerisation
   workflow_dispatch:
 
 permissions:
