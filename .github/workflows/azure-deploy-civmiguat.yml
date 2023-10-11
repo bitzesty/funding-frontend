@@ -1,12 +1,9 @@
-name: Build, test & deploy to Azure Web App
+name: Build, test & deploy to Azure CIVMIGUAT
 
 env:
   AZURE_WEBAPP_NAME: funding-frontend-civmiguat
 
 on:
-  push:
-    branches:
-      - feature/bitzesty-ci-containerisation
   workflow_dispatch:
 
 permissions:
