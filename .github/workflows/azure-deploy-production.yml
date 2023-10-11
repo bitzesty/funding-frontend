@@ -1,12 +1,9 @@
 name: Build, test & deploy to Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: funding-frontend-training
+  AZURE_WEBAPP_NAME: funding-frontend-production
 
 on:
-  push:
-    branches:
-      - feature/bitzesty-ci-containerisation
   workflow_dispatch:
 
 permissions:
@@ -107,5 +104,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_TRAINING }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_PRODUCTION }}
           images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
