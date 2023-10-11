@@ -95,6 +95,14 @@ Rails.application.configure do
       logger.formatter = config.log_formatter
       config.logger    = ActiveSupport::TaggedLogging.new(logger)
     end
+
+    config.logger = ActiveSupport::TaggedLogging.new(
+      RemoteSyslogLogger.new(
+        ENV.fetch("PAPERTRAIL_DESTINATION_URI"), ENV.fetch("PAPERTRAIL_DESTINATION_PORT"),
+        :program => "FFE-#{ENV.fetch("RAILS_ENV")}",
+        :local_hostname => "#{ENV.fetch("HOST_URI")}_#{ENV.fetch("RAILS_ENV")}"
+      )
+    )
   
     # Do not dump schema after migrations.
     config.active_record.dump_schema_after_migration = false
