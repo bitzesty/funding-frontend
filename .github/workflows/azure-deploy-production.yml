@@ -1,4 +1,4 @@
-name: Build, test & deploy to Azure Web App
+name: Build, test & deploy to Azure PRODUCTION
 
 env:
   AZURE_WEBAPP_NAME: funding-frontend-production
