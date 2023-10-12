@@ -3,7 +3,11 @@ name: Build, test & deploy to Azure Training
 env:
   AZURE_WEBAPP_NAME: funding-frontend-training
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - feature/bitzesty-ci-containerisation
+  workflow_dispatch:
 
 permissions:
   contents: read
