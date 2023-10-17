@@ -4,9 +4,6 @@ env:
   AZURE_WEBAPP_NAME: funding-frontend-research
 
 on:
-  push:
-    branches:
-      - feature/bitzesty-ci-containerisation
   workflow_dispatch:
 
 permissions:
