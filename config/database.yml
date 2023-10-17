@@ -37,3 +37,4 @@ uat:
 
 research:
   <<: *default
+  database: funding_frontend_research
