@@ -66,19 +66,5 @@ module FundingFrontendRuby
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-
-    papertrail_allowed_environments = %w[civmiguat production research training uat]
-    papertrail_enabled = %w[PAPERTRAIL_DESTINATION_URI PAPERTRAIL_DESTINATION_PORT].all? { |key| ENV[key].present? }
-
-    if papertrail_enabled && ENV["RAILS_ENV"].in?(papertrail_allowed_environments)
-      config.logger = ActiveSupport::TaggedLogging.new(
-        RemoteSyslogLogger.new(
-          ENV["PAPERTRAIL_DESTINATION_URI"], 
-          ENV["PAPERTRAIL_DESTINATION_PORT"],
-          program: "FFE-#{ENV["RAILS_ENV"]}",
-          local_hostname: "#{ENV["HOST_URI"]}_#{ENV["RAILS_ENV"]}"
-        )
-      )
-    end
   end
 end
