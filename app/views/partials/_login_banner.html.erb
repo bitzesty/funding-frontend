@@ -11,15 +11,33 @@
     </h2>
 
     <p class="govuk-body">
-      <%= t('login_banner.if_you_previously_accessed') %>
+      <%= t('login_banner.project_enquiries_applications') %>
+      <a
+        class="govuk-link govuk-!-margin-right-1"
+        href="https://www.heritagefund.org.uk/about/heritage-2033-our-10-year-strategy"
+        target="_blank"
+      >
+      <%= t('login_banner.strategy_href') %>
+      </a>
+      <%= t('login_banner.strategy_post_link') %>
+      <%= t('login_banner.guidance') %>
+      <%= t('login_banner.Please_check') %>
     </p>
 
     <p class="govuk-body">
-      <%= t('login_banner.please_contact_your') %>
+      <%= t('login_banner.applicant_for_the_following') %>
     </p>
 
+    <ul class="govuk-list govuk-list--bullet govuk-hint">
+      <li><%= t('login_banner.woodland_investment') %></li>
+      <li><%= t('login_banner.local_places_nature') %></li>
+      <li><%= t('login_banner.nature_networks') %></li>
+      <li><%= t('login_banner.facility_for_investment') %></li>
+      <li><%= t('login_banner.heritage_places_strategic') %></li>
+    </ul>
+
     <p class="govuk-body">
-      <%= t('login_banner.please_only_register') %>
+      <%= t('login_banner.application_deadline') %>
     </p>
 
   </div>
