@@ -19,23 +19,28 @@ development:
   # comment out line below if you want to build the docker container locally.
   # host: localhost
 
+production:
+  <<: *default
+
+staging:
+  <<: *default
+  database: funding_frontend_staging
+
+uat:
+  <<: *default
+  database: funding_frontend_uat
+
+training:
+  <<: *default
+  database: funding_frontend_training
+
+research:
+  <<: *default
+  database: funding_frontend_research
+
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
   database: funding_frontend_test
-
-production:
-  <<: *default
-
-training:
-  <<: *default
-  database: funding_frontend_training
-
-uat:
-  <<: *default
-
-research:
-  <<: *default
-  database: funding_frontend_research
