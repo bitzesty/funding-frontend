@@ -1,6 +1,17 @@
 cy:
   login_banner:
     important_notice: "Hysbysiad Pwysig"
-    if_you_previously_accessed: "Os oeddech wedi cael at brosiect yn flaenorol trwy ein hen borth ceisiadau, mae cyfres o brosesau dros dro ar waith wrth i ni ailgysylltu sefydliadau â'u prosiectau."
-    please_contact_your: "Os oes angen i chi gyflwyno diweddariad i brosiect, adroddiad cwblhau neu gais am daliad, cysylltwch â'ch Rheolwr Buddsoddiad a fydd yn gallu eich arwain trwy'r broses."
-    please_only_register: "Cofrestrwch ar gyfer y gwasanaeth 'cael cyllid ar gyfer prosiect treftadaeth' dim ond os ydych eisiau cyflwyno ymholiad ynglŷn â phrosiect newydd, mynegiant newydd o ddiddordeb neu gais newydd am gyllid."
+    project_enquiries_applications: "Bydd ymholiadau am brosiectau a cheisiadau am Grantiau Treftadaeth y Loteri Genedlaethol rhwng £10,000–£250,000 dan ein Fframwaith Ariannu Strategol presennol yn cau am 12 hanner dydd ar 3 Tachwedd, gan ailagor ym mis Ionawr â newydd"
+    strategy_href: "Treftadaeth 2023."
+    strategy_link: "https://www.heritagefund.org.uk/about/heritage-2033-our-10-year-strategy"
+    strategy_post_link: "(yn agor mewn tab newydd)"
+    guidance: "chanllawiau."
+    Please_check: "Ewch i’n gwefan yn ddiweddarach yn y flwyddyn i gael y newyddion diweddaraf."
+    applicant_for_the_following: "Bydd ymgeiswyr ar gyfer y rhaglenni canlynol yn gallu defnyddio’r dudalen hon o hyd ar ôl 3 Tachwedd, ond rhaid iddynt ddechrau teitl eu prosiect â’r hashnod priodol: "
+    woodland_investment: "Rhaglen Grant Buddsoddi mewn Coetir #COED2"
+    local_places_nature: "Lleoedd Lleol ar gyfer Natur #NATUR"
+    nature_networks: "Rhwydweithiau Natur #NNF3"
+    facility_for_investment: "Y Cyfleuster ar gyfer Natur sy’n Barod ar gyfer Buddsoddiad yn yr Alban #FIRNS2"
+    heritage_places_strategic: "Menter Strategol Lleoedd Treftadaeth #HP"
+    application_deadline: "Bydd ceisiadau ar gyfer Grantiau Treftadaeth y Loteri Genedlaethol rhwng £3,000–£10,000 yn cau am 12 hanner dydd ar 1 Rhagfyr."
+
