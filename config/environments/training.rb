@@ -104,7 +104,7 @@ Rails.application.configure do
       ENV["PAPERTRAIL_DESTINATION_URI"], 
       ENV["PAPERTRAIL_DESTINATION_PORT"],
       program: "FFE-#{ENV["RAILS_ENV"]}",
-      local_hostname: "#{ENV["HOST_URI"]}_#{ENV["RAILS_ENV"]}"
+      local_hostname: "#{ENV["HOST_URI"]}"
     )
   )
 
