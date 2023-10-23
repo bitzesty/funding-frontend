@@ -1,3 +1,5 @@
+require "active_support/core_ext/integer/time"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -55,7 +57,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store, {
-    url: "rediss://:#{ENV.fetch("REDIS_PASSWORD")}@#{ENV.fetch("REDIS_URL")}:#{ENV.fetch("REDIS_PORT")}",
+    url: "rediss://:#{ENV["REDIS_PASSWORD"]}@#{ENV["REDIS_URL"]}:#{ENV["REDIS_PORT"]}",
     connect_timeout:    30,
     read_timeout:       0.2,
     write_timeout:      0.2,
