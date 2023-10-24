@@ -98,9 +98,9 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Build and push image [UAT]
+      - name: Build and push image [STAGING]
         env:
-          AZURE_WEBAPP_NAME: funding-frontend-uat
+          AZURE_WEBAPP_NAME: funding-frontend-integration
         run: |
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
@@ -108,7 +108,7 @@ jobs:
       - name: Deploy to Azure Web App [STAGING]
         id: deploy-to-webapp-staging
         env:
-          AZURE_WEBAPP_NAME: funding-frontend-staging
+          AZURE_WEBAPP_NAME: funding-frontend-integration
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}

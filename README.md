@@ -1,4 +1,4 @@
-# funding-frontend - TEST
+# funding-frontend
 
 ## Running locally on Ubuntu WSL2
 
