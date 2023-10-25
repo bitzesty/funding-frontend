@@ -2,4 +2,5 @@ cy:
   service_unavailable:
     heading: "Nid yw’r Gwasanaeth ar gael"
     body: "Nid yw ein gwasanaeth ar gael rhwng 6am ar 13 Mehefin ac 6:15am ar 13 Mehefin 2023 oherwydd gwaith cynnal a chadw sydd wedi’i gynllunio."
+    azure_migration: "Ni fydd ein gwasanaeth ar gael rhwng 4pm a 10pm ar 10 Tachwedd 2023 o ganlyniad i waith cynnal a chadw a gynlluniwyd."
 
