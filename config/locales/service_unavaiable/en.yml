@@ -1,6 +1,6 @@
 en-GB:
   service_unavailable:
-    heading: "Service Unavailable Test Swap"
+    heading: "Service Unavailable"
     body: "Our service is not available between 6am on 13th June and 6:15am on 13th June 2023 due to planned maintenance."
     azure_migration: "Our service will be unavailable between 4pm and 10pm on 10th November 2023 due to planned maintenance."
 
