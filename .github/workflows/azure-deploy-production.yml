@@ -2,6 +2,7 @@ name: Build, test & deploy to Azure PRODUCTION
 
 env:
   AZURE_WEBAPP_NAME: funding-frontend-production
+  SLOT_NAME: master
 
 on:
   workflow_dispatch:
@@ -104,5 +105,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: ${{ env.SLOT_NAME }}
           publish-profile: ${{ secrets.PROD_AZURE_WEBAPP_PUBLISH_PROFILE_PRODUCTION }}
           images: ${{ secrets.PROD_REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
