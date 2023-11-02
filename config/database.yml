@@ -21,6 +21,7 @@ development:
 
 production:
   <<: *default
+  database: funding_frontend
 
 staging:
   <<: *default
