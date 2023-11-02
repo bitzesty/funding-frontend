@@ -1,7 +1,7 @@
 name: Build, test & deploy to Azure PRODUCTION
 
 env:
-  AZURE_WEBAPP_NAME: ffe-sample
+  AZURE_WEBAPP_NAME: funding-frontend-production
   SLOT_NAME: master
 
 on:
