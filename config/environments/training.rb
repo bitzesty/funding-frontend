@@ -7,7 +7,7 @@ Rails.application.configure do
   config.cache_classes = true
 
   # Set azure as hosts
-  config.hosts << ENV.fetch("HOST_URI")
+  config.hosts << ENV.fetch("HOST_URI") if ENV.has_key?("HOST_URI")
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
